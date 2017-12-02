@@ -1,25 +1,25 @@
-\name{Mage-package}
-\alias{Mage-package}
-\alias{Mage}
+\name{Rage-package}
+\alias{Rage-package}
+\alias{Rage}
 \docType{package}
 \title{
-\packageTitle{Mage}
+\packageTitle{Rage}
 }
 \description{
-\packageDescription{Mage}
+\packageDescription{Rage}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{Mage}
-\packageIndices{Mage}
-This package provides tools for interacting with the COMPADRE and COMADRE Matrix Databases.
+\packageDESCRIPTION{Rage}
+\packageIndices{Rage}
+This package provides tools to derive life history traits from matrix population models.
 }
 
 \author{
-\packageAuthor{Mage}
+\packageAuthor{Rage}
 
-Maintainer: \packageMaintainer{Mage}
+Maintainer: \packageMaintainer{Rage}
 }
 
 \references{
