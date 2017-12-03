@@ -1,23 +1,26 @@
-#' Calculate Demetrius' life table entropy
+#' Calculate Demetrius' entropy
 #' 
-#' This function calculates Demetrius' life table entropy from an lx
-#' (survivorship) vector and an mx (age-specific reproduction) or a cx
-#' (age-specific clonality) vector with even intervals.
+#' This function calculates Demetrius' entropy from a matrix population model (MPM) or a life table (LT).
 #' 
 #' %% ~~ If necessary, more details than the description above ~~
 #' 
+#' @param matU The sub-matrix of a matrix population model that describes survival-dependent demographic processes such as stasis, progression and retrogression.
+#' @param matF The sub-matrix of a matrix population model that describes per-capita sexual reproduction.
+#' @param matC The sub-matrix of a matrix population model that describes per-capita clonal reproduction. This is assumed to be a matrix of zeros if not specified.
 #' @param lx A numerical vector of lx (survivorship). This is assumed to be
 #' with a constant interval (e.g. 1yr).
 #' @param fx A numerical vector of fx (age-specific sexual reproduction). This
 #' is assumed to be with a constant interval (e.g. 1yr).
 #' @param cx A numerical vector of cx (age-specific clonal reproduction). This
-#' is assumed to be with a constant interval (e.g. 1yr).
-#' @return Returns an estimate of Demetrius' life table entropy. When both 'fx'
+#' is assumed to be with a constant interval (e.g. 1yr).This is assumed to be a vector of zeros if not specified.
+#' @param MPM A TRUE/FALSE argument specifying whether the inputs are matrix population models ('TRUE') or life tables ('FALSE'). The default is 'MPM' = 'TRUE'
+#' @return Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided, or when both 'fx'. When a MPM is provided, the function first calls
+#' 'makeLifeTable' to calculate the life table. It assumes that the quasi-stable stage distribution is at 95%.
 #' and 'cx' are provided, it outputs Demetrius' entropy for sexual reproduction
 #' only, for clonal reproduction only, and for both types of reproduction
 #' together.
 #' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references L. Demetrius. 1978. Adaptive value, entropy and survivorship
 #' curves. Nature 275, 213 - 214. doi:10.1038/275213a0
@@ -31,13 +34,14 @@
 #' cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
 #' 
 #' dentropy(matA, lx, mx, cx)
+#' ROB STILL NEEDS TO DO AN EXAMPLE FOR LIFE TABLE ONLY
 #' 
 #' @export dentropy
-
-dentropy <- function(matA, lx, fx, cx=F){
-
+dentropy <- function(matU, matF, matC=F, lx=F, mx=F, cx=F, MPM=T){
+  
   #Demetrius entropy (S):
-  if(max(lx) > 1) stop("`lx` should be bounded between 0 and 1")
+  if (MPM==T)
+    if(max(lx) > 1) stop("`lx` should be bounded between 0 and 1")
   if(sum(is.na(lx))>1) stop("There are missing values in `lx`")
   if(sum(!diff(lx) <= 0)!=0)stop("`lx` does not monotonically decline")
   if(sum(is.na(mx))>1) print("There are missing values in `mx`")
@@ -45,6 +49,7 @@ dentropy <- function(matA, lx, fx, cx=F){
   
   dentropy=NULL
   r <- log(max(Re(eigen(matA)$value)))  #population growth rate in log scale (rmax)
+  r <- log(R0)/genT
   
   if (sum(mx)>0){
     limiteFx <- min(length(mx[which(!is.na(mx))]), length(lx[which(!is.na(lx))]))   #Calculating the last time interval at which both mx and lx were able to be calculated
@@ -76,5 +81,5 @@ dentropy <- function(matA, lx, fx, cx=F){
     
     dentropy$MxCx <- abs(sum(lxmxcx*loglxmxcx)/sum(lxmxcx))
   }
-return(dentropy)
+  return(dentropy)
 }
