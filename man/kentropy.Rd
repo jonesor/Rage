@@ -4,7 +4,7 @@
 \alias{kentropy}
 \title{Calculate Keyfitz' life table entropy}
 \usage{
-kentropy(lx, fx, cx = NULL)
+kentropy(lx, trapeze = FALSE)
 }
 \arguments{
 \item{lx}{A numerical vector of lx (survivorship). This is assumed to be

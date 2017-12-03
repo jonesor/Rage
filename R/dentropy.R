@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-#' @export
-
-dentropy <- function(matA, lx, mx, cx=F){
-=======
 #' Calculate Demetrius' life table entropy
 #' 
 #' This function calculates Demetrius' life table entropy from an lx
@@ -38,9 +33,9 @@ dentropy <- function(matA, lx, mx, cx=F){
 #' dentropy(matA, lx, mx, cx)
 #' 
 #' @export dentropy
+
 dentropy <- function(matA, lx, fx, cx=F){
->>>>>>> origin/master
-  
+
   #Demetrius entropy (S):
   if(max(lx) > 1) stop("`lx` should be bounded between 0 and 1")
   if(sum(is.na(lx))>1) stop("There are missing values in `lx`")
