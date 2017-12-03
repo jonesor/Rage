@@ -1,22 +1,22 @@
-#' A function to calculates the time in the projection of a matrix population
-#' model at which a defined quasi-stationary stage distribution is reached.
+#' Cut-off of quasi-stable distribution
 #' 
-#' Calculates the time in the projection of a matrix population model at which
-#' a defined quasi-stationary stage distribution is reached.
+#' Calculates the time in the projection of a cohort through a matrix population model at which
+#' a defined quasi-stationary stage distribution is reached in \code{\link{Rage}}
 #' 
-#' Size or stage-based matrix population models (i.e. Lefkovitch models) are
+#' Size or stage-based matrix population models (i.e. Lefkovitch models) and some age-based
+#' matrix population models (i.e. Leslie models with a last class ≥ final age value) are
 #' typically parameterised with a stasis loop in the
-#' oldest/largest/most-developed stage (e.g. adult survival). The assumption
-#' that individuals in that last stage is constant typically results in flat
-#' mortality and fertility plateaus that may emerge as a mathematical artefact
-#' when examining age-specific patterns when using age-from-stage matrix
-#' decompositions (Caswell 2001). The Quasi-Stationary stage Distribution (QSD)
+#' largest/most-developed stage (e.g. adult survival). The assumption
+#' of constancy in vital rates for individuals in that last stage typically results in flat
+#' mortality and fertility plateaus. These plateaus may result in mathematical artefacts
+#' when examining age-specific patterns dervied from age-from-stage matrix
+#' decompositions (Caswell 2001). The Quasi-stationary Stage Distribution (QSD)
 #' can be used to circunvent this problem. The QSD is the stage distribution
-#' that is reached some time before the ultimate stable stage distribution (the
-#' normalised righted eigenvector of the matrix). With this approach, the user
+#' that is reached some time before the ultimate stable stage distribution (SSD, the
+#' normalised right eigenvector of the transition matrix). With this approach, the user
 #' can ask what is the time step in the projectin at which the cohort
-#' approximates, say, 95\% of its stable stage distribution. This should allow
-#' the user to use only age-based information from before this point. See the
+#' approximates its stable stage distribution with a given convergence tolerance level (e.g. 95%).
+#' This metric allows the user to use only age-based information from before this point. See the
 #' online supplementary information of Jones et al. (2014) for further details.
 #' 
 #' @param matU The survival-dependent matrix (a subset of the A matrix), See
@@ -46,6 +46,10 @@
 #' 
 #' Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
 #' Nature, 505(7482), 169–173
+#' 
+#' Salguero-Gómez R. Implications of clonality for ageing research.
+#' Evolutionary Ecology DOI 10.1007/s10682-017-9923-2
+#' 
 #' @keywords methods
 #' @examples
 #' 
@@ -67,9 +71,8 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000){
   qsd = as.numeric(t(matrix(qsd / sum(qsd))))
   
   #Set up a cohort
-  nzero = rep(0, uDim[1]) #Set a population vector of zeros
-  nzero[startLife] = 1 #Set the first stage to = 1
-  n = nzero #Rename for convenience
+  n = rep(0, uDim[1]) #Set a population vector of zeros
+  n[startLife] = 1 #Set the declared first stage of life to = 1
   
   #Iterate the cohort (n= cohort population vector, p = proportional structure)
   dist = p = NULL
