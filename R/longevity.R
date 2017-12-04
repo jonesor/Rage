@@ -50,6 +50,9 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000) {
     stop('matU missing')
   } else if (any(is.na(matU))) {
     stop('matU contains missing values')
+  } else if (all(matU == 0)) {
+    warning('all elements of matU are zero')
+    return(list(eta = 0, var_eta = 0, Max = 0))
   }
   
   out = NULL
