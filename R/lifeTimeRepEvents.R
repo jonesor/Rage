@@ -6,19 +6,19 @@
 #' individuals
 #' 
 #' This function applies Markov chain approaches to decompose various moments
-#' of along the age-based reproduction of individuals in a matrix population
+#' along the age-specific trajectory of reproduction of individuals in a matrix population
 #' model.
 #' 
-#' @param matU A matrix containing only survival-dependent processes ( growth,
-#' stasis, shrinkage).
+#' @param matU A matrix containing only survival-dependent processes (progression,
+#' stasis, retrogression).
 #' @param matF A matrix containing only sexual reproduction, with zeros
 #' elsewhere.
 #' @param matC A matrix containing only clonal reproduction, with zeros
 #' elsewhere.
-#' @param startLife The first stage at which the author consider the beginning
-#' of life.
+#' @param startLife The first stage at which the author considers the beginning
+#' of life in the life cycle of the species. It defaults to the first stage.
 #' @return This function applies Markov chain approaches to decompose various
-#' moments of along the age-based reproduction of individuals in a matrix
+#' moments of reproduction along the age-based trajectory of individuals in a matrix
 #' population model. When both a 'matF' and a 'matC' are provided, the
 #' following outputs are calculated for both independently, and these are
 #' differentiated with the suffix "Fec" or "Clo", respectively:
@@ -26,21 +26,21 @@
 #' - 'p': probability of achiving maturity, sexual or clonal.
 #' 
 #' - 'La': mean age at maturity (in the same units as the matrix population
-#' model).
+#' model sampling periodicity).
 #' 
 #' - 'meanLifeExpectancy': mean life expectancy conditional on entering the
-#' life cycle in the first reproductive stage
+#' life cycle at the value of 'startLife'.
 #' 
 #' - 'remainingMatureLifeExpectancy': Life expectancy from mean maturity. This
-#' is mean life expectancy - mean age at maturity ('La' above). This value can
+#' is calculated as mean life expectancy - mean age at maturity ('La' above). This value can
 #' be negative because both mean life expectancy and mean age at maturity are
-#' means of their respective distributions.
+#' means of their respective distributions, and their distributions can indeed overlap.
 #' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 #' 
-#' Hal Caswell <hcaswell@@whoi.edu>
+#' Hal Caswell <hcaswell@whoi.edu>
 #' 
-#' Owen R. Jones <jones@@biology.sdu.dk>
+#' Owen R. Jones <jones@biology.sdu.dk>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
