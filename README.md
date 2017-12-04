@@ -1,4 +1,4 @@
-MAGE
+Rage
 ==========
 
 Note that this package is at an early stage of development. 
@@ -10,7 +10,7 @@ Expect bugs!
 
 `library(devtools)`
 
-`install_github("jonesor/compadreDB/Rage")`
+`install_github("jonesor/Rage")`
 
 
 
