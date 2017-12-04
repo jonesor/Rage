@@ -1,10 +1,10 @@
 #' A function to calculate measures of longevity.
 #' 
-#' A function to calculate the mean life expectancy and maximum longevity of
-#' individuals in a matrix population model
+#' A function to calculate life expectancy and maximum longevity of individuals
+#' in a matrix population model
 #' 
-#' This function applies Markov chain approaches to obtain mean life
-#' expectancy, and a loop to calculate maximum longevity.
+#' This function applies Markov chain approaches to obtain the mean and variance
+#' in life expectancy, and a loop to calculate maximum longevity.
 #' 
 #' @param matU A matrix containing only survival-dependent processes (growth,
 #' stasis, shrinkage).
@@ -18,6 +18,9 @@
 #' 
 #' - 'eta': mean life expectancy conditional on entering the life cycle on life
 #' stage described by 'startLife'.
+#' 
+#' - 'var_eta': variance in life expectancy conditional on entering the life
+#' cycle on life stage described by 'startLife'.
 #' 
 #' - 'Max': maximum longevity observed by iterating a population vector with
 #' 'initPop' individuals in stage 'startLife' up to 'run' times.
@@ -39,19 +42,27 @@
 #' longevity(matU, startLife = 1, initPop = 100, run = 1000)
 #' 
 #' @export longevity
-longevity <- function(matU, startLife = 1, initPop = 100, run = 1000){
+longevity <- function(matU, startLife = 1, initPop = 100, run = 1000) {
   #Function to calculate mean life expectancy and maximum longevity from
   # H. Caswell's matlab code, and Morris & Doak:
 
-  if(missing(matU)){stop('matU missing')}
+  if (missing(matU)) {
+    stop('matU missing')
+  } else if (any(is.na(matU))) {
+    stop('matU contains missing values')
+  } else if (all(matU == 0)) {
+    warning('all elements of matU are zero')
+    return(list(eta = 0, var_eta = 0, Max = 0))
+  }
   
   out = NULL
   
   matDim <- dim(matU)[1]
   
-  #Mean life expectancy
+  #Mean and variance of life expectancy
   N <- solve(diag(matDim) - matU)
   out$eta <- colSums(N)[startLife]
+  out$var_eta <- (colSums(2 * N %*% N - N) - (colSums(N) * colSums(N)))[startLife]
   
   #Maximum longevity up to 'run' interations.
   popVector <- c(rep(0,matDim))
@@ -66,4 +77,4 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000){
   if (out$Max==Inf) {out$Max=run}
   
 	return(out)
- }
+}

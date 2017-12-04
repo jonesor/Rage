@@ -22,7 +22,7 @@
 #' #Survivorship (lx) with constant mortality (should have Keyfitz entropy of 1).
 #' 
 #' x <- 0:100
-#' qx <- .4
+#' qx <- .5
 #' px <- 1-qx
 #' lx <- px^x
 #' 

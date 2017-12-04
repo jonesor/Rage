@@ -2,30 +2,37 @@
 % Please edit documentation in R/dentropy.R
 \name{dentropy}
 \alias{dentropy}
-\title{Calculate Demetrius' life table entropy}
+\title{Calculate Demetrius' entropy}
 \usage{
-dentropy(matA, lx, fx, cx = F)
+dentropy(matU, matF, matC = F, lx = F, mx = F, cx = F, MPM = T)
 }
 \arguments{
+\item{matU}{The sub-matrix of a matrix population model that describes survival-dependent demographic processes such as stasis, progression and retrogression.}
+
+\item{matF}{The sub-matrix of a matrix population model that describes per-capita sexual reproduction.}
+
+\item{matC}{The sub-matrix of a matrix population model that describes per-capita clonal reproduction. This is assumed to be a matrix of zeros if not specified.}
+
 \item{lx}{A numerical vector of lx (survivorship). This is assumed to be
 with a constant interval (e.g. 1yr).}
 
-\item{fx}{A numerical vector of fx (age-specific sexual reproduction). This
-is assumed to be with a constant interval (e.g. 1yr).}
-
 \item{cx}{A numerical vector of cx (age-specific clonal reproduction). This
+is assumed to be with a constant interval (e.g. 1yr).This is assumed to be a vector of zeros if not specified.}
+
+\item{MPM}{A TRUE/FALSE argument specifying whether the inputs are matrix population models ('TRUE') or life tables ('FALSE'). The default is 'MPM' = 'TRUE'}
+
+\item{fx}{A numerical vector of fx (age-specific sexual reproduction). This
 is assumed to be with a constant interval (e.g. 1yr).}
 }
 \value{
-Returns an estimate of Demetrius' life table entropy. When both 'fx'
+Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided, or when both 'fx'. When a MPM is provided, the function first calls
+'makeLifeTable' to calculate the life table. It assumes that the quasi-stable stage distribution is at 95%.
 and 'cx' are provided, it outputs Demetrius' entropy for sexual reproduction
 only, for clonal reproduction only, and for both types of reproduction
 together.
 }
 \description{
-This function calculates Demetrius' life table entropy from an lx
-(survivorship) vector and an mx (age-specific reproduction) or a cx
-(age-specific clonality) vector with even intervals.
+This function calculates Demetrius' entropy from a matrix population model (MPM) or a life table (LT).
 }
 \details{
 %% ~~ If necessary, more details than the description above ~~
@@ -42,6 +49,7 @@ mx <- c(0,  0,  5, 10, 10, 10, 10, 10, 10, 10)
 cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
 
 dentropy(matA, lx, mx, cx)
+ROB STILL NEEDS TO DO AN EXAMPLE FOR LIFE TABLE ONLY
 
 }
 \references{
