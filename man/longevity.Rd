@@ -25,16 +25,19 @@ expectancy, and a loop to calculate maximum longevity. Outputs are:
 - 'eta': mean life expectancy conditional on entering the life cycle on life
 stage described by 'startLife'.
 
+- 'var_eta': variance in life expectancy conditional on entering the life
+cycle on life stage described by 'startLife'.
+
 - 'Max': maximum longevity observed by iterating a population vector with
 'initPop' individuals in stage 'startLife' up to 'run' times.
 }
 \description{
-A function to calculate the mean life expectancy and maximum longevity of
-individuals in a matrix population model
+A function to calculate life expectancy and maximum longevity of individuals
+in a matrix population model
 }
 \details{
-This function applies Markov chain approaches to obtain mean life
-expectancy, and a loop to calculate maximum longevity.
+This function applies Markov chain approaches to obtain the mean and variance
+in life expectancy, and a loop to calculate maximum longevity.
 }
 \note{
 %% ~~further notes~~
