@@ -28,7 +28,7 @@
 #' @examples
 #' 
 #' 
-#' matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
+#' matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
 #' lx <-  c(1.0000, 0.1500, 0.0150, 0.0015, 0.0002, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000)
 #' mx <- c(0,  0,  5, 10, 10, 10, 10, 10, 10, 10)
 #' cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
@@ -37,7 +37,7 @@
 #' ROB STILL NEEDS TO DO AN EXAMPLE FOR LIFE TABLE ONLY
 #' 
 #' @export dentropy
-dentropy <- function(matU, matF, matC=F, lx=F, mx=F, cx=F, MPM=T){
+dentropy <- function(matU, matF, matC=FALSE, lx=FALSE, mx=FALSE, cx=FALSE, MPM=TRUE){
   
   #Demetrius entropy (S):
   if (MPM==T)
