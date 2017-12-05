@@ -12,13 +12,14 @@
 #' elsewhere.
 #' @param matC A matrix containing only clonal reproduction, with zeros
 #' elsewhere. If not provided, it defaults to a matrix with all zeros.
+#' @param startLife The first stage at which the author considers the beginning
+#' of life in the life cycle of the species. It defaults to the first stage.
 #' @return Returns the net reproductive value of the matrix population model. When both 'matF'
 #' and 'matC' are provided, it outputs the net reprodutive value for sexual
 #' reproduction only, for clonal reproduction only, and for both types of
 #' reproduction together.
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
-#' Owen Jones <jones@biology.sdu.dk>
 #' Hal Caswell <h.caswell@uva.nl>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
@@ -31,13 +32,14 @@
 #' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 #' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 #' 
-#' R0(matU, matF, matU)
 #' R0(matU, matF)
 #' R0(matU, matC)
+#' R0(matU, matF, matC, startLife=1)
+#' R0(matU, matF, matU, startLife=4)
 #' 
 #' @export
 
-R0 <- function(matU, matF, matC=FALSE){
+R0 <- function(matU, matF, matC=FALSE, startLife=1){
   
   #Error checks
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
@@ -54,16 +56,16 @@ R0 <- function(matU, matF, matC=FALSE){
   
   if (sum(matF)>0){
     R0_matF <- matF%*%N
-    R0$Fec <- R0_matF[1,1]
+    R0$Fec <- R0_matF[startLife,startLife]
   }
   if (sum(matC)>0){
     R0_matC <- matC%*%N
-    R0$Clo <- R0_matC[1,1]
+    R0$Clo <- R0_matC[startLife,startLife]
   }
   if (sum(matF)>0 & sum(matC)>0){
     matFC <- matF + matC
     R0_matFC <- matFC%*%N
-    R0$FecClo <- R0_matFC[1,1]
+    R0$FecClo <- R0_matFC[startLife,startLife]
   }
   
 return(R0)
