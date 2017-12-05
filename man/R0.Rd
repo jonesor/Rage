@@ -2,7 +2,7 @@
 % Please edit documentation in R/R0.R
 \name{R0}
 \alias{R0}
-\title{Calculate net reproductive value}
+\title{Calculates net reproductive value}
 \usage{
 R0(matU, matF, matC = FALSE, startLife = 1)
 }
@@ -26,21 +26,15 @@ reproduction only, for clonal reproduction only, and for both types of
 reproduction together.
 }
 \description{
-This function calculates net reproductive value from a matU
+Calculates net reproductive value from a matU
 (survival-dependent processes) and either a matF (sexual reproduction) and/or a
 matC (clonal reproduction).
 }
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
-}
 \examples{
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
-matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
-matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
+matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 
 R0(matU, matF)
 R0(matU, matC)
@@ -53,12 +47,7 @@ Caswell, H. (2001) Matrix Population Models: Construction,
 Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 978-0878930968
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 Hal Caswell <h.caswell@uva.nl>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
