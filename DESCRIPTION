@@ -7,10 +7,9 @@ Author: Owen R. Jones, Roberto Salguero-Gomez
 Maintainer: Owen R. Jones <jones@biology.sdu.dk>/Roberto Salguero-Gomez
     <r.salguero@sheffield.ac.uk>
 Description: This package contains functions for performing ageing focussed analyses using matrix population models.
-License: GPL-2
+License: GPL-2 | file LICENSE
 Imports:
     popbio,
-    DiagrammeR,
     MASS
 Encoding: UTF-8
 LazyData: true

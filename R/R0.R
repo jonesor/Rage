@@ -1,10 +1,8 @@
 #' Calculates net reproductive value
 #' 
-#' This function calculates net reproductive value from a matU
+#' Calculates net reproductive value from a matU
 #' (survival-dependent processes) and either a matF (sexual reproduction) and/or a
 #' matC (clonal reproduction).
-#' 
-#' %% ~~ If necessary, more details than the description above ~~
 #' 
 #' @param matU A matrix containing only survival-dependent processes (e.g. progression,
 #' stasis, retrogression).
@@ -18,14 +16,11 @@
 #' and 'matC' are provided, it outputs the net reprodutive value for sexual
 #' reproduction only, for clonal reproduction only, and for both types of
 #' reproduction together.
-#' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
-#' Hal Caswell <h.caswell@uva.nl>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' Hal Caswell <h.caswell@@uva.nl>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 
 #' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
@@ -37,8 +32,8 @@
 #' R0(matU, matF, matC, startLife=1)
 #' R0(matU, matF, matU, startLife=4)
 #' 
-#' @export
 #' @import MASS
+#' @export R0
 
 R0 <- function(matU, matF, matC=FALSE, startLife=1){
   

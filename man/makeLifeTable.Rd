@@ -2,36 +2,39 @@
 % Please edit documentation in R/makeLifeTable.R
 \name{makeLifeTable}
 \alias{makeLifeTable}
-\title{A function to produce a life table from a matrix population model}
+\title{Produces a life table from a matrix population model}
 \usage{
 makeLifeTable(matU, matF = NULL, matC = NULL, startLife = 1,
   nSteps = 1000)
 }
 \arguments{
-\item{matU}{The U matrix - survival-dependent transitions (e.g. changes in
-size/ageing/development)}
+\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
+stasis, retrogression).}
 
-\item{matF}{The F matrix - sexual reproduction}
+\item{matF}{A matrix containing only sexual reproduction, with zeros
+elsewhere.}
 
-\item{matC}{The C matrix - clonal reproduction}
+\item{matC}{A matrix containing only clonal reproduction, with zeros
+elsewhere. If not provided, it defaults to a matrix with all zeros.}
 
-\item{startLife}{The stage of of the life cycle that structures the matrix
-population model where life is considered to begin. This is usually 1 (i.e.
-the first stage), but in species with a permanent propagule bank (e.g.
-seedbank, or similar), users may wish to use the first non-permanent
-propagule bank stage along the life cycle.}
+\item{startLife}{The first stage at which the author considers the beginning
+of life in the life cycle of the species. It defaults to the first stage.}
 
-\item{nSteps}{Number of time steps for which the life table be constructed.
+\item{nSteps}{Number of time steps for which the life table will be calculated.
 This is on the same units as the matrix population model - see
 MatrixPeriodicity in metadata of COMPADRE/COMADRE.}
 }
 \value{
-A `data.frame` with between 2 and 4 columns. If just `matU` is
-provided, the `data.frame` has columns `x` (age), `lx` (survivorship).  If
-`matF` is provided (in addition to `matU`), `mx` (age-specific sexual
-reproduction) is included in the output `data.frame`. Likewise, if `matC` is
-provided, an addition column, `cx` (age-specific clonal reproduction) is
-included.
+A `data.frame` with between 5 and 8 columns. If just `matU` is
+provided, the `data.frame` has columns `x` (age), `lx` (survivorship), 'dx' (proportion of
+the original cohort dying during each stage), 'qx' (force of mortality), and 'ex'
+(age-specific life expectancy).
+If `matF` is provided (in addition to `matU`), `mx` (age-specific sexual
+reproduction) and lxmx (# sexually-produced recruits per capita in each age) are included
+in the output.
+If `matC` is provided (in addition to `matU`), `cx` (age-specific clonal
+reproduction) and lxcx (# clonally-produced recruits per capita in each age) are included
+in the output.
 }
 \description{
 This function uses age-from-stage decompositions to calculate a life table
@@ -69,10 +72,8 @@ Nature, 505(7482), 169–173
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \author{
-Roberto Salguero-Gómez <rob.salguero@sheffield.ac.uk>
-
+Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 Hal Caswell <h.caswell@uva.nl>
-
 Owen R. Jones <jones@biology.sdu.dk>
 }
 \keyword{~kwd1}
