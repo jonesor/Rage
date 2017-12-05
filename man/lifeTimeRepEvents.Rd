@@ -2,19 +2,19 @@
 % Please edit documentation in R/lifeTimeRepEvents.R
 \name{lifeTimeRepEvents}
 \alias{lifeTimeRepEvents}
-\title{A function to calculate the timing of lifetime reproductive events.}
+\title{Calculates the timing of lifetime reproductive events.}
 \usage{
 lifeTimeRepEvents(matU, matF, matC = F, startLife = 1)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (progression,
+\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
 stasis, retrogression).}
 
 \item{matF}{A matrix containing only sexual reproduction, with zeros
 elsewhere.}
 
 \item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere.}
+elsewhere. If not provided, it defaults to a matrix with all zeros.}
 
 \item{startLife}{The first stage at which the author considers the beginning
 of life in the life cycle of the species. It defaults to the first stage.}
@@ -43,7 +43,7 @@ means of their respective distributions, and their distributions can indeed over
 A function to calculate the timing of lifetime reproductive events such as
 the probability of achieving maturity, age at first reproduction, mean life
 expectancy conditional on maturity, and life expectancy for mature
-individuals
+individuals.
 }
 \details{
 This function applies Markov chain approaches to decompose various moments
@@ -72,9 +72,7 @@ Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
-
 Hal Caswell <hcaswell@whoi.edu>
-
 Owen R. Jones <jones@biology.sdu.dk>
 }
 \keyword{~kwd1}
