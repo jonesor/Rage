@@ -4,7 +4,8 @@
 \alias{dentropy}
 \title{Calculate Demetrius' entropy}
 \usage{
-dentropy(matU, matF, matC = F, lx = F, mx = F, cx = F, MPM = T)
+dentropy(matU, matF, matC = FALSE, lx = FALSE, mx = FALSE, cx = FALSE,
+  MPM = TRUE)
 }
 \arguments{
 \item{matU}{The sub-matrix of a matrix population model that describes survival-dependent demographic processes such as stasis, progression and retrogression.}
@@ -43,7 +44,7 @@ This function calculates Demetrius' entropy from a matrix population model (MPM)
 \examples{
 
 
-matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
+matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
 lx <-  c(1.0000, 0.1500, 0.0150, 0.0015, 0.0002, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000)
 mx <- c(0,  0,  5, 10, 10, 10, 10, 10, 10, 10)
 cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
