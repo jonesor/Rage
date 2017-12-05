@@ -194,5 +194,5 @@ makeLifeTable <-
       out$TcFecClo = sum(out$x * out$lxmxcx) / sum(out$lxmxcx)
     }
     
-    return(as.data.frame(out))
+    return(out)
   }
