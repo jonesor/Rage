@@ -1,24 +1,24 @@
-#' Calculate Demetrius' entropy
+#' Calculates Demetrius' entropy
 #' 
-#' This function calculates Demetrius' entropy from a matrix population model (MPM) or a life table (LT).
+#' This function calculates Demetrius' entropy from a matrix population model
 #' 
 #' %% ~~ If necessary, more details than the description above ~~
 #' 
-#' @param matU The sub-matrix of a matrix population model that describes survival-dependent demographic processes such as stasis, progression and retrogression.
-#' @param matF The sub-matrix of a matrix population model that describes per-capita sexual reproduction.
-#' @param matC The sub-matrix of a matrix population model that describes per-capita clonal reproduction. This is assumed to be a matrix of zeros if not specified.
-#' @param lx A numerical vector of lx (survivorship). This is assumed to be
-#' with a constant interval (e.g. 1yr).
-#' @param fx A numerical vector of fx (age-specific sexual reproduction). This
-#' is assumed to be with a constant interval (e.g. 1yr).
-#' @param cx A numerical vector of cx (age-specific clonal reproduction). This
-#' is assumed to be with a constant interval (e.g. 1yr).This is assumed to be a vector of zeros if not specified.
-#' @param MPM A TRUE/FALSE argument specifying whether the inputs are matrix population models ('TRUE') or life tables ('FALSE'). The default is 'MPM' = 'TRUE'
-#' @return Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided, or when both 'fx'. When a MPM is provided, the function first calls
-#' 'makeLifeTable' to calculate the life table. It assumes that the quasi-stable stage distribution is at 95%.
-#' and 'cx' are provided, it outputs Demetrius' entropy for sexual reproduction
-#' only, for clonal reproduction only, and for both types of reproduction
-#' together.
+#' @param matU A matrix containing only survival-dependent processes (e.g. progression,
+#' stasis, retrogression).
+#' @param matF A matrix containing only sexual reproduction, with zeros
+#' elsewhere.
+#' @param matC A matrix containing only clonal reproduction, with zeros
+#' elsewhere. If not provided, it defaults to a matrix with all zeros.
+#' @param startLife The first stage at which the author considers the beginning
+#' of life in the life cycle of the species. It defaults to the first stage.
+#' @param nSteps A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
+#' for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
+#' excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
+#' specified, this argument defaults to 100.
+#' @return Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided,
+#' it outputs Demetrius' entropy for sexual reproduction only ('Fec'), for clonal reproduction only ('Clo'),
+#' and for both types of reproduction together ('FecClo').
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
@@ -28,28 +28,85 @@
 #' @examples
 #' 
 #' 
-#' matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-#' lx <-  c(1.0000, 0.1500, 0.0150, 0.0015, 0.0002, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000)
-#' mx <- c(0,  0,  5, 10, 10, 10, 10, 10, 10, 10)
-#' cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
+#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' 
-#' dentropy(matA, lx, mx, cx)
-#' ROB STILL NEEDS TO DO AN EXAMPLE FOR LIFE TABLE ONLY
+#' dentropy(matU, matF, matC, nSteps=5)
+#' dentropy(matU, matF, matC, nSteps=10)
+#' dentropy(matU, matF, matC, nSteps=100)
 #' 
+#' #' @import MASS
 #' @export dentropy
-dentropy <- function(matU, matF, matC=FALSE, lx=FALSE, mx=FALSE, cx=FALSE, MPM=TRUE){
+dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   
-  #Demetrius entropy (S):
-  if (MPM==T)
-    if(max(lx) > 1) stop("`lx` should be bounded between 0 and 1")
-  if(sum(is.na(lx))>1) stop("There are missing values in `lx`")
-  if(sum(!diff(lx) <= 0)!=0)stop("`lx` does not monotonically decline")
-  if(sum(is.na(mx))>1) print("There are missing values in `mx`")
-  if(sum(is.na(cx))>1) print("There are missing values in `cx`")
+  #Error checks
+  if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
+  if (any(is.na(matF)) & any(is.na(matC))) stop("NAs exist in both matF and matC")
+  if (sum(matC)==0) {matC=matrix(0,dim(matU),dim(matU))}
+  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
+  
+  matA = matU + matF + matC
+  matDim = dim(matA)[1]
   
   dentropy=NULL
-  r <- log(max(Re(eigen(matA)$value)))  #population growth rate in log scale (rmax)
-  r <- log(R0)/genT
+  
+  #population growth rate in log scale (rmax)
+  r = log(max(Re(eigen(matA)$value)))  
+  
+  #Age-specific survivorship (lx) (See top function on page 120 in Caswell 2001):
+  matUtemp = matU
+  survivorship = array(NA, dim = c(nSteps, matDim))
+  for (o in 1:nSteps){
+    survivorship[o, ] = colSums(matUtemp %*% matU)
+    matUtemp = matUtemp %*% matU
+  }
+  
+  lx = survivorship[, startLife]
+  lx = c(1, lx[1:(length(lx) - 1)])
+  
+  if(!missing(matF)){
+    if(sum(matF,na.rm=T)==0){
+      warning("matF contains only 0 values")
+    }
+    #Age-specific fertility (mx, Caswell 2001, p. 120)
+    ageFertility = array(0, dim = c(nSteps, matDim))
+    fertMatrix = array(0, dim = c(nSteps, matDim))
+    matUtemp2 = matU
+    e = matrix(rep(1, matDim))
+    for (q in 1:nSteps) {
+      fertMatrix = matF %*% matUtemp2 * (as.numeric((ginv(diag(t(e) %*% matUtemp2)))))
+      ageFertility[q, ] = colSums(fertMatrix)
+      matUtemp2 = matUtemp2 %*% matU
+    }  
+    mx = ageFertility[, startLife]
+    mx = c(0, mx[1:(length(mx) - 1)])
+    mx[is.nan(mx)]=0
+  }
+  
+  if(!missing(matC)){
+    if(sum(matC,na.rm=T)==0){
+      warning("matC contains only 0 values")
+    }
+    #Age-specific clonality (cx)
+    ageClonality = array(0, dim = c(nSteps, matDim))
+    clonMatrix = array(0, dim = c(nSteps, matDim))
+    matUtemp2 = matU
+    e = matrix(rep(1, matDim))
+    for (q in 1:nSteps) {
+      clonMatrix = matC %*% matUtemp2 * (as.numeric((ginv(diag(t(e) %*% matUtemp2)))))
+      ageClonality[q, ] = colSums(clonMatrix)
+      matUtemp2 = matUtemp2 %*% matU
+    }  
+    cx = ageClonality[, startLife]
+    cx = c(0, cx[1:(length(cx) - 1)])
+    cx[is.nan(cx)]=0
+  }
+  
+  if(!missing(matF) & !missing(matC)){
+    mxcx=mx+cx
+  }
+  
   
   if (sum(mx)>0){
     limiteFx <- min(length(mx[which(!is.na(mx))]), length(lx[which(!is.na(lx))]))   #Calculating the last time interval at which both mx and lx were able to be calculated
@@ -58,7 +115,7 @@ dentropy <- function(matU, matF, matC=FALSE, lx=FALSE, mx=FALSE, cx=FALSE, MPM=T
     loglxmx <- log(lxmx)
     loglxmx[which(lxmx==0)] <- NA
     
-    dentropy$Fx <- abs(sum(lxmx*loglxmx)/sum(lxmx))
+    dentropy$Fec <- abs(sum(lxmx*loglxmx)/sum(lxmx))
   }
   
   if (sum(cx)>0){
@@ -68,7 +125,7 @@ dentropy <- function(matU, matF, matC=FALSE, lx=FALSE, mx=FALSE, cx=FALSE, MPM=T
     loglxcx <- log(lxcx)
     loglxcx[which(lxcx==0)] <- NA
     
-    dentropy$Cx <- abs(sum(lxcx*loglxcx)/sum(lxcx))
+    dentropy$Clo <- abs(sum(lxcx*loglxcx)/sum(lxcx))
   }
   
   if (sum(mx)>0 & sum(cx)>0){
@@ -79,7 +136,7 @@ dentropy <- function(matU, matF, matC=FALSE, lx=FALSE, mx=FALSE, cx=FALSE, MPM=T
     loglxmxcx <- log(lxmxcx)
     loglxmxcx[which(lxmxcx==0)] <- NA
     
-    dentropy$MxCx <- abs(sum(lxmxcx*loglxmxcx)/sum(lxmxcx))
+    dentropy$FecClo <- abs(sum(lxmxcx*loglxmxcx)/sum(lxmxcx))
   }
   return(dentropy)
 }
