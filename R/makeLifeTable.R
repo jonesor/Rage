@@ -105,7 +105,7 @@ makeLifeTable <-
     Tx[nSteps] <- NA
     
     #Mean life expectancy conditional to a given age:
-    ex = Tx / lx[1:(nSteps - 1)]
+    ex = Tx / lx
     
     for (j in 1:(nSteps - 1)) {
       if (is.infinite(ex[j]))
@@ -194,5 +194,5 @@ makeLifeTable <-
       out$TcFecClo = sum(out$x * out$lxmxcx) / sum(out$lxmxcx)
     }
     
-    return(out)
+    return(as.life.table(out))
   }
