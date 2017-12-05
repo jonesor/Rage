@@ -2,38 +2,35 @@
 % Please edit documentation in R/dentropy.R
 \name{dentropy}
 \alias{dentropy}
-\title{Calculate Demetrius' entropy}
+\title{Calculates Demetrius' entropy}
 \usage{
-dentropy(matU, matF, matC = FALSE, lx = FALSE, mx = FALSE, cx = FALSE,
-  MPM = TRUE)
+dentropy(matU, matF, matC = FALSE, startLife = 1, nSteps = 1000)
 }
 \arguments{
-\item{matU}{The sub-matrix of a matrix population model that describes survival-dependent demographic processes such as stasis, progression and retrogression.}
+\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
+stasis, retrogression).}
 
-\item{matF}{The sub-matrix of a matrix population model that describes per-capita sexual reproduction.}
+\item{matF}{A matrix containing only sexual reproduction, with zeros
+elsewhere.}
 
-\item{matC}{The sub-matrix of a matrix population model that describes per-capita clonal reproduction. This is assumed to be a matrix of zeros if not specified.}
+\item{matC}{A matrix containing only clonal reproduction, with zeros
+elsewhere. If not provided, it defaults to a matrix with all zeros.}
 
-\item{lx}{A numerical vector of lx (survivorship). This is assumed to be
-with a constant interval (e.g. 1yr).}
+\item{startLife}{The first stage at which the author considers the beginning
+of life in the life cycle of the species. It defaults to the first stage.}
 
-\item{cx}{A numerical vector of cx (age-specific clonal reproduction). This
-is assumed to be with a constant interval (e.g. 1yr).This is assumed to be a vector of zeros if not specified.}
-
-\item{MPM}{A TRUE/FALSE argument specifying whether the inputs are matrix population models ('TRUE') or life tables ('FALSE'). The default is 'MPM' = 'TRUE'}
-
-\item{fx}{A numerical vector of fx (age-specific sexual reproduction). This
-is assumed to be with a constant interval (e.g. 1yr).}
+\item{nSteps}{A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
+for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
+excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
+specified, this argument defaults to 100.}
 }
 \value{
-Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided, or when both 'fx'. When a MPM is provided, the function first calls
-'makeLifeTable' to calculate the life table. It assumes that the quasi-stable stage distribution is at 95%.
-and 'cx' are provided, it outputs Demetrius' entropy for sexual reproduction
-only, for clonal reproduction only, and for both types of reproduction
-together.
+Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided,
+it outputs Demetrius' entropy for sexual reproduction only ('Fec'), for clonal reproduction only ('Clo'),
+and for both types of reproduction together ('FecClo').
 }
 \description{
-This function calculates Demetrius' entropy from a matrix population model (MPM) or a life table (LT).
+This function calculates Demetrius' entropy from a matrix population model
 }
 \details{
 %% ~~ If necessary, more details than the description above ~~
@@ -44,14 +41,15 @@ This function calculates Demetrius' entropy from a matrix population model (MPM)
 \examples{
 
 
-matA <- matrix (c(0, 0, 5, 10, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-lx <-  c(1.0000, 0.1500, 0.0150, 0.0015, 0.0002, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000)
-mx <- c(0,  0,  5, 10, 10, 10, 10, 10, 10, 10)
-cx <- c(0,  0,  2, 1, 1, 1, 1, 1, 1, 1)
+matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 
-dentropy(matA, lx, mx, cx)
-ROB STILL NEEDS TO DO AN EXAMPLE FOR LIFE TABLE ONLY
+dentropy(matU, matF, matC, nSteps=5)
+dentropy(matU, matF, matC, nSteps=10)
+dentropy(matU, matF, matC, nSteps=100)
 
+#' @import MASS
 }
 \references{
 L. Demetrius. 1978. Adaptive value, entropy and survivorship
