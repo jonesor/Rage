@@ -1,44 +1,58 @@
-#' Calculate Keyfitz' life table entropy
+#' Calculates Keyfitz' entropy
 #' 
-#' This function calculates Keyfitz' life table entropy from an lx
-#' (surivorship) vector with even intervals.
+#' This function calculates Keyfitz' entropy from an lx
+#' (survivorship) vector with even intervals derived from a matrix population model.
 #' 
 #' %% ~~ If necessary, more details than the description above ~~
 #' 
-#' @param lx A numerical vector of lx (survivorship). This is assumed to be
-#' with a constant interval (e.g. 1yr).
+#' @param matU A matrix containing only survival-dependent processes (e.g. progression,
+#' stasis, retrogression).
+#' @param startLife The first stage at which the author considers the beginning
+#' of life in the life cycle of the species. It defaults to the first stage.
+#' @param nSteps A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
+#' for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
+#' excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
+#' specified, this argument defaults to 100.
 #' @param trapeze A logical argument indicating whether the trapezoidal
 #' approximation should be used for approximating the definite integral.
 #' @return Returns an estimate of Keyfitz' life table entropy based on an lx
-#' (survivorship) vector.
+#' (survivorship) vector obtained from matU
 #' @note %% ~~further notes~~
 #' @author 
-#' Owen R. Jones <jones@@biology.sdu.dk>
-#' Roberto Salguero-Gomez <salguero@@sheffield.ac.uk>
+#' Owen R. Jones <jones@biology.sdu.dk>
+#' Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references  %% ~~references~~
 #' @examples
 #'
-#' #Survivorship (lx) with constant mortality (should have Keyfitz entropy of 1).
+#' matU <- matrix (c(0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0.7, 0.1), nrow = 4, byrow = TRUE)
+#' kentropy(matU, nSteps=100)
+#' kentropy(matU,trapeze=FALSE)
 #' 
-#' x <- 0:100
-#' qx <- .5
-#' px <- 1-qx
-#' lx <- px^x
-#' 
-#' plot(x,lx,type="l",ylim=c(0,1),col="red")
-#' kentropy(lx)
-#' kentropy(lx,trapeze=FALSE)
-#' 
+#' matU <- matrix (c(0.2, 0, 0, 0, 0.3, 0.4, 0.1, 0, 0.1, 0.1, 0.2, 0.3, 0, 0.2, 0.6, 0.5), nrow = 4, byrow = TRUE)
+#' kentropy(matU, nSteps = 10)
+#' kentropy(matU, nSteps = 20)
+#' kentropy(matU, nSteps = 100)
+#' kentropy(matU, nSteps = 100, trapeze=TRUE)
 #' 
 #' @export kentropy
-kentropy <- function(lx, trapeze = FALSE){
+kentropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
   
-  if(max(lx) > 1) stop("`lx` should be bounded between 0 and 1")
-  if(sum(is.na(lx))>1) stop("There are missing values in `lx`")
-  #if(sum(!diff(lx) <= 0)) stop("`lx` does not monotonically decline")
-  if(sum(!diff(lx) <= 0)!=0)stop("`lx` does not monotonically decline")
+  if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
+  if (any(is.na(matU))) stop("NAs exist in matU")
+  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
   
+  #Age-specific survivorship (lx) (See top function on page 120 in Caswell 2001):
+  matDim = dim(matU)[1]
+  matUtemp = matU
+  survivorship = array(NA, dim = c(nSteps, matDim))
+  for (o in 1:nSteps){
+    survivorship[o, ] = colSums(matUtemp %*% matU)
+    matUtemp = matUtemp %*% matU
+  }
+  
+  lx = survivorship[, startLife]
+  lx = c(1, lx[1:(length(lx) - 1)])
   
   if(trapeze == TRUE){
     ma <- function(x,n=2){filter(x,rep(1/n,n), sides=2)}
