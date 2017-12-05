@@ -58,11 +58,11 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1, nSteps 
   
   #Error checks
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
-  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
+  if (length(which(colSums(matU)>1))>0) warning("matU has at least one stage-specific survival value > 1")
   if (any(is.na(matF))) {matF[is.na(matF)]=0
-                        print("NAs exist in matF. These have been zero-ed")}
+                        warning("NAs exist in matF. These have been zero-ed")}
   if (any(is.na(matC))) {matC[is.na(matC)]=0
-                        print("NAs exist in matC. These have been zero-ed")}
+                        warning("NAs exist in matC. These have been zero-ed")}
   
   matDim = ncol(matU)
   
