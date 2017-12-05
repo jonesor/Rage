@@ -1,4 +1,4 @@
-#' Calculate net reproductive value
+#' Calculates net reproductive value
 #' 
 #' This function calculates net reproductive value from a matU
 #' (survival-dependent processes) and either a matF (sexual reproduction) and/or a
@@ -38,6 +38,7 @@
 #' R0(matU, matF, matU, startLife=4)
 #' 
 #' @export
+#' @import MASS
 
 R0 <- function(matU, matF, matC=FALSE, startLife=1){
   
