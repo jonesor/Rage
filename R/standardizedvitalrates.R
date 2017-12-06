@@ -42,7 +42,7 @@ standardizedVitalRates <- function(matU, matF, matFmu, matrixStages) {
   # defines which columns need to be collapsed for each of the four stages
   collapse <- reprodStages(matF, matFmu, post, maxRep, matrixStages)
 
-  xx <- collapseMatrix(matU, matF, collapse = collapse)
+  xx <- Rcompadre::collapseMatrix(matU, matF, collapse = collapse)
   matUcollapse <- xx$matU
   matUcollapse[is.na(collapse), is.na(collapse)] <- NA
 
