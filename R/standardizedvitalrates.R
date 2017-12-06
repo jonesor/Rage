@@ -1,53 +1,45 @@
-#' Standardized vital rates
+#' Standardize vital rates
 #'
 #' @export
-#' @param matU a matrix without reproduction and clonality
-#' @param matF a matrix, just reproduction
-#' @param matFmu a matrix
-#' @param matrixStages a vector of matrix stage statuses
-#' @author 
+#' @param matU Survival matrix
+#' @param matF Fecundity matrix
+#' @param reproStages Logical vector indicating which stages reproductive
+#' @param matrixStages Character vector of matrix stage types (e.g. "propagule",
+#'   "active", or "dormant")
+#' @return A list (TODO:)
+#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
-#' \dontrun{
-#' load("~/COMPADRE_v.4.0.1.RData")
-#' mats <- compadre$metadata$SpeciesAccepted
-#'}
-#' matU <- matrix(c(0.2581, 0.1613, 0.1935, 0.2258, 0.1613, 0.0408, 0.2857,
-#'                  0.4286, 0.102, 0.0816, 0.0385, 0.0385, 0.2692, 0.2308,
-#'                  0.3462, 0, 0.0625, 0.125, 0.25, 0.5625, 0.1061, 0.1608,
-#'                  0.2637, 0.1801, 0.2058),
-#'                  nrow = 5, byrow = FALSE)
-#' matF <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-#'                  0, 0, 0, 0, 2.75, 1.75, 0, 0),
-#'                  nrow = 5, byrow = FALSE)
-#' matFmu <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-#'                    0, 0, 0, 0, 1.0409262, 0.5040727, 0.016433, 0.06956801),
-#'                  nrow = 5, byrow = FALSE)
+#' matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
+#' 0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
 #'
-#' standardizedVitalRates(
-#'  matU = matU,
-#'  matF = matF,
-#'  matFmu = matFmu,
-#'  matrixStages = c("dorm", "active", "active", "active", "active")
-#' )
-standardizedVitalRates <- function(matU, matF, matFmu, matrixStages) {
-  # put non-reproductive to the end of the matrix
-  rearr <- Rcompadre::rearrangeMatrix(matU, matF, matFmu)
-  matFmu <- rearr$matFmu
+#' matF <- rbind( c(0, 0.13, 0, 0.96, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
+#' c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
+#'
+#' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+#' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+#'
+#' standardizedVitalRates(matU, matF, reproStages, matrixStages)
+standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
 
-  # non-reproductive stages
-  rearr2 <- Rcompadre::rearrangeMatrix(matU, matF, matFmu)
-  post <- rearr2$nonRepInterRep
-  maxRep <- rearr2$maxRep
-
+  # put non-reproductive stages at the end of the matrix
+  rearr <- rearrangeMatrix(matU, matF, reproStages, matrixStages)
+  
   # defines which columns need to be collapsed for each of the four stages
-  collapse <- reprodStages(matF, matFmu, post, maxRep, matrixStages)
-
-  xx <- Rcompadre::collapseMatrix(matU, matF, collapse = collapse)
+  collapse <- reprodStages(rearr$matF,
+                           rearr$nonRepInterRep,
+                           rearr$maxRep,
+                           rearr$reproStages,
+                           rearr$matrixStages)
+  
+  # collapse
+  xx <- collapseMatrix(matU, matF, collapse = collapse)
   matUcollapse <- xx$matU
   matUcollapse[is.na(collapse), is.na(collapse)] <- NA
-
+  
   matFcollapse <- xx$matF
   matFcollapse[is.na(collapse), is.na(collapse)] <- NA
-
-  extractVitalRates(matU = matUcollapse, matF = matFcollapse, collapse)
+  
+  out <- vitalRates(matU = matUcollapse, matF = matFcollapse,
+                    splitStages = rearr$matrixStages)
+  return(out)
 }

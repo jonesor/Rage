@@ -4,8 +4,7 @@
 \alias{vitalRates}
 \title{A function to derive vital rates from the matrix population model.}
 \usage{
-vitalRates(matU, matF, matC = FALSE, splitStages = FALSE,
-  weighted = FALSE)
+vitalRates(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE)
 }
 \arguments{
 \item{matU}{A matrix containing only survival-dependent processes ( growth,

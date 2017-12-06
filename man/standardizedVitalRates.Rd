@@ -2,43 +2,38 @@
 % Please edit documentation in R/standardizedvitalrates.R
 \name{standardizedVitalRates}
 \alias{standardizedVitalRates}
-\title{Standardized vital rates}
+\title{Standardize vital rates}
 \usage{
-standardizedVitalRates(matU, matF, matFmu, matrixStages)
+standardizedVitalRates(matU, matF, reproStages, matrixStages)
 }
 \arguments{
-\item{matU}{a matrix without reproduction and clonality}
+\item{matU}{Survival matrix}
 
-\item{matF}{a matrix, just reproduction}
+\item{matF}{Fecundity matrix}
 
-\item{matFmu}{a matrix}
+\item{reproStages}{Logical vector indicating which stages reproductive}
 
-\item{matrixStages}{a vector of matrix stage statuses}
+\item{matrixStages}{Character vector of matrix stage types (e.g. "propagule",
+"active", or "dormant")}
+}
+\value{
+A list (TODO:)
 }
 \description{
-Standardized vital rates
+Standardize vital rates
 }
 \examples{
-\dontrun{
-load("~/COMPADRE_v.4.0.1.RData")
-mats <- compadre$metadata$SpeciesAccepted
-}
-matU <- matrix(c(0.2581, 0.1613, 0.1935, 0.2258, 0.1613, 0.0408, 0.2857,
-                 0.4286, 0.102, 0.0816, 0.0385, 0.0385, 0.2692, 0.2308,
-                 0.3462, 0, 0.0625, 0.125, 0.25, 0.5625, 0.1061, 0.1608,
-                 0.2637, 0.1801, 0.2058),
-                 nrow = 5, byrow = FALSE)
-matF <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                 0, 0, 0, 0, 2.75, 1.75, 0, 0),
-                 nrow = 5, byrow = FALSE)
-matFmu <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                   0, 0, 0, 0, 1.0409262, 0.5040727, 0.016433, 0.06956801),
-                 nrow = 5, byrow = FALSE)
+matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
+0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
 
-standardizedVitalRates(
- matU = matU,
- matF = matF,
- matFmu = matFmu,
- matrixStages = c("dorm", "active", "active", "active", "active")
-)
+matF <- rbind( c(0, 0.13, 0, 0.96, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
+c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
+
+reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+
+standardizedVitalRates(matU, matF, reproStages, matrixStages)
+}
+\author{
+Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }

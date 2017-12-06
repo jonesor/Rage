@@ -79,12 +79,21 @@
 #' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = initialConditions)
 #' 
 #' @export
-vitalRates <- function(matU, matF, matC = FALSE, splitStages = FALSE, weighted = FALSE){
+vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
   #Function to quantify vital rates values
   
-  if(missing(matU)){stop('matU missing')}
-  if(missing(matF) & missing(matC)){warning('matF or matC missing. These have been coerced to matrices of zero')}
-  #if (sum(weighted)>0 & length(weighted) != dim(matU)[i]){stop('Population vector does not agree with matrix dimension')}
+  if (missing(matU)) {
+    stop('matU missing')
+  }
+  if (missing(matF) & missing(matC)) {
+    warning('matF or matC missing. These have been coerced to matrices of zero')
+  }
+  # if (sum(weighted)>0 & length(weighted) != dim(matU)[i]) {
+  #   stop('Population vector does not agree with matrix dimension')
+  # }
+  if (is.null(matC)) {
+    matC <- matrix(0, nrow = dim(matU)[1], ncol = dim(matU)[1])
+  }
   
   matDim <- dim(matU)[1]
   matA <- matU + matF + matC

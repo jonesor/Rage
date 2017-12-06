@@ -20,13 +20,10 @@
 #' combine rep and post-rep to obtain a two-stage matrix model.
 #'
 #' @export
-#' @author 
 #' @param matF (matrix) fecundity matrix, rearranged so that non-reproductive
 #' stages are in the final rows/columns
-#' @param matFmu (matrix) mean fecundity matrix, rearranged so that
-#' non-reproductive stages are in the final rows/columns
 #' @param post (integer) indicator for post-reproductive stages
-#' @param maxRep (integer) maximum number of reproductive stages
+#' @param reproStages Logical vector identifying which stages reproductive
 #' @param matrixStages (character) vector of stages, values are "prop"
 #' (propagule), "active", and "dorm" (dormant)
 #' @param includeProp (logical) include propagule stage. default: \code{TRUE}.
@@ -36,37 +33,30 @@
 #' \code{TRUE}. if \code{TRUE}, post-reproductive stage (if present) is given
 #' back in result. If \code{FALSE}, it's included into the reproductive
 #' stage
+#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
-#' matF <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-#'                  0, 0, 0, 0, 2.75, 1.75, 0, 0),
-#'                  nrow = 5, byrow = FALSE)
-#' matFmu <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-#'                    0, 0, 0, 0, 0, 1.0409262, 0.5040727, 0.016433,
-#'                    0.06956801),
-#'                    nrow = 5, byrow = FALSE)
-#' post <- numeric(0)
-#' maxRep <- 5
-#' matrixStages <- c("dorm", "active", "active", "active", "active")
+#' matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
+#' 0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
 #'
-#' reprodStages(matF, matFmu, post, maxRep, matrixStages)
+#' matF <- rbind( c(0, 0.13, 0.96, 0, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
+#' c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
 #'
-#' # say what outputs you want
-#' ## combine postrep and rep
-#' reprodStages(matF, matFmu, post, maxRep, matrixStages, includeProp = FALSE,
-#'   includePost = FALSE)
-#' ## warn about prop?
-#' reprodStages(matF, matFmu, post, maxRep, matrixStages, includeProp = FALSE)
+#' reproStages <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
+#' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+#' reprodStages(matF, post = 5, reproStages, matrixStages)
+#' 
+#' # combine post-reproductive and reproductive
+#' reprodStages(matF, post = 5, reproStages, matrixStages, includePost = F)
+#' \dontrun{
 #' ## NOT ALLOWED
-#' #reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'rep', 'postrep'))
-#' ## NOT ALLOWED
-#' #reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'postrep'))
-#' ## NOT ALLOWED
-#' #reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prerep', 'postrep'))
-#' ## NOT ALLOWED
-#' #reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'prerep'))
-reprodStages <- function(matF, matFmu, post, maxRep, matrixStages,
+#' reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'rep', 'postrep'))
+#' reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'postrep'))
+#' reprodStages(matF, post = 5, reproStages, matrixStages, c('prerep', 'postrep'))
+#' reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'prerep'))
+#' }
+reprodStages <- function(matF, post, reproStages, matrixStages,
                          includeProp = TRUE, includePost = TRUE) {
-
+  
   if ("prop" %in% matrixStages) {
     propStage <- which(matrixStages == "prop")
     if (!includeProp) {
@@ -75,16 +65,13 @@ reprodStages <- function(matF, matFmu, post, maxRep, matrixStages,
   } else {
     propStage <- NA
   }
-
-  if (any(is.na(matFmu))) {
-    ## Assume that NAs correspond to unknown fecundities; replace with Inf so
-    ## that reproductive stages are correctly identified.
-    matFmu[which(is.na(matFmu))] <- Inf
-  }
-
+  
+  # set max reproductive stage
+  maxRep <- which.max(reproStages == 1)
+  
   # prerep
   matDim <- dim(matF)[1]
-  Rep <- which(colSums(matFmu) > 0)
+  Rep <- which(reproStages == 1)
   if (length(Rep) > 0) {
     if (min(Rep) == 1) {
       preRep <- NA
@@ -96,14 +83,14 @@ reprodStages <- function(matF, matFmu, post, maxRep, matrixStages,
   } else {
     preRep <- NA
   }
-
+  
   # postrep
   if (length(post) == 0 && maxRep == matDim) {
     postRep <- NA
   } else {
     postRep <- (maxRep + 1):matDim
   }
-
+  
   if (length(propStage) > 1) {
     propStages <- paste(propStage[1], "-", propStage[length(propStage)], sep = "")
   } else {
@@ -124,6 +111,6 @@ reprodStages <- function(matF, matFmu, post, maxRep, matrixStages,
   } else {
     postRepStages <- as.character(postRep)
   }
-
-  c(propStages, preRepStages, repStages, postRepStages)
+  
+  return(c(propStages, preRepStages, repStages, postRepStages))
 }

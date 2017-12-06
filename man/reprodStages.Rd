@@ -5,19 +5,16 @@
 \title{Group the stages of a matrix model into propagule, pre-reproductive,
 reproductive and post-reproductive stages.}
 \usage{
-reprodStages(matF, matFmu, post, maxRep, matrixStages, includeProp = TRUE,
+reprodStages(matF, post, reproStages, matrixStages, includeProp = TRUE,
   includePost = TRUE)
 }
 \arguments{
 \item{matF}{(matrix) fecundity matrix, rearranged so that non-reproductive
 stages are in the final rows/columns}
 
-\item{matFmu}{(matrix) mean fecundity matrix, rearranged so that
-non-reproductive stages are in the final rows/columns}
-
 \item{post}{(integer) indicator for post-reproductive stages}
 
-\item{maxRep}{(integer) maximum number of reproductive stages}
+\item{reproStages}{Logical vector identifying which stages reproductive}
 
 \item{matrixStages}{(character) vector of stages, values are "prop"
 (propagule), "active", and "dorm" (dormant)}
@@ -52,31 +49,26 @@ matrix structure guide the process. However, in animals we may wish to
 combine rep and post-rep to obtain a two-stage matrix model.
 }
 \examples{
-matF <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                 0, 0, 0, 0, 2.75, 1.75, 0, 0),
-                 nrow = 5, byrow = FALSE)
-matFmu <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                   0, 0, 0, 0, 0, 1.0409262, 0.5040727, 0.016433,
-                   0.06956801),
-                   nrow = 5, byrow = FALSE)
-post <- numeric(0)
-maxRep <- 5
-matrixStages <- c("dorm", "active", "active", "active", "active")
+matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
+0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
 
-reprodStages(matF, matFmu, post, maxRep, matrixStages)
+matF <- rbind( c(0, 0.13, 0.96, 0, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
+c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
 
-# say what outputs you want
-## combine postrep and rep
-reprodStages(matF, matFmu, post, maxRep, matrixStages, includeProp = FALSE,
-  includePost = FALSE)
-## warn about prop?
-reprodStages(matF, matFmu, post, maxRep, matrixStages, includeProp = FALSE)
+reproStages <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
+matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+reprodStages(matF, post = 5, reproStages, matrixStages)
+
+# combine post-reproductive and reproductive
+reprodStages(matF, post = 5, reproStages, matrixStages, includePost = F)
+\dontrun{
 ## NOT ALLOWED
-#reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'rep', 'postrep'))
-## NOT ALLOWED
-#reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'postrep'))
-## NOT ALLOWED
-#reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prerep', 'postrep'))
-## NOT ALLOWED
-#reprodStages(matF, matFmu, post, maxRep, matrixStages, c('prop', 'prerep'))
+reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'rep', 'postrep'))
+reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'postrep'))
+reprodStages(matF, post = 5, reproStages, matrixStages, c('prerep', 'postrep'))
+reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'prerep'))
+}
+}
+\author{
+Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }
