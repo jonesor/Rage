@@ -45,9 +45,9 @@
 #' @examples
 #'
 #'
-#' matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
-#' matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.), nrow = 4, byrow = T)
-#' matC <- matrix(c(0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
+#' matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+#' matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.), nrow = 4, byrow = TRUE)
+#' matC <- matrix(c(0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #'
 #' makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
 #'
@@ -125,7 +125,7 @@ makeLifeTable <-
     )
     
     if (!missing(matF)) {
-      if (sum(matF, na.rm = T) == 0) {
+      if (sum(matF, na.rm = TRUE) == 0) {
         warning("matF contains only 0 values")
       }
       #Age-specific fertility (mx, Caswell 2001, p. 120)
@@ -154,7 +154,7 @@ makeLifeTable <-
     }
     
     if (!missing(matC)) {
-      if (sum(matC, na.rm = T) == 0) {
+      if (sum(matC, na.rm = TRUE) == 0) {
         warning("matC contains only 0 values")
       }
       #Age-specific clonality (cx)
