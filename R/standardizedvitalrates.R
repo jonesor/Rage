@@ -27,7 +27,6 @@ standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
   # defines which columns need to be collapsed for each of the four stages
   collapse <- reprodStages(rearr$matF,
                            rearr$nonRepInterRep,
-                           rearr$maxRep,
                            rearr$reproStages,
                            rearr$matrixStages)
   
