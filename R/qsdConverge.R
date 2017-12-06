@@ -78,9 +78,9 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000){
   }
   #Find the ages for convergence to conv. (default = 0.05).
   #i.e. within 5% of the QSD.
-  if(min(dist, na.rm = T) < conv) {
+  if(min(dist, na.rm = TRUE) < conv) {
     convage = min(which(dist < conv)) }
-  if(min(dist, na.rm = T) >= conv | sum(!is.na(dist)) == 0) {
+  if(min(dist, na.rm = TRUE) >= conv | sum(!is.na(dist)) == 0) {
     convage = NA
     warning("Convergence not reached") }
   return(convage) 

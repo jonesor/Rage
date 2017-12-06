@@ -61,7 +61,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   lx = c(1, lx[1:(length(lx) - 1)])
   
   if(!missing(matF)){
-    if(sum(matF,na.rm=T)==0){
+    if(sum(matF,na.rm=TRUE)==0){
       warning("matF contains only 0 values")
     }
     #Age-specific fertility (mx, Caswell 2001, p. 120)
@@ -80,7 +80,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   }
   
   if(!missing(matC)){
-    if(sum(matC,na.rm=T)==0){
+    if(sum(matC,na.rm=TRUE)==0){
       warning("matC contains only 0 values")
     }
     #Age-specific clonality (cx)
