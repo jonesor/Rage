@@ -44,7 +44,7 @@ in life expectancy, and a loop to calculate maximum longevity.
 }
 \examples{
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
+matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
 
 longevity(matU, startLife = 1, initPop = 100, run = 1000)
 
