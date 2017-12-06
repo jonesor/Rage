@@ -35,7 +35,7 @@ standardizedVitalRates <- function(matU, matF, matFmu, matrixStages) {
   matFmu <- rearr$matFmu
 
   # non-reproductive stages
-  rearr2 <- rearrangeMatrix(matU, matF, matFmu)
+  rearr2 <- Rcompadre::rearrangeMatrix(matU, matF, matFmu)
   post <- rearr2$nonRepInterRep
   maxRep <- rearr2$maxRep
 
