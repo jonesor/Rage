@@ -67,7 +67,7 @@ reprodStages <- function(matF, post, reproStages, matrixStages,
   }
   
   # set max reproductive stage
-  maxRep <- which.max(reproStages == 1)
+  maxRep <- max(which(reproStages == TRUE))
   
   # prerep
   matDim <- dim(matF)[1]
