@@ -32,15 +32,10 @@ and for both types of reproduction together ('FecClo').
 \description{
 This function calculates Demetrius' entropy from a matrix population model
 }
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
 \note{
 %% ~~further notes~~
 }
 \examples{
-
-
 matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
 matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
@@ -61,5 +56,3 @@ curves. Nature 275, 213 - 214. doi:10.1038/275213a0
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

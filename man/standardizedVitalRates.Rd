@@ -19,10 +19,10 @@ standardizedVitalRates(matU, matF, matFmu, matrixStages)
 Standardized vital rates
 }
 \examples{
-# compadre
-# load("~/COMPADRE_v.4.0.1.RData")
-#mats <- compadre$metadata$SpeciesAccepted
-
+\dontrun{
+load("~/COMPADRE_v.4.0.1.RData")
+mats <- compadre$metadata$SpeciesAccepted
+}
 matU <- matrix(c(0.2581, 0.1613, 0.1935, 0.2258, 0.1613, 0.0408, 0.2857,
                  0.4286, 0.102, 0.0816, 0.0385, 0.0385, 0.2692, 0.2308,
                  0.3462, 0, 0.0625, 0.125, 0.25, 0.5625, 0.1061, 0.1608,

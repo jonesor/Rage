@@ -49,5 +49,6 @@ Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+
 Hal Caswell <h.caswell@uva.nl>
 }

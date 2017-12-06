@@ -20,6 +20,7 @@
 #' combine rep and post-rep to obtain a two-stage matrix model.
 #'
 #' @export
+#' @author 
 #' @param matF (matrix) fecundity matrix, rearranged so that non-reproductive
 #' stages are in the final rows/columns
 #' @param matFmu (matrix) mean fecundity matrix, rearranged so that

@@ -27,9 +27,9 @@
 #'   clonal reproduction) and lxcx (# clonally-produced recruits per capita in
 #'   each age) are included in the output.
 #' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk> Hal Caswell
-#'   <h.caswell@uva.nl> Owen R. Jones <jones@biology.sdu.dk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk> 
+#' @author Hal Caswell <h.caswell@@uva.nl> 
+#' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @references
 #'
 #' Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and

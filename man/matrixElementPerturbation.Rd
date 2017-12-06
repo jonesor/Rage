@@ -21,30 +21,16 @@ matrixElementPerturbation(matU, matF, matC = NULL, pert = 0.001)
 \description{
 A function to perform element perturbation of a matrix population model.
 }
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
 \note{
 %% ~~further notes~~
 }
 \examples{
-
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
 
 
 }
 \references{
 %% ~~references~~
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Roberto Salguero-Gomez <r.salguero@sheffield.ac.uk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

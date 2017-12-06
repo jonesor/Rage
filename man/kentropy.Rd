@@ -2,53 +2,51 @@
 % Please edit documentation in R/kentropy.R
 \name{kentropy}
 \alias{kentropy}
-\title{Calculate Keyfitz' life table entropy}
+\title{Calculates Keyfitz' entropy}
 \usage{
-kentropy(lx, trapeze = FALSE)
+kentropy(matU, startLife = 1, nSteps = 1000, trapeze = FALSE)
 }
 \arguments{
-\item{lx}{A numerical vector of lx (survivorship). This is assumed to be
-with a constant interval (e.g. 1yr).}
+\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
+stasis, retrogression).}
+
+\item{startLife}{The first stage at which the author considers the beginning
+of life in the life cycle of the species. It defaults to the first stage.}
+
+\item{nSteps}{A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
+for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
+excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
+specified, this argument defaults to 100.}
 
 \item{trapeze}{A logical argument indicating whether the trapezoidal
 approximation should be used for approximating the definite integral.}
 }
 \value{
 Returns an estimate of Keyfitz' life table entropy based on an lx
-(survivorship) vector.
+(survivorship) vector obtained from matU
 }
 \description{
-This function calculates Keyfitz' life table entropy from an lx
-(surivorship) vector with even intervals.
-}
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
+This function calculates Keyfitz' entropy from an lx
+(survivorship) vector with even intervals derived from a matrix population model.
 }
 \examples{
 
-#Survivorship (lx) with constant mortality (should have Keyfitz entropy of 1).
+matU <- matrix (c(0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0.7, 0.1), nrow = 4, byrow = TRUE)
+kentropy(matU, nSteps=100)
+kentropy(matU,trapeze=FALSE)
 
-x <- 0:100
-qx <- .5
-px <- 1-qx
-lx <- px^x
-
-plot(x,lx,type="l",ylim=c(0,1),col="red")
-kentropy(lx)
-kentropy(lx,trapeze=FALSE)
-
+matU <- matrix (c(0.2, 0, 0, 0, 0.3, 0.4, 0.1, 0, 0.1, 0.1, 0.2, 0.3, 0, 0.2, 0.6, 0.5), nrow = 4, byrow = TRUE)
+kentropy(matU, nSteps = 10)
+kentropy(matU, nSteps = 20)
+kentropy(matU, nSteps = 100)
+kentropy(matU, nSteps = 100, trapeze=TRUE)
 
 }
 \references{
 %% ~~references~~
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
-Roberto Salguero-Gomez <salguero@sheffield.ac.uk>
+
+Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }

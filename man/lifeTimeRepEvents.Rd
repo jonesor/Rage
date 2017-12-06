@@ -54,26 +54,21 @@ model.
 %% ~~further notes~~
 }
 \examples{
-
 matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
 matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 
 lifeTimeRepEvents(matU, matF, matU, startLife = 1)
-
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
 Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 978-0878930968
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
+
 Hal Caswell <hcaswell@whoi.edu>
+
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

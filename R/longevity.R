@@ -26,14 +26,14 @@
 #' 'initPop' individuals in stage 'startLife' up to 'run' times.
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
-#' 
-#' Hal Caswell <hcaswell@@whoi.edu>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @author Hal Caswell <hcaswell@@whoi.edu>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968
 #' 
-#' Doak & Morris (2002) BOOK INSERT CITATION
+#' Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation 
+#' Biology: Theory and Practice of Population Viability Analysis. 
+#' Sinauer Associates, Sunderland, Massachusetts, USA
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 

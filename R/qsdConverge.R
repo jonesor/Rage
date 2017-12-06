@@ -36,10 +36,8 @@
 #' @return Returns a numeric value indicating the time step at which
 #' quasi-stationary stage distribution has been reached.
 #' @author Hal Caswell <h.caswell@@uva.nl>
-#' 
-#' Owen R. Jones <jones@@biology.sdu.dk>
-#' 
-#' Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Owen Jones <jones@@biology.sdu.dk>
+#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968
@@ -52,12 +50,8 @@
 #' 
 #' @keywords methods
 #' @examples
-#' 
-#' 
 #' matU <- matrix(c(0.000, 0.691, 0.000, 0.000, 0.000, 0.880, 0.000, 0.000, 0.790),nrow=3)
 #' qsdConverge(matU, 0.05)
-#' 
-#' 
 #' @export qsdConverge
 #' @import popbio
 

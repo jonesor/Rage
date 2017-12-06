@@ -3,8 +3,6 @@
 #' This function calculates Keyfitz' entropy from an lx
 #' (survivorship) vector with even intervals derived from a matrix population model.
 #' 
-#' %% ~~ If necessary, more details than the description above ~~
-#' 
 #' @param matU A matrix containing only survival-dependent processes (e.g. progression,
 #' stasis, retrogression).
 #' @param startLife The first stage at which the author considers the beginning
@@ -17,11 +15,8 @@
 #' approximation should be used for approximating the definite integral.
 #' @return Returns an estimate of Keyfitz' life table entropy based on an lx
 #' (survivorship) vector obtained from matU
-#' @note %% ~~further notes~~
-#' @author 
-#' Owen R. Jones <jones@biology.sdu.dk>
-#' Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @author Owen R. Jones <jones@@biology.sdu.dk>
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @references  %% ~~references~~
 #' @examples
 #'

@@ -2,8 +2,6 @@
 #' 
 #' This function calculates Demetrius' entropy from a matrix population model
 #' 
-#' %% ~~ If necessary, more details than the description above ~~
-#' 
 #' @param matU A matrix containing only survival-dependent processes (e.g. progression,
 #' stasis, retrogression).
 #' @param matF A matrix containing only sexual reproduction, with zeros
@@ -20,14 +18,11 @@
 #' it outputs Demetrius' entropy for sexual reproduction only ('Fec'), for clonal reproduction only ('Clo'),
 #' and for both types of reproduction together ('FecClo').
 #' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references L. Demetrius. 1978. Adaptive value, entropy and survivorship
 #' curves. Nature 275, 213 - 214. doi:10.1038/275213a0
-#' @keywords ~kwd1 ~kwd2
 #' @examples
-#' 
-#' 
 #' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
 #' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)

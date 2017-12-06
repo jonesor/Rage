@@ -17,7 +17,7 @@
 #' reproduction only, for clonal reproduction only, and for both types of
 #' reproduction together.
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
-#' Hal Caswell <h.caswell@@uva.nl>
+#' @author Hal Caswell <h.caswell@@uva.nl>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968

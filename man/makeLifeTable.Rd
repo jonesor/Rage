@@ -67,12 +67,12 @@ Meeting. Boson Books, Raleigh, North Caroline, USA
 Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
 Nature, 505(7482), 169–173
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
-Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk> Hal Caswell
-  <h.caswell@uva.nl> Owen R. Jones <jones@biology.sdu.dk>
+Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+
+Hal Caswell <h.caswell@uva.nl>
+
+Owen R. Jones <jones@biology.sdu.dk>
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

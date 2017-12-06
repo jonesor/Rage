@@ -51,12 +51,8 @@ This metric allows the user to use only age-based information from before this p
 online supplementary information of Jones et al. (2014) for further details.
 }
 \examples{
-
-
 matU <- matrix(c(0.000, 0.691, 0.000, 0.000, 0.000, 0.880, 0.000, 0.000, 0.790),nrow=3)
 qsdConverge(matU, 0.05)
-
-
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
@@ -72,7 +68,7 @@ Evolutionary Ecology DOI 10.1007/s10682-017-9923-2
 \author{
 Hal Caswell <h.caswell@uva.nl>
 
-Owen R. Jones <jones@biology.sdu.dk>
+Owen Jones <jones@biology.sdu.dk>
 
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }

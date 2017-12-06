@@ -36,22 +36,18 @@
 #' be negative because both mean life expectancy and mean age at maturity are
 #' means of their respective distributions, and their distributions can indeed overlap.
 #' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
-#' Hal Caswell <hcaswell@whoi.edu>
-#' Owen R. Jones <jones@biology.sdu.dk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Hal Caswell <hcaswell@@whoi.edu>
+#' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968
-#' @keywords ~kwd1 ~kwd2
 #' @examples
-#' 
 #' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
 #' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 #' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
 #' 
 #' lifeTimeRepEvents(matU, matF, matU, startLife = 1)
-#' 
 #' @export lifeTimeRepEvents
 #' @import MASS
 
