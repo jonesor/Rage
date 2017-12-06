@@ -2,10 +2,10 @@
 #' 
 #' A function to perform element perturbation of a matrix population model.
 #' 
-#' @param matU %% ~~Describe \code{matU} here~~
-#' @param matF %% ~~Describe \code{matF} here~~
-#' @param matC %% ~~Describe \code{matC} here~~
-#' @param pert %% ~~Describe \code{pert} here~~
+#' @param matU The U matrix (processes related to survival, growth and retrogression).
+#' @param matF The F matrix (sexual reproduction processes).
+#' @param matC The C matrix (clonal reproduction processes).
+#' @param pert Perturbation parameter.
 #' @return %% ~Describe the value returned 
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>

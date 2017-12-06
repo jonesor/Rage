@@ -7,13 +7,13 @@
 matrixElementPerturbation(matU, matF, matC = NULL, pert = 0.001)
 }
 \arguments{
-\item{matU}{%% ~~Describe \code{matU} here~~}
+\item{matU}{The U matrix (processes related to survival, growth and retrogression).}
 
-\item{matF}{%% ~~Describe \code{matF} here~~}
+\item{matF}{The F matrix (sexual reproduction processes).}
 
-\item{matC}{%% ~~Describe \code{matC} here~~}
+\item{matC}{The C matrix (clonal reproduction processes).}
 
-\item{pert}{%% ~~Describe \code{pert} here~~}
+\item{pert}{Perturbation parameter.}
 }
 \value{
 %% ~Describe the value returned
