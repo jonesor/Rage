@@ -43,22 +43,22 @@
 #' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #' 978-0878930968
 #' @examples
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
+#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' 
 #' lifeTimeRepEvents(matU, matF, matU, startLife = 1)
 #' @export lifeTimeRepEvents
 #' @import MASS
 
-lifeTimeRepEvents <- function(matU, matF, matC = F, startLife = 1){
+lifeTimeRepEvents <- function(matU, matF, matC = FALSE, startLife = 1){
   #Function to determine probability of reaching reproduction, age at 
   #maturity and reproductive lifespan (Code adapted from H. Caswell's 
   #matlab code, and Morris & Doak):
   
   if(missing(matU)){stop('matU missing')}
   if(missing(matF) & missing(matC)){stop('matF or matC missing. You must provide at least one')}
-  if(sum(matF + matC,na.rm=T)==0){stop('matF and matC contains only 0 values')}
+  if(sum(matF + matC,na.rm=TRUE)==0){stop('matF and matC contains only 0 values')}
   #if(sum(matC,na.rm=T)==0){stop('matC contains only 0 values')}
   
   tryCatch({
