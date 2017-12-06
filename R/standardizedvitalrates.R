@@ -22,7 +22,7 @@
 standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
 
   # put non-reproductive stages at the end of the matrix
-  rearr <- rearrangeMatrix(matU, matF, reproStages, matrixStages)
+  rearr <- Rcompadre::rearrangeMatrix(matU, matF, reproStages, matrixStages)
   
   # defines which columns need to be collapsed for each of the four stages
   collapse <- reprodStages(rearr$matF,
@@ -31,7 +31,7 @@ standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
                            rearr$matrixStages)
   
   # collapse
-  xx <- collapseMatrix(matU, matF, collapse = collapse)
+  xx <- Rcompadre::collapseMatrix(matU, matF, collapse = collapse)
   matUcollapse <- xx$matU
   matUcollapse[is.na(collapse), is.na(collapse)] <- NA
   
