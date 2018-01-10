@@ -21,17 +21,17 @@
 #' @examples
 #'
 #' matU <- matrix (c(0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0.7, 0.1), nrow = 4, byrow = TRUE)
-#' kentropy(matU, nSteps=100)
-#' kentropy(matU,trapeze=FALSE)
+#' kEntropy(matU, nSteps=100)
+#' kEntropy(matU,trapeze=FALSE)
 #' 
 #' matU <- matrix (c(0.2, 0, 0, 0, 0.3, 0.4, 0.1, 0, 0.1, 0.1, 0.2, 0.3, 0, 0.2, 0.6, 0.5), nrow = 4, byrow = TRUE)
-#' kentropy(matU, nSteps = 10)
-#' kentropy(matU, nSteps = 20)
-#' kentropy(matU, nSteps = 100)
-#' kentropy(matU, nSteps = 100, trapeze=TRUE)
+#' kEntropy(matU, nSteps = 10)
+#' kEntropy(matU, nSteps = 20)
+#' kEntropy(matU, nSteps = 100)
+#' kEntropy(matU, nSteps = 100, trapeze=TRUE)
 #' 
-#' @export kentropy
-kentropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
+#' @export kEntropy
+kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
   
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
   if (any(is.na(matU))) stop("NAs exist in matU")
