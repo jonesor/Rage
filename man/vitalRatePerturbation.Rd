@@ -2,9 +2,10 @@
 % Please edit documentation in R/vitalRatePerturbation.R
 \name{vitalRatePerturbation}
 \alias{vitalRatePerturbation}
-\title{A function to perform perturbation of vital rates of the matrix model}
+\title{A function to perform perturbation of vital rates of the matrix model for any demographic statistic.}
 \usage{
-vitalRatePerturbation(matU, matF, matC = NULL, pert = 0.001)
+vitalRatePerturbation(matU, matF, matC = NULL, demogstat = "lambda",
+  pert = 0.001)
 }
 \arguments{
 \item{matU}{The U matrix (processes related to survival, growth and retrogression).}
@@ -13,13 +14,15 @@ vitalRatePerturbation(matU, matF, matC = NULL, pert = 0.001)
 
 \item{matC}{The C matrix (clonal reproduction processes).}
 
-\item{pert}{Perturbation parameter.}
+\item{demogstat}{The demographic statistic to be used, as in "the sensitvity/elasticity of ___ to vital rate perturbations." Defaults to the per-capita population growth rate at equilibrium (λ). Also accepts a user-supplied function that performs a calculation on a projection matrix and returns a single numeric value.}
+
+\item{pert}{Magnitude of the perturbation (defaults to 0.001).}
 }
 \value{
 A data frame containing...
 }
 \description{
-A function to perform perturbation of vital rates of the matrix model
+A function to perform perturbation of vital rates of the matrix model and measure the response of the per-capita population growth rate at equilibrium (λ) or (with a user-supplied function) any other demographic statistic.
 }
 \details{
 %% ~~ If necessary, more details than the description above ~~
@@ -29,11 +32,29 @@ A function to perform perturbation of vital rates of the matrix model
 }
 \examples{
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+## Not run:
+data(Compadre)
+pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
 
-## The function is currently defined as
+vitalRatePerturbation(pira)  # Not implemented yet!
+
+vitalRatePerturbation(matU = pira@matU, matF = pira@matF)
+vitalRatePerturbation(matU = pira@matU, matF = pira@matF, pert = 1e-03)
+# use a smaller perturbation
+vitalRatePerturbation(matU = pira@matU, matF = pira@matF, pert = 1e-10)
+
+# calculate the sensitivity/elasticity of the damping ratio to vital rate perturbations
+damping <- function(matU, matF, matC){  # define function for damping ratio
+A <- matU+matF+matC
+eig <- eigen(A)$values
+dm <- rle(Mod(eig))$values
+return(dm[1] / dm[2])
+}
+vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = damping)
+vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
+
+## End(Not run)
+
 
 
 }
