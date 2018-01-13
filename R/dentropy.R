@@ -39,7 +39,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
   if (any(is.na(matF)) & any(is.na(matC))) stop("NAs exist in both matF and matC")
   if (sum(matC)==0) {matC=matrix(0,dim(matU),dim(matU))}
-  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
+  if (length(which(colSums(matU)>1))>0) print("Warning: matU column sum > 1")
   
   matA = matU + matF + matC
   matDim = dim(matA)[1]
