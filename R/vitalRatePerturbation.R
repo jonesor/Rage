@@ -22,10 +22,19 @@
 #' 
 #' ## The function is currently defined as
 #' 
-#' 
+#' @importFrom popbio eigen.analysis
 #' @export vitalRatePerturbation
 vitalRatePerturbation <- function(matU, matF, matC=NULL,pert=0.001){
   #Function to calculate vital rate level sensitivities and elasticities
+  
+  # If matC is actually NULL, then then the matA calculation returns
+  # integer(0), and the whole thing fails. Thus, coerce to matrix
+  # of 0s of same dimension as matU. Kind of a hacky fix, but it 
+  # seems to work. 
+  if(is.null(matC)) {
+    matC <- matrix(0, dim(matU)[1], dim(matU)[1])
+  }
+  
   
   matA=matU+matF+matC
   aDim=dim(matA)[1]
@@ -54,7 +63,7 @@ vitalRatePerturbation <- function(matU, matF, matC=NULL,pert=0.001){
   #}
   #sensA=Re(sensA)
 
-	sensA=eigen.analysis(matA,zero=F)$sensitivities
+	sensA= popbio::eigen.analysis(matA,zero=F)$sensitivities
 
     #Survival-independent A matrix
     uIndep=matrix(NA,aDim,aDim)

@@ -35,7 +35,6 @@ A function to perform perturbation of vital rates of the matrix model
 
 ## The function is currently defined as
 
-
 }
 \references{
 %% ~put references to the literature/web site here ~
