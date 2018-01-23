@@ -56,7 +56,6 @@ vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
 ## End(Not run)
 
 
-
 }
 \references{
 %% ~put references to the literature/web site here ~

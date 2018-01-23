@@ -41,12 +41,16 @@
 #' ## End(Not run)
 #' 
 #' 
-#' 
+#' @importFrom popbio eigen.analysis
 #' @export vitalRatePerturbation
 vitalRatePerturbation <- function(matU, matF, matC = NULL, demogstat = "lambda",
                                   pert = 1e-03){
   #Function to calculate vital rate level sensitivities and elasticities
   
+  # If matC is actually NULL, then then the matA calculation returns
+  # integer(0), and the whole thing fails. Thus, coerce to matrix
+  # of 0s of same dimension as matU. Kind of a hacky fix, but it 
+  # seems to work.
   if(is.null(matC)){
     matC <- matrix(0, nrow(matU), dim(matA)[1])
   }
