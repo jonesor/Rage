@@ -27,13 +27,13 @@
 #' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' 
-#' dentropy(matU, matF, matC, nSteps=5)
-#' dentropy(matU, matF, matC, nSteps=10)
-#' dentropy(matU, matF, matC, nSteps=100)
+#' dEntropy(matU, matF, matC, nSteps=5)
+#' dEntropy(matU, matF, matC, nSteps=10)
+#' dEntropy(matU, matF, matC, nSteps=100)
 #' 
 #' #' @import MASS
-#' @export dentropy
-dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
+#' @export dEntropy
+dEntropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   
   #Error checks
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
@@ -44,7 +44,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
   matA = matU + matF + matC
   matDim = dim(matA)[1]
   
-  dentropy=NULL
+  dEntropy=NULL
   
   #population growth rate in log scale (rmax)
   r = log(max(Re(eigen(matA)$value)))  
@@ -110,7 +110,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
     loglxmx <- log(lxmx)
     loglxmx[which(lxmx==0)] <- NA
     
-    dentropy$Fec <- abs(sum(lxmx*loglxmx)/sum(lxmx))
+    dEntropy$Fec <- abs(sum(lxmx*loglxmx)/sum(lxmx))
   }
   
   if (sum(cx)>0){
@@ -120,7 +120,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
     loglxcx <- log(lxcx)
     loglxcx[which(lxcx==0)] <- NA
     
-    dentropy$Clo <- abs(sum(lxcx*loglxcx)/sum(lxcx))
+    dEntropy$Clo <- abs(sum(lxcx*loglxcx)/sum(lxcx))
   }
   
   if (sum(mx)>0 & sum(cx)>0){
@@ -131,7 +131,7 @@ dentropy <- function(matU, matF, matC=FALSE, startLife=1, nSteps=1000){
     loglxmxcx <- log(lxmxcx)
     loglxmxcx[which(lxmxcx==0)] <- NA
     
-    dentropy$FecClo <- abs(sum(lxmxcx*loglxmxcx)/sum(lxmxcx))
+    dEntropy$FecClo <- abs(sum(lxmxcx*loglxmxcx)/sum(lxmxcx))
   }
-  return(dentropy)
+  return(dEntropy)
 }

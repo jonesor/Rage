@@ -2,9 +2,10 @@
 % Please edit documentation in R/matrixElementPerturbation.R
 \name{matrixElementPerturbation}
 \alias{matrixElementPerturbation}
-\title{A function to perform element perturbation of a matrix population model.}
+\title{A function to perform element perturbation of a matrix population model for any demographic statistic.}
 \usage{
-matrixElementPerturbation(matU, matF, matC = NULL, pert = 0.001)
+matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
+  pert = 0.001, ...)
 }
 \arguments{
 \item{matU}{The U matrix (processes related to survival, growth and retrogression).}
@@ -14,12 +15,14 @@ matrixElementPerturbation(matU, matF, matC = NULL, pert = 0.001)
 \item{matC}{The C matrix (clonal reproduction processes).}
 
 \item{pert}{Perturbation parameter.}
+
+\item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
 \value{
 %% ~Describe the value returned
 }
 \description{
-A function to perform element perturbation of a matrix population model.
+A function to perform element perturbation of a matrix population model and measure the response of the per-capita population growth rate at equilibrium (λ) or (with a user-supplied function) any other demographic statistic.
 }
 \note{
 %% ~~further notes~~
