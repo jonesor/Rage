@@ -72,11 +72,6 @@
 #' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = 'SSD')
 #' 
 #' #Vital rate outputs weighted by a chosen population vector of initial conditions:
-#' initialConditions <- c(100, 10, 0, 1)
-#' 
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = initialConditions)
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = initialConditions)
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = initialConditions)
 #' 
 #' @export
 vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
