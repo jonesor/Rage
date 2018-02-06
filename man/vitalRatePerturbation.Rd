@@ -32,7 +32,7 @@ A function to perform perturbation of vital rates of the matrix model and measur
 }
 \examples{
 
-## Not run:
+\dontrun{
 data(Compadre)
 pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
 
@@ -53,7 +53,7 @@ return(dm[1] / dm[2])
 vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = damping)
 vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
 
-## End(Not run)
+}
 
 
 }
