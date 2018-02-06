@@ -17,7 +17,7 @@
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 
-#' ## Not run:
+#' \dontrun{
 #' data(Compadre)
 #' pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
 #' 
@@ -38,7 +38,7 @@
 #' vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = damping)
 #' vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
 #' 
-#' ## End(Not run)
+#' }
 #' 
 #' 
 #' @importFrom popbio eigen.analysis
