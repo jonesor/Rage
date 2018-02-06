@@ -30,7 +30,7 @@
 #' 
 #' 
 #' @export plotLifeCycle
-#' @import DiagrammeR
+#' @importFrom DiagrammeR grViz
 
 plotLifeCycle <- function(A,title="my life cycle",shape="egg",fontsize=10,nodefontsize=12,edgecol="grey"){
 
@@ -74,7 +74,7 @@ allEdges <- paste(temp[,1],"->",temp[,2],"[minlen=",temp[,"minLVal"],",fontsize=
                   paste("\"",round(temp[,3],3)),"\"]\n",collapse="")
 
 #The graphviz argument, pasted together
-grViz(paste(
+DiagrammeR::grViz(paste(
 "digraph {
   {
     graph[overlap=false];
