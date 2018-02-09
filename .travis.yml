@@ -20,7 +20,7 @@ cache: packages
 # just add your email below!
 notifications:
   email:
-    - jones@biology.sdu.dk
+    - jonesor@gmail.com
     - levisc8@gmail.com
 
 # add additional Github packages
