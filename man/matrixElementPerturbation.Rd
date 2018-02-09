@@ -16,7 +16,7 @@ matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
 \item{matC}{The C matrix (clonal reproduction processes).}
 
 \item{demogstat}{A character string that is the name of a function.
-The default is the the per-capita population growth rate at equilibrium ($\lambda$). 
+The default is the the per-capita population growth rate at equilibrium. 
  Also accepts a user-supplied function that performs a calculation on
  a projection matrix and returns a single numeric value.}
 
@@ -29,7 +29,7 @@ The default is the the per-capita population growth rate at equilibrium ($\lambd
 }
 \description{
 A function to perform element perturbation of a matrix population model and
-measure the response of the per-capita population growth rate at equilibrium ($\lambda$)
+measure the response of the per-capita population growth rate at equilibrium
 or (with a user-supplied function) any other demographic statistic.
 }
 \note{
