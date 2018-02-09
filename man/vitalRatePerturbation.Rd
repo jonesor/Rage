@@ -16,7 +16,7 @@ vitalRatePerturbation(matU, matF, matC = NULL, demogstat = "lambda",
 
 \item{demogstat}{The demographic statistic to be used, as
 in "the sensitvity/elasticity of ___ to vital rate perturbations."
-Defaults to the per-capita population growth rate at equilibrium (λ). 
+Defaults to the per-capita population growth rate at equilibrium ($\lambda$). 
 Also accepts a user-supplied function that performs a calculation on
 a projection matrix and returns a single numeric value.}
 
@@ -27,7 +27,7 @@ A data frame containing...
 }
 \description{
 A function to perform perturbation of vital rates of the matrix model and
-measure the response of the per-capita population growth rate at equilibrium (λ)
+measure the response of the per-capita population growth rate at equilibrium ($\lambda$)
 or (with a user-supplied function) any other demographic statistic.
 }
 \details{

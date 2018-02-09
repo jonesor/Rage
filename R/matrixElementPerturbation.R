@@ -2,7 +2,7 @@
 #' any demographic statistic.
 #' 
 #' A function to perform element perturbation of a matrix population model and
-#' measure the response of the per-capita population growth rate at equilibrium (λ)
+#' measure the response of the per-capita population growth rate at equilibrium ($\lambda$)
 #' or (with a user-supplied function) any other demographic statistic.
 #' 
 #' @param matU The U matrix (processes related to survival, growth and retrogression).
@@ -10,7 +10,7 @@
 #' @param matC The C matrix (clonal reproduction processes).
 #' @param pert Perturbation parameter.
 #' @param demogstat A character string that is the name of a function.
-#' The default is the the per-capita population growth rate at equilibrium (λ). 
+#' The default is the the per-capita population growth rate at equilibrium ($\lambda$). 
 #'  Also accepts a user-supplied function that performs a calculation on
 #'  a projection matrix and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demogstat}.
