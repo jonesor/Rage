@@ -55,7 +55,7 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000) {
     return(list(eta = 0, var_eta = 0, Max = 0))
   }
   
-  out = NULL
+  out <- NULL
   
   matDim <- dim(matU)[1]
   
@@ -64,17 +64,17 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000) {
   out$eta <- colSums(N)[startLife]
   out$var_eta <- (colSums(2 * N %*% N - N) - (colSums(N) * colSums(N)))[startLife]
   
-  #Maximum longevity up to 'run' interations.
-  popVector <- c(rep(0,matDim))
+  #Maximum longevity up to 'run' iterations
+  popVector <- c(rep(0, matDim))
   popVector[startLife] <- initPop
-  lifespanLeftover=matrix(0,run,1)
+  lifespanLeftover <- matrix(0, run, 1)
   for (n in 1:run)	{
-    lifespanLeftover[n]=sum(popVector)
-    popVector=matU%*%popVector
+    lifespanLeftover[n] <- sum(popVector)
+    popVector <- matU %*% popVector
   }
   
-  out$Max <- max(which(lifespanLeftover>1))
-  if (out$Max==Inf) {out$Max=run}
+  out$Max <- max(which(lifespanLeftover > 1))
+  if (out$Max == Inf) {out$Max <- run} # don't think this condition will ever be met
   
 	return(out)
 }
