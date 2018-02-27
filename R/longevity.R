@@ -90,7 +90,7 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000,
     }
     
     out$Max <- max(which(lifespanLeftover > 1))
-    if (out$Max == Inf) {out$Max <- run} # don't think this condition will ever be met
+    if (out$Max == Inf) {out$Max <- run} # don't think this condition can ever be met
   }
   
 	return(out)
