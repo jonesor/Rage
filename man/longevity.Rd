@@ -2,7 +2,7 @@
 % Please edit documentation in R/longevity.R
 \name{longevity}
 \alias{longevity}
-\title{A function to calculate measures of longevity.}
+\title{Calculate measures of life expectancy and longevity}
 \usage{
 longevity(matU, startLife = 1, initPop = 100, run = 1000)
 }
@@ -15,21 +15,22 @@ of life.}
 
 \item{initPop}{Initial population size.}
 
-\item{run}{Number of iterations that the maximum longevity will be
-calculated for.}
+\item{run}{Number of iterations that maximum longevity will be calculated
+over.}
 }
 \value{
-This function applies Markov chain approaches to obtain mean life
-expectancy, and a loop to calculate maximum longevity. Outputs are:
+Returns a list including the following named elements (each of which
+  contain a single numeric value):
 
-- 'eta': mean life expectancy conditional on entering the life cycle on life
-stage described by 'startLife'.
+  - \code{eta}: mean life expectancy conditional on entering the life cycle
+  at life stage described by \code{startLife}
 
-- 'var_eta': variance in life expectancy conditional on entering the life
-cycle on life stage described by 'startLife'.
+  - \code{var_eta}: variance in life expectancy conditional on entering the
+  life cycle at life stage described by \code{startLife}
 
-- 'Max': maximum longevity observed by iterating a population vector with
-'initPop' individuals in stage 'startLife' up to 'run' times.
+  - \code{Max}: maximum longevity observed by iterating a population vector
+  with \code{initPop} individuals in stage \code{startLife} up to \code{run}
+  times
 }
 \description{
 A function to calculate life expectancy and maximum longevity of individuals
@@ -43,20 +44,20 @@ in life expectancy, and a loop to calculate maximum longevity.
 %% ~~further notes~~
 }
 \examples{
-
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1),
+               nrow = 4, byrow = TRUE)
 
 longevity(matU, startLife = 1, initPop = 100, run = 1000)
 
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 
-Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation 
-Biology: Theory and Practice of Population Viability Analysis. 
-Sinauer Associates, Sunderland, Massachusetts, USA
+  Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation Biology:
+  Theory and Practice of Population Viability Analysis. Sinauer Associates,
+  Sunderland, Massachusetts, USA
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
