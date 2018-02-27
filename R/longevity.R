@@ -68,7 +68,7 @@ longevity <- function(matU, startLife = 1, initPop = 100, run = 1000) {
   popVector <- c(rep(0,matDim))
   popVector[startLife] <- initPop
   lifespanLeftover=matrix(0,run,1)
-  for (n in 1:1000)	{
+  for (n in 1:run)	{
     lifespanLeftover[n]=sum(popVector)
     popVector=matU%*%popVector
   }
