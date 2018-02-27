@@ -22,7 +22,7 @@ matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
 %% ~Describe the value returned
 }
 \description{
-A function to perform element perturbation of a matrix population model and measure the response of the per-capita population growth rate at equilibrium (λ) or (with a user-supplied function) any other demographic statistic.
+A function to perform element perturbation of a matrix population model and measure the response of the per-capita population growth rate at equilibrium or (with a user-supplied function) any other demographic statistic.
 }
 \note{
 %% ~~further notes~~
