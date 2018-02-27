@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage)
+
 Rage
 ==========
 

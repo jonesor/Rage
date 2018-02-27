@@ -1,0 +1,37 @@
+# Language is R
+language: r
+
+
+# R versions to build with ------ 
+# R-devel has a new method of building vignettes that breaks backward
+# compatability. I will exclude it from the build matrix for now so 
+# workshop participants aren't confused by the build error badge. 
+# See below for more details on the development branch
+# http://r.789695.n4.nabble.com/R-CMD-build-then-check-fails-on-R-devel-due-to-serialization-version-td4747582.html
+
+r:
+  - oldrel
+  - release
+
+# Operating systems to build on ------
+os:
+  - linux
+  - osx
+
+# Linux options ---------
+sudo: false
+dist: trusty
+cache: packages
+
+# Branches
+branches:
+  only:
+  - master
+  - devel
+
+# If anyone else would like to be added to notifications,
+# just add your email below!
+notifications:
+  email:
+    - jones@biology.sdu.dk
+    - levisc8@gmail.com
