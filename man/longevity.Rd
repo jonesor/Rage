@@ -4,33 +4,44 @@
 \alias{longevity}
 \title{Calculate measures of life expectancy and longevity}
 \usage{
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU, startLife = 1, initPop = 100, run = 1000,
+  method = "both")
 }
 \arguments{
 \item{matU}{A matrix containing only survival-dependent processes (growth,
 stasis, shrinkage).}
 
-\item{startLife}{The first stage at which the author consider the beginning
-of life.}
+\item{startLife}{Index of the first stage at which the author considers the
+beginning of life.}
 
 \item{initPop}{Initial population size.}
 
 \item{run}{Number of iterations that maximum longevity will be calculated
 over.}
+
+\item{method}{Should function return life expectancy (\code{"life"}), maximum
+longevity (\code{"longevity"}), or both (\code{"both"})?}
 }
 \value{
 Returns a list including the following named elements (each of which
   contain a single numeric value):
+  
+  If \code{method == "life"}:
 
   - \code{eta}: mean life expectancy conditional on entering the life cycle
   at life stage described by \code{startLife}
 
   - \code{var_eta}: variance in life expectancy conditional on entering the
   life cycle at life stage described by \code{startLife}
+  
+  If \code{method == "longevity"}:
 
   - \code{Max}: maximum longevity observed by iterating a population vector
   with \code{initPop} individuals in stage \code{startLife} up to \code{run}
   times
+  
+  If \code{method == "both"}, returns a list containing all three elements
+  described above.
 }
 \description{
 A function to calculate life expectancy and maximum longevity of individuals
@@ -38,7 +49,7 @@ in a matrix population model
 }
 \details{
 This function applies Markov chain approaches to obtain the mean and variance
-in life expectancy, and a loop to calculate maximum longevity.
+in life expectancy, and/or a loop to calculate maximum longevity.
 }
 \note{
 %% ~~further notes~~
