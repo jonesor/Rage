@@ -1,13 +1,21 @@
-#' A function to perform perturbation of vital rates of the matrix model for any demographic statistic.
-#' 
-#' A function to perform perturbation of vital rates of the matrix model and measure the response of the per-capita population growth rate at equilibrium or (with a user-supplied function) any other demographic statistic.
-#' 
+#' A function to perform perturbation of vital rates of the matrix model for any
+#' demographic statistic.
+#'
+#' A function to perform perturbation of vital rates of the matrix model and
+#' measure the response of the per-capita population growth rate at equilibrium
+#' or (with a user-supplied function) any other demographic statistic.
+#'
 #' %% ~~ If necessary, more details than the description above ~~
-#' 
-#' @param matU The U matrix (processes related to survival, growth and retrogression).
+#'
+#' @param matU The U matrix (processes related to survival, growth and
+#'   retrogression).
 #' @param matF The F matrix (sexual reproduction processes).
 #' @param matC The C matrix (clonal reproduction processes).
-#' @param demogstat The demographic statistic to be used, as in "the sensitvity/elasticity of ___ to vital rate perturbations." Defaults to the per-capita population growth rate at equilibrium. Also accepts a user-supplied function that performs a calculation on a projection matrix and returns a single numeric value.
+#' @param demogstat The demographic statistic to be used, as in "the
+#'   sensitvity/elasticity of ___ to vital rate perturbations." Defaults to the
+#'   per-capita population growth rate at equilibrium. Also accepts a
+#'   user-supplied function that performs a calculation on a projection matrix
+#'   and returns a single numeric value.
 #' @param pert Magnitude of the perturbation (defaults to 0.001).
 #' @return A data frame containing...
 #' @note %% ~~further notes~~
