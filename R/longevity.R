@@ -10,7 +10,7 @@
 #'   stasis, shrinkage).
 #' @param startLife Index of the first stage at which the author considers the
 #'   beginning of life.
-#' @param initPop Initial population size.
+#' @param initPop Initial population size used to calculate maximum longevity.
 #' @param run Number of iterations that maximum longevity will be calculated
 #'   over.
 #' @param method Should function return life expectancy (\code{"life"}), maximum
@@ -46,11 +46,15 @@
 #'   Sunderland, Massachusetts, USA
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#' matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1),
-#'                nrow = 4, byrow = TRUE)
-#' 
-#' longevity(matU, startLife = 1, initPop = 100, run = 1000)
-#' 
+#' matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
+#'               c(0.5, 0.0, 0.0, 0.0),
+#'               c(0.0, 0.3, 0.0, 0.0),
+#'               c(0.0, 0.0, 0.1, 0.1))
+#'
+#' longevity(matU)
+#' longevity(matU, startLife = 2, method = 'life')
+#' longevity(matU, startLife = 2, run = 100, method = 'longevity')
+#'
 #' @export longevity
 longevity <- function(matU, startLife = 1, initPop = 100, run = 1000,
                       method = 'both') {

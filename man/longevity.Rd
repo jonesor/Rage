@@ -14,7 +14,7 @@ stasis, shrinkage).}
 \item{startLife}{Index of the first stage at which the author considers the
 beginning of life.}
 
-\item{initPop}{Initial population size.}
+\item{initPop}{Initial population size used to calculate maximum longevity.}
 
 \item{run}{Number of iterations that maximum longevity will be calculated
 over.}
@@ -55,10 +55,14 @@ in life expectancy, and/or a loop to calculate maximum longevity.
 %% ~~further notes~~
 }
 \examples{
-matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1),
-               nrow = 4, byrow = TRUE)
+matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
+              c(0.5, 0.0, 0.0, 0.0),
+              c(0.0, 0.3, 0.0, 0.0),
+              c(0.0, 0.0, 0.1, 0.1))
 
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU)
+longevity(matU, startLife = 2, method = 'life')
+longevity(matU, startLife = 2, run = 100, method = 'longevity')
 
 }
 \references{
