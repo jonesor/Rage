@@ -55,9 +55,9 @@
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = T)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = T)
+#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
+#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #' 
 #' #Vital rate outputs without weights:
 #' vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
@@ -72,11 +72,6 @@
 #' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = 'SSD')
 #' 
 #' #Vital rate outputs weighted by a chosen population vector of initial conditions:
-#' initialConditions <- c(100, 10, 0, 1)
-#' 
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = initialConditions)
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = initialConditions)
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = initialConditions)
 #' 
 #' @export
 vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
@@ -144,16 +139,16 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
     adu <- which(colSums(matF)>0)  #This classification does not accoutn for non- and post-reproductive
     juv <- which(colSums(matF)==0)
     
-    out$survJuv <- mean(surv1[juv], na.rm=T)
-    out$retrJuv <- mean(retr1[juv], na.rm=T)
-    out$progJuv <- mean(prog1[juv], na.rm=T)
-    out$cloJuv  <- mean(clo1[juv], na.rm=T)
+    out$survJuv <- mean(surv1[juv], na.rm=TRUE)
+    out$retrJuv <- mean(retr1[juv], na.rm=TRUE)
+    out$progJuv <- mean(prog1[juv], na.rm=TRUE)
+    out$cloJuv  <- mean(clo1[juv], na.rm=TRUE)
     
-    out$survAdu <- mean(surv1[adu], na.rm=T)
-    out$retrAdu <- mean(retr1[adu], na.rm=T)
-    out$progAdu <- mean(prog1[adu], na.rm=T)
-    out$fecAdu  <- mean(fec1[adu], na.rm=T)
-    out$cloAdu  <- mean(clo1[adu], na.rm=T)
+    out$survAdu <- mean(surv1[adu], na.rm=TRUE)
+    out$retrAdu <- mean(retr1[adu], na.rm=TRUE)
+    out$progAdu <- mean(prog1[adu], na.rm=TRUE)
+    out$fecAdu  <- mean(fec1[adu], na.rm=TRUE)
+    out$cloAdu  <- mean(clo1[adu], na.rm=TRUE)
     }
   
   if (splitStages[1] %in% c('prop','active','dorm')){
@@ -161,18 +156,18 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
     active <- which(splitStages=="active")
     dorm <- which(splitStages=="dorm")
     
-    out$survProp <- mean(surv1[prop], na.rm=T)
-    out$progProp <- mean(prog1[prop], na.rm=T)
+    out$survProp <- mean(surv1[prop], na.rm=TRUE)
+    out$progProp <- mean(prog1[prop], na.rm=TRUE)
     
-    out$survActive <- mean(surv1[active], na.rm=T)
-    out$retrActive <- mean(retr1[active], na.rm=T)
-    out$progActive <- mean(prog1[active], na.rm=T)
-    out$fecActive  <- mean(fec1[active], na.rm=T)
-    out$cloActive  <- mean(clo1[active], na.rm=T)
+    out$survActive <- mean(surv1[active], na.rm=TRUE)
+    out$retrActive <- mean(retr1[active], na.rm=TRUE)
+    out$progActive <- mean(prog1[active], na.rm=TRUE)
+    out$fecActive  <- mean(fec1[active], na.rm=TRUE)
+    out$cloActive  <- mean(clo1[active], na.rm=TRUE)
     
-    out$survDorm <- mean(surv1[dorm], na.rm=T)
-    out$retrDorm <- mean(retr1[dorm], na.rm=T)
-    out$progDorm <- mean(prog1[dorm], na.rm=T)
+    out$survDorm <- mean(surv1[dorm], na.rm=TRUE)
+    out$retrDorm <- mean(retr1[dorm], na.rm=TRUE)
+    out$progDorm <- mean(prog1[dorm], na.rm=TRUE)
   }
   
 	return(out)

@@ -2,34 +2,46 @@
 % Please edit documentation in R/longevity.R
 \name{longevity}
 \alias{longevity}
-\title{A function to calculate measures of longevity.}
+\title{Calculate measures of life expectancy and longevity}
 \usage{
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU, startLife = 1, initPop = 100, run = 1000,
+  method = "both")
 }
 \arguments{
 \item{matU}{A matrix containing only survival-dependent processes (growth,
 stasis, shrinkage).}
 
-\item{startLife}{The first stage at which the author consider the beginning
-of life.}
+\item{startLife}{Index of the first stage at which the author considers the
+beginning of life.}
 
-\item{initPop}{Initial population size.}
+\item{initPop}{Initial population size used to calculate maximum longevity.}
 
-\item{run}{Number of iterations that the maximum longevity will be
-calculated for.}
+\item{run}{Number of iterations that maximum longevity will be calculated
+over.}
+
+\item{method}{Should function return life expectancy (\code{"life"}), maximum
+longevity (\code{"longevity"}), or both (\code{"both"})?}
 }
 \value{
-This function applies Markov chain approaches to obtain mean life
-expectancy, and a loop to calculate maximum longevity. Outputs are:
+Returns a list including the following named elements (each of which
+  contain a single numeric value):
+  
+  If \code{method == "life"}:
 
-- 'eta': mean life expectancy conditional on entering the life cycle on life
-stage described by 'startLife'.
+  - \code{eta}: mean life expectancy conditional on entering the life cycle
+  at life stage described by \code{startLife}
 
-- 'var_eta': variance in life expectancy conditional on entering the life
-cycle on life stage described by 'startLife'.
+  - \code{var_eta}: variance in life expectancy conditional on entering the
+  life cycle at life stage described by \code{startLife}
+  
+  If \code{method == "longevity"}:
 
-- 'Max': maximum longevity observed by iterating a population vector with
-'initPop' individuals in stage 'startLife' up to 'run' times.
+  - \code{Max}: maximum longevity observed by iterating a population vector
+  with \code{initPop} individuals in stage \code{startLife} up to \code{run}
+  times
+  
+  If \code{method == "both"}, returns a list containing all three elements
+  described above.
 }
 \description{
 A function to calculate life expectancy and maximum longevity of individuals
@@ -37,26 +49,30 @@ in a matrix population model
 }
 \details{
 This function applies Markov chain approaches to obtain the mean and variance
-in life expectancy, and a loop to calculate maximum longevity.
+in life expectancy, and/or a loop to calculate maximum longevity.
 }
 \note{
 %% ~~further notes~~
 }
 \examples{
+matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
+              c(0.5, 0.0, 0.0, 0.0),
+              c(0.0, 0.3, 0.0, 0.0),
+              c(0.0, 0.0, 0.1, 0.1))
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU)
+longevity(matU, startLife = 2, method = 'life')
+longevity(matU, startLife = 2, run = 100, method = 'longevity')
 
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 
-Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation 
-Biology: Theory and Practice of Population Viability Analysis. 
-Sinauer Associates, Sunderland, Massachusetts, USA
+  Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation Biology:
+  Theory and Practice of Population Viability Analysis. Sinauer Associates,
+  Sunderland, Massachusetts, USA
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

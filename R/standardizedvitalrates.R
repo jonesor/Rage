@@ -31,7 +31,10 @@ standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
                            rearr$matrixStages)
   
   # collapse
-  xx <- Rcompadre::collapseMatrix(matU, matF, collapse = collapse)
+  #First make a 0 matrix for matC because collapseMatrix expects a matrix.
+  matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
+  
+  xx <- Rcompadre::collapseMatrix(matU, matF, matC, collapse = collapse)
   matUcollapse <- xx$matU
   matUcollapse[is.na(collapse), is.na(collapse)] <- NA
   

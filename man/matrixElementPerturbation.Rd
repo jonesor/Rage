@@ -2,17 +2,24 @@
 % Please edit documentation in R/matrixElementPerturbation.R
 \name{matrixElementPerturbation}
 \alias{matrixElementPerturbation}
-\title{A function to perform element perturbation of a matrix population model for any demographic statistic.}
+\title{A function to perform element perturbation of a matrix population model for
+any demographic statistic.}
 \usage{
 matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
   pert = 0.001, ...)
 }
 \arguments{
-\item{matU}{The U matrix (processes related to survival, growth and retrogression).}
+\item{matU}{The U matrix (processes related to survival, growth and
+retrogression).}
 
 \item{matF}{The F matrix (sexual reproduction processes).}
 
 \item{matC}{The C matrix (clonal reproduction processes).}
+
+\item{demogstat}{A character string that is the name of a function. The
+default is the per-capita population growth rate at equilibrium. Also
+accepts a user-supplied function that performs a calculation on a
+projection matrix and returns a single numeric value.}
 
 \item{pert}{Perturbation parameter.}
 
@@ -22,7 +29,9 @@ matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
 %% ~Describe the value returned
 }
 \description{
-A function to perform element perturbation of a matrix population model and measure the response of the per-capita population growth rate at equilibrium (λ) or (with a user-supplied function) any other demographic statistic.
+A function to perform element perturbation of a matrix population model and
+measure the response of the per-capita population growth rate at equilibrium
+or (with a user-supplied function) any other demographic statistic.
 }
 \note{
 %% ~~further notes~~
