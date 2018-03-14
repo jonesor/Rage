@@ -44,7 +44,6 @@ dEntropy(matU, matF, matC, nSteps=5)
 dEntropy(matU, matF, matC, nSteps=10)
 dEntropy(matU, matF, matC, nSteps=100)
 
-#' @import MASS
 }
 \references{
 L. Demetrius. 1978. Adaptive value, entropy and survivorship
