@@ -50,7 +50,6 @@
 #' matC <- matrix(c(0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 #'
 #' makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
-#'
 #' @export makeLifeTable
 makeLifeTable <-
   function(matU,
@@ -77,18 +76,9 @@ makeLifeTable <-
       }
     }
     
-    matDim = ncol(matU)
-    
-    #Age-specific survivorship (lx) (See top function on page 120 in Caswell 2001):
-    matUtemp = matU
-    survivorship = array(NA, dim = c(nSteps, matDim))
-    for (o in 1:nSteps) {
-      survivorship[o,] = colSums(matUtemp %*% matU)
-      matUtemp = matUtemp %*% matU
-    }
-    
-    lx = survivorship[, startLife]
-    lx = c(1, lx[1:(length(lx) - 1)])
+    #Age-specific survivorship (lx):
+    lx <- ageSpecificSurv(matU, startLife, nSteps-1)
+    # lx <- head(lx, -1) # remove lx[nSteps+1]
     
     #Proportion of original cohort dying during each age
     dx = c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
@@ -97,20 +87,16 @@ makeLifeTable <-
     qx = dx / lx
     
     #Average proportion of individuals alive at the middle of a given age
-    Lx = (lx[1:(length(lx) - 1)] - lx[2:length(lx)]) / 2
+    Lx = (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
     Lx[nSteps] <- NA
     
     #Total number of individuals alive at a given age and beyond
-    Tx = cumsum(Lx)
+    Tx <- sapply(seq_along(Lx), function(x) sum(Lx[x:length(Lx)], na.rm = T))
     Tx[nSteps] <- NA
     
     #Mean life expectancy conditional to a given age:
     ex = Tx / lx
-    
-    for (j in 1:(nSteps - 1)) {
-      if (is.infinite(ex[j]))
-        ex[j] = NA
-    }
+    ex[is.infinite(ex)] <- NA
     ex[nSteps] <- NA
     
     #Start to assemble output object
@@ -128,23 +114,11 @@ makeLifeTable <-
       if (sum(matF, na.rm = TRUE) == 0) {
         warning("matF contains only 0 values")
       }
-      #Age-specific fertility (mx, Caswell 2001, p. 120)
-      ageFertility = array(0, dim = c(nSteps, matDim))
-      fertMatrix = array(0, dim = c(nSteps, matDim))
-      matUtemp2 = matU
-      e = matrix(rep(1, matDim))
-      for (q in 1:nSteps) {
-        fertMatrix = matF %*% matUtemp2 * (as.numeric((solve(
-          diag(t(e) %*% matUtemp2)
-        ))))
-        ageFertility[q,] = colSums(fertMatrix)
-        matUtemp2 = matUtemp2 %*% matU
-      }
-      mx = ageFertility[, startLife]
-      mx = c(0, mx[1:(length(mx) - 1)])
-      mx[is.nan(mx)] = 0
-      out$mx = mx
-      out$lxmx = lx * mx
+      
+      #Age-specific fertility (mx)
+      out$mx <- ageSpecificRepro(matU, matF, startLife, nSteps-1)
+      # out$mx <- head(out$mx, -1) # remove mx[nSteps+1]
+      out$lxmx <- out$lx * out$mx
       
       #Net reproductive value
       out$R0Fec = sum(out$lxmx)
@@ -157,23 +131,11 @@ makeLifeTable <-
       if (sum(matC, na.rm = TRUE) == 0) {
         warning("matC contains only 0 values")
       }
+      
       #Age-specific clonality (cx)
-      ageClonality = array(0, dim = c(nSteps, matDim))
-      clonMatrix = array(0, dim = c(nSteps, matDim))
-      matUtemp2 = matU
-      e = matrix(rep(1, matDim))
-      for (q in 1:nSteps) {
-        clonMatrix = matC %*% matUtemp2 * (as.numeric((ginv(
-          diag(t(e) %*% matUtemp2)
-        ))))
-        ageClonality[q,] = colSums(clonMatrix)
-        matUtemp2 = matUtemp2 %*% matU
-      }
-      cx = ageClonality[, startLife]
-      cx = c(0, cx[1:(length(cx) - 1)])
-      cx[is.nan(cx)] = 0
-      out$cx = cx
-      out$lxcx = lx * cx
+      out$cx <- ageSpecificRepro(matU, matC, startLife, nSteps-1)
+      # out$cx <- head(out$cx, -1) # remove cx[nSteps+1]
+      out$lxcx <- out$lx * out$cx
       
       #Net reproductive value
       out$R0Clo = sum(out$lxcx)
@@ -183,9 +145,8 @@ makeLifeTable <-
     }
     
     if (!missing(matF) & !missing(matC)) {
-      mxcx = mx + cx
-      out$mxcx = mxcx
-      out$lxmxcx = lx * mxcx
+      out$mxcx = out$mx + out$cx
+      out$lxmxcx = out$lx * out$mxcx
       
       #Net reproductive value
       out$R0FecClo = sum(out$lxmxcx)

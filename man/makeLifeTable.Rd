@@ -54,7 +54,6 @@ matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.), nrow = 4, by
 matC <- matrix(c(0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
 
 makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
-
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and

@@ -37,17 +37,8 @@ kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
   if (any(is.na(matU))) stop("NAs exist in matU")
   if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
   
-  #Age-specific survivorship (lx) (See top function on page 120 in Caswell 2001):
-  matDim = dim(matU)[1]
-  matUtemp = matU
-  survivorship = array(NA, dim = c(nSteps, matDim))
-  for (o in 1:nSteps){
-    survivorship[o, ] = colSums(matUtemp %*% matU)
-    matUtemp = matUtemp %*% matU
-  }
-  
-  lx = survivorship[, startLife]
-  lx = c(1, lx[1:(length(lx) - 1)])
+  #Age-specific survivorship (lx):
+  lx <- ageSpecificSurv(matU, startLife, nSteps)
   
   if(trapeze == TRUE){
     ma <- function(x,n=2){filter(x,rep(1/n,n), sides=2)}
