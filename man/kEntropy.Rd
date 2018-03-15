@@ -2,48 +2,47 @@
 % Please edit documentation in R/kEntropy.R
 \name{kEntropy}
 \alias{kEntropy}
-\title{Calculates Keyfitz' entropy}
+\title{Calculate Keyfitz's entropy}
 \usage{
-kEntropy(matU, startLife = 1, nSteps = 1000, trapeze = FALSE)
+kEntropy(matU, startLife = 1, nSteps = 100, trapeze = FALSE)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
-stasis, retrogression).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{startLife}{The first stage at which the author considers the beginning
-of life in the life cycle of the species. It defaults to the first stage.}
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
 
-\item{nSteps}{A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
-for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
-excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
-specified, this argument defaults to 100.}
+\item{nSteps}{The age-cutoff for the decomposition of age-specific survival
+(lx). This allows the user to exclude ages after which mortality or
+fertility has plateaued (see function \code{qsdConverge} for more
+information). Defaults to 100.}
 
 \item{trapeze}{A logical argument indicating whether the trapezoidal
 approximation should be used for approximating the definite integral.}
 }
 \value{
-Returns an estimate of Keyfitz' life table entropy based on an lx
-(survivorship) vector obtained from matU
+Returns an estimate of Keyfitz's life table entropy.
 }
 \description{
-This function calculates Keyfitz' entropy from an lx
-(survivorship) vector with even intervals derived from a matrix population model.
+This function calculates Keyfitz's entropy from a matrix population model, by
+first using age-from-stage decomposition methods to estimate age-specific
+survivorship (lx).
 }
 \examples{
+matU <- rbind(c(0.2, 0.0, 0.0, 0.0),
+              c(0.3, 0.4, 0.1, 0.0),
+              c(0.1, 0.1, 0.2, 0.3),
+              c(0.0, 0.2, 0.6, 0.5))
 
-matU <- matrix (c(0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0.7, 0.1), nrow = 4, byrow = TRUE)
-kEntropy(matU, nSteps=100)
-kEntropy(matU,trapeze=FALSE)
-
-matU <- matrix (c(0.2, 0, 0, 0, 0.3, 0.4, 0.1, 0, 0.1, 0.1, 0.2, 0.3, 0, 0.2, 0.6, 0.5), nrow = 4, byrow = TRUE)
 kEntropy(matU, nSteps = 10)
 kEntropy(matU, nSteps = 20)
 kEntropy(matU, nSteps = 100)
-kEntropy(matU, nSteps = 100, trapeze=TRUE)
-
+kEntropy(matU, nSteps = 100, trapeze = TRUE)
 }
 \references{
-%% ~~references~~
+Keyfitz, N. (1977) Applied Mathematical Demography. New York:
+  Wiley.
 }
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
