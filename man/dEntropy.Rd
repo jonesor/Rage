@@ -2,55 +2,65 @@
 % Please edit documentation in R/dEntropy.R
 \name{dEntropy}
 \alias{dEntropy}
-\title{Calculates Demetrius' entropy}
+\title{Calculate Demetrius' entropy}
 \usage{
-dEntropy(matU, matF, matC = FALSE, startLife = 1, nSteps = 1000)
+dEntropy(matU, matF, matC, startLife = 1, nSteps = 100)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
-stasis, retrogression).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matF}{A matrix containing only sexual reproduction, with zeros
-elsewhere.}
+\item{matF}{A square matrix containing only sexual reproduction-related
+transitions.}
 
-\item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere. If not provided, it defaults to a matrix with all zeros.}
+\item{matC}{A square matrix containing only clonal reproduction-related
+transitions.}
 
-\item{startLife}{The first stage at which the author considers the beginning
-of life in the life cycle of the species. It defaults to the first stage.}
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
 
-\item{nSteps}{A cutoff for the decomposition of age-specific survival ('lx'), and when pertinent,
-for age-specific sexual reproduction ('mx') and age-specific clonal reproduction ('cx'). This allows
-excluding mortality and fertility plateaus. See function 'qsdConverge' for more information. When not
-specified, this argument defaults to 100.}
+\item{nSteps}{The age-cutoff for the decomposition of age-specific survival
+(lx), sexual reproduction (mx), and/or clonal reproduction (cx).
+This allows the user to exclude ages after which mortality or fertility has
+plateaued (see function \code{qsdConverge} for more information). Defaults
+to 100.}
 }
 \value{
-Returns an estimate of Demetrius' entropy. When both 'matF' and 'matC' are provided,
-it outputs Demetrius' entropy for sexual reproduction only ('Fec'), for clonal reproduction only ('Clo'),
-and for both types of reproduction together ('FecClo').
+A named list containing estimates of Demetrius' entropy with respect
+  to sexual reproduction ('Fec', returned if \code{matF} is provided), clonal
+  reproduction ('Clo', returned if \code{matC} is provided), and the sum of
+  sexual and clonal reproduction ('FecClo', returned if both \code{matF} and
+  \code{matC} are provided).
 }
 \description{
-This function calculates Demetrius' entropy from a matrix population model
-}
-\note{
-%% ~~further notes~~
+This function calculates Demetrius' entropy from a matrix population model,
+by first using age-from-stage decomposition methods to estimate age-specific
+survivorship (lx), fecundity (mx), and/or clonality (cx).
 }
 \examples{
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
+              c(0.5, 0.0, 0.0, 0.0),
+              c(0.0, 0.3, 0.0, 0.0),
+              c(0.0, 0.0, 0.1, 0.1))
 
-dEntropy(matU, matF, matC, nSteps=5)
-dEntropy(matU, matF, matC, nSteps=10)
-dEntropy(matU, matF, matC, nSteps=100)
+matF <- rbind(c(0.0, 0.0, 5.0, 10.0),
+              c(0.0, 0.0, 0.0,  0.0),
+              c(0.0, 0.0, 0.0,  0.0),
+              c(0.0, 0.0, 0.0,  0.0))
 
+matC <- rbind(c(0.0, 0.0, 0.0, 0.0),
+              c(0.0, 0.0, 0.0, 1.0),
+              c(0.0, 2.0, 0.0, 0.0),
+              c(0.0, 0.0, 0.0, 0.0))
+
+dEntropy(matU, matC = matC)
+dEntropy(matU, matF, matC, nSteps = 5)
+dEntropy(matU, matF, matC, nSteps = 10)
+dEntropy(matU, matF, matC, nSteps = 100)
 }
 \references{
-L. Demetrius. 1978. Adaptive value, entropy and survivorship
-curves. Nature 275, 213 - 214. doi:10.1038/275213a0
-}
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+Demetrius, L. (1978) Adaptive value, entropy and survivorship
+  curves. Nature 275, 213-214. doi:10.1038/275213a0
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
