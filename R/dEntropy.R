@@ -13,15 +13,15 @@
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #' @param nSteps The age-cutoff for the decomposition of age-specific survival
-#'   (lx), sexual reproduction (mx), and/or clonal reproduction (cx).
-#'   This allows the user to exclude ages after which mortality or fertility has
-#'   plateaued (see function \code{qsdConverge} for more information). Defaults
-#'   to 100.
+#'   (lx), sexual reproduction (mx), and/or clonal reproduction (cx). This
+#'   allows the user to exclude ages after which mortality or fertility has
+#'   plateaued (see function \code{\link{qsdConverge}} for more information).
+#'   Defaults to 100.
 #' @return A named list containing estimates of Demetrius' entropy with respect
-#'   to sexual reproduction ('Fec', returned if \code{matF} is provided), clonal
-#'   reproduction ('Clo', returned if \code{matC} is provided), and the sum of
-#'   sexual and clonal reproduction ('FecClo', returned if both \code{matF} and
-#'   \code{matC} are provided).
+#'   to sexual reproduction (\code{Fec}, returned if \code{matF} is provided),
+#'   clonal reproduction (\code{Clo}, returned if \code{matC} is provided), and
+#'   the sum of sexual and clonal reproduction (\code{FecClo}, returned if both
+#'   \code{matF} and \code{matC} are provided).
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @references Demetrius, L. (1978) Adaptive value, entropy and survivorship
 #'   curves. Nature 275, 213-214. doi:10.1038/275213a0
@@ -31,17 +31,18 @@
 #'               c(0.0, 0.3, 0.0, 0.0),
 #'               c(0.0, 0.0, 0.1, 0.1))
 #' 
-#' matF <- rbind(c(0.0, 0.0, 5.0, 10.0),
-#'               c(0.0, 0.0, 0.0,  0.0),
-#'               c(0.0, 0.0, 0.0,  0.0),
-#'               c(0.0, 0.0, 0.0,  0.0))
+#' matF <- rbind(c(0.0, 0.0, 5.0, 8.1),
+#'               c(0.0, 0.0, 0.0, 0.0),
+#'               c(0.0, 0.0, 0.0, 0.0),
+#'               c(0.0, 0.0, 0.0, 0.0))
 #' 
-#' matC <- rbind(c(0.0, 0.0, 0.0, 0.0),
-#'               c(0.0, 0.0, 0.0, 1.0),
-#'               c(0.0, 2.0, 0.0, 0.0),
+#' matC <- rbind(c(0.0, 0.0, 0.1, 0.2),
+#'               c(0.0, 0.0, 0.2, 1.3),
+#'               c(0.0, 0.0, 0.0, 0.0),
 #'               c(0.0, 0.0, 0.0, 0.0))
 #' 
 #' dEntropy(matU, matC = matC)
+#' 
 #' dEntropy(matU, matF, matC, nSteps = 5)
 #' dEntropy(matU, matF, matC, nSteps = 10)
 #' dEntropy(matU, matF, matC, nSteps = 100)
@@ -97,7 +98,8 @@ dEntropy <- function(matU, matF, matC, startLife = 1, nSteps = 100) {
 }
 
 
-# Calculate Demetrius' entropy given lx and fx
+# Calculate Demetrius' entropy given lx and fx (where fx is one of mx, cx, or
+#  mxcx)
 dEntropyCalc <- function(lx, fx) {
   lxfx <- lx * fx
 

@@ -10,9 +10,9 @@
 #'   the beginning of life. Defaults to 1.
 #' @param nSteps The age-cutoff for the decomposition of age-specific survival
 #'   (lx). This allows the user to exclude ages after which mortality or
-#'   fertility has plateaued (see function \code{qsdConverge} for more
+#'   fertility has plateaued (see function \code{\link{qsdConverge}} for more
 #'   information). Defaults to 100.
-#' @param trapeze A logical argument indicating whether the trapezoidal
+#' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
 #' @return Returns an estimate of Keyfitz's life table entropy.
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
@@ -49,7 +49,7 @@ kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
   
   # Calculate Keyfitz's entropy
   if (trapeze == TRUE) {
-    H <- -Trapezoid(lx * log(lx)) / Trapezoid(lx)
+    H <- -TrapezoidRule(lx * log(lx)) / TrapezoidRule(lx)
   } else {
     H <- -sum(lx * log(lx)) / sum(lx)
   }
@@ -58,11 +58,11 @@ kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
 }
 
 
-Trapezoid <- function(y) {
-  n <- b <- length(y)
-  a <- 0
-  h <- (b - a) / n
-  
-  out <- (h / 2) * (y[1] + 2 * sum(y[2:(n-1)]) + y[n])
-  return(out)
+# Composite Trapezoid Rule for approximating a definite integral;
+# modified to work with discrete y values that start at x = 0, and have
+# h = delta_x = 1 (i.e. lx)
+TrapezoidRule <- function(y) {
+  n <- length(y)
+  h <- 1   # h = (b - a) / n  = (length(y) - 0) / n
+  return((h / 2) * (y[1] + 2 * sum(y[2:(n-1)]) + y[n]))
 }

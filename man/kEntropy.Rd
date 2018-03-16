@@ -15,10 +15,10 @@ the beginning of life. Defaults to 1.}
 
 \item{nSteps}{The age-cutoff for the decomposition of age-specific survival
 (lx). This allows the user to exclude ages after which mortality or
-fertility has plateaued (see function \code{qsdConverge} for more
+fertility has plateaued (see function \code{\link{qsdConverge}} for more
 information). Defaults to 100.}
 
-\item{trapeze}{A logical argument indicating whether the trapezoidal
+\item{trapeze}{A logical argument indicating whether the composite trapezoid
 approximation should be used for approximating the definite integral.}
 }
 \value{
