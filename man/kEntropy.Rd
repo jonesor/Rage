@@ -4,7 +4,8 @@
 \alias{kEntropy}
 \title{Calculates Keyfitz' entropy}
 \usage{
-kEntropy(matU, startLife = 1, nSteps = 1000, trapeze = FALSE)
+kEntropy(matU, startLife = 1, nSteps = 1000, trapeze = FALSE,
+  trimlx = 0.05)
 }
 \arguments{
 \item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
@@ -20,6 +21,11 @@ specified, this argument defaults to 100.}
 
 \item{trapeze}{A logical argument indicating whether the trapezoidal
 approximation should be used for approximating the definite integral.}
+
+\item{trimlx}{A numerical argument determining how lx should be trimmed. 
+For example, a value of 0.05 means that lx values are retained only if they 
+are greater than or equal to 0.05. NB: 0 values in lx mean that Keyfitz 
+entropy cannot be estimated.}
 }
 \value{
 Returns an estimate of Keyfitz' life table entropy based on an lx
