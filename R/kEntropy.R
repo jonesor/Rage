@@ -13,6 +13,10 @@
 #' specified, this argument defaults to 100.
 #' @param trapeze A logical argument indicating whether the trapezoidal
 #' approximation should be used for approximating the definite integral.
+#' @param trimlx A numerical argument determining how lx should be trimmed. 
+#' For example, a value of 0.05 means that lx values are retained only if they 
+#' are greater than or equal to 0.05. NB: 0 values in lx mean that Keyfitz 
+#' entropy cannot be estimated.
 #' @return Returns an estimate of Keyfitz' life table entropy based on an lx
 #' (survivorship) vector obtained from matU
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
@@ -31,7 +35,7 @@
 #' kEntropy(matU, nSteps = 100, trapeze=TRUE)
 #' 
 #' @export kEntropy
-kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
+kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE, trimlx = 0.05){
   
   if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
   if (any(is.na(matU))) stop("NAs exist in matU")
@@ -48,6 +52,9 @@ kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE){
   
   lx = survivorship[, startLife]
   lx = c(1, lx[1:(length(lx) - 1)])
+  
+  #Trim lx
+  lx <- lx[lx>=trimlx]
   
   if(trapeze == TRUE){
     ma <- function(x,n=2){filter(x,rep(1/n,n), sides=2)}
