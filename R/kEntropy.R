@@ -57,7 +57,7 @@ kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE, trimlx
   lx <- lx[lx>=trimlx]
   
   if(trapeze == TRUE){
-    ma <- function(x,n=2){filter(x,rep(1/n,n), sides=2)}
+    ma <- function(x,n=2){stats::filter(x,rep(1/n,n), sides=2)}
     lx2 <- na.omit(as.vector(ma(lx)))
     return(-sum(lx2*log(lx2))/sum(lx2))
     }else{
