@@ -4,7 +4,8 @@
 \alias{vitalRates}
 \title{A function to derive vital rates from the matrix population model.}
 \usage{
-vitalRates(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE)
+vitalRates(matU, matF, matC = NULL, splitStages = FALSE,
+  weighted = FALSE)
 }
 \arguments{
 \item{matU}{A matrix containing only survival-dependent processes ( growth,
@@ -67,23 +68,27 @@ cycle represented in the matrix population model.
 }
 \examples{
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1),
+               nrow = 4, byrow = TRUE)
+matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+               nrow = 4, byrow = TRUE)
+matC <- matrix(c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0),
+               nrow = 4, byrow = TRUE)
 
 #Vital rate outputs without weights:
 vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
 vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = FALSE)
-vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = FALSE)
-
+vitalRates(matU, matF, matC,
+           splitStages = c('prop', 'active', 'active', 'active'),
+           weighted = FALSE)
 
 
 #Vital rate outputs weighted by the stable stage distribution of 'matA':
 vitalRates(matU, matF, matC, splitStages = 'all', weighted = 'SSD')
 vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = 'SSD')
-vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = 'SSD')
-
-#Vital rate outputs weighted by a chosen population vector of initial conditions:
+vitalRates(matU, matF, matC,
+           splitStages = c('prop', 'active', 'active', 'active'),
+           weighted = 'SSD')
 
 }
 \references{
