@@ -7,7 +7,8 @@
 #'   stasis, shrinkage).
 #' @param startLife Index of the first stage at which the author considers the
 #'   beginning of life. Defaults to 1.
-#' @return Returns life expectancy.
+#' @return Returns life expectancy. If \code{matU} is singular (often indicating
+#'   infinite life expectancy), returns \code{NA}.
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
@@ -38,10 +39,19 @@ lifeExpectancy <- function(matU, startLife = 1) {
     return(0)
   }
   
-  # calculate life expectancy
+  # matrix dimension
   matDim <- nrow(matU)
-  N <- solve(diag(matDim) - matU)
-  life_expect <- colSums(N)[startLife]
+
+  # try calculating fundamental matrix (will fail if matrix singular)
+  N <- try(solve(diag(matDim) - matU), silent = TRUE)
+  
+  # check for errors due to singular matrix
+  # if singular, return NA
+  if (class(N) == 'try-error' && grepl('singular', N[1])) {
+    life_expect <- NA_real_
+  } else {
+    life_expect <- colSums(N)[startLife]
+  }
   
 	return(life_expect)
 }

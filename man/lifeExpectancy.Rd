@@ -14,7 +14,8 @@ stasis, shrinkage).}
 beginning of life. Defaults to 1.}
 }
 \value{
-Returns life expectancy.
+Returns life expectancy. If \code{matU} is singular (often indicating
+  infinite life expectancy), returns \code{NA}.
 }
 \description{
 Applies Markov chain approaches to obtain mean life expectancy from a matrix
