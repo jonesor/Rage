@@ -5,8 +5,8 @@
 \title{A function to perform element perturbation of a matrix population model for
 any demographic statistic.}
 \usage{
-matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
-  pert = 0.001, ...)
+matrixElementPerturbation(matU, matF, matC = NULL,
+  demogstat = "lambda", pert = 0.001, ...)
 }
 \arguments{
 \item{matU}{The U matrix (processes related to survival, growth and

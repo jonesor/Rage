@@ -19,6 +19,7 @@
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>
 #' @references %% ~~references~~
+#' @importFrom methods getFunction
 #' @examples
 #' 
 #' 

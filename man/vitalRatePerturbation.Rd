@@ -6,7 +6,7 @@
 demographic statistic.}
 \usage{
 vitalRatePerturbation(matU, matF, matC = NULL, demogstat = "lambda",
-  pert = 0.001)
+  pert = 0.001, ...)
 }
 \arguments{
 \item{matU}{The U matrix (processes related to survival, growth and
@@ -23,6 +23,8 @@ user-supplied function that performs a calculation on a projection matrix
 and returns a single numeric value.}
 
 \item{pert}{Magnitude of the perturbation (defaults to 0.001).}
+
+\item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
 \value{
 A data frame containing...

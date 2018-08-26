@@ -17,6 +17,7 @@
 #'   user-supplied function that performs a calculation on a projection matrix
 #'   and returns a single numeric value.
 #' @param pert Magnitude of the perturbation (defaults to 0.001).
+#' @param ... Additional arguments passed to the function \code{demogstat}.
 #' @return A data frame containing...
 #' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>
@@ -49,9 +50,10 @@
 #' 
 #' 
 #' @importFrom popbio eigen.analysis
+#' @importFrom methods getFunction
 #' @export vitalRatePerturbation
 vitalRatePerturbation <- function(matU, matF, matC = NULL, demogstat = "lambda",
-                                  pert = 1e-03){
+                                  pert = 1e-03, ...){
   #Function to calculate vital rate level sensitivities and elasticities
   
   # If matC is actually NULL, then then the matA calculation returns
