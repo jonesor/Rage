@@ -20,18 +20,19 @@
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #'
-#'   Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation Biology:
+#'   Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
 #'   Theory and Practice of Population Viability Analysis. Sinauer Associates,
 #'   Sunderland, Massachusetts, USA
 #' @examples
-#' matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-#'               c(0.5, 0.0, 0.0, 0.0),
-#'               c(0.0, 0.3, 0.0, 0.0),
-#'               c(0.0, 0.0, 0.1, 0.1))
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #'
 #' longevity(matU)
 #' longevity(matU, lxCrit = 0.05)
 #' longevity(matU, startLife = 3, lxCrit = 0.05, maxAge = 50)
+#' 
 #' @export longevity
 longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
 
@@ -54,7 +55,7 @@ longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
     longevity <- min(which(lx <= lxCrit)) - 1  # -1 b/c lx starts at age 0
   } else {
     longevity <- NA_real_
-    warning('survivorship did not fall to lxCrit by maxAge: returning NA')
+    warning('survivorship did not reach lxCrit by maxAge: returning NA')
   }
   
 	return(longevity)

@@ -1,4 +1,4 @@
-#' Calculate age-specific survivorship from stage-classified matrix model
+#' Calculate age-specific survivorship from matrix population model
 #'
 #' This function uses age-from-stage decomposition methods to calculate
 #' age-specific survivorship from a stage-classified matrix population model. A
@@ -19,12 +19,13 @@
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' @examples
-#' matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-#'               c(0.6, 0.6, 0.0, 0.0),
-#'               c(0.2, 0.1, 0.3, 0.2),
-#'               c(0.0, 0.4, 0.1, 0.1))
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #'
 #' ageSpecificSurv(matU, startLife = 1, N = 20)
+#' 
 #' @export ageSpecificSurv
 ageSpecificSurv <- function(matU, startLife, N) {
   matUtemp <- matU
@@ -41,7 +42,7 @@ ageSpecificSurv <- function(matU, startLife, N) {
 
 
 
-#' Calculate age-specific reproduction from stage-classified matrix model
+#' Calculate age-specific reproduction from matrix population model
 #'
 #' This function uses age-from-stage decomposition methods to calculate
 #' age-specific rates of reproduction from a stage-classified matrix population
@@ -65,17 +66,18 @@ ageSpecificSurv <- function(matU, startLife, N) {
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' @examples
-#' matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-#'               c(0.6, 0.6, 0.0, 0.0),
-#'               c(0.2, 0.1, 0.3, 0.2),
-#'               c(0.0, 0.2, 0.1, 0.1))
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #'
-#' matF <- rbind(c(0.0, 0.0, 2.1, 3.6),
-#'               c(0.0, 0.0, 0.3, 0.6),
-#'               c(0.0, 0.0, 0.0, 0.0),
-#'               c(0.0, 0.0, 0.0, 0.0))
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
 #'
 #' ageSpecificRepro(matU, matF, startLife = 1, N = 20)
+#' 
 #' @export ageSpecificRepro
 ageSpecificRepro <- function(matU, matR, startLife, N) {
   matUtemp <- matU

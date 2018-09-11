@@ -37,13 +37,13 @@ Output indicates groupings to be used when collapsing the matrix model.
 Dormant stages are not currently handled.
 }
 \examples{
-matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
-0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
+matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
+              c(  0, 0.8,   0, 0.4,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0))
 
-matF <- rbind( c(0, 0.13, 0.96, 0, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
-c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
-
-reproStages <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
+reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 reprodStages(matF, reproStages, matrixStages)
 

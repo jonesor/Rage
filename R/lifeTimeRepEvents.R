@@ -30,17 +30,17 @@
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' @examples
-#' matU <- rbind(c(  0,   0,   0,   0),
-#'               c(0.5,   0,   0,   0),
-#'               c(  0, 0.3,   0,   0),
-#'               c(  0,   0, 0.1, 0.1))
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #' 
-#' matR <- rbind(c(  0,   0, 5.0, 9.0),
-#'               c(  0,   0,   0,   0),
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' lifeTimeRepEvents(matU, matR, startLife = 1)
+#' lifeTimeRepEvents(matU, matF, startLife = 1)
 #' 
 #' @importFrom MASS ginv
 #' @export lifeTimeRepEvents

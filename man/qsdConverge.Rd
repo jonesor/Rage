@@ -53,9 +53,10 @@ user to use only age-based information from before this point. See the online
 supplementary information of Jones et al. (2014) for further details.
 }
 \examples{
-matU <- rbind(c(0.000, 0.000, 0.000),
-              c(0.691, 0.000, 0.000),
-              c(0.000, 0.880, 0.790))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
 qsdConverge(matU, 0.05)
 }

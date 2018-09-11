@@ -19,13 +19,13 @@ Returns life expectancy. If \code{matU} is singular (often indicating
 }
 \description{
 Applies Markov chain approaches to obtain mean life expectancy from a matrix
-population model
+population model.
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.5, 0.0, 0.0, 0.0),
-              c(0.0, 0.3, 0.0, 0.0),
-              c(0.0, 0.0, 0.1, 0.1))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
 lifeExpectancy(matU)
 lifeExpectancy(matU, startLife = 2)
@@ -35,10 +35,6 @@ lifeExpectancy(matU, startLife = 2)
 Caswell, H. (2001) Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
-
-  Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation Biology:
-  Theory and Practice of Population Viability Analysis. Sinauer Associates,
-  Sunderland, Massachusetts, USA
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

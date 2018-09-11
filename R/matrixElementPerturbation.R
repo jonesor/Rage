@@ -30,7 +30,29 @@
 #' \item{EClonality}{elasticity of \code{demogstat} to clonality}
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #' 
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
+#'
+#' matrixElementPerturbation(matU, matF)
+#' 
+#' # use a larger perturbation than the default
+#' matrixElementPerturbation(matU, matF, pert = 0.01)
+#' 
+#' # calculate the sensitivity/elasticity of the damping ratio to perturbations
+#' damping <- function(matA) {  # define function for damping ratio
+#'   eig <- eigen(matA)$values
+#'   dm <- rle(Mod(eig))$values
+#'   return(dm[1] / dm[2])
+#' }
+#' 
+#' matrixElementPerturbation(matU, matF, demogstat = damping)
 #' 
 #' @importFrom methods getFunction
 #' @export matrixElementPerturbation

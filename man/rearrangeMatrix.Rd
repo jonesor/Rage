@@ -38,16 +38,24 @@ step to collapsing the matrix model into a standardized set of stages (e.g.
 propagule, pre-reproductive, reproductive, and post-reproductive).
 }
 \examples{
-matU <- rbind(c(0, 0, 0, 0, 0), c(0.1, 0.16, 0, 0, 0), c(0.2, 0.23, 0.12, 0,
-0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.34, 0))
+matU <- rbind(c(0.1,   0,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0,   0),
+              c(  0, 0.3, 0.3, 0.1,   0),
+              c(  0,   0, 0.4, 0.4, 0.1),
+              c(  0,   0,   0, 0.1, 0.4))
 
-matF <- rbind(c(0, 0, 0, 0, 0), c(0, 0.2, 0, 0.1, 0), c(0, 0.2, 0, 0.1, 0),
-c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0))
+matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
+              c(  0, 0.8,   0, 0.4,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0))
 
 reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+
 rearrangeMatrix(matU, matF, reproStages = reproStages,
                 matrixStages = matrixStages)
+
 }
 \seealso{
 \code{\link{standardizeMatrix}}

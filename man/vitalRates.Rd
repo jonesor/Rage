@@ -2,20 +2,20 @@
 % Please edit documentation in R/vitalRates.R
 \name{vitalRates}
 \alias{vitalRates}
-\title{A function to derive vital rates from the matrix population model.}
+\title{Derive mean vital rates from a matrix population model}
 \usage{
 vitalRates(matU, matF, matC = NULL, splitStages = FALSE,
   weighted = FALSE)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes ( growth,
-stasis, shrinkage).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matF}{A matrix containing only sexual reproduction, with zeros
-elsewhere.}
+\item{matF}{A square matrix containing only sexual reproduction-related
+transitions.}
 
-\item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere.}
+\item{matC}{A square matrix containing only clonal reproduction-related
+transitions.}
 
 \item{splitStages}{Splits vital rates according to some pre-determined
 criteria (below).}
@@ -39,41 +39,29 @@ takes a vector with the pre-established stages of
 'compadre$matrixClass[[i]]$MatrixClassOrganized' or
 'compadre$matrixClass[[i]]$MatrixClassOrganized', where 'i' is the index of
 the chosen study in 'COMPADRE' or 'COMADRE'.
-
-- 'p': probability of achiving maturity, sexual or clonal.
-
-- 'La': mean age at maturity (in the same units as the matrix population
-model).
-
-- 'meanLifeExpectancy': mean life expectancy conditional on entering the
-life cycle in the first reproductive stage
-
-- 'remainingMatureLifeExpectancy': Life expectancy from mean maturity. This
-is mean life expectancy - mean age at maturity ('La' above). This value can
-be negative because both mean life expectancy and mean age at maturity are
-means of their respective distributions.
 }
 \description{
-A function to derive vital rates from the matrix population model for the
-separate demographic processes.
-}
-\details{
-This function decomposes vital rates of survival, progression,
-retrogression, sexual reproduction and clonal reproduction according to
-various ways of weighted means and organization of stages along the life
-cycle represented in the matrix population model.
-}
-\note{
-%% ~~further notes~~
+Derive mean vital rates from a matrix population model corresponding to
+separate demographic processes. Specifically, this function decomposes vital
+rates of survival, progression, retrogression, sexual reproduction and clonal
+reproduction according to various ways of weighted means and organization of
+stages along the life cycle represented in the matrix population model.
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1),
-               nrow = 4, byrow = TRUE)
-matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-               nrow = 4, byrow = TRUE)
-matC <- matrix(c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0),
-               nrow = 4, byrow = TRUE)
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+              
+matC <- rbind(c(  0,   0, 0.4, 0.5),
+              c(  0,   0, 0.3, 0.1),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
 #Vital rate outputs without weights:
 vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
@@ -96,11 +84,6 @@ Caswell, H. (2001) Matrix Population Models: Construction,
 Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 978-0878930968
 }
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

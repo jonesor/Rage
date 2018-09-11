@@ -2,7 +2,7 @@
 % Please edit documentation in R/lifeTableComponents.R
 \name{ageSpecificRepro}
 \alias{ageSpecificRepro}
-\title{Calculate age-specific reproduction from stage-classified matrix model}
+\title{Calculate age-specific reproduction from matrix population model}
 \usage{
 ageSpecificRepro(matU, matR, startLife, N)
 }
@@ -30,17 +30,18 @@ model. A detailed description of these methods can be found in section 5.3.2
 of Caswell (2001).
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.6, 0.6, 0.0, 0.0),
-              c(0.2, 0.1, 0.3, 0.2),
-              c(0.0, 0.2, 0.1, 0.1))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matF <- rbind(c(0.0, 0.0, 2.1, 3.6),
-              c(0.0, 0.0, 0.3, 0.6),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
 ageSpecificRepro(matU, matF, startLife = 1, N = 20)
+
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,

@@ -56,20 +56,20 @@ table from a matrix population model. A detailed description of these methods
 can be found in section 5.3 of Caswell (2001).
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.5, 0.0, 0.0, 0.0),
-              c(0.0, 0.3, 0.0, 0.0),
-              c(0.0, 0.0, 0.1, 0.1))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matF <- rbind(c(0.0, 0.0, 5.0, 8.1),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
-
-matC <- rbind(c(0.0, 0.0, 0.1, 0.2),
-              c(0.0, 0.0, 0.2, 1.3),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+              
+matC <- rbind(c(  0,   0, 0.4, 0.5),
+              c(  0,   0, 0.3, 0.1),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
 makeLifeTable(matU, startLife = 1, nSteps = 100)
 makeLifeTable(matU, matF, startLife = 1, nSteps = 100)

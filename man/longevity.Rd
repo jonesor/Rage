@@ -29,21 +29,22 @@ Calculate longevity (the age a which survivorship falls to some critical
 proportion) from a matrix population model
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.5, 0.0, 0.0, 0.0),
-              c(0.0, 0.3, 0.0, 0.0),
-              c(0.0, 0.0, 0.1, 0.1))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
 longevity(matU)
 longevity(matU, lxCrit = 0.05)
 longevity(matU, startLife = 3, lxCrit = 0.05, maxAge = 50)
+
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 
-  Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation Biology:
+  Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
   Theory and Practice of Population Viability Analysis. Sinauer Associates,
   Sunderland, Massachusetts, USA
 }

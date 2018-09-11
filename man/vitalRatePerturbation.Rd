@@ -47,28 +47,30 @@ measures the response of the per-capita population growth rate at equilibrium
 statistic.
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-\dontrun{
-data(Compadre)
-pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
-vitalRatePerturbation(pira)  # Not implemented yet!
+vitalRatePerturbation(matU, matF)
 
-vitalRatePerturbation(matU = pira@matU, matF = pira@matF)
-vitalRatePerturbation(matU = pira@matU, matF = pira@matF, pert = 1e-03)
-# use a smaller perturbation
-vitalRatePerturbation(matU = pira@matU, matF = pira@matF, pert = 1e-10)
+# use a larger perturbation than the default
+vitalRatePerturbation(matU, matF, pert = 0.01)
 
-# calculate the sensitivity/elasticity of the damping ratio to vital rate perturbations
-damping <- function(matU, matF, matC){  # define function for damping ratio
-A <- matU+matF+matC
-eig <- eigen(A)$values
-dm <- rle(Mod(eig))$values
-return(dm[1] / dm[2])
+# calculate the sensitivity/elasticity of the damping ratio to vital rate
+#  perturbations
+damping <- function(matA) {  # define function for damping ratio
+  eig <- eigen(matA)$values
+  dm <- rle(Mod(eig))$values
+  return(dm[1] / dm[2])
 }
-vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = damping)
-vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
-}
+
+vitalRatePerturbation(matU, matF, demogstat = damping)
 
 }
 \author{

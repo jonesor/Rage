@@ -51,23 +51,26 @@ The method used by this function to collapse a matrix population model
   expectancy, etc.
 }
 \examples{
-matU <- rbind(c(  0,   0,    0,    0),
-              c(0.5,   0,    0,    0),
-              c(  0, 0.3,    0,    0),
-              c(  0,   0,  0.2,  0.1))
+matU <- rbind(c(0.1,   0,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0,   0),
+              c(  0, 0.3, 0.3, 0.1,   0),
+              c(  0,   0, 0.4, 0.4, 0.1),
+              c(  0,   0,   0, 0.1, 0.4))
 
-matF <- rbind(c(  0,   0,  1.1,  1.6),
-              c(  0,   0,  0.8,  0.4),
-              c(  0,   0,    0,    0),
-              c(  0,   0,    0,    0))
+matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
+              c(  0, 0.8,   0, 0.4,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0))
 
-matC <- rbind(c(  0,   0,  0.4,  0.5),
-              c(  0,   0,  0.3,  0.1),
-              c(  0,   0,    0,    0),
-              c(  0,   0,    0,    0))
+matC <- rbind(c(  0, 0.6,   0, 0.5,   0),
+              c(  0, 0.1,   0, 0.3,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0),
+              c(  0,   0,   0,   0,   0))
 
-reproStages <- c(FALSE, FALSE, TRUE, TRUE)
-matrixStages <- c('prop', 'active', 'active', 'active')
+reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 
 standardizeMatrix(matU, matF, matC, reproStages, matrixStages)
 

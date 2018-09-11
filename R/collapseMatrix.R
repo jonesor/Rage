@@ -38,20 +38,20 @@
 #'   expectancy, etc.
 #' @seealso \code{\link{standardizeMatrix}}
 #' @examples
-#' matU <- rbind(c(  0,   0,    0,    0),
-#'               c(0.5,   0,    0,    0),
-#'               c(  0, 0.3,    0,    0),
-#'               c(  0,   0,  0.2,  0.1))
+#' matU <- rbind(c(  0,   0,   0,   0),
+#'               c(0.5,   0,   0,   0),
+#'               c(  0, 0.3,   0,   0),
+#'               c(  0,   0, 0.2, 0.1))
 #' 
-#' matF <- rbind(c(  0,   0,  1.1,  1.6),
-#'               c(  0,   0,  0.8,  0.4),
-#'               c(  0,   0,    0,    0),
-#'               c(  0,   0,    0,    0))
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
 #'               
-#' matC <- rbind(c(  0,   0,  0.4,  0.5),
-#'               c(  0,   0,  0.3,  0.1),
-#'               c(  0,   0,    0,    0),
-#'               c(  0,   0,    0,    0))
+#' matC <- rbind(c(  0,   0, 0.4, 0.5),
+#'               c(  0,   0, 0.3, 0.1),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
 #' 
 #' # collapse reproductive stages
 #' collapse1 <- list(1, 2, 3:4)
@@ -60,6 +60,7 @@
 #' # collapse pre-reproductive stages, and reproductive stages
 #' collapse2 <- list(1:2, 3:4)
 #' collapseMatrix(matU, matF, matC, collapse2)
+#' 
 #' @export collapseMatrix
 collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
