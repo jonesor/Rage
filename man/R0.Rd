@@ -2,26 +2,25 @@
 % Please edit documentation in R/R0.R
 \name{R0}
 \alias{R0}
-\title{Calculate net reproductive value}
+\title{Calculate net reproductive value from a matrix population model}
 \usage{
-R0(matU, matR, startLife = 1)
+R0(matU, matR)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-related transitions (i.e.
-progression, stasis, retrogression).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matR}{A matrix containing only reproduction-related transitions (either
-sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or \code{mat +
-matC}).}
-
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
+\item{matR}{A square matrix containing only reproduction-related transitions
+(either sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or
+\code{mat + matC}).}
 }
 \value{
-Returns the net reproductive value.
+Returns the net reproductive value.  If \code{matU} is singular
+  (often indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculate net reproductive value from a matrix population model.
+Calculate net reproductive value (i.e. the per-generation population growth
+rate) from a matrix population model
 }
 \examples{
 matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
@@ -35,7 +34,7 @@ matF <- rbind(c(0, 0, 5, 9),
               c(0, 0, 0, 0))
 
 R0(matU, matF)
-R0(matU, matF, startLife = 2)
+
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
