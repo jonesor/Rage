@@ -2,25 +2,31 @@
 % Please edit documentation in R/splitMatrix.R
 \name{splitMatrix}
 \alias{splitMatrix}
-\title{Splits a matrix population model into the constituent U, F and C matrices.}
+\title{Splits a matrix population model into the constituent U, F and C matrices}
 \usage{
 splitMatrix(matA)
 }
 \arguments{
-\item{matA}{A matrix population model.}
+\item{matA}{A matrix population model}
 }
 \value{
-A list of three matrices: `matU`,`matF` and `matC`.
+A list of three matrices: \code{matU},\code{matF} and \code{matC}
 }
 \description{
-This function splits a matrix population model into three constituent matrices, U (growth and survival processes), F (sexual reproduction) and C (clonal reproduction).
-Warning! The functionality is very basic - it assumes that sexual reproduction is located in the top row of the matrix, and that everything else is growth or survival (the U matrix). Clonality is assumed to be non-existant.
+This function splits a matrix population model into three constituent
+matrices, U (growth and survival processes), F (sexual reproduction) and C
+(clonal reproduction). Warning! The functionality is very basic — it assumes
+that sexual reproduction is located in the top row of the matrix, and that
+everything else is growth or survival (the U matrix). Clonality is assumed to
+be non-existant.
 }
 \examples{
-\dontrun{library(popdemo)
-data(Tort)
-splitMatrix(Tort)
-}
+matA <- rbind(c(0.0, 0.0, 0.2, 1.3),
+              c(0.5, 0.0, 0.0, 0.0),
+              c(0.0, 0.3, 0.0, 0.0),
+              c(0.0, 0.0, 0.1, 0.1))
+
+splitMatrix(matA)
 }
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
