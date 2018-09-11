@@ -2,40 +2,33 @@
 % Please edit documentation in R/dEntropy.R
 \name{dEntropy}
 \alias{dEntropy}
-\title{Calculate Demetrius' entropy}
+\title{Calculate Demetrius' entropy from a matrix population model}
 \usage{
-dEntropy(matU, matF, matC, startLife = 1, nSteps = 100)
+dEntropy(matU, matR, startLife = 1, nSteps = 100)
 }
 \arguments{
 \item{matU}{A square matrix containing only survival-related transitions
 (i.e. progression, stasis, retrogression).}
 
-\item{matF}{A square matrix containing only sexual reproduction-related
-transitions.}
-
-\item{matC}{A square matrix containing only clonal reproduction-related
-transitions.}
+\item{matR}{A square matrix containing only reproduction-related transitions
+(either sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or
+\code{matF + matC}).}
 
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
 
-\item{nSteps}{The age-cutoff for the decomposition of age-specific survival
-(lx), sexual reproduction (mx), and/or clonal reproduction (cx). This
-allows the user to exclude ages after which mortality or fertility has
-plateaued (see function \code{\link{qsdConverge}} for more information).
-Defaults to 100.}
+\item{nSteps}{The maximum age to which age-specific survival (lx) and
+reproduction (mx) will be calculated. This allows the user to exclude ages
+after which mortality or fertility has plateaued (see function
+\code{\link{qsdConverge}} for more information). Defaults to 100.}
 }
 \value{
-A named list containing estimates of Demetrius' entropy with respect
-  to sexual reproduction (\code{Fec}, returned if \code{matF} is provided),
-  clonal reproduction (\code{Clo}, returned if \code{matC} is provided), and
-  the sum of sexual and clonal reproduction (\code{FecClo}, returned if both
-  \code{matF} and \code{matC} are provided).
+Demetrius' entropy.
 }
 \description{
-This function calculates Demetrius' entropy from a matrix population model,
-by first using age-from-stage decomposition methods to estimate age-specific
-survivorship (lx), fecundity (mx), and/or clonality (cx).
+Calculates Demetrius' entropy from a matrix population model, by first using
+age-from-stage decomposition methods to estimate age-specific survivorship
+(lx) and fecundity (mx).
 }
 \examples{
 matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
@@ -48,16 +41,9 @@ matF <- rbind(c(0.0, 0.0, 5.0, 8.1),
               c(0.0, 0.0, 0.0, 0.0),
               c(0.0, 0.0, 0.0, 0.0))
 
-matC <- rbind(c(0.0, 0.0, 0.1, 0.2),
-              c(0.0, 0.0, 0.2, 1.3),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
+dEntropy(matU, matF, nSteps = 10)
+dEntropy(matU, matF, nSteps = 100)
 
-dEntropy(matU, matC = matC)
-
-dEntropy(matU, matF, matC, nSteps = 5)
-dEntropy(matU, matF, matC, nSteps = 10)
-dEntropy(matU, matF, matC, nSteps = 100)
 }
 \references{
 Demetrius, L. (1978) Adaptive value, entropy and survivorship
@@ -65,4 +51,6 @@ Demetrius, L. (1978) Adaptive value, entropy and survivorship
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+
+Patrick Barks <patrick.barks@gmail.com>
 }
