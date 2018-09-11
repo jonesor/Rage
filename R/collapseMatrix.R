@@ -61,6 +61,7 @@
 #' collapse2 <- list(1:2, 3:4)
 #' collapseMatrix(matU, matF, matC, collapse2)
 #' 
+#' @importFrom popbio stable.stage
 #' @export collapseMatrix
 collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
@@ -91,8 +92,7 @@ collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   }
   
   Q <- t(P)
-  w <- Re(eigen(matA)$vectors[ ,which.max(Re(eigen(matA)$values))])
-  w <- w / sum(w)
+  w <- popbio::stable.stage(matA)
   
   columns <- which(colSums(Q) > 1)
   

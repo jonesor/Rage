@@ -56,6 +56,7 @@
 #' 
 #' vitalRatePerturbation(matU, matF, demogstat = damping)
 #' 
+#' @importFrom popbio lambda
 #' @importFrom methods getFunction
 #' @export vitalRatePerturbation
 vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
@@ -65,7 +66,7 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   if (is.function(demogstat)) {
     statfun <- demogstat
   } else if (demogstat == "lambda") {
-    statfun <- function(matA) Re(eigen(matA)$values[1])
+    statfun <- popbio::lambda
   } else if (is.character(demogstat)) {
     statfun <- getFunction(demogstat)
   } else {

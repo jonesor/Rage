@@ -66,6 +66,7 @@
 #'            splitStages = c('prop', 'active', 'active', 'active'),
 #'            weighted = 'SSD')
 #' 
+#' @importFrom popbio stable.stage
 #' @export vitalRates
 vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
   #Function to quantify vital rates values
@@ -107,7 +108,7 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
   }
   
   if (weighted[1] == 'SSD') {
-    weight <- Re(eigen(matA)$vectors[,which.max(Re(eigen(matA)$values))])
+    weight <- popbio::stable.stage(matA)
   }
   
   weight <- weight/sum(weight)
