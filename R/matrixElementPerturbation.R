@@ -1,47 +1,66 @@
-#' A function to perform element perturbation of a matrix population model for
-#' any demographic statistic.
+#' Perturbation analysis of matrix elements in a matrix population model
 #'
-#' A function to perform element perturbation of a matrix population model and
-#' measure the response of the per-capita population growth rate at equilibrium
-#' or (with a user-supplied function) any other demographic statistic.
+#' Perturbs elements within a matrix population model and measures the response
+#' of the per-capita population growth rate at equilibrium (\eqn{lambda}), or,
+#' with a user-supplied function, any other demographic statistic.
 #'
-#' @param matU The U matrix (processes related to survival, growth and
-#'   retrogression).
-#' @param matF The F matrix (sexual reproduction processes).
-#' @param matC The C matrix (clonal reproduction processes).
-#' @param pert Perturbation parameter.
-#' @param demogstat A character string that is the name of a function. The
-#'   default is the per-capita population growth rate at equilibrium. Also
+#' @param matU A square matrix containing only survival-related transitions
+#'   (i.e. progression, stasis, retrogression).
+#' @param matF A square matrix containing only sexual reproduction-related
+#'   transitions.
+#' @param matC A square matrix containing only clonal reproduction-related
+#'   transitions.
+#' @param pert Magnitude of the perturbation (defaults to \code{1e-6}).
+#' @param demogstat The demographic statistic to be used, as in "the
+#'   sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
+#'   the per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
 #'   accepts a user-supplied function that performs a calculation on a
 #'   projection matrix and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demogstat}.
-#' @return %% ~Describe the value returned
-#' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>
-#' @references %% ~~references~~
-#' @importFrom methods getFunction
+#' @return A data frame with 1 row and 10 columns:
+#' \item{SStasis}{sensitivity of \code{demogstat} to stasis}
+#' \item{SRetrogression}{sensitivity of \code{demogstat} to retrogression}
+#' \item{SProgression}{sensitivity of \code{demogstat} to progression}
+#' \item{SFecundity}{sensitivity of \code{demogstat} to sexual fecundity}
+#' \item{SClonality}{sensitivity of \code{demogstat} to clonality}
+#' \item{EStasis}{elasticity of \code{demogstat} to stasis}
+#' \item{ERetrogression}{elasticity of \code{demogstat} to retrogression}
+#' \item{EProgression}{elasticity of \code{demogstat} to progression}
+#' \item{EFecundity}{elasticity of \code{demogstat} to sexual fecundity}
+#' \item{EClonality}{elasticity of \code{demogstat} to clonality}
+#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
 #' 
 #' 
+#' @importFrom methods getFunction
 #' @export matrixElementPerturbation
-matrixElementPerturbation <- function(matU, matF, matC=NULL, demogstat = "lambda",
-                                      pert = 0.001, ...){
-  if(is.null(matC)){
-    matC <- matrix(0, nrow(matU), ncol(matU))
-  }
-  matA <- matU + matF + matC
-  aDim <- nrow(matA)
-  fakeA <- matA
-  sensA <- elasA <- matrix(NA,aDim,aDim)
+matrixElementPerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
+                                      demogstat = "lambda", ...) {
+  
+  # get statfun
   if (is.function(demogstat)) {
     statfun <- demogstat
-  } else if (is.character(demogstat)) {
-    statfun <- getFunction(demogstat)
   } else if (demogstat == "lambda") {
     statfun <- function(matA) Re(eigen(matA)$values[1])
+  } else if (is.character(demogstat)) {
+    statfun <- getFunction(demogstat)
   } else {
-    stop("demogstat must be 'lambda' or the name of a function that returns a *single* numeric value.")
+    stop("demogstat must be 'lambda' or the name of a function that returns a
+         single numeric value")
   }
+  
+  # matrix dimension
+  matDim <- nrow(matU)
+  
+  # if matC null, convert to zeros
+  if (is.null(matC)) {
+    matC <- matrix(0, matDim, matDim)
+  }
+  
+  # combine components into matA 
+  matA <- matU + matF + matC
+  
+  # statfun
   stat <- statfun(matA, ...)
   
   propU <- matU / matA
@@ -49,14 +68,18 @@ matrixElementPerturbation <- function(matU, matF, matC=NULL, demogstat = "lambda
   propProg <- propRetrog <- propU
   propProg[upper.tri(propU, diag = TRUE)] <- NA
   propRetrog[lower.tri(propU, diag = TRUE)] <- NA
-  propStasis <- matrix(diag(aDim) * diag(propU), aDim, aDim)
+  propStasis <- diag(matDim) * diag(propU)
   propF <- matF / matA
   propF[is.nan(propF)] <- NA
   propC <- matC / matA
   propC[is.nan(propC)] <- NA
   
-  for (i in 1:aDim){
-    for (j in 1:aDim){
+  # initialize sensitivity matrix
+  sensA <- matrix(NA, matDim, matDim)
+  
+  # matrix perturbation
+  for (i in 1:matDim) {
+    for (j in 1:matDim) {
       fakeA <- matA
       fakeA[i, j] <- fakeA[i, j] + pert
       statPert <- statfun(fakeA, ...)
@@ -67,21 +90,18 @@ matrixElementPerturbation <- function(matU, matF, matC=NULL, demogstat = "lambda
   sensA <- Re(sensA)
   elasA <- sensA * matA / stat
   
-  out <- data.frame(SStasis = NA, SProgression = NA, SRetrogression = NA,
-                    SFecundity = NA, SClonality = NA, EStasis = NA,
-                    EProgression = NA, ERetrogression = NA,
-                    EFecundity = NA, EClonality = NA)
-  
-  out$SStasis <- sum(sensA * propStasis, na.rm = TRUE)
-  out$SRetrogression <- sum(sensA * propRetrog, na.rm = TRUE)
-  out$SProgression <- sum(sensA * propProg, na.rm = TRUE)
-  out$SFecundity <- sum(sensA * propF, na.rm = TRUE)
-  out$SClonality <- sum(sensA * propC, na.rm =  TRUE)
-  out$EStasis <- sum(elasA * propStasis, na.rm = TRUE)
-  out$EProgression <- sum(elasA * propProg, na.rm = TRUE)
-  out$ERetrogression <- sum(elasA * propRetrog, na.rm = TRUE)
-  out$EFecundity <- sum(elasA * propF, na.rm = TRUE)
-  out$EClonality <- sum(elasA * propC, na.rm = TRUE)
+  out <- data.frame(
+    SStasis = sum(sensA * propStasis, na.rm = TRUE),
+    SRetrogression = sum(sensA * propRetrog, na.rm = TRUE),
+    SProgression = sum(sensA * propProg, na.rm = TRUE),
+    SFecundity = sum(sensA * propF, na.rm = TRUE),
+    SClonality = sum(sensA * propC, na.rm =  TRUE),
+    EStasis = sum(elasA * propStasis, na.rm = TRUE),
+    EProgression = sum(elasA * propProg, na.rm = TRUE),
+    ERetrogression = sum(elasA * propRetrog, na.rm = TRUE),
+    EFecundity = sum(elasA * propF, na.rm = TRUE),
+    EClonality = sum(elasA * propC, na.rm = TRUE)
+  )
   
   return(out) 
 }

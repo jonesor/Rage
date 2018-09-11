@@ -2,47 +2,53 @@
 % Please edit documentation in R/matrixElementPerturbation.R
 \name{matrixElementPerturbation}
 \alias{matrixElementPerturbation}
-\title{A function to perform element perturbation of a matrix population model for
-any demographic statistic.}
+\title{Perturbation analysis of matrix elements in a matrix population model}
 \usage{
-matrixElementPerturbation(matU, matF, matC = NULL,
-  demogstat = "lambda", pert = 0.001, ...)
+matrixElementPerturbation(matU, matF, matC = NULL, pert = 1e-06,
+  demogstat = "lambda", ...)
 }
 \arguments{
-\item{matU}{The U matrix (processes related to survival, growth and
-retrogression).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matF}{The F matrix (sexual reproduction processes).}
+\item{matF}{A square matrix containing only sexual reproduction-related
+transitions.}
 
-\item{matC}{The C matrix (clonal reproduction processes).}
+\item{matC}{A square matrix containing only clonal reproduction-related
+transitions.}
 
-\item{demogstat}{A character string that is the name of a function. The
-default is the per-capita population growth rate at equilibrium. Also
+\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6}).}
+
+\item{demogstat}{The demographic statistic to be used, as in "the
+sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
+the per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
 accepts a user-supplied function that performs a calculation on a
 projection matrix and returns a single numeric value.}
-
-\item{pert}{Perturbation parameter.}
 
 \item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
 \value{
-%% ~Describe the value returned
+A data frame with 1 row and 10 columns:
+\item{SStasis}{sensitivity of \code{demogstat} to stasis}
+\item{SRetrogression}{sensitivity of \code{demogstat} to retrogression}
+\item{SProgression}{sensitivity of \code{demogstat} to progression}
+\item{SFecundity}{sensitivity of \code{demogstat} to sexual fecundity}
+\item{SClonality}{sensitivity of \code{demogstat} to clonality}
+\item{EStasis}{elasticity of \code{demogstat} to stasis}
+\item{ERetrogression}{elasticity of \code{demogstat} to retrogression}
+\item{EProgression}{elasticity of \code{demogstat} to progression}
+\item{EFecundity}{elasticity of \code{demogstat} to sexual fecundity}
+\item{EClonality}{elasticity of \code{demogstat} to clonality}
 }
 \description{
-A function to perform element perturbation of a matrix population model and
-measure the response of the per-capita population growth rate at equilibrium
-or (with a user-supplied function) any other demographic statistic.
-}
-\note{
-%% ~~further notes~~
+Perturbs elements within a matrix population model and measures the response
+of the per-capita population growth rate at equilibrium (\eqn{lambda}), or,
+with a user-supplied function, any other demographic statistic.
 }
 \examples{
 
 
 }
-\references{
-%% ~~references~~
-}
 \author{
-Roberto Salguero-Gomez <r.salguero@sheffield.ac.uk>
+Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }

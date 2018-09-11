@@ -1,29 +1,35 @@
-#' A function to perform perturbation of vital rates of the matrix model for any
-#' demographic statistic.
+#' Perturbation analysis of vital rates in a matrix population model
 #'
-#' A function to perform perturbation of vital rates of the matrix model and
-#' measure the response of the per-capita population growth rate at equilibrium
-#' or (with a user-supplied function) any other demographic statistic.
+#' Perturbs lower-level vital rates within a matrix population model and
+#' measures the response of the per-capita population growth rate at equilibrium
+#' (\eqn{lambda}), or, with a user-supplied function, any other demographic
+#' statistic.
 #'
-#' %% ~~ If necessary, more details than the description above ~~
-#'
-#' @param matU The U matrix (processes related to survival, growth and
-#'   retrogression).
-#' @param matF The F matrix (sexual reproduction processes).
-#' @param matC The C matrix (clonal reproduction processes).
+#' @param matU A square matrix containing only survival-related transitions
+#'   (i.e. progression, stasis, retrogression).
+#' @param matF A square matrix containing only sexual reproduction-related
+#'   transitions.
+#' @param matC A square matrix containing only clonal reproduction-related
+#'   transitions.
+#' @param pert Magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param demogstat The demographic statistic to be used, as in "the
-#'   sensitvity/elasticity of ___ to vital rate perturbations." Defaults to the
-#'   per-capita population growth rate at equilibrium. Also accepts a
-#'   user-supplied function that performs a calculation on a projection matrix
-#'   and returns a single numeric value.
-#' @param pert Magnitude of the perturbation (defaults to 0.001).
+#'   sensitivity/elasticity of ___ to vital rate perturbations." Defaults to the
+#'   per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
+#'   accepts a user-supplied function that performs a calculation on a
+#'   projection matrix and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demogstat}.
-#' @return A data frame containing...
-#' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-#' @references %% ~put references to the literature/web site here ~
-#' @keywords ~kwd1 ~kwd2
+#' @return A data frame with 1 row and 10 columns:
+#' \item{SSurvival}{sensitivity of \code{demogstat} to survival}
+#' \item{SGrowth}{sensitivity of \code{demogstat} to growth}
+#' \item{SShrinkage}{sensitivity of \code{demogstat} to shrinkage}
+#' \item{SReproduction}{sensitivity of \code{demogstat} to sexual reproduction}
+#' \item{SClonality}{sensitivity of \code{demogstat} to clonality}
+#' \item{ESurvival}{elasticity of \code{demogstat} to survival}
+#' \item{EGrowth}{elasticity of \code{demogstat} to growth}
+#' \item{EShrinkage}{elasticity of \code{demogstat} to shrinkage}
+#' \item{EReproduction}{elasticity of \code{demogstat} to sexual reproduction}
+#' \item{EClonality}{elasticity of \code{demogstat} to clonality}
+#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
 #' 
 #' \dontrun{
@@ -48,34 +54,35 @@
 #' vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
 #' }
 #' 
-#' 
-#' @importFrom popbio eigen.analysis
 #' @importFrom methods getFunction
 #' @export vitalRatePerturbation
-vitalRatePerturbation <- function(matU, matF, matC = NULL, demogstat = "lambda",
-                                  pert = 1e-03, ...){
-  #Function to calculate vital rate level sensitivities and elasticities
+vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
+                                  demogstat = "lambda", ...) {
   
-  # If matC is actually NULL, then then the matA calculation returns
-  # integer(0), and the whole thing fails. Thus, coerce to matrix
-  # of 0s of same dimension as matU. Kind of a hacky fix, but it 
-  # seems to work.
-  if(is.null(matC)){
-    matC <- matrix(0, nrow(matU), dim(matA)[1])
-  }
-  matA <- matU + matF + matC
-  aDim <- dim(matA)[1]
-  fakeA <- matA
-  sensA <- elasA <- matrix(NA, aDim, aDim)
+  # get statfun
   if (is.function(demogstat)) {
     statfun <- demogstat
-  } else if (is.character(demogstat)) {
-    statfun <- getFunction(demogstat)
   } else if (demogstat == "lambda") {
     statfun <- function(matA) Re(eigen(matA)$values[1])
+  } else if (is.character(demogstat)) {
+    statfun <- getFunction(demogstat)
   } else {
-    stop("demogstat must be 'lambda' or the name of a function that returns a *single* numeric value.")
+    stop("demogstat must be 'lambda' or the name of a function that returns a
+          single numeric value")
   }
+  
+  # matrix dimension
+  matDim <- nrow(matU)
+  
+  # if matC null, convert to zeros
+  if (is.null(matC)) {
+    matC <- matrix(0, matDim, matDim)
+  }
+  
+  # combine components into matA 
+  matA <- matU + matF + matC
+
+  # statfun
   stat <- statfun(matA, ...)
   
   propU <- matU / matA
@@ -83,76 +90,77 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, demogstat = "lambda",
   propProg <- propRetrog <- propU
   propProg[upper.tri(propU, diag = TRUE)] <- 0
   propRetrog[lower.tri(propU, diag = TRUE)] <- 0
-  propStasis <- matrix(diag(aDim) * diag(propU), aDim, aDim)
+  propStasis <- diag(matDim) * diag(propU)
   propF <- matF / matA
   propF[is.nan(propF)] <- 0
   propC <- matC / matA
   propC[is.nan(propC)] <- 0
   
-  for (i in 1:aDim){
-    for (j in 1:aDim){
-      fakeA <- matA
-      fakeA[i, j] <- fakeA[i, j] + pert
-      statPert <- statfun(fakeA, ...)
-      sensA[i, j] <- (stat - statPert) / (matA[i, j] - fakeA[i, j])
+  # initialize sensitivity matrix
+  sensA <- matrix(NA, matDim, matDim)
+  
+  # matrix perturbation
+  for (i in 1:matDim) {
+    for (j in 1:matDim) {
+      pertA <- matA
+      pertA[i, j] <- pertA[i, j] + pert
+      statPert <- statfun(pertA, ...)
+      sensA[i, j] <- (stat - statPert) / (matA[i, j] - pertA[i, j])
     }
   }
   
-  sensA <- Re(sensA)
-  
-  #Survival-independent A matrix
-  uIndep <- matrix(NA, aDim, aDim)
+  # survival-independent A matrix
+  uIndep <- matrix(NA, matDim, matDim)
   u <- colSums(matU)
-  for (j in which(u > 0)) uIndep[, j] <- matA[, j] / u[j]
+  for(j in which(u > 0)) uIndep[, j] <- matA[, j] / u[j]
   
   sensSigmaA <- uIndep * sensA
+
   
   #Little fix for semelparous species
-  uPrime <- u
+  # uPrime <- u
   #uPrime[u==0] <- 0.001
-  elasSigmaA <- t(t(sensSigmaA) * uPrime) / stat
-  
+  elasSigmaA <- t(t(sensSigmaA) * u) / stat
   elasA <- sensA * matA / stat
   
+  
   #Extracting survival vital rate
-  uDistrib <- matrix(0, ncol = aDim, nrow = aDim)
+  uDistrib <- matrix(0, ncol = matDim, nrow = matDim)
   for (j in which(u > 0)) uDistrib[, j] <- matU[, j] / u[j]
+  
   #Extracting fecundity vital rates:
   f <- colSums(matF)
-  fDistrib <- matrix(0, ncol = aDim, nrow = aDim)
+  fDistrib <- matrix(0, ncol = matDim, nrow = matDim)
   for (j in which(f > 0)) fDistrib[, j]=matF[, j] / f[j]
+  
   #Extracting clonality vital rates:
   c <- colSums(matC)
-  cDistrib <- matrix(0, ncol = aDim, nrow = aDim)
+  cDistrib <- matrix(0, ncol = matDim, nrow = matDim)
   for (j in which(c > 0)) cDistrib[, j] = matC[, j] / c[j]
+
   
+  SuDistrib <- sensA * uDistrib
+  SfDistrib <- sensA * fDistrib
+  ScDistrib <- sensA * cDistrib
   
-  SuDistrib=sensA * uDistrib
-  SfDistrib=sensA * fDistrib
-  ScDistrib=sensA * cDistrib
-  
-  
-  out <- data.frame(SSurvival = NA, SGrowth = NA, SShrinkage = NA, SReproduction = NA,
-                    SClonality = NA, ESurvival = NA, EGrowth = NA, EShrinkage = NA,
-                    EReproduction = NA, EClonality = NA)
+  EuDistrib <- sensA * uDistrib * matrix(u, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
+  EfDistrib <- sensA * fDistrib * matrix(f, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
+  EcDistrib <- sensA * cDistrib * matrix(c, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
   
   
   #Still to be done
-  out$SSurvival <- sum(sensSigmaA, na.rm = TRUE)
-  out$SGrowth <- sum(sensA * uDistrib * propProg, na.rm = TRUE)
-  out$SShrinkage <- sum(sensA * uDistrib * propRetrog, na.rm = TRUE)
-  out$SReproduction <- sum(sensA * fDistrib * propF, na.rm = TRUE)
-  out$SClonality <- sum(sensA * cDistrib * propC, na.rm = TRUE)
-  
-  EuDistrib <- sensA * uDistrib * matrix(u, nrow = aDim, ncol = aDim, byrow = TRUE) / stat
-  EfDistrib <- sensA * fDistrib * matrix(f, nrow = aDim, ncol = aDim, byrow = TRUE) / stat
-  EcDistrib <- sensA * cDistrib * matrix(c, nrow = aDim, ncol = aDim, byrow = TRUE) / stat
-  
-  out$ESurvival <- sum(elasSigmaA, na.rm = TRUE)
-  out$EGrowth <- sum(EuDistrib * propProg, na.rm = TRUE)
-  out$EShrinkage <- sum(EuDistrib * propRetrog, na.rm = TRUE)
-  out$EReproduction <- sum(EfDistrib * propF, na.rm = TRUE)
-  out$EClonality <- sum(EcDistrib * propC, na.rm = TRUE)
+  out <- data.frame(
+    SSurvival = sum(sensSigmaA, na.rm = TRUE),
+    SGrowth = sum(sensA * uDistrib * propProg, na.rm = TRUE),
+    SShrinkage = sum(sensA * uDistrib * propRetrog, na.rm = TRUE),
+    SReproduction = sum(sensA * fDistrib * propF, na.rm = TRUE),
+    SClonality = sum(sensA * cDistrib * propC, na.rm = TRUE),
+    ESurvival = sum(elasSigmaA, na.rm = TRUE),
+    EGrowth = sum(EuDistrib * propProg, na.rm = TRUE),
+    EShrinkage = sum(EuDistrib * propRetrog, na.rm = TRUE),
+    EReproduction = sum(EfDistrib * propF, na.rm = TRUE),
+    EClonality = sum(EcDistrib * propC, na.rm = TRUE)
+  )
   
   return(out) 
 }

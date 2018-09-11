@@ -2,43 +2,49 @@
 % Please edit documentation in R/vitalRatePerturbation.R
 \name{vitalRatePerturbation}
 \alias{vitalRatePerturbation}
-\title{A function to perform perturbation of vital rates of the matrix model for any
-demographic statistic.}
+\title{Perturbation analysis of vital rates in a matrix population model}
 \usage{
-vitalRatePerturbation(matU, matF, matC = NULL, demogstat = "lambda",
-  pert = 0.001, ...)
+vitalRatePerturbation(matU, matF, matC = NULL, pert = 1e-06,
+  demogstat = "lambda", ...)
 }
 \arguments{
-\item{matU}{The U matrix (processes related to survival, growth and
-retrogression).}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matF}{The F matrix (sexual reproduction processes).}
+\item{matF}{A square matrix containing only sexual reproduction-related
+transitions.}
 
-\item{matC}{The C matrix (clonal reproduction processes).}
+\item{matC}{A square matrix containing only clonal reproduction-related
+transitions.}
+
+\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6}).}
 
 \item{demogstat}{The demographic statistic to be used, as in "the
-sensitvity/elasticity of ___ to vital rate perturbations." Defaults to the
-per-capita population growth rate at equilibrium. Also accepts a
-user-supplied function that performs a calculation on a projection matrix
-and returns a single numeric value.}
-
-\item{pert}{Magnitude of the perturbation (defaults to 0.001).}
+sensitivity/elasticity of ___ to vital rate perturbations." Defaults to the
+per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
+accepts a user-supplied function that performs a calculation on a
+projection matrix and returns a single numeric value.}
 
 \item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
 \value{
-A data frame containing...
+A data frame with 1 row and 10 columns:
+\item{SSurvival}{sensitivity of \code{demogstat} to survival}
+\item{SGrowth}{sensitivity of \code{demogstat} to growth}
+\item{SShrinkage}{sensitivity of \code{demogstat} to shrinkage}
+\item{SReproduction}{sensitivity of \code{demogstat} to sexual reproduction}
+\item{SClonality}{sensitivity of \code{demogstat} to clonality}
+\item{ESurvival}{elasticity of \code{demogstat} to survival}
+\item{EGrowth}{elasticity of \code{demogstat} to growth}
+\item{EShrinkage}{elasticity of \code{demogstat} to shrinkage}
+\item{EReproduction}{elasticity of \code{demogstat} to sexual reproduction}
+\item{EClonality}{elasticity of \code{demogstat} to clonality}
 }
 \description{
-A function to perform perturbation of vital rates of the matrix model and
-measure the response of the per-capita population growth rate at equilibrium
-or (with a user-supplied function) any other demographic statistic.
-}
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
+Perturbs lower-level vital rates within a matrix population model and
+measures the response of the per-capita population growth rate at equilibrium
+(\eqn{lambda}), or, with a user-supplied function, any other demographic
+statistic.
 }
 \examples{
 
@@ -64,16 +70,7 @@ vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = damping)
 vitalRatePerturbation(matU = pira@matU, matF = pira@matF, stat = "damping")
 }
 
-
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \author{
-Roberto Salguero-Gomez <r.salguero@sheffield.ac.uk>
+Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
