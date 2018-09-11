@@ -2,32 +2,40 @@
 % Please edit documentation in R/rearrangeMatrix.R
 \name{rearrangeMatrix}
 \alias{rearrangeMatrix}
-\title{Rearrange matrix stages to segregate reproductive and non-reproductive stages}
+\title{Rearrange stages of a matrix population model to segregate reproductive and
+non-reproductive stages}
 \usage{
-rearrangeMatrix(matU, matF, reproStages, matrixStages)
+rearrangeMatrix(matU, matF, matC = NULL, reproStages, matrixStages)
 }
 \arguments{
-\item{matU}{Survival matrix}
+\item{matU}{A square matrix containing only survival-related transitions
+(i.e. progression, stasis, retrogression).}
 
-\item{matF}{Fecundity matrix}
+\item{matF}{A square matrix containing only sexual reproduction-related
+transitions.}
+
+\item{matC}{A square matrix containing only clonal reproduction-related
+transitions.}
 
 \item{reproStages}{Logical vector identifying which stages reproductive}
 
-\item{matrixStages}{A character vector identifying the matrix stages}
+\item{matrixStages}{A character vector identifying organized matrix stages}
 }
 \value{
-Returns a list with 5 elements: the rearranged survival matrix
-  (\code{matU}), the rearranged fecundity matrix (\code{matF}), the
-  rearranged vector of reproductive stages (\code{reproStages}), the numeric
-  index for any rearranged inter-reproductive stages (\code{nonRepInterRep}),
-  and the numeric index for the maximum reproductive stage in the rearranged
-  reproductive stage vector (\code{maxRep}).
+Returns a list with 6 elements:
+\item{matU}{Rearranged survival matrix}
+\item{matF}{Rearranged sexual reproduction matrix}
+\item{matC}{Rearranged clonal reproduction matrix}
+\item{matrixStages}{Rearranged vector of organized matrix stages}
+\item{reproStages}{Rearranged logical vector of reproductive stages}
+\item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
+ stages}
 }
 \description{
-Rearrange matrix stages so that all inter-reproductive stages fall in the
-final rows/columns of the matrix. This is a preparatory step to collapsing
-the matrix model into a standardized set of stages (e.g. propagule,
-pre-reproductive, reproductive, and post-reproductive).
+Rearrange stages of a matrix population model so that all inter-reproductive
+stages fall in the final rows/columns of the matrix. This is a preparatory
+step to collapsing the matrix model into a standardized set of stages (e.g.
+propagule, pre-reproductive, reproductive, and post-reproductive).
 }
 \examples{
 matU <- rbind(c(0, 0, 0, 0, 0), c(0.1, 0.16, 0, 0, 0), c(0.2, 0.23, 0.12, 0,
@@ -38,9 +46,11 @@ c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0))
 
 reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-rearrangeMatrix(matU, matF, reproStages, matrixStages)
-
-
+rearrangeMatrix(matU, matF, reproStages = reproStages,
+                matrixStages = matrixStages)
+}
+\seealso{
+\code{\link{standardizeMatrix}}
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

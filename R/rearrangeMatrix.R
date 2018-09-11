@@ -1,23 +1,29 @@
-#' Rearrange matrix stages to segregate reproductive and non-reproductive stages
+#' Rearrange stages of a matrix population model to segregate reproductive and
+#' non-reproductive stages
 #' 
-#' Rearrange matrix stages so that all inter-reproductive stages fall in the
-#' final rows/columns of the matrix. This is a preparatory step to collapsing
-#' the matrix model into a standardized set of stages (e.g. propagule,
-#' pre-reproductive, reproductive, and post-reproductive).
+#' Rearrange stages of a matrix population model so that all inter-reproductive
+#' stages fall in the final rows/columns of the matrix. This is a preparatory
+#' step to collapsing the matrix model into a standardized set of stages (e.g.
+#' propagule, pre-reproductive, reproductive, and post-reproductive).
 #'
-#' @export
-#' @param matU Survival matrix
-#' @param matF Fecundity matrix
-#' @param matrixStages A character vector identifying the matrix stages
+#' @param matU A square matrix containing only survival-related transitions
+#'   (i.e. progression, stasis, retrogression).
+#' @param matF A square matrix containing only sexual reproduction-related
+#'   transitions.
+#' @param matC A square matrix containing only clonal reproduction-related
+#'   transitions.
+#' @param matrixStages A character vector identifying organized matrix stages
 #' @param reproStages Logical vector identifying which stages reproductive
-#' @return Returns a list with 5 elements: the rearranged survival matrix
-#'   (\code{matU}), the rearranged fecundity matrix (\code{matF}), the
-#'   rearranged vector of reproductive stages (\code{reproStages}), the numeric
-#'   index for any rearranged inter-reproductive stages (\code{nonRepInterRep}),
-#'   and the numeric index for the maximum reproductive stage in the rearranged
-#'   reproductive stage vector (\code{maxRep}).
-#'   
+#' @return Returns a list with 6 elements:
+#' \item{matU}{Rearranged survival matrix}
+#' \item{matF}{Rearranged sexual reproduction matrix}
+#' \item{matC}{Rearranged clonal reproduction matrix}
+#' \item{matrixStages}{Rearranged vector of organized matrix stages}
+#' \item{reproStages}{Rearranged logical vector of reproductive stages}
+#' \item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
+#'  stages}
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @seealso \code{\link{standardizeMatrix}}
 #' @examples
 #' matU <- rbind(c(0, 0, 0, 0, 0), c(0.1, 0.16, 0, 0, 0), c(0.2, 0.23, 0.12, 0,
 #' 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.34, 0))
@@ -27,48 +33,59 @@
 #' 
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-#' rearrangeMatrix(matU, matF, reproStages, matrixStages)
-#' 
-#' 
-rearrangeMatrix <- function(matU, matF, reproStages, matrixStages) {
-  if (!(identical(dim(matU), dim(matF)) && identical(ncol(matF),
-                                                     length(reproStages)))) {
-    stop("Expecting matrices with equal dimensions", call. = FALSE)
+#' rearrangeMatrix(matU, matF, reproStages = reproStages,
+#'                 matrixStages = matrixStages)
+#' @export rearrangeMatrix
+rearrangeMatrix <- function(matU, matF, matC = NULL, reproStages,
+                            matrixStages) {
+
+  # populate matC with zeros, if NULL
+  if (is.null(matC)) {
+    matC <- matrix(0, nrow = ncol(matF), ncol = ncol(matF))
   }
   
-  Rep <- which(reproStages == TRUE)
+  # validate arguments
+  if (ncol(matU) != ncol(matF) |
+      ncol(matU) != length(reproStages) |
+      length(reproStages) != length(matrixStages)) {
+    stop("Arguments do not correspond to MPM of single dimension")
+  }
   
-  reArrange <- NULL
-  matDim <- dim(matF)[1]
+  # preliminaries
+  matDim <- ncol(matF)              # matrix dim
+  Rep <- which(reproStages == TRUE) # reproductive stage indices
+  out <- NULL                       # initalize output list
   
+  # which stages reproductive, incl. inter-reproductive
   if (length(Rep) > 0) {
     allRep <- Rep[1]:Rep[length(Rep)]
   } else {
     allRep <- integer(0)
   }
   
-  ## These are stages that are inter-reproductive but are truly non-reproductive:
+  # which stages non-reproductive inter-reproductive
   nonRepInterRep <- allRep[which(!allRep %in% Rep)]
+  
   if (length(nonRepInterRep) > 0) {
-    allElseStages <- which(!1:matDim %in% nonRepInterRep)
-    reArrangeStages <- c(allElseStages, nonRepInterRep)
-    reArrange$matU <- matU[reArrangeStages, reArrangeStages]
-    reArrange$matF <- matF[reArrangeStages, reArrangeStages]
-    reArrange$reproStages <- reproStages[reArrangeStages]
-    reArrange$matrixStages <- matrixStages[reArrangeStages]
+    # if there are non-repro inter-repro stages, rearrange
+    allElseStages <- which(!(1:matDim %in% nonRepInterRep))
+    rearrange <- c(allElseStages, nonRepInterRep)
+    out$matU <- matU[rearrange, rearrange]
+    out$matF <- matF[rearrange, rearrange]
+    out$matC <- matC[rearrange, rearrange]
+    out$matrixStages <- matrixStages[rearrange]
+    out$reproStages <- reproStages[rearrange]
   } else {
-    ## No non-repro or inter-repro stages so no need to rearrange matrices
-    reArrange$matU <- matU
-    reArrange$matF <- matF
-    reArrange$reproStages <- reproStages
-    reArrange$matrixStages <- matrixStages
+    # else, no need to rearrange
+    out$matU <- matU
+    out$matF <- matF
+    out$matC <- matC
+    out$matrixStages <- matrixStages
+    out$reproStages <- reproStages
   }
   
-  ## Stages that were moved to the end
-  reArrange$nonRepInterRep <- ifelse(length(nonRepInterRep) > 0, 
-                                     nonRepInterRep, NA)
-  ## Max reproductive stage after rearrangement
-  rearrRep <- which(reArrange$reproStages == TRUE)
-  reArrange$maxRep <- ifelse(length(rearrRep) > 0, max(rearrRep), NA)
-  return(reArrange)
+  # inter-repro stages that were moved to the last column(s)
+  out$nonRepInterRep <- ifelse(length(nonRepInterRep) > 0, nonRepInterRep, NA)
+  
+  return(out)
 }
