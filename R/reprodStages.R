@@ -6,8 +6,9 @@
 #'
 #' Output indicates groupings to be used when collapsing the matrix model.
 #'
-#' @param matF (matrix) fecundity matrix, rearranged so that non-reproductive
-#' stages are in the final rows/columns
+#' @param matF The sexual component of a matrix population model (i.e. a square
+#'   projection matrix reflecting transitions due to sexual reproduction) —
+#'   rearranged so that non-reproductive stages are in the final rows/columns
 #' @param reproStages Logical vector identifying which stages reproductive
 #' @param matrixStages (character) vector of stages, values are "prop"
 #' (propagule), "active", and "dorm" (dormant)

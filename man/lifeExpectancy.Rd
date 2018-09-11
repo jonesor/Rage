@@ -7,8 +7,9 @@
 lifeExpectancy(matU, startLife = 1)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (growth,
-stasis, shrinkage).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
 \item{startLife}{Index of the first stage at which the author considers the
 beginning of life. Defaults to 1.}

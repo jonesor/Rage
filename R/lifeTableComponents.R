@@ -5,8 +5,9 @@
 #' detailed description of these methods can be found in section 5.3.1 of
 #' Caswell (2001).
 #'
-#' @param matU A matrix containing only survival-related transitions (i.e.
-#'   progression, stasis, retrogression).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life.
 #' @param N Maximum age to which age-specific survivorship will be calculated.
@@ -49,11 +50,12 @@ ageSpecificSurv <- function(matU, startLife, N) {
 #' model. A detailed description of these methods can be found in section 5.3.2
 #' of Caswell (2001).
 #'
-#' @param matU A matrix containing only survival-related transitions (i.e.
-#'   progression, stasis, retrogression).
-#' @param matR A matrix containing only reproduction-related transitions (either
-#'   sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or \code{mat +
-#'   matC}).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life.
 #' @param N Maximum age to which age-specific reproduction will be calculated.

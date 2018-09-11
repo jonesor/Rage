@@ -4,8 +4,9 @@
 #' first using age-from-stage decomposition methods to estimate age-specific
 #' survivorship (lx).
 #' 
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #' @param nSteps The age-cutoff for the decomposition of age-specific survival

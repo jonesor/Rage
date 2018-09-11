@@ -4,12 +4,15 @@
 #' of the per-capita population growth rate at equilibrium (\eqn{lambda}), or,
 #' with a user-supplied function, any other demographic statistic.
 #'
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
-#' @param matF A square matrix containing only sexual reproduction-related
-#'   transitions.
-#' @param matC A square matrix containing only clonal reproduction-related
-#'   transitions.
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matF The sexual component of a matrix population model (i.e. a square
+#'   projection matrix reflecting transitions due to sexual reproduction)
+#' @param matC The clonal component of a matrix population model (i.e. a square
+#'   projection matrix reflecting transitions due to clonal reproduction).
+#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+#'   \code{matC} is a matrix of zeros).
 #' @param pert Magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param demogstat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of ___ to matrix element perturbations." Defaults to

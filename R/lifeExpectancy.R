@@ -3,8 +3,9 @@
 #' Applies Markov chain approaches to obtain mean life expectancy from a matrix
 #' population model.
 #'
-#' @param matU A matrix containing only survival-dependent processes (growth,
-#'   stasis, shrinkage).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param startLife Index of the first stage at which the author considers the
 #'   beginning of life. Defaults to 1.
 #' @return Returns life expectancy. If \code{matU} is singular (often indicating

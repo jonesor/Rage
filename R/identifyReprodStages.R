@@ -5,7 +5,9 @@
 #' reproduction). This is a preparatory step to collapsing the matrix model into
 #' a standardized set of stage classes.
 #'
-#' @param matR A square matrix containing only reproduction-related transitions.
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
 #' @param na.handling One of \code{"return.na"}, \code{"return.true"}, or
 #'   \code{"return.false"}. Determines how values of \code{NA} within
 #'   \code{matR} should be handled. See Value for more details.

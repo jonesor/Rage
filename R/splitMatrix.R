@@ -7,7 +7,7 @@
 #' everything else is growth or survival (the U matrix). Clonality is assumed to
 #' be non-existant.
 #'
-#' @param matA A matrix population model
+#' @param matA A matrix population model (i.e. a square projection matrix)
 #' @return A list of three matrices: \code{matU},\code{matF} and \code{matC}
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @examples

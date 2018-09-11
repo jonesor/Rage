@@ -3,11 +3,12 @@
 #' Calculate net reproductive value (i.e. the per-generation population growth
 #' rate) from a matrix population model
 #'
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
-#' @param matR A square matrix containing only reproduction-related transitions
-#'   (either sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or
-#'   \code{mat + matC}).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
 #' @return Returns the net reproductive value.  If \code{matU} is singular
 #'   (often indicating infinite life expectancy), returns \code{NA}.
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>

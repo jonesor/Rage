@@ -7,7 +7,7 @@
 splitMatrix(matA)
 }
 \arguments{
-\item{matA}{A matrix population model}
+\item{matA}{A matrix population model (i.e. a square projection matrix)}
 }
 \value{
 A list of three matrices: \code{matU},\code{matF} and \code{matC}

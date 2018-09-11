@@ -7,12 +7,13 @@
 dEntropy(matU, matR, startLife = 1, nSteps = 100)
 }
 \arguments{
-\item{matU}{A square matrix containing only survival-related transitions
-(i.e. progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matR}{A square matrix containing only reproduction-related transitions
-(either sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or
-\code{matF + matC}).}
+\item{matR}{The reproductive component of a matrix population model (i.e. a
+square projection matrix reflecting transitions due to reproduction; either
+sexual, clonal, or both)}
 
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}

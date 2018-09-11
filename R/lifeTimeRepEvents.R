@@ -6,11 +6,12 @@
 #' reproduction, mean life expectancy conditional on maturity, and life
 #' expectancy for mature individuals.
 #' 
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
-#' @param matR A square matrix containing only reproduction-related transitions
-#'   (either sexual, clonal, or both; i.e. \code{matF}, \code{matC}, or
-#'   \code{mat + matC}).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #' @return A list with four elements:

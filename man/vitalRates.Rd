@@ -8,14 +8,17 @@ vitalRates(matU, matF, matC = NULL, splitStages = FALSE,
   weighted = FALSE)
 }
 \arguments{
-\item{matU}{A square matrix containing only survival-related transitions
-(i.e. progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{A square matrix containing only sexual reproduction-related
-transitions.}
+\item{matF}{The sexual component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction)}
 
-\item{matC}{A square matrix containing only clonal reproduction-related
-transitions.}
+\item{matC}{The clonal component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to clonal reproduction).
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+\code{matC} is a matrix of zeros).}
 
 \item{splitStages}{Splits vital rates according to some pre-determined
 criteria (below).}
@@ -81,8 +84,8 @@ vitalRates(matU, matF, matC,
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

@@ -9,8 +9,9 @@ reprodStages(matF, reproStages, matrixStages, includeProp = TRUE,
   includePost = TRUE)
 }
 \arguments{
-\item{matF}{(matrix) fecundity matrix, rearranged so that non-reproductive
-stages are in the final rows/columns}
+\item{matF}{The sexual component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction) —
+rearranged so that non-reproductive stages are in the final rows/columns}
 
 \item{reproStages}{Logical vector identifying which stages reproductive}
 

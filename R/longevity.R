@@ -3,8 +3,9 @@
 #' Calculate longevity (the age a which survivorship falls to some critical
 #' proportion) from a matrix population model
 #'
-#' @param matU A matrix containing only survival-dependent processes (growth,
-#'   stasis, shrinkage).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param startLife Index of the first stage at which the author considers the
 #'   beginning of life. Defaults to 1.
 #' @param lxCrit The critical proportion to calculate longevity with respect to

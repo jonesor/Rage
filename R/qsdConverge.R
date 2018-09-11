@@ -21,8 +21,9 @@
 #' user to use only age-based information from before this point. See the online
 #' supplementary information of Jones et al. (2014) for further details.
 #'
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param conv Departure of the projection population vector from convergence to
 #'   the stationary stage distribution. E.g. this value should be 0.05 if the
 #'   user wants to obtain the time step when the stage distribution is within 5%

@@ -8,14 +8,17 @@ makeLifeTable(matU, matF = NULL, matC = NULL, startLife = 1,
   nSteps = 1000)
 }
 \arguments{
-\item{matU}{A square matrix containing only survival-related transitions
-(i.e. progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{(Optional) A square matrix containing only sexual
-reproduction-related transitions.}
+\item{matF}{(Optional) The sexual component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to sexual
+reproduction)}
 
-\item{matC}{(Optional) A square matrix containing only clonal
-reproduction-related transitions.}
+\item{matC}{(Optional) The clonal component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to clonal
+reproduction).}
 
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
