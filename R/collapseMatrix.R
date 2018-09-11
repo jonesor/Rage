@@ -1,61 +1,91 @@
-#' Collapse a matrix model to a smaller number of stages
-#' 
-#' This function collapses a matrix model to a smaller number of stages. For
+#' Collapse a matrix population model to a smaller number of stages
+#'
+#' Collapse a matrix population model to a smaller number of stages. For
 #' instance, to compare properties of multiple projection matrices with
 #' different numbers of stages, one might first collapse those matrices to a
 #' standardized set of stages (e.g. propagule, pre-reproductive, reproductive,
-#' and post-reproductive). The vital rates in the collapsed matrix are a
-#' weighted average of the vital rates from the relevant stages of the original
-#' matrix, weighted by the relative proportion of each stage class expected at
-#' the stable distribution.\cr\cr
-#' Note: this function is only valid for models without clonality.
-#'
-#' @export
-#' @param matU Survival matrix
-#' @param matF Fecundity matrix
-#' @param matC A clonality matrix
-#' @param collapse A character vector giving the mapping between the stages of
-#'   the original matrix and the desired stages of the collapsed matrix. The
-#'   indices of \code{collapse} correspond to the desired stages of the
-#'   collapsed matrix, and each element of \code{collapse} gives the stage index
-#'   (e.g. "2") or range of stage indices (e.g. "2-3") from the original matrix
-#'   that correspond to the relevant stage index of the collapsed matrix.
-#' @return A list of three containing the collapsed projection matrix
-#'   \code{matA}, collapsed survival matrix \code{matU}, and collapsed fecundity
-#'   matrix \code{matF}.
+#' and post-reproductive). The transition rates in the collapsed matrix are a
+#' weighted average of the transition rates from the relevant stages of the
+#' original matrix, weighted by the relative proportion of each stage class
+#' expected at the stable distribution.
+#' 
+#' @param matU A square matrix containing only survival-related transitions
+#'   (i.e. progression, stasis, retrogression).
+#' @param matF A square matrix containing only sexual reproduction-related
+#'   transitions.
+#' @param matC A square matrix containing only clonal reproduction-related
+#'   transitions. Defaults to \code{NULL}, indicating no clonal reproduction
+#'   (i.e. \code{matC} is a matrix of zeros).
+#' @param collapse A list giving the mapping between stages of the original
+#'   matrix and the desired stages of the collapsed matrix (e.g. \code{list(1,
+#'   2:3, 4)}). The indices of \code{collapse} correspond to the desired stages
+#'   of the collapsed matrix, and the corresponding values give the stage index
+#'   or vector of stage indices from the original matrix that correspond to the
+#'   relevant stage of the collapsed matrix.
+#' @return A list with four elements:
+#'   \item{matA}{Collapsed projection matrix}
+#'   \item{matU}{Survival component of the collapsed projection matrix}
+#'   \item{matF}{Sexual reproduction component of the collapsed projection matrix}
+#'   \item{matC}{Clonal reproduction component of the collapsed projection matrix}
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
-#' @references Salguero-Gomez, R. & Plotkin, J. B. (2010) Matrix dimensions
-#'   bias demographic inferences: implications for comparative plant demography.
-#'   The American Naturalist 176, 710-722.
+#' @references Salguero-Gomez, R. & Plotkin, J. B. (2010) Matrix dimensions bias
+#'   demographic inferences: implications for comparative plant demography. The
+#'   American Naturalist 176, 710-722.
+#' @note This method of collapsing a matrix population model preserves the
+#'   equilibrium population growth rate (\eqn{lamda}) and relative stable
+#'   distribution, but is not expected to preserve other traits such as relative
+#'   reproductive values, sensitivities, net reproductive rates, life
+#'   expectancy, etc.
+#' @seealso \code{\link{standardizeMatrix}}
 #' @examples
-#' matU <- matrix(c(0.2581, 0.1613, 0.1935, 0.2258, 0.1613, 0.0408, 0.2857,
-#'                  0.4286, 0.102, 0.0816, 0.0385, 0.0385, 0.2692, 0.2308,
-#'                  0.3462, 0, 0.0625, 0.125, 0.25, 0.5625, 0.1061, 0.1608,
-#'                  0.2637, 0.1801, 0.2058),
-#'                  nrow = 5, byrow = FALSE)
-#' matF <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-#'                  0, 0, 0, 0, 2.75, 1.75, 0, 0),
-#'                  nrow = 5, byrow = FALSE)
-#' matC <- matrix(rep(0, 25), nrow = 5, byrow = TRUE) 
-#' collapse1 <- c("1-2", "3-4", "5")
+#' matU <- rbind(c(  0,   0,    0,    0),
+#'               c(0.5,   0,    0,    0),
+#'               c(  0, 0.3,    0,    0),
+#'               c(  0,   0,  0.2,  0.1))
+#' 
+#' matF <- rbind(c(  0,   0,  1.1,  1.6),
+#'               c(  0,   0,  0.8,  0.4),
+#'               c(  0,   0,    0,    0),
+#'               c(  0,   0,    0,    0))
+#'               
+#' matC <- rbind(c(  0,   0,  0.4,  0.5),
+#'               c(  0,   0,  0.3,  0.1),
+#'               c(  0,   0,    0,    0),
+#'               c(  0,   0,    0,    0))
+#' 
+#' # collapse reproductive stages
+#' collapse1 <- list(1, 2, 3:4)
 #' collapseMatrix(matU, matF, matC, collapse1)
-#'
-#' # collapse2 <- c("1-2", "3-4-5")
-#' # collapse3 <- c("1-2-3-4-5")
-collapseMatrix <- function(matU, matF, matC, collapse) {
-  matA <- matU + matF + matC
-  if (any(is.na(matA))) {
-    stop("Cannot collapse projection matrix containing NAs", call. = FALSE)
+#' 
+#' # collapse pre-reproductive stages, and reproductive stages
+#' collapse2 <- list(1:2, 3:4)
+#' collapseMatrix(matU, matF, matC, collapse2)
+#' @export collapseMatrix
+collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
+  
+  # populate matC with zeros, if NULL
+  if (is.null(matC)) {
+    matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
   }
-  originalDim <- dim(matA)[1]
+  
+  # sum components to matA
+  matA <- matU + matF + matC
+  
+  # ensure no NA
+  if (any(is.na(matA))) {
+    stop("Cannot collapse projection matrix containing NAs")
+  }
+  
+  # dimensions of original and collapse matrices
+  originalDim <- nrow(matA)
   collapseDim <- length(collapse)
+  
   P <- matrix(0, nrow = collapseDim , ncol = originalDim)
   
-  splitCollapseUnique <- strsplit(collapse, "-")
   for (i in 1:collapseDim) {
-    columns <- as.numeric(splitCollapseUnique[[i]])
+    columns <- as.numeric(collapse[[i]])
     if (!is.na(columns[1])) {
-      P[i, (columns[1]:columns[length(columns)])] <- 1
+      P[i, columns] <- 1
     }
   }
   
@@ -64,6 +94,7 @@ collapseMatrix <- function(matU, matF, matC, collapse) {
   w <- w / sum(w)
   
   columns <- which(colSums(Q) > 1)
+  
   for (j in columns) {
     rows <- which(Q[,j] == 1)
     for (i in rows) {
@@ -71,6 +102,7 @@ collapseMatrix <- function(matU, matF, matC, collapse) {
     }
   }
   
+  # collapse
   collapseA <- P %*% matA %*% Q
   collapseU <- P %*% matU %*% Q
   collapseF <- P %*% matF %*% Q

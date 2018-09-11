@@ -2,17 +2,15 @@
 % Please edit documentation in R/reprodStages.R
 \name{reprodStages}
 \alias{reprodStages}
-\title{Group the stages of a matrix model into propagule, pre-reproductive,
-reproductive and post-reproductive stages.}
+\title{Group the stages of a matrix population model into a standardized set of
+stage classes}
 \usage{
-reprodStages(matF, post, reproStages, matrixStages, includeProp = TRUE,
+reprodStages(matF, reproStages, matrixStages, includeProp = TRUE,
   includePost = TRUE)
 }
 \arguments{
 \item{matF}{(matrix) fecundity matrix, rearranged so that non-reproductive
 stages are in the final rows/columns}
-
-\item{post}{(integer) indicator for post-reproductive stages}
 
 \item{reproStages}{Logical vector identifying which stages reproductive}
 
@@ -34,19 +32,9 @@ that non-reproductive stages are in the final rows/columns.
 }
 \details{
 Output indicates groupings to be used when collapsing the matrix model.
-
-Note: dormant stages not handled.
-
-FIXME: ROB says possibly put output as a named list instead of vector
-FIXME: can we combine propagule and pre-reproductive?
-FIXME: what about dormant stages?
-FIXME: once above solved, then fix logic internally
-
-FIXME: Scott and Tamora added the extra parameter flags for switching whether
-to include propagule and post-reproductive stages but these are not used as
-yet. On reflection this is probably going too far and we should let the
-matrix structure guide the process. However, in animals we may wish to
-combine rep and post-rep to obtain a two-stage matrix model.
+}
+\note{
+Dormant stages are not currently handled.
 }
 \examples{
 matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
@@ -57,17 +45,13 @@ c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0) )
 
 reproStages <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-reprodStages(matF, post = 5, reproStages, matrixStages)
+reprodStages(matF, reproStages, matrixStages)
 
 # combine post-reproductive and reproductive
-reprodStages(matF, post = 5, reproStages, matrixStages, includePost = F)
-\dontrun{
-## NOT ALLOWED
-reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'rep', 'postrep'))
-reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'postrep'))
-reprodStages(matF, post = 5, reproStages, matrixStages, c('prerep', 'postrep'))
-reprodStages(matF, post = 5, reproStages, matrixStages, c('prop', 'prerep'))
+reprodStages(matF, reproStages, matrixStages, includePost = FALSE)
 }
+\seealso{
+\code{\link{standardizeMatrix}}
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
