@@ -24,7 +24,7 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 
 \item{demogstat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
-the per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
+the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 accepts a user-supplied function that performs a calculation on a
 projection matrix and returns a single numeric value.}
 

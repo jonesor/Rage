@@ -16,7 +16,7 @@
 #' @param pert Magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param demogstat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
-#'   the per-capita population growth rate at equilibrium (\eqn{\lambda}). Also
+#'   the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 #'   accepts a user-supplied function that performs a calculation on a
 #'   projection matrix and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demogstat}.
