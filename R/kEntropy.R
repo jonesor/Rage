@@ -1,11 +1,12 @@
-#' Calculate Keyfitz's entropy
+#' Calculate Keyfitz's entropy from a matrix population model
 #' 
 #' This function calculates Keyfitz's entropy from a matrix population model, by
 #' first using age-from-stage decomposition methods to estimate age-specific
 #' survivorship (lx).
 #' 
-#' @param matU A square matrix containing only survival-related transitions
-#'   (i.e. progression, stasis, retrogression).
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #' @param nSteps The age-cutoff for the decomposition of age-specific survival
@@ -20,15 +21,16 @@
 #' @references Keyfitz, N. (1977) Applied Mathematical Demography. New York:
 #'   Wiley.
 #' @examples
-#' matU <- rbind(c(0.2, 0.0, 0.0, 0.0),
-#'               c(0.3, 0.4, 0.1, 0.0),
+#' matU <- rbind(c(0.2,   0,   0,   0),
+#'               c(0.3, 0.4, 0.1,   0),
 #'               c(0.1, 0.1, 0.2, 0.3),
-#'               c(0.0, 0.2, 0.6, 0.5))
+#'               c(  0, 0.2, 0.6, 0.5))
 #' 
 #' kEntropy(matU, nSteps = 10)
 #' kEntropy(matU, nSteps = 20)
 #' kEntropy(matU, nSteps = 100)
 #' kEntropy(matU, nSteps = 100, trapeze = TRUE)
+#' 
 #' @export kEntropy
 kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
   

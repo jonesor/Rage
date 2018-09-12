@@ -2,68 +2,75 @@
 % Please edit documentation in R/qsdConverge.R
 \name{qsdConverge}
 \alias{qsdConverge}
-\title{Cut-off of quasi-stable distribution}
+\title{Calculate time to reach quasi-stationary stage distribution from a matrix
+population model}
 \usage{
 qsdConverge(matU, conv = 0.05, startLife = 1, nSteps = 1000)
 }
 \arguments{
-\item{matU}{The survival-dependent matrix (a subset of the A matrix), See
-Caswell 2001, or other references below.}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{conv}{Departure of the projection population vector from convergence
-to the stationary st/age distribution. E.g. this value should be 0.05 if the
-user wants to obtain the time step when the stage distribution is within 5
-percent of the stationary st/able distribution.}
+\item{conv}{Departure of the projection population vector from convergence to
+the stationary stage distribution. E.g. this value should be 0.05 if the
+user wants to obtain the time step when the stage distribution is within 5%
+of the stationary stable distribution.}
 
-\item{startLife}{The stage in the life cycle of the organism, as represented
-by the matrix population model, where the user considers 'the begining of
-life'. This is useful to discard pre-established stages such as permanent
-seedbanks..}
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
 
-\item{nSteps}{Number of time steps for which the projection will be made. In
-most cases the default of 1000 is sufficient to reach stationary st/age
-distribution. This is on the same units as the matrix population model - see
-MatrixPeriodicity in metadata of COMPADRE/COMADRE.}
+\item{nSteps}{Number of time steps over which the population will be
+projected. Time steps are in the same units as the matrix population model
+(see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000,
+which in most cases is sufficient to reach the quasi-stationary
+distribution.}
 }
 \value{
-Returns a numeric value indicating the time step at which
-quasi-stationary stage distribution has been reached.
+An integer indicating the first time step at which the
+  quasi-stationary stage distribution is reached (or an \code{NA} and a
+  warning if the quasi-stationary distribution is not reached).
 }
 \description{
-Calculates the time in the projection of a cohort through a matrix population model at which
-a defined quasi-stationary stage distribution is reached in \code{\link{Rage}}
+Calculate the time in the projection of a cohort through a matrix population
+model at which a defined quasi-stationary stage distribution is reached.
 }
 \details{
-Size or stage-based matrix population models (i.e. Lefkovitch models) and some age-based
-matrix population models (i.e. Leslie models with a last class ≥ final age value) are
-typically parameterised with a stasis loop in the
-largest/most-developed stage (e.g. adult survival). The assumption
-of constancy in vital rates for individuals in that last stage typically results in flat
-mortality and fertility plateaus. These plateaus may result in mathematical artefacts
-when examining age-specific patterns dervied from age-from-stage matrix
-decompositions (Caswell 2001). The Quasi-stationary Stage Distribution (QSD)
-can be used to circunvent this problem. The QSD is the stage distribution
-that is reached some time before the ultimate stable stage distribution (SSD, the
-normalised right eigenvector of the transition matrix). With this approach, the user
-can ask what is the time step in the projectin at which the cohort
-approximates its stable stage distribution with a given convergence tolerance level (e.g. 95%).
-This metric allows the user to use only age-based information from before this point. See the
-online supplementary information of Jones et al. (2014) for further details.
+Size or stage-based matrix population models (i.e. Lefkovitch models) and
+some age-based matrix population models (i.e. Leslie models with a last class
+≥ final age value) are typically parameterised with a stasis loop in the
+largest/most-developed stage (e.g. adult survival). The assumption of
+constancy in vital rates for individuals in that last stage typically results
+in flat mortality and fertility plateaus. These plateaus may result in
+mathematical artefacts when examining age-specific patterns derived from
+age-from-stage matrix decompositions (Caswell 2001). The Quasi-stationary
+Stage Distribution (QSD) can be used to circumvent this problem. The QSD is
+the stage distribution that is reached some time before the ultimate stable
+stage distribution (SSD, the normalised right eigenvector of the transition
+matrix). With this approach, the user can ask what is the time step in the
+projection at which the cohort approximates its stable stage distribution
+with a given convergence tolerance level (e.g. 95%). This metric allows the
+user to use only age-based information from before this point. See the online
+supplementary information of Jones et al. (2014) for further details.
 }
 \examples{
-matU <- matrix(c(0.000, 0.691, 0.000, 0.000, 0.000, 0.880, 0.000, 0.000, 0.790),nrow=3)
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
+
 qsdConverge(matU, 0.05)
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 
-Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-Nature, 505(7482), 169–173
+  Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
+  Nature, 505(7482), 169–173. https://doi.org/10.1038/nature12789
 
-Salguero-Gómez R. Implications of clonality for ageing research.
-Evolutionary Ecology DOI 10.1007/s10682-017-9923-2
+  Salguero-Gómez R. (2018) Implications of clonality for ageing research.
+  Evolutionary Ecology, 32, 9-28. https://doi.org/10.1007/s10682-017-9923-2
 }
 \author{
 Hal Caswell <h.caswell@uva.nl>

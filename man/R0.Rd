@@ -2,50 +2,45 @@
 % Please edit documentation in R/R0.R
 \name{R0}
 \alias{R0}
-\title{Calculates net reproductive value}
+\title{Calculate net reproductive value from a matrix population model}
 \usage{
-R0(matU, matF, matC = FALSE, startLife = 1)
+R0(matU, matR)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
-stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{A matrix containing only sexual reproduction, with zeros
-elsewhere.}
-
-\item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere. If not provided, it defaults to a matrix with all zeros.}
-
-\item{startLife}{The first stage at which the author considers the beginning
-of life in the life cycle of the species. It defaults to the first stage.}
+\item{matR}{The reproductive component of a matrix population model (i.e. a
+square projection matrix reflecting transitions due to reproduction; either
+sexual, clonal, or both)}
 }
 \value{
-Returns the net reproductive value of the matrix population model. When both 'matF'
-and 'matC' are provided, it outputs the net reprodutive value for sexual
-reproduction only, for clonal reproduction only, and for both types of
-reproduction together.
+Returns the net reproductive value.  If \code{matU} is singular
+  (often indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculates net reproductive value from a matU
-(survival-dependent processes) and either a matF (sexual reproduction) and/or a
-matC (clonal reproduction).
+Calculate net reproductive value (i.e. the per-generation population growth
+rate) from a matrix population model
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
 R0(matU, matF)
-R0(matU, matC)
-R0(matU, matF, matC, startLife=1)
-R0(matU, matF, matU, startLife=4)
 
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

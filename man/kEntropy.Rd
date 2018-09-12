@@ -2,13 +2,14 @@
 % Please edit documentation in R/kEntropy.R
 \name{kEntropy}
 \alias{kEntropy}
-\title{Calculate Keyfitz's entropy}
+\title{Calculate Keyfitz's entropy from a matrix population model}
 \usage{
 kEntropy(matU, startLife = 1, nSteps = 100, trapeze = FALSE)
 }
 \arguments{
-\item{matU}{A square matrix containing only survival-related transitions
-(i.e. progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
@@ -30,15 +31,16 @@ first using age-from-stage decomposition methods to estimate age-specific
 survivorship (lx).
 }
 \examples{
-matU <- rbind(c(0.2, 0.0, 0.0, 0.0),
-              c(0.3, 0.4, 0.1, 0.0),
+matU <- rbind(c(0.2,   0,   0,   0),
+              c(0.3, 0.4, 0.1,   0),
               c(0.1, 0.1, 0.2, 0.3),
-              c(0.0, 0.2, 0.6, 0.5))
+              c(  0, 0.2, 0.6, 0.5))
 
 kEntropy(matU, nSteps = 10)
 kEntropy(matU, nSteps = 20)
 kEntropy(matU, nSteps = 100)
 kEntropy(matU, nSteps = 100, trapeze = TRUE)
+
 }
 \references{
 Keyfitz, N. (1977) Applied Mathematical Demography. New York:

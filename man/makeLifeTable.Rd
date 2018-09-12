@@ -8,14 +8,17 @@ makeLifeTable(matU, matF = NULL, matC = NULL, startLife = 1,
   nSteps = 1000)
 }
 \arguments{
-\item{matU}{A square matrix containing only survival-related transitions
-(i.e. progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{(Optional) A square matrix containing only sexual
-reproduction-related transitions.}
+\item{matF}{(Optional) The sexual component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to sexual
+reproduction)}
 
-\item{matC}{(Optional) A square matrix containing only clonal
-reproduction-related transitions.}
+\item{matC}{(Optional) The clonal component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to clonal
+reproduction).}
 
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
@@ -25,42 +28,30 @@ calculated. Time steps are in the same units as the matrix population model
 (see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000.}
 }
 \value{
-A \code{list} containing 7-19 named elements. List elements are
-  numeric vectors of length \code{nSteps}, unless otherwise noted.\cr\cr
-  Always includes the following:
-\tabular{lll}{
-  \code{x} \tab \tab age\cr
-  \code{lx} \tab \tab survivorship to start of age class x\cr
-  \code{dx} \tab \tab proportion of original cohort dying in interval [x, x+1)\cr
-  \code{qx} \tab \tab force of mortality at age x\cr
-  \code{Lx} \tab \tab survivorship to middle of age class x\cr
-  \code{Tx} \tab \tab proportion of original cohort alive at age x and beyond\cr
-  \code{ex} \tab \tab remaining life expectancy at age x\cr
-}
+A \code{data.frame} containing 7-13 columns and \code{nSteps} rows.
+  Columns include:
+  \item{x}{age}
+  \item{lx}{survivorship to start of age class x}
+  \item{dx}{proportion of original cohort dying in interval [x, x+1)}
+  \item{qx}{force of mortality at age x}
+  \item{Lx}{survivorship to middle of age class x}
+  \item{Tx}{proportion of original cohort alive at age x and beyond}
+  \item{ex}{remaining life expectancy at age x}
+
 If \code{matF} is provided, also includes:
-\tabular{lll}{
-  \code{mx} \tab \tab per-capita rate of sexual reproduction at age x\cr
-  \code{lxmx} \tab \tab expected number of sexual offspring per original
-  cohort member produced at age x\cr
-  \code{R0Fec} \tab \tab <scalar> net reproductive rate (sexual)\cr
-  \code{TcFec} \tab \tab <scalar> mean generation time (sexual)\cr
-}
+  \item{mx}{per-capita rate of sexual reproduction at age x}
+  \item{lxmx}{expected number of sexual offspring per original
+  cohort member produced at age x}
+  
 If \code{matC} is provided, also includes:
-\tabular{lll}{
-  \code{cx} \tab \tab per-capita rate of clonal reproduction at age x\cr
-  \code{lxcx} \tab \tab expected number of clonal offspring per original
-  cohort member produced at age x\cr
-  \code{R0Clo} \tab \tab <scalar> net reproductive rate (clonal)\cr
-  \code{TcClo} \tab \tab <scalar> mean generation time (clonal)\cr
-}
+  \item{cx}{per-capita rate of clonal reproduction at age x}
+  \item{lxcx}{expected number of clonal offspring per original
+  cohort member produced at age x}
+  
 If both \code{matF} and \code{matC} are provided, also includes:
-\tabular{lll}{
-  \code{mxcx} \tab \tab per-capita rate of total reproduction (sexual + clonal) at age x\cr
-  \code{lxmxcx} \tab \tab expected number of total offspring (sexual + clonal) per original
-  cohort member produced at age x\cr
-  \code{R0FecClo} \tab \tab <scalar> net reproductive rate (total reproduction)\cr
-  \code{TcFecClo} \tab \tab <scalar> mean generation time (total reproduction)\cr
-}
+  \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) at age x}
+  \item{lxmxcx}{expected number of total offspring (sexual + clonal) per original
+  cohort member produced at age x}
 }
 \description{
 This function uses age-from-stage decomposition methods to generate a life
@@ -68,24 +59,25 @@ table from a matrix population model. A detailed description of these methods
 can be found in section 5.3 of Caswell (2001).
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.5, 0.0, 0.0, 0.0),
-              c(0.0, 0.3, 0.0, 0.0),
-              c(0.0, 0.0, 0.1, 0.1))
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matF <- rbind(c(0.0, 0.0, 5.0, 8.1),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
-
-matC <- rbind(c(0.0, 0.0, 0.1, 0.2),
-              c(0.0, 0.0, 0.2, 1.3),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+              
+matC <- rbind(c(  0,   0, 0.4, 0.5),
+              c(  0,   0, 0.3, 0.1),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
 makeLifeTable(matU, startLife = 1, nSteps = 100)
 makeLifeTable(matU, matF, startLife = 1, nSteps = 100)
 makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
+
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and

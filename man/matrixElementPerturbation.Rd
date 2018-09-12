@@ -2,47 +2,78 @@
 % Please edit documentation in R/matrixElementPerturbation.R
 \name{matrixElementPerturbation}
 \alias{matrixElementPerturbation}
-\title{A function to perform element perturbation of a matrix population model for
-any demographic statistic.}
+\title{Perturbation analysis of matrix elements in a matrix population model}
 \usage{
-matrixElementPerturbation(matU, matF, matC = NULL, demogstat = "lambda",
-  pert = 0.001, ...)
+matrixElementPerturbation(matU, matF, matC = NULL, pert = 1e-06,
+  demogstat = "lambda", ...)
 }
 \arguments{
-\item{matU}{The U matrix (processes related to survival, growth and
-retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{The F matrix (sexual reproduction processes).}
+\item{matF}{The sexual component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction)}
 
-\item{matC}{The C matrix (clonal reproduction processes).}
+\item{matC}{The clonal component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to clonal reproduction).
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+\code{matC} is a matrix of zeros).}
 
-\item{demogstat}{A character string that is the name of a function. The
-default is the per-capita population growth rate at equilibrium. Also
+\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6}).}
+
+\item{demogstat}{The demographic statistic to be used, as in "the
+sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
+the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 accepts a user-supplied function that performs a calculation on a
 projection matrix and returns a single numeric value.}
-
-\item{pert}{Perturbation parameter.}
 
 \item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
 \value{
-%% ~Describe the value returned
+A data frame with 1 row and 10 columns:
+\item{SStasis}{sensitivity of \code{demogstat} to stasis}
+\item{SRetrogression}{sensitivity of \code{demogstat} to retrogression}
+\item{SProgression}{sensitivity of \code{demogstat} to progression}
+\item{SFecundity}{sensitivity of \code{demogstat} to sexual fecundity}
+\item{SClonality}{sensitivity of \code{demogstat} to clonality}
+\item{EStasis}{elasticity of \code{demogstat} to stasis}
+\item{ERetrogression}{elasticity of \code{demogstat} to retrogression}
+\item{EProgression}{elasticity of \code{demogstat} to progression}
+\item{EFecundity}{elasticity of \code{demogstat} to sexual fecundity}
+\item{EClonality}{elasticity of \code{demogstat} to clonality}
 }
 \description{
-A function to perform element perturbation of a matrix population model and
-measure the response of the per-capita population growth rate at equilibrium
-or (with a user-supplied function) any other demographic statistic.
-}
-\note{
-%% ~~further notes~~
+Perturbs elements within a matrix population model and measures the response
+of the per-capita population growth rate at equilibrium (\eqn{\lambda}), or,
+with a user-supplied function, any other demographic statistic.
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
+matrixElementPerturbation(matU, matF)
+
+# use a larger perturbation than the default
+matrixElementPerturbation(matU, matF, pert = 0.01)
+
+# calculate the sensitivity/elasticity of the damping ratio to perturbations
+damping <- function(matA) {  # define function for damping ratio
+  eig <- eigen(matA)$values
+  dm <- rle(Mod(eig))$values
+  return(dm[1] / dm[2])
 }
-\references{
-%% ~~references~~
+
+matrixElementPerturbation(matU, matF, demogstat = 'damping')
+
 }
 \author{
-Roberto Salguero-Gomez <r.salguero@sheffield.ac.uk>
+Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 }

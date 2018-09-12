@@ -7,24 +7,24 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(Rcompadre)
-```
+# ```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE)
+# library(Rcompadre)
+# ```
 
 ## Plot a life cycle diagram
-
+ 
 The exercise plots a life cycle with the stages and transitions of a give matrix chosen from the `Comadre` (or `Compadre`) database (or indeed elsewhere). It will use the R function `plotLifeCycle` from the `Rage` library. This function works well with matrices of relatively low dimensionality (~< 7), and where not many transitions are depicted. 
 
-```{r, comment=">"}
-library(Rage)
-```
+# ```{r, comment=">"}
+# library(Rage)
+# ```
 
 Let's plot the lifecycle described by the `A` matrix for a species containing the word "lion" in the common name used by the author(s) in the original source publiction.
 
-```{r echo=FALSE}
-data(Comadre)
-```
+# ```{r echo=FALSE}
+# data(Comadre)
+# ```
 
 To subset the species with the word `lion` in their common name, we use the function `grepl`.
 

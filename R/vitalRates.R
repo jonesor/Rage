@@ -1,23 +1,24 @@
-#' A function to derive vital rates from the matrix population model.
+#' Derive mean vital rates from a matrix population model
 #' 
-#' A function to derive vital rates from the matrix population model for the
-#' separate demographic processes.
+#' Derive mean vital rates from a matrix population model corresponding to
+#' separate demographic processes. Specifically, this function decomposes vital
+#' rates of survival, progression, retrogression, sexual reproduction and clonal
+#' reproduction according to various ways of weighted means and organization of
+#' stages along the life cycle represented in the matrix population model.
 #' 
-#' This function decomposes vital rates of survival, progression,
-#' retrogression, sexual reproduction and clonal reproduction according to
-#' various ways of weighted means and organization of stages along the life
-#' cycle represented in the matrix population model.
-#' 
-#' @param matU A matrix containing only survival-dependent processes ( growth,
-#' stasis, shrinkage).
-#' @param matF A matrix containing only sexual reproduction, with zeros
-#' elsewhere.
-#' @param matC A matrix containing only clonal reproduction, with zeros
-#' elsewhere.
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matF The sexual component of a matrix population model (i.e. a square
+#'   projection matrix reflecting transitions due to sexual reproduction)
+#' @param matC The clonal component of a matrix population model (i.e. a square
+#'   projection matrix reflecting transitions due to clonal reproduction).
+#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+#'   \code{matC} is a matrix of zeros).
 #' @param splitStages Splits vital rates according to some pre-determined
-#' criteria (below).
+#'   criteria (below).
 #' @param weighted Allows to weight mean vital rates according to various
-#' criteria (below).
+#'   criteria (below).
 #' @return - 'Weighted': This argument allows to weight mean values of vital
 #' rates (survival 'surv', progression 'prog', retrogression 'retr', sexual
 #' reproduction 'fec' and clonal reproduction 'clo') with an equal contribution
@@ -33,47 +34,43 @@
 #' 'compadre$matrixClass[[i]]$MatrixClassOrganized' or
 #' 'compadre$matrixClass[[i]]$MatrixClassOrganized', where 'i' is the index of
 #' the chosen study in 'COMPADRE' or 'COMADRE'.
-#' 
-#' - 'p': probability of achiving maturity, sexual or clonal.
-#' 
-#' - 'La': mean age at maturity (in the same units as the matrix population
-#' model).
-#' 
-#' - 'meanLifeExpectancy': mean life expectancy conditional on entering the
-#' life cycle in the first reproductive stage
-#' 
-#' - 'remainingMatureLifeExpectancy': Life expectancy from mean maturity. This
-#' is mean life expectancy - mean age at maturity ('La' above). This value can
-#' be negative because both mean life expectancy and mean age at maturity are
-#' means of their respective distributions.
-#' @note %% ~~further notes~~
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
-#' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#' 978-0878930968
-#' @keywords ~kwd1 ~kwd2
+#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+#'   978-0878930968
 #' @examples
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #' 
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
+#'               
+#' matC <- rbind(c(  0,   0, 0.4, 0.5),
+#'               c(  0,   0, 0.3, 0.1),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
 #' 
 #' #Vital rate outputs without weights:
 #' vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
 #' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = FALSE)
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = FALSE)
-#' 
+#' vitalRates(matU, matF, matC,
+#'            splitStages = c('prop', 'active', 'active', 'active'),
+#'            weighted = FALSE)
 #' 
 #' 
 #' #Vital rate outputs weighted by the stable stage distribution of 'matA':
 #' vitalRates(matU, matF, matC, splitStages = 'all', weighted = 'SSD')
 #' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = 'SSD')
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = 'SSD')
+#' vitalRates(matU, matF, matC,
+#'            splitStages = c('prop', 'active', 'active', 'active'),
+#'            weighted = 'SSD')
 #' 
-#' #Vital rate outputs weighted by a chosen population vector of initial conditions:
-#' 
-#' @export
+#' @importFrom popbio stable.stage
+#' @export vitalRates
 vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
   #Function to quantify vital rates values
   
@@ -114,7 +111,7 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
   }
   
   if (weighted[1] == 'SSD') {
-    weight <- Re(eigen(matA)$vectors[,which.max(Re(eigen(matA)$values))])
+    weight <- popbio::stable.stage(matA)
   }
   
   weight <- weight/sum(weight)
