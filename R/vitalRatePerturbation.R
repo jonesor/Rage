@@ -2,7 +2,7 @@
 #'
 #' Perturbs lower-level vital rates within a matrix population model and
 #' measures the response of the per-capita population growth rate at equilibrium
-#' (\eqn{lambda}), or, with a user-supplied function, any other demographic
+#' (\eqn{\lambda}), or, with a user-supplied function, any other demographic
 #' statistic.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
@@ -86,20 +86,9 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   
   # combine components into matA 
   matA <- matU + matF + matC
-
+  
   # statfun
   stat <- statfun(matA, ...)
-  
-  propU <- matU / matA
-  propU[is.nan(propU)] <- 0
-  propProg <- propRetrog <- propU
-  propProg[upper.tri(propU, diag = TRUE)] <- 0
-  propRetrog[lower.tri(propU, diag = TRUE)] <- 0
-  propStasis <- diag(matDim) * diag(propU)
-  propF <- matF / matA
-  propF[is.nan(propF)] <- 0
-  propC <- matC / matA
-  propC[is.nan(propC)] <- 0
   
   # initialize sensitivity matrix
   sensA <- matrix(NA, matDim, matDim)
@@ -114,58 +103,100 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
     }
   }
   
-  # survival-independent A matrix
-  uIndep <- matrix(NA, matDim, matDim)
-  u <- colSums(matU)
-  for(j in which(u > 0)) uIndep[, j] <- matA[, j] / u[j]
+  # stage-specific survival
+  sigma <- colSums(matU)
   
-  sensSigmaA <- uIndep * sensA
-
+  # which stages defined only by age (single non-zero element in column of matU)
+  stage_agedef <- apply(matU, 2, function(x) length(which(x > 0))) == 1
   
-  #Little fix for semelparous species
-  # uPrime <- u
-  #uPrime[u==0] <- 0.001
-  elasSigmaA <- t(t(sensSigmaA) * u) / stat
-  elasA <- sensA * matA / stat
+  # survival-independent matA (divide columns of matA by corresponding element
+  #  of sigma; retain original column of matA if no survival)
+  noSurvA <- noSurvA_F <- t(t(matA) / sigma)
+  noSurvA[,sigma == 0] <- matA[,sigma == 0]
   
+  # sensitivity and elasticity of survival
+  matSensSurv <- noSurvA * sensA
+  sensSurv <- colSums(matSensSurv)
+  sensSurv[sigma == 0] <- 0  # zero out stages with no survival
+  elasSurv <- sigma * sensSurv / stat
   
-  #Extracting survival vital rate
-  uDistrib <- matrix(0, ncol = matDim, nrow = matDim)
-  for (j in which(u > 0)) uDistrib[, j] <- matU[, j] / u[j]
+  # lower and upper triangles (reflecting growth and retrogression)
+  lwr <- upr <- matrix(0, nrow = matDim, ncol = matDim)
+  lwr[lower.tri(lwr, diag = TRUE)] <- 1
+  upr[upper.tri(upr, diag = TRUE)] <- 1
   
-  #Extracting fecundity vital rates:
-  f <- colSums(matF)
-  fDistrib <- matrix(0, ncol = matDim, nrow = matDim)
-  for (j in which(f > 0)) fDistrib[, j]=matF[, j] / f[j]
+  # sensitivity of survival-independent U components
+  matSensGrowShri <- matrix(NA_real_, matDim, matDim)
   
-  #Extracting clonality vital rates:
-  c <- colSums(matC)
-  cDistrib <- matrix(0, ncol = matDim, nrow = matDim)
-  for (j in which(c > 0)) cDistrib[, j] = matC[, j] / c[j]
-
+  for (i in 1:matDim) { 
+    matSensGrowShri[,i] = sensA[i,i] * (-sigma[i]) +
+      sensA[,i] * (sigma[i])
+  }
   
-  SuDistrib <- sensA * uDistrib
-  SfDistrib <- sensA * fDistrib
-  ScDistrib <- sensA * cDistrib
+  # zero out non-existent U transitions, and age-defined stages
+  matSensGrowShri[which(matU == 0)] = 0
+  matSensGrowShri[,stage_agedef == TRUE] <- 0
   
-  EuDistrib <- sensA * uDistrib * matrix(u, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
-  EfDistrib <- sensA * fDistrib * matrix(f, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
-  EcDistrib <- sensA * cDistrib * matrix(c, nrow = matDim, ncol = matDim, byrow = TRUE) / stat
+  # sensitivity to growth
+  matSensGrow <- lwr * matSensGrowShri
+  sensGrow = colSums(matSensGrow, na.rm = TRUE)
   
+  # sensitivity to shrinkage
+  matSensShri <- upr * matSensGrowShri
+  sensShri <- colSums(matSensShri, na.rm = TRUE)
   
-  #Still to be done
-  out <- data.frame(
-    SSurvival = sum(sensSigmaA, na.rm = TRUE),
-    SGrowth = sum(sensA * uDistrib * propProg, na.rm = TRUE),
-    SShrinkage = sum(sensA * uDistrib * propRetrog, na.rm = TRUE),
-    SReproduction = sum(sensA * fDistrib * propF, na.rm = TRUE),
-    SClonality = sum(sensA * cDistrib * propC, na.rm = TRUE),
-    ESurvival = sum(elasSigmaA, na.rm = TRUE),
-    EGrowth = sum(EuDistrib * propProg, na.rm = TRUE),
-    EShrinkage = sum(EuDistrib * propRetrog, na.rm = TRUE),
-    EReproduction = sum(EfDistrib * propF, na.rm = TRUE),
-    EClonality = sum(EcDistrib * propC, na.rm = TRUE)
-  )
+  # modify sigma (column-specific survival) for reproduction transitions;
+  # convert 0s to 1s, because don't want to 'pull out' survival from columns
+  #  from which there was no survival
+  sigma_rep <- sigma
+  sigma_rep[sigma_rep == 0] <- 1
   
-  return(out) 
+  # sensitivity to fecundity
+  matSensFec <- sensA
+  matSensFec[which(matF == 0)] <- 0 # zero out non-existent transitions
+  matSensFec <- t(t(matSensFec) * sigma_rep) # multiply columns by sigma_rep 
+  sensFec <- colSums(matSensFec)
+  
+  # sensitivity to clonality
+  matSensClo <- sensA
+  matSensClo[which(matC == 0)] <- 0 # zero out non-existent transitions
+  matSensClo <- t(t(matSensClo) * sigma_rep) # multiply columns by sigma_rep 
+  sensClo <- colSums(matSensClo)
+  
+  # survival-independent U elasticities
+  matElasGrowShri <- noSurvA * matSensGrowShri / stat
+  
+  # elasticity to growth
+  matElasGrow <- lwr * matElasGrowShri
+  elasGrow = colSums(matElasGrow, na.rm = TRUE)
+  
+  # elasticity to shrinkage
+  matElasShri <- upr * matElasGrowShri
+  elasShri <- colSums(matElasShri, na.rm = TRUE)
+  
+  # zero out grow/shri elasticities for stages with no survival
+  # PB: I think this is unnecessary... just being 'safe'
+  elasGrow[sigma == 0] <- 0
+  elasShri[sigma == 0] <- 0
+  
+  # elasticity to fecundity
+  matElasFec <- noSurvA * matSensFec / stat
+  elasFec <- colSums(matElasFec)
+  
+  # elasticity to clonality
+  matElasClo <- noSurvA * matSensClo / stat
+  elasClo <- colSums(matElasClo)
+  
+  out <- data.frame("SSurvival" = sum(sensSurv, na.rm = TRUE),
+                    "SGrowth" = sum(sensGrow, na.rm = TRUE),
+                    "SShrinkage" = sum(sensShri, na.rm = TRUE),
+                    "SReproduction" = sum(sensFec, na.rm = TRUE),
+                    "SClonality" = sum(sensClo, na.rm = TRUE),
+                    "ESurvival" = sum(elasSurv, na.rm = TRUE),
+                    "EGrowth" = sum(elasGrow, na.rm = TRUE),
+                    "EShrinkage" = sum(elasShri, na.rm = TRUE),
+                    "EReproduction" = sum(elasFec, na.rm = TRUE),
+                    "EClonality" = sum(elasClo, na.rm = TRUE))
+  
+  return(out)
 }

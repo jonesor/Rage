@@ -1,7 +1,7 @@
 #' Perturbation analysis of matrix elements in a matrix population model
 #'
 #' Perturbs elements within a matrix population model and measures the response
-#' of the per-capita population growth rate at equilibrium (\eqn{lambda}), or,
+#' of the per-capita population growth rate at equilibrium (\eqn{\lambda}), or,
 #' with a user-supplied function, any other demographic statistic.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a

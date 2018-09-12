@@ -46,7 +46,7 @@ A data frame with 1 row and 10 columns:
 \description{
 Perturbs lower-level vital rates within a matrix population model and
 measures the response of the per-capita population growth rate at equilibrium
-(\eqn{lambda}), or, with a user-supplied function, any other demographic
+(\eqn{\lambda}), or, with a user-supplied function, any other demographic
 statistic.
 }
 \examples{
