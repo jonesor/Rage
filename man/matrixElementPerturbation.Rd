@@ -71,7 +71,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-matrixElementPerturbation(matU, matF, demogstat = damping)
+matrixElementPerturbation(matU, matF, demogstat = 'damping')
 
 }
 \author{

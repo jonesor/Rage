@@ -57,10 +57,9 @@
 #'   return(dm[1] / dm[2])
 #' }
 #' 
-#' vitalRatePerturbation(matU, matF, demogstat = damping)
+#' vitalRatePerturbation(matU, matF, demogstat = 'damping')
 #' 
 #' @importFrom popbio lambda
-#' @importFrom methods getFunction
 #' @export vitalRatePerturbation
 vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
                                   demogstat = "lambda", ...) {
@@ -71,7 +70,7 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   } else if (demogstat == "lambda") {
     statfun <- popbio::lambda
   } else if (is.character(demogstat)) {
-    statfun <- getFunction(demogstat)
+    statfun <- match.fun(demogstat, descend = FALSE)
   } else {
     stop("demogstat must be 'lambda' or the name of a function that returns a
           single numeric value")

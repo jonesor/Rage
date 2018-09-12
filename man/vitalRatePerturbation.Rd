@@ -73,7 +73,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-vitalRatePerturbation(matU, matF, demogstat = damping)
+vitalRatePerturbation(matU, matF, demogstat = 'damping')
 
 }
 \author{
