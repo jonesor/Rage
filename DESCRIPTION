@@ -2,11 +2,12 @@ Package: Rage
 Type: Package
 Title: Miscellaneous functions for COMADRE/COMPADRE matrix databases
 Version: 0.1
-Date: 2017-12-02
 Author: Owen R. Jones, Roberto Salguero-Gomez
 Maintainer: Owen R. Jones <jones@biology.sdu.dk>/Roberto Salguero-Gomez
     <r.salguero@sheffield.ac.uk>
 Description: This package contains functions for performing ageing focussed analyses using matrix population models.
+URL: https://github.com/jonesor/Rage
+BugReports: https://github.com/jonesor/Rage/issues
 License: GPL-2 | file LICENSE
 Imports:
     popbio,
