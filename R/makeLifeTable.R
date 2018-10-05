@@ -88,13 +88,13 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   }
   if (!is.null(matF)) {
     if (any(is.na(matF))) {
-      matF[is.na(matF)] = 0
+      matF[is.na(matF)] <- 0
       warning("NAs exist in matF. These have been zero-ed")
     }
   }
   if (!is.null(matC)) {
     if (any(is.na(matC))) {
-      matC[is.na(matC)] = 0
+      matC[is.na(matC)] <- 0
       warning("NAs exist in matC. These have been zero-ed")
     }
   }
@@ -103,26 +103,27 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   lx <- ageSpecificSurv(matU, startLife, nSteps-1)
   
   #Proportion of original cohort dying during each age
-  dx = c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
+  dx <- c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
   
   #Force of mortality
-  qx = dx / lx
+  qx <- dx / lx
   
   #Average proportion of individuals alive at the middle of a given age
-  Lx = (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
+  Lx <- (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
   Lx[nSteps] <- NA
   
   #Total number of individuals alive at a given age and beyond
-  Tx <- sapply(seq_along(Lx), function(x) sum(Lx[x:length(Lx)], na.rm = T))
+  TxFn <- function(x) sum(Lx[x:length(Lx)], na.rm = TRUE)
+  Tx <- vapply(seq_along(Lx), TxFn, numeric(1))
   Tx[nSteps] <- NA
   
   #Mean life expectancy conditional to a given age
-  ex = Tx / lx
+  ex <- Tx / lx
   ex[is.infinite(ex)] <- NA
   ex[nSteps] <- NA
   
   #Start to assemble output object
-  out = data.frame(
+  out <- data.frame(
     x = 0:(nSteps - 1),
     lx = lx,
     dx = dx,

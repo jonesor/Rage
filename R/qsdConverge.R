@@ -74,27 +74,27 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   }
   
   # stable distribution
-  w = stable.stage(matU)
+  w <- stable.stage(matU)
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others
-  n = rep(0, nrow(matU))
-  n[startLife] = 1
+  n <- rep(0, nrow(matU))
+  n[startLife] <- 1
   
   # iterate cohort (n = cohort population vector, p = proportional structure)
-  dist = NULL
+  dist <- NULL
   
   for (j in 1:nSteps) {      # j represent years of iteration
-    p = n / sum(n)           # get the proportional distribution
-    dist[j] = 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
-    n = matU %*% n           # multiply matU %*% n to iterate
+    p <- n / sum(n)           # get the proportional distribution
+    dist[j] <- 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
+    n <- matU %*% n           # multiply matU %*% n to iterate
   }
   
   # find time to convergence (default conv = 0.05; i.e. within 5% of w)
   if (min(dist, na.rm = TRUE) < conv) {
-    convage = min(which(dist < conv))
+    convage <- min(which(dist < conv))
   }
   if (min(dist, na.rm = TRUE) >= conv) {
-    convage = NA_integer_
+    convage <- NA_integer_
     warning("Convergence not reached within nSteps")
   }
   

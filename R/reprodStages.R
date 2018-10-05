@@ -42,7 +42,7 @@ reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
   # FIXME: can we combine propagule and pre-reproductive?
   # FIXME: what about dormant stages?
   # FIXME: once above solved, then fix logic internally
-  # FIXME: Scott and Tamora added the extra parameter flags for switching whether
+  # FIXME: Scott and Tamora added extra parameter flags for switching whether
   # to include propagule and post-reproductive stages but these are not used as
   # yet. On reflection this is probably going too far and we should let the
   # matrix structure guide the process. However, in animals we may wish to

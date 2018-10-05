@@ -129,17 +129,17 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   matSensGrowShri <- matrix(NA_real_, matDim, matDim)
   
   for (i in 1:matDim) { 
-    matSensGrowShri[,i] = sensA[i,i] * (-sigma[i]) +
+    matSensGrowShri[,i] <- sensA[i,i] * (-sigma[i]) +
       sensA[,i] * (sigma[i])
   }
   
   # zero out non-existent U transitions, and age-defined stages
-  matSensGrowShri[which(matU == 0)] = 0
+  matSensGrowShri[which(matU == 0)] <- 0
   matSensGrowShri[,stage_agedef == TRUE] <- 0
   
   # sensitivity to growth
   matSensGrow <- lwr * matSensGrowShri
-  sensGrow = colSums(matSensGrow, na.rm = TRUE)
+  sensGrow <- colSums(matSensGrow, na.rm = TRUE)
   
   # sensitivity to shrinkage
   matSensShri <- upr * matSensGrowShri
@@ -168,7 +168,7 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   
   # elasticity to growth
   matElasGrow <- lwr * matElasGrowShri
-  elasGrow = colSums(matElasGrow, na.rm = TRUE)
+  elasGrow <- colSums(matElasGrow, na.rm = TRUE)
   
   # elasticity to shrinkage
   matElasShri <- upr * matElasGrowShri

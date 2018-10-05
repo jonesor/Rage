@@ -66,7 +66,7 @@ lifeTimeRepEvents <- function(matU, matR, startLife = 1) {
   matDim <- nrow(matU)
   
   # Which stages reproductive?
-  fecLifeStages <- apply(matR, 2, function(x) sum(x, na.rm = T) > 0)
+  fecLifeStages <- apply(matR, 2, function(x) sum(x, na.rm = TRUE) > 0)
   
   # Probability of survival to first sexual reproductive event
   # Note: U matrices are called 'T' in Caswell (2001)
@@ -79,7 +79,7 @@ lifeTimeRepEvents <- function(matU, matR, startLife = 1) {
     if (fecLifeStages[p]) {
       Mprime[2, p] <- 1
     } else {
-      Mprime[1, p] = 1 - colSums(matU)[p]
+      Mprime[1, p] <- 1 - colSums(matU)[p]
     }
   }
   

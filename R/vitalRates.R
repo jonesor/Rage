@@ -71,7 +71,8 @@
 #' 
 #' @importFrom popbio stable.stage
 #' @export vitalRates
-vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
+vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE,
+                       weighted = FALSE) {
   #Function to quantify vital rates values
   
   if (missing(matU)) {
@@ -95,13 +96,13 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
   clo <- colSums(matC)
   
   matUIndep <- matrix(NA, matDim, matDim)
-  for (i in 1:matDim) {matUIndep[,i] = matU[,i]/surv[i]}
+  for (i in 1:matDim) {matUIndep[,i] <- matU[,i] / surv[i]}
   prog <- retr <- matUIndep
   prog[is.nan(prog)] <- 0
   retr[is.nan(retr)] <- 0
   
-  prog[which(upper.tri(matUIndep, diag = TRUE))]=0
-  retr[which(lower.tri(matUIndep, diag = TRUE))]=0
+  prog[which(upper.tri(matUIndep, diag = TRUE))] <- 0
+  retr[which(lower.tri(matUIndep, diag = TRUE))] <- 0
   
   prog <- colSums(prog)
   retr <- colSums(retr)
@@ -114,7 +115,7 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
     weight <- popbio::stable.stage(matA)
   }
   
-  weight <- weight/sum(weight)
+  weight <- weight / sum(weight)
   
   surv1 <- surv * weight
   fec1  <- fec  * weight
@@ -122,9 +123,9 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
   prog1 <- prog * weight
   retr1 <- retr * weight
   
-  out = NULL
+  out <- NULL
   
-  if (splitStages[1] == 'all'){
+  if (splitStages[1] == 'all') {
     out$surv <- sum(surv1)
     out$retr <- sum(retr1)
     out$prog <- sum(prog1)
@@ -132,9 +133,10 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
     out$clo  <- sum(clo1)
   }
   
-  if (splitStages[1] == 'ontogeny'){
-    adu <- which(colSums(matF)>0)  #This classification does not accoutn for non- and post-reproductive
-    juv <- which(colSums(matF)==0)
+  if (splitStages[1] == 'ontogeny') {
+    #This adu classification does not account for non- and post-reproductive
+    adu <- which(colSums(matF) > 0)
+    juv <- which(colSums(matF) == 0)
     
     out$survJuv <- mean(surv1[juv], na.rm=TRUE)
     out$retrJuv <- mean(retr1[juv], na.rm=TRUE)
@@ -148,10 +150,10 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
     out$cloAdu  <- mean(clo1[adu], na.rm=TRUE)
     }
   
-  if (splitStages[1] %in% c('prop','active','dorm')){
-    prop <- which(splitStages=="prop")
-    active <- which(splitStages=="active")
-    dorm <- which(splitStages=="dorm")
+  if (splitStages[1] %in% c('prop','active','dorm')) {
+    prop <- which(splitStages == "prop")
+    active <- which(splitStages == "active")
+    dorm <- which(splitStages == "dorm")
     
     out$survProp <- mean(surv1[prop], na.rm=TRUE)
     out$progProp <- mean(prog1[prop], na.rm=TRUE)
