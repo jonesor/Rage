@@ -46,7 +46,6 @@ longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
   }
   if (all(matU == 0)) {
     warning('all elements of matU are zero')
-    return(1)
   }
 
   # calculate survivorship to maxAge
