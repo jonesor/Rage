@@ -5,7 +5,7 @@
 #' (clonal reproduction). Warning! The functionality is very basic — it assumes
 #' that sexual reproduction is located in the top row of the matrix, and that
 #' everything else is growth or survival (the U matrix). Clonality is assumed to
-#' be non-existant.
+#' be non-existent.
 #'
 #' @param matA A matrix population model (i.e. a square projection matrix)
 #' @return A list of three matrices: \code{matU},\code{matF} and \code{matC}
