@@ -35,5 +35,5 @@ splitMatrix <- function(matA) {
   # matC is all zeros
   matC <- matrix(0, nrow = dim, ncol = dim)
   
-  return(list(matU, matF, matC))
+  return(list(matU = matU, matF = matF, matC = matC))
 }
