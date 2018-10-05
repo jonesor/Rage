@@ -18,7 +18,7 @@ matrices, U (growth and survival processes), F (sexual reproduction) and C
 (clonal reproduction). Warning! The functionality is very basic — it assumes
 that sexual reproduction is located in the top row of the matrix, and that
 everything else is growth or survival (the U matrix). Clonality is assumed to
-be non-existant.
+be non-existent.
 }
 \examples{
 matA <- rbind(c(0.1,   0, 5.3, 4.2),
