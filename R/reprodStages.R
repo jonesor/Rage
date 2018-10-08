@@ -49,18 +49,24 @@ reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
   # combine rep and post-rep to obtain a two-stage matrix model.
   
   # validate arguments
-  checkValidMat(matF)
+  checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
       length(reproStages) != length(matrixStages)) {
     stop("Arguments do not correspond to MPM of single dimension",
          call. = FALSE)
   }
+  if (!any(reproStages == TRUE)) {
+    stop(paste("Cannot identify standardized stages because no stages are",
+               "reproductive (i.e. at least one element of reproStages must",
+               "be TRUE"), call. = FALSE)
+  }
+  
   
   if ("prop" %in% matrixStages) {
     propStage <- which(matrixStages == "prop")
-    if (!includeProp) {
-      warning("Propagule stage exists, but includeProp is set to FALSE")
-    }
+    # if (!includeProp) {
+    #   warning("Propagule stage exists, but includeProp is set to FALSE")
+    # }
   } else {
     propStage <- NA
   }
@@ -71,16 +77,13 @@ reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
   # prerep
   matDim <- nrow(matF)
   Rep <- which(reproStages == TRUE)
-  if (length(Rep) > 0) {
-    if (min(Rep) == 1) {
-      preRep <- NA
-    } else if (!is.na(propStage[1]) && (min(Rep) - max(propStage) == 1)) {
-      preRep <- NA
-    } else {
-      preRep <- min(which(matrixStages == "active")):(min(Rep) - 1)
-    }
-  } else {
+  
+  if (min(Rep) == 1) {
     preRep <- NA
+  } else if (!is.na(propStage[1]) && (min(Rep) - max(propStage) == 1)) {
+    preRep <- NA
+  } else {
+    preRep <- min(which(matrixStages == "active")):(min(Rep) - 1)
   }
   
   # postrep
