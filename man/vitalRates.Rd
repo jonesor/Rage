@@ -4,8 +4,8 @@
 \alias{vitalRates}
 \title{Derive mean vital rates from a matrix population model}
 \usage{
-vitalRates(matU, matF, matC = NULL, splitStages = FALSE,
-  weighted = FALSE)
+vitalRates(matU, matF, matC = NULL, weights = NULL,
+  splitStages = "all", matrixStages = NULL)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -20,34 +20,35 @@ projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-\item{splitStages}{Splits vital rates according to some pre-determined
-criteria (below).}
+\item{weights}{Vector of stage-specific weights to apply while averaging
+vital rates. Default is \code{NULL} reflecting equal weighting for all
+stages. May also be \code{"SSD"} to weight vital rates by the stable
+distribution of \code{matA}.}
 
-\item{weighted}{Allows to weight mean vital rates according to various
-criteria (below).}
+\item{splitStages}{What groups should vital rates be averaged over. Either:
+
+\code{"all"}: all stages grouped
+
+\code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
+with sexual reproduction) and adult stages
+
+\code{"matrixStages"}: group according to a standardized set of stage
+classes ("prop" for propagule, "active", and/or "dormant"). If
+\code{splitStages = "matrixStages"}, must also specify separate argument
+\code{matrixStages}.}
+
+\item{matrixStages}{Vector of stage-specific standardized matrix classes
+("prop" for propagule, "active", and/or "dormant"). Only used if
+\code{splitStages = "matrixClass"}.}
 }
 \value{
-- 'Weighted': This argument allows to weight mean values of vital
-rates (survival 'surv', progression 'prog', retrogression 'retr', sexual
-reproduction 'fec' and clonal reproduction 'clo') with an equal contribution
-for all stages (default), by the stable st/age distribution ('SSD'), or by a
-given population vector chosen by the user, so long as it is congruent with
-the dimensions of the chosen 'matU', 'matF', and 'matC'.
-
-- 'splitStages': This argument allows to split the values of vital rates
-according to recognizable stages in the matrix. When 'all', all vital rates
-are averaged all existing stages, if 'ontogeny', they are averaged as
-juveniles ('Juv') and adults ('Adu'), and if by 'MatrixClassOrganized', it
-takes a vector with the pre-established stages of
-'compadre$matrixClass[[i]]$MatrixClassOrganized' or
-'compadre$matrixClass[[i]]$MatrixClassOrganized', where 'i' is the index of
-the chosen study in 'COMPADRE' or 'COMADRE'.
+A list of averaged vital rates.
 }
 \description{
 Derive mean vital rates from a matrix population model corresponding to
 separate demographic processes. Specifically, this function decomposes vital
 rates of survival, progression, retrogression, sexual reproduction and clonal
-reproduction according to various ways of weighted means and organization of
+reproduction according to various ways of weights means and organization of
 stages along the life cycle represented in the matrix population model.
 }
 \examples{
@@ -66,20 +67,16 @@ matC <- rbind(c(  0,   0, 0.4, 0.5),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
 
-#Vital rate outputs without weights:
-vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
-vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = FALSE)
-vitalRates(matU, matF, matC,
-           splitStages = c('prop', 'active', 'active', 'active'),
-           weighted = FALSE)
+# Vital rate outputs without weights
+vitalRates(matU, matF, matC, splitStages = 'all')
+vitalRates(matU, matF, matC, splitStages = 'ontogeny')
 
+# Group vital rates according to specified matrixStages
+ms <- c('prop', 'active', 'active', 'active')
+vitalRates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
 
-#Vital rate outputs weighted by the stable stage distribution of 'matA':
-vitalRates(matU, matF, matC, splitStages = 'all', weighted = 'SSD')
-vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = 'SSD')
-vitalRates(matU, matF, matC,
-           splitStages = c('prop', 'active', 'active', 'active'),
-           weighted = 'SSD')
+# Vital rate outputs weights by the stable stage distribution of 'matA'
+vitalRates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 
 }
 \references{
