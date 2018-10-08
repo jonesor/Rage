@@ -70,15 +70,14 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
   
   # get statfun
-  if (is.function(demogstat)) {
-    statfun <- demogstat
-  } else if (demogstat == "lambda") {
+  if (demogstat == "lambda") {
     statfun <- popbio::lambda
-  } else if (is.character(demogstat)) {
-    statfun <- match.fun(demogstat, descend = FALSE)
   } else {
-    stop("demogstat must be 'lambda' or the name of a function that returns a
-          single numeric value")
+    statfun <- try(match.fun(demogstat, descend = FALSE), silent = TRUE)
+    if (class(statfun) == "try-error") {
+      stop(paste("demogstat must be 'lambda' or the name of a function that",
+                 "returns a single numeric value"), call. = FALSE)
+    }
   }
   
   # matrix dimension
