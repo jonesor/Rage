@@ -25,6 +25,13 @@
 #'   \item{matU}{Survival component of the standardized projection matrix}
 #'   \item{matF}{Sexual reproduction component of the standardized projection matrix}
 #'   \item{matC}{Clonal reproduction component of the standardized projection matrix}
+#'   
+#' @section Missing Stages:
+#' The returned standardized matrix will always be of dimension \code{4}, even
+#' if one or more standardized stages is missing from the original matrix
+#' population model. If a standardized stage is missing, the corresponding
+#' row/column of the standardized matrix will be coerced to \code{NA}.
+#' 
 #' @details This function is a wrapper for the functions
 #'   \code{\link{rearrangeMatrix}}, \code{\link{reprodStages}} and
 #'   \code{\link{collapseMatrix}}, which it calls in sequence.
@@ -77,12 +84,6 @@ standardizeMatrix <- function(matU, matF, matC = NULL, reproStages,
   
   # collapse
   out <- collapseMatrix(matU, matF, matC, collapse = collapse)
-  
-  # NA out of the standardized stages that were non-existant
-  out$matA[is.na(collapse), is.na(collapse)] <- NA_real_
-  out$matU[is.na(collapse), is.na(collapse)] <- NA_real_
-  out$matF[is.na(collapse), is.na(collapse)] <- NA_real_
-  out$matC[is.na(collapse), is.na(collapse)] <- NA_real_
 
   return(out)
 }
