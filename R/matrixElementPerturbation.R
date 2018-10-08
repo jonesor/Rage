@@ -62,6 +62,11 @@
 matrixElementPerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
                                       demogstat = "lambda", ...) {
   
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  
   # get statfun
   if (is.function(demogstat)) {
     statfun <- demogstat
@@ -71,7 +76,7 @@ matrixElementPerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
     statfun <- match.fun(demogstat, descend = FALSE)
   } else {
     stop("demogstat must be 'lambda' or the name of a function that returns a
-         single numeric value")
+          single numeric value")
   }
   
   # matrix dimension

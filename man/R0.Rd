@@ -4,7 +4,7 @@
 \alias{R0}
 \title{Calculate net reproductive value from a matrix population model}
 \usage{
-R0(matU, matR, method = "generation", startLife = 1)
+R0(matU, matR, startLife = 1, method = "generation")
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -15,12 +15,12 @@ progression, stasis, and retrogression)}
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
+\item{startLife}{Index of the first stage at which the author considers the
+beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.}
+
 \item{method}{The method used to calculate net reproductive value, either
 \code{"generation"} or \code{"startLife"}. Defaults to \code{"generation"}.
 See Details.}
-
-\item{startLife}{Index of the first stage at which the author considers the
-beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.}
 }
 \value{
 Returns the net reproductive value. If \code{matU} is singular (often

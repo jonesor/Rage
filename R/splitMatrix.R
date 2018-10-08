@@ -21,6 +21,10 @@
 #' @export splitMatrix
 splitMatrix <- function(matA) {
   
+  # validate arguments
+  checkValidMat(matA, fail_all_na = FALSE, fail_any_na = FALSE,
+                warn_all_zero = FALSE)
+  
   # matrix dimension
   dim <- nrow(matA)
   

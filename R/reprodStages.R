@@ -48,6 +48,14 @@ reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
   # matrix structure guide the process. However, in animals we may wish to
   # combine rep and post-rep to obtain a two-stage matrix model.
   
+  # validate arguments
+  checkValidMat(matF)
+  if (ncol(matF) != length(reproStages) ||
+      length(reproStages) != length(matrixStages)) {
+    stop("Arguments do not correspond to MPM of single dimension",
+         call. = FALSE)
+  }
+  
   if ("prop" %in% matrixStages) {
     propStage <- which(matrixStages == "prop")
     if (!includeProp) {

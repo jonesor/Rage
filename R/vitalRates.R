@@ -73,19 +73,17 @@
 #' @export vitalRates
 vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE,
                        weighted = FALSE) {
-  #Function to quantify vital rates values
   
-  if (missing(matU)) {
-    stop('matU missing')
-  }
-  if (missing(matF) & missing(matC)) {
-    warning('matF or matC missing. These have been coerced to matrices of zero')
-  }
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  
   # if (sum(weighted)>0 & length(weighted) != dim(matU)[i]) {
   #   stop('Population vector does not agree with matrix dimension')
   # }
   if (is.null(matC)) {
-    matC <- matrix(0, nrow = dim(matU)[1], ncol = dim(matU)[1])
+    matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
   }
   
   matDim <- dim(matU)[1]

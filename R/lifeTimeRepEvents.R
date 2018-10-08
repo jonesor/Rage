@@ -48,18 +48,9 @@
 lifeTimeRepEvents <- function(matU, matR, startLife = 1) {
 
   # validate arguments
-  if (any(is.na(matU))) {
-    stop("matU contains NAs")
-  } 
-  if (any(is.na(matR))) {
-    stop("matR contains NAs")
-  }
-  if (!any(matR > 0)) {
-    stop("matR does not contain any values > 0 (i.e. no reproduction)")
-  }
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
   
   # initialize output list and get matrix dimension
   out <- list()

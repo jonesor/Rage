@@ -64,6 +64,11 @@
 vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
                                   demogstat = "lambda", ...) {
   
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  
   # get statfun
   if (is.function(demogstat)) {
     statfun <- demogstat

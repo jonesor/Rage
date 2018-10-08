@@ -8,11 +8,11 @@
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
+#' @param startLife Index of the first stage at which the author considers the
+#'   beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.
 #' @param method The method used to calculate net reproductive value, either
 #'   \code{"generation"} or \code{"startLife"}. Defaults to \code{"generation"}.
 #'   See Details.
-#' @param startLife Index of the first stage at which the author considers the
-#'   beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.
 #' @details
 #' The \code{method} argument controls how net reproductive rate is calculated.
 #' 
@@ -53,20 +53,13 @@
 #' 
 #' @importFrom popbio lambda
 #' @export R0
-R0 <- function(matU, matR, method = "generation", startLife = 1) {
-  
-  method <- match.arg(method, c("generation", "startLife"))
+R0 <- function(matU, matR, startLife = 1, method = "generation") {
   
   # validate arguments
-  if (any(is.na(matU))) {
-    stop("matU contains NAs")
-  } 
-  if (any(is.na(matR))) {
-    stop("matR contains NAs")
-  } 
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
+  method <- match.arg(method, c("generation", "startLife"))
                  
   # matrix dimensions
   matDim <- nrow(matU)

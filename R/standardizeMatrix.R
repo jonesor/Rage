@@ -69,6 +69,8 @@
 standardizeMatrix <- function(matU, matF, matC = NULL, reproStages,
                               matrixStages) {
   
+  # note argument validation done by component functions
+  
   # populate matC NULL, populate with zeros
   if (is.null(matC)) {
     matC <- matrix(0, nrow = ncol(matF), ncol = ncol(matF))

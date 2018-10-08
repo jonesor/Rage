@@ -79,6 +79,11 @@
 #' @export collapseMatrix
 collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  
   # populate matC with zeros, if NULL
   if (is.null(matC)) {
     matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
@@ -86,11 +91,6 @@ collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
   # sum components to matA
   matA <- matU + matF + matC
-  
-  # ensure no NA
-  if (any(is.na(matA))) {
-    stop("Cannot collapse projection matrix containing NAs")
-  }
   
   # dimensions of original and collapse matrices
   originalDim <- nrow(matA)

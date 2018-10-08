@@ -62,16 +62,9 @@
 #' @export qsdConverge
 qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   
-  # validate inputs
-  if (nrow(matU) != ncol(matU)) {
-    stop("matU is not a square matrix")
-  } 
-  if (any(is.na(matU))) {
-    stop("matU contains NAs")
-  } 
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
   
   # stable distribution
   w <- stable.stage(matU)
@@ -83,7 +76,7 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   # iterate cohort (n = cohort population vector, p = proportional structure)
   dist <- NULL
   
-  for (j in 1:nSteps) {      # j represent years of iteration
+  for (j in 1:nSteps) {       # j represent years of iteration
     p <- n / sum(n)           # get the proportional distribution
     dist[j] <- 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
     n <- matU %*% n           # multiply matU %*% n to iterate
