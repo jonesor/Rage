@@ -1,10 +1,10 @@
 #' Derive mean vital rates from a matrix population model
 #' 
-#' Derive mean vital rates from a matrix population model corresponding to
-#' separate demographic processes. Specifically, this function decomposes vital
-#' rates of survival, progression, retrogression, sexual reproduction and clonal
-#' reproduction according to various ways of weights means and organization of
-#' stages along the life cycle represented in the matrix population model.
+#' Derive mean vital rates corresponding to separate demographic processes from
+#' a matrix population model. Specifically, this function decomposes vital rates
+#' of survival, progression, retrogression, sexual reproduction and clonal
+#' reproduction, with various options for weighting and grouping stages of the
+#' life cycle.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -26,13 +26,12 @@
 #' \code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
 #' with sexual reproduction) and adult stages
 #' 
-#' \code{"matrixStages"}: group according to a standardized set of stage
-#' classes ("prop" for propagule, "active", and/or "dormant"). If
-#' \code{splitStages = "matrixStages"}, must also specify separate argument
-#' \code{matrixStages}.
+#' \code{"matrixStages"}: group according to a standardized set of stage classes
+#' (propagule, active, and dormant). If \code{splitStages = "matrixStages"},
+#' must also specify separate argument \code{matrixStages}.
 #' 
 #' @param matrixStages Vector of stage-specific standardized matrix classes
-#'   ("prop" for propagule, "active", and/or "dormant"). Only used if
+#'   ("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
 #'   \code{splitStages = "matrixClass"}.
 #' @return A list of averaged vital rates.
 #' 
@@ -64,7 +63,7 @@
 #' ms <- c('prop', 'active', 'active', 'active')
 #' vitalRates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
 #' 
-#' # Vital rate outputs weights by the stable stage distribution of 'matA'
+#' # Vital rate outputs weighted by the stable stage distribution of 'matA'
 #' vitalRates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 #' 
 #' @importFrom popbio stable.stage
@@ -160,7 +159,7 @@ vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
     out$cloAdu  <- mean(clo1[adu], na.rm = TRUE)
   }
   
-  if (splitStages %in% "matrixStages") {
+  if (splitStages == "matrixStages") {
     prop <- which(matrixStages == "prop")
     active <- which(matrixStages == "active")
     dorm <- which(matrixStages == "dorm")
@@ -179,5 +178,5 @@ vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
     out$progDorm <- mean(prog1[dorm], na.rm = TRUE)
   }
   
-	return(out)
- }
+  return(out)
+}
