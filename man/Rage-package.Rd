@@ -3,6 +3,7 @@
 \docType{package}
 \name{Rage-package}
 \alias{Rage-package}
+\alias{Rage}
 \title{\pkg{Rage}}
 \description{
 An R package with tools to derive life history traits from matrix population

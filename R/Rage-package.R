@@ -4,6 +4,7 @@
 #' models.
 #' 
 #' @name Rage-package
+#' @aliases Rage
 #' @docType package
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk> 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
