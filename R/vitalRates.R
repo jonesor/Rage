@@ -118,65 +118,75 @@ vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
   prog <- colSums(prog)
   retr <- colSums(retr)
   
+  # possible transitions
+  i_surv <- surv > 0
+  i_prog <- prog > 0
+  i_retr <- retr > 0
+  i_fec <- fec > 0
+  i_clo <- clo > 0
+  
   if (is.null(weights)) {
     weights <- rep(1.0, matDim)
   } else if (weights[1] == "SSD") {
     weights <- popbio::stable.stage(matA)
   }
   
-  weight <- weights / sum(weights)
+  weights <- weights / sum(weights)
   
-  surv1 <- surv * weight
-  fec1  <- fec  * weight
-  clo1  <- clo  * weight
-  prog1 <- prog * weight
-  retr1 <- retr * weight
+  surv1 <- surv * weights
+  prog1 <- prog * weights
+  retr1 <- retr * weights
+  fec1  <- fec  * weights
+  clo1  <- clo  * weights
   
   out <- NULL
   
   if (splitStages == "all") {
-    out$surv <- sum(surv1)
-    out$retr <- sum(retr1)
-    out$prog <- sum(prog1)
-    out$fec  <- sum(fec1)
-    out$clo  <- sum(clo1)
+    out$surv <- sum(surv1[i_surv]) / sum(weights[i_surv])
+    out$retr <- sum(retr1[i_retr]) / sum(weights[i_retr])
+    out$prog <- sum(prog1[i_prog]) / sum(weights[i_prog])
+    out$fec  <- sum(fec1[i_fec])   / sum(weights[i_fec])
+    out$clo  <- sum(clo1[i_clo])   / sum(weights[i_clo])
   }
   
   if (splitStages == "ontogeny") {
     #This adu classification does not account for non- and post-reproductive
-    adu <- which(colSums(matF) > 0)
-    juv <- which(colSums(matF) == 0)
+    adu <- colSums(matF) > 0
+    juv <- colSums(matF) == 0
     
-    out$survJuv <- mean(surv1[juv], na.rm = TRUE)
-    out$retrJuv <- mean(retr1[juv], na.rm = TRUE)
-    out$progJuv <- mean(prog1[juv], na.rm = TRUE)
-    out$cloJuv  <- mean(clo1[juv], na.rm = TRUE)
+    out$survJuv <- sum(surv1[juv & i_surv]) / sum(weights[juv & i_surv])
+    out$retrJuv <- sum(retr1[juv & i_retr]) / sum(weights[juv & i_retr])
+    out$progJuv <- sum(prog1[juv & i_prog]) / sum(weights[juv & i_prog])
+    out$cloJuv  <- sum(clo1[juv & i_clo])   / sum(weights[juv & i_clo])
     
-    out$survAdu <- mean(surv1[adu], na.rm = TRUE)
-    out$retrAdu <- mean(retr1[adu], na.rm = TRUE)
-    out$progAdu <- mean(prog1[adu], na.rm = TRUE)
-    out$fecAdu  <- mean(fec1[adu], na.rm = TRUE)
-    out$cloAdu  <- mean(clo1[adu], na.rm = TRUE)
+    out$survAdu <- sum(surv1[adu & i_surv]) / sum(weights[adu & i_surv])
+    out$retrAdu <- sum(retr1[adu & i_retr]) / sum(weights[adu & i_retr])
+    out$progAdu <- sum(prog1[adu & i_prog]) / sum(weights[adu & i_prog])
+    out$fecAdu  <- sum(fec1[adu & i_fec])   / sum(weights[adu & i_fec])
+    out$cloAdu  <- sum(clo1[adu & i_clo])   / sum(weights[adu & i_clo])
   }
   
   if (splitStages == "matrixStages") {
-    prop <- which(matrixStages == "prop")
-    active <- which(matrixStages == "active")
-    dorm <- which(matrixStages == "dorm")
+    prop <- matrixStages == "prop"
+    acti <- matrixStages == "active"
+    dorm <- matrixStages == "dorm"
     
-    out$survProp <- mean(surv1[prop], na.rm = TRUE)
-    out$progProp <- mean(prog1[prop], na.rm = TRUE)
+    out$survProp <- sum(surv1[prop & i_clo]) / sum(weights[prop & i_clo])
+    out$progProp <- sum(prog1[prop & i_clo]) / sum(weights[prop & i_clo])
     
-    out$survActive <- mean(surv1[active], na.rm = TRUE)
-    out$retrActive <- mean(retr1[active], na.rm = TRUE)
-    out$progActive <- mean(prog1[active], na.rm = TRUE)
-    out$fecActive  <- mean(fec1[active], na.rm = TRUE)
-    out$cloActive  <- mean(clo1[active], na.rm = TRUE)
+    out$survActive <- sum(surv1[acti & i_surv]) / sum(weights[acti & i_surv])
+    out$retrActive <- sum(retr1[acti & i_retr]) / sum(weights[acti & i_retr])
+    out$progActive <- sum(prog1[acti & i_prog]) / sum(weights[acti & i_prog])
+    out$fecActive  <- sum(fec1[acti & i_fec]) / sum(weights[acti & i_fec])
+    out$cloActive  <- sum(clo1[acti & i_clo]) / sum(weights[acti & i_clo])
     
-    out$survDorm <- mean(surv1[dorm], na.rm = TRUE)
-    out$retrDorm <- mean(retr1[dorm], na.rm = TRUE)
-    out$progDorm <- mean(prog1[dorm], na.rm = TRUE)
+    out$survDorm <- sum(surv1[dorm & i_surv]) / sum(weights[dorm & i_surv])
+    out$retrDorm <- sum(retr1[dorm & i_retr]) / sum(weights[dorm & i_retr])
+    out$progDorm <- sum(prog1[dorm & i_prog]) / sum(weights[dorm & i_prog])
   }
+  
+  # convert NaN to 0 (non-existent vital rate within group will yield NaN)
+  out <- lapply(out, function(x) ifelse(is.nan(x), 0.0, x))
   
   return(out)
 }
