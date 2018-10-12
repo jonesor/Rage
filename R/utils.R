@@ -9,23 +9,21 @@ checkValidMat <- function(M,
   mn <- deparse(substitute(M)) # name of object passed to M
   
   if (!is.matrix(M) || !is.numeric(M) || (nrow(M) != ncol(M))) {
-    stop(paste("Argument", mn, "must be a square numeric matrix"),
-         call. = FALSE)
+    stop("Argument ", mn, " must be a square numeric matrix", call. = FALSE)
   }
   if (fail_all_na && all(is.na(M))) {
-    stop(paste("Argument", mn, "contains only missing values (i.e. all <NA>)"),
+    stop("Argument ", mn, " contains only missing values (i.e. all <NA>)",
          call. = FALSE)
   }
   if (fail_any_na && any(is.na(M))) {
-    stop(paste("Argument", mn, "contains missing values (i.e. <NA>)"),
-         call. = FALSE)
+    stop("Argument ", mn, " contains missing values (i.e. <NA>)", call. = FALSE)
   }
   if (warn_all_zero && all(M == 0)) {
-    warning(paste("All elements of", mn, "are zero"), call. = FALSE)
+    warning("All elements of ", mn, " are zero", call. = FALSE)
   }
   if (warn_surv_issue && any(colSums(M) > 1)) {
-    warning(paste("Argument", mn, "has at least one stage-specific survival",
-                  "probability > 1"), call. = FALSE)
+    warning("Argument ", mn, " has at least one stage-specific survival",
+                  " probability > 1", call. = FALSE)
   }
 }
 

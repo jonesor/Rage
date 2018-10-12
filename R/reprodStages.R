@@ -56,9 +56,9 @@ reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
          call. = FALSE)
   }
   if (!any(reproStages == TRUE)) {
-    stop(paste("Cannot identify standardized stages because no stages are",
-               "reproductive (i.e. at least one element of reproStages must",
-               "be TRUE"), call. = FALSE)
+    stop("Cannot identify standardized stages because no stages are ",
+         "reproductive (i.e. at least one element of reproStages must be TRUE)",
+         call. = FALSE)
   }
   
   

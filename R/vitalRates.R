@@ -77,17 +77,17 @@ vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
   if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
   if (!is.null(weights) && weights != "SSD" &&
         length(weights) != nrow(matU)) {
-    stop(paste("If weights are provided, length(weights) should be of the",
-               "same dimension as matU"), call. = FALSE)
+    stop("If weights are provided, length(weights) should be of the same ",
+         "dimension as matU", call. = FALSE)
   }
   if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
-    stop(paste("Argument splitStages must be one of 'all', 'ontogeny', or",
-               "'matrixStages'"), call. = FALSE)
+    stop("Argument splitStages must be one of 'all', 'ontogeny', or ",
+         "'matrixStages'", call. = FALSE)
   }
   if (splitStages == "matrixStages") {
     if (is.null(matrixStages)) {
-      stop(paste("If splitStage = 'matrixStages', argument matrixStages must",
-                 "be provided"), call. = FALSE)
+      stop("If splitStages = 'matrixStages', argument matrixStages must be ",
+           "provided", call. = FALSE)
     }
     if (length(matrixStages) != nrow(matU)) {
       stop("length(matrixStages) should be of the same dimension as matU",

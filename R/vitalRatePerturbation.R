@@ -75,8 +75,8 @@ vitalRatePerturbation <- function(matU, matF, matC = NULL, pert = 1e-6,
   } else {
     statfun <- try(match.fun(demogstat, descend = FALSE), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop(paste("demogstat must be 'lambda' or the name of a function that",
-                 "returns a single numeric value"), call. = FALSE)
+      stop("demogstat must be 'lambda' or the name of a function that ",
+           "returns a single numeric value", call. = FALSE)
     }
   }
   

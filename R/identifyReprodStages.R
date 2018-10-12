@@ -45,8 +45,8 @@ identifyReproStages <- function(matR, na.handling = "return.true") {
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na.handling %in% c("return.na", "return.true", "return.false")) {
-    stop(paste("Argument na.handling must be either 'return.na',",
-               "'return.true' or 'return.false'"), call. = FALSE)
+    stop("Argument na.handling must be either 'return.na', 'return.true', ",
+         "or 'return.false'", call. = FALSE)
   }
   
   if (!any(is.na(matR))) {
