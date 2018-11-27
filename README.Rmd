@@ -1,0 +1,87 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE
+)
+options(digits = 4)
+```
+
+# Rage
+
+An R package for matrix population model analysis. Note this package is at an early stage of development, and may contain bugs.
+
+
+## Installation
+
+Install from GitHub with:
+
+```{r, eval=FALSE}
+devtools::install_github("jonesor/Rage")
+#
+# or
+#
+install.packages("remotes") # smaller and quicker to install than devtools
+remotes::install_github("jonesor/Rage")
+```
+
+## Usage
+
+```{r}
+library(Rage)
+```
+
+First we need a matrix population model separated into the growth/survival component and sexual reproduction component (possibly also a clonal component, but we'll skip that here).
+
+```{r}
+matU <- rbind(c(0.1,   0,   0,   0), # growth/survival component
+              c(0.6, 0.2, 0.1,   0),
+              c(  0, 0.5, 0.5, 0.1),
+              c(  0,   0, 0.3, 0.8))
+
+matF <- rbind(c(  0,   0, 0.2, 0.6), # sexual reproduction component
+              c(  0,   0, 0.1, 0.2),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+```
+
+Now we can get to work. Here are just a few example analyses.
+<br>
+
+Calculate life expectancy:
+
+```{r}
+lifeExpectancy(matU)
+```
+
+Calculate net reproductive rate:
+
+```{r}
+R0(matU, matF)
+```
+
+Produce a life table:
+
+```{r}
+makeLifeTable(matU, matF, nSteps = 15)
+```
+
+Collapse the matrix population model to two stages, pre-reproductive and reproductive, and conduct perturbation analyses on the vital rates of the collapsed matrix:
+
+```{r}
+# pre-reproductive stages are 1 and 2, reproductive stages are 3 and 4
+mpm_collapse <- collapseMatrix(matU, matF, collapse = list(1:2, 3:4))
+
+# perturbation analysis (S- represent sensitivities, and E- elasticities)
+vitalRatePerturbation(mpm_collapse$matU, mpm_collapse$matF)
+```
+

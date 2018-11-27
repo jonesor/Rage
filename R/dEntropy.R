@@ -39,15 +39,9 @@
 dEntropy <- function(matU, matR, startLife = 1, nSteps = 100) {
   
   # validate arguments
-  if (any(is.na(matU))) {
-    stop("matU contains NAs")
-  } 
-  if (any(is.na(matR))) {
-    stop("matR contains NAs")
-  } 
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
 
   # age-specific survivorship (lx) and fecundity (mx)
   lx <- ageSpecificSurv(matU, startLife, nSteps)

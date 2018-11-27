@@ -26,12 +26,10 @@
 #' matR1 <- rbind(c( 0, 0.2,   0, 0.5),
 #'                c( 0, 0.3,   0, 0.6),
 #'                c( 0,   0,   0,   0),
-#'                c( 0,   0,   0,   0),
 #'                c( 0,   0,   0,   0))
 #' 
 #' matR2 <- rbind(c(NA,  NA,  NA, 1.1),
 #'                c( 0,   0, 0.3, 0.7),
-#'                c( 0,   0,   0,   0),
 #'                c( 0,   0,   0,   0),
 #'                c( 0,   0,   0,   0))
 #'
@@ -44,12 +42,14 @@
 #' @export identifyReproStages
 identifyReproStages <- function(matR, na.handling = "return.true") {
   
+  # validate arguments
+  checkValidMat(matR, fail_any_na = FALSE)
   if (!na.handling %in% c("return.na", "return.true", "return.false")) {
-    stop("Argument na.handling must be either 'return.na', 'return.true',
-         or 'return.false'")
-  } else if (all(is.na(matR))) {
-    stop("All elements of matR are NA")
-  } else if (!any(is.na(matR))) {
+    stop("Argument na.handling must be either 'return.na', 'return.true', ",
+         "or 'return.false'", call. = FALSE)
+  }
+  
+  if (!any(is.na(matR))) {
     reproStages <- apply(matR, 2, function(x) ifelse(any(x > 0), TRUE, FALSE))
   } else if (na.handling == "return.na") {
     # works because of how function `any` handles NA

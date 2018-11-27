@@ -80,49 +80,36 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
                           nSteps = 1000) {
   
   # validate arguments
-  if (dim(matU)[1] != dim(matU)[2]) {
-    stop("Matrix population model is not a square matrix")
-  }
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
-  if (!is.null(matF)) {
-    if (any(is.na(matF))) {
-      matF[is.na(matF)] = 0
-      warning("NAs exist in matF. These have been zero-ed")
-    }
-  }
-  if (!is.null(matC)) {
-    if (any(is.na(matC))) {
-      matC[is.na(matC)] = 0
-      warning("NAs exist in matC. These have been zero-ed")
-    }
-  }
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  if (!is.null(matF)) checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC)
+  checkValidStartLife(startLife, matU)
   
   #Age-specific survivorship (lx)
   lx <- ageSpecificSurv(matU, startLife, nSteps-1)
   
   #Proportion of original cohort dying during each age
-  dx = c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
+  dx <- c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
   
   #Force of mortality
-  qx = dx / lx
+  qx <- dx / lx
   
   #Average proportion of individuals alive at the middle of a given age
-  Lx = (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
+  Lx <- (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
   Lx[nSteps] <- NA
   
   #Total number of individuals alive at a given age and beyond
-  Tx <- sapply(seq_along(Lx), function(x) sum(Lx[x:length(Lx)], na.rm = T))
+  TxFn <- function(x) sum(Lx[x:length(Lx)], na.rm = TRUE)
+  Tx <- vapply(seq_along(Lx), TxFn, numeric(1))
   Tx[nSteps] <- NA
   
   #Mean life expectancy conditional to a given age
-  ex = Tx / lx
+  ex <- Tx / lx
   ex[is.infinite(ex)] <- NA
   ex[nSteps] <- NA
   
   #Start to assemble output object
-  out = data.frame(
+  out <- data.frame(
     x = 0:(nSteps - 1),
     lx = lx,
     dx = dx,
@@ -133,21 +120,11 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   )
   
   if (!is.null(matF)) {
-    if (sum(matF, na.rm = TRUE) == 0) {
-      warning("matF contains only zeros")
-    }
-    
-    #Age-specific fertility (mx)
     out$mx <- ageSpecificRepro(matU, matF, startLife, nSteps-1)
     out$lxmx <- out$lx * out$mx
   }
   
   if (!is.null(matC)) {
-    if (sum(matC, na.rm = TRUE) == 0) {
-      warning("matC contains only zeros")
-    }
-    
-    #Age-specific clonality (cx)
     out$cx <- ageSpecificRepro(matU, matC, startLife, nSteps-1)
     out$lxcx <- out$lx * out$cx
   }

@@ -29,6 +29,12 @@
 #' 
 #' @export ageSpecificSurv
 ageSpecificSurv <- function(matU, startLife, N) {
+  
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
+  if (missing(N)) { stop("Argument N must be specified", call. = FALSE) }
+  
   matUtemp <- matU
   lx <- vector(mode = 'numeric', length = N)
   
@@ -82,6 +88,13 @@ ageSpecificSurv <- function(matU, startLife, N) {
 #' 
 #' @export ageSpecificRepro
 ageSpecificRepro <- function(matU, matR, startLife, N) {
+  
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
+  if (missing(N)) { stop("Argument N must be specified", call. = FALSE) }
+  
   matUtemp <- matU
   mx <- vector(mode = 'numeric', length = N)
   

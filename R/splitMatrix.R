@@ -5,7 +5,7 @@
 #' (clonal reproduction). Warning! The functionality is very basic — it assumes
 #' that sexual reproduction is located in the top row of the matrix, and that
 #' everything else is growth or survival (the U matrix). Clonality is assumed to
-#' be non-existant.
+#' be non-existent.
 #'
 #' @param matA A matrix population model (i.e. a square projection matrix)
 #' @return A list of three matrices: \code{matU},\code{matF} and \code{matC}
@@ -21,6 +21,10 @@
 #' @export splitMatrix
 splitMatrix <- function(matA) {
   
+  # validate arguments
+  checkValidMat(matA, fail_all_na = FALSE, fail_any_na = FALSE,
+                warn_all_zero = FALSE)
+  
   # matrix dimension
   dim <- nrow(matA)
   
@@ -35,5 +39,5 @@ splitMatrix <- function(matA) {
   # matC is all zeros
   matC <- matrix(0, nrow = dim, ncol = dim)
   
-  return(list(matU, matF, matC))
+  return(list(matU = matU, matF = matF, matC = matC))
 }

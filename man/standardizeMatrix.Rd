@@ -52,6 +52,14 @@ The method used by this function to collapse a matrix population model
   relative reproductive values, sensitivities, net reproductive rates, life
   expectancy, etc.
 }
+\section{Missing Stages}{
+
+The returned standardized matrix will always be of dimension \code{4}, even
+if one or more standardized stages is missing from the original matrix
+population model. If a standardized stage is missing, the corresponding
+row/column of the standardized matrix will be coerced to \code{NA}.
+}
+
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0,   0),
               c(0.5, 0.2, 0.1,   0,   0),

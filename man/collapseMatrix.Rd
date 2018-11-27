@@ -24,14 +24,18 @@ matrix and the desired stages of the collapsed matrix (e.g. \code{list(1,
 2:3, 4)}). The indices of \code{collapse} correspond to the desired stages
 of the collapsed matrix, and the corresponding values give the stage index
 or vector of stage indices from the original matrix that correspond to the
-relevant stage of the collapsed matrix.}
+relevant stage of the collapsed matrix.
+
+See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.}
 }
 \value{
 A list with four elements:
   \item{matA}{Collapsed projection matrix}
   \item{matU}{Survival component of the collapsed projection matrix}
-  \item{matF}{Sexual reproduction component of the collapsed projection matrix}
-  \item{matC}{Clonal reproduction component of the collapsed projection matrix}
+  \item{matF}{Sexual reproduction component of the collapsed projection
+  matrix}
+  \item{matC}{Clonal reproduction component of the collapsed projection
+  matrix}
 }
 \description{
 Collapse a matrix population model to a smaller number of stages. For
@@ -50,6 +54,15 @@ This method of collapsing a matrix population model preserves the
   reproductive values, sensitivities, net reproductive rates, life
   expectancy, etc.
 }
+\section{Missing Stages}{
+
+The collapsed matrix will always be of dimension \code{length(collapse)},
+even if one or more elements of the \code{collapse} argument is \code{NA}
+(corresponding to a desired stage of the collapsed matrix that is not present
+in the original matrix). In the collapsed matrix, any row/column
+corresponding to a missing stage will be coerced to \code{NA}.
+}
+
 \examples{
 matU <- rbind(c(  0,   0,   0,   0),
               c(0.5,   0,   0,   0),
