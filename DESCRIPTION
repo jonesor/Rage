@@ -23,5 +23,7 @@ Suggests:
     popdemo,
     scales,
     vcd,
-    testthat
+    testthat,
+    Rcompadre
+  Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
