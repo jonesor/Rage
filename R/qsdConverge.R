@@ -6,7 +6,7 @@
 #'
 #' Size or stage-based matrix population models (i.e. Lefkovitch models) and
 #' some age-based matrix population models (i.e. Leslie models with a last class
-#' ≥ final age value) are typically parameterised with a stasis loop in the
+#' greater than or equal to final age value) are typically parameterised with a stasis loop in the
 #' largest/most-developed stage (e.g. adult survival). The assumption of
 #' constancy in vital rates for individuals in that last stage typically results
 #' in flat mortality and fertility plateaus. These plateaus may result in
