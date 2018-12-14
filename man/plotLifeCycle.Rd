@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotLifeCycle.R
 \name{plotLifeCycle}
 \alias{plotLifeCycle}
-\title{A function to plot the life cycle diagram based on the matrix model}
+\title{Plot the life cycle diagram based on the matrix model}
 \usage{
 plotLifeCycle(A, title = "my life cycle", shape = "egg",
   fontsize = 10, nodefontsize = 12, edgecol = "grey")
@@ -26,15 +26,9 @@ Produces a plot consisting of a life cycle diagram, based on the A
 matrix.
 }
 \description{
-This function plots the life cycle diagram illustrated by a matrix model. It
-processes the matrix model and passes the information to the graphViz
-functionality of DiagrammeR. See http://rich-iannone.github.io/DiagrammeR/.
-}
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
+Plots the life cycle diagram illustrated by a matrix model. It processes the
+matrix model and passes the information to the graphViz functionality of
+DiagrammeR. See http://rich-iannone.github.io/DiagrammeR/.
 }
 \examples{
 
@@ -46,14 +40,6 @@ plotLifeCycle(M1)
 
 
 }
-\references{
-%% ~~references~~
-}
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
