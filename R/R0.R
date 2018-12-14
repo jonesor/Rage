@@ -1,68 +1,83 @@
-#' Calculates net reproductive value
+#' Calculate net reproductive value from a matrix population model
+#'
+#' Calculate net reproductive value from a matrix population model.
+#'
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
+#' @param startLife Index of the first stage at which the author considers the
+#'   beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.
+#' @param method The method used to calculate net reproductive value, either
+#'   \code{"generation"} or \code{"startLife"}. Defaults to \code{"generation"}.
+#'   See Details.
+#' @details
+#' The \code{method} argument controls how net reproductive rate is calculated.
 #' 
-#' Calculates net reproductive value from a matU
-#' (survival-dependent processes) and either a matF (sexual reproduction) and/or a
-#' matC (clonal reproduction).
+#' If \code{method = "generation"}, net reproductive value is calculated as the
+#' per-generation population growth rate (i.e. the dominant eigenvalue of
+#' \code{matR \%*\% N}, where \code{N} is the fundamental matrix). See Caswell
+#' (2001) Section 5.3.4.
 #' 
-#' @param matU A matrix containing only survival-dependent processes (e.g. progression,
-#' stasis, retrogression).
-#' @param matF A matrix containing only sexual reproduction, with zeros
-#' elsewhere.
-#' @param matC A matrix containing only clonal reproduction, with zeros
-#' elsewhere. If not provided, it defaults to a matrix with all zeros.
-#' @param startLife The first stage at which the author considers the beginning
-#' of life in the life cycle of the species. It defaults to the first stage.
-#' @return Returns the net reproductive value of the matrix population model. When both 'matF'
-#' and 'matC' are provided, it outputs the net reprodutive value for sexual
-#' reproduction only, for clonal reproduction only, and for both types of
-#' reproduction together.
+#' If \code{method = "startLife"}, net reproductive value is calculated as the
+#' expected lifetime production of offspring that start life in stage
+#' \code{startLife}, by an individual also starting life in stage
+#' \code{startLife} (i.e. \code{(matR \%*\% N)[startLife,startLife]}).
+#' 
+#' If offspring only arise in stage \code{startLife}, the two methods give the
+#' same result.
+#' @return Returns the net reproductive value. If \code{matU} is singular (often
+#'   indicating infinite life expectancy), returns \code{NA}.
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
-#' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#' 978-0878930968
+#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+#'   978-0878930968
 #' @examples
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #' 
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
 #' 
 #' R0(matU, matF)
-#' R0(matU, matC)
-#' R0(matU, matF, matC, startLife=1)
-#' R0(matU, matF, matU, startLife=4)
 #' 
-#' @import MASS
+#' # calculate R0 using the startLife method
+#' R0(matU, matF, method = "startLife", startLife = 2)
+#' 
+#' @importFrom popbio lambda
 #' @export R0
-
-R0 <- function(matU, matF, matC=FALSE, startLife=1){
+R0 <- function(matU, matR, startLife = 1, method = "generation") {
   
-  #Error checks
-  if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
-  if (any(is.na(matF)) & any(is.na(matC))) stop("NAs exist in both matF and matC")
-  if (sum(matC)==0) {matC=matrix(0,dim(matU),dim(matU))}
-  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
+  method <- match.arg(method, c("generation", "startLife"))
+                 
+  # matrix dimensions
+  matDim <- nrow(matU)
   
-  #The full matrix population model
-  matA = matU + matF +matC
+  # try calculating fundamental matrix (will fail if matrix singular)
+  N <- try(solve(diag(matDim) - matU), silent = TRUE)
   
-  R0=NULL
-  matDim <- dim(matA)[1]
-  N <- solve(diag(matDim)-matU)  #Fundamental matrix, which states the amount of time units spent in each stage on average
-  
-  if (sum(matF)>0){
-    R0_matF <- matF%*%N
-    R0$Fec <- R0_matF[startLife,startLife]
-  }
-  if (sum(matC)>0){
-    R0_matC <- matC%*%N
-    R0$Clo <- R0_matC[startLife,startLife]
-  }
-  if (sum(matF)>0 & sum(matC)>0){
-    matFC <- matF + matC
-    R0_matFC <- matFC%*%N
-    R0$FecClo <- R0_matFC[startLife,startLife]
+  # calculate R0
+  # first check for singular matU (if singular, R0 = NA)
+  if (class(N) == 'try-error' && grepl('singular', N[1])) {
+    R0 <- NA_real_
+  } else {
+    R <- matR %*% N
+    
+    R0 <- switch(method,
+                 "generation" = popbio::lambda(R),
+                 "startLife" = R[startLife, startLife])
   }
   
-return(R0)
+  return(R0)
 }

@@ -1,135 +1,96 @@
-#' Calculates the timing of lifetime reproductive events.
+#' Calculate the timing of lifetime reproductive events
+#'
+#' Applies Markov chain approaches to decompose various moments along the
+#' age-specific trajectory of reproduction of individuals in a matrix population
+#' model, including the probability of achieving maturity, age at first
+#' reproduction, mean life expectancy conditional on maturity, and life
+#' expectancy for mature individuals.
 #' 
-#' A function to calculate the timing of lifetime reproductive events such as
-#' the probability of achieving maturity, age at first reproduction, mean life
-#' expectancy conditional on maturity, and life expectancy for mature
-#' individuals.
-#' 
-#' This function applies Markov chain approaches to decompose various moments
-#' along the age-specific trajectory of reproduction of individuals in a matrix population
-#' model.
-#' 
-#' @param matU A matrix containing only survival-dependent processes (e.g. progression,
-#' stasis, retrogression).
-#' @param matF A matrix containing only sexual reproduction, with zeros
-#' elsewhere.
-#' @param matC A matrix containing only clonal reproduction, with zeros
-#' elsewhere. If not provided, it defaults to a matrix with all zeros.
-#' @param startLife The first stage at which the author considers the beginning
-#' of life in the life cycle of the species. It defaults to the first stage.
-#' @return This function applies Markov chain approaches to decompose various
-#' moments of reproduction along the age-based trajectory of individuals in a matrix
-#' population model. When both a 'matF' and a 'matC' are provided, the
-#' following outputs are calculated for both independently, and these are
-#' differentiated with the suffix "Fec" or "Clo", respectively:
-#' 
-#' - 'p': probability of achiving maturity, sexual or clonal.
-#' 
-#' - 'La': mean age at maturity (in the same units as the matrix population
-#' model sampling periodicity).
-#' 
-#' - 'meanLifeExpectancy': mean life expectancy conditional on entering the
-#' life cycle at the value of 'startLife'.
-#' 
-#' - 'remainingMatureLifeExpectancy': Life expectancy from mean maturity. This
-#' is calculated as mean life expectancy - mean age at maturity ('La' above). This value can
-#' be negative because both mean life expectancy and mean age at maturity are
-#' means of their respective distributions, and their distributions can indeed overlap.
-#' @note %% ~~further notes~~
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   square projection matrix reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both)
+#' @param startLife The index of the first stage at which the author considers
+#'   the beginning of life. Defaults to 1.
+#' @return A list with four elements:
+#' \item{p}{probability of achieving reproductive maturity}
+#' \item{La}{mean age at maturity (in the same units as the matrix population
+#' model sampling periodicity)}
+#' \item{meanLifeExpectancy}{mean life expectancy conditional on entering the
+#' life cycle at the value of \code{startLife}}
+#' \item{remainingMatureLifeExpectancy}{Life expectancy from mean maturity,
+#' calculated as \code{meanLifeExpectancy - La}. This value can be negative
+#' because both mean life expectancy and mean age at maturity are means of their
+#' respective distributions, and their distributions can indeed overlap}
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
-#' Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#' 978-0878930968
+#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+#'   978-0878930968
 #' @examples
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+#' matU <- rbind(c(0.1,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0),
+#'               c(  0, 0.3, 0.3, 0.1),
+#'               c(  0,   0, 0.5, 0.6))
 #' 
-#' lifeTimeRepEvents(matU, matF, matU, startLife = 1)
+#' matF <- rbind(c(  0,   0, 1.1, 1.6),
+#'               c(  0,   0, 0.8, 0.4),
+#'               c(  0,   0,   0,   0),
+#'               c(  0,   0,   0,   0))
+#' 
+#' lifeTimeRepEvents(matU, matF, startLife = 1)
+#' 
+#' @importFrom MASS ginv
 #' @export lifeTimeRepEvents
-#' @import MASS
+lifeTimeRepEvents <- function(matU, matR, startLife = 1) {
 
-lifeTimeRepEvents <- function(matU, matF, matC = FALSE, startLife = 1){
-  #Function to determine probability of reaching reproduction, age at 
-  #maturity and reproductive lifespan (Code adapted from H. Caswell's 
-  #matlab code, and Morris & Doak):
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidMat(matR)
+  checkValidStartLife(startLife, matU)
   
-  if(missing(matU)){stop('matU missing')}
-  if(missing(matF) & missing(matC)){stop('matF or matC missing. You must provide at least one')}
-  if(sum(matF + matC,na.rm=TRUE)==0){stop('matF and matC contains only 0 values')}
-  #if(sum(matC,na.rm=T)==0){stop('matC contains only 0 values')}
+  # initialize output list and get matrix dimension
+  out <- list()
+  matDim <- nrow(matU)
   
-  tryCatch({
-    
-    matDim <- dim(matU)[1]
-    surv <- colSums(matU)
-    
-    out = NULL
-    
-    if (sum(matF)>0){
-      
-      fecLifeStages <- colSums(matF)
-      fecLifeStages[which(fecLifeStages>0)] <- 1
-      
-      #Probability of survival to first sexual reprod event
-      Uprime <- matU
-      Uprime[ , which(fecLifeStages == 1)] <- 0
-      Mprime <- matrix(0, 2, matDim)
-      for (p in 1:matDim) {
-        if (fecLifeStages[p] == 1){ Mprime[2,p] <- 1 }else{Mprime[1, p] = 1 - surv[p]}
-      }
-      Bprime <- Mprime %*% (MASS::ginv(diag(matDim) - Uprime))
-      out$pFec <- Bprime[2, startLife]
-      
-      #Age at first sexual reproduction (LaFec; Caswell 2001, p 124)
-      D <- diag(c(Bprime[2,]))
-      Uprimecond <- D %*% Uprime %*% MASS::ginv(D)
-      expTimeReprod <- colSums(MASS::ginv(diag(matDim) - Uprimecond))
-      out$LaFec <- LaFec <- expTimeReprod[startLife]
-      
-      #Mean life expectancy conditional on entering the life cycle in the first reproductive stage
-      firstFecLifeStage <- min(which(fecLifeStages == 1))
-      N <- solve(diag(matDim[1]) - matU)
-      out$meanLifeExpectancyFec <- colSums(N)[firstFecLifeStage]
-      
-      #Life expectancy from mean maturity
-      out$remainingMatureLifeExpectancyFec <- colSums(N)[startLife] - LaFec
+  # Which stages reproductive?
+  fecLifeStages <- apply(matR, 2, function(x) sum(x, na.rm = TRUE) > 0)
+  
+  # Probability of survival to first sexual reproductive event
+  # Note: U matrices are called 'T' in Caswell (2001)
+  Uprime <- matU
+  Uprime[,fecLifeStages] <- 0
+  
+  Mprime <- matrix(0, nrow = 2, ncol = matDim)
+  
+  for (p in 1:matDim) {
+    if (fecLifeStages[p]) {
+      Mprime[2, p] <- 1
+    } else {
+      Mprime[1, p] <- 1 - colSums(matU)[p]
     }
-    
-    
-    
-    if (sum(matC)>0){
-      cloLifeStages <- colSums(matC)
-      cloLifeStages[which(cloLifeStages>0)] <- 1
-      
-      #Probability of survival to first clonal reprod event
-      Uprime <- matU
-      Uprime[ , which(cloLifeStages == 1)] <- 0
-      Mprime <- matrix(0, 2, matDim)
-      for (p in 1:matDim) {
-        if (cloLifeStages[p] == 1){ Mprime[2,p] <- 1 }else{Mprime[1, p] = 1 - surv[p]}
-      }
-      Bprime <- Mprime %*% (MASS::ginv(diag(matDim) - Uprime))
-      out$pClo <- Bprime[2, startLife]
-      
-      #Age at first clonal reproduction (LaClo; Caswell 2001, p 124)
-      D <- diag(c(Bprime[2,]))
-      Uprimecond <- D %*% Uprime %*% MASS::ginv(D)
-      expTimeReprod <- colSums(MASS::ginv(diag(matDim) - Uprimecond))
-      out$LaClo <- LaClo <- expTimeReprod[startLife]
-      
-      #Mean life expectancy conditional on entering the life cycle in the first reproductive stage
-      firstCloLifeStage <- min(which(cloLifeStages == 1))
-      N <- solve(diag(matDim[1]) - matU)
-      out$meanLifeExpectancyClo <- colSums(N)[firstCloLifeStage]
-      
-      #Life expectancy from mean maturity
-      out$remainingMatureLifeExpectancyClo <- colSums(N)[startLife] - LaClo
-      
-      
-    }
-  }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")})
+  }
+  
+  Bprime <- Mprime %*% (MASS::ginv(diag(matDim) - Uprime))
+  out$p <- Bprime[2, startLife]
+  
+  # Age at first reproduction (La; Caswell 2001, p 124)
+  D <- diag(c(Bprime[2,]))
+  Uprimecond <- D %*% Uprime %*% MASS::ginv(D)
+  expTimeReprod <- colSums(MASS::ginv(diag(matDim) - Uprimecond))
+  out$La <- expTimeReprod[startLife]
+  
+  # Life expectancy conditional on entering the life cycle in the first
+  #  reproductive stage
+  firstFecLifeStage <- min(which(fecLifeStages))
+  N <- solve(diag(matDim) - matU)
+  out$meanLifeExpectancy <- colSums(N)[firstFecLifeStage]
+  
+  # Life expectancy from mean age of first reproduction maturity
+  out$remainingMatureLifeExpectancy <- colSums(N)[startLife] - out$La
+  
   return(out)
 }

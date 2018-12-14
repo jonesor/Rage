@@ -2,57 +2,80 @@
 % Please edit documentation in R/makeLifeTable.R
 \name{makeLifeTable}
 \alias{makeLifeTable}
-\title{Produces a life table from a matrix population model}
+\title{Generate a life table from a matrix population model}
 \usage{
 makeLifeTable(matU, matF = NULL, matC = NULL, startLife = 1,
   nSteps = 1000)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (e.g.
-progression, stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{A matrix containing only sexual reproduction, with zeros
-elsewhere.}
+\item{matF}{(Optional) The sexual component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to sexual
+reproduction)}
 
-\item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere. If not provided, it defaults to a matrix with all zeros.}
+\item{matC}{(Optional) The clonal component of a matrix population model
+(i.e. a square projection matrix reflecting transitions due to clonal
+reproduction).}
 
-\item{startLife}{The first stage at which the author considers the beginning
-of life in the life cycle of the species. It defaults to the first stage.}
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
 
 \item{nSteps}{Number of time steps for which the life table will be
-calculated. This is on the same units as the matrix population model - see
-MatrixPeriodicity in metadata of COMPADRE/COMADRE.}
+calculated. Time steps are in the same units as the matrix population model
+(see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000.}
 }
 \value{
-A `data.frame` with between 5 and 8 columns. If just `matU` is
-  provided, the `data.frame` has columns `x` (age), `lx` (survivorship), 'dx'
-  (proportion of the original cohort dying during each stage), 'qx' (force of
-  mortality), and 'ex' (age-specific life expectancy). If `matF` is provided
-  (in addition to `matU`), `mx` (age-specific sexual reproduction) and lxmx
-  (# sexually-produced recruits per capita in each age) are included in the
-  output. If `matC` is provided (in addition to `matU`), `cx` (age-specific
-  clonal reproduction) and lxcx (# clonally-produced recruits per capita in
-  each age) are included in the output.
+A \code{data.frame} containing 7-13 columns and \code{nSteps} rows.
+  Columns include:
+  \item{x}{age}
+  \item{lx}{survivorship to start of age class x}
+  \item{dx}{proportion of original cohort dying in interval [x, x+1)}
+  \item{qx}{force of mortality at age x}
+  \item{Lx}{survivorship to middle of age class x}
+  \item{Tx}{proportion of original cohort alive at age x and beyond}
+  \item{ex}{remaining life expectancy at age x}
+
+If \code{matF} is provided, also includes:
+  \item{mx}{per-capita rate of sexual reproduction at age x}
+  \item{lxmx}{expected number of sexual offspring per original
+  cohort member produced at age x}
+  
+If \code{matC} is provided, also includes:
+  \item{cx}{per-capita rate of clonal reproduction at age x}
+  \item{lxcx}{expected number of clonal offspring per original
+  cohort member produced at age x}
+  
+If both \code{matF} and \code{matC} are provided, also includes:
+  \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) at age x}
+  \item{lxmxcx}{expected number of total offspring (sexual + clonal) per original
+  cohort member produced at age x}
 }
 \description{
-This function uses age-from-stage decompositions to calculate a life table
-from a matrix population model
-}
-\details{
-A detailed description of these methods can be found in section 5.3 of
-Caswell (2001) and the supplementary information of Jones et al. (2014).
-}
-\note{
-%% ~~further notes~~
+This function uses age-from-stage decomposition methods to generate a life
+table from a matrix population model. A detailed description of these methods
+can be found in section 5.3 of Caswell (2001).
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+              
+matC <- rbind(c(  0,   0, 0.4, 0.5),
+              c(  0,   0, 0.3, 0.1),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
 
-matU <- matrix(c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-matF <- matrix(c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.), nrow = 4, byrow = TRUE)
-matC <- matrix(c(0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-
+makeLifeTable(matU, startLife = 1, nSteps = 100)
+makeLifeTable(matU, matF, startLife = 1, nSteps = 100)
 makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
 
 }
@@ -74,5 +97,3 @@ Hal Caswell <h.caswell@uva.nl>
 
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

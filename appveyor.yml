@@ -14,6 +14,10 @@ cache:
   - C:\RLibrary
 
 # Adapt as necessary starting from here
+<<<<<<< HEAD
+=======
+
+>>>>>>> devel
 environment:
   matrix:
     - R_VERSION: release

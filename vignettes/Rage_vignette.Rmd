@@ -7,27 +7,297 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(Rcompadre)
-```
+# ```{r setup, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE)
+# library(Rcompadre)
+# ```
 
-## R Markdown
+## Plot a life cycle diagram
+ 
+The exercise plots a life cycle with the stages and transitions of a give matrix chosen from the `Comadre` (or `Compadre`) database (or indeed elsewhere). It will use the R function `plotLifeCycle` from the `Rage` library. This function works well with matrices of relatively low dimensionality (~< 7), and where not many transitions are depicted. 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# ```{r, comment=">"}
+# library(Rage)
+# ```
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Let's plot the lifecycle described by the `A` matrix for a species containing the word "lion" in the common name used by the author(s) in the original source publiction.
 
-```{r cars}
-summary(cars)
-```
+# ```{r echo=FALSE}
+# data(Comadre)
+# ```
 
-## Including Plots
+To subset the species with the word `lion` in their common name, we use the function `grepl`.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# ```{r, comment=">"}
+# Lions <- subsetDB(db = Comadre, sub = grepl('lion', Comadre@metadata$CommonName))
+# unique(Lions@metadata$CommonName)
+# ```
+# 
+# Unfortunately, no actual lion (*Panthera leo*) has been included in this version of COMADRE, but there are plenty of other "lions" in it. We will plot the life cycle of the red lionfish (*Pterois volitans*):
+# 
+# ```{r, comment=">"}
+# matNum <- which(Lions@metadata$CommonName == "Red lionfish")
+# matNum
+# sp <- gsub("_", " ", Lions@metadata$SpeciesAccepted[matNum])
+# sp
+# ```
+# 
+# The matrix 'A' and the stages of this study are:
+# 
+# ```{r, comment=">"}
+# matA <- Lions@mat[[matNum]]@matA
+# matA
+# stages <- Lions@mat[[matNum]]@matrixClass$MatrixClassAuthor
+# stages
+# ```
+# 
+# To plot its lifecycle, use the function `plotLifeCycle.R` from the `Rage` package. 
+# 
+# 
+# ```{r eval =FALSE}
+# plotLifeCycle(matA, title = "Red lionfish")
+# ```
+# 
+# 
+# ## Ternary plots
+# 
+# 
+# ```{r echo=FALSE}
+# data(Comadre)
+# ```
+# 
+# Here we produce a ternary plot *a la* Silvertown & Franco (1993) with various life history traits such as mean life expectancy, population growth rate or reactivity as the "fourth" dimension. We will use Caswell (2001) formulation of mean life expectancy from the fundamental matrix (`N`), and the package `popdemo` for the reactivity. Other packages we need include `Rage`, `fields`, `vcd` and `scales`:
+# 
+# ```{r, comment=">", message = FALSE, warning = FALSE}
+# library(popdemo)
+# library(fields)
+# library(Rage)
+# library(vcd)
+# library(scales)
+# ```
+# 
+# This is the function to calculate mean life expectancy from Caswell (2001):
+# 
+# ```{r, comment = ">"}
+# meanLifeExpectancy <- function(matU = matU, startLife = 1){
+#   uDim <- dim(matU)[1]
+#   N <- solve(diag(uDim[startLife]) - matU)
+#   eta <- colSums(N)[startLife]
+#   return(eta)
+# }
+# ```
+# 
+# As an example for the chosen data, subset COMADRE to studies with a matrix dimension >= 3, that represent mean, unmanipulated conditions duration > 3 years, where sexual reproduction has been modeled explicitly, the matrices are split into U, F and C, and there are no issues with stage-specific survival >1.
+# 
+# ```{r, comment=">"}
+# ExData <- subsetDB(Comadre, MatrixDimension >= 3  &
+#                             MatrixComposite == "Mean" & 
+#                             MatrixTreatment == "Unmanipulated" & 
+#                             StudyDuration > 3 & 
+#                             MatrixFec == "Yes" & 
+#                             MatrixSplit == "Divided" & 
+#                             SurvivalIssue < 1)
+# ```
+# 
+# This object (`ExData`) is now a copy of the database that contains ONLY the matrices of interest.
+# 
+# We can ask how many matrices this is by looking at the size of the metadata part.
+# 
+# ```{r, comment = ">"}
+# nrow(ExData@metadata)
+# ```
+# 
+# These matrices can now be analyzed by applying functions in a loop, or by using `lapply`.
+# 
+# To calculate elasticities, population growth rate, reactivity and mean life expectancy for the subset matrices, first create an empty `data.frame` to accommodate the output:
+# 
+# ```{r, comment=">"}
+# output <- data.frame(species= rep(NA, nrow(ExData@metadata)),
+#                      lambda = rep(NA, nrow(ExData@metadata)),
+#                      eta = rep(NA, nrow(ExData@metadata)),
+#                      react = rep(NA, nrow(ExData@metadata)),
+#                      EStasis = rep(NA, nrow(ExData@metadata)),
+#                      EProgression = rep(NA, nrow(ExData@metadata)),
+#                      ERetrogression = rep(NA, nrow(ExData@metadata)),
+#                      EFecundity = rep(NA, nrow(ExData@metadata)),
+#                      EClonality = rep(NA, nrow(ExData@metadata)))
+# ```
+# 
+# We will use the `Rage` function `matrixElementPerturbation` to calculate element-level perturbations for each matrix in a `for` loop:
+# 
+# ```{r, comment=">", warning = FALSE}
+# for (i in seq_len(nrow(ExData@metadata))){
+#  tryCatch({
+#     output$species[i] <- ExData@metadata$SpeciesAuthor[i]
+#     
+#     output$lambda[i] <- max(Re(eigen(ExData@mat[[i]]@matA)$value))
+#     
+#     output$eta[i] <- meanLifeExpectancy(matU = ExData@mat[[i]]@matU, 
+#                                         startLife = 1)
+#     
+#     output$react[i] <- reac(ExData@mat[[i]]@matA, bound = "upper")
+#     
+#     output[i, c("EStasis","EProgression", "ERetrogression",
+#                "EFecundity", "EClonality")] <- 
+#       matrixElementPerturbation(matU = ExData@mat[[i]]@matU, 
+#                                 matF = ExData@mat[[i]]@matF, 
+#                                 matC = ExData@mat[[i]]@matC)[6:10]
+#       }, error = function(e){})
+# }
+# ```
+# 
+# Now we can group elasticities of population growth rate to various demographic processes into three axes of our ternary plot:
+# 
+# ```{r, comment=">"}
+# output$S <- output$EStasis + output$ERetrogression
+# output$G <- output$EProgression
+# output$R <- output$EFecundity + output$EClonality
+# ```
+# 
+# We need to scale the coordinates of each point between 0 and 1 - this is necessary due to possible rounding issues:
+# 
+# ```{r, comment=">"}
+# output$S <- output$S / rowSums(output[, c("S","G","R")])
+# output$G <- output$G / rowSums(output[, c("S","G","R")])
+# output$R <- output$R / rowSums(output[, c("S","G","R")])
+# ```
+# 
+# Normally, you would then need to eliminate the few MPMs where the code did not run correctly and produced `NA` values. This didn't happen in this example, but the code to do this is below.
+# 
+# ```{r, comment=">"}
+# output <- output[-which(is.na(output$eta)), ]
+# ```
+# 
+# Now we can finally plot the locations of the chosen matrices in a preliminary ternary plot using the function `ternaryplot` from the package `vcd`. The following code also uses the function `alpha` from the `scales` package to modify the colour transparency of the points.
+# 
+# ```{r, comment=">", tidy.opts=list(width.cutoff=50), eval = FALSE}
+# ternaryplot(as.matrix(output[ ,c("R", "S", "G")]),
+#             scale = 1,
+#             col = alpha("gray80", 0.7),
+#             bg = "black",
+#             dimnames = c("Stasis", "Growth", "Reproduction"),
+#             dimnames_position = "edge", 
+#             main = "Preliminary plot")
+# ```
+# 
+# 
+# As a use extension to this ternary plot, we can colour-code the points according to the values of lambda, eta or reactivity. To do that we first need to set up a colour palette for each of these measures, and deduce which colour each point should have.
+# 
+# 
+# In every case we can use the same `colorRamp` function to deduce the appropriate colour:
+# 
+# ```{r, comment=">"}
+# col_fun <- colorRamp(c("white", "yellow", "orange", "red", "dark red"))
+# ```
+# 
+# First, lambda.  For this measure we should first subset out the data with unreasonable values (say > 7):
+# 
+# ```{r, comment=">"}
+# lambdaData <- subset(output, lambda < 7)
+# ```
+# 
+# We then log transform and standardize the values, and obtain the hex colour codes for each point using the `rgb` function:
+# 
+# ```{r, comment=">"}
+# Z <- log(lambdaData$lambda)
+# zNorm <- (Z - min(Z))/(max(Z) - min(Z))
+# colsLambda <- rgb(col_fun(zNorm), maxColorValue = 256)
+# ```
+# 
+# We can now plot this diagram:
+# 
+# ```{r, comment=">", warning=FALSE, eval = FALSE}
+# ternaryplot(as.matrix(lambdaData[, c("R", "S", "G")]),
+#             scale = 1, 
+#             col = alpha(colsLambda, 0.7),
+#             bg = "black", 
+#             dimnames = c("Stasis", "Growth", "Reproduction"),
+#             dimnames_position = "edge", 
+#             main = expression(paste("Population growth rate - ", lambda)))
+# ```
+# 
+# 
+# Second, mean life expectancy (eta):
+# 
+# ```{r, comment=">"}
+# etaData <- output
+# Z <- log(etaData$eta)
+# zNorm <- (Z - min(Z))/(max(Z) - min(Z))
+# colsEta <- rgb(col_fun(zNorm), maxColorValue = 256)
+# ```
+# 
+# For which the plot can be genarated like this, as before:
+# 
+# ```{r, comment=">", warning=FALSE, eval = FALSE}
+# ternaryplot(as.matrix(etaData[, c("R", "S", "G")]), 
+#             scale = 1, 
+#             col = alpha(colsEta, 0.7),
+#             bg = "black", 
+#             dimnames = c("Stasis", "Growth", "Reproduction"),
+#             dimnames_position = "edge", 
+#             main=expression(paste("Mean life expectancy - ", eta["e"])))
+# 
+# ```
+# 
+# Thirdly, reactivity:
+# 
+# ```{r, comment=">"}
+# reactData <- subset(output, react < 140)
+# Z <- log(reactData$lambda)
+# zNorm <- (Z - min(Z))/(max(Z) - min(Z))
+# colsReact <- rgb(col_fun(zNorm), maxColorValue = 256)
+# ```
+# 
+# And the plot:
+# 
+# ```{r, comment=">", warning=FALSE, eval = FALSE}
+# ternaryplot(as.matrix(reactData[, c("R", "S", "G")]),
+#             scale = 1, 
+#             col = alpha(colsReact, 0.7),
+#             bg = "black", 
+#             dimnames = c("Stasis", "Growth", "Reproduction"),
+#             dimnames_position = "edge", 
+#             main = expression(paste("Reactivity - ||", hat(A),"||"[1])))
+# 
+# ```
+# 
+# One could add the color scale legend using the following code to add to the same plot. Note though, that here the value of the points has been standardised to range from 0 to 1, rather than the original lambda/eta/reactivity values:
+# 
+# ```{r, eval = FALSE, warning=FALSE, eval = FALSE}
+# colCode <- colorRampPalette(c("white", "yellow", "orange", "red", "dark red"))(n = 999)
+# image.plot(legend.only = TRUE,
+#            zlim = range(zNorm), 
+#            col = colCode, 
+#            smallplot = c(.75, .8, .5, .75),
+#            cex.axis = 0.2) 
+# ```
+# 
+# ## Age from stage
+# 
+# It is possible to obtain `lx` and `mx` schedules from matrix population models using methods described by Caswell (2001). There is a function `makeLifeTable` in our `Rage` package, that implements this.
+# 
+# Here is an example.
+# 
+# ```{r echo=FALSE}
+# data(Comadre)
+# library(Rage)
+# library(MASS)
+# ```
+# 
+# Next, query the `metadata` part of `Comadre` to identify the location of the desired data using the command `which` in a conditional search:
+# 
+# ```{r comment=">"}
+# id <- which(Comadre@metadata$SpeciesAccepted == "Pterois volitans")
+# id
+# ```
+# 
+# 
+# Let's pick the first matrix of the list obtained above:
+# 
+# ```{r comment = ">"}
+# lt1 <- makeLifeTable(matU = Comadre@mat[[id[1]]]@matU,
+#                      matF = Comadre@mat[[id[1]]]@matF,
+#                      startLife = 1, 
+#                      nSteps = 10)
+# lt1
+# ```

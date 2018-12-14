@@ -2,66 +2,55 @@
 % Please edit documentation in R/longevity.R
 \name{longevity}
 \alias{longevity}
-\title{A function to calculate measures of longevity.}
+\title{Calculate longevity from a matrix population model}
 \usage{
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (growth,
-stasis, shrinkage).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{startLife}{The first stage at which the author consider the beginning
-of life.}
+\item{startLife}{Index of the first stage at which the author considers the
+beginning of life. Defaults to 1.}
 
-\item{initPop}{Initial population size.}
+\item{lxCrit}{The critical proportion to calculate longevity with respect to
+(a value between 0 and 1). Defaults to 0.01.}
 
-\item{run}{Number of iterations that the maximum longevity will be
-calculated for.}
+\item{maxAge}{The maximum age to which survivorship will be calculated.
+Defaults to 1000.}
 }
 \value{
-This function applies Markov chain approaches to obtain mean life
-expectancy, and a loop to calculate maximum longevity. Outputs are:
-
-- 'eta': mean life expectancy conditional on entering the life cycle on life
-stage described by 'startLife'.
-
-- 'var_eta': variance in life expectancy conditional on entering the life
-cycle on life stage described by 'startLife'.
-
-- 'Max': maximum longevity observed by iterating a population vector with
-'initPop' individuals in stage 'startLife' up to 'run' times.
+Returns longevity, the integer age at which expected survivorship
+  falls below \code{lxCrit}. If survivorship doesn't reach \code{lxCrit} by
+  \code{maxAge}, returns \code{NA} and prints a warning message.
 }
 \description{
-A function to calculate life expectancy and maximum longevity of individuals
-in a matrix population model
-}
-\details{
-This function applies Markov chain approaches to obtain the mean and variance
-in life expectancy, and a loop to calculate maximum longevity.
-}
-\note{
-%% ~~further notes~~
+Calculate longevity (the age a which survivorship falls to some critical
+proportion) from a matrix population model
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-
-longevity(matU, startLife = 1, initPop = 100, run = 1000)
+longevity(matU)
+longevity(matU, lxCrit = 0.05)
+longevity(matU, startLife = 3, lxCrit = 0.05, maxAge = 50)
 
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 
-Morris, W. F., and D. F. Doak. 2003. Quantitative Conservation 
-Biology: Theory and Practice of Population Viability Analysis. 
-Sinauer Associates, Sunderland, Massachusetts, USA
+  Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
+  Theory and Practice of Population Viability Analysis. Sinauer Associates,
+  Sunderland, Massachusetts, USA
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Hal Caswell <hcaswell@whoi.edu>
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

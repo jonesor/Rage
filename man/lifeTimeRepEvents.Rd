@@ -2,68 +2,59 @@
 % Please edit documentation in R/lifeTimeRepEvents.R
 \name{lifeTimeRepEvents}
 \alias{lifeTimeRepEvents}
-\title{Calculates the timing of lifetime reproductive events.}
+\title{Calculate the timing of lifetime reproductive events}
 \usage{
-lifeTimeRepEvents(matU, matF, matC = FALSE, startLife = 1)
+lifeTimeRepEvents(matU, matR, startLife = 1)
 }
 \arguments{
-\item{matU}{A matrix containing only survival-dependent processes (e.g. progression,
-stasis, retrogression).}
+\item{matU}{The survival component of a matrix population model (i.e. a
+square projection matrix reflecting survival-related transitions; e.g.
+progression, stasis, and retrogression)}
 
-\item{matF}{A matrix containing only sexual reproduction, with zeros
-elsewhere.}
+\item{matR}{The reproductive component of a matrix population model (i.e. a
+square projection matrix reflecting transitions due to reproduction; either
+sexual, clonal, or both)}
 
-\item{matC}{A matrix containing only clonal reproduction, with zeros
-elsewhere. If not provided, it defaults to a matrix with all zeros.}
-
-\item{startLife}{The first stage at which the author considers the beginning
-of life in the life cycle of the species. It defaults to the first stage.}
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
 }
 \value{
-This function applies Markov chain approaches to decompose various
-moments of reproduction along the age-based trajectory of individuals in a matrix
-population model. When both a 'matF' and a 'matC' are provided, the
-following outputs are calculated for both independently, and these are
-differentiated with the suffix "Fec" or "Clo", respectively:
-
-- 'p': probability of achiving maturity, sexual or clonal.
-
-- 'La': mean age at maturity (in the same units as the matrix population
-model sampling periodicity).
-
-- 'meanLifeExpectancy': mean life expectancy conditional on entering the
-life cycle at the value of 'startLife'.
-
-- 'remainingMatureLifeExpectancy': Life expectancy from mean maturity. This
-is calculated as mean life expectancy - mean age at maturity ('La' above). This value can
-be negative because both mean life expectancy and mean age at maturity are
-means of their respective distributions, and their distributions can indeed overlap.
+A list with four elements:
+\item{p}{probability of achieving reproductive maturity}
+\item{La}{mean age at maturity (in the same units as the matrix population
+model sampling periodicity)}
+\item{meanLifeExpectancy}{mean life expectancy conditional on entering the
+life cycle at the value of \code{startLife}}
+\item{remainingMatureLifeExpectancy}{Life expectancy from mean maturity,
+calculated as \code{meanLifeExpectancy - La}. This value can be negative
+because both mean life expectancy and mean age at maturity are means of their
+respective distributions, and their distributions can indeed overlap}
 }
 \description{
-A function to calculate the timing of lifetime reproductive events such as
-the probability of achieving maturity, age at first reproduction, mean life
-expectancy conditional on maturity, and life expectancy for mature
-individuals.
-}
-\details{
-This function applies Markov chain approaches to decompose various moments
-along the age-specific trajectory of reproduction of individuals in a matrix population
-model.
-}
-\note{
-%% ~~further notes~~
+Applies Markov chain approaches to decompose various moments along the
+age-specific trajectory of reproduction of individuals in a matrix population
+model, including the probability of achieving maturity, age at first
+reproduction, mean life expectancy conditional on maturity, and life
+expectancy for mature individuals.
 }
 \examples{
-matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.6))
 
-lifeTimeRepEvents(matU, matF, matU, startLife = 1)
+matF <- rbind(c(  0,   0, 1.1, 1.6),
+              c(  0,   0, 0.8, 0.4),
+              c(  0,   0,   0,   0),
+              c(  0,   0,   0,   0))
+
+lifeTimeRepEvents(matU, matF, startLife = 1)
+
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,
-Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-978-0878930968
+  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+  978-0878930968
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

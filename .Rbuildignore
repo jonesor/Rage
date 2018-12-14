@@ -1,4 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+<<<<<<< HEAD
 ^appveyor\.yml$
 ^\.travis\.yml$
+=======
+^\.travis\.yml$
+^appveyor\.yml$
+^README\.Rmd$
+>>>>>>> devel

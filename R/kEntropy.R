@@ -1,8 +1,10 @@
-#' Calculates Keyfitz' entropy
+#' Calculate Keyfitz's entropy from a matrix population model
 #' 
-#' This function calculates Keyfitz' entropy from an lx
-#' (survivorship) vector with even intervals derived from a matrix population model.
+#' This function calculates Keyfitz's entropy from a matrix population model, by
+#' first using age-from-stage decomposition methods to estimate age-specific
+#' survivorship (lx).
 #' 
+<<<<<<< HEAD
 #' @param matU A matrix containing only survival-dependent processes (e.g. progression,
 #' stasis, retrogression).
 #' @param startLife The first stage at which the author considers the beginning
@@ -19,40 +21,51 @@
 #' entropy cannot be estimated.
 #' @return Returns an estimate of Keyfitz' life table entropy based on an lx
 #' (survivorship) vector obtained from matU
+=======
+#' @param matU The survival component of a matrix population model (i.e. a
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
+#' @param startLife The index of the first stage at which the author considers
+#'   the beginning of life. Defaults to 1.
+#' @param nSteps The age-cutoff for the decomposition of age-specific survival
+#'   (lx). This allows the user to exclude ages after which mortality or
+#'   fertility has plateaued (see function \code{\link{qsdConverge}} for more
+#'   information). Defaults to 100.
+#' @param trapeze A logical argument indicating whether the composite trapezoid
+#'   approximation should be used for approximating the definite integral.
+#' @return Returns an estimate of Keyfitz's life table entropy.
+>>>>>>> devel
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
-#' @references  %% ~~references~~
+#' @references Keyfitz, N. (1977) Applied Mathematical Demography. New York:
+#'   Wiley.
 #' @examples
-#'
-#' matU <- matrix (c(0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0.4, 0, 0, 0, 0, 0.7, 0.1), nrow = 4, byrow = TRUE)
-#' kEntropy(matU, nSteps=100)
-#' kEntropy(matU,trapeze=FALSE)
+#' matU <- rbind(c(0.2,   0,   0,   0),
+#'               c(0.3, 0.4, 0.1,   0),
+#'               c(0.1, 0.1, 0.2, 0.3),
+#'               c(  0, 0.2, 0.6, 0.5))
 #' 
-#' matU <- matrix (c(0.2, 0, 0, 0, 0.3, 0.4, 0.1, 0, 0.1, 0.1, 0.2, 0.3, 0, 0.2, 0.6, 0.5), nrow = 4, byrow = TRUE)
 #' kEntropy(matU, nSteps = 10)
 #' kEntropy(matU, nSteps = 20)
 #' kEntropy(matU, nSteps = 100)
-#' kEntropy(matU, nSteps = 100, trapeze=TRUE)
+#' kEntropy(matU, nSteps = 100, trapeze = TRUE)
 #' 
 #' @export kEntropy
+<<<<<<< HEAD
 kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE, trimlx = 0.05){
+=======
+kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
+>>>>>>> devel
   
-  if (dim(matU)[1]!=dim(matU)[2]) stop("Your matrix population model is not a square matrix")
-  if (any(is.na(matU))) stop("NAs exist in matU")
-  if (length(which(colSums(matU)>1))>0) print("Warning: matU has at least one stage-specific survival value > 1")
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
   
-  #Age-specific survivorship (lx) (See top function on page 120 in Caswell 2001):
-  matDim = dim(matU)[1]
-  matUtemp = matU
-  survivorship = array(NA, dim = c(nSteps, matDim))
-  for (o in 1:nSteps){
-    survivorship[o, ] = colSums(matUtemp %*% matU)
-    matUtemp = matUtemp %*% matU
-  }
+  # Age-specific survivorship (lx)
+  lx <- ageSpecificSurv(matU, startLife, nSteps)
+  lx <- lx[1:max(which(lx > 0))] # remove ages at/beyond which lx is 0 or NA
   
-  lx = survivorship[, startLife]
-  lx = c(1, lx[1:(length(lx) - 1)])
-  
+<<<<<<< HEAD
   #Trim lx
   lx <- lx[lx>=trimlx]
   
@@ -63,4 +76,24 @@ kEntropy <- function(matU, startLife = 1, nSteps = 1000, trapeze = FALSE, trimlx
     }else{
       return(-sum(lx*log(lx))/sum(lx))
     }
+=======
+  # Calculate Keyfitz's entropy
+  if (trapeze == TRUE) {
+    H <- -TrapezoidRule(lx * log(lx)) / TrapezoidRule(lx)
+  } else {
+    H <- -sum(lx * log(lx)) / sum(lx)
+>>>>>>> devel
   }
+  
+  return(H) 
+}
+
+
+# Composite Trapezoid Rule for approximating a definite integral;
+# modified to work with discrete y values that start at x = 0, and have
+# h = delta_x = 1 (i.e. lx)
+TrapezoidRule <- function(y) {
+  n <- length(y)
+  h <- 1   # h = (b - a) / n  = (length(y) - 0) / n
+  return((h / 2) * (y[1] + 2 * sum(y[2:(n-1)]) + y[n]))
+}
