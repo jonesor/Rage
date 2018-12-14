@@ -20,15 +20,7 @@ projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-<<<<<<< HEAD
-\item{demogstat}{The demographic statistic to be used, as
-in "the sensitvity/elasticity of ___ to vital rate perturbations."
-Defaults to the per-capita population growth rate at equilibrium. 
-Also accepts a user-supplied function that performs a calculation on
-a projection matrix and returns a single numeric value.}
-=======
 \item{pert}{Magnitude of the perturbation (defaults to \code{1e-6}).}
->>>>>>> devel
 
 \item{demogstat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of ___ to vital rate perturbations." Defaults to the
@@ -52,22 +44,10 @@ A data frame with 1 row and 10 columns:
 \item{EClonality}{elasticity of \code{demogstat} to clonality}
 }
 \description{
-<<<<<<< HEAD
-A function to perform perturbation of vital rates of the matrix model and
-measure the response of the per-capita population growth rate at equilibrium
-or (with a user-supplied function) any other demographic statistic.
-}
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
-=======
 Perturbs lower-level vital rates within a matrix population model and
 measures the response of the per-capita population growth rate at equilibrium
 (\eqn{\lambda}), or, with a user-supplied function, any other demographic
 statistic.
->>>>>>> devel
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
@@ -75,16 +55,10 @@ matU <- rbind(c(0.1,   0,   0,   0),
               c(  0, 0.3, 0.3, 0.1),
               c(  0,   0, 0.5, 0.6))
 
-<<<<<<< HEAD
-\dontrun{
-data(Compadre)
-pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
-=======
 matF <- rbind(c(  0,   0, 1.1, 1.6),
               c(  0,   0, 0.8, 0.4),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
->>>>>>> devel
 
 vitalRatePerturbation(matU, matF)
 
@@ -99,11 +73,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-<<<<<<< HEAD
-}
-=======
 vitalRatePerturbation(matU, matF, demogstat = 'damping')
->>>>>>> devel
 
 }
 \author{

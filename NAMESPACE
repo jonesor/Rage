@@ -18,15 +18,10 @@ export(rearrangeMatrix)
 export(reprodStages)
 export(splitMatrix)
 export(standardizeMatrix)
+export(standardizedVitalRates)
 export(vitalRatePerturbation)
 export(vitalRates)
-<<<<<<< HEAD
-import(MASS)
-import(popbio)
 importFrom(DiagrammeR,grViz)
-importFrom(popbio,eigen.analysis)
-=======
 importFrom(MASS,ginv)
 importFrom(popbio,lambda)
 importFrom(popbio,stable.stage)
->>>>>>> devel

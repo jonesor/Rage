@@ -2,12 +2,7 @@
 % Please edit documentation in R/matrixElementPerturbation.R
 \name{matrixElementPerturbation}
 \alias{matrixElementPerturbation}
-<<<<<<< HEAD
-\title{A function to perform element perturbation of a matrix population model for 
-any demographic statistic.}
-=======
 \title{Perturbation analysis of matrix elements in a matrix population model}
->>>>>>> devel
 \usage{
 matrixElementPerturbation(matU, matF, matC = NULL, pert = 1e-06,
   demogstat = "lambda", ...)
@@ -25,14 +20,6 @@ projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-<<<<<<< HEAD
-\item{demogstat}{A character string that is the name of a function.
-The default is the the per-capita population growth rate at equilibrium. 
- Also accepts a user-supplied function that performs a calculation on
- a projection matrix and returns a single numeric value.}
-
-\item{pert}{Perturbation parameter.}
-=======
 \item{pert}{Magnitude of the perturbation (defaults to \code{1e-6}).}
 
 \item{demogstat}{The demographic statistic to be used, as in "the
@@ -40,7 +27,6 @@ sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
 the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 accepts a user-supplied function that performs a calculation on a
 projection matrix and returns a single numeric value.}
->>>>>>> devel
 
 \item{...}{Additional arguments passed to the function \code{demogstat}.}
 }
@@ -58,18 +44,9 @@ A data frame with 1 row and 10 columns:
 \item{EClonality}{elasticity of \code{demogstat} to clonality}
 }
 \description{
-<<<<<<< HEAD
-A function to perform element perturbation of a matrix population model and
-measure the response of the per-capita population growth rate at equilibrium
-or (with a user-supplied function) any other demographic statistic.
-}
-\note{
-%% ~~further notes~~
-=======
 Perturbs elements within a matrix population model and measures the response
 of the per-capita population growth rate at equilibrium (\eqn{\lambda}), or,
 with a user-supplied function, any other demographic statistic.
->>>>>>> devel
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),

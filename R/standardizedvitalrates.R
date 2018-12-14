@@ -9,7 +9,7 @@
 #' @return A list (TODO:)
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
-#' matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
+#' \dontrun{matU <- rbind( c(0, 0, 0, 0, 0), c(0.18, 0.16, 0, 0, 0), c(0.29, 0.23, 0.12,
 #' 0, 0), c(0, 0, 0.34, 0.53, 0), c(0, 0, 0, 0.87, 0) )
 #'
 #' matF <- rbind( c(0, 0.13, 0, 0.96, 0), c(0, 0, 0, 0, 0), c(0, 0, 0, 0, 0),
@@ -18,7 +18,7 @@
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 #'
-#' standardizedVitalRates(matU, matF, reproStages, matrixStages)
+#' standardizedVitalRates(matU, matF, reproStages, matrixStages)}
 standardizedVitalRates <- function(matU, matF, reproStages, matrixStages) {
 
   # put non-reproductive stages at the end of the matrix

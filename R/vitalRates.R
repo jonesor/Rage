@@ -40,30 +40,6 @@
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' @examples
-<<<<<<< HEAD
-#' 
-#' matU <- matrix (c(0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.1, 0.1), nrow = 4, byrow = TRUE)
-#' matF <- matrix (c(0, 0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-#' matC <- matrix (c(0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0), nrow = 4, byrow = TRUE)
-#' 
-#' #Vital rate outputs without weights:
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = FALSE)
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = FALSE)
-#' 
-#' 
-#' 
-#' #Vital rate outputs weighted by the stable stage distribution of 'matA':
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = 'SSD')
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = 'SSD')
-#' vitalRates(matU, matF, matC, splitStages = c('prop', 'active', 'active', 'active'), weighted = 'SSD')
-#' 
-#' #Vital rate outputs weighted by a chosen population vector of initial conditions:
-#' 
-#' @export
-vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
-  #Function to quantify vital rates values
-=======
 #' matU <- rbind(c(0.1,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0),
 #'               c(  0, 0.3, 0.3, 0.1),
@@ -94,8 +70,6 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
 #' @export vitalRates
 vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
                        splitStages = "all", matrixStages = NULL) {
->>>>>>> devel
-  
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)

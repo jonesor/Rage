@@ -4,12 +4,7 @@
 \alias{kEntropy}
 \title{Calculate Keyfitz's entropy from a matrix population model}
 \usage{
-<<<<<<< HEAD
-kEntropy(matU, startLife = 1, nSteps = 1000, trapeze = FALSE,
-  trimlx = 0.05)
-=======
 kEntropy(matU, startLife = 1, nSteps = 100, trapeze = FALSE)
->>>>>>> devel
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -26,11 +21,6 @@ information). Defaults to 100.}
 
 \item{trapeze}{A logical argument indicating whether the composite trapezoid
 approximation should be used for approximating the definite integral.}
-
-\item{trimlx}{A numerical argument determining how lx should be trimmed. 
-For example, a value of 0.05 means that lx values are retained only if they 
-are greater than or equal to 0.05. NB: 0 values in lx mean that Keyfitz 
-entropy cannot be estimated.}
 }
 \value{
 Returns an estimate of Keyfitz's life table entropy.

@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-#' A function to perform perturbation of vital rates of the matrix model for any demographic statistic.
-#' 
-#' A function to perform perturbation of vital rates of the matrix model and
-#' measure the response of the per-capita population growth rate at equilibrium
-#' or (with a user-supplied function) any other demographic statistic.
-#' 
-#' %% ~~ If necessary, more details than the description above ~~
-#' 
-#' @param matU The U matrix (processes related to survival, growth and retrogression).
-#' @param matF The F matrix (sexual reproduction processes).
-#' @param matC The C matrix (clonal reproduction processes).
-#' @param demogstat The demographic statistic to be used, as
-#'  in "the sensitvity/elasticity of ___ to vital rate perturbations."
-#'  Defaults to the per-capita population growth rate at equilibrium. 
-#'  Also accepts a user-supplied function that performs a calculation on
-#'  a projection matrix and returns a single numeric value.
-#' @param pert Magnitude of the perturbation (defaults to 0.001).
-#' @return A data frame containing...
-#' @note %% ~~further notes~~
-#' @author Roberto Salguero-Gomez <r.salguero@@sheffield.ac.uk>
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-#' @references %% ~put references to the literature/web site here ~
-#' @keywords ~kwd1 ~kwd2
-=======
 #' Perturbation analysis of vital rates in a matrix population model
 #'
 #' Perturbs lower-level vital rates within a matrix population model and
@@ -58,23 +33,16 @@
 #' \item{EReproduction}{elasticity of \code{demogstat} to sexual reproduction}
 #' \item{EClonality}{elasticity of \code{demogstat} to clonality}
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
->>>>>>> devel
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0),
 #'               c(  0, 0.3, 0.3, 0.1),
 #'               c(  0,   0, 0.5, 0.6))
 #' 
-<<<<<<< HEAD
-#' \dontrun{
-#' data(Compadre)
-#' pira <- subsetDB(Compadre, SpeciesAccepted == "Pinus radiata")
-=======
 #' matF <- rbind(c(  0,   0, 1.1, 1.6),
 #'               c(  0,   0, 0.8, 0.4),
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
->>>>>>> devel
 #' 
 #' vitalRatePerturbation(matU, matF)
 #' 
@@ -89,11 +57,7 @@
 #'   return(dm[1] / dm[2])
 #' }
 #' 
-<<<<<<< HEAD
-#' }
-=======
 #' vitalRatePerturbation(matU, matF, demogstat = 'damping')
->>>>>>> devel
 #' 
 #' @importFrom popbio lambda
 #' @export vitalRatePerturbation

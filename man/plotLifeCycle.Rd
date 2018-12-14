@@ -4,8 +4,8 @@
 \alias{plotLifeCycle}
 \title{A function to plot the life cycle diagram based on the matrix model}
 \usage{
-plotLifeCycle(A, title = "my life cycle", shape = "egg", fontsize = 10,
-  nodefontsize = 12, edgecol = "grey")
+plotLifeCycle(A, title = "my life cycle", shape = "egg",
+  fontsize = 10, nodefontsize = 12, edgecol = "grey")
 }
 \arguments{
 \item{A}{The A matrix of a matrix population model}
