@@ -24,6 +24,6 @@ Suggests:
     scales,
     vcd,
     testthat,
-    RcompadreDev
-  Remotes: jonesor/RcompadreDev
+    Rcompadre
+  Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
