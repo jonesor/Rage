@@ -28,6 +28,9 @@ branches:
   - master
   - devel
 
+after_success:
+  - Rscript -e 'covr::codecov()'
+
 # If anyone else would like to be added to notifications,
 # just add your email below!
 notifications:
