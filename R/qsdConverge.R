@@ -6,20 +6,21 @@
 #'
 #' Size or stage-based matrix population models (i.e. Lefkovitch models) and
 #' some age-based matrix population models (i.e. Leslie models with a last class
-#' ≥ final age value) are typically parameterised with a stasis loop in the
-#' largest/most-developed stage (e.g. adult survival). The assumption of
-#' constancy in vital rates for individuals in that last stage typically results
-#' in flat mortality and fertility plateaus. These plateaus may result in
-#' mathematical artefacts when examining age-specific patterns derived from
-#' age-from-stage matrix decompositions (Caswell 2001). The Quasi-stationary
-#' Stage Distribution (QSD) can be used to circumvent this problem. The QSD is
-#' the stage distribution that is reached some time before the ultimate stable
-#' stage distribution (SSD, the normalised right eigenvector of the transition
-#' matrix). With this approach, the user can ask what is the time step in the
-#' projection at which the cohort approximates its stable stage distribution
-#' with a given convergence tolerance level (e.g. 95%). This metric allows the
-#' user to use only age-based information from before this point. See the online
-#' supplementary information of Jones et al. (2014) for further details.
+#' greater than or equal to final age value) are typically parameterised with a
+#' stasis loop in the largest/most-developed stage (e.g. adult survival). The
+#' assumption of constancy in vital rates for individuals in that last stage
+#' typically results in flat mortality and fertility plateaus. These plateaus
+#' may result in mathematical artefacts when examining age-specific patterns
+#' derived from age-from-stage matrix decompositions (Caswell 2001). The
+#' Quasi-stationary Stage Distribution (QSD) can be used to circumvent this
+#' problem. The QSD is the stage distribution that is reached some time before
+#' the ultimate stable stage distribution (SSD, the normalised right eigenvector
+#' of the transition matrix). With this approach, the user can ask what is the
+#' time step in the projection at which the cohort approximates its stable stage
+#' distribution with a given convergence tolerance level (e.g. 95%). This metric
+#' allows the user to use only age-based information from before this point. See
+#' the online supplementary information of Jones et al. (2014) for further
+#' details.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.

@@ -33,7 +33,7 @@
 #' 
 #' @export kEntropy
 kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
-  
+
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(startLife, matU)

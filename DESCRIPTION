@@ -11,19 +11,21 @@ BugReports: https://github.com/jonesor/Rage/issues
 License: GPL-2 | file LICENSE
 Imports:
     popbio,
-    MASS
+    MASS,
+    DiagrammeR
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 2.10.0)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Suggests:
-    knitr, 
+    knitr,
     rmarkdown,
     fields,
     popdemo,
     scales,
     vcd,
     testthat,
-    Rcompadre
-  Remotes: jonesor/Rcompadre
+    Rcompadre,
+    covr
+Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr

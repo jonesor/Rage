@@ -70,7 +70,6 @@
 #' @export vitalRates
 vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
                        splitStages = "all", matrixStages = NULL) {
-  
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
