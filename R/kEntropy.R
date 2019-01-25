@@ -39,7 +39,7 @@ kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
   checkValidStartLife(startLife, matU)
   
   # Age-specific survivorship (lx)
-  lx <- ageSpecificSurv(matU, startLife, nSteps)
+  lx <- mpm_to_lx(matU, startLife, nSteps)
   lx <- lx[1:max(which(lx > 0))] # remove ages at/beyond which lx is 0 or NA
   
   # Calculate Keyfitz's entropy

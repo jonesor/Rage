@@ -44,8 +44,8 @@ dEntropy <- function(matU, matR, startLife = 1, nSteps = 100) {
   checkValidStartLife(startLife, matU)
 
   # age-specific survivorship (lx) and fecundity (mx)
-  lx <- ageSpecificSurv(matU, startLife, nSteps)
-  mx <- ageSpecificRepro(matU, matR, startLife, nSteps)
+  lx <- mpm_to_lx(matU, startLife, nSteps)
+  mx <- mpm_to_mx(matU, matR, startLife, nSteps)
   
   # calculate Demetrius' entropy
   H <- dEntropyCalc(lx, mx)

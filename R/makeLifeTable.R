@@ -86,7 +86,7 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   checkValidStartLife(startLife, matU)
   
   #Age-specific survivorship (lx)
-  lx <- ageSpecificSurv(matU, startLife, nSteps-1)
+  lx <- mpm_to_lx(matU, startLife, nSteps-1)
   
   #Proportion of original cohort dying during each age
   dx <- c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
@@ -120,12 +120,12 @@ makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   )
   
   if (!is.null(matF)) {
-    out$mx <- ageSpecificRepro(matU, matF, startLife, nSteps-1)
+    out$mx <- mpm_to_mx(matU, matF, startLife, nSteps-1)
     out$lxmx <- out$lx * out$mx
   }
   
   if (!is.null(matC)) {
-    out$cx <- ageSpecificRepro(matU, matC, startLife, nSteps-1)
+    out$cx <- mpm_to_mx(matU, matC, startLife, nSteps-1)
     out$lxcx <- out$lx * out$cx
   }
   

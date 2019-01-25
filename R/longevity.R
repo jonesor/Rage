@@ -45,7 +45,7 @@ longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
   }
   
   # calculate survivorship to maxAge
-  lx <- ageSpecificSurv(matU, startLife, N = maxAge)
+  lx <- mpm_to_lx(matU, startLife, N = maxAge)
   
   if (any(lx <= lxCrit)) {
     longevity <- min(which(lx <= lxCrit)) - 1  # -1 b/c lx starts at age 0
