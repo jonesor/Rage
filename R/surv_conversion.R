@@ -11,10 +11,10 @@
 #' @return A vector
 #' 
 #' @details \code{lx} gives the proportional survivorship to the start of age
-#'   class \code{x} (where survivorship at age 0 is defined as 1), \code{px}
-#'   gives the probability of survival between age \code{x} and \code{x+1}, and
-#'   \code{hx} gives the time-averaged mortality hazard (also called force of
-#'   mortality) over the interval \code{x} to \code{x+1}.
+#'   class \code{x} (where survivorship at first age class is defined as 1),
+#'   \code{px} gives the probability of survival between age \code{x} and
+#'   \code{x+1}, and \code{hx} gives the time-averaged mortality hazard (also
+#'   called force of mortality) between age \code{x} and \code{x+1}.
 #'   
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
