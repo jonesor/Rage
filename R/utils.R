@@ -36,3 +36,16 @@ checkValidStartLife <- function(s, M) {
          call. = FALSE)
   }
 }
+
+
+#' @noRd
+colSums2 <- function(mat) {
+  apply(mat, 2, function(x) {
+    if (all(is.na(x))) {
+      return(NA_real_)
+    } else {
+      return(sum(x, na.rm = TRUE))
+    }
+  })
+}
+
