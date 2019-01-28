@@ -74,17 +74,17 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' # extract vital rates of survival from matU
-#' vitals_matU(matU)
+#' vr_mat_U(matU)
 #' 
 #' # extract vital rates of survival from matR
-#' vitals_matR(matU, matR)
+#' vr_mat_R(matU, matR)
 #' 
-#' @name vitals_mat
+#' @name vr_mat
 
 
-#' @rdname vitals_mat
-#' @export vitals_matU
-vitals_matU <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
+#' @rdname vr_mat
+#' @export vr_mat_U
+vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
   
   checkValidMat(matU)
   sigma <- colSums(matU, na.rm = TRUE)
@@ -102,9 +102,9 @@ vitals_matU <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
 }
 
 
-#' @rdname vitals_mat
-#' @export vitals_matR
-vitals_matR <- function(matU, matR, posR = matR > 0) {
+#' @rdname vr_mat
+#' @export vr_mat_R
+vr_mat_R <- function(matU, matR, posR = matR > 0) {
   
   checkValidMat(matU)
   checkValidMat(matR)

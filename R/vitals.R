@@ -80,23 +80,23 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' vitals_survival(matU)
-#' vitals_growth(matU)
-#' vitals_shrinkage(matU)
-#' vitals_stasis(matU)
+#' vr_vec_survival(matU)
+#' vr_vec_growth(matU)
+#' vr_vec_shrinkage(matU)
+#' vr_vec_stasis(matU)
 #' 
-#' vitals_dorm_enter(matU, dorm_stages = 4)
-#' vitals_dorm_exit(matU, dorm_stages = 4)
+#' vr_vec_dorm_enter(matU, dorm_stages = 4)
+#' vr_vec_dorm_exit(matU, dorm_stages = 4)
 #' 
-#' vitals_fecund(matU, matF)
+#' vr_vec_fecund(matU, matF)
 #' 
-#' @name vitals
+#' @name vr_vec
 NULL
 
 
-#' @rdname vitals
-#' @export vitals_survival
-vitals_survival <- function(matU, posU = matU > 0, stage_exclude = NULL) {
+#' @rdname vr_vec
+#' @export vr_vec_survival
+vr_vec_survival <- function(matU, posU = matU > 0, stage_exclude = NULL) {
   
   checkValidMat(matU)
   pos_vital <- apply(posU, 2, any)
@@ -108,12 +108,12 @@ vitals_survival <- function(matU, posU = matU > 0, stage_exclude = NULL) {
 }
 
 
-#' @rdname vitals
-#' @export vitals_growth
-vitals_growth <- function(matU, posU = matU > 0, stage_exclude = NULL,
+#' @rdname vr_vec
+#' @export vr_vec_growth
+vr_vec_growth <- function(matU, posU = matU > 0, stage_exclude = NULL,
                           surv_only_na = TRUE) {
   
-  vmat <- vitals_matU(matU, posU = posU, surv_only_na = surv_only_na)
+  vmat <- vr_mat_U(matU, posU = posU, surv_only_na = surv_only_na)
   tri_low <- lower.tri(vmat, diag = FALSE)
   vmat[!tri_low] <- NA_real_
   
@@ -125,12 +125,12 @@ vitals_growth <- function(matU, posU = matU > 0, stage_exclude = NULL,
 }
 
 
-#' @rdname vitals
-#' @export vitals_shrinkage
-vitals_shrinkage <- function(matU, posU = matU > 0, stage_exclude = NULL,
+#' @rdname vr_vec
+#' @export vr_vec_shrinkage
+vr_vec_shrinkage <- function(matU, posU = matU > 0, stage_exclude = NULL,
                              surv_only_na = TRUE) {
   
-  vmat <- vitals_matU(matU, posU = posU, surv_only_na = surv_only_na)
+  vmat <- vr_mat_U(matU, posU = posU, surv_only_na = surv_only_na)
   tri_upp <- upper.tri(vmat, diag = FALSE)
   vmat[!tri_upp] <- NA_real_
   
@@ -142,12 +142,12 @@ vitals_shrinkage <- function(matU, posU = matU > 0, stage_exclude = NULL,
 }
 
 
-#' @rdname vitals
-#' @export vitals_stasis
-vitals_stasis <- function(matU, posU = matU > 0, stage_exclude = NULL,
+#' @rdname vr_vec
+#' @export vr_vec_stasis
+vr_vec_stasis <- function(matU, posU = matU > 0, stage_exclude = NULL,
                           surv_only_na = TRUE) {
   
-  vmat <- vitals_matU(matU, posU = posU, surv_only_na = surv_only_na)
+  vmat <- vr_mat_U(matU, posU = posU, surv_only_na = surv_only_na)
   pos_vital <- diag(posU)
   
   v <- diag(vmat)
@@ -157,11 +157,11 @@ vitals_stasis <- function(matU, posU = matU > 0, stage_exclude = NULL,
 }
 
 
-#' @rdname vitals
-#' @export vitals_dorm_enter
-vitals_dorm_enter <- function(matU, posU = matU > 0, dorm_stages) {
+#' @rdname vr_vec
+#' @export vr_vec_dorm_enter
+vr_vec_dorm_enter <- function(matU, posU = matU > 0, dorm_stages) {
   
-  vmat <- vitals_matU(matU, posU = posU)
+  vmat <- vr_mat_U(matU, posU = posU)
   pos_vital <- apply(posU[dorm_stages, , drop = FALSE], 2, any)
   
   v <- colSums(vmat[dorm_stages, , drop = FALSE], na.rm = TRUE)
@@ -171,11 +171,11 @@ vitals_dorm_enter <- function(matU, posU = matU > 0, dorm_stages) {
 }
 
 
-#' @rdname vitals
-#' @export vitals_dorm_exit
-vitals_dorm_exit <- function(matU, posU = matU > 0, dorm_stages) {
+#' @rdname vr_vec
+#' @export vr_vec_dorm_exit
+vr_vec_dorm_exit <- function(matU, posU = matU > 0, dorm_stages) {
   
-  vmat <- vitals_matU(matU, posU = posU)
+  vmat <- vr_mat_U(matU, posU = posU)
   
   # possible transitions from dormant to non-dormant
   pos_exit <- matrix(FALSE, nrow = nrow(matU), ncol = nrow(matU))
@@ -189,11 +189,11 @@ vitals_dorm_exit <- function(matU, posU = matU > 0, dorm_stages) {
 }
 
 
-#' @rdname vitals
-#' @export vitals_fecund
-vitals_fecund <- function(matU, matR, posR = matR > 0, weights = NULL) {
+#' @rdname vr_vec
+#' @export vr_vec_fecund
+vr_vec_fecund <- function(matU, matR, posR = matR > 0, weights = NULL) {
   
-  vmat <- vitals_matR(matU, matR, posR = posR)
+  vmat <- vr_mat_R(matU, matR, posR = posR)
   pos_vital <- apply(posR, 2, any)
   
   if (is.null(weights)) weights <- rep(1, nrow(matU))
