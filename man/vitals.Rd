@@ -26,8 +26,7 @@ vitals_dorm_enter(matU, posU = matU > 0, dorm_stages)
 
 vitals_dorm_exit(matU, posU = matU > 0, dorm_stages)
 
-vitals_fecund(matU, matR, posR = matR > 0, weights = NULL,
-  surv_zero_na = FALSE)
+vitals_fecund(matU, matR, posR = matR > 0, weights = NULL)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -63,12 +62,6 @@ Details).}
 
 \item{weights}{Vector of stage-specific weights to apply while averaging
 vital rates.}
-
-\item{surv_zero_na}{If there are reproductive transitions from a stage in
-which the survival probability is \code{0}, should the relevant fecundity
-vital rates be coerced to \code{NA} (\code{TRUE}), or should the full
-fecundity transitions be returned as vital rates (\code{FALSE}). Defaults
-to \code{FALSE}.}
 }
 \value{
 Vector of vital rates. Vital rates corrsponding to impossible
@@ -79,7 +72,15 @@ Derive stage-specific vital rates from a matrix population model. Available
 vital rates include survival, and a variety of traits that are conditional on
 survival including growth, shrinkage, stasis, entering and exiting dormancy,
 and reproduction. Vital rates corresponding to impossible transitions are
-coerced to \code{NA} (see Details).
+coerced to \code{NA}.
+
+With one exception, these functions assume that transition rates in the
+matrix population model were in fact calculated as the product of
+stage-specific survival values and lower-level vital rates of growth, stasis,
+shrinkage, and reproduction. The one exception is that, if a matrix
+population model has non-zero reproduction in a stage from which there is no
+survival, \code{vitals_fecund} will return the full reproductive transition
+as the vital rate (i.e. because there is no survival component to pull out).
 }
 \details{
 A transition rate of \code{0} within a matrix population model may indicate

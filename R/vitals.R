@@ -1,10 +1,19 @@
 #' Derive stage-specific vital rates from a matrix population model
 #' 
+#' @description 
 #' Derive stage-specific vital rates from a matrix population model. Available
 #' vital rates include survival, and a variety of traits that are conditional on
 #' survival including growth, shrinkage, stasis, entering and exiting dormancy,
 #' and reproduction. Vital rates corresponding to impossible transitions are
-#' coerced to \code{NA} (see Details).
+#' coerced to \code{NA}.
+#' 
+#' With one exception, these functions assume that transition rates in the
+#' matrix population model were in fact calculated as the product of
+#' stage-specific survival values and lower-level vital rates of growth, stasis,
+#' shrinkage, and reproduction. The one exception is that, if a matrix
+#' population model has non-zero reproduction in a stage from which there is no
+#' survival, \code{vitals_fecund} will return the full reproductive transition
+#' as the vital rate (i.e. because there is no survival component to pull out).
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -32,11 +41,6 @@
 #'   will be coerced to \code{NA}. If \code{FALSE}, dividing the single
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
-#' @param surv_zero_na If there are reproductive transitions from a stage in
-#'   which the survival probability is \code{0}, should the relevant fecundity
-#'   vital rates be coerced to \code{NA} (\code{TRUE}), or should the full
-#'   fecundity transitions be returned as vital rates (\code{FALSE}). Defaults
-#'   to \code{FALSE}.
 #' 
 #' @return Vector of vital rates. Vital rates corrsponding to impossible
 #'   transitions will be coerced to \code{NA} (see Details).
@@ -187,10 +191,9 @@ vitals_dorm_exit <- function(matU, posU = matU > 0, dorm_stages) {
 
 #' @rdname vitals
 #' @export vitals_fecund
-vitals_fecund <- function(matU, matR, posR = matR > 0, weights = NULL,
-                          surv_zero_na = FALSE) {
+vitals_fecund <- function(matU, matR, posR = matR > 0, weights = NULL) {
   
-  vmat <- vitals_matR(matU, matR, posR = posR, surv_zero_na = surv_zero_na)
+  vmat <- vitals_matR(matU, matR, posR = posR)
   pos_vital <- apply(posR, 2, any)
   
   if (is.null(weights)) weights <- rep(1, nrow(matU))

@@ -6,11 +6,14 @@
 #' stage-specific survival probability, to obtain lower-level vital rates for
 #' growth, stasis, shrinkage, and reproduction. Vital rates corresponding to
 #' biologically impossible transitions are coerced to \code{NA}.
-#' 
-#' This function assumes that transition rates in the matrix population model
-#' were in fact calculated as the product of stage-specific survival values and
-#' lower-level vital rates of growth, stasis, shrinkage, and reproduction. If
-#' not, this decomposition may not be valid.
+#'
+#' With one exception, these functions assume that transition rates in the
+#' matrix population model were in fact calculated as the product of
+#' stage-specific survival values and lower-level vital rates of growth, stasis,
+#' shrinkage, and reproduction. The one exception is that, if a matrix
+#' population model has non-zero reproduction in a stage from which there is no
+#' survival, the full reproductive transition will be returned as the vital rate
+#' (i.e. because there is no survival component to pull out).
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -32,11 +35,6 @@
 #'   will be coerced to \code{NA}. If \code{FALSE}, dividing the single
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
-#' @param surv_zero_na If there are reproductive transitions from a stage in
-#'   which the survival probability is \code{0}, should the relevant fecundity
-#'   vital rates be coerced to \code{NA} (\code{TRUE}), or should the full
-#'   fecundity transitions be returned as vital rates (\code{FALSE}). Defaults
-#'   to \code{FALSE}.
 #' 
 #' @details 
 #' A transition rate of \code{0} within a matrix population model may indicate
@@ -106,17 +104,13 @@ vitals_matU <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
 
 #' @rdname vitals_mat
 #' @export vitals_matR
-vitals_matR <- function(matU, matR, posR = matR > 0, surv_zero_na = FALSE) {
+vitals_matR <- function(matU, matR, posR = matR > 0) {
   
   checkValidMat(matU)
   checkValidMat(matR)
   sigma <- colSums(matU)
   
-  if (surv_zero_na == TRUE) {
-    sigma[sigma == 0] <- NA_real_
-  } else {
-    sigma[sigma == 0] <- 1
-  }
+  sigma[sigma == 0] <- 1 # avoid NaN if no survival
   
   vmat <- t(t(matR) / sigma)
   vmat[!posR] <- NA_real_
