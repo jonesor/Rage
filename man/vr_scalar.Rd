@@ -8,20 +8,20 @@
 \alias{vr_scalar_stasis}
 \alias{vr_scalar_dorm_enter}
 \alias{vr_scalar_dorm_exit}
-\alias{vr_scalar_fecund}
-\title{Derive stage-specific vital rates from a matrix population model}
+\alias{vr_scalar_fecundity}
+\title{Derive mean vital rates from a matrix population model}
 \usage{
-vr_scalar_survival(matU, posU = matU > 0, weights_col = NULL,
-  exclude_col = NULL)
+vr_scalar_survival(matU, posU = matU > 0, exclude_col = NULL,
+  weights_col = NULL)
 
 vr_scalar_growth(matU, posU = matU > 0, exclude_row = NULL,
   exclude_col = NULL, weights_col = NULL, surv_only_na = TRUE)
 
-vr_scalar_shrinkage(matU, posU = matU > 0, weights_col = NULL,
-  exclude_row = NULL, exclude_col = NULL, surv_only_na = TRUE)
+vr_scalar_shrinkage(matU, posU = matU > 0, exclude_row = NULL,
+  exclude_col = NULL, weights_col = NULL, surv_only_na = TRUE)
 
-vr_scalar_stasis(matU, posU = matU > 0, weights_col = NULL,
-  exclude_col = NULL, surv_only_na = TRUE)
+vr_scalar_stasis(matU, posU = matU > 0, exclude_col = NULL,
+  weights_col = NULL, surv_only_na = TRUE)
 
 vr_scalar_dorm_enter(matU, posU = matU > 0, dorm_stages,
   weights_col = NULL)
@@ -29,8 +29,8 @@ vr_scalar_dorm_enter(matU, posU = matU > 0, dorm_stages,
 vr_scalar_dorm_exit(matU, posU = matU > 0, dorm_stages,
   weights_col = NULL)
 
-vr_scalar_fecund(matU, matR, posR = matR > 0, weights_row = NULL,
-  weights_col = NULL)
+vr_scalar_fecundity(matU, matR, posR = matR > 0, exclude_col = NULL,
+  weights_row = NULL, weights_col = NULL)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -40,18 +40,18 @@ progression, stasis, and retrogression)}
 \item{posU}{A logical matrix of the same dimension as \code{matU}, with
 elements indicating whether a given \code{matU} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
-Details).}
-
-\item{weights_col}{Vector of stage-specific weights to apply while averaging
-vital rates across columns. See section \emph{Weighting}.}
+\emph{Possible transitions}).}
 
 \item{exclude_col}{Integer or logical vector indicating stages for which
 transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
 See section \emph{Excluding stages}.}
 
+\item{weights_col}{Vector of stage-specific weights to apply while averaging
+vital rates across columns. See section \emph{Weighting stages}.}
+
 \item{exclude_row}{Integer or logical vector indicating stages for which
 transitions \emph{to} the stage should be excluded from the calculation of
-vital rates. See section 'Excluding stages'.}
+vital rates. See section \emph{Excluding stages}.}
 
 \item{surv_only_na}{If there is only one possible \code{matU} transition in a
 given column, should that transition be attributed exclusively to survival?
@@ -69,31 +69,34 @@ sexual, clonal, or both)}
 \item{posR}{A logical matrix of the same dimension as \code{matR}, with
 elements indicating whether a given \code{matR} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
-Details).}
+\emph{Possible transitions}).}
 
-\item{weights_row}{Vector of stage-specific weights to apply while averaging
-vital rates across rows within columns. See section \emph{Weighting}.}
+\item{weights_row}{Vector of stage-specific weights to apply while summing
+vital rates across rows within columns. See section \emph{Weighting
+stages}.}
 }
 \value{
 Vector of vital rates. Vital rates corrsponding to impossible
-  transitions will be coerced to \code{NA} (see Details).
+  transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 }
 \description{
-Derive stage-specific vital rates from a matrix population model. Available
-vital rates include survival, and a variety of traits that are conditional on
-survival including growth, shrinkage, stasis, entering and exiting dormancy,
-and reproduction. Vital rates corresponding to impossible transitions are
-coerced to \code{NA}.
+Derive mean vital rates of survival, growth, shrinkage, stasis, dormancy, or
+reproduction from a matrix population model, by averaging across stage
+classes. These functions include optional arguments for custom weighting of
+different stage classes (see \emph{Weighting stages}), excluding certain
+stage classes from the calculation (see \emph{Excluding stages}), and
+defining the set of biologically-possible transitions (see \emph{Possible
+transitions}).
 
-With one exception, these functions assume that transition rates in the
-matrix population model were in fact calculated as the product of
-stage-specific survival values and lower-level vital rates of growth, stasis,
-shrinkage, and reproduction. The one exception is that, if a matrix
-population model has non-zero reproduction in a stage from which there is no
-survival, \code{vr_scalar_fecund} will return the full reproductive transition
-as the vital rate (i.e. because there is no survival component to pull out).
+These decompositions assume that all transition rates are products of a
+stage-specific survival term (column sums of \code{matU}) and a lower level
+vital rate that is conditional on survival (growth, shrinkage, stasis,
+dormancy, or reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are
+also allowed.
 }
-\details{
+\section{Possible transitions}{
+
 A transition rate of \code{0} within a matrix population model may indicate
 that the transition is not possible in the given life cycle (e.g. tadpoles
 never revert to eggs), or that the transition rate is possible but was
@@ -111,32 +114,63 @@ population model includes transitions that are estimated to be \code{0} but
 still in fact possible, one should specify the \code{posU} and/or \code{posR}
 arguments manually.
 }
-\examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
+\section{Weighting stages}{
+
+In averaging vital rates across stages, it may be desirable to weight stage
+classes differently (e.g. based on reproductive values, or stable
+distributions). Weights are generally applied when averaging across columns,
+i.e., across transitions \emph{from} a set of stage classes (e.g. averaging
+stage-specific survival probabilities across multiple stages). All
+\code{vr_scalar_} functions therefore include an optional argument
+\code{weights_from}.
+
+In principle, particularly for vital rates of reproduction, we could also
+apply weights when summing across rows within columns, i.e., across
+reproductive transitions \emph{to} a set of stage classes (e.g. summing the
+production of different types of offspring, such as seeds vs. seedlings). For
+the function \code{vr_scalar_fecundity}, we therefore also include an optional
+argument \code{weights_to}.
+
+If supplied, \code{weights_from} will automatically be scaled to sum to 1
+over the set of possible transitions, whereas \code{weights_to} will not be
+rescaled because we wish to enable the use of reproductive values here, which
+do not naturally sum to 1.
+}
+
+\section{Excluding stages}{
+
+It may be desirable to exclude one or more stages from the calculation of
+certain vital rates. For instance, we might not believe that 'growth' to a
+dormant stage class really reflects biological growth, in which case we could
+exclude transitions \emph{to} the dormant stage class using the argument
+\code{exclude_row}. We may or may not want to ignore 'growth' transitions
+\emph{from} the dormant stage class, which can be done using
+\code{exclude_col}.
+}
+
+\examples{
+# create example MPM (stage 4 is dormant)
+matU <- rbind(c(0.1,   0,   0,   0),
+              c(0.5, 0.2, 0.1, 0.1),
+              c(  0, 0.3, 0.3, 0.1),
+              c(  0,   0, 0.5, 0.4))
+
+matF <- rbind(c(  0,   0.7, 1.1, 0),
+              c(  0,   0.3, 0.8, 0),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
 
-vr_scalar_survival(matU)
-vr_scalar_growth(matU)
-vr_scalar_shrinkage(matU)
-vr_scalar_stasis(matU)
+vr_scalar_survival(matU, exclude_col = 4)
+vr_scalar_growth(matU, exclude_row = 4, exclude_col = 4)
+vr_scalar_shrinkage(matU, exclude_row = 4, exclude_col = 4)
+vr_scalar_stasis(matU, exclude_col = 4)
 
 vr_scalar_dorm_enter(matU, dorm_stages = 4)
 vr_scalar_dorm_exit(matU, dorm_stages = 4)
 
-vr_scalar_fecund(matU, matF)
+vr_scalar_fecundity(matU, matF, exclude_col = 4)
 
-}
-\references{
-Caswell, H. (2001) Matrix Population Models: Construction,
-  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>

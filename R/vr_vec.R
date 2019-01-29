@@ -1,19 +1,18 @@
 #' Derive stage-specific vital rates from a matrix population model
 #' 
 #' @description 
-#' Derive a vector of stage-specific vital rates from a matrix population model.
-#' Available vital rates include survival, and a variety of traits that are
-#' conditional on survival including growth, shrinkage, stasis, entering and
-#' exiting dormancy, and reproduction. Vital rates corresponding to impossible
-#' transitions are coerced to \code{NA}.
+#' Derive a vector of stage-specific vital rates of survival, growth, shrinkage,
+#' stasis, dormancy, or reproduction from a matrix population model. These
+#' functions include optional arguments for excluding certain stage classes from
+#' the calculation (see \emph{Excluding stages}), and defining the set of
+#' biologically-possible transitions (see \emph{Possible transitions}).
 #' 
-#' With one exception, these functions assume that transition rates in the
-#' matrix population model were in fact calculated as the product of
-#' stage-specific survival values and lower-level vital rates of growth, stasis,
-#' shrinkage, and reproduction. The one exception is that, if a matrix
-#' population model has non-zero reproduction in a stage from which there is no
-#' survival, \code{vitals_fecund} will return the full reproductive transition
-#' as the vital rate (i.e. because there is no survival component to pull out).
+#' These decompositions assume that all transition rates are products of a
+#' stage-specific survival term (column sums of \code{matU}) and a lower level
+#' vital rate that is conditional on survival (growth, shrinkage, stasis,
+#' dormancy, or reproduction). Reproductive vital rates that are not conditional
+#' on survival (i.e. within a stage class from which there is no survival) are
+#' also allowed.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -36,8 +35,8 @@
 #'   transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
 #'   See section \emph{Excluding stages}.
 #' @param dorm_stages Integer indicator(s) for dormant stage classes.
-#' @param weights_row Vector of stage-specific weights to apply while averaging
-#'   vital rates across rows within columns. See section \emph{Weighting}.
+#' @param weights_row Vector of stage-specific weights to apply while summing
+#'   vital rates across rows within columns (e.g. reproductive value vector).
 #' @param surv_only_na If there is only one possible \code{matU} transition in a
 #'   given column, should that transition be attributed exclusively to survival?
 #'   If \code{TRUE}, the vital rate of growth/stasis/shrinkage in that column
@@ -46,9 +45,9 @@
 #'   value of \code{1}. Defaults to \code{TRUE}.
 #' 
 #' @return Vector of vital rates. Vital rates corrsponding to impossible
-#'   transitions will be coerced to \code{NA} (see Details).
+#'   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 #' 
-#' @details 
+#' @section Possible transitions:
 #' A transition rate of \code{0} within a matrix population model may indicate
 #' that the transition is not possible in the given life cycle (e.g. tadpoles
 #' never revert to eggs), or that the transition rate is possible but was
@@ -78,31 +77,28 @@
 #' subsequent calculations.
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
-#' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
-#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#'   978-0878930968
 #'   
 #' @examples
+#' # create example MPM (stage 4 is dormant)
 #' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1,   0),
+#'               c(0.5, 0.2, 0.1, 0.1),
 #'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.6))
+#'               c(  0,   0, 0.5, 0.4))
 #' 
-#' matF <- rbind(c(  0,   0, 1.1, 1.6),
-#'               c(  0,   0, 0.8, 0.4),
+#' matF <- rbind(c(  0,   0.7, 1.1, 0),
+#'               c(  0,   0.3, 0.8, 0),
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' vr_vec_survival(matU)
-#' vr_vec_growth(matU)
-#' vr_vec_shrinkage(matU)
-#' vr_vec_stasis(matU)
+#' vr_vec_survival(matU, exclude_col = 4)
+#' vr_vec_growth(matU, exclude_col = 4)
+#' vr_vec_shrinkage(matU, exclude_col = 4)
+#' vr_vec_stasis(matU, exclude_col = 4)
 #' 
 #' vr_vec_dorm_enter(matU, dorm_stages = 4)
 #' vr_vec_dorm_exit(matU, dorm_stages = 4)
 #' 
-#' vr_vec_fecund(matU, matF)
+#' vr_vec_fecundity(matU, matF, exclude_col = 4)
 #' 
 #' @name vr_vec
 NULL
@@ -235,11 +231,12 @@ vr_vec_dorm_exit <- function(matU,
 
 
 #' @rdname vr_vec
-#' @export vr_vec_fecund
-vr_vec_fecund <- function(matU,
-                          matR,
-                          posR = matR > 0,
-                          weights_row = NULL) {
+#' @export vr_vec_fecundity
+vr_vec_fecundity <- function(matU,
+                             matR,
+                             posR = matR > 0,
+                             exclude_col = NULL,
+                             weights_row = NULL) {
   
   vmat <- vr_mat_R(matU = matU,
                    matR = matR,
@@ -247,6 +244,8 @@ vr_vec_fecund <- function(matU,
   
   if (is.null(weights_row)) weights_row <- rep(1, nrow(matU))
   v <- colSums2(vmat * weights_row)
+  
+  v[exclude_col] <- NA_real_
   
   pos_vital <- apply(posR, 2, any)
   v[!pos_vital] <- NA_real_
