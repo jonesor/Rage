@@ -47,13 +47,11 @@ stage-specific survival probability, to obtain lower-level vital rates for
 growth, stasis, shrinkage, and reproduction. Vital rates corresponding to
 biologically impossible transitions are coerced to \code{NA}.
 
-With one exception, these functions assume that transition rates in the
-matrix population model were in fact calculated as the product of
-stage-specific survival values and lower-level vital rates of growth, stasis,
-shrinkage, and reproduction. The one exception is that, if a matrix
-population model has non-zero reproduction in a stage from which there is no
-survival, the full reproductive transition will be returned as the vital rate
-(i.e. because there is no survival component to pull out).
+These decompositions assume that all transition rates are products of a
+stage-specific survival term (column sums of \code{matU}) and a lower level
+vital rate that is conditional on survival (growth, shrinkage, stasis, or
+reproduction). Reproductive vital rates that are not conditional on survival
+(i.e. within a stage class from which there is no survival) are also allowed.
 }
 \details{
 A transition rate of \code{0} within a matrix population model may indicate
