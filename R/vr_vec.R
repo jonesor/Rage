@@ -198,7 +198,7 @@ vr_vec_dorm_enter <- function(matU,
   vmat <- vr_mat_U(matU = matU,
                    posU = posU)
   
-  v <- colSums(vmat[dorm_stages, , drop = FALSE], na.rm = TRUE)
+  v <- colSums2(vmat[dorm_stages, , drop = FALSE])
   v[dorm_stages] <- NA_real_
   
   pos_vital <- apply(posU[dorm_stages, , drop = FALSE], 2, any)
@@ -218,7 +218,7 @@ vr_vec_dorm_exit <- function(matU,
                    posU = posU)
   
   vmat[dorm_stages, ] <- 0
-  v <- colSums(vmat)
+  v <- colSums2(vmat)
   
   # possible transitions from dormant to non-dormant
   pos_exit <- matrix(FALSE, nrow = nrow(matU), ncol = nrow(matU))
