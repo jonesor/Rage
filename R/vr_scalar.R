@@ -257,5 +257,6 @@ column_weight <- function(x, weights) {
     weights <- weights / sum(weights, na.rm = TRUE)
     out <- sum(weights * x, na.rm = TRUE)
   }
+  if (is.nan(out)) out <- NA_real_
   return(out)
 }
