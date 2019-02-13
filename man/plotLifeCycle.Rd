@@ -4,10 +4,12 @@
 \alias{plotLifeCycle}
 \title{Plot a life cycle diagram based on a matrix population model}
 \usage{
-plotLifeCycle(A, stages, title = NULL, shape = "egg", fontsize = 10,
-  nodefontsize = 12, edgecol = "grey")
+plotLifeCycle(matA, stages, title = NULL, shape = "egg",
+  fontsize = 10, nodefontsize = 12, edgecol = "grey")
 }
 \arguments{
+\item{matA}{A matrix population model (i.e. a square projection matrix)}
+
 \item{stages}{Optional vector of stage class labels. If missing, labels are
 integers \code{1:ncol(A)}.}
 
@@ -21,8 +23,6 @@ shape accepted by graphViz is acceptable.}
 \item{nodefontsize}{Size of the font used in the node part of the diagram.}
 
 \item{edgecol}{Colour of the arrows in the diagram.}
-
-\item{matA}{A matrix population model (i.e. a square projection matrix)}
 }
 \value{
 An object of class \code{grViz} representing the life cycle diagram

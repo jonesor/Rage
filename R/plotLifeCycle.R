@@ -30,17 +30,17 @@
 #' 
 #' @importFrom DiagrammeR grViz
 #' @export plotLifeCycle
-plotLifeCycle <- function(A, stages, title = NULL, shape = "egg",
+plotLifeCycle <- function(matA, stages, title = NULL, shape = "egg",
                           fontsize = 10, nodefontsize = 12, edgecol = "grey") {
   
   # Identify stages
   if (missing(stages)) {
-    stages <- seq_len(ncol(A))
+    stages <- seq_len(ncol(matA))
   }
   
   # Construct a "from" -> "to" graph dataset (edges)
   graph <- expand.grid(to = stages, from = stages)
-  graph$trans <- round(c(A), 3)
+  graph$trans <- round(c(matA), 3)
   
   # Subset to only include those where the trans > 0
   graph <- graph[graph$trans > 0,]
