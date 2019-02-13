@@ -61,7 +61,7 @@
 #' populations, it may be important to distinguish between these two types of
 #' zeros.
 #' 
-#' By default, the \code{vr_scalar_} functions assume that a transition rate of
+#' By default, the \code{vr_} functions assume that a transition rate of
 #' \code{0} indicates an impossible transition, in which case a value of
 #' \code{NA} will be used in relevant calculations. Specifically, the arguments
 #' \code{posU} and \code{posR} are specified by the logical expressions
@@ -75,15 +75,14 @@
 #' classes differently (e.g. based on reproductive values, or stable
 #' distributions). Weights are generally applied when averaging across columns,
 #' i.e., across transitions \emph{from} a set of stage classes (e.g. averaging
-#' stage-specific survival probabilities across multiple stages). All
-#' \code{vr_scalar_} functions therefore include an optional argument
-#' \code{weights_from}.
+#' stage-specific survival probabilities across multiple stages). All \code{vr_}
+#' functions therefore include an optional argument \code{weights_from}.
 #'
 #' In principle, particularly for vital rates of reproduction, we could also
 #' apply weights when summing across rows within columns, i.e., across
 #' reproductive transitions \emph{to} a set of stage classes (e.g. summing the
 #' production of different types of offspring, such as seeds vs. seedlings). For
-#' the function \code{vr_scalar_fecundity}, we therefore also include an optional
+#' the function \code{vr_fecundity}, we therefore also include an optional
 #' argument \code{weights_to}.
 #' 
 #' If supplied, \code{weights_from} will automatically be scaled to sum to 1
@@ -114,26 +113,26 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' vr_scalar_survival(matU, exclude_col = 4)
-#' vr_scalar_growth(matU, exclude_row = 4, exclude_col = 4)
-#' vr_scalar_shrinkage(matU, exclude_row = 4, exclude_col = 4)
-#' vr_scalar_stasis(matU, exclude_col = 4)
+#' vr_survival(matU, exclude_col = 4)
+#' vr_growth(matU, exclude_row = 4, exclude_col = 4)
+#' vr_shrinkage(matU, exclude_row = 4, exclude_col = 4)
+#' vr_stasis(matU, exclude_col = 4)
 #' 
-#' vr_scalar_dorm_enter(matU, dorm_stages = 4)
-#' vr_scalar_dorm_exit(matU, dorm_stages = 4)
+#' vr_dorm_enter(matU, dorm_stages = 4)
+#' vr_dorm_exit(matU, dorm_stages = 4)
 #' 
-#' vr_scalar_fecundity(matU, matF, exclude_col = 4)
+#' vr_fecundity(matU, matF, exclude_col = 4)
 #' 
-#' @name vr_scalar
+#' @name vr
 NULL
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_survival
-vr_scalar_survival <- function(matU,
-                               posU = matU > 0,
-                               exclude_col = NULL,
-                               weights_col = NULL) {
+#' @rdname vr
+#' @export vr_survival
+vr_survival <- function(matU,
+                        posU = matU > 0,
+                        exclude_col = NULL,
+                        weights_col = NULL) {
   
   vr_vec <- vr_vec_survival(matU = matU,
                             posU = posU,
@@ -143,14 +142,14 @@ vr_scalar_survival <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_growth
-vr_scalar_growth <- function(matU,
-                             posU = matU > 0,
-                             exclude_row = NULL,
-                             exclude_col = NULL,
-                             weights_col = NULL,
-                             surv_only_na = TRUE) {
+#' @rdname vr
+#' @export vr_growth
+vr_growth <- function(matU,
+                      posU = matU > 0,
+                      exclude_row = NULL,
+                      exclude_col = NULL,
+                      weights_col = NULL,
+                      surv_only_na = TRUE) {
   
   vr_vec <- vr_vec_growth(matU = matU,
                           posU = posU,
@@ -162,14 +161,14 @@ vr_scalar_growth <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_shrinkage
-vr_scalar_shrinkage <- function(matU,
-                                posU = matU > 0,
-                                exclude_row = NULL,
-                                exclude_col = NULL,
-                                weights_col = NULL,
-                                surv_only_na = TRUE) {
+#' @rdname vr
+#' @export vr_shrinkage
+vr_shrinkage <- function(matU,
+                         posU = matU > 0,
+                         exclude_row = NULL,
+                         exclude_col = NULL,
+                         weights_col = NULL,
+                         surv_only_na = TRUE) {
   
   vr_vec <- vr_vec_shrinkage(matU = matU,
                              posU = posU,
@@ -181,13 +180,13 @@ vr_scalar_shrinkage <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_stasis
-vr_scalar_stasis <- function(matU,
-                             posU = matU > 0,
-                             exclude_col = NULL,
-                             weights_col = NULL,
-                             surv_only_na = TRUE) {
+#' @rdname vr
+#' @export vr_stasis
+vr_stasis <- function(matU,
+                      posU = matU > 0,
+                      exclude_col = NULL,
+                      weights_col = NULL,
+                      surv_only_na = TRUE) {
   
   vr_vec <- vr_vec_stasis(matU = matU,
                           posU = posU,
@@ -198,12 +197,12 @@ vr_scalar_stasis <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_dorm_enter
-vr_scalar_dorm_enter <- function(matU,
-                                 posU = matU > 0,
-                                 dorm_stages,
-                                 weights_col = NULL) {
+#' @rdname vr
+#' @export vr_dorm_enter
+vr_dorm_enter <- function(matU,
+                          posU = matU > 0,
+                          dorm_stages,
+                          weights_col = NULL) {
   
   vr_vec <- vr_vec_dorm_enter(matU = matU,
                               posU = posU,
@@ -213,12 +212,12 @@ vr_scalar_dorm_enter <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_dorm_exit
-vr_scalar_dorm_exit <- function(matU,
-                                posU = matU > 0,
-                                dorm_stages,
-                                weights_col = NULL) {
+#' @rdname vr
+#' @export vr_dorm_exit
+vr_dorm_exit <- function(matU,
+                         posU = matU > 0,
+                         dorm_stages,
+                         weights_col = NULL) {
   
   vr_vec <- vr_vec_dorm_exit(matU = matU,
                              posU = posU,
@@ -228,14 +227,14 @@ vr_scalar_dorm_exit <- function(matU,
 }
 
 
-#' @rdname vr_scalar
-#' @export vr_scalar_fecundity
-vr_scalar_fecundity <- function(matU,
-                                matR,
-                                posR = matR > 0,
-                                exclude_col = NULL,
-                                weights_row = NULL,
-                                weights_col = NULL) {
+#' @rdname vr
+#' @export vr_fecundity
+vr_fecundity <- function(matU,
+                         matR,
+                         posR = matR > 0,
+                         exclude_col = NULL,
+                         weights_row = NULL,
+                         weights_col = NULL) {
   
   vr_vec <- vr_vec_fecundity(matU = matU,
                              matR = matR,
