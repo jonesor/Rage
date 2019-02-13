@@ -38,12 +38,12 @@
 #' lx <- hx_to_lx(hx)
 #' px <- hx_to_px(hx)
 #' 
-#' @name surv_conversion
+#' @name lifetable_convert
 NULL
 
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export lx_to_px
 lx_to_px <- function(lx) {
   if (length(lx) == 1) {
@@ -54,7 +54,7 @@ lx_to_px <- function(lx) {
 }
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export lx_to_hx
 lx_to_hx <- function(lx) {
   if (length(lx) == 1) {
@@ -66,21 +66,21 @@ lx_to_hx <- function(lx) {
 }
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export px_to_lx
 px_to_lx <- function(px) {
   c(1, cumprod(px[-length(px)]))
 }
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export px_to_hx
 px_to_hx <- function(px) {
   -log(px)
 }
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export hx_to_lx
 hx_to_lx <- function(hx) {
   px <- hx_to_px(hx)
@@ -88,7 +88,7 @@ hx_to_lx <- function(hx) {
 }
 
 
-#' @rdname surv_conversion
+#' @rdname lifetable_convert
 #' @export hx_to_px
 hx_to_px <- function(hx) {
   exp(-hx)
