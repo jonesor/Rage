@@ -23,7 +23,7 @@
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @seealso \code{\link{surv_conversion}}
+#' @seealso \code{\link{lifetable_convert}}
 #' 
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

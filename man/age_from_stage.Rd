@@ -70,7 +70,7 @@ Caswell, H. (2001) Matrix Population Models: Construction,
   978-0878930968
 }
 \seealso{
-\code{\link{surv_conversion}}
+\code{\link{lifetable_convert}}
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
