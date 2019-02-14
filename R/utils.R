@@ -40,12 +40,11 @@ checkValidStartLife <- function(s, M) {
 
 #' @noRd
 colSums2 <- function(mat) {
+# like colSums(x, na.rm = TRUE), except that column with only NAs will return NA
+#  rather than 0
   apply(mat, 2, function(x) {
-    if (all(is.na(x))) {
-      return(NA_real_)
-    } else {
-      return(sum(x, na.rm = TRUE))
-    }
+    ifelse(all(is.na(x)), NA_real_, sum(x, na.rm = TRUE))
   })
 }
+
 
