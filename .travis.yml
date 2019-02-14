@@ -37,7 +37,3 @@ notifications:
   email:
     - jones@biology.sdu.dk
     - levisc8@gmail.com
-    
-# add additional Github packages
-r_github_packages:
-- jonesor/Rcompadre
