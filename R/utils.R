@@ -48,3 +48,23 @@ colSums2 <- function(mat) {
 }
 
 
+### utilities to calculate mean matrix from list of matrices
+#' @noRd
+meanMat <- function(x, na.rm = FALSE) {
+  n_row <- vapply(x, nrow, numeric(1))
+  n_col <- vapply(x, ncol, numeric(1))
+  if (length(unique(n_row)) != 1 | length(unique(n_col)) != 1) {
+    stop("All matrices in list must be of same dimension")
+  }
+  if (na.rm) x <- lapply(x, zero_NA)
+  n <- length(x)
+  return(Reduce("+", x) / n)
+}
+
+
+#' @noRd
+zero_NA <- function(m) {
+  m[is.na(m)] <- 0
+  return(m)
+}
+
