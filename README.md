@@ -86,10 +86,20 @@ Collapse the matrix population model to two stages, pre-reproductive and reprodu
 # pre-reproductive stages are 1 and 2, reproductive stages are 3 and 4
 mpm_collapse <- collapseMatrix(matU, matF, collapse = list(1:2, 3:4))
 
-# perturbation analysis (S- represent sensitivities, and E- elasticities)
-vitalRatePerturbation(mpm_collapse$matU, mpm_collapse$matF)
-#>   SSurvival SGrowth SShrinkage SReproduction SClonality ESurvival EGrowth
-#> 1     1.312  0.2707    -0.3888        0.2698          0         1 0.09701
-#>   EShrinkage EReproduction EClonality
-#> 1    -0.2368        0.1643          0
+# perturbation analysis (summed elasticities for various vital-rates)
+perturb_vr(mpm_collapse$matU, mpm_collapse$matF, type = "elasticity")
+#> $survival
+#> [1] 1
+#> 
+#> $growth
+#> [1] 0.09701
+#> 
+#> $shrinkage
+#> [1] -0.2368
+#> 
+#> $fecundity
+#> [1] 0.1643
+#> 
+#> $clonality
+#> [1] 0
 ```
