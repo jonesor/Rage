@@ -1,9 +1,17 @@
 #' Perturbation analysis of vital rates in a matrix population model
 #'
+#' @description 
 #' Perturbs lower-level vital rates within a matrix population model and
 #' measures the response of the per-capita population growth rate at equilibrium
 #' (\eqn{\lambda}), or, with a user-supplied function, any other demographic
 #' statistic.
+#' 
+#' These decompositions assume that all transition rates are products of a
+#' stage-specific survival term (column sums of \code{matU}) and a lower level
+#' vital rate that is conditional on survival (growth, shrinkage, stasis,
+#' dormancy, or reproduction). Reproductive vital rates that are not conditional
+#' on survival (i.e. within a stage class from which there is no survival) are
+#' also allowed.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.

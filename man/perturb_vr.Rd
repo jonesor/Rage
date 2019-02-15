@@ -47,6 +47,13 @@ Perturbs lower-level vital rates within a matrix population model and
 measures the response of the per-capita population growth rate at equilibrium
 (\eqn{\lambda}), or, with a user-supplied function, any other demographic
 statistic.
+
+These decompositions assume that all transition rates are products of a
+stage-specific survival term (column sums of \code{matU}) and a lower level
+vital rate that is conditional on survival (growth, shrinkage, stasis,
+dormancy, or reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are
+also allowed.
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
