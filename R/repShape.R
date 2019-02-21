@@ -101,6 +101,6 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
     BxStd <- (lt$Bx - Bxmin) / (Bxmax - Bxmin)
     aucStd <- .RageAUC(xStd, BxStd)
     aucFlat <- 0.5
-    shape <- aucStd - aucFlat
+    shape <- aucFlat - aucStd
     shape
 }

@@ -110,7 +110,7 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
     lxStd <- (lx - lxmin) / (lxmax - lxmin)
     aucStd <- .RageAUC(xStd, lxStd)
     aucFlat <- 0.5
-    shape <- aucStd - aucFlat
+    shape <- aucFlat - aucStd
     shape
 }
 
