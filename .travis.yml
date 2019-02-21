@@ -1,7 +1,6 @@
 # Language is R
 language: r
 
-
 # R versions to build with ------ 
 # R-devel has a new method of building vignettes that breaks backward
 # compatability. I will exclude it from the build matrix for now so 
@@ -28,6 +27,9 @@ branches:
   only:
   - master
   - devel
+
+after_success:
+  - Rscript -e 'covr::codecov()'
 
 # If anyone else would like to be added to notifications,
 # just add your email below!

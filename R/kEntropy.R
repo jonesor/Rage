@@ -33,17 +33,10 @@
 #' 
 #' @export kEntropy
 kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
-  
-  # Error checks
-  if (dim(matU)[1] != dim(matU)[2]) {
-    stop("Matrix population model is not a square matrix")
-  } 
-  if (any(is.na(matU))) {
-    stop("NAs exist in matU")
-  } 
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  } 
+
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
   
   # Age-specific survivorship (lx)
   lx <- ageSpecificSurv(matU, startLife, nSteps)

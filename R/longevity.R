@@ -37,18 +37,13 @@
 #' @export longevity
 longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
 
-  # validate inputs
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
   if (lxCrit < 0 | lxCrit > 1) {
-    stop('lxCrit must be a proportion between 0 and 1')
+    stop("lxCrit must be a proportion between 0 and 1", call. = FALSE)
   }
-  if (any(is.na(matU))) {
-    stop('matU contains missing values')
-  }
-  if (all(matU == 0)) {
-    warning('all elements of matU are zero')
-    return(1)
-  }
-
+  
   # calculate survivorship to maxAge
   lx <- ageSpecificSurv(matU, startLife, N = maxAge)
   

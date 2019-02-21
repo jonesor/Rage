@@ -6,20 +6,21 @@
 #'
 #' Size or stage-based matrix population models (i.e. Lefkovitch models) and
 #' some age-based matrix population models (i.e. Leslie models with a last class
-#' ≥ final age value) are typically parameterised with a stasis loop in the
-#' largest/most-developed stage (e.g. adult survival). The assumption of
-#' constancy in vital rates for individuals in that last stage typically results
-#' in flat mortality and fertility plateaus. These plateaus may result in
-#' mathematical artefacts when examining age-specific patterns derived from
-#' age-from-stage matrix decompositions (Caswell 2001). The Quasi-stationary
-#' Stage Distribution (QSD) can be used to circumvent this problem. The QSD is
-#' the stage distribution that is reached some time before the ultimate stable
-#' stage distribution (SSD, the normalised right eigenvector of the transition
-#' matrix). With this approach, the user can ask what is the time step in the
-#' projection at which the cohort approximates its stable stage distribution
-#' with a given convergence tolerance level (e.g. 95%). This metric allows the
-#' user to use only age-based information from before this point. See the online
-#' supplementary information of Jones et al. (2014) for further details.
+#' greater than or equal to final age value) are typically parameterised with a
+#' stasis loop in the largest/most-developed stage (e.g. adult survival). The
+#' assumption of constancy in vital rates for individuals in that last stage
+#' typically results in flat mortality and fertility plateaus. These plateaus
+#' may result in mathematical artefacts when examining age-specific patterns
+#' derived from age-from-stage matrix decompositions (Caswell 2001). The
+#' Quasi-stationary Stage Distribution (QSD) can be used to circumvent this
+#' problem. The QSD is the stage distribution that is reached some time before
+#' the ultimate stable stage distribution (SSD, the normalised right eigenvector
+#' of the transition matrix). With this approach, the user can ask what is the
+#' time step in the projection at which the cohort approximates its stable stage
+#' distribution with a given convergence tolerance level (e.g. 95%). This metric
+#' allows the user to use only age-based information from before this point. See
+#' the online supplementary information of Jones et al. (2014) for further
+#' details.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -62,39 +63,32 @@
 #' @export qsdConverge
 qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   
-  # validate inputs
-  if (nrow(matU) != ncol(matU)) {
-    stop("matU is not a square matrix")
-  } 
-  if (any(is.na(matU))) {
-    stop("matU contains NAs")
-  } 
-  if (any(colSums(matU) > 1)) {
-    warning("matU has at least one stage-specific survival value > 1")
-  }
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
   
   # stable distribution
-  w = stable.stage(matU)
+  w <- stable.stage(matU)
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others
-  n = rep(0, nrow(matU))
-  n[startLife] = 1
+  n <- rep(0, nrow(matU))
+  n[startLife] <- 1
   
   # iterate cohort (n = cohort population vector, p = proportional structure)
-  dist = NULL
+  dist <- NULL
   
-  for (j in 1:nSteps) {      # j represent years of iteration
-    p = n / sum(n)           # get the proportional distribution
-    dist[j] = 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
-    n = matU %*% n           # multiply matU %*% n to iterate
+  for (j in 1:nSteps) {       # j represent years of iteration
+    p <- n / sum(n)           # get the proportional distribution
+    dist[j] <- 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
+    n <- matU %*% n           # multiply matU %*% n to iterate
   }
   
   # find time to convergence (default conv = 0.05; i.e. within 5% of w)
   if (min(dist, na.rm = TRUE) < conv) {
-    convage = min(which(dist < conv))
+    convage <- min(which(dist < conv))
   }
   if (min(dist, na.rm = TRUE) >= conv) {
-    convage = NA_integer_
+    convage <- NA_integer_
     warning("Convergence not reached within nSteps")
   }
   

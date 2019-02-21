@@ -50,16 +50,20 @@
 rearrangeMatrix <- function(matU, matF, matC = NULL, reproStages,
                             matrixStages) {
 
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  if (ncol(matU) != ncol(matF) ||
+        ncol(matU) != length(reproStages) ||
+          length(reproStages) != length(matrixStages)) {
+    stop("Arguments do not correspond to MPM of single dimension",
+         call. = FALSE)
+  }
+  
   # populate matC with zeros, if NULL
   if (is.null(matC)) {
     matC <- matrix(0, nrow = ncol(matF), ncol = ncol(matF))
-  }
-  
-  # validate arguments
-  if (ncol(matU) != ncol(matF) |
-      ncol(matU) != length(reproStages) |
-      length(reproStages) != length(matrixStages)) {
-    stop("Arguments do not correspond to MPM of single dimension")
   }
   
   # preliminaries

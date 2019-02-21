@@ -29,17 +29,13 @@
 #' @export lifeExpectancy
 lifeExpectancy <- function(matU, startLife = 1) {
 
-  # input validation
-  if (any(is.na(matU))) {
-    stop('matU contains missing values')
-  }
-  if (all(matU == 0)) {
-    warning('all elements of matU are zero')
-  }
-  
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(startLife, matU)
+
   # matrix dimension
   matDim <- nrow(matU)
-
+  
   # try calculating fundamental matrix (will fail if matrix singular)
   N <- try(solve(diag(matDim) - matU), silent = TRUE)
   

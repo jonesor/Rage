@@ -1,10 +1,10 @@
 #' Derive mean vital rates from a matrix population model
 #' 
-#' Derive mean vital rates from a matrix population model corresponding to
-#' separate demographic processes. Specifically, this function decomposes vital
-#' rates of survival, progression, retrogression, sexual reproduction and clonal
-#' reproduction according to various ways of weighted means and organization of
-#' stages along the life cycle represented in the matrix population model.
+#' Derive mean vital rates corresponding to separate demographic processes from
+#' a matrix population model. Specifically, this function decomposes vital rates
+#' of survival, progression, retrogression, sexual reproduction and clonal
+#' reproduction, with various options for weighting and grouping stages of the
+#' life cycle.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -15,25 +15,26 @@
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
-#' @param splitStages Splits vital rates according to some pre-determined
-#'   criteria (below).
-#' @param weighted Allows to weight mean vital rates according to various
-#'   criteria (below).
-#' @return - 'Weighted': This argument allows to weight mean values of vital
-#' rates (survival 'surv', progression 'prog', retrogression 'retr', sexual
-#' reproduction 'fec' and clonal reproduction 'clo') with an equal contribution
-#' for all stages (default), by the stable st/age distribution ('SSD'), or by a
-#' given population vector chosen by the user, so long as it is congruent with
-#' the dimensions of the chosen 'matU', 'matF', and 'matC'.
+#' @param weights Vector of stage-specific weights to apply while averaging
+#'   vital rates. Default is \code{NULL} reflecting equal weighting for all
+#'   stages. May also be \code{"SSD"} to weight vital rates by the stable
+#'   distribution of \code{matA}.
+#' @param splitStages What groups should vital rates be averaged over. Either:
 #' 
-#' - 'splitStages': This argument allows to split the values of vital rates
-#' according to recognizable stages in the matrix. When 'all', all vital rates
-#' are averaged all existing stages, if 'ontogeny', they are averaged as
-#' juveniles ('Juv') and adults ('Adu'), and if by 'MatrixClassOrganized', it
-#' takes a vector with the pre-established stages of
-#' 'compadre$matrixClass[[i]]$MatrixClassOrganized' or
-#' 'compadre$matrixClass[[i]]$MatrixClassOrganized', where 'i' is the index of
-#' the chosen study in 'COMPADRE' or 'COMADRE'.
+#' \code{"all"}: all stages grouped
+#' 
+#' \code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
+#' with sexual reproduction) and adult stages
+#' 
+#' \code{"matrixStages"}: group according to a standardized set of stage classes
+#' (propagule, active, and dormant). If \code{splitStages = "matrixStages"},
+#' must also specify separate argument \code{matrixStages}.
+#' 
+#' @param matrixStages Vector of stage-specific standardized matrix classes
+#'   ("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
+#'   \code{splitStages = "matrixClass"}.
+#' @return A list of averaged vital rates.
+#' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
@@ -54,37 +55,47 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' #Vital rate outputs without weights:
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = FALSE)
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = FALSE)
-#' vitalRates(matU, matF, matC,
-#'            splitStages = c('prop', 'active', 'active', 'active'),
-#'            weighted = FALSE)
+#' # Vital rate outputs without weights
+#' vitalRates(matU, matF, matC, splitStages = 'all')
+#' vitalRates(matU, matF, matC, splitStages = 'ontogeny')
 #' 
+#' # Group vital rates according to specified matrixStages
+#' ms <- c('prop', 'active', 'active', 'active')
+#' vitalRates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
 #' 
-#' #Vital rate outputs weighted by the stable stage distribution of 'matA':
-#' vitalRates(matU, matF, matC, splitStages = 'all', weighted = 'SSD')
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny', weighted = 'SSD')
-#' vitalRates(matU, matF, matC,
-#'            splitStages = c('prop', 'active', 'active', 'active'),
-#'            weighted = 'SSD')
+#' # Vital rate outputs weighted by the stable stage distribution of 'matA'
+#' vitalRates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 #' 
 #' @importFrom popbio stable.stage
 #' @export vitalRates
-vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = FALSE){
-  #Function to quantify vital rates values
+vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
+                       splitStages = "all", matrixStages = NULL) {
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  if (!is.null(weights) && weights != "SSD" &&
+        length(weights) != nrow(matU)) {
+    stop("If weights are provided, length(weights) should be of the same ",
+         "dimension as matU", call. = FALSE)
+  }
+  if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
+    stop("Argument splitStages must be one of 'all', 'ontogeny', or ",
+         "'matrixStages'", call. = FALSE)
+  }
+  if (splitStages == "matrixStages") {
+    if (is.null(matrixStages)) {
+      stop("If splitStages = 'matrixStages', argument matrixStages must be ",
+           "provided", call. = FALSE)
+    }
+    if (length(matrixStages) != nrow(matU)) {
+      stop("length(matrixStages) should be of the same dimension as matU",
+           call. = FALSE)
+    }
+  }
   
-  if (missing(matU)) {
-    stop('matU missing')
-  }
-  if (missing(matF) & missing(matC)) {
-    warning('matF or matC missing. These have been coerced to matrices of zero')
-  }
-  # if (sum(weighted)>0 & length(weighted) != dim(matU)[i]) {
-  #   stop('Population vector does not agree with matrix dimension')
-  # }
   if (is.null(matC)) {
-    matC <- matrix(0, nrow = dim(matU)[1], ncol = dim(matU)[1])
+    matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
   }
   
   matDim <- dim(matU)[1]
@@ -94,78 +105,87 @@ vitalRates <- function(matU, matF, matC = NULL, splitStages = FALSE, weighted = 
   fec <- colSums(matF)
   clo <- colSums(matC)
   
-  matUIndep <- matrix(NA, matDim, matDim)
-  for (i in 1:matDim) {matUIndep[,i] = matU[,i]/surv[i]}
+  matUIndep <- matrix(NA_real_, matDim, matDim)
+  for (i in 1:matDim) {matUIndep[,i] <- matU[,i] / surv[i]}
   prog <- retr <- matUIndep
   prog[is.nan(prog)] <- 0
   retr[is.nan(retr)] <- 0
   
-  prog[which(upper.tri(matUIndep, diag = TRUE))]=0
-  retr[which(lower.tri(matUIndep, diag = TRUE))]=0
+  prog[which(upper.tri(matUIndep, diag = TRUE))] <- 0
+  retr[which(lower.tri(matUIndep, diag = TRUE))] <- 0
   
   prog <- colSums(prog)
   retr <- colSums(retr)
   
-  if (weighted[1] == FALSE) {
-    weight <- rep(1,matDim)
+  # possible transitions
+  i_surv <- surv > 0
+  i_prog <- prog > 0
+  i_retr <- retr > 0
+  i_fec <- fec > 0
+  i_clo <- clo > 0
+  
+  if (is.null(weights)) {
+    weights <- rep(1.0, matDim)
+  } else if (weights[1] == "SSD") {
+    weights <- popbio::stable.stage(matA)
   }
   
-  if (weighted[1] == 'SSD') {
-    weight <- popbio::stable.stage(matA)
+  weights <- weights / sum(weights)
+  
+  surv1 <- surv * weights
+  prog1 <- prog * weights
+  retr1 <- retr * weights
+  fec1  <- fec  * weights
+  clo1  <- clo  * weights
+  
+  out <- NULL
+  
+  if (splitStages == "all") {
+    out$surv <- sum(surv1[i_surv]) / sum(weights[i_surv])
+    out$retr <- sum(retr1[i_retr]) / sum(weights[i_retr])
+    out$prog <- sum(prog1[i_prog]) / sum(weights[i_prog])
+    out$fec  <- sum(fec1[i_fec])   / sum(weights[i_fec])
+    out$clo  <- sum(clo1[i_clo])   / sum(weights[i_clo])
   }
   
-  weight <- weight/sum(weight)
-  
-  surv1 <- surv * weight
-  fec1  <- fec  * weight
-  clo1  <- clo  * weight
-  prog1 <- prog * weight
-  retr1 <- retr * weight
-  
-  out = NULL
-  
-  if (splitStages[1] == 'all'){
-    out$surv <- sum(surv1)
-    out$retr <- sum(retr1)
-    out$prog <- sum(prog1)
-    out$fec  <- sum(fec1)
-    out$clo  <- sum(clo1)
+  if (splitStages == "ontogeny") {
+    #This adu classification does not account for non- and post-reproductive
+    adu <- colSums(matF) > 0
+    juv <- colSums(matF) == 0
+    
+    out$survJuv <- sum(surv1[juv & i_surv]) / sum(weights[juv & i_surv])
+    out$retrJuv <- sum(retr1[juv & i_retr]) / sum(weights[juv & i_retr])
+    out$progJuv <- sum(prog1[juv & i_prog]) / sum(weights[juv & i_prog])
+    out$cloJuv  <- sum(clo1[juv & i_clo])   / sum(weights[juv & i_clo])
+    
+    out$survAdu <- sum(surv1[adu & i_surv]) / sum(weights[adu & i_surv])
+    out$retrAdu <- sum(retr1[adu & i_retr]) / sum(weights[adu & i_retr])
+    out$progAdu <- sum(prog1[adu & i_prog]) / sum(weights[adu & i_prog])
+    out$fecAdu  <- sum(fec1[adu & i_fec])   / sum(weights[adu & i_fec])
+    out$cloAdu  <- sum(clo1[adu & i_clo])   / sum(weights[adu & i_clo])
   }
   
-  if (splitStages[1] == 'ontogeny'){
-    adu <- which(colSums(matF)>0)  #This classification does not accoutn for non- and post-reproductive
-    juv <- which(colSums(matF)==0)
+  if (splitStages == "matrixStages") {
+    prop <- matrixStages == "prop"
+    acti <- matrixStages == "active"
+    dorm <- matrixStages == "dorm"
     
-    out$survJuv <- mean(surv1[juv], na.rm=TRUE)
-    out$retrJuv <- mean(retr1[juv], na.rm=TRUE)
-    out$progJuv <- mean(prog1[juv], na.rm=TRUE)
-    out$cloJuv  <- mean(clo1[juv], na.rm=TRUE)
+    out$survProp <- sum(surv1[prop & i_clo]) / sum(weights[prop & i_clo])
+    out$progProp <- sum(prog1[prop & i_clo]) / sum(weights[prop & i_clo])
     
-    out$survAdu <- mean(surv1[adu], na.rm=TRUE)
-    out$retrAdu <- mean(retr1[adu], na.rm=TRUE)
-    out$progAdu <- mean(prog1[adu], na.rm=TRUE)
-    out$fecAdu  <- mean(fec1[adu], na.rm=TRUE)
-    out$cloAdu  <- mean(clo1[adu], na.rm=TRUE)
-    }
-  
-  if (splitStages[1] %in% c('prop','active','dorm')){
-    prop <- which(splitStages=="prop")
-    active <- which(splitStages=="active")
-    dorm <- which(splitStages=="dorm")
+    out$survActive <- sum(surv1[acti & i_surv]) / sum(weights[acti & i_surv])
+    out$retrActive <- sum(retr1[acti & i_retr]) / sum(weights[acti & i_retr])
+    out$progActive <- sum(prog1[acti & i_prog]) / sum(weights[acti & i_prog])
+    out$fecActive  <- sum(fec1[acti & i_fec]) / sum(weights[acti & i_fec])
+    out$cloActive  <- sum(clo1[acti & i_clo]) / sum(weights[acti & i_clo])
     
-    out$survProp <- mean(surv1[prop], na.rm=TRUE)
-    out$progProp <- mean(prog1[prop], na.rm=TRUE)
-    
-    out$survActive <- mean(surv1[active], na.rm=TRUE)
-    out$retrActive <- mean(retr1[active], na.rm=TRUE)
-    out$progActive <- mean(prog1[active], na.rm=TRUE)
-    out$fecActive  <- mean(fec1[active], na.rm=TRUE)
-    out$cloActive  <- mean(clo1[active], na.rm=TRUE)
-    
-    out$survDorm <- mean(surv1[dorm], na.rm=TRUE)
-    out$retrDorm <- mean(retr1[dorm], na.rm=TRUE)
-    out$progDorm <- mean(prog1[dorm], na.rm=TRUE)
+    out$survDorm <- sum(surv1[dorm & i_surv]) / sum(weights[dorm & i_surv])
+    out$retrDorm <- sum(retr1[dorm & i_retr]) / sum(weights[dorm & i_retr])
+    out$progDorm <- sum(prog1[dorm & i_prog]) / sum(weights[dorm & i_prog])
   }
   
-	return(out)
- }
+  # convert NaN to 0 (non-existent vital rate within group will yield NaN)
+  out <- lapply(out, function(x) ifelse(is.nan(x), 0.0, x))
+  
+  return(out)
+}

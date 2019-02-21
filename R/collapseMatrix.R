@@ -24,11 +24,23 @@
 #'   of the collapsed matrix, and the corresponding values give the stage index
 #'   or vector of stage indices from the original matrix that correspond to the
 #'   relevant stage of the collapsed matrix.
+#'   
+#'   See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.
 #' @return A list with four elements:
 #'   \item{matA}{Collapsed projection matrix}
 #'   \item{matU}{Survival component of the collapsed projection matrix}
-#'   \item{matF}{Sexual reproduction component of the collapsed projection matrix}
-#'   \item{matC}{Clonal reproduction component of the collapsed projection matrix}
+#'   \item{matF}{Sexual reproduction component of the collapsed projection
+#'   matrix}
+#'   \item{matC}{Clonal reproduction component of the collapsed projection
+#'   matrix}
+#'   
+#' @section Missing Stages:
+#' The collapsed matrix will always be of dimension \code{length(collapse)},
+#' even if one or more elements of the \code{collapse} argument is \code{NA}
+#' (corresponding to a desired stage of the collapsed matrix that is not present
+#' in the original matrix). In the collapsed matrix, any row/column
+#' corresponding to a missing stage will be coerced to \code{NA}.
+#' 
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @references Salguero-Gomez, R. & Plotkin, J. B. (2010) Matrix dimensions bias
 #'   demographic inferences: implications for comparative plant demography. The
@@ -67,6 +79,11 @@
 #' @export collapseMatrix
 collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
+  # validate arguments
+  checkValidMat(matU)
+  checkValidMat(matF)
+  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  
   # populate matC with zeros, if NULL
   if (is.null(matC)) {
     matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
@@ -74,11 +91,6 @@ collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
   
   # sum components to matA
   matA <- matU + matF + matC
-  
-  # ensure no NA
-  if (any(is.na(matA))) {
-    stop("Cannot collapse projection matrix containing NAs")
-  }
   
   # dimensions of original and collapse matrices
   originalDim <- nrow(matA)
@@ -103,6 +115,13 @@ collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
     for (i in rows) {
       Q[i,j] <- w[i] / sum(w[rows])
     }
+  }
+  
+  # replace missing rows/cols with NA
+  if (any(is.na(collapse))) {
+    i <- which(is.na(collapse))
+    P[i,] <- rep(NA_real_, originalDim)
+    Q[,i] <- rep(NA_real_, originalDim)
   }
   
   # collapse
