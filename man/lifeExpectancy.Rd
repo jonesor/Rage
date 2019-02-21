@@ -41,8 +41,4 @@ Caswell, H. (2001) Matrix Population Models: Construction,
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Hal Caswell <hcaswell@whoi.edu>
-
-Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
-
-Hal Caswell <hcaswell@whoi.edu>
 }
