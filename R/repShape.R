@@ -56,11 +56,12 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
     if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
     if(any(duplicated(x))) stop("all x must be unique values")
     if(any(diff(x) <= 0)) stop("x must all be ascending")
-     if(class(rep) %in% "numeric") {
+    if(class(rep) %in% "numeric") {
         mx <- rep
         ltdim <- length(mx)
         x <- 0:(ltdim - 1)
         lt <- data.frame(x, mx)
+    }
     if(class(rep) %in% "data.frame") {
         if(!all(c("x", "mx") %in% names(rep))) {
             stop("'rep' doesn't contain both x and mx")
