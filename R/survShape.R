@@ -123,8 +123,8 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
     if(a > b) stop("AUC: b should be greater than a")
     polys <- numeric()
     for(age in a:(b - 1)){
-        polys[age] <- -polyarea(c(x[age], x[age + 1], x[age + 1], x[age]), 
-                                c(y[age], y[age + 1], 0, 0))
+        polys[age] <- (x[age + 1] - x[age]) * min(c(y[age], y[age + 1])) + 
+            0.5 * (x[age + 1] - x[age]) * (max(c(y[age], y[age + 1])) - min(c(y[age], y[age + 1])) )
     } 
     AUCab <- sum(polys[a:(b - 1)])
     AUCab

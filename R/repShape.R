@@ -51,11 +51,6 @@
 #'
 #' @export shape_rep
 shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
-    if(is.null(xmin)) xmin <- x[min(which(rep > 0))]
-    if(is.null(xmax)) xmax <- max(x)
-    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
-    if(any(duplicated(x))) stop("all x must be unique values")
-    if(any(diff(x) <= 0)) stop("x must all be ascending")
     if(class(rep) %in% "numeric") {
         mx <- rep
         ltdim <- length(mx)
@@ -93,13 +88,18 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
         x <- 0:(ltdim - 1)
         lt <- data.frame(x, mx)
     }
-    rx <- c(0, cumsum(mx[1:(ltdim - 1)]))
-    if(any(diff(rx) < 0)) stop("no negative fecundity, thank you very much (check mx)")
-    xStd <- (x - xmin) / (xmax - xmin)
-    rxmin <- rx[which(x %in% xmin)]
-    rxmax <- rx[which(x %in% xmax)]
-    rxStd <- (rx - rxmin) / (rxmax - rxmin)
-    aucStd <- .RageAUC(xStd, rxStd)
+    if(is.null(xmin)) xmin <- lt$x[min(which(rep > 0))]
+    if(is.null(xmax)) xmax <- max(lt$x)
+    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
+    if(any(duplicated(lt$x))) stop("all x must be unique values")
+    if(any(diff(lt$x) <= 0)) stop("x must all be ascending")
+    lt$Bx <- c(0, cumsum(lt$mx[1:(ltdim - 1)]))
+    if(any(diff(lt$x) < 0)) stop("no negative fecundity, thank you very much (check mx)")
+    xStd <- (lt$x - xmin) / (xmax - xmin)
+    Bxmin <- lt$Bx[which(lt$x %in% xmin)]
+    Bxmax <- lt$Bx[which(lt$x %in% xmax)]
+    BxStd <- (lt$Bx - Bxmin) / (Bxmax - Bxmin)
+    aucStd <- .RageAUC(xStd, BxStd)
     aucFlat <- 0.5
     shape <- aucStd - aucFlat
     shape
