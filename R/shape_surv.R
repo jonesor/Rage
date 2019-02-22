@@ -48,11 +48,6 @@
 #'
 #' @export shape_surv
 shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
-    if(is.null(xmin)) xmin <- min(x)
-    if(is.null(xmax)) xmax <- max(x)
-    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
-    if(any(duplicated(x))) stop("all x must be unique values")
-    if(any(diff(x) <= 0)) stop("x must all be ascending")
     if(class(surv) %in% "numeric") {
         lx <- surv
         ltdim <- length(lx)
@@ -86,9 +81,11 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
         }
     }
     if(class(surv) %in% c("matrix", "CompadreM")){
-        matU <- ifelse(class(surv) %in% "CompadreM",
-                       RCompadre::matU(surv),
-                       surv)
+        if(class(surv) %in% "CompadreM") {
+            matU <- RCompadre::matU(surv)
+        } else {
+            matU <- surv
+        }
         dots <- list(...)
         mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
         lt0 <- do.call("makeLifeTable", mLTargs)
@@ -103,6 +100,11 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
             stop("error in makeLifeTable: lx[1] != 1")
         }
     }
+    if(is.null(xmin)) xmin <- min(x)
+    if(is.null(xmax)) xmax <- max(x)
+    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
+    if(any(duplicated(x))) stop("all x must be unique values")
+    if(any(diff(x) <= 0)) stop("x must all be ascending")
     if(any(diff(lx) > 0)) stop("please don't bring people back from the dead (check lx)")
     xStd <- (x - xmin) / (xmax - xmin)
     lxmin <- lx[which(x %in% xmin)]
@@ -115,10 +117,16 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
 }
 
 .RageAUC <- function(x, y, a = NULL, b = NULL) {
-    ifelse(is.null(a), a <- which(x %in% min(x)),
-                       a <- which(x %in% a))
-    ifelse(is.null(b), b <- which(x %in% max(x)),
-                       b <- which(x %in% b))
+    if(is.null(a)){
+        a <- which(x %in% min(x))
+    } else {
+        a <- which(x %in% a)
+    }
+    if(is.null(b)){
+        b <- which(x %in% max(x))
+    } else {
+        b <- which(x %in% b)
+    }
     if(any(diff(x) <=0)) stop("AUC: x should be ascending")
     if(a > b) stop("AUC: b should be greater than a")
     polys <- numeric()

@@ -6,16 +6,16 @@
 #'
 #' @param rep Either 1) a numeric vector describing reproduction over age (mx); 2) a 
 #'   \code{data.frame} / \code{list} with one column / element titled 'mx' 
-#'   describing a survival curve, optionally a column / element 'x' containing 
+#'   describing a reproduction over age, optionally a column / element 'x' containing 
 #'   age classes (each element a number representing the age at the start of the
 #'   class); 3) a list containing two elements: 'matU', a U matrix (the survival 
 #'   component of a matrix population model, i.e. a square projection matrix reflecting 
 #'   survival-related transitions, e.g. progression, stasis, and retrogression) and
 #'   'matF', and F matrix(the reproduction component of a matrix projection model, 
 #'   i.e. a square projection matrix of the same dimension as matU reflecting 
-#'   those transitions describing sexual reproduction); 4) a \code{CompadreM} 
+#'   those transitions describing sexual reproduction); 4) a \code{CompadreMat} 
 #'   object (\code{RCompadre-package})containing a matrix population model in 
-#'   the format described in the \code{CompadreM} class.
+#'   the format described in the \code{CompadreMat} class.
 #'   In the case of 1 and 2 where x is not supplied, the function will assume
 #'   age classes starting at 0 with steps of 1 year.
 #'   In the case of 3 and 4, an age-based reproduction schedule will be generated from 
@@ -26,7 +26,7 @@
 #' @param xmin,xmax The minimum and maximum age repectively over which to evaluate
 #'   shape. If not given, these default to \code{min(x)} and \code{max(x)} 
 #'   respectively.
-#' @param ... when \code{surv} is either U and F matrices or \code{CompadreM} object,
+#' @param ... when \code{rep} is either U and F matrices or \code{CompadreMat} object,
 #'   \code{...} specifies further paramters to pass to 
 #'   \code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
 #'   Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
@@ -64,22 +64,38 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
         lt <- rep[, c("x", "mx")]
         ltdim <- dim(lt)[1]
     }
+    listtype <- "none"
     if(class(rep) %in% "list") {
-        if(!all(c("x", "mx") %in% names(rep))) {
-            stop("'rep' doesn't contain both x and mx")
+        if(!all(c("x", "mx") %in% names(rep)) & !all(c("matU", "matF") %in% names(rep))) {
+            stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
         }
-        if(length(unique(lengths(rep[c("x", "mx")]))) != 1) {
-            stop("x and mx must be the same length")
+        if(all(c("x", "mx") %in% names(rep))) {
+            if(any(c("matU", "matF") %in% names(rep))){
+                stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
+            }
+            if(length(unique(lengths(rep[c("x", "mx")]))) != 1) {
+                stop("x and mx must be the same length")
+            }
+            lt <- as.data.frame(rep[c("x", "mx")])
+            ltdim <- dim(lt)[1]
+            listtype <- "xmx"
         }
-        lt <- as.data.frame(rep[c("x", "mx")])
-        ltdim <- dim(lt)[1]
+        if(all(c("matU", "matF") %in% names(rep))) {
+            if(any(c("x", "mx") %in% names(rep))){
+                stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
+            }
+            matU <- rep$matU
+            matF <- rep$matF
+            listtype <- "UF"
+        }
     }
-    if(class(rep) %in% c("matrix", "CompadreM")){
-        matU <- ifelse(class(rep) %in% "CompadreM",
-                       RCompadre::matU(rep),
-                       rep)
+    if(class(rep) %in% c("list", "CompadreMat") & any(listtype %in% c("none", "UF"))){
+        if(class(rep) %in% "CompadreMat") {
+            matU <- Rcompadre::matU(rep)
+            matF <- Rcompadre::matF(rep)
+        }
         dots <- list(...)
-        mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
+        mLTargs <- c(list(matU = matU, matF = matF), dots[!names(dots) %in% "conv"])
         lt0 <- do.call("makeLifeTable", mLTargs)
         qC <- qsdConverge(matU, ...)
         mx <- lt0$mx[1:qC]
@@ -88,7 +104,7 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
         x <- 0:(ltdim - 1)
         lt <- data.frame(x, mx)
     }
-    if(is.null(xmin)) xmin <- lt$x[min(which(rep > 0))]
+    if(is.null(xmin)) xmin <- min(which(lt$mx > 0))
     if(is.null(xmax)) xmax <- max(lt$x)
     if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
     if(any(duplicated(lt$x))) stop("all x must be unique values")
