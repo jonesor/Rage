@@ -1,0 +1,56 @@
+#' Derive a hypothetical set of population vectors corresponding to a
+#' time-series of matrix population models
+#'
+#' Derive a hypothetical set of population vectors given a time-series of matrix
+#' population models, by taking the stable distribution of the mean matrix as
+#' the starting vector (or optionally, a uniform or random starting vector), and
+#' deriving subsequent vectors through recursive population projection.
+#' 
+#' @param A List of matrix population models (i.e. square projection matrices)
+#' @param start Method to derive the first population vector in the series.
+#'   Either "stable.stage" to use the stable stage distribution of the mean
+#'   matrix as the starting vector, "uniform" to use a uniform starting vector
+#'   (all elements equal), or "random" to use a randomly-generated starting
+#'   vector. Defaults to "stable.stage".
+#' 
+#' @return A list of population vectors
+#' 
+#' @author Patrick Barks <patrick.barks@@gmail.com>
+#' 
+#' @examples 
+#' # generate list of matrices
+#' matA_l <- replicate(5, matrix(runif(9), 3, 3), simplify = FALSE)
+#' 
+#' # calculate corresponding population vectors
+#' pop_vectors(matA_l)
+#' pop_vectors(matA_l, start = "uniform")
+#' pop_vectors(matA_l, start = "random")
+#' 
+#' @importFrom popbio stable.stage
+#' @importFrom stats runif
+#' @export pop_vectors
+pop_vectors <- function(A, start = "stable.stage") {
+  
+  A_mean <- meanMat(A)
+  s <- nrow(A_mean)
+  w <- list()
+  
+  if (start == "stable.stage") {
+    w[[1]] <- stable.stage(A_mean)
+  } else if (start == "uniform") {
+    w[[1]] <- rep(1/s, s)
+  } else if (start == "random") {
+    w[[1]] <- runif(s)
+    w[[1]] <- w[[1]] / sum(w[[1]])
+  } else {
+    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'",
+         .call = FALSE)
+  }
+  
+  for (i in 2:length(A)) {
+    w[[i]] <- A[[i-1]] %*% w[[i-1]]
+    w[[i]] <- as.numeric(w[[i]] / sum(w[[i]]))
+  }
+  
+  return(w)
+}

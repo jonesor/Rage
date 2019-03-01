@@ -20,12 +20,6 @@ RoxygenNote: 6.1.1
 Suggests:
     knitr,
     rmarkdown,
-    fields,
-    popdemo,
-    scales,
-    vcd,
     testthat,
-    Rcompadre,
     covr
-Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr

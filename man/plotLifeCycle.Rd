@@ -2,15 +2,18 @@
 % Please edit documentation in R/plotLifeCycle.R
 \name{plotLifeCycle}
 \alias{plotLifeCycle}
-\title{A function to plot the life cycle diagram based on the matrix model}
+\title{Plot a life cycle diagram based on a matrix population model}
 \usage{
-plotLifeCycle(A, title = "my life cycle", shape = "egg",
+plotLifeCycle(matA, stages, title = NULL, shape = "egg",
   fontsize = 10, nodefontsize = 12, edgecol = "grey")
 }
 \arguments{
-\item{A}{The A matrix of a matrix population model}
+\item{matA}{A matrix population model (i.e. a square projection matrix)}
 
-\item{title}{A title for the plot}
+\item{stages}{Optional vector of stage class labels. If missing, labels are
+integers \code{1:ncol(A)}.}
+
+\item{title}{Optional title for the plot. Defaults to \code{NULL}.}
 
 \item{shape}{The shape to be used for the stages of the diagram. Any node
 shape accepted by graphViz is acceptable.}
@@ -22,21 +25,22 @@ shape accepted by graphViz is acceptable.}
 \item{edgecol}{Colour of the arrows in the diagram.}
 }
 \value{
-Produces a plot consisting of a life cycle diagram, based on the A
-  matrix.
+An object of class \code{grViz} representing the life cycle diagram
 }
 \description{
-This function plots the life cycle diagram illustrated by a matrix model. It
-processes the matrix model and passes the information to the graphViz
-functionality of DiagrammeR. See http://rich-iannone.github.io/DiagrammeR/.
+Plots the life cycle diagram illustrated by a matrix population model. This
+function processes the matrix model and passes the information to the
+graphViz function in DiagrammeR. See
+\url{http://rich-iannone.github.io/DiagrammeR/}.
 }
 \examples{
+matA <- rbind(c(0.1,   0,   0,   0, 1.4),
+              c(0.5, 0.2,   0,   0,   0),
+              c(  0, 0.3, 0.3,   0,   0),
+              c(  0,   0, 0.4, 0.4, 0.1),
+              c(  0,   0,   0, 0.1, 0.4))
 
-\dontrun{
-M1 <- matrix(c(0.00, 0.69, 0.00, 0.10, 0.00, 0.88, 0.35, 0.00, 0.79),nrow=3)
-colnames(M1) <- 1:3
-plotLifeCycle(M1)
-} 
+plotLifeCycle(matA)
 
 }
 \author{
