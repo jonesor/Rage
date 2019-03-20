@@ -9,16 +9,16 @@ shape_rep(rep, xmin = NULL, xmax = NULL, ...)
 \arguments{
 \item{rep}{Either 1) a numeric vector describing reproduction over age (mx); 2) a 
 \code{data.frame} / \code{list} with one column / element titled 'mx' 
-describing a survival curve, optionally a column / element 'x' containing 
+describing a reproduction over age, optionally a column / element 'x' containing 
 age classes (each element a number representing the age at the start of the
 class); 3) a list containing two elements: 'matU', a U matrix (the survival 
 component of a matrix population model, i.e. a square projection matrix reflecting 
 survival-related transitions, e.g. progression, stasis, and retrogression) and
 'matF', and F matrix(the reproduction component of a matrix projection model, 
 i.e. a square projection matrix of the same dimension as matU reflecting 
-those transitions describing sexual reproduction); 4) a \code{CompadreM} 
+those transitions describing sexual reproduction); 4) a \code{CompadreMat} 
 object (\code{RCompadre-package})containing a matrix population model in 
-the format described in the \code{CompadreM} class.
+the format described in the \code{CompadreMat} class.
 In the case of 1 and 2 where x is not supplied, the function will assume
 age classes starting at 0 with steps of 1 year.
 In the case of 3 and 4, an age-based reproduction schedule will be generated from 
@@ -31,7 +31,7 @@ should equal 0, however it is possible to supply partial reproduction schedules.
 shape. If not given, these default to \code{min(x)} and \code{max(x)} 
 respectively.}
 
-\item{...}{when \code{surv} is either U and F matrices or \code{CompadreM} object,
+\item{...}{when \code{rep} is either U and F matrices or \code{CompadreMat} object,
 \code{...} specifies further paramters to pass to 
 \code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
 Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
