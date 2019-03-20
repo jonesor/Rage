@@ -5,7 +5,7 @@
 \title{Calculate time to reach quasi-stationary stage distribution from a matrix
 population model}
 \usage{
-qsdConverge(matU, conv = 0.05, startLife = 1, nSteps = 1000)
+qsdConverge(matU, conv = 0.05, startLife = 1, N = 1000)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -20,11 +20,9 @@ of the stationary stable distribution.}
 \item{startLife}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
 
-\item{nSteps}{Number of time steps over which the population will be
-projected. Time steps are in the same units as the matrix population model
-(see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000,
-which in most cases is sufficient to reach the quasi-stationary
-distribution.}
+\item{N}{Number of time steps over which the population will be projected.
+Time steps are in the same units as the matrix population model (see
+AnnualPeriodicity column in COM(P)ADRE). Defaults to 1000.}
 }
 \value{
 An integer indicating the first time step at which the

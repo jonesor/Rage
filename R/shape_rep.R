@@ -115,7 +115,7 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
   Bxmin <- lt$Bx[which(lt$x %in% xmin)]
   Bxmax <- lt$Bx[which(lt$x %in% xmax)]
   BxStd <- (lt$Bx - Bxmin) / (Bxmax - Bxmin)
-  aucStd <- .RageAUC(xStd, BxStd)
+  aucStd <- area_under_curve(xStd, BxStd)
   aucFlat <- 0.5
   shape <- aucFlat - aucStd
   shape

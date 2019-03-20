@@ -31,11 +31,9 @@
 #'   of the stationary stable distribution.
 #' @param startLife The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
-#' @param nSteps Number of time steps over which the population will be
-#'   projected. Time steps are in the same units as the matrix population model
-#'   (see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000,
-#'   which in most cases is sufficient to reach the quasi-stationary
-#'   distribution.
+#' @param N Number of time steps over which the population will be projected.
+#'   Time steps are in the same units as the matrix population model (see
+#'   AnnualPeriodicity column in COM(P)ADRE). Defaults to 1000.
 #' @return An integer indicating the first time step at which the
 #'   quasi-stationary stage distribution is reached (or an \code{NA} and a
 #'   warning if the quasi-stationary distribution is not reached).
@@ -61,7 +59,7 @@
 #' qsdConverge(matU, 0.05)
 #' @importFrom popbio stable.stage
 #' @export qsdConverge
-qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
+qsdConverge <- function(matU, conv = 0.05, startLife = 1, N = 1000) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -77,7 +75,7 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   # iterate cohort (n = cohort population vector, p = proportional structure)
   dist <- NULL
   
-  for (j in 1:nSteps) {       # j represent years of iteration
+  for (j in 1:N) {            # j represent years of iteration
     p <- n / sum(n)           # get the proportional distribution
     dist[j] <- 0.5 * (sum(abs(p - w)))  # distance to the stable distribution
     n <- matU %*% n           # multiply matU %*% n to iterate
@@ -89,7 +87,7 @@ qsdConverge <- function(matU, conv = 0.05, startLife = 1, nSteps = 1000) {
   }
   if (min(dist, na.rm = TRUE) >= conv) {
     convage <- NA_integer_
-    warning("Convergence not reached within nSteps")
+    warning("Convergence not reached within N")
   }
   
   return(convage) 
