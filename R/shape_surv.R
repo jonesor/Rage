@@ -48,7 +48,7 @@
 #' lx <- 0.7^(0:20)
 #' shape_surv(lx)
 #' 
-#' @importFrom Rcompadre matU
+#' @importMethodsFrom Rcompadre matU
 #' @export shape_surv
 shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
   if(class(surv) %in% "numeric") {
@@ -71,8 +71,8 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
       stop("lx must start with 1 where x[1] is 0")
     }
   }
-  if(class(surv) %in% c("matrix", "CompadreM")){
-    if(class(surv) %in% "CompadreM") {
+  if(class(surv) %in% c("matrix", "CompadreMat")){
+    if(class(surv) %in% "CompadreMat") {
       matU <- matU(surv)
     } else {
       matU <- surv
@@ -91,13 +91,15 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
   lx <- lx[lx > 0]
   if(is.null(xmin)) xmin <- min(x)
   if(is.null(xmax)) xmax <- max(x)
-  if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
   if(any(duplicated(x))) stop("all x must be unique values")
   if(any(diff(x) <= 0)) stop("x must all be ascending")
   if(any(diff(lx) > 1e-7)) {
     stop("please don't bring people back from the dead (check lx)")
   }
   x_sub <- x[x >= xmin & x <= xmax]
+  if(length(x_sub) <= 2) {
+    stop("must have > 2 nonzero values of lx to calculate shape")
+  }
   lx_sub <- lx[x >= xmin & x <= xmax]
   lx_log <- log(lx_sub)
   xStd <- (x_sub - xmin) / (xmax - xmin)
