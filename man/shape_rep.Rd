@@ -57,6 +57,8 @@ the area under a cumulative reproduction curve (over age) with the area
 under a cumulative function describing constant reproduction.
 }
 \examples{
+mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)
+shape_rep(mx)
 
 }
 \author{

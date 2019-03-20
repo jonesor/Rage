@@ -48,6 +48,8 @@
 #' @author Iain Stott <iainmstott@@gmail.com>
 #' 
 #' @examples
+#' mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)
+#' shape_rep(mx)
 #'
 #' @export shape_rep
 shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
