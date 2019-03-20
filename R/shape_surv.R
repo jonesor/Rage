@@ -4,21 +4,21 @@
 #' area under a survival curve (over age) with the area under a constant 
 #' survival function.
 #'
-#' @param surv Either 1) a numeric vector describing a survival curve (lx); 2) a 
-#'   \code{data.frame} / \code{list} with one column / element titled 'lx' 
-#'   describing a survival curve, optionally a column / element 'x' containing 
+#' @param surv Either 1) a numeric vector describing a survival curve (lx); 2) a
+#'   \code{data.frame} / \code{list} with one column / element titled 'lx'
+#'   describing a survival curve, optionally a column / element 'x' containing
 #'   age classes (each element a number representing the age at the start of the
-#'   class); 3) a 'U' matrix (the survival component of a matrix 
-#'   population model, i.e. a square projection matrix reflecting 
-#'   survival-related transitions, e.g. progression, stasis, and retrogression); 
-#'   4) a \code{CompadreM} object (\code{RCompadre-package})containing a matrix 
-#'   population model in the format described in the \code{CompadreM} class.
+#'   class); 3) a 'U' matrix (the survival component of a matrix population
+#'   model, i.e. a square projection matrix reflecting survival-related
+#'   transitions, e.g. progression, stasis, and retrogression); 4) a
+#'   \code{CompadreMat} object (\code{RCompadre-package}) containing a matrix
+#'   population model in the format described in the \code{CompadreMat} class.
 #'   In the case of 1 and 2 where x is not supplied, the function will assume
-#'   age classes starting at 0 with steps of 1 year.
+#'   age classes starting at 0 with 1-unit step sized.
 #'   In the case of 3 and 4, an age-based survival curve will be generated from 
 #'   a stage-based matrix using \code{mpm_to_lx}. 
 #'   In all cases where x begins at 0 and ends at maximum longevity,
-#'   \code{lx[1]} should equal 1 and \code{lx[which.max(x)]} should equal 0,
+#'   \code{lx[1]} should equal 1 and \code{lx[which.max(x)]} should equal 0;
 #'   however it is possible to supply partial survival curves.
 #' @param xmin,xmax The minimum and maximum age respectively over which to
 #'   evaluate shape. If not given, these default to \code{min(x)} and
@@ -34,12 +34,11 @@
 #'   under a survival (lx) curve over age with the area under a constant (type
 #'   2) survival function. May take any real value between -0.5 and +0.5. A
 #'   value of 0 indicates negligible aging (neither generally increasing nor
-#'   generally decreasing survival with age); negative values indicate
-#'   senescence (generally decreasing survival with age); positive values
-#'   indicate negative senescence (generally increasing survival with age). A
-#'   value of -0.5 indicates that all individuals die at age of maximum
-#'   longevity; a value of +0.5 indicates that (hypothetically) all individuals
-#'   die at birth.
+#'   generally decreasing survival with age); negative values indicate negative
+#'   senescence (generally increasing survival with age); positive values
+#'   indicate senescence (generally decreasing survival with age). A value of
+#'   +0.5 indicates that all individuals die at age of maximum longevity; a
+#'   value of -0.5 indicates that (hypothetically) all individuals die at birth.
 #' 
 #' @author Iain Stott <iainmstott@@gmail.com>
 #' 
