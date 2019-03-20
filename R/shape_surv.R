@@ -48,92 +48,92 @@
 #'
 #' @export shape_surv
 shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
-    if(class(surv) %in% "numeric") {
-        lx <- surv
-        ltdim <- length(lx)
-        x <- 0:(ltdim - 1)
-        lt <- data.frame(x, lx)
-        if(!(lt$lx[1] %in% 1)){
-            stop("if x isn't given, lx must start with 1 as x[1] is assumed to be 0")
-        }
+  if(class(surv) %in% "numeric") {
+    lx <- surv
+    ltdim <- length(lx)
+    x <- 0:(ltdim - 1)
+    lt <- data.frame(x, lx)
+    if(!(lt$lx[1] %in% 1)){
+      stop("if x isn't given, lx must start with 1 as x[1] is assumed to be 0")
     }
-    if(class(surv) %in% "data.frame") {
-        if(!all(c("x", "lx") %in% names(surv))) {
-            stop("'surv' doesn't contain both x and lx")
-        }
-        lt <- surv[, c("x", "lx")]
-        ltdim <- dim(lt)[1]
-        if((lt$x[1] %in% 0) & !(lt$lx[1] %in% 1)){
-            stop("lx must start with 1 where x[1] is 0")
-        }
+  }
+  if(class(surv) %in% "data.frame") {
+    if(!all(c("x", "lx") %in% names(surv))) {
+      stop("'surv' doesn't contain both x and lx")
     }
-    if(class(surv) %in% "list") {
-        if(!all(c("x", "lx") %in% names(surv))) {
-            stop("'surv' doesn't contain both x and lx")
-        }
-        if(length(unique(lengths(surv[c("x", "lx")]))) != 1) {
-            stop("x and lx must be the same length")
-        }
-        lt <- as.data.frame(surv[c("x", "lx")])
-        ltdim <- dim(lt)[1]
-        if((lt$x[1] %in% 0) & !(lt$lx[1] %in% 1)){
-            stop("lx must start with 1 where x[1] is 0")
-        }
+    lt <- surv[, c("x", "lx")]
+    ltdim <- dim(lt)[1]
+    if((lt$x[1] %in% 0) & !(lt$lx[1] %in% 1)){
+      stop("lx must start with 1 where x[1] is 0")
     }
-    if(class(surv) %in% c("matrix", "CompadreM")){
-        if(class(surv) %in% "CompadreM") {
-            matU <- RCompadre::matU(surv)
-        } else {
-            matU <- surv
-        }
-        dots <- list(...)
-        mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
-        lt0 <- do.call("makeLifeTable", mLTargs)
-        qC <- qsdConverge(matU, ...)
-        lx <- lt0$lx[1:qC]
-        lx[qC] <- 0
-        ltdim <- qC
-        x <- 0:(ltdim - 1)
-        
-        lt <- data.frame(x, lx)
-        if(!all(lt$lx[1] %in% 1)) {
-            stop("error in makeLifeTable: lx[1] != 1")
-        }
+  }
+  if(class(surv) %in% "list") {
+    if(!all(c("x", "lx") %in% names(surv))) {
+      stop("'surv' doesn't contain both x and lx")
     }
-    if(is.null(xmin)) xmin <- min(x)
-    if(is.null(xmax)) xmax <- max(x)
-    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
-    if(any(duplicated(x))) stop("all x must be unique values")
-    if(any(diff(x) <= 0)) stop("x must all be ascending")
-    if(any(diff(lx) > 0)) stop("please don't bring people back from the dead (check lx)")
-    xStd <- (x - xmin) / (xmax - xmin)
-    lxmin <- lx[which(x %in% xmin)]
-    lxmax <- lx[which(x %in% xmax)]
-    lxStd <- (lx - lxmin) / (lxmax - lxmin)
-    aucStd <- .RageAUC(xStd, lxStd)
-    aucFlat <- 0.5
-    shape <- aucFlat - aucStd
-    shape
+    if(length(unique(lengths(surv[c("x", "lx")]))) != 1) {
+      stop("x and lx must be the same length")
+    }
+    lt <- as.data.frame(surv[c("x", "lx")])
+    ltdim <- dim(lt)[1]
+    if((lt$x[1] %in% 0) & !(lt$lx[1] %in% 1)){
+      stop("lx must start with 1 where x[1] is 0")
+    }
+  }
+  if(class(surv) %in% c("matrix", "CompadreM")){
+    if(class(surv) %in% "CompadreM") {
+      matU <- RCompadre::matU(surv)
+    } else {
+      matU <- surv
+    }
+    dots <- list(...)
+    mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
+    lt0 <- do.call("makeLifeTable", mLTargs)
+    qC <- qsdConverge(matU, ...)
+    lx <- lt0$lx[1:qC]
+    lx[qC] <- 0
+    ltdim <- qC
+    x <- 0:(ltdim - 1)
+    
+    lt <- data.frame(x, lx)
+    if(!all(lt$lx[1] %in% 1)) {
+      stop("error in makeLifeTable: lx[1] != 1")
+    }
+  }
+  if(is.null(xmin)) xmin <- min(x)
+  if(is.null(xmax)) xmax <- max(x)
+  if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
+  if(any(duplicated(x))) stop("all x must be unique values")
+  if(any(diff(x) <= 0)) stop("x must all be ascending")
+  if(any(diff(lx) > 0)) stop("please don't bring people back from the dead (check lx)")
+  xStd <- (x - xmin) / (xmax - xmin)
+  lxmin <- lx[which(x %in% xmin)]
+  lxmax <- lx[which(x %in% xmax)]
+  lxStd <- (lx - lxmin) / (lxmax - lxmin)
+  aucStd <- .RageAUC(xStd, lxStd)
+  aucFlat <- 0.5
+  shape <- aucFlat - aucStd
+  shape
 }
 
 .RageAUC <- function(x, y, a = NULL, b = NULL) {
-    if(is.null(a)){
-        a <- which(x %in% min(x))
-    } else {
-        a <- which(x %in% a)
-    }
-    if(is.null(b)){
-        b <- which(x %in% max(x))
-    } else {
-        b <- which(x %in% b)
-    }
-    if(any(diff(x) <=0)) stop("AUC: x should be ascending")
-    if(a > b) stop("AUC: b should be greater than a")
-    polys <- numeric()
-    for(age in a:(b - 1)){
-        polys[age] <- (x[age + 1] - x[age]) * min(c(y[age], y[age + 1])) + 
-            0.5 * (x[age + 1] - x[age]) * (max(c(y[age], y[age + 1])) - min(c(y[age], y[age + 1])) )
-    } 
-    AUCab <- sum(polys[a:(b - 1)])
-    AUCab
+  if(is.null(a)){
+    a <- which(x %in% min(x))
+  } else {
+    a <- which(x %in% a)
+  }
+  if(is.null(b)){
+    b <- which(x %in% max(x))
+  } else {
+    b <- which(x %in% b)
+  }
+  if(any(diff(x) <=0)) stop("AUC: x should be ascending")
+  if(a > b) stop("AUC: b should be greater than a")
+  polys <- numeric()
+  for(age in a:(b - 1)){
+    polys[age] <- (x[age + 1] - x[age]) * min(c(y[age], y[age + 1])) + 
+      0.5 * (x[age + 1] - x[age]) * (max(c(y[age], y[age + 1])) - min(c(y[age], y[age + 1])) )
+  } 
+  AUCab <- sum(polys[a:(b - 1)])
+  AUCab
 }

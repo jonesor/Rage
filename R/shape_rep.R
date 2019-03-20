@@ -51,72 +51,72 @@
 #'
 #' @export shape_rep
 shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
-    if(class(rep) %in% "numeric") {
-        mx <- rep
-        ltdim <- length(mx)
-        x <- 0:(ltdim - 1)
-        lt <- data.frame(x, mx)
+  if(class(rep) %in% "numeric") {
+    mx <- rep
+    ltdim <- length(mx)
+    x <- 0:(ltdim - 1)
+    lt <- data.frame(x, mx)
+  }
+  if(class(rep) %in% "data.frame") {
+    if(!all(c("x", "mx") %in% names(rep))) {
+      stop("'rep' doesn't contain both x and mx")
     }
-    if(class(rep) %in% "data.frame") {
-        if(!all(c("x", "mx") %in% names(rep))) {
-            stop("'rep' doesn't contain both x and mx")
-        }
-        lt <- rep[, c("x", "mx")]
-        ltdim <- dim(lt)[1]
+    lt <- rep[, c("x", "mx")]
+    ltdim <- dim(lt)[1]
+  }
+  listtype <- "none"
+  if(class(rep) %in% "list") {
+    if(!all(c("x", "mx") %in% names(rep)) & !all(c("matU", "matF") %in% names(rep))) {
+      stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
     }
-    listtype <- "none"
-    if(class(rep) %in% "list") {
-        if(!all(c("x", "mx") %in% names(rep)) & !all(c("matU", "matF") %in% names(rep))) {
-            stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
-        }
-        if(all(c("x", "mx") %in% names(rep))) {
-            if(any(c("matU", "matF") %in% names(rep))){
-                stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
-            }
-            if(length(unique(lengths(rep[c("x", "mx")]))) != 1) {
-                stop("x and mx must be the same length")
-            }
-            lt <- as.data.frame(rep[c("x", "mx")])
-            ltdim <- dim(lt)[1]
-            listtype <- "xmx"
-        }
-        if(all(c("matU", "matF") %in% names(rep))) {
-            if(any(c("x", "mx") %in% names(rep))){
-                stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
-            }
-            matU <- rep$matU
-            matF <- rep$matF
-            listtype <- "UF"
-        }
+    if(all(c("x", "mx") %in% names(rep))) {
+      if(any(c("matU", "matF") %in% names(rep))){
+        stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
+      }
+      if(length(unique(lengths(rep[c("x", "mx")]))) != 1) {
+        stop("x and mx must be the same length")
+      }
+      lt <- as.data.frame(rep[c("x", "mx")])
+      ltdim <- dim(lt)[1]
+      listtype <- "xmx"
     }
-    if(class(rep) %in% c("list", "CompadreMat") & any(listtype %in% c("none", "UF"))){
-        if(class(rep) %in% "CompadreMat") {
-            matU <- Rcompadre::matU(rep)
-            matF <- Rcompadre::matF(rep)
-        }
-        dots <- list(...)
-        mLTargs <- c(list(matU = matU, matF = matF), dots[!names(dots) %in% "conv"])
-        lt0 <- do.call("makeLifeTable", mLTargs)
-        qC <- qsdConverge(matU, ...)
-        mx <- lt0$mx[1:qC]
-        mx[qC] <- 0
-        ltdim <- qC
-        x <- 0:(ltdim - 1)
-        lt <- data.frame(x, mx)
+    if(all(c("matU", "matF") %in% names(rep))) {
+      if(any(c("x", "mx") %in% names(rep))){
+        stop("Please pass EITHER 'x' AND 'mx' OR 'matU' AND 'matF' to 'rep'")
+      }
+      matU <- rep$matU
+      matF <- rep$matF
+      listtype <- "UF"
     }
-    if(is.null(xmin)) xmin <- min(which(lt$mx > 0))
-    if(is.null(xmax)) xmax <- max(lt$x)
-    if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
-    if(any(duplicated(lt$x))) stop("all x must be unique values")
-    if(any(diff(lt$x) <= 0)) stop("x must all be ascending")
-    lt$Bx <- c(0, cumsum(lt$mx[1:(ltdim - 1)]))
-    if(any(diff(lt$x) < 0)) stop("no negative fecundity, thank you very much (check mx)")
-    xStd <- (lt$x - xmin) / (xmax - xmin)
-    Bxmin <- lt$Bx[which(lt$x %in% xmin)]
-    Bxmax <- lt$Bx[which(lt$x %in% xmax)]
-    BxStd <- (lt$Bx - Bxmin) / (Bxmax - Bxmin)
-    aucStd <- .RageAUC(xStd, BxStd)
-    aucFlat <- 0.5
-    shape <- aucFlat - aucStd
-    shape
+  }
+  if(class(rep) %in% c("list", "CompadreMat") & any(listtype %in% c("none", "UF"))){
+    if(class(rep) %in% "CompadreMat") {
+      matU <- Rcompadre::matU(rep)
+      matF <- Rcompadre::matF(rep)
+    }
+    dots <- list(...)
+    mLTargs <- c(list(matU = matU, matF = matF), dots[!names(dots) %in% "conv"])
+    lt0 <- do.call("makeLifeTable", mLTargs)
+    qC <- qsdConverge(matU, ...)
+    mx <- lt0$mx[1:qC]
+    mx[qC] <- 0
+    ltdim <- qC
+    x <- 0:(ltdim - 1)
+    lt <- data.frame(x, mx)
+  }
+  if(is.null(xmin)) xmin <- min(which(lt$mx > 0))
+  if(is.null(xmax)) xmax <- max(lt$x)
+  if((xmax - xmin) <= 1) stop("xmax - xmin must be larger than 1")
+  if(any(duplicated(lt$x))) stop("all x must be unique values")
+  if(any(diff(lt$x) <= 0)) stop("x must all be ascending")
+  lt$Bx <- c(0, cumsum(lt$mx[1:(ltdim - 1)]))
+  if(any(diff(lt$x) < 0)) stop("no negative fecundity, thank you very much (check mx)")
+  xStd <- (lt$x - xmin) / (xmax - xmin)
+  Bxmin <- lt$Bx[which(lt$x %in% xmin)]
+  Bxmax <- lt$Bx[which(lt$x %in% xmax)]
+  BxStd <- (lt$Bx - Bxmin) / (Bxmax - Bxmin)
+  aucStd <- .RageAUC(xStd, BxStd)
+  aucFlat <- 0.5
+  shape <- aucFlat - aucStd
+  shape
 }
