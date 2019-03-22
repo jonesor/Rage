@@ -60,7 +60,7 @@
 #' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic
 #' @export qsdConverge
-qsdConverge <- function(matU, startLife = 1, conv = 0.05, N = 1000) {
+qsdConverge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -75,12 +75,12 @@ qsdConverge <- function(matU, startLife = 1, conv = 0.05, N = 1000) {
     nonzero <- rep(FALSE, nrow(matU))
     nonzero[startLife] <- TRUE
     
-    t <- 1
+    t <- 1L
     
     while (!all(nonzero) & t < (nrow(matU) * 3)) {
       n <- matU %*% n
       nonzero[n > 0] <- TRUE
-      t <- t + 1
+      t <- t + 1L
     }
     
     matU <- as.matrix(matU[nonzero,nonzero])
@@ -96,13 +96,13 @@ qsdConverge <- function(matU, startLife = 1, conv = 0.05, N = 1000) {
   
   # iterate cohort (n = cohort population vector, p = proportional structure)
   dist <- 1
-  t <- 0
+  t <- 0L
 
   while (!is.na(dist) & dist > conv & t < N) {
     p <- n / sum(n)
     dist <- 0.5 * (sum(abs(p - w)))
     n <- matU %*% n
-    t <- t + 1
+    t <- t + 1L
   }
   
   return(ifelse(is.na(dist) | dist > conv, NA_integer_, t)) 

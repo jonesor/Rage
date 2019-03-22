@@ -5,7 +5,7 @@
 \title{Calculate time to reach quasi-stationary stage distribution from a matrix
 population model}
 \usage{
-qsdConverge(matU, startLife = 1, conv = 0.05, N = 1000)
+qsdConverge(matU, startLife = 1L, conv = 0.05, N = 1000L)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
