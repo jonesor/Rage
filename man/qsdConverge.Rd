@@ -5,20 +5,20 @@
 \title{Calculate time to reach quasi-stationary stage distribution from a matrix
 population model}
 \usage{
-qsdConverge(matU, conv = 0.05, startLife = 1, N = 1000)
+qsdConverge(matU, startLife = 1, conv = 0.05, N = 1000)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
+\item{startLife}{The index of the first stage at which the author considers
+the beginning of life. Defaults to 1.}
+
 \item{conv}{Departure of the projection population vector from convergence to
 the stationary stage distribution. E.g. this value should be 0.05 if the
 user wants to obtain the time step when the stage distribution is within 5%
 of the stationary stable distribution.}
-
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
 
 \item{N}{Number of time steps over which the population will be projected.
 Time steps are in the same units as the matrix population model (see
@@ -58,7 +58,7 @@ matU <- rbind(c(0.1,   0,   0,   0),
               c(  0, 0.3, 0.3, 0.1),
               c(  0,   0, 0.5, 0.6))
 
-qsdConverge(matU, 0.05)
+qsdConverge(matU, 1)
 }
 \references{
 Caswell, H. (2001) Matrix Population Models: Construction,

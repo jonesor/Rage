@@ -7,7 +7,7 @@ test_that("qsdConverge works correctly", {
   
   expect_length(x, 1L)
   expect_true(x > 0)
-  expect_equal(x_zero, NA_integer_)
+  expect_equal(x_zero, 1L)
 })
 
 test_that("qsdConverge warns and fails gracefully", {
