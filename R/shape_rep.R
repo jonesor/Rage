@@ -26,13 +26,6 @@
 #' @param xmin,xmax The minimum and maximum age repectively over which to evaluate
 #'   shape. If not given, these default to \code{min(x)} and \code{max(x)} 
 #'   respectively.
-#' @param ... when \code{rep} is either U and F matrices or \code{CompadreMat} object,
-#'   \code{...} specifies further paramters to pass to 
-#'   \code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
-#'   Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
-#'   \code{\link{makeLifeTable}} and \code{link{qsdConverge}}, as it may be
-#'   important to adjust these for your model in order to generate a 
-#'   meaningful life table.
 #'
 #' @return a shape value describing symmetry of reproduction over age by comparing 
 #'   the area under a cumulative reproduction curve over age with the area under 
@@ -52,7 +45,7 @@
 #' shape_rep(mx)
 #'
 #' @export shape_rep
-shape_rep <- function(rep, xmin = NULL, xmax = NULL, ...) {
+shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   if(class(rep) %in% "numeric") {
     mx <- rep
     x <- seq_along(mx) - 1
