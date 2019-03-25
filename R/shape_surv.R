@@ -70,31 +70,13 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
       stop("lx must start with 1 where x[1] is 0")
     }
   }
-  if(class(surv) %in% c("matrix", "CompadreMat")){
-    if(class(surv) %in% "CompadreMat") {
-      matU <- matU(surv)
-    } else {
-      matU <- surv
-    }
-    dots <- list(...)
-    mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
-    lx <- do.call("mpm_to_lx", mLTargs)
-    qC <- qsdConverge(matU, ...)
-    if (!(is.na(qC) | qC > length(lx))) lx <- lx[1:qC]
-    x <- seq_along(lx) - 1
-    if(lx[1] != 1) {
-      stop("error in mpm_to_lx: lx[1] != 1")
-    }
-  }
   x <- x[lx > 0]
   lx <- lx[lx > 0]
   if(is.null(xmin)) xmin <- min(x)
   if(is.null(xmax)) xmax <- max(x)
   if(any(duplicated(x))) stop("all x must be unique values")
-  if(any(diff(x) <= 0)) stop("x must all be ascending")
-  if(any(diff(lx) > 1e-7)) {
-    stop("please don't bring people back from the dead (check lx)")
-  }
+  if(any(diff(x) <= 0)) stop("much as we'd like to reverse aging, x must all be ascending")
+  if(any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx)")
   x_sub <- x[x >= xmin & x <= xmax]
   if(length(x_sub) <= 2) {
     stop("must have > 2 nonzero values of lx to calculate shape")

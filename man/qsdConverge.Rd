@@ -5,7 +5,8 @@
 \title{Calculate time to reach quasi-stationary stage distribution from a matrix
 population model}
 \usage{
-qsdConverge(matU, startLife = 1L, conv = 0.05, N = 1000L)
+qsdConverge(matU, startLife = 1L, conv = 0.05, N = 1000L,
+  ergodicFix = FALSE)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -23,6 +24,9 @@ of the stationary stable distribution.}
 \item{N}{Number of time steps over which the population will be projected.
 Time steps are in the same units as the matrix population model (see
 AnnualPeriodicity column in COM(P)ADRE). Defaults to 1000.}
+
+\item{ergodicFix}{logical: fix nonergodic survival (U) matrices, by removing 
+offending stages, or not?}
 }
 \value{
 An integer indicating the first time step at which the

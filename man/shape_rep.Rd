@@ -24,7 +24,7 @@ age classes starting at 0 with steps of 1 year.
 In the case of 3 and 4, an age-based reproduction schedule will be generated from 
 a stage-based matrix using the \code{makeLifeTable} function of 
 \code{RCompadre-package}. 
-In all cases where x ends at maximum longevity, \code{lx[which.max(x)]} 
+In all cases where x ends at maximum longevity, \code{mx[which.max(x)]} 
 should equal 0, however it is possible to supply partial reproduction schedules.}
 
 \item{xmin, xmax}{The minimum and maximum age repectively over which to evaluate
