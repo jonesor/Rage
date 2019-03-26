@@ -23,12 +23,11 @@
 #' @param xmin,xmax The minimum and maximum age respectively over which to
 #'   evaluate shape. If not given, these default to \code{min(x)} and
 #'   \code{max(x)} respectively.
-#' @param ... when \code{surv} is either a U matrix or \code{CompadreM} object,
-#'   \code{...} specifies further parameters to pass to \code{\link{mpm_to_lx}}
-#'   and \code{link{qsdConverge}}. Can take \code{nSteps}, \code{startLife} and
-#'   \code{conv}; see \code{\link{mpm_to_lx}} and \code{link{qsdConverge}}, as
-#'   it may be important to adjust these for your model in order to generate a
-#'   meaningful life table.
+#' @param trunc logical determining whether to truncate life tables or not 
+#'   when any lx == 0. Usually this is the case only for the final value of lx.
+#'   As the function calculates log(lx), these value(s) cannot be handled. 
+#'   trunc == TRUE strips out the zero value(s). An alternative to this is to 
+#'   transform the zeroes to something approximating zero (e.g. 1e-7).
 #'
 #' @return a shape value describing lifespan inequality by comparing the area
 #'   under a survival (lx) curve over age with the area under a constant (type
@@ -49,7 +48,7 @@
 #' 
 #' @importMethodsFrom Rcompadre matU
 #' @export shape_surv
-shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
+shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
   if(class(surv) %in% "numeric") {
     lx <- surv
     x <- seq_along(lx) - 1
@@ -70,31 +69,22 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, ...) {
       stop("lx must start with 1 where x[1] is 0")
     }
   }
-  if(class(surv) %in% c("matrix", "CompadreMat")){
-    if(class(surv) %in% "CompadreMat") {
-      matU <- matU(surv)
-    } else {
-      matU <- surv
-    }
-    dots <- list(...)
-    mLTargs <- c(list(matU = matU), dots[!names(dots) %in% "conv"])
-    lx <- do.call("mpm_to_lx", mLTargs)
-    qC <- qsdConverge(matU, ...)
-    if (!(is.na(qC) | qC > length(lx))) lx <- lx[1:qC]
-    x <- seq_along(lx) - 1
-    if(lx[1] != 1) {
-      stop("error in mpm_to_lx: lx[1] != 1")
+  if(!trunc) {
+    if(any(lx %in% 0)) {
+      stop(
+"lx cannot be zero (we calculate the log). Consider trunc = TRUE, \n
+or transforming zero values. See ?shape_surv for more details.\n")
     }
   }
-  x <- x[lx > 0]
-  lx <- lx[lx > 0]
+  if(trunc) {
+    x <- x[lx > 0]
+    lx <- lx[lx > 0]
+  }
   if(is.null(xmin)) xmin <- min(x)
   if(is.null(xmax)) xmax <- max(x)
   if(any(duplicated(x))) stop("all x must be unique values")
-  if(any(diff(x) <= 0)) stop("x must all be ascending")
-  if(any(diff(lx) > 1e-7)) {
-    stop("please don't bring people back from the dead (check lx)")
-  }
+  if(any(diff(x) <= 0)) stop("much as we'd like to reverse aging, x must all be ascending")
+  if(any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx)")
   x_sub <- x[x >= xmin & x <= xmax]
   if(length(x_sub) <= 2) {
     stop("must have > 2 nonzero values of lx to calculate shape")

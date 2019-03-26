@@ -4,7 +4,7 @@
 \alias{shape_surv}
 \title{Calculate shape of survival over age}
 \usage{
-shape_surv(surv, xmin = NULL, xmax = NULL, ...)
+shape_surv(surv, xmin = NULL, xmax = NULL, trunc = FALSE)
 }
 \arguments{
 \item{surv}{Either 1) a numeric vector describing a survival curve (lx); 2) a
@@ -28,12 +28,11 @@ however it is possible to supply partial survival curves.}
 evaluate shape. If not given, these default to \code{min(x)} and
 \code{max(x)} respectively.}
 
-\item{...}{when \code{surv} is either a U matrix or \code{CompadreM} object,
-\code{...} specifies further parameters to pass to \code{\link{mpm_to_lx}}
-and \code{link{qsdConverge}}. Can take \code{nSteps}, \code{startLife} and
-\code{conv}; see \code{\link{mpm_to_lx}} and \code{link{qsdConverge}}, as
-it may be important to adjust these for your model in order to generate a
-meaningful life table.}
+\item{trunc}{logical determining whether to truncate life tables or not 
+when any lx == 0. Usually this is the case only for the final value of lx.
+As the function calculates log(lx), these value(s) cannot be handled. 
+trunc == TRUE strips out the zero value(s). An alternative to this is to 
+transform the zeroes to something approximating zero (e.g. 1e-7).}
 }
 \value{
 a shape value describing lifespan inequality by comparing the area

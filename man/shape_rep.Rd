@@ -4,7 +4,7 @@
 \alias{shape_rep}
 \title{Calculate shape of reproduction over age}
 \usage{
-shape_rep(rep, xmin = NULL, xmax = NULL, ...)
+shape_rep(rep, xmin = NULL, xmax = NULL)
 }
 \arguments{
 \item{rep}{Either 1) a numeric vector describing reproduction over age (mx); 2) a 
@@ -24,20 +24,12 @@ age classes starting at 0 with steps of 1 year.
 In the case of 3 and 4, an age-based reproduction schedule will be generated from 
 a stage-based matrix using the \code{makeLifeTable} function of 
 \code{RCompadre-package}. 
-In all cases where x ends at maximum longevity, \code{lx[which.max(x)]} 
+In all cases where x ends at maximum longevity, \code{mx[which.max(x)]} 
 should equal 0, however it is possible to supply partial reproduction schedules.}
 
 \item{xmin, xmax}{The minimum and maximum age repectively over which to evaluate
 shape. If not given, these default to \code{min(x)} and \code{max(x)} 
 respectively.}
-
-\item{...}{when \code{rep} is either U and F matrices or \code{CompadreMat} object,
-\code{...} specifies further paramters to pass to 
-\code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
-Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
-\code{\link{makeLifeTable}} and \code{link{qsdConverge}}, as it may be
-important to adjust these for your model in order to generate a 
-meaningful life table.}
 }
 \value{
 a shape value describing symmetry of reproduction over age by comparing 

@@ -21,7 +21,7 @@
 #' allows the user to use only age-based information from before this point. See
 #' the online supplementary information of Jones et al. (2014) for further
 #' details.
-#'
+#' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression)
@@ -34,6 +34,8 @@
 #' @param N Number of time steps over which the population will be projected.
 #'   Time steps are in the same units as the matrix population model (see
 #'   AnnualPeriodicity column in COM(P)ADRE). Defaults to 1000.
+#' @param ergodicFix logical: fix nonergodic survival (U) matrices, by removing 
+#'   offending stages, or not?
 #' @return An integer indicating the first time step at which the
 #'   quasi-stationary stage distribution is reached (or an \code{NA} and a
 #'   warning if the quasi-stationary distribution is not reached).
@@ -60,14 +62,14 @@
 #' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic
 #' @export qsdConverge
-qsdConverge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L) {
+qsdConverge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L, ergodicFix = FALSE) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(startLife, matU)
   
   # if not ergodic, remove stages not connected from startLife
-  if (!isErgodic(matU)) {
+  if (!isErgodic(matU) & ergodicFix == TRUE) {
     
     n <- rep(0, nrow(matU))
     n[startLife] <- 1
@@ -82,11 +84,14 @@ qsdConverge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L) {
       nonzero[n > 0] <- TRUE
       t <- t + 1L
     }
-    
     matU <- as.matrix(matU[nonzero,nonzero])
     startLife <- which(which(nonzero) == startLife)
   }
   
+  if(!isErgodic(matU) & ergodicFix == FALSE){
+    stop("matrix is nonergodic: cannot calculate lx from matU")
+  }
+
   # stable distribution
   w <- stable.stage(matU)
   
