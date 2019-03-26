@@ -27,11 +27,11 @@ a shape value describing symmetry of reproduction over age by
   comparing the area under a cumulative reproduction curve over age with the
   area under constant reproduction. May take any real value between -0.5 and
   +0.5. A value of 0 indicates negligible aging (neither generally increasing
-  nor generally decreasing reproduction with age); negative values indicate
-  senescence (generally decreasing reproduction with age); positive values
+  nor generally decreasing reproduction with age); positive values indicate
+  senescence (generally decreasing reproduction with age); negative values
   indicate negative senescence (generally increasing reproduction with age).
-  A value of -0.5 indicates that (hypothetically) all individuals are born to
-  individuals of age 0; a value of +0.5 indicates that all individuals are
+  A value of +0.5 indicates that (hypothetically) all individuals are born to
+  individuals of age 0; a value of -0.5 indicates that all individuals are
   born at the age of maximum longevity.
 }
 \description{
@@ -40,7 +40,16 @@ comparing the area under a cumulative reproduction curve (over age) with the
 area under a cumulative function describing constant reproduction.
 }
 \examples{
+# increasing mx yields negative shape
 mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)
+shape_rep(mx)
+
+# decreasing mx yields positive shape
+mx <- c(1.1, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4)
+shape_rep(mx)
+
+# constant mx yields shape = 0
+mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 shape_rep(mx)
 
 }
