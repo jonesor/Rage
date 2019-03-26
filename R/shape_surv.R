@@ -40,7 +40,6 @@
 #' lx <- 0.7^(0:20)
 #' shape_surv(lx)
 #' 
-#' @importMethodsFrom Rcompadre matU
 #' @export shape_surv
 shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
   if(class(surv) %in% "numeric") {
