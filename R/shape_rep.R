@@ -62,7 +62,6 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   }
   if(is.null(xmin)) xmin <- x[min(which(mx > 0))]
   if(is.null(xmax)) xmax <- max(x)
-  if(any(duplicated(x))) stop("all x must be unique values")
   if(any(diff(x) <= 0)) stop("much as we'd like to reverse aging, x must all be ascending")
   if(any(mx < 0)) stop("You appear to have minus-babies (check mx)")
   x_sub <- x[x >= xmin & x <= xmax]
