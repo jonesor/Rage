@@ -63,8 +63,8 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   Bx <- c(0, cumsum(mx[1:(ltdim - 1)]))
   Bx_sub <- Bx[x >= xmin & x <= xmax]
   xStd <- (x_sub - xmin) / (xmax - xmin)
-  Bxmin <- Bx[which.min(xStd)]
-  Bxmax <- Bx[which.max(xStd)]
+  Bxmin <- Bx_sub[which.min(xStd)]
+  Bxmax <- Bx_sub[which.max(xStd)]
   BxStd <- (Bx_sub - Bxmin) / (Bxmax - Bxmin)
   aucStd <- area_under_curve(xStd, BxStd)
   aucFlat <- 0.5
