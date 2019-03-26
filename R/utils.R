@@ -68,3 +68,12 @@ zero_NA <- function(m) {
   return(m)
 }
 
+
+#' @noRd
+area_under_curve <- function(x, y) {
+  delta_x <- diff(x)
+  if (any(delta_x <= 0)) stop("area_under_curve: x should be ascending")
+  rect_heights <- (y[-1] + y[-length(y)]) / 2
+  return(sum(delta_x * rect_heights))
+}
+

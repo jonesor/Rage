@@ -44,20 +44,11 @@ kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
   
   # Calculate Keyfitz's entropy
   if (trapeze == TRUE) {
-    H <- -TrapezoidRule(lx * log(lx)) / TrapezoidRule(lx)
+    x <- seq_along(lx)
+    H <- -area_under_curve(x, lx * log(lx)) / area_under_curve(x, lx)
   } else {
     H <- -sum(lx * log(lx)) / sum(lx)
   }
   
   return(H) 
-}
-
-
-# Composite Trapezoid Rule for approximating a definite integral;
-# modified to work with discrete y values that start at x = 0, and have
-# h = delta_x = 1 (i.e. lx)
-TrapezoidRule <- function(y) {
-  n <- length(y)
-  h <- 1   # h = (b - a) / n  = (length(y) - 0) / n
-  return((h / 2) * (y[1] + 2 * sum(y[2:(n-1)]) + y[n]))
 }

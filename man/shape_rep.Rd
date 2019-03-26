@@ -4,59 +4,53 @@
 \alias{shape_rep}
 \title{Calculate shape of reproduction over age}
 \usage{
-shape_rep(rep, xmin = NULL, xmax = NULL, ...)
+shape_rep(rep, xmin = NULL, xmax = NULL)
 }
 \arguments{
-\item{rep}{Either 1) a numeric vector describing reproduction over age (mx); 2) a 
-\code{data.frame} / \code{list} with one column / element titled 'mx' 
-describing a survival curve, optionally a column / element 'x' containing 
-age classes (each element a number representing the age at the start of the
-class); 3) a list containing two elements: 'matU', a U matrix (the survival 
-component of a matrix population model, i.e. a square projection matrix reflecting 
-survival-related transitions, e.g. progression, stasis, and retrogression) and
-'matF', and F matrix(the reproduction component of a matrix projection model, 
-i.e. a square projection matrix of the same dimension as matU reflecting 
-those transitions describing sexual reproduction); 4) a \code{CompadreM} 
-object (\code{RCompadre-package})containing a matrix population model in 
-the format described in the \code{CompadreM} class.
-In the case of 1 and 2 where x is not supplied, the function will assume
-age classes starting at 0 with steps of 1 year.
-In the case of 3 and 4, an age-based reproduction schedule will be generated from 
-a stage-based matrix using the \code{makeLifeTable} function of 
-\code{RCompadre-package}. 
-In all cases where x ends at maximum longevity, \code{lx[which.max(x)]} 
-should equal 0, however it is possible to supply partial reproduction schedules.}
+\item{rep}{Either 1) a numeric vector describing reproduction over age (mx),
+or 2) a \code{data.frame} / \code{list} with one column / element titled
+'mx' describing a reproduction over age, optionally a column / element 'x'
+containing age classes (each element a number representing the age at the
+start of the class).
 
-\item{xmin, xmax}{The minimum and maximum age repectively over which to evaluate
-shape. If not given, these default to \code{min(x)} and \code{max(x)} 
-respectively.}
+If x is not supplied, the function will assume age classes starting at 0
+with time steps of unit. If x ends at maximum longevity,
+\code{mx[which.max(x)]} should equal 0; however it is possible to supply
+partial reproduction schedules.}
 
-\item{...}{when \code{surv} is either U and F matrices or \code{CompadreM} object,
-\code{...} specifies further paramters to pass to 
-\code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
-Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
-\code{\link{makeLifeTable}} and \code{link{qsdConverge}}, as it may be
-important to adjust these for your model in order to generate a 
-meaningful life table.}
+\item{xmin, xmax}{The minimum and maximum age repectively over which to
+evaluate shape. If not given, these default to \code{min(x)} and
+\code{max(x)} respectively.}
 }
 \value{
-a shape value describing symmetry of reproduction over age by comparing 
-  the area under a cumulative reproduction curve over age with the area under 
-  constant reproduction. May take any real value between -0.5 and +0.5. A value
-  of 0 indicates negligible aging (neither generally increasing nor generally
-  decreasing reproduction with age); negative values indicate
-  senescence (generally decreasing reproduction with age); positive values indicate 
-  negative senescence (generally increasing reproduction with age). A value 
-  of -0.5 indicates that (hypothetically) all individuals are born to 
-  individuals of age 0; a value of +0.5 indicates that all individuals are 
+a shape value describing symmetry of reproduction over age by
+  comparing the area under a cumulative reproduction curve over age with the
+  area under constant reproduction. May take any real value between -0.5 and
+  +0.5. A value of 0 indicates negligible aging (neither generally increasing
+  nor generally decreasing reproduction with age); positive values indicate
+  senescence (generally decreasing reproduction with age); negative values
+  indicate negative senescence (generally increasing reproduction with age).
+  A value of +0.5 indicates that (hypothetically) all individuals are born to
+  individuals of age 0; a value of -0.5 indicates that all individuals are
   born at the age of maximum longevity.
 }
 \description{
-Calculates a 'shape' value of distribution of reproduction over age by comparing
-the area under a cumulative reproduction curve (over age) with the area 
-under a cumulative function describing constant reproduction.
+Calculates a 'shape' value of distribution of reproduction over age by
+comparing the area under a cumulative reproduction curve (over age) with the
+area under a cumulative function describing constant reproduction.
 }
 \examples{
+# increasing mx yields negative shape
+mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)
+shape_rep(mx)
+
+# decreasing mx yields positive shape
+mx <- c(1.1, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4)
+shape_rep(mx)
+
+# constant mx yields shape = 0
+mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+shape_rep(mx)
 
 }
 \author{

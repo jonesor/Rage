@@ -36,7 +36,7 @@
 #' 
 #' @export longevity
 longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
-
+  
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(startLife, matU)
@@ -44,15 +44,22 @@ longevity <- function(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000) {
     stop("lxCrit must be a proportion between 0 and 1", call. = FALSE)
   }
   
-  # calculate survivorship to maxAge
-  lx <- mpm_to_lx(matU, startLife, N = maxAge)
+  matUtemp <- matU
+  lx <- 1.0
+  t <- 0L
   
-  if (any(lx <= lxCrit)) {
-    longevity <- min(which(lx <= lxCrit)) - 1  # -1 b/c lx starts at age 0
-  } else {
-    longevity <- NA_real_
-    warning('survivorship did not reach lxCrit by maxAge: returning NA')
+  while (lx > lxCrit & t < maxAge) {
+    lx <- sum(matUtemp[,startLife])
+    matUtemp <- matUtemp %*% matU
+    t <- t + 1L
   }
   
-	return(longevity)
+  if (lx <= lxCrit) {
+    longevity <- t
+  } else {
+    longevity <- NA_integer_
+    warning("survivorship did not reach lxCrit by maxAge: returning NA")
+  }
+  
+  return(longevity)
 }

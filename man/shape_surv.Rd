@@ -4,49 +4,40 @@
 \alias{shape_surv}
 \title{Calculate shape of survival over age}
 \usage{
-shape_surv(surv, xmin = NULL, xmax = NULL, ...)
+shape_surv(surv, xmin = NULL, xmax = NULL, trunc = FALSE)
 }
 \arguments{
-\item{surv}{Either 1) a numeric vector describing a survival curve (lx); 2) a 
-\code{data.frame} / \code{list} with one column / element titled 'lx' 
-describing a survival curve, optionally a column / element 'x' containing 
+\item{surv}{Either 1) a numeric vector describing a survival curve (lx), or
+2) a \code{data.frame} / \code{list} with one column / element titled 'lx'
+describing a survival curve, optionally a column / element 'x' containing
 age classes (each element a number representing the age at the start of the
-class); 3) a 'U' matrix (the survival component of a matrix 
-population model, i.e. a square projection matrix reflecting 
-survival-related transitions, e.g. progression, stasis, and retrogression); 
-4) a \code{CompadreM} object (\code{RCompadre-package})containing a matrix 
-population model in the format described in the \code{CompadreM} class.
-In the case of 1 and 2 where x is not supplied, the function will assume
-age classes starting at 0 with steps of 1 year.
-In the case of 3 and 4, an age-based survival curve will be generated from 
-a stage-based matrix using the \code{makeLifeTable} function of 
-\code{RCompadre-package}. 
-In all cases where x begins at 0 and ends at maximum longevity, \code{lx[1]} 
-should equal 1 and \code{lx[which.max(x)]} should equal 0, however it is 
-possible to supply partial survival curves.}
+class).
 
-\item{xmin, xmax}{The minimum and maximum age repectively over which to evaluate
-shape. If not given, these default to \code{min(x)} and \code{max(x)} 
-respectively.}
+If x is not supplied, the function will assume age classes starting at 0
+with time steps of 1 unit. If x begins at 0 then \code{lx[1]} should equal
+1. If x ends at maximum longevity, then \code{lx[which.max(x)]} should
+equal 0; however it is possible to supply partial survivorship curves.}
 
-\item{...}{when \code{surv} is either a U matrix or \code{CompadreM} object,
-\code{...} specifies further paramters to pass to 
-\code{\link{makeLifeTable}} and to pass to \code{link{qsdConverge}}. 
-Can take \code{nsteps}, \code{startLife} and \code{conv}; see 
-\code{\link{makeLifeTable}} and \code{link{qsdConverge}}, as it may be
-important to adjust these for your model in order to generate a 
-meaningful life table.}
+\item{xmin, xmax}{The minimum and maximum age respectively over which to
+evaluate shape. If not given, these default to \code{min(x)} and
+\code{max(x)} respectively.}
+
+\item{trunc}{logical determining whether to truncate life tables or not 
+when any lx == 0. Usually this is the case only for the final value of lx.
+As the function calculates log(lx), these value(s) cannot be handled. 
+trunc == TRUE strips out the zero value(s). An alternative to this is to 
+transform the zeroes to something approximating zero (e.g. 1e-7).}
 }
 \value{
-a shape value describing lifespan inequality by comparing 
-  the area under a survival (lx) curve over age with the area under a constant 
-  (type 2) survival function. May take any real value between -0.5 and +0.5. A value
-  of 0 indicates negligible aging (neither generally increasing nor generally
-  decreasing survival with age); negative values indicate
-  senescence (generally decreasing survival with age); positive values indicate negative senescence 
-  (generally increasing survival with age). A value of -0.5 indicates that 
-  all individuals die at age of maximum longevity; a value of +0.5 
-  indicates that (hypothetically) all individuals die at birth.
+a shape value describing lifespan inequality by comparing the area
+  under a survival (lx) curve over age with the area under a constant (type
+  2) survival function. May take any real value between -0.5 and +0.5. A
+  value of 0 indicates negligible aging (neither generally increasing nor
+  generally decreasing survival with age); negative values indicate negative
+  senescence (generally increasing survival with age); positive values
+  indicate senescence (generally decreasing survival with age). A value of
+  +0.5 indicates that all individuals die at age of maximum longevity; a
+  value of -0.5 indicates that (hypothetically) all individuals die at birth.
 }
 \description{
 Calculates a 'shape' value of survival lifespan inequality by comparing the 
@@ -54,6 +45,9 @@ area under a survival curve (over age) with the area under a constant
 survival function.
 }
 \examples{
+# exponential decline in lx yields shape = 0
+lx <- 0.7^(0:20)
+shape_surv(lx)
 
 }
 \author{
