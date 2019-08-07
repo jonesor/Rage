@@ -40,9 +40,9 @@
 #' 
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1,   0),
+#'               c(0.4, 0.2, 0.1,   0),
 #'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.6))
+#'               c(  0,   0, 0.4, 0.5))
 #' 
 #' matF <- rbind(c(  0,   0, 1.1, 1.6),
 #'               c(  0,   0, 0.8, 0.4),
@@ -50,30 +50,47 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' # age-specific survivorship
-#' mpm_to_lx(matU, start = 1, xmax = 20)
+#' mpm_to_lx(matU)
+#' mpm_to_lx(matU, start = 2)      # starting from stage 2
+#' mpm_to_lx(matU, xmax = 10)      # to a maximum age of 10
+#' mpm_to_lx(matU, lxCrit = 0.05)  # to a minimum lx of 0.05
 #' 
 #' # age-specific survival probability
-#' mpm_to_px(matU, start = 1, xmax = 20)
+#' mpm_to_px(matU)
 #' 
 #' # age-specific mortality hazard
-#' mpm_to_hx(matU, start = 1, xmax = 20)
+#' mpm_to_hx(matU)
 #' 
 #' # age-specific fecundity
-#' mpm_to_mx(matU, matF, start = 1, xmax = 20)
+#' mpm_to_mx(matU, matF)
 #' 
 #' @name age_from_stage
 NULL
 
 
-matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
-              c(0.3, 0.3, 0.1, 0.0),
-              c(0.0, 0.2, 0.1, 0.6),
-              c(0.0, 0.1, 0.1, 0.3))
-
-matR <- rbind(c(0.0, 0.0, 1.4, 2.1),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0),
-              c(0.0, 0.0, 0.0, 0.0))
+#' @rdname age_from_stage
+#' @export mpm_to_mx
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
+  
+  # validate arguments (leave rest to mpm_to_lx)
+  checkValidMat(matR)
+  
+  N <- length(mpm_to_lx(matU, start, xmax, lxCrit))
+  
+  tempU <- matU
+  mx <- vector(mode = 'numeric', length = N)
+  
+  for (i in 1:N) {
+    # stageDist equivalent to: matUtemp %*% solve(diag(colSums(matUtemp)))
+    stageDist <- apply(tempU, 2, function(x) x / sum(x))
+    phi <- matR %*% stageDist
+    mx[i] <- sum(phi[,start])
+    tempU <- tempU %*% matU
+  }
+  
+  mx[is.nan(mx)] <- 0
+  return(mx)
+}
 
 
 #' @rdname age_from_stage
@@ -116,30 +133,4 @@ mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   # leave argument validation to mpm_to_lx
   lx <- mpm_to_lx(matU, start, xmax, lxCrit)
   return(lx_to_hx(lx))
-}
-
-
-
-#' @rdname age_from_stage
-#' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
-  
-  # validate arguments (leave rest to mpm_to_lx)
-  checkValidMat(matR)
-  
-  N <- length(mpm_to_lx(matU, start, xmax, lxCrit))
-  
-  tempU <- matU
-  mx <- vector(mode = 'numeric', length = N)
-  
-  for (i in 1:N) {
-    # stageDist equivalent to: matUtemp %*% solve(diag(colSums(matUtemp)))
-    stageDist <- apply(tempU, 2, function(x) x / sum(x))
-    phi <- matR %*% stageDist
-    mx[i] <- sum(phi[,start])
-    tempU <- tempU %*% matU
-  }
-  
-  mx[is.nan(mx)] <- 0
-  return(mx)
 }

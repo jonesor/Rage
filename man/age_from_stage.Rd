@@ -2,24 +2,28 @@
 % Please edit documentation in R/age_from_stage.R
 \name{age_from_stage}
 \alias{age_from_stage}
+\alias{mpm_to_mx}
 \alias{mpm_to_lx}
 \alias{mpm_to_px}
 \alias{mpm_to_hx}
-\alias{mpm_to_mx}
 \title{Calculate age-specific traits from a from matrix population model}
 \usage{
+mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
+
 mpm_to_lx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
 mpm_to_px(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
 mpm_to_hx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
-
-mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
+
+\item{matR}{The reproductive component of a matrix population model (i.e. a
+square projection matrix reflecting transitions due to reproduction; either
+sexual, clonal, or both)}
 
 \item{start}{The index of the first stage at which the author considers the
 beginning of life. Defaults to \code{1L}.}
@@ -29,10 +33,6 @@ beginning of life. Defaults to \code{1L}.}
 
 \item{lxCrit}{Minimum value of lx to which age-specific traits will be
 calculated (defaults to \code{1e-4}).}
-
-\item{matR}{The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
 }
 \value{
 A vector
@@ -53,9 +53,9 @@ The output vector is calculated recursively until the age class (x)
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
+              c(0.4, 0.2, 0.1,   0),
               c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+              c(  0,   0, 0.4, 0.5))
 
 matF <- rbind(c(  0,   0, 1.1, 1.6),
               c(  0,   0, 0.8, 0.4),
@@ -63,16 +63,19 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
               c(  0,   0,   0,   0))
 
 # age-specific survivorship
-mpm_to_lx(matU, start = 1, xmax = 20)
+mpm_to_lx(matU)
+mpm_to_lx(matU, start = 2)      # starting from stage 2
+mpm_to_lx(matU, xmax = 10)      # to a maximum age of 10
+mpm_to_lx(matU, lxCrit = 0.05)  # to a minimum lx of 0.05
 
 # age-specific survival probability
-mpm_to_px(matU, start = 1, xmax = 20)
+mpm_to_px(matU)
 
 # age-specific mortality hazard
-mpm_to_hx(matU, start = 1, xmax = 20)
+mpm_to_hx(matU)
 
 # age-specific fecundity
-mpm_to_mx(matU, matF, start = 1, xmax = 20)
+mpm_to_mx(matU, matF)
 
 }
 \references{
