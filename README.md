@@ -47,21 +47,21 @@ Now we can get to work. Here are just a few example analyses. <br>
 Calculate life expectancy:
 
 ``` r
-lifeExpectancy(matU)
+life_expect(matU)
 #> [1] 5.749
 ```
 
 Calculate net reproductive rate:
 
 ``` r
-R0(matU, matF)
+net_repro_rate(matU, matF)
 #> [1] 2.464
 ```
 
 Produce a life table:
 
 ``` r
-makeLifeTable(matU, matF, nSteps = 15)
+mpm_to_table(matU, matF, nSteps = 15)
 #>     x     lx      dx     qx     Lx     Tx     ex     mx    lxmx
 #> 1   0 1.0000 0.30000 0.3000 0.8500 4.2910 4.2910 0.0000 0.00000
 #> 2   1 0.7000 0.21000 0.3000 0.5950 3.4410 4.9158 0.0000 0.00000
@@ -84,10 +84,10 @@ Collapse the matrix population model to two stages, pre-reproductive and reprodu
 
 ``` r
 # pre-reproductive stages are 1 and 2, reproductive stages are 3 and 4
-mpm_collapse <- collapseMatrix(matU, matF, collapse = list(1:2, 3:4))
+collapsed_mpm <- mpm_collapse(matU, matF, collapse = list(1:2, 3:4))
 
 # perturbation analysis (summed elasticities for various vital-rates)
-perturb_vr(mpm_collapse$matU, mpm_collapse$matF, type = "elasticity")
+perturb_vr(collapsed_mpm$matU, collapsed_mpm$matF, type = "elasticity")
 #> $survival
 #> [1] 1
 #> 
