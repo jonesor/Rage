@@ -21,11 +21,11 @@
 #'               c(  0, 0.3, 0.3, 0.1),
 #'               c(  0,   0, 0.5, 0.6))
 #'
-#' lifeExpectancy(matU)
-#' lifeExpectancy(matU, startLife = 2)
+#' life_expect(matU)
+#' life_expect(matU, startLife = 2)
 #'
-#' @export lifeExpectancy
-lifeExpectancy <- function(matU, startLife = 1) {
+#' @export life_expect
+life_expect <- function(matU, startLife = 1) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)

@@ -46,11 +46,11 @@
 #'   demographic inferences: implications for comparative plant demography. The
 #'   American Naturalist 176, 710-722.
 #' @note This method of collapsing a matrix population model preserves the
-#'   equilibrium population growth rate (\eqn{lamda}) and relative stable
+#'   equilibrium population growth rate (\eqn{lambda}) and relative stable
 #'   distribution, but is not expected to preserve other traits such as relative
 #'   reproductive values, sensitivities, net reproductive rates, life
 #'   expectancy, etc.
-#' @seealso \code{\link{standardizeMatrix}}
+#' @seealso \code{\link{mpm_standardize}}
 #' @examples
 #' matU <- rbind(c(  0,   0,   0,   0),
 #'               c(0.5,   0,   0,   0),
@@ -69,15 +69,15 @@
 #' 
 #' # collapse reproductive stages
 #' collapse1 <- list(1, 2, 3:4)
-#' collapseMatrix(matU, matF, matC, collapse1)
+#' mpm_collapse(matU, matF, matC, collapse1)
 #' 
 #' # collapse pre-reproductive stages, and reproductive stages
 #' collapse2 <- list(1:2, 3:4)
-#' collapseMatrix(matU, matF, matC, collapse2)
+#' mpm_collapse(matU, matF, matC, collapse2)
 #' 
 #' @importFrom popbio stable.stage
-#' @export collapseMatrix
-collapseMatrix <- function(matU, matF, matC = NULL, collapse) {
+#' @export mpm_collapse
+mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   
   # validate arguments
   checkValidMat(matU)

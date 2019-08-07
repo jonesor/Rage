@@ -71,13 +71,13 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #'
-#' makeLifeTable(matU, startLife = 1, nSteps = 100)
-#' makeLifeTable(matU, matF, startLife = 1, nSteps = 100)
-#' makeLifeTable(matU, matF, matC, startLife = 1, nSteps = 100)
+#' mpm_to_table(matU, startLife = 1, nSteps = 100)
+#' mpm_to_table(matU, matF, startLife = 1, nSteps = 100)
+#' mpm_to_table(matU, matF, matC, startLife = 1, nSteps = 100)
 #' 
-#' @export makeLifeTable
-makeLifeTable <- function(matU, matF = NULL, matC = NULL, startLife = 1,
-                          nSteps = 1000) {
+#' @export mpm_to_table
+mpm_to_table <- function(matU, matF = NULL, matC = NULL, startLife = 1,
+                         nSteps = 1000) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)

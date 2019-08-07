@@ -101,7 +101,7 @@ mature_life_expect <- function(matU, matR, startLife = 1) {
   
   # leave arg validaton to mature_age 
   mean_age_mature <- mature_age(matU, matR, startLife)
-  l0 <- lifeExpectancy(matU, startLife)
+  l0 <- life_expect(matU, startLife)
   
   return(l0 - mean_age_mature)
 }

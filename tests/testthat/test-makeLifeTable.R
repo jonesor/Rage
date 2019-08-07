@@ -1,13 +1,13 @@
-context("makeLifeTable")
+context("mpm_to_table")
 
-test_that("makeLifeTable works correctly", {
+test_that("mpm_to_table works correctly", {
   
   nSteps <- 20
   
-  x_u <- makeLifeTable(mat_u, nSteps = nSteps)
-  x_uf <- makeLifeTable(mat_u, mat_f, nSteps = nSteps)
-  x_uc <- makeLifeTable(mat_u, matC = mat_c, nSteps = nSteps)
-  x_ufc <- makeLifeTable(mat_u, mat_f, mat_c, nSteps = nSteps)
+  x_u <- mpm_to_table(mat_u, nSteps = nSteps)
+  x_uf <- mpm_to_table(mat_u, mat_f, nSteps = nSteps)
+  x_uc <- mpm_to_table(mat_u, matC = mat_c, nSteps = nSteps)
+  x_ufc <- mpm_to_table(mat_u, mat_f, mat_c, nSteps = nSteps)
   
   expect_is(x_u, "data.frame")
   expect_equal(nrow(x_u), nSteps)
@@ -17,14 +17,14 @@ test_that("makeLifeTable works correctly", {
   expect_equal(ncol(x_ufc), 13)
 })
 
-test_that("makeLifeTable warns and fails gracefully", {
+test_that("mpm_to_table warns and fails gracefully", {
   
   nSteps <- 20
   
-  expect_error(makeLifeTable(mat_u_na, mat_f, nSteps = nSteps))
-  expect_error(makeLifeTable(mat_u, mat_f_na, nSteps = nSteps))
-  expect_error(makeLifeTable(mat_u, matC = mat_c_na, nSteps = nSteps))
-  expect_warning(makeLifeTable(mat_u_survissue, nSteps = nSteps))
-  expect_warning(makeLifeTable(mat_u, mat_f_zero, nSteps = nSteps))
-  expect_warning(makeLifeTable(mat_u, matC = mat_c_zero, nSteps = nSteps))
+  expect_error(mpm_to_table(mat_u_na, mat_f, nSteps = nSteps))
+  expect_error(mpm_to_table(mat_u, mat_f_na, nSteps = nSteps))
+  expect_error(mpm_to_table(mat_u, matC = mat_c_na, nSteps = nSteps))
+  expect_warning(mpm_to_table(mat_u_survissue, nSteps = nSteps))
+  expect_warning(mpm_to_table(mat_u, mat_f_zero, nSteps = nSteps))
+  expect_warning(mpm_to_table(mat_u, matC = mat_c_zero, nSteps = nSteps))
 })

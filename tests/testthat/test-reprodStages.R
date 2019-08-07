@@ -1,13 +1,13 @@
-context("reprodStages")
+context("standardized_stages")
 
-test_that("reprodStages works correctly", {
+test_that("standardized_stages works correctly", {
   
   ## mpm without inter-reproductive stage
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('active', 'active', 'active', 'active')
-  r <- rearrangeMatrix(mat_u, mat_f, mat_c, reproStages, matrixStages)
+  r <- mpm_rearrange(mat_u, mat_f, mat_c, reproStages, matrixStages)
 
-  x <- reprodStages(r$matF, r$reproStages, r$matrixStages)
+  x <- standardized_stages(r$matF, r$reproStages, r$matrixStages)
   expect_is(x, "list")
   expect_length(x, 4)
   
@@ -20,10 +20,10 @@ test_that("reprodStages works correctly", {
   ## mpm with inter-reproductive stage
   reproStages <- apply(mat_f_inter, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-  r <- rearrangeMatrix(mat_u_inter, mat_f_inter, reproStages = reproStages,
-                       matrixStages = matrixStages)
+  r <- mpm_rearrange(mat_u_inter, mat_f_inter, reproStages = reproStages,
+                     matrixStages = matrixStages)
   
-  x <- reprodStages(r$matF, r$reproStages, r$matrixStages)
+  x <- standardized_stages(r$matF, r$reproStages, r$matrixStages)
   expect_is(x, "list")
   expect_length(x, 4)
   
@@ -36,10 +36,10 @@ test_that("reprodStages works correctly", {
   ## mpm with all stages reproductive
   reproStages <- apply(mat_f_allrep, 2, function(x) any(x > 0))
   matrixStages <- c('active', 'active')
-  r <- rearrangeMatrix(mat_u_allrep, mat_f_allrep, reproStages = reproStages,
-                       matrixStages = matrixStages)
+  r <- mpm_rearrange(mat_u_allrep, mat_f_allrep, reproStages = reproStages,
+                     matrixStages = matrixStages)
   
-  x <- reprodStages(r$matF, r$reproStages, r$matrixStages)
+  x <- standardized_stages(r$matF, r$reproStages, r$matrixStages)
   expect_is(x, "list")
   expect_length(x, 4)
   expect_true(is.na(x$propStages))
@@ -48,20 +48,20 @@ test_that("reprodStages works correctly", {
 })
 
 
-test_that("reprodStages warns and fails gracefully", {
+test_that("standardized_stages warns and fails gracefully", {
   
   # arguments of different dimension
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active')
-  expect_error(reprodStages(mat_f, mat_c, reproStages, matrixStages))
+  expect_error(standardized_stages(mat_f, mat_c, reproStages, matrixStages))
   
   # matF contains NA
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active', 'active')
-  expect_error(reprodStages(mat_f_na, reproStages, matrixStages))
+  expect_error(standardized_stages(mat_f_na, reproStages, matrixStages))
   
   # no reproductive stages
   reproStages <- apply(mat_f_zero, 2, function(x) any(x > 0))
   matrixStages <- c('active', 'active', 'active', 'active')
-  expect_error(reprodStages(mat_f_zero, reproStages, matrixStages))
+  expect_error(standardized_stages(mat_f_zero, reproStages, matrixStages))
 })

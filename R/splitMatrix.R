@@ -16,10 +16,10 @@
 #'               c(  0, 0.3, 0.3, 0.1),
 #'               c(  0,   0, 0.5, 0.6))
 #' 
-#' splitMatrix(matA)
+#' mpm_split(matA)
 #' 
-#' @export splitMatrix
-splitMatrix <- function(matA) {
+#' @export mpm_split
+mpm_split <- function(matA) {
   
   # validate arguments
   checkValidMat(matA, fail_all_na = FALSE, fail_any_na = FALSE,

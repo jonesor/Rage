@@ -1,6 +1,6 @@
-#' Calculate net reproductive value from a matrix population model
+#' Calculate net reproductive value (R0) from a matrix population model
 #'
-#' Calculate net reproductive value from a matrix population model.
+#' Calculate net reproductive value (R0) from a matrix population model.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -46,14 +46,14 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' R0(matU, matF)
+#' net_repro_rate(matU, matF)
 #' 
 #' # calculate R0 using the startLife method
-#' R0(matU, matF, method = "startLife", startLife = 2)
+#' net_repro_rate(matU, matF, method = "startLife", startLife = 2)
 #' 
 #' @importFrom popbio lambda
-#' @export R0
-R0 <- function(matU, matR, startLife = 1, method = "generation") {
+#' @export net_repro_rate
+net_repro_rate <- function(matU, matR, startLife = 1, method = "generation") {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)

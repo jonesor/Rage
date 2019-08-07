@@ -21,7 +21,7 @@
 #' stage
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @note Dormant stages are not currently handled.
-#' @seealso \code{\link{standardizeMatrix}}
+#' @seealso \code{\link{mpm_standardize}}
 #' @examples
 #' matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
 #'               c(  0, 0.8,   0, 0.4,   0),
@@ -31,13 +31,13 @@
 #'
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-#' reprodStages(matF, reproStages, matrixStages)
+#' standardized_stages(matF, reproStages, matrixStages)
 #' 
 #' # combine post-reproductive and reproductive
-#' reprodStages(matF, reproStages, matrixStages, includePost = FALSE)
-#' @export reprodStages
-reprodStages <- function(matF, reproStages, matrixStages, includeProp = TRUE,
-                         includePost = TRUE) {
+#' standardized_stages(matF, reproStages, matrixStages, includePost = FALSE)
+#' @export standardized_stages
+standardized_stages <- function(matF, reproStages, matrixStages,
+                                includeProp = TRUE, includePost = TRUE) {
   
   # FIXME: can we combine propagule and pre-reproductive?
   # FIXME: what about dormant stages?

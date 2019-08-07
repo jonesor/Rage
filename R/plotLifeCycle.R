@@ -26,12 +26,12 @@
 #'               c(  0,   0, 0.4, 0.4, 0.1),
 #'               c(  0,   0,   0, 0.1, 0.4))
 #' 
-#' plotLifeCycle(matA)
+#' plot_life_cycle(matA)
 #' 
 #' @importFrom DiagrammeR grViz
-#' @export plotLifeCycle
-plotLifeCycle <- function(matA, stages, title = NULL, shape = "egg",
-                          fontsize = 10, nodefontsize = 12, edgecol = "grey") {
+#' @export plot_life_cycle
+plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
+                            fontsize = 10, nodefontsize = 12, edgecol = "grey") {
   
   # Identify stages
   if (missing(stages)) {
@@ -79,4 +79,3 @@ digraph {
 }"
     ))
 }
-

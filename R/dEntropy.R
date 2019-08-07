@@ -15,7 +15,7 @@
 #' @param nSteps The maximum age to which age-specific survival (lx) and
 #'   reproduction (mx) will be calculated. This allows the user to exclude ages
 #'   after which mortality or fertility has plateaued (see function
-#'   \code{\link{qsdConverge}} for more information). Defaults to 100.
+#'   \code{\link{qsd_converge}} for more information). Defaults to 100.
 #' @return Demetrius' entropy.
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
@@ -32,11 +32,11 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' dEntropy(matU, matF, nSteps = 10)
-#' dEntropy(matU, matF, nSteps = 100)
+#' entropy_d(matU, matF, nSteps = 10)
+#' entropy_d(matU, matF, nSteps = 100)
 #' 
-#' @export dEntropy
-dEntropy <- function(matU, matR, startLife = 1, nSteps = 100) {
+#' @export entropy_d
+entropy_d <- function(matU, matR, startLife = 1, nSteps = 100) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -48,14 +48,14 @@ dEntropy <- function(matU, matR, startLife = 1, nSteps = 100) {
   mx <- mpm_to_mx(matU, matR, startLife, nSteps)
   
   # calculate Demetrius' entropy
-  H <- dEntropyCalc(lx, mx)
+  H <- entropy_calc(lx, mx)
   
   return(H)
 }
 
 
 # Calculate Demetrius' entropy given lx and mx
-dEntropyCalc <- function(lx, mx) {
+entropy_calc <- function(lx, mx) {
   lxmx <- lx * mx
 
   # if lxmx == 0, log(lxmx) == -Inf; for entropy calc below, these -Inf can be

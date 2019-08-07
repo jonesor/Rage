@@ -33,8 +33,8 @@
 #' row/column of the standardized matrix will be coerced to \code{NA}.
 #' 
 #' @details This function is a wrapper for the functions
-#'   \code{\link{rearrangeMatrix}}, \code{\link{reprodStages}} and
-#'   \code{\link{collapseMatrix}}, which it calls in sequence.
+#'   \code{\link{mpm_rearrange}}, \code{\link{standardized_stages}} and
+#'   \code{\link{mpm_collapse}}, which it calls in sequence.
 #' @note The method used by this function to collapse a matrix population model
 #'   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
 #'   stable distribution, but is not expected to preserve other traits such as
@@ -63,11 +63,11 @@
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 #'
-#' standardizeMatrix(matU, matF, matC, reproStages, matrixStages)
+#' mpm_standardize(matU, matF, matC, reproStages, matrixStages)
 #' 
-#' @export standardizeMatrix
-standardizeMatrix <- function(matU, matF, matC = NULL, reproStages,
-                              matrixStages) {
+#' @export mpm_standardize
+mpm_standardize <- function(matU, matF, matC = NULL, reproStages,
+                            matrixStages) {
   
   # note argument validation done by component functions
   
@@ -77,15 +77,15 @@ standardizeMatrix <- function(matU, matF, matC = NULL, reproStages,
   }
   
   # put non-reproductive stages at the end of the matrix
-  rearr <- rearrangeMatrix(matU, matF, matC, reproStages, matrixStages)
+  rearr <- mpm_rearrange(matU, matF, matC, reproStages, matrixStages)
   
   # defines which columns need to be collapsed for each of the four stages
-  collapse <- reprodStages(rearr$matF,
-                           rearr$reproStages,
-                           rearr$matrixStages)
+  collapse <- standardized_stages(rearr$matF,
+                                  rearr$reproStages,
+                                  rearr$matrixStages)
   
   # collapse
-  out <- collapseMatrix(matU, matF, matC, collapse = collapse)
+  out <- mpm_collapse(matU, matF, matC, collapse = collapse)
 
   return(out)
 }

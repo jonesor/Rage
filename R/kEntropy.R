@@ -11,7 +11,7 @@
 #'   the beginning of life. Defaults to 1.
 #' @param nSteps The age-cutoff for the decomposition of age-specific survival
 #'   (lx). This allows the user to exclude ages after which mortality or
-#'   fertility has plateaued (see function \code{\link{qsdConverge}} for more
+#'   fertility has plateaued (see function \code{\link{qsd_converge}} for more
 #'   information). Defaults to 100.
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
@@ -26,13 +26,13 @@
 #'               c(0.1, 0.1, 0.2, 0.3),
 #'               c(  0, 0.2, 0.6, 0.5))
 #' 
-#' kEntropy(matU, nSteps = 10)
-#' kEntropy(matU, nSteps = 20)
-#' kEntropy(matU, nSteps = 100)
-#' kEntropy(matU, nSteps = 100, trapeze = TRUE)
+#' entropy_k(matU, nSteps = 10)
+#' entropy_k(matU, nSteps = 20)
+#' entropy_k(matU, nSteps = 100)
+#' entropy_k(matU, nSteps = 100, trapeze = TRUE)
 #' 
-#' @export kEntropy
-kEntropy <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
+#' @export entropy_k
+entropy_k <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)

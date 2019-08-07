@@ -26,7 +26,7 @@
 #' \item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
 #'  stages}
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
-#' @seealso \code{\link{standardizeMatrix}}
+#' @seealso \code{\link{mpm_standardize}}
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0,   0),
@@ -43,12 +43,12 @@
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 #' 
-#' rearrangeMatrix(matU, matF, reproStages = reproStages,
-#'                 matrixStages = matrixStages)
+#' mpm_rearrange(matU, matF, reproStages = reproStages,
+#'               matrixStages = matrixStages)
 #' 
-#' @export rearrangeMatrix
-rearrangeMatrix <- function(matU, matF, matC = NULL, reproStages,
-                            matrixStages) {
+#' @export mpm_rearrange
+mpm_rearrange <- function(matU, matF, matC = NULL, reproStages,
+                          matrixStages) {
 
   # validate arguments
   checkValidMat(matU)

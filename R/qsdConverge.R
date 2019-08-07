@@ -58,12 +58,12 @@
 #'               c(  0, 0.3, 0.3, 0.1),
 #'               c(  0,   0, 0.5, 0.6))
 #' 
-#' qsdConverge(matU, 1)
+#' qsd_converge(matU, 1)
 #' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic
-#' @export qsdConverge
-qsdConverge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L,
-                        ergodicFix = FALSE) {
+#' @export qsd_converge
+qsd_converge <- function(matU, startLife = 1L, conv = 0.05, N = 1000L,
+                         ergodicFix = FALSE) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)

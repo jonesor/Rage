@@ -1,13 +1,13 @@
-context("rearrangeMatrix")
+context("mpm_rearrange")
 
-test_that("rearrangeMatrix works correctly", {
+test_that("mpm_rearrange works correctly", {
 
   # mpm with inter-reproductive stage
   reproStages <- apply(mat_f_inter, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 
-  x <- rearrangeMatrix(mat_u_inter, mat_f_inter, reproStages = reproStages,
-                       matrixStages = matrixStages)
+  x <- mpm_rearrange(mat_u_inter, mat_f_inter, reproStages = reproStages,
+                     matrixStages = matrixStages)
   
   expect_is(x, "list")
   expect_length(x, 6)
@@ -22,7 +22,7 @@ test_that("rearrangeMatrix works correctly", {
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active', 'active')
   
-  x <- rearrangeMatrix(mat_u, mat_f, matC = NULL, reproStages, matrixStages)
+  x <- mpm_rearrange(mat_u, mat_f, matC = NULL, reproStages, matrixStages)
   
   expect_equal(mat_u, x$matU)
   expect_equal(mat_f, x$matF)
@@ -34,7 +34,7 @@ test_that("rearrangeMatrix works correctly", {
   matrixStages <- c('prop', 'active', 'active', 'active')
   
   x <- suppressWarnings(
-    rearrangeMatrix(mat_u, mat_f_zero, matC = NULL, reproStages, matrixStages)
+    mpm_rearrange(mat_u, mat_f_zero, matC = NULL, reproStages, matrixStages)
   )
   
   expect_equal(mat_f_zero, x$matF)
@@ -42,11 +42,11 @@ test_that("rearrangeMatrix works correctly", {
 })
 
 
-test_that("rearrangeMatrix warns and fails gracefully", {
+test_that("mpm_rearrange warns and fails gracefully", {
   
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active')
   
-  expect_error(rearrangeMatrix(mat_u, mat_f, reproStages = reproStages,
-                               matrixStages = matrixStages))
+  expect_error(mpm_rearrange(mat_u, mat_f, reproStages = reproStages,
+                             matrixStages = matrixStages))
 })
