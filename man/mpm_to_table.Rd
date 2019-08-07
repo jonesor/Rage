@@ -4,8 +4,8 @@
 \alias{mpm_to_table}
 \title{Generate a life table from a matrix population model}
 \usage{
-mpm_to_table(matU, matF = NULL, matC = NULL, startLife = 1,
-  nSteps = 1000)
+mpm_to_table(matU, matF = NULL, matC = NULL, start = 1,
+  xmax = 1000, lxCrit = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -20,15 +20,18 @@ reproduction)}
 (i.e. a square projection matrix reflecting transitions due to clonal
 reproduction).}
 
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
+\item{start}{The index of the first stage at which the author considers the
+beginning of life. Defaults to \code{1L}.}
 
-\item{nSteps}{Number of time steps for which the life table will be
-calculated. Time steps are in the same units as the matrix population model
-(see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000.}
+\item{xmax}{Maximum age to which the life table will be calculated (defaults
+to \code{1000}). Time steps are in the same units as the matrix population
+model (see MatrixPeriodicity column in metadata of COM(P)ADRE).}
+
+\item{lxCrit}{Minimum value of lx to which age-specific traits will be
+calculated (defaults to \code{1e-4}).}
 }
 \value{
-A \code{data.frame} containing 7-13 columns and \code{nSteps} rows.
+A \code{data.frame} containing 7-13 columns.
   Columns include:
   \item{x}{age}
   \item{lx}{survivorship to start of age class x}
@@ -58,6 +61,13 @@ This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
 can be found in section 5.3 of Caswell (2001).
 }
+\note{
+The life table is calculated recursively until the age class (x)
+  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+  whichever comes first. To force calculation to \code{xmax}, set
+  \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+  \code{xmax = Inf}.
+}
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
               c(0.5, 0.2, 0.1,   0),
@@ -74,9 +84,9 @@ matC <- rbind(c(  0,   0, 0.4, 0.5),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
 
-mpm_to_table(matU, startLife = 1, nSteps = 100)
-mpm_to_table(matU, matF, startLife = 1, nSteps = 100)
-mpm_to_table(matU, matF, matC, startLife = 1, nSteps = 100)
+mpm_to_table(matU, start = 1, xmax = 30)
+mpm_to_table(matU, matF, start = 1, xmax = 30)
+mpm_to_table(matU, matF, matC, start = 1, xmax = 30)
 
 }
 \references{

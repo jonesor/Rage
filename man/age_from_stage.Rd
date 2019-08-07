@@ -8,30 +8,34 @@
 \alias{mpm_to_mx}
 \title{Calculate age-specific traits from a from matrix population model}
 \usage{
-mpm_to_lx(matU, startLife, N)
+mpm_to_lx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
-mpm_to_px(matU, startLife, N)
+mpm_to_px(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
-mpm_to_hx(matU, startLife, N)
+mpm_to_hx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
-mpm_to_mx(matU, matR, startLife, N)
+mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life.}
+\item{start}{The index of the first stage at which the author considers the
+beginning of life. Defaults to \code{1L}.}
 
-\item{N}{Maximum age to which age-specific traits will be calculated.}
+\item{xmax}{Maximum age to which age-specific traits will be calculated
+(defaults to \code{1e5}).}
+
+\item{lxCrit}{Minimum value of lx to which age-specific traits will be
+calculated (defaults to \code{1e-4}).}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 }
 \value{
-A vector of length \code{N+1}
+A vector
 }
 \description{
 These functions use age-from-stage decomposition methods to calculate
@@ -39,6 +43,13 @@ age-specific survivorship (lx), survival probability (px), mortality hazard
 (hx), or reproduction (mx) from a matrix population model. A detailed
 description of these methods can be found in sections 5.3.1 and 5.3.2 of
 Caswell (2001).
+}
+\note{
+The output vector is calculated recursively until the age class (x)
+  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+  whichever comes first. To force calculation to \code{xmax}, set
+  \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+  \code{xmax = Inf}.
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
@@ -52,16 +63,16 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
               c(  0,   0,   0,   0))
 
 # age-specific survivorship
-mpm_to_lx(matU, startLife = 1, N = 20)
+mpm_to_lx(matU, start = 1, xmax = 20)
 
 # age-specific survival probability
-mpm_to_px(matU, startLife = 1, N = 20)
+mpm_to_px(matU, start = 1, xmax = 20)
 
 # age-specific mortality hazard
-mpm_to_hx(matU, startLife = 1, N = 20)
+mpm_to_hx(matU, start = 1, xmax = 20)
 
 # age-specific fecundity
-mpm_to_mx(matU, matF, startLife = 1, N = 20)
+mpm_to_mx(matU, matF, start = 1, xmax = 20)
 
 }
 \references{

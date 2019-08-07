@@ -12,11 +12,20 @@
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
-#' @param startLife The index of the first stage at which the author considers
-#'   the beginning of life.
-#' @param N Maximum age to which age-specific traits will be calculated.
+#' @param start The index of the first stage at which the author considers the
+#'   beginning of life. Defaults to \code{1L}.
+#' @param xmax Maximum age to which age-specific traits will be calculated
+#'   (defaults to \code{1e5}).
+#' @param lxCrit Minimum value of lx to which age-specific traits will be
+#'   calculated (defaults to \code{1e-4}).
 #' 
-#' @return A vector of length \code{N+1}
+#' @return A vector
+#' 
+#' @note The output vector is calculated recursively until the age class (x)
+#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+#'   whichever comes first. To force calculation to \code{xmax}, set
+#'   \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+#'   \code{xmax = Inf}.
 #'   
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
@@ -41,56 +50,71 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' # age-specific survivorship
-#' mpm_to_lx(matU, startLife = 1, N = 20)
+#' mpm_to_lx(matU, start = 1, xmax = 20)
 #' 
 #' # age-specific survival probability
-#' mpm_to_px(matU, startLife = 1, N = 20)
+#' mpm_to_px(matU, start = 1, xmax = 20)
 #' 
 #' # age-specific mortality hazard
-#' mpm_to_hx(matU, startLife = 1, N = 20)
+#' mpm_to_hx(matU, start = 1, xmax = 20)
 #' 
 #' # age-specific fecundity
-#' mpm_to_mx(matU, matF, startLife = 1, N = 20)
+#' mpm_to_mx(matU, matF, start = 1, xmax = 20)
 #' 
 #' @name age_from_stage
 NULL
 
 
+matU <- rbind(c(0.0, 0.0, 0.0, 0.0),
+              c(0.3, 0.3, 0.1, 0.0),
+              c(0.0, 0.2, 0.1, 0.6),
+              c(0.0, 0.1, 0.1, 0.3))
+
+matR <- rbind(c(0.0, 0.0, 1.4, 2.1),
+              c(0.0, 0.0, 0.0, 0.0),
+              c(0.0, 0.0, 0.0, 0.0),
+              c(0.0, 0.0, 0.0, 0.0))
+
+
 #' @rdname age_from_stage
 #' @export mpm_to_lx
-mpm_to_lx <- function(matU, startLife, N) {
+mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
-  checkValidStartLife(startLife, matU)
-  if (missing(N)) { stop("Argument N must be specified", call. = FALSE) }
+  checkValidStartLife(start, matU)
   
-  matUtemp <- matU
-  lx <- vector(mode = 'numeric', length = N)
+  lx <- 1.0
+  lx_vec <- lx
+  n <- rep(0.0, nrow(matU))
+  n[start] <- 1.0
+  t <- 0L
   
-  for (i in 1:N) {
-    lx[i] <- sum(matUtemp[,startLife])
-    matUtemp <- matUtemp %*% matU
+  while (lx > lxCrit & t < xmax) {
+    n <- matU %*% n
+    lx <- sum(n)
+    t <- t + 1L
+    lx_vec[t] <- lx
   }
   
-  return(c(1, lx))
+  return(c(1.0, lx_vec))
 }
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_px
-mpm_to_px <- function(matU, startLife, N) {
+mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, startLife, N)
+  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
   return(lx_to_px(lx))
 }
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_hx
-mpm_to_hx <- function(matU, startLife, N) {
+mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, startLife, N)
+  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
   return(lx_to_hx(lx))
 }
 
@@ -98,26 +122,24 @@ mpm_to_hx <- function(matU, startLife, N) {
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, startLife, N) {
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   
-  # validate arguments
-  checkValidMat(matU, warn_surv_issue = TRUE)
+  # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
-  checkValidStartLife(startLife, matU)
-  if (missing(N)) { stop("Argument N must be specified", call. = FALSE) }
   
-  matUtemp <- matU
+  N <- length(mpm_to_lx(matU, start, xmax, lxCrit))
+  
+  tempU <- matU
   mx <- vector(mode = 'numeric', length = N)
   
   for (i in 1:N) {
     # stageDist equivalent to: matUtemp %*% solve(diag(colSums(matUtemp)))
-    stageDist <- apply(matUtemp, 2, function(x) x / sum(x))
+    stageDist <- apply(tempU, 2, function(x) x / sum(x))
     phi <- matR %*% stageDist
-    mx[i] <- sum(phi[,startLife])
-    matUtemp <- matUtemp %*% matU
+    mx[i] <- sum(phi[,start])
+    tempU <- tempU %*% matU
   }
   
   mx[is.nan(mx)] <- 0
-  return(c(0, mx))
+  return(mx)
 }
-

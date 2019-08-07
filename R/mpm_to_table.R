@@ -13,12 +13,15 @@
 #' @param matC (Optional) The clonal component of a matrix population model
 #'   (i.e. a square projection matrix reflecting transitions due to clonal
 #'   reproduction).
-#' @param startLife The index of the first stage at which the author considers
-#'   the beginning of life. Defaults to 1.
-#' @param nSteps Number of time steps for which the life table will be
-#'   calculated. Time steps are in the same units as the matrix population model
-#'   (see MatrixPeriodicity column in metadata of COM(P)ADRE). Defaults to 1000.
-#' @return A \code{data.frame} containing 7-13 columns and \code{nSteps} rows.
+#' @param start The index of the first stage at which the author considers the
+#'   beginning of life. Defaults to \code{1L}.
+#' @param xmax Maximum age to which the life table will be calculated (defaults
+#'   to \code{1000}). Time steps are in the same units as the matrix population
+#'   model (see MatrixPeriodicity column in metadata of COM(P)ADRE).
+#' @param lxCrit Minimum value of lx to which age-specific traits will be
+#'   calculated (defaults to \code{1e-4}).
+#' 
+#' @return A \code{data.frame} containing 7-13 columns.
 #'   Columns include:
 #'   \item{x}{age}
 #'   \item{lx}{survivorship to start of age class x}
@@ -42,9 +45,17 @@
 #'   \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) at age x}
 #'   \item{lxmxcx}{expected number of total offspring (sexual + clonal) per original
 #'   cohort member produced at age x}
+#' 
+#' @note The life table is calculated recursively until the age class (x)
+#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+#'   whichever comes first. To force calculation to \code{xmax}, set
+#'   \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+#'   \code{xmax = Inf}.
+#' 
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk> 
 #' @author Hal Caswell <h.caswell@@uva.nl> 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
+#' 
 #' @references
 #' Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
 #' Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
@@ -55,6 +66,7 @@
 #'
 #' Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
 #' Nature, 505(7482), 169–173
+#' 
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0),
@@ -71,46 +83,48 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #'
-#' mpm_to_table(matU, startLife = 1, nSteps = 100)
-#' mpm_to_table(matU, matF, startLife = 1, nSteps = 100)
-#' mpm_to_table(matU, matF, matC, startLife = 1, nSteps = 100)
+#' mpm_to_table(matU, start = 1, xmax = 30)
+#' mpm_to_table(matU, matF, start = 1, xmax = 30)
+#' mpm_to_table(matU, matF, matC, start = 1, xmax = 30)
 #' 
 #' @export mpm_to_table
-mpm_to_table <- function(matU, matF = NULL, matC = NULL, startLife = 1,
-                         nSteps = 1000) {
+mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1,
+                         xmax = 1000, lxCrit = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   if (!is.null(matF)) checkValidMat(matF)
   if (!is.null(matC)) checkValidMat(matC)
-  checkValidStartLife(startLife, matU)
+  checkValidStartLife(start, matU)
   
   #Age-specific survivorship (lx)
-  lx <- mpm_to_lx(matU, startLife, nSteps-1)
+  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
+  
+  N <- length(lx)
   
   #Proportion of original cohort dying during each age
-  dx <- c(lx[1:(length(lx) - 1)] - lx[2:length(lx)], NA)
+  dx <- c(lx[1:(N - 1)] - lx[2:N], NA)
   
   #Force of mortality
   qx <- dx / lx
   
   #Average proportion of individuals alive at the middle of a given age
-  Lx <- (lx[1:(length(lx) - 1)] + lx[2:length(lx)]) / 2
-  Lx[nSteps] <- NA
+  Lx <- (lx[1:(N - 1)] + lx[2:N]) / 2
+  Lx[N] <- NA
   
   #Total number of individuals alive at a given age and beyond
   TxFn <- function(x) sum(Lx[x:length(Lx)], na.rm = TRUE)
   Tx <- vapply(seq_along(Lx), TxFn, numeric(1))
-  Tx[nSteps] <- NA
+  Tx[N] <- NA
   
   #Mean life expectancy conditional to a given age
   ex <- Tx / lx
   ex[is.infinite(ex)] <- NA
-  ex[nSteps] <- NA
+  ex[N] <- NA
   
   #Start to assemble output object
   out <- data.frame(
-    x = 0:(nSteps - 1),
+    x = 0:(N - 1),
     lx = lx,
     dx = dx,
     qx = qx,
@@ -120,12 +134,12 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, startLife = 1,
   )
   
   if (!is.null(matF)) {
-    out$mx <- mpm_to_mx(matU, matF, startLife, nSteps-1)
+    out$mx <- mpm_to_mx(matU, matF, start, N-1)
     out$lxmx <- out$lx * out$mx
   }
   
   if (!is.null(matC)) {
-    out$cx <- mpm_to_mx(matU, matC, startLife, nSteps-1)
+    out$cx <- mpm_to_mx(matU, matC, start, N-1)
     out$lxcx <- out$lx * out$cx
   }
   
