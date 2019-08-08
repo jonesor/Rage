@@ -1,4 +1,4 @@
-#' Calculate age-specific traits from a from matrix population model
+#' Calculate age-specific traits from a matrix population model
 #'
 #' These functions use age-from-stage decomposition methods to calculate
 #' age-specific survivorship (lx), survival probability (px), mortality hazard
@@ -13,19 +13,19 @@
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
 #' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to \code{1L}.
+#'   beginning of life. Defaults to 1.
 #' @param xmax Maximum age to which age-specific traits will be calculated
-#'   (defaults to \code{1e5}).
+#'   (defaults to \code{100000}).
 #' @param lxCrit Minimum value of lx to which age-specific traits will be
-#'   calculated (defaults to \code{1e-4}).
+#'   calculated (defaults to \code{0.0001}).
 #' 
 #' @return A vector
 #' 
 #' @note The output vector is calculated recursively until the age class (x)
-#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit},
 #'   whichever comes first. To force calculation to \code{xmax}, set
-#'   \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
-#'   \code{xmax = Inf}.
+#'   \code{lxCrit} to \code{0}. Conversely, to force calculation to
+#'   \code{lxCrit}, set \code{xmax} to \code{Inf}.
 #'   
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>

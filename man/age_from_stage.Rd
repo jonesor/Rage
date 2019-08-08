@@ -6,7 +6,7 @@
 \alias{mpm_to_lx}
 \alias{mpm_to_px}
 \alias{mpm_to_hx}
-\title{Calculate age-specific traits from a from matrix population model}
+\title{Calculate age-specific traits from a matrix population model}
 \usage{
 mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
 
@@ -26,13 +26,13 @@ square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
 \item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to \code{1L}.}
+beginning of life. Defaults to 1.}
 
 \item{xmax}{Maximum age to which age-specific traits will be calculated
-(defaults to \code{1e5}).}
+(defaults to \code{100000}).}
 
 \item{lxCrit}{Minimum value of lx to which age-specific traits will be
-calculated (defaults to \code{1e-4}).}
+calculated (defaults to \code{0.0001}).}
 }
 \value{
 A vector
@@ -46,10 +46,10 @@ Caswell (2001).
 }
 \note{
 The output vector is calculated recursively until the age class (x)
-  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit},
   whichever comes first. To force calculation to \code{xmax}, set
-  \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
-  \code{xmax = Inf}.
+  \code{lxCrit} to \code{0}. Conversely, to force calculation to
+  \code{lxCrit}, set \code{xmax} to \code{Inf}.
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
