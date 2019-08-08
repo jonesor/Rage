@@ -78,7 +78,7 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   N <- length(mpm_to_lx(matU, start, xmax, lxCrit))
   
   tempU <- matU
-  mx <- vector(mode = 'numeric', length = N)
+  mx <- numeric(N)
   
   for (i in 1:N) {
     # stageDist equivalent to: matUtemp %*% solve(diag(colSums(matUtemp)))
