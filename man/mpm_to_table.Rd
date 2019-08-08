@@ -4,8 +4,8 @@
 \alias{mpm_to_table}
 \title{Generate a life table from a matrix population model}
 \usage{
-mpm_to_table(matU, matF = NULL, matC = NULL, start = 1,
-  xmax = 1000, lxCrit = 1e-04)
+mpm_to_table(matU, matF = NULL, matC = NULL, start = 1L,
+  xmax = 1000, lx_crit = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -27,7 +27,7 @@ beginning of life. Defaults to \code{1L}.}
 to \code{1000}). Time steps are in the same units as the matrix population
 model (see MatrixPeriodicity column in metadata of COM(P)ADRE).}
 
-\item{lxCrit}{Minimum value of lx to which age-specific traits will be
+\item{lx_crit}{Minimum value of lx to which age-specific traits will be
 calculated (defaults to \code{1e-4}).}
 }
 \value{
@@ -63,9 +63,9 @@ can be found in section 5.3 of Caswell (2001).
 }
 \note{
 The life table is calculated recursively until the age class (x)
-  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+  reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit} —
   whichever comes first. To force calculation to \code{xmax}, set
-  \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+  \code{lx_crit = 0}. Conversely, to force calculation to \code{lx_crit}, set
   \code{xmax = Inf}.
 }
 \examples{

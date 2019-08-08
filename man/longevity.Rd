@@ -4,26 +4,26 @@
 \alias{longevity}
 \title{Calculate longevity from a matrix population model}
 \usage{
-longevity(matU, startLife = 1, lxCrit = 0.01, maxAge = 1000)
+longevity(matU, start = 1, xmax = 1000, lx_crit = 0.01)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
-\item{startLife}{Index of the first stage at which the author considers the
+\item{start}{Index of the first stage at which the author considers the
 beginning of life. Defaults to 1.}
 
-\item{lxCrit}{The critical proportion to calculate longevity with respect to
-(a value between 0 and 1). Defaults to 0.01.}
-
-\item{maxAge}{The maximum age to which survivorship will be calculated.
+\item{xmax}{The maximum age to which survivorship will be calculated.
 Defaults to 1000.}
+
+\item{lx_crit}{The critical proportion to calculate longevity with respect to
+(a value between 0 and 1). Defaults to 0.01.}
 }
 \value{
 Returns longevity, the integer age at which expected survivorship
-  falls below \code{lxCrit}. If survivorship doesn't reach \code{lxCrit} by
-  \code{maxAge}, returns \code{NA} and prints a warning message.
+  falls below \code{lx_crit}. If survivorship doesn't reach \code{lx_crit} by
+  \code{xmax}, returns \code{NA} and prints a warning message.
 }
 \description{
 Calculate longevity (the age a which survivorship falls to some critical
@@ -36,8 +36,8 @@ matU <- rbind(c(0.1,   0,   0,   0),
               c(  0,   0, 0.5, 0.6))
 
 longevity(matU)
-longevity(matU, lxCrit = 0.05)
-longevity(matU, startLife = 3, lxCrit = 0.05, maxAge = 50)
+longevity(matU, lx_crit = 0.05)
+longevity(matU, start = 3, xmax = 50, lx_crit = 0.05)
 
 }
 \references{

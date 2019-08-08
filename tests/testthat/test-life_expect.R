@@ -14,6 +14,6 @@ test_that("life_expect warns and fails gracefully", {
   
   expect_warning(life_expect(mat_u_zero))
   expect_warning(life_expect(mat_u_survissue))
-  expect_error(life_expect(mat_u, startLife = 10))
+  expect_error(life_expect(mat_u, start = 10))
   expect_error(life_expect(mat_u_na))
 })

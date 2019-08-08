@@ -6,7 +6,7 @@
 \usage{
 perturb_trans(matU, matF, matC = NULL, posU = matU > 0, posF = matF >
   0, posC = matC > 0, exclude_row = NULL, exclude_col = NULL,
-  pert = 1e-06, type = "sensitivity", demogstat = "lambda", ...)
+  pert = 1e-06, type = "sensitivity", demog_stat = "lambda", ...)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -48,25 +48,25 @@ analysis. See section \emph{Excluding stages}.}
 \item{type}{Whether to return "sensitivity" or "elasticity" values. Defaults
 to "sensitivity'.}
 
-\item{demogstat}{The demographic statistic to be used, as in "the
-sensitivity/elasticity of \code{demogstat} to matrix element
+\item{demog_stat}{The demographic statistic to be used, as in "the
+sensitivity/elasticity of \code{demog_stat} to matrix element
 perturbations." Defaults to the per-capita population growth rate at
 equilibrium (\eqn{lambda}). Also accepts a user-supplied function that
 performs a calculation on a projection matrix and returns a single numeric
 value.}
 
-\item{...}{Additional arguments passed to the function \code{demogstat}.}
+\item{...}{Additional arguments passed to the function \code{demog_stat}.}
 }
 \value{
 A list with 5 elements:
-\item{stasis}{sensitivity or elasticity of \code{demogstat} to stasis}
-\item{retrogression}{sensitivity or elasticity of \code{demogstat} to
+\item{stasis}{sensitivity or elasticity of \code{demog_stat} to stasis}
+\item{retrogression}{sensitivity or elasticity of \code{demog_stat} to
 retrogression}
-\item{progression}{sensitivity or elasticity of \code{demogstat} to
+\item{progression}{sensitivity or elasticity of \code{demog_stat} to
 progression}
-\item{fecundity}{sensitivity or elasticity of \code{demogstat} to sexual
+\item{fecundity}{sensitivity or elasticity of \code{demog_stat} to sexual
 fecundity}
-\item{clonality}{sensitivity or elasticity of \code{demogstat} to clonality}
+\item{clonality}{sensitivity or elasticity of \code{demog_stat} to clonality}
 }
 \description{
 Calculates the summed sensitivities or elasticities for various transition
@@ -136,7 +136,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-perturb_trans(matU, matF, demogstat = "damping")
+perturb_trans(matU, matF, demog_stat = "damping")
 }
 }
 \author{

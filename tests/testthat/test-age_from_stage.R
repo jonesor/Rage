@@ -5,7 +5,7 @@ test_that("mpm_to_ functions work correctly", {
   xmax <- 20
   
   # mpm_to_lx
-  lx <- mpm_to_lx(mat_u, start = 1, xmax = xmax, lxCrit = 0)
+  lx <- mpm_to_lx(mat_u, start = 1, xmax = xmax, lx_crit = 0)
   expect_length(lx, xmax + 1)
   expect_true(all(lx >= 0))
   expect_true(all(lx <= 1))

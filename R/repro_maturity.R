@@ -14,7 +14,7 @@
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
-#' @param startLife The index of the first stage at which the author considers
+#' @param start The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #'   
 #' @return Trait value (scalar)
@@ -39,9 +39,9 @@
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
 #' 
-#' mature_prob(matU, matF, startLife = 1)
-#' mature_age(matU, matF, startLife = 1)
-#' mature_life_expect(matU, matF, startLife = 1)
+#' mature_prob(matU, matF, start = 1)
+#' mature_age(matU, matF, start = 1)
+#' mature_life_expect(matU, matF, start = 1)
 #' 
 #' @name repro_maturity
 NULL
@@ -51,17 +51,17 @@ NULL
 #' @rdname repro_maturity
 #' @importFrom MASS ginv
 #' @export mature_prob
-mature_prob <- function(matU, matR, startLife = 1) {
+mature_prob <- function(matU, matR, start = 1L) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
-  checkValidStartLife(startLife, matU)
+  checkValidStartLife(start, matU)
   
   fec_stages <- apply(matR, 2, function(x) any(x > 0))
   Bprime <- calc_Bprime(matU, fec_stages)
   
-  return(Bprime[2, startLife])
+  return(Bprime[2, start])
 }
 
 
@@ -69,12 +69,12 @@ mature_prob <- function(matU, matR, startLife = 1) {
 #' @rdname repro_maturity
 #' @importFrom MASS ginv
 #' @export mature_age
-mature_age <- function(matU, matR, startLife = 1) {
+mature_age <- function(matU, matR, start = 1L) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
-  checkValidStartLife(startLife, matU)
+  checkValidStartLife(start, matU)
   
   m <- nrow(matU)
   fec_stages <- apply(matR, 2, function(x) any(x > 0))
@@ -89,7 +89,7 @@ mature_age <- function(matU, matR, startLife = 1) {
   Uprimecond <- D %*% Uprime %*% ginv(D)
   expTimeReprod <- colSums(ginv(diag(m) - Uprimecond))
   
-  return(expTimeReprod[startLife])
+  return(expTimeReprod[start])
 }
 
 
@@ -97,11 +97,11 @@ mature_age <- function(matU, matR, startLife = 1) {
 #' @rdname repro_maturity
 #' @importFrom MASS ginv
 #' @export mature_life_expect
-mature_life_expect <- function(matU, matR, startLife = 1) {
+mature_life_expect <- function(matU, matR, start = 1L) {
   
   # leave arg validaton to mature_age 
-  mean_age_mature <- mature_age(matU, matR, startLife)
-  l0 <- life_expect(matU, startLife)
+  mean_age_mature <- mature_age(matU, matR, start)
+  l0 <- life_expect(matU, start)
   
   return(l0 - mean_age_mature)
 }

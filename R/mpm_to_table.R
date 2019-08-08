@@ -18,7 +18,7 @@
 #' @param xmax Maximum age to which the life table will be calculated (defaults
 #'   to \code{1000}). Time steps are in the same units as the matrix population
 #'   model (see MatrixPeriodicity column in metadata of COM(P)ADRE).
-#' @param lxCrit Minimum value of lx to which age-specific traits will be
+#' @param lx_crit Minimum value of lx to which age-specific traits will be
 #'   calculated (defaults to \code{1e-4}).
 #' 
 #' @return A \code{data.frame} containing 7-13 columns.
@@ -47,9 +47,9 @@
 #'   cohort member produced at age x}
 #' 
 #' @note The life table is calculated recursively until the age class (x)
-#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit} —
+#'   reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit} —
 #'   whichever comes first. To force calculation to \code{xmax}, set
-#'   \code{lxCrit = 0}. Conversely, to force calculation to \code{lxCrit}, set
+#'   \code{lx_crit = 0}. Conversely, to force calculation to \code{lx_crit}, set
 #'   \code{xmax = Inf}.
 #' 
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk> 
@@ -88,8 +88,8 @@
 #' mpm_to_table(matU, matF, matC, start = 1, xmax = 30)
 #' 
 #' @export mpm_to_table
-mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1,
-                         xmax = 1000, lxCrit = 1e-4) {
+mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
+                         xmax = 1000, lx_crit = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -98,7 +98,7 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1,
   checkValidStartLife(start, matU)
   
   #Age-specific survivorship (lx)
-  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
+  lx <- mpm_to_lx(matU, start, xmax, lx_crit)
   
   N <- length(lx)
   

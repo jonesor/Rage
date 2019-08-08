@@ -6,7 +6,7 @@
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression)
-#' @param startLife Index of the first stage at which the author considers the
+#' @param start Index of the first stage at which the author considers the
 #'   beginning of life. Defaults to 1.
 #' @return Returns life expectancy. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
@@ -22,14 +22,14 @@
 #'               c(  0,   0, 0.5, 0.6))
 #'
 #' life_expect(matU)
-#' life_expect(matU, startLife = 2)
+#' life_expect(matU, start = 2)
 #'
 #' @export life_expect
-life_expect <- function(matU, startLife = 1) {
+life_expect <- function(matU, start = 1) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
-  checkValidStartLife(startLife, matU)
+  checkValidStartLife(start, matU)
 
   # matrix dimension
   matDim <- nrow(matU)
@@ -42,7 +42,7 @@ life_expect <- function(matU, startLife = 1) {
   if (class(N) == 'try-error' && grepl('singular', N[1])) {
     life_expect <- NA_real_
   } else {
-    life_expect <- colSums(N)[startLife]
+    life_expect <- colSums(N)[start]
   }
   
 	return(life_expect)

@@ -3,7 +3,7 @@ context("net_repro_rate")
 test_that("net_repro_rate works correctly", {
   
   x <- net_repro_rate(mat_u, mat_f)
-  x_start <- net_repro_rate(mat_u, mat_f, method = "startLife")
+  x_start <- net_repro_rate(mat_u, mat_f, method = "start")
   x_zero <- suppressWarnings(net_repro_rate(mat_u_zero, mat_f))
   x_singular <- net_repro_rate(mat_u_singular, mat_f)
 

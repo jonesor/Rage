@@ -16,16 +16,16 @@
 #'   beginning of life. Defaults to 1.
 #' @param xmax Maximum age to which age-specific traits will be calculated
 #'   (defaults to \code{100000}).
-#' @param lxCrit Minimum value of lx to which age-specific traits will be
+#' @param lx_crit Minimum value of lx to which age-specific traits will be
 #'   calculated (defaults to \code{0.0001}).
 #' 
 #' @return A vector
 #' 
 #' @note The output vector is calculated recursively until the age class (x)
-#'   reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit},
+#'   reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit},
 #'   whichever comes first. To force calculation to \code{xmax}, set
-#'   \code{lxCrit} to \code{0}. Conversely, to force calculation to
-#'   \code{lxCrit}, set \code{xmax} to \code{Inf}.
+#'   \code{lx_crit} to \code{0}. Conversely, to force calculation to
+#'   \code{lx_crit}, set \code{xmax} to \code{Inf}.
 #'   
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
@@ -51,9 +51,9 @@
 #' 
 #' # age-specific survivorship
 #' mpm_to_lx(matU)
-#' mpm_to_lx(matU, start = 2)      # starting from stage 2
-#' mpm_to_lx(matU, xmax = 10)      # to a maximum age of 10
-#' mpm_to_lx(matU, lxCrit = 0.05)  # to a minimum lx of 0.05
+#' mpm_to_lx(matU, start = 2)       # starting from stage 2
+#' mpm_to_lx(matU, xmax = 10)       # to a maximum age of 10
+#' mpm_to_lx(matU, lx_crit = 0.05)  # to a minimum lx of 0.05
 #' 
 #' # age-specific survival probability
 #' mpm_to_px(matU)
@@ -70,12 +70,12 @@ NULL
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   
   # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
   
-  N <- length(mpm_to_lx(matU, start, xmax, lxCrit))
+  N <- length(mpm_to_lx(matU, start, xmax, lx_crit))
   
   tempU <- matU
   mx <- numeric(N)
@@ -95,7 +95,7 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
 
 #' @rdname age_from_stage
 #' @export mpm_to_lx
-mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
+mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -107,7 +107,7 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
   n[start] <- 1.0
   t <- 0L
   
-  while (lx > lxCrit & t < xmax) {
+  while (lx > lx_crit & t < xmax) {
     n <- matU %*% n
     lx <- sum(n)
     t <- t + 1L
@@ -120,17 +120,17 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
 
 #' @rdname age_from_stage
 #' @export mpm_to_px
-mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
+mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
+  lx <- mpm_to_lx(matU, start, xmax, lx_crit)
   return(lx_to_px(lx))
 }
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_hx
-mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lxCrit = 1e-4) {
+mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, start, xmax, lxCrit)
+  lx <- mpm_to_lx(matU, start, xmax, lx_crit)
   return(lx_to_hx(lx))
 }

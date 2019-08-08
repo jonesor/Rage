@@ -4,10 +4,10 @@ test_that("mpm_to_table works correctly", {
   
   xmax <- 20
   
-  x_u <- mpm_to_table(mat_u, xmax = xmax, lxCrit = 0)
-  x_uf <- mpm_to_table(mat_u, mat_f, xmax = xmax, lxCrit = 0)
-  x_uc <- mpm_to_table(mat_u, matC = mat_c, xmax = xmax, lxCrit = 0)
-  x_ufc <- mpm_to_table(mat_u, mat_f, mat_c, xmax = xmax, lxCrit = 0)
+  x_u <- mpm_to_table(mat_u, xmax = xmax, lx_crit = 0)
+  x_uf <- mpm_to_table(mat_u, mat_f, xmax = xmax, lx_crit = 0)
+  x_uc <- mpm_to_table(mat_u, matC = mat_c, xmax = xmax, lx_crit = 0)
+  x_ufc <- mpm_to_table(mat_u, mat_f, mat_c, xmax = xmax, lx_crit = 0)
   
   expect_is(x_u, "data.frame")
   expect_equal(nrow(x_u), xmax + 1)

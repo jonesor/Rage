@@ -4,14 +4,14 @@
 \alias{life_expect}
 \title{Calculate life expectancy from a matrix population model}
 \usage{
-life_expect(matU, startLife = 1)
+life_expect(matU, start = 1)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
-\item{startLife}{Index of the first stage at which the author considers the
+\item{start}{Index of the first stage at which the author considers the
 beginning of life. Defaults to 1.}
 }
 \value{
@@ -29,7 +29,7 @@ matU <- rbind(c(0.1,   0,   0,   0),
               c(  0,   0, 0.5, 0.6))
 
 life_expect(matU)
-life_expect(matU, startLife = 2)
+life_expect(matU, start = 2)
 
 }
 \references{

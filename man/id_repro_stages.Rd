@@ -4,14 +4,14 @@
 \alias{id_repro_stages}
 \title{Identify which stages in a matrix population model are reproductive}
 \usage{
-id_repro_stages(matR, na.handling = "return.true")
+id_repro_stages(matR, na_handling = "return.true")
 }
 \arguments{
 \item{matR}{The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
-\item{na.handling}{One of \code{"return.na"}, \code{"return.true"}, or
+\item{na_handling}{One of \code{"return.na"}, \code{"return.true"}, or
 \code{"return.false"}. Determines how values of \code{NA} within
 \code{matR} should be handled. See Value for more details.}
 }
@@ -22,9 +22,9 @@ A logical vector of length \code{ncol(matR)}, with values of
   stage (i.e. column of \code{matR}), if there are any positive values of
   fecundity, the function will return \code{TRUE}. However, for a given
   stage, if there are no positive values of fecundity and one or more values
-  of \code{NA}, the function will return \code{NA} if \code{na.handling ==
-  "return.na"}, \code{TRUE} if \code{na.handling == "return.true"}, or
-  \code{FALSE} if \code{na.handling == "return.false"}.
+  of \code{NA}, the function will return \code{NA} if \code{na_handling ==
+  "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
+  \code{FALSE} if \code{na_handling == "return.false"}.
 }
 \description{
 Takes a fecundity matrix and returns a vector of logical values (TRUE/FALSE)
@@ -46,9 +46,9 @@ matR2 <- rbind(c(NA,  NA,  NA, 1.1),
 id_repro_stages(matR1)
 
 # compare different methods for handling NA
-id_repro_stages(matR2, na.handling = "return.na")
-id_repro_stages(matR2, na.handling = "return.true")
-id_repro_stages(matR2, na.handling = "return.false")
+id_repro_stages(matR2, na_handling = "return.na")
+id_repro_stages(matR2, na_handling = "return.true")
+id_repro_stages(matR2, na_handling = "return.false")
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

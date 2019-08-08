@@ -8,13 +8,13 @@
 \alias{mpm_to_hx}
 \title{Calculate age-specific traits from a matrix population model}
 \usage{
-mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
+mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lx_crit = 1e-04)
 
-mpm_to_lx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
+mpm_to_lx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04)
 
-mpm_to_px(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
+mpm_to_px(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04)
 
-mpm_to_hx(matU, start = 1L, xmax = 1e+05, lxCrit = 1e-04)
+mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -31,7 +31,7 @@ beginning of life. Defaults to 1.}
 \item{xmax}{Maximum age to which age-specific traits will be calculated
 (defaults to \code{100000}).}
 
-\item{lxCrit}{Minimum value of lx to which age-specific traits will be
+\item{lx_crit}{Minimum value of lx to which age-specific traits will be
 calculated (defaults to \code{0.0001}).}
 }
 \value{
@@ -46,10 +46,10 @@ Caswell (2001).
 }
 \note{
 The output vector is calculated recursively until the age class (x)
-  reaches \code{xmax} or survivorship (lx) falls below \code{lxCrit},
+  reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit},
   whichever comes first. To force calculation to \code{xmax}, set
-  \code{lxCrit} to \code{0}. Conversely, to force calculation to
-  \code{lxCrit}, set \code{xmax} to \code{Inf}.
+  \code{lx_crit} to \code{0}. Conversely, to force calculation to
+  \code{lx_crit}, set \code{xmax} to \code{Inf}.
 }
 \examples{
 matU <- rbind(c(0.1,   0,   0,   0),
@@ -64,9 +64,9 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
 
 # age-specific survivorship
 mpm_to_lx(matU)
-mpm_to_lx(matU, start = 2)      # starting from stage 2
-mpm_to_lx(matU, xmax = 10)      # to a maximum age of 10
-mpm_to_lx(matU, lxCrit = 0.05)  # to a minimum lx of 0.05
+mpm_to_lx(matU, start = 2)       # starting from stage 2
+mpm_to_lx(matU, xmax = 10)       # to a maximum age of 10
+mpm_to_lx(matU, lx_crit = 0.05)  # to a minimum lx of 0.05
 
 # age-specific survival probability
 mpm_to_px(matU)

@@ -8,11 +8,11 @@
 \title{Calculate traits relating to the age of reproductive maturity from a matrix
 population model}
 \usage{
-mature_prob(matU, matR, startLife = 1)
+mature_prob(matU, matR, start = 1L)
 
-mature_age(matU, matR, startLife = 1)
+mature_age(matU, matR, start = 1L)
 
-mature_life_expect(matU, matR, startLife = 1)
+mature_life_expect(matU, matR, start = 1L)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -23,7 +23,7 @@ progression, stasis, and retrogression)}
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
-\item{startLife}{The index of the first stage at which the author considers
+\item{start}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
 }
 \value{
@@ -48,9 +48,9 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
 
-mature_prob(matU, matF, startLife = 1)
-mature_age(matU, matF, startLife = 1)
-mature_life_expect(matU, matF, startLife = 1)
+mature_prob(matU, matF, start = 1)
+mature_age(matU, matF, start = 1)
+mature_life_expect(matU, matF, start = 1)
 
 }
 \references{

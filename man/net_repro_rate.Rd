@@ -4,7 +4,7 @@
 \alias{net_repro_rate}
 \title{Calculate net reproductive value (R0) from a matrix population model}
 \usage{
-net_repro_rate(matU, matR, startLife = 1, method = "generation")
+net_repro_rate(matU, matR, start = 1, method = "generation")
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -15,11 +15,11 @@ progression, stasis, and retrogression)}
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
-\item{startLife}{Index of the first stage at which the author considers the
-beginning of life. Only used if \code{method = "startLife"}. Defaults to 1.}
+\item{start}{Index of the first stage at which the author considers the
+beginning of life. Only used if \code{method = "start"}. Defaults to 1.}
 
 \item{method}{The method used to calculate net reproductive value, either
-\code{"generation"} or \code{"startLife"}. Defaults to \code{"generation"}.
+\code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
 See Details.}
 }
 \value{
@@ -37,12 +37,12 @@ per-generation population growth rate (i.e. the dominant eigenvalue of
 \code{matR \%*\% N}, where \code{N} is the fundamental matrix). See Caswell
 (2001) Section 5.3.4.
 
-If \code{method = "startLife"}, net reproductive value is calculated as the
+If \code{method = "start"}, net reproductive value is calculated as the
 expected lifetime production of offspring that start life in stage
-\code{startLife}, by an individual also starting life in stage
-\code{startLife} (i.e. \code{(matR \%*\% N)[startLife,startLife]}).
+\code{start}, by an individual also starting life in stage \code{start} (i.e.
+\code{(matR \%*\% N)[start,start]}).
 
-If offspring only arise in stage \code{startLife}, the two methods give the
+If offspring only arise in stage \code{start}, the two methods give the
 same result.
 }
 \examples{
@@ -58,8 +58,8 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
 
 net_repro_rate(matU, matF)
 
-# calculate R0 using the startLife method
-net_repro_rate(matU, matF, method = "startLife", startLife = 2)
+# calculate R0 using the start method
+net_repro_rate(matU, matF, method = "start", start = 2)
 
 }
 \references{

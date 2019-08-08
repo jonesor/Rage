@@ -5,7 +5,7 @@
 \title{Perturbation analysis of a matrix population model}
 \usage{
 perturb_matrix(matA, pert = 1e-06, type = "sensitivity",
-  demogstat = "lambda", ...)
+  demog_stat = "lambda", ...)
 }
 \arguments{
 \item{matA}{A matrix population model (i.e. a square projection matrix)}
@@ -14,13 +14,13 @@ perturb_matrix(matA, pert = 1e-06, type = "sensitivity",
 
 \item{type}{Whether to return "sensitivity" or "elasticity" values}
 
-\item{demogstat}{The demographic statistic to be used, as in "the
+\item{demog_stat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
 the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 accepts a user-supplied function that performs a calculation on a
 projection matrix and returns a single numeric value.}
 
-\item{...}{Additional arguments passed to the function \code{demogstat}}
+\item{...}{Additional arguments passed to the function \code{demog_stat}}
 }
 \value{
 A sensitivity or elasticity matrix
@@ -48,7 +48,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-perturb_matrix(matA, demogstat = "damping")
+perturb_matrix(matA, demog_stat = "damping")
 
 }
 \author{
