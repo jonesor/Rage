@@ -2,48 +2,29 @@
 % Please edit documentation in R/entropy_d.R
 \name{entropy_d}
 \alias{entropy_d}
-\title{Calculate Demetrius' entropy from a matrix population model}
+\title{Calculate Demetrius' entropy from trajectories of age-specific survivorship
+and fecundity}
 \usage{
-entropy_d(matU, matR, startLife = 1, nSteps = 100)
+entropy_d(lx, mx)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+\item{lx}{Age-specific survivorship trajectory (a vector of
+monotonically-declining values in the interval [0,1])}
 
-\item{matR}{The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
-
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
-
-\item{nSteps}{The maximum age to which age-specific survival (lx) and
-reproduction (mx) will be calculated. This allows the user to exclude ages
-after which mortality or fertility has plateaued (see function
-\code{\link{qsd_converge}} for more information). Defaults to 100.}
+\item{mx}{Age-specific fecundity trajectory (a vector of non-negative values)}
 }
 \value{
 Demetrius' entropy.
 }
 \description{
-Calculates Demetrius' entropy from a matrix population model, by first using
-age-from-stage decomposition methods to estimate age-specific survivorship
-(lx) and fecundity (mx).
+This function calculates Demetrius' entropy from vectors of age-specific
+survivorship (lx) and fecundity (mx).
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+lx <- c(1.00, 0.85, 0.70, 0.65, 0.55, 0.50, 0.45, 0.40, 0.35)
+mx <- c(0.00, 0.00, 1.10, 1.50, 1.60, 1.70, 1.50, 1.20, 0.70)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
-
-entropy_d(matU, matF, nSteps = 10)
-entropy_d(matU, matF, nSteps = 100)
+entropy_d(lx, mx)
 
 }
 \references{

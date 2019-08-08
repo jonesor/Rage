@@ -1,46 +1,40 @@
-#' Calculate Keyfitz's entropy from a matrix population model
+#' Calculate Keyfitz's entropy from a trajectory of age-specific survivorship
 #' 
-#' This function calculates Keyfitz's entropy from a matrix population model, by
-#' first using age-from-stage decomposition methods to estimate age-specific
+#' This function calculates Keyfitz's entropy from a vector of age-specific
 #' survivorship (lx).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param startLife The index of the first stage at which the author considers
-#'   the beginning of life. Defaults to 1.
-#' @param nSteps The age-cutoff for the decomposition of age-specific survival
-#'   (lx). This allows the user to exclude ages after which mortality or
-#'   fertility has plateaued (see function \code{\link{qsd_converge}} for more
-#'   information). Defaults to 100.
+#' @param lx Survivorship trajectory (a vector of monotonically-declining values
+#'   in the interval [0,1])
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
-#' @return Returns an estimate of Keyfitz's life table entropy.
+#'   
+#' @return Keyfitz's life table entropy.
+#' 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' 
 #' @references Keyfitz, N. (1977) Applied Mathematical Demography. New York:
 #'   Wiley.
-#' @examples
-#' matU <- rbind(c(0.2,   0,   0,   0),
-#'               c(0.3, 0.4, 0.1,   0),
-#'               c(0.1, 0.1, 0.2, 0.3),
-#'               c(  0, 0.2, 0.6, 0.5))
 #' 
-#' entropy_k(matU, nSteps = 10)
-#' entropy_k(matU, nSteps = 20)
-#' entropy_k(matU, nSteps = 100)
-#' entropy_k(matU, nSteps = 100, trapeze = TRUE)
+#' @examples
+#' lx <- 0.8^(0:20)
+#' 
+#' entropy_k(lx)
+#' entropy_k(lx, trapeze = TRUE)
 #' 
 #' @export entropy_k
-entropy_k <- function(matU, startLife = 1, nSteps = 100, trapeze = FALSE) {
+entropy_k <- function(lx, trapeze = FALSE) {
 
   # validate arguments
-  checkValidMat(matU, warn_surv_issue = TRUE)
-  checkValidStartLife(startLife, matU)
+  if (any(lx < 0 | lx > 1)) {
+    stop("All values of lx must be within the interval [0, 1]")
+  }
+  if (any(diff(lx) > 1e-7)) {
+    stop("Values of lx must be monotonically declining")
+  }
   
-  # Age-specific survivorship (lx)
-  lx <- mpm_to_lx(matU, startLife, nSteps)
-  lx <- lx[1:max(which(lx > 0))] # remove ages at/beyond which lx is 0 or NA
+  # remove ages at/beyond which lx is 0 or NA
+  lx <- lx[1:max(which(lx > 0))]
   
   # Calculate Keyfitz's entropy
   if (trapeze == TRUE) {

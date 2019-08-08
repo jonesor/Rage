@@ -2,44 +2,29 @@
 % Please edit documentation in R/entropy_k.R
 \name{entropy_k}
 \alias{entropy_k}
-\title{Calculate Keyfitz's entropy from a matrix population model}
+\title{Calculate Keyfitz's entropy from a trajectory of age-specific survivorship}
 \usage{
-entropy_k(matU, startLife = 1, nSteps = 100, trapeze = FALSE)
+entropy_k(lx, trapeze = FALSE)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
-
-\item{startLife}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
-
-\item{nSteps}{The age-cutoff for the decomposition of age-specific survival
-(lx). This allows the user to exclude ages after which mortality or
-fertility has plateaued (see function \code{\link{qsd_converge}} for more
-information). Defaults to 100.}
+\item{lx}{Survivorship trajectory (a vector of monotonically-declining values
+in the interval [0,1])}
 
 \item{trapeze}{A logical argument indicating whether the composite trapezoid
 approximation should be used for approximating the definite integral.}
 }
 \value{
-Returns an estimate of Keyfitz's life table entropy.
+Keyfitz's life table entropy.
 }
 \description{
-This function calculates Keyfitz's entropy from a matrix population model, by
-first using age-from-stage decomposition methods to estimate age-specific
+This function calculates Keyfitz's entropy from a vector of age-specific
 survivorship (lx).
 }
 \examples{
-matU <- rbind(c(0.2,   0,   0,   0),
-              c(0.3, 0.4, 0.1,   0),
-              c(0.1, 0.1, 0.2, 0.3),
-              c(  0, 0.2, 0.6, 0.5))
+lx <- 0.8^(0:20)
 
-entropy_k(matU, nSteps = 10)
-entropy_k(matU, nSteps = 20)
-entropy_k(matU, nSteps = 100)
-entropy_k(matU, nSteps = 100, trapeze = TRUE)
+entropy_k(lx)
+entropy_k(lx, trapeze = TRUE)
 
 }
 \references{
