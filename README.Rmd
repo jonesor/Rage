@@ -7,8 +7,9 @@ output: github_document
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = TRUE
+  comment = ">>",
+  eval = TRUE,
+  fig.path = "man/figures/"
 )
 options(digits = 4)
 ```
@@ -16,19 +17,20 @@ options(digits = 4)
 # Rage
 [![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)  [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
 
-An R package for matrix population model analysis. Note this package is at an early stage of development, and may contain bugs.
-
+An R package for analyzing matrix population models (MPMs). Includes functions
+for deriving life history traits (life expectancy, net reproductive rate, shape
+of mortality trajectory, etc.), age-from-stage analyses (deriving life tables or
+life table components), vital rate summaries, perturbation analyses
+(sensitivities and elasticities, including stochastic elasticities), and general
+MPM manipulation. Note this package is at an early stage of development, and may
+contain bugs.
 
 ## Installation
 
 Install from GitHub with:
 
 ```{r, eval=FALSE}
-devtools::install_github("jonesor/Rage")
-#
-# or
-#
-install.packages("remotes") # smaller and quicker to install than devtools
+# install.packages("remotes")
 remotes::install_github("jonesor/Rage")
 ```
 
@@ -38,48 +40,171 @@ remotes::install_github("jonesor/Rage")
 library(Rage)
 ```
 
-First we need a matrix population model separated into the growth/survival component and sexual reproduction component (possibly also a clonal component, but we'll skip that here).
+#### Preliminaries: create a matrix population model (MPM)
+
+The functions in Rage work on MPMs (or their components), so we'll start by
+creating an MPM that's separated into a growth/survival component (`matU`) and a
+sexual reproduction component (`matF`). We could also include a clonal
+component (`matC`), but we'll skip that here.
 
 ```{r}
-matU <- rbind(c(0.1,   0,   0,   0), # growth/survival component
+# growth/survival component
+matU <- rbind(c(0.1,   0,   0,   0),
               c(0.6, 0.2, 0.1,   0),
               c(  0, 0.5, 0.5, 0.1),
               c(  0,   0, 0.3, 0.8))
 
-matF <- rbind(c(  0,   0, 0.2, 0.6), # sexual reproduction component
+# sexual reproduction component
+matF <- rbind(c(  0,   0, 0.2, 0.6),
               c(  0,   0, 0.1, 0.2),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
 ```
 
-Now we can get to work. Here are just a few example analyses.
-<br>
-
-Calculate life expectancy:
+#### Derive life history traits from an MPM
 
 ```{r}
-life_expect(matU)
+life_expect(matU)           # life expectancy
+longevity(matU)             # longevity
+net_repro_rate(matU, matF)  # net reproductive rate
+mature_age(matU, matF)      # mean age at first reproduction
+mature_prob(matU, matF)     # probability of surviving to reproductive maturity
 ```
 
-Calculate net reproductive rate:
+Some life history traits are calculated from a life table rather than an MPM, in
+which case we can use the `mpm_to_` group of functions to derive the necessary
+life table components.
 
 ```{r}
-net_repro_rate(matU, matF)
+# first derive age-trajectories of survivorship (lx) and fecundity (mx)
+lx <- mpm_to_lx(matU)
+mx <- mpm_to_mx(matU, matF)
+
+# then calculate life history traits
+entropy_k(lx)       # Keyfitz' entropy
+entropy_d(lx, mx)   # Demetrius' entropy
+shape_surv(lx)      # shape of survival/mortality trajectory
+shape_rep(lx)       # shape of fecundity trajectory
 ```
 
-Produce a life table:
+#### Life tables and the quasi-stationary distribution
+
+Some MPMs are parameterized with a stasis loop at the maximum stage class, which
+can lead to apparent plateaus in mortality or fertility trajectories derived
+using age-from-stage methods. The function `qsd_converge` can be used to
+identify the time it takes for a cohort to reach the quasi-stationary
+distribution (QSD). This quantity can then be used to subset age trajectories of
+mortality or fertility to periods earlier than the QSD, so as to avoid
+artefactual plateaus in mortality or fertility.
+
+```{r, warning=F, message=F}
+# derive life table from MPM
+lt <- mpm_to_table(matU)
+
+# calculate time to QSD
+(q <- qsd_converge(matU))
+
+# plot mortality trajectory w/ vertical line at time to QSD
+plot(qx ~ x, data = lt, type = "l", ylim = c(0, 0.5))
+abline(v = q, lty = 2)
+```
+
+From the life table derived from `matU`, we can see a plateau in the mortality
+rate (qx) beginning around age 10. Given that the QSD is reached at 9 time
+steps, this plateau is an artefact of the stasis loop, and therefore not
+necessarily a biological reality for population represented by `matU`.
+
+One approach to accounting for this artefactual plateau in subsequent life
+history calculations is to limit our life table to the period prior to the QSD.
 
 ```{r}
-mpm_to_table(matU, matF, xmax = 15)
+# calculate the shape of the survival/mortality trajectory
+shape_surv(lt$lx)       # full lx trajectory
+shape_surv(lt$lx[1:q])  # lx trajectory prior to the QSD
 ```
 
-Collapse the matrix population model to two stages, pre-reproductive and reproductive, and conduct perturbation analyses on the vital rates of the collapsed matrix:
+#### Standardized vital rates
+
+The transition rates that make up MPMs often reflect products of two or more
+vital rates. For instance a 'growth' transition from one stage class to the next
+may be a product of two vital rates: survival, and growth conditional on
+survival. The `vr_` group of functions are used to derive vital rates from an
+MPM. The vital rates may be averaged across the entire MPM (`vr_` functions), or
+averaged within stage classes (`vr_vec_` functions).
 
 ```{r}
-# pre-reproductive stages are 1 and 2, reproductive stages are 3 and 4
-collapsed_mpm <- mpm_collapse(matU, matF, collapse = list(1:2, 3:4))
+# MPM-averaged vital rates (scalar)
+vr_survival(matU)
+vr_growth(matU)
+vr_shrinkage(matU)
+vr_fecundity(matU, matF)
 
-# perturbation analysis (summed elasticities for various vital-rates)
-perturb_vr(collapsed_mpm$matU, collapsed_mpm$matF, type = "elasticity")
+# stage-averaged vital rates (vector)
+vr_vec_survival(matU)
+vr_vec_growth(matU)
+vr_vec_shrinkage(matU)
+vr_vec_fecundity(matU, matF)
 ```
 
+#### Perturbation analyses
+
+The `perturb_matrix` function measures the response of a demographic statistic
+to perturbation of individual matrix elements (i.e. sensitivities and
+elasticities). The `perturb_vr` and `perturb_trans` functions implement
+perturbation analyses by vital rate type (survival, growth, etc.) and transition
+type (stasis, retrogression, etc.), respectively.
+
+```{r}
+# matrix element perturbation
+perturb_matrix(matU + matF, type = "sensitivity")
+
+# vital rate perturbation
+# (we use as.data.frame here for prettier printing)
+as.data.frame(perturb_vr(matU, matF, type = "sensitivity"))
+
+# transition type perturbation
+as.data.frame(perturb_trans(matU, matF, type = "sensitivity"))
+```
+
+## List of functions
+
+| Category | Function | Description   |
+|----------------|--------------|--------------------------------------|
+| Life table           | `mpm_to_table`   | MPM to life table |
+|                      | `mpm_to_lx`      | MPM to survivorship trajectory |
+|                      | `mpm_to_px`      | MPM to survival trajectory |
+|                      | `mpm_to_hx`      | MPM to mortality hazard trajectory |
+|                      | `mpm_to_mx`      | MPM to fecundity trajectory |
+|                      | `lx_to_[px/hx]`  | Convert from survivorship trajectory |
+|                      | `px_to_[lx/hx]`  | Convert from survival trajectory |
+|                      | `hx_to_[lx/px]`  | Convert from mortality hazard trajectory |
+|                      | `qsd_converge`   | Time to quasi-stationary destribution |
+| Life history traits  | `life_expect`    | Life expectancy |
+|                      | `longevity`      | Longevity |
+|                      | `net_repro_rate` | Net reproductive rate |
+|                      | `gen_time`       | Generation time |
+|                      | `mature_age`     | Age at reproductive maturity |
+|                      | `mature_prob`    | Probability of reaching reproductive maturity |
+|                      | `mature_life_expect` | Remaining life expectancy at maturity |
+|                      | `entropy_d`      | Demetrius' entropy |
+|                      | `entropy_k`      | Keyfitz' entropy |
+|                      | `shape_surv`     | Shape of survival/mortality trajectory |
+|                      | `shape_rep`      | Shape of fecundity trajectory |
+| Vital rates          | `vr_[...]`       | MPM-averaged vital rates
+|                      | `vr_vec_[...]`   | Stage-averaged vital rates
+|                      | `vr_mat_[...]`   | Survival-independent vital rates |
+| Perturbation         | `perturb_matrix`     | Perturbation analysis of whole matrix |
+|                      | `perturb_trans`      | Perturbation analysis of transition types |
+|                      | `perturb_vitals`     | Perturbation analysis of vital rate types |
+|                      | `perturb_stochastic` | Stochastic perturbation analysis |
+| MPM transformation   | `mpm_split`          | Split MPM into survival and reproductive components |
+|                      | `mpm_rearrange`      | Rearrange MPM to segregate reproductive stages |
+|                      | `mpm_collapse`       | Collapse MPM to smaller number of stages |
+|                      | `mpm_standardize`    | Collapse MPM to standardized set of stages |
+|                      | `standard_stages`    | Group stages into standardized sets |
+|                      | `id_repro_stages`    | Identify reproductive stages |
+|                      | `plot_life_cycle`    | Plot a life cycle diagram |
+
+## Contributions
+
+All contributions are welcome. Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
