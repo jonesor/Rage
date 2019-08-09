@@ -11,7 +11,6 @@ test_that("qsd_converge works correctly", {
 })
 
 test_that("qsd_converge warns and fails gracefully", {
-  expect_warning(qsd_converge(mat_u_survissue))
   expect_error(qsd_converge(mat_u_na))
   expect_error(qsd_converge(mat_u, start = 10))
 })

@@ -78,7 +78,7 @@
 qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1000L) {
   
   # validate arguments
-  checkValidMat(mat, warn_surv_issue = TRUE)
+  checkValidMat(mat)
   checkValidStartLife(start, mat)
   
   # if not ergodic, remove stages not connected from start
