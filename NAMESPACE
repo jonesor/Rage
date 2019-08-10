@@ -2,6 +2,7 @@
 
 export(entropy_d)
 export(entropy_k)
+export(gen_time)
 export(hx_to_lx)
 export(hx_to_px)
 export(id_repro_stages)
