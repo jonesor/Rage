@@ -46,15 +46,17 @@ matF <- rbind(c(  0,   0, 0.2, 0.6),
 
 ``` r
 life_expect(matU)           # life expectancy
->> [1] 5.749
+#> [1] 5.749
 longevity(matU)             # longevity
->> [1] 36
+#> [1] 36
 net_repro_rate(matU, matF)  # net reproductive rate
->> [1] 2.464
+#> [1] 2.464
+gen_time(matU, matF)        # generation time
+#> [1] 9.784
 mature_age(matU, matF)      # mean age at first reproduction
->> [1] 3.361
+#> [1] 3.361
 mature_prob(matU, matF)     # probability of surviving to reproductive maturity
->> [1] 0.4167
+#> [1] 0.4167
 ```
 
 Some life history traits are calculated from a life table rather than an MPM, in which case we can use the `mpm_to_` group of functions to derive the necessary life table components.
@@ -66,13 +68,13 @@ mx <- mpm_to_mx(matU, matF)
 
 # then calculate life history traits
 entropy_k(lx)       # Keyfitz' entropy
->> [1] 1.279
+#> [1] 1.279
 entropy_d(lx, mx)   # Demetrius' entropy
->> [1] 2.371
+#> [1] 2.371
 shape_surv(lx)      # shape of survival/mortality trajectory
->> [1] -0.03364
+#> [1] -0.03364
 shape_rep(lx)       # shape of fecundity trajectory
->> [1] 0.3981
+#> [1] 0.3981
 ```
 
 #### Life tables and the quasi-stationary distribution
@@ -85,7 +87,7 @@ lt <- mpm_to_table(matU)
 
 # calculate time to QSD
 (q <- qsd_converge(matU))
->> [1] 9
+#> [1] 9
 
 # plot mortality trajectory w/ vertical line at time to QSD
 plot(qx ~ x, data = lt, type = "l", ylim = c(0, 0.5))
@@ -94,16 +96,16 @@ abline(v = q, lty = 2)
 
 ![](man/figures/unnamed-chunk-7-1.png)
 
-From the life table derived from `matU`, we can see a plateau in the mortality rate (qx) beginning around age 10. Given that the QSD is reached at 9 time steps, this plateau is an artefact of the stasis loop, and therefore not necessarily a biological reality for population represented by `matU`.
+From the life table derived from `matU`, we can see a plateau in the mortality rate (qx) beginning around age 10. Given that the QSD is reached at 9 time steps, this plateau is an artefact of the stasis loop, and therefore not necessarily a biological reality for the population represented by `matU`.
 
 One approach to accounting for this artefactual plateau in subsequent life history calculations is to limit our life table to the period prior to the QSD.
 
 ``` r
 # calculate the shape of the survival/mortality trajectory
 shape_surv(lt$lx)       # full lx trajectory
->> [1] -0.03364
+#> [1] -0.03364
 shape_surv(lt$lx[1:q])  # lx trajectory prior to the QSD
->> [1] -0.1255
+#> [1] -0.1255
 ```
 
 #### Standardized vital rates
@@ -113,23 +115,23 @@ The transition rates that make up MPMs often reflect products of two or more vit
 ``` r
 # MPM-averaged vital rates (scalar)
 vr_survival(matU)
->> [1] 0.8
+#> [1] 0.8
 vr_growth(matU)
->> [1] 0.6349
+#> [1] 0.6349
 vr_shrinkage(matU)
->> [1] 0.1111
+#> [1] 0.1111
 vr_fecundity(matU, matF)
->> [1] 0.6111
+#> [1] 0.6111
 
 # stage-averaged vital rates (vector)
 vr_vec_survival(matU)
->> [1] 0.7 0.7 0.9 0.9
+#> [1] 0.7 0.7 0.9 0.9
 vr_vec_growth(matU)
->> [1] 0.8571 0.7143 0.3333     NA
+#> [1] 0.8571 0.7143 0.3333     NA
 vr_vec_shrinkage(matU)
->> [1]     NA     NA 0.1111 0.1111
+#> [1]     NA     NA 0.1111 0.1111
 vr_vec_fecundity(matU, matF)
->> [1]     NA     NA 0.3333 0.8889
+#> [1]     NA     NA 0.3333 0.8889
 ```
 
 #### Perturbation analyses
@@ -139,22 +141,22 @@ The `perturb_matrix` function measures the response of a demographic statistic t
 ``` r
 # matrix element perturbation
 perturb_matrix(matU + matF, type = "sensitivity")
->>        [,1]   [,2]   [,3]   [,4]
->> [1,] 0.0841 0.1029 0.1038 0.1051
->> [2,] 0.1397 0.1709 0.1725 0.1745
->> [3,] 0.2504 0.3064 0.3093 0.3129
->> [4,] 0.3488 0.4267 0.4307 0.4358
+#>        [,1]   [,2]   [,3]   [,4]
+#> [1,] 0.0841 0.1029 0.1038 0.1051
+#> [2,] 0.1397 0.1709 0.1725 0.1745
+#> [3,] 0.2504 0.3064 0.3093 0.3129
+#> [4,] 0.3488 0.4267 0.4307 0.4358
 
 # vital rate perturbation
 # (we use as.data.frame here for prettier printing)
 as.data.frame(perturb_vr(matU, matF, type = "sensitivity"))
->>   survival growth shrinkage fecundity clonality
->> 1    1.307 0.2431   -0.2337    0.5003         0
+#>   survival growth shrinkage fecundity clonality
+#> 1    1.307 0.2431   -0.2337    0.5003         0
 
 # transition type perturbation
 as.data.frame(perturb_trans(matU, matF, type = "sensitivity"))
->>   stasis  retro  progr fecundity clonality
->> 1      1 0.4853 0.8768    0.5559        NA
+#>   stasis  retro  progr fecundity clonality
+#> 1      1 0.4853 0.8768    0.5559        NA
 ```
 
 List of functions

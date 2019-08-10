@@ -7,7 +7,7 @@ output: github_document
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = ">>",
+  comment = "#>",
   eval = TRUE,
   fig.path = "man/figures/"
 )
@@ -67,6 +67,7 @@ matF <- rbind(c(  0,   0, 0.2, 0.6),
 life_expect(matU)           # life expectancy
 longevity(matU)             # longevity
 net_repro_rate(matU, matF)  # net reproductive rate
+gen_time(matU, matF)        # generation time
 mature_age(matU, matF)      # mean age at first reproduction
 mature_prob(matU, matF)     # probability of surviving to reproductive maturity
 ```
@@ -112,7 +113,7 @@ abline(v = q, lty = 2)
 From the life table derived from `matU`, we can see a plateau in the mortality
 rate (qx) beginning around age 10. Given that the QSD is reached at 9 time
 steps, this plateau is an artefact of the stasis loop, and therefore not
-necessarily a biological reality for population represented by `matU`.
+necessarily a biological reality for the population represented by `matU`.
 
 One approach to accounting for this artefactual plateau in subsequent life
 history calculations is to limit our life table to the period prior to the QSD.
