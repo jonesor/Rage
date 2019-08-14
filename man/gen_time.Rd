@@ -4,7 +4,7 @@
 \alias{gen_time}
 \title{Calculate generation time from a matrix population model}
 \usage{
-gen_time(matU, matR, start = 1, method = "generation")
+gen_time(matU, matR)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a

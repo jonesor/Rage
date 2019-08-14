@@ -43,7 +43,7 @@
 #' 
 #' @importFrom popbio lambda
 #' @export gen_time
-gen_time <- function(matU, matR, start = 1, method = "generation") {
+gen_time <- function(matU, matR) {
   
   # leave arg validation to net_repro_rate
   R0 <- net_repro_rate(matU, matR)
