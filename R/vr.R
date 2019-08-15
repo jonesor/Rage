@@ -30,6 +30,9 @@
 #'   elements indicating whether a given \code{matR} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
 #'   \emph{Possible transitions}).
+#' @param exclude Integer or logical vector indicating stages for which
+#'   transitions both \emph{to} and \emph{from} the stage should be excluded
+#'   from the calculation of vital rates. See section \emph{Excluding stages}.
 #' @param exclude_row Integer or logical vector indicating stages for which
 #'   transitions \emph{to} the stage should be excluded from the calculation of
 #'   vital rates. See section \emph{Excluding stages}.
@@ -97,7 +100,8 @@
 #' exclude transitions \emph{to} the dormant stage class using the argument
 #' \code{exclude_row}. We may or may not want to ignore 'growth' transitions
 #' \emph{from} the dormant stage class, which can be done using
-#' \code{exclude_col}.
+#' \code{exclude_col}. To exclude transitions both \emph{to and from} a given
+#' set of stages, use argument \code{exclude}.
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'   
@@ -114,9 +118,9 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' vr_survival(matU, exclude_col = 4)
-#' vr_growth(matU, exclude_row = 4, exclude_col = 4)
-#' vr_shrinkage(matU, exclude_row = 4, exclude_col = 4)
-#' vr_stasis(matU, exclude_col = 4)
+#' vr_growth(matU, exclude = 4)
+#' vr_shrinkage(matU, exclude = 4)
+#' vr_stasis(matU, exclude = 4)
 #' 
 #' vr_dorm_enter(matU, dorm_stages = 4)
 #' vr_dorm_exit(matU, dorm_stages = 4)
@@ -146,6 +150,7 @@ vr_survival <- function(matU,
 #' @export vr_growth
 vr_growth <- function(matU,
                       posU = matU > 0,
+                      exclude = NULL,
                       exclude_row = NULL,
                       exclude_col = NULL,
                       weights_col = NULL,
@@ -153,6 +158,7 @@ vr_growth <- function(matU,
   
   vr_vec <- vr_vec_growth(matU = matU,
                           posU = posU,
+                          exclude = exclude,
                           exclude_row = exclude_row,
                           exclude_col = exclude_col,
                           surv_only_na = surv_only_na)
@@ -165,6 +171,7 @@ vr_growth <- function(matU,
 #' @export vr_shrinkage
 vr_shrinkage <- function(matU,
                          posU = matU > 0,
+                         exclude = NULL,
                          exclude_row = NULL,
                          exclude_col = NULL,
                          weights_col = NULL,
@@ -172,6 +179,7 @@ vr_shrinkage <- function(matU,
   
   vr_vec <- vr_vec_shrinkage(matU = matU,
                              posU = posU,
+                             exclude = exclude,
                              exclude_row = exclude_row,
                              exclude_col = exclude_col,
                              surv_only_na = surv_only_na)
@@ -184,13 +192,13 @@ vr_shrinkage <- function(matU,
 #' @export vr_stasis
 vr_stasis <- function(matU,
                       posU = matU > 0,
-                      exclude_col = NULL,
+                      exclude = NULL,
                       weights_col = NULL,
                       surv_only_na = TRUE) {
   
   vr_vec <- vr_vec_stasis(matU = matU,
                           posU = posU,
-                          exclude_col = exclude_col,
+                          exclude = exclude,
                           surv_only_na = surv_only_na)
   
   return(column_weight(vr_vec, weights_col))
