@@ -79,6 +79,9 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
   # keep only real values
   sensA <- Re(sensA)
   
+  # copy attributes from matA
+  attributes(sensA) <- attributes(matA)
+  
   # return
   if (type == "sensitivity") {
     return(sensA)

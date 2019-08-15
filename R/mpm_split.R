@@ -39,5 +39,10 @@ mpm_split <- function(matA) {
   # matC is all zeros
   matC <- matrix(0, nrow = dim, ncol = dim)
   
+  # copy attributes of matA
+  attributes(matU) <- attributes(matA)
+  attributes(matF) <- attributes(matA)
+  attributes(matC) <- attributes(matA)
+  
   return(list(matU = matU, matF = matF, matC = matC))
 }

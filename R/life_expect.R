@@ -42,7 +42,7 @@ life_expect <- function(matU, start = 1) {
   if (class(N) == 'try-error' && grepl('singular', N[1])) {
     life_expect <- NA_real_
   } else {
-    life_expect <- colSums(N)[start]
+    life_expect <- as.numeric(colSums(N)[start])
   }
   
 	return(life_expect)
