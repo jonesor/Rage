@@ -2,12 +2,18 @@ context("qsd_converge")
 
 test_that("qsd_converge works correctly", {
   
-  x <- qsd_converge(mat_u)
-  x_zero <- suppressWarnings(qsd_converge(mat_u_zero))
+  x1 <- qsd_converge(mat_u)
+  expect_length(x1, 1L)
+  expect_true(x1 > 0)
   
-  expect_length(x, 1L)
-  expect_true(x > 0)
-  expect_equal(x_zero, 1L)
+  # matU all zero
+  x2 <- suppressWarnings(qsd_converge(mat_u_zero))
+  expect_equal(x2, 1L)
+  
+  # multiple starting stages
+  x3 <- qsd_converge(mat_u, start = c(0.8, 0.2, 0, 0))
+  expect_length(x3, 1L)
+  expect_true(x3 > 0)
 })
 
 test_that("qsd_converge warns and fails gracefully", {

@@ -17,8 +17,10 @@
 #' 
 #' @param mat A matrix population model, or component thereof (i.e. a square
 #'   projection matrix)
-#' @param start The index of the first stage at which the author considers
-#'   the beginning of life. Defaults to 1.
+#' @param start The index of the first stage at which the author considers the
+#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+#'   starting population vector (in which case \code{length(start)} must match
+#'   \code{ncol(matU))}. See section \emph{Starting from first reproduction}.
 #' @param conv Proportional distance threshold from the stationary stage
 #'   distribution indicating convergence. E.g. This value should be 0.05 if the
 #'   user wants to obtain the time step when the stage distribution is within a
@@ -30,6 +32,22 @@
 #' @return An integer indicating the first time step at which the
 #'   quasi-stationary stage distribution is reached (or an \code{NA} and a
 #'   warning if the quasi-stationary distribution is not reached).
+#' 
+#' @section Starting from multiple stages:
+#' Rather than specifying argument \code{start} as a single stage class from
+#' which all individuals start life, it may sometimes be desirable to allow for
+#' multiple starting stage classes. For example, if we want to start our
+#' calculation of QSD from reproductive maturity (i.e. first reproduction), we
+#' should account for the possibility that there may be multiple stage classes
+#' in which an individual could first reproduce.
+#' 
+#' To specify multiple starting stage classes, specify argument \code{start} as
+#' the desired starting population vector (\strong{n1}), giving the proportion
+#' of individuals starting in each stage class (the length of \code{start}
+#' should match the number of columns in the relevant MPM).
+#' 
+#' See function \code{\link{mature_distrib}} for calculating the proportion of
+#' individuals achieving reproductive maturity in each stage class.
 #' 
 #' @note The time required for a cohort to reach its QSD depends on the initial
 #'   population vector of the cohort (for our purposes, the starting stage
@@ -65,12 +83,18 @@
 #'   Evolutionary Ecology, 32, 9-28. https://doi.org/10.1007/s10682-017-9923-2
 #' 
 #' @examples
-#' mat <- rbind(c(0.1,   0,   0,   0),
-#'              c(0.5, 0.2, 0.1,   0),
-#'              c(  0, 0.3, 0.3, 0.1),
-#'              c(  0,   0, 0.5, 0.6))
+#' data(mpm1)
 #' 
-#' qsd_converge(mat)
+#' # starting stage = 2 
+#' qsd_converge(mpm1$matU, start = 2)
+#' 
+#' # convergence threshold = 0.001
+#' qsd_converge(mpm1$matU, start = 2, conv = 0.001)
+#' 
+#' # starting from first reproduction
+#' repstages <- id_repro_stages(mpm1$matF)
+#' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+#' qsd_converge(mpm1$matU, start = n1)
 #' 
 #' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic
@@ -79,39 +103,44 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1000L) {
   
   # validate arguments
   checkValidMat(mat)
-  checkValidStartLife(start, mat)
+  checkValidStartLife(start, mat, start_vec = TRUE)
+  
+  if (length(start) == 1) {
+    start_vec <- rep(0.0, nrow(mat))
+    start_vec[start] <- 1.0
+  } else {
+    start_vec <- start
+  }
   
   # if not ergodic, remove stages not connected from start
   if (!isErgodic(mat)) {
     
-    n <- rep(0, nrow(mat))
-    n[start] <- 1
-    
     nonzero <- rep(FALSE, nrow(mat))
-    nonzero[start] <- TRUE
+    nonzero[start_vec > 0] <- TRUE
     
+    n <- start_vec
     t <- 1L
     
-    while (!all(nonzero) & t < (nrow(mat) * 3)) {
+    while (!all(nonzero) & t < (nrow(mat) * 2)) {
       n <- mat %*% n
       nonzero[n > 0] <- TRUE
       t <- t + 1L
     }
+    
     mat <- as.matrix(mat[nonzero,nonzero])
-    start <- which(which(nonzero) == start)
+    start_vec <- start_vec[nonzero]
   }
   
   if (!isErgodic(mat)) {
     stop("Matrix is still non-ergodic after removing stages not connected",
-         "from stage 'start'")
+         "from stage 'start'", call. = FALSE)
   }
 
   # stable distribution
   w <- stable.stage(mat)
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others
-  n <- rep(0, nrow(mat))
-  n[start] <- 1
+  n <- start_vec
   
   # iterate cohort (n = cohort population vector, p = proportional structure)
   dist <- conv + 1

@@ -11,8 +11,10 @@ qsd_converge(mat, start = 1L, conv = 0.05, N = 1000L)
 \item{mat}{A matrix population model, or component thereof (i.e. a square
 projection matrix)}
 
-\item{start}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
+\item{start}{The index of the first stage at which the author considers the
+beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+starting population vector (in which case \code{length(start)} must match
+\code{ncol(matU))}. See section \emph{Starting from first reproduction}.}
 
 \item{conv}{Proportional distance threshold from the stationary stage
 distribution indicating convergence. E.g. This value should be 0.05 if the
@@ -63,13 +65,37 @@ The time required for a cohort to reach its QSD depends on the initial
   the regular calculation. Otherwise, if the matrix cannot be made ergodic,
   the function will throw an error.
 }
-\examples{
-mat <- rbind(c(0.1,   0,   0,   0),
-             c(0.5, 0.2, 0.1,   0),
-             c(  0, 0.3, 0.3, 0.1),
-             c(  0,   0, 0.5, 0.6))
+\section{Starting from multiple stages}{
 
-qsd_converge(mat)
+Rather than specifying argument \code{start} as a single stage class from
+which all individuals start life, it may sometimes be desirable to allow for
+multiple starting stage classes. For example, if we want to start our
+calculation of QSD from reproductive maturity (i.e. first reproduction), we
+should account for the possibility that there may be multiple stage classes
+in which an individual could first reproduce.
+
+To specify multiple starting stage classes, specify argument \code{start} as
+the desired starting population vector (\strong{n1}), giving the proportion
+of individuals starting in each stage class (the length of \code{start}
+should match the number of columns in the relevant MPM).
+
+See function \code{\link{mature_distrib}} for calculating the proportion of
+individuals achieving reproductive maturity in each stage class.
+}
+
+\examples{
+data(mpm1)
+
+# starting stage = 2 
+qsd_converge(mpm1$matU, start = 2)
+
+# convergence threshold = 0.001
+qsd_converge(mpm1$matU, start = 2, conv = 0.001)
+
+# starting from first reproduction
+repstages <- id_repro_stages(mpm1$matF)
+n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+qsd_converge(mpm1$matU, start = n1)
 
 }
 \references{

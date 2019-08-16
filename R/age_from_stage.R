@@ -13,13 +13,31 @@
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
 #' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1.
+#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+#'   starting population vector (in which case \code{length(start)} must match
+#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which age-specific traits will be calculated
 #'   (defaults to \code{100000}).
 #' @param lx_crit Minimum value of lx to which age-specific traits will be
 #'   calculated (defaults to \code{0.0001}).
 #' 
 #' @return A vector
+#' 
+#' @section Starting from multiple stages:
+#' Rather than specifying argument \code{start} as a single stage class from
+#' which all individuals start life, it may sometimes be desirable to allow for
+#' multiple starting stage classes. For example, if we want to start our
+#' calculation of age-specific traits from reproductive maturity (i.e. first
+#' reproduction), we should account for the possibility that there may be
+#' multiple stage classes in which an individual could first reproduce.
+#' 
+#' To specify multiple starting stage classes, specify argument \code{start} as
+#' the desired starting population vector (\strong{n1}), giving the proportion
+#' of individuals starting in each stage class (the length of \code{start}
+#' should match the number of columns in the relevant MPM).
+#' 
+#' See function \code{\link{mature_distrib}} for calculating the proportion of
+#' individuals achieving reproductive maturity in each stage class.
 #' 
 #' @note The output vector is calculated recursively until the age class (x)
 #'   reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit},
@@ -39,30 +57,32 @@
 #'   978-0878930968
 #' 
 #' @examples
-#' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.4, 0.2, 0.1,   0),
-#'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.4, 0.5))
-#' 
-#' matF <- rbind(c(  0,   0, 1.1, 1.6),
-#'               c(  0,   0, 0.8, 0.4),
-#'               c(  0,   0,   0,   0),
-#'               c(  0,   0,   0,   0))
+#' data(mpm1)
 #' 
 #' # age-specific survivorship
-#' mpm_to_lx(matU)
-#' mpm_to_lx(matU, start = 2)       # starting from stage 2
-#' mpm_to_lx(matU, xmax = 10)       # to a maximum age of 10
-#' mpm_to_lx(matU, lx_crit = 0.05)  # to a minimum lx of 0.05
+#' mpm_to_lx(mpm1$matU)
+#' mpm_to_lx(mpm1$matU, start = 2)       # starting from stage 2
+#' mpm_to_lx(mpm1$matU, xmax = 10)       # to a maximum age of 10
+#' mpm_to_lx(mpm1$matU, lx_crit = 0.05)  # to a minimum lx of 0.05
 #' 
 #' # age-specific survival probability
-#' mpm_to_px(matU)
+#' mpm_to_px(mpm1$matU)
 #' 
 #' # age-specific mortality hazard
-#' mpm_to_hx(matU)
+#' mpm_to_hx(mpm1$matU)
 #' 
 #' # age-specific fecundity
-#' mpm_to_mx(matU, matF)
+#' mpm_to_mx(mpm1$matU, mpm1$matF)
+#' 
+#' 
+#' ### starting from first reproduction
+#' repstages <- id_repro_stages(mpm1$matF)
+#' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+#' 
+#' mpm_to_lx(mpm1$matU, start = n1)
+#' mpm_to_px(mpm1$matU, start = n1)
+#' mpm_to_hx(mpm1$matU, start = n1)
+#' mpm_to_mx(mpm1$matU, mpm1$matF, start = n1)
 #' 
 #' @name age_from_stage
 NULL
@@ -77,15 +97,20 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   
   N <- length(mpm_to_lx(matU, start, xmax, lx_crit))
   
-  tempU <- matU
+  if (length(start) > 1) {
+    n <- start
+  } else {
+    n <- rep(0.0, nrow(matU))
+    n[start] <- 1.0
+  }
+  
   mx <- numeric(N)
   
   for (i in 1:N) {
-    # stageDist equivalent to: matUtemp %*% solve(diag(colSums(matUtemp)))
-    stageDist <- apply(tempU, 2, function(x) x / sum(x))
-    phi <- matR %*% stageDist
-    mx[i] <- sum(phi[,start])
-    tempU <- tempU %*% matU
+    n <- n / sum(n)
+    phi <- matR %*% n
+    mx[i] <- sum(phi)
+    n <- matU %*% n
   }
   
   mx[is.nan(mx)] <- 0
@@ -99,13 +124,18 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
-  checkValidStartLife(start, matU)
+  checkValidStartLife(start, matU, start_vec = TRUE)
   
+  t <- 0L
   lx <- 1.0
   lx_vec <- lx
-  n <- rep(0.0, nrow(matU))
-  n[start] <- 1.0
-  t <- 0L
+  
+  if (length(start) > 1) {
+    n <- start / sum(start)
+  } else {
+    n <- rep(0.0, nrow(matU))
+    n[start] <- 1.0
+  }
   
   while (lx > lx_crit & t < xmax) {
     n <- matU %*% n

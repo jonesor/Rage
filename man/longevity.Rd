@@ -4,15 +4,17 @@
 \alias{longevity}
 \title{Calculate longevity from a matrix population model}
 \usage{
-longevity(matU, start = 1, xmax = 1000, lx_crit = 0.01)
+longevity(matU, start = 1L, xmax = 1000, lx_crit = 0.01)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
-\item{start}{Index of the first stage at which the author considers the
-beginning of life. Defaults to 1.}
+\item{start}{The index of the first stage at which the author considers the
+beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+starting population vector (in which case \code{length(start)} must match
+\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{xmax}{The maximum age to which survivorship will be calculated.
 Defaults to 1000.}
@@ -29,15 +31,35 @@ Returns longevity, the integer age at which expected survivorship
 Calculate longevity (the age a which survivorship falls to some critical
 proportion) from a matrix population model
 }
-\examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+\section{Starting from multiple stages}{
 
-longevity(matU)
-longevity(matU, lx_crit = 0.05)
-longevity(matU, start = 3, xmax = 50, lx_crit = 0.05)
+Rather than specifying argument \code{start} as a single stage class from
+which all individuals start life, it may sometimes be desirable to allow for
+multiple starting stage classes. For example, if we want to start our
+calculation of longevity from reproductive maturity (i.e. first
+reproduction), we should account for the possibility that there may be
+multiple stage classes in which an individual could first reproduce.
+
+To specify multiple starting stage classes, specify argument \code{start} as
+the desired starting population vector (\strong{n1}), giving the proportion
+of individuals starting in each stage class (the length of \code{start}
+should match the number of columns in the relevant MPM).
+
+See function \code{\link{mature_distrib}} for calculating the proportion of
+individuals achieving reproductive maturity in each stage class.
+}
+
+\examples{
+data(mpm1)
+
+longevity(mpm1$matU, start = 2)
+longevity(mpm1$matU, start = 2, lx_crit = 0.05)
+
+### starting from first reproduction
+repstages <- id_repro_stages(mpm1$matF)
+n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+
+longevity(mpm1$matU, start = n1)
 
 }
 \references{
