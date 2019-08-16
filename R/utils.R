@@ -33,7 +33,7 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
   
   if (start_vec) {
     if ((length(s) > 1 & length(s) != ncol(M)) ||
-        (length(s) == 1 & !(s %in% seq_len(nrow(M))))) {
+        (length(s) == 1 && !(s %in% seq_len(nrow(M))))) {
       stop("Argument 'start' must be an integer within 1:nrow(matU), ",
            "or a vector of length ncol(matU)", call. = FALSE)
     }
