@@ -5,6 +5,7 @@
 \alias{mature_prob}
 \alias{mature_age}
 \alias{mature_life_expect}
+\alias{mature_distrib}
 \title{Calculate traits relating to the age of reproductive maturity from a matrix
 population model}
 \usage{
@@ -13,6 +14,8 @@ mature_prob(matU, matR, start = 1L)
 mature_age(matU, matR, start = 1L)
 
 mature_life_expect(matU, matR, start = 1L)
+
+mature_distrib(matU, start = 1L, repro_stages)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -25,32 +28,35 @@ sexual, clonal, or both)}
 
 \item{start}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
+
+\item{repro_stages}{Logical vector indicating which stages are reproductive.
+Must be of length \code{ncol(matU)}.}
 }
 \value{
-Trait value (scalar)
+For \code{mature_distrib}, a vector giving the proportion of
+  individuals that first reproduce within each stage class. For all others, a
+  scalar trait value.
 }
 \description{
 Apply Markov chain approaches to decompose moments along the age-specific
 trajectory of reproduction for individuals in a matrix population model.
 Includes functions to calculated the probability of achieving reproductive
 maturity (\code{mature_prob}), mean age at first reproduction
-(\code{mature_age}), and remaining life expectancy at the age of first
-reproduction (\code{mature_life_expect}).
+(\code{mature_age}), remaining life expectancy at the age of first
+reproduction (\code{mature_life_expect}), and distribution of individuals
+first achieving reproductive maturity among stage class
+(\code{mature_distrib}).
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+data(mpm1)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+mature_prob(mpm1$matU, mpm1$matF, start = 2)
+mature_age(mpm1$matU, mpm1$matF, start = 2)
+mature_life_expect(mpm1$matU, mpm1$matF, start = 2)
 
-mature_prob(matU, matF, start = 1)
-mature_age(matU, matF, start = 1)
-mature_life_expect(matU, matF, start = 1)
+### distribution of first reproductive maturity among stage classes
+repstage <- id_repro_stages(mpm1$matF)
+mature_distrib(mpm1$matU, start = 2, repro_stages = repstage)
 
 }
 \references{
