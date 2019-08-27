@@ -31,13 +31,13 @@
 #'
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-#' standardized_stages(matF, reproStages, matrixStages)
+#' standard_stages(matF, reproStages, matrixStages)
 #' 
 #' # combine post-reproductive and reproductive
-#' standardized_stages(matF, reproStages, matrixStages, includePost = FALSE)
-#' @export standardized_stages
-standardized_stages <- function(matF, reproStages, matrixStages,
-                                includeProp = TRUE, includePost = TRUE) {
+#' standard_stages(matF, reproStages, matrixStages, includePost = FALSE)
+#' @export standard_stages
+standard_stages <- function(matF, reproStages, matrixStages,
+                            includeProp = TRUE, includePost = TRUE) {
   
   # FIXME: can we combine propagule and pre-reproductive?
   # FIXME: what about dormant stages?

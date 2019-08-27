@@ -42,7 +42,7 @@ distribution.
 }
 \details{
 This function is a wrapper for the functions
-  \code{\link{mpm_rearrange}}, \code{\link{standardized_stages}} and
+  \code{\link{mpm_rearrange}}, \code{\link{standard_stages}} and
   \code{\link{mpm_collapse}}, which it calls in sequence.
 }
 \note{

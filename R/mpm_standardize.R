@@ -33,7 +33,7 @@
 #' row/column of the standardized matrix will be coerced to \code{NA}.
 #' 
 #' @details This function is a wrapper for the functions
-#'   \code{\link{mpm_rearrange}}, \code{\link{standardized_stages}} and
+#'   \code{\link{mpm_rearrange}}, \code{\link{standard_stages}} and
 #'   \code{\link{mpm_collapse}}, which it calls in sequence.
 #' @note The method used by this function to collapse a matrix population model
 #'   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
@@ -80,9 +80,9 @@ mpm_standardize <- function(matU, matF, matC = NULL, reproStages,
   rearr <- mpm_rearrange(matU, matF, matC, reproStages, matrixStages)
   
   # defines which columns need to be collapsed for each of the four stages
-  collapse <- standardized_stages(rearr$matF,
-                                  rearr$reproStages,
-                                  rearr$matrixStages)
+  collapse <- standard_stages(rearr$matF,
+                              rearr$reproStages,
+                              rearr$matrixStages)
   
   # collapse
   out <- mpm_collapse(matU, matF, matC, collapse = collapse)
