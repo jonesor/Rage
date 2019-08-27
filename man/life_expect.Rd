@@ -4,15 +4,17 @@
 \alias{life_expect}
 \title{Calculate life expectancy from a matrix population model}
 \usage{
-life_expect(matU, start = 1)
+life_expect(matU, start = 1L)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
-\item{start}{Index of the first stage at which the author considers the
-beginning of life. Defaults to 1.}
+\item{start}{The index of the first stage at which the author considers the
+beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+starting population vector (in which case \code{length(start)} must match
+\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 }
 \value{
 Returns life expectancy. If \code{matU} is singular (often indicating
@@ -22,14 +24,34 @@ Returns life expectancy. If \code{matU} is singular (often indicating
 Applies Markov chain approaches to obtain mean life expectancy from a matrix
 population model.
 }
-\examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+\section{Starting from multiple stages}{
 
-life_expect(matU)
-life_expect(matU, start = 2)
+Rather than specifying argument \code{start} as a single stage class from
+which all individuals start life, it may sometimes be desirable to allow for
+multiple starting stage classes. For example, if we want to start our
+calculation of life expectancy from reproductive maturity (i.e. first
+reproduction), we should account for the possibility that there may be
+multiple stage classes in which an individual could first reproduce.
+
+To specify multiple starting stage classes, specify argument \code{start} as
+the desired starting population vector (\strong{n1}), giving the proportion
+of individuals starting in each stage class (the length of \code{start}
+should match the number of columns in the relevant MPM).
+
+See function \code{\link{mature_distrib}} for calculating the proportion of
+individuals achieving reproductive maturity in each stage class.
+}
+
+\examples{
+data(mpm1)
+
+# life expectancy starting from stage class 2 
+life_expect(mpm1$matU, start = 2)
+
+# life expectancy starting from first reproduction
+repstages <- id_repro_stages(mpm1$matF)
+n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+life_expect(mpm1$matU, start = n1)
 
 }
 \references{
