@@ -33,14 +33,14 @@
 #'                c( 0,   0,   0,   0),
 #'                c( 0,   0,   0,   0))
 #'
-#' id_repro_stages(matR1)
+#' repro_stages(matR1)
 #' 
 #' # compare different methods for handling NA
-#' id_repro_stages(matR2, na_handling = "return.na")
-#' id_repro_stages(matR2, na_handling = "return.true")
-#' id_repro_stages(matR2, na_handling = "return.false")
-#' @export id_repro_stages
-id_repro_stages <- function(matR, na_handling = "return.true") {
+#' repro_stages(matR2, na_handling = "return.na")
+#' repro_stages(matR2, na_handling = "return.true")
+#' repro_stages(matR2, na_handling = "return.false")
+#' @export repro_stages
+repro_stages <- function(matR, na_handling = "return.true") {
   
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)

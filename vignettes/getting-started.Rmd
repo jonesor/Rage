@@ -267,5 +267,5 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `mpm_collapse`       | Collapse MPM to smaller number of stages |
 |                      | `mpm_standardize`    | Collapse MPM to standardized set of stages |
 |                      | `standard_stages`    | Group stages into standardized sets |
-|                      | `id_repro_stages`    | Identify reproductive stages |
+|                      | `repro_stages`       | Identify reproductive stages |
 |                      | `plot_life_cycle`    | Plot a life cycle diagram |

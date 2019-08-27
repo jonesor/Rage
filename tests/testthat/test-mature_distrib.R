@@ -2,7 +2,7 @@ context("mature_distrib")
 
 test_that("mature_distrib works correctly", {
   
-  repstages <- id_repro_stages(mat_f)
+  repstages <- repro_stages(mat_f)
   x1 <- mature_distrib(mat_u, repro_stages = repstages)
   expect_length(x1, ncol(mat_u))
   expect_equal(sum(x1), 1)
@@ -16,7 +16,7 @@ test_that("mature_distrib works correctly", {
 
 test_that("mature_distrib warns and fails gracefully", {
   
-  repstages <- id_repro_stages(mat_f)
+  repstages <- repro_stages(mat_f)
   expect_error(mature_distrib(mat_u_na, repro_stages = repstages))
   expect_error(mature_distrib(mat_u, start = 10, repro_stages = repstages))
 })

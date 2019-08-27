@@ -42,7 +42,7 @@
 #' mature_life_expect(mpm1$matU, mpm1$matF, start = 2)
 #' 
 #' ### distribution of first reproductive maturity among stage classes
-#' repstage <- id_repro_stages(mpm1$matF)
+#' repstage <- repro_stages(mpm1$matF)
 #' mature_distrib(mpm1$matU, start = 2, repro_stages = repstage)
 #' 
 #' @name repro_maturity

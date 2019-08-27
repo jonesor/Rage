@@ -92,12 +92,12 @@
 #' qsd_converge(mpm1$matU, start = 2, conv = 0.001)
 #' 
 #' # starting from first reproduction
-#' repstages <- id_repro_stages(mpm1$matF)
+#' repstages <- repro_stages(mpm1$matF)
 #' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
 #' qsd_converge(mpm1$matU, start = n1)
 #' 
 #' @importFrom popbio stable.stage
-#' @importFrom popdemo isErgodic
+#' @importFrom popdemo isErgodic project
 #' @export qsd_converge
 qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1000L) {
   
@@ -131,11 +131,27 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1000L) {
     start_vec <- start_vec[nonzero]
   }
   
+  # if still not ergodic, check whether observed dist at t = 500 matches stable
+  #  dist
   if (!isErgodic(mat)) {
-    stop("Matrix is still non-ergodic after removing stages not connected",
-         "from stage 'start'", call. = FALSE)
+    
+    n <- start_vec
+    
+    for(i in 1:500) {
+      n <- mat %*% n
+      n <- n / sum(n)
+    }
+    
+    w <- stable.stage(mat)
+    dist <- 0.5 * (sum(abs(n - w)))
+    
+    if (dist > 0.001) {
+      stop("Matrix is still non-ergodic after removing stages not connected ",
+           "from stage 'start', and stable distribution does not match ",
+           "observed distribution after 500 iterations", call. = FALSE)
+    }
   }
-
+  
   # stable distribution
   w <- stable.stage(mat)
   

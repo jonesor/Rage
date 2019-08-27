@@ -109,7 +109,7 @@ mpm_to_table(matU, matF, start = 1, xmax = 30)
 mpm_to_table(matU, matF, matC, start = 1, xmax = 30)
 
 ### starting from first reproduction
-repstages <- id_repro_stages(matF)
+repstages <- repro_stages(matF)
 n1 <- mature_distrib(matU, start = 2, repro_stages = repstages)
 
 mpm_to_table(matU, start = n1)

@@ -93,7 +93,7 @@ qsd_converge(mpm1$matU, start = 2)
 qsd_converge(mpm1$matU, start = 2, conv = 0.001)
 
 # starting from first reproduction
-repstages <- id_repro_stages(mpm1$matF)
+repstages <- repro_stages(mpm1$matF)
 n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
 qsd_converge(mpm1$matU, start = n1)
 
