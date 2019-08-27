@@ -5,10 +5,8 @@
 #' trajectory of reproduction for individuals in a matrix population model.
 #' Includes functions to calculated the probability of achieving reproductive
 #' maturity (\code{mature_prob}), mean age at first reproduction
-#' (\code{mature_age}), remaining life expectancy at the age of first
-#' reproduction (\code{mature_life_expect}), and distribution of individuals
-#' first achieving reproductive maturity among stage class
-#' (\code{mature_distrib}).
+#' (\code{mature_age}), and distribution of individuals first achieving
+#' reproductive maturity among stage class (\code{mature_distrib}).
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -39,7 +37,6 @@
 #' 
 #' mature_prob(mpm1$matU, mpm1$matF, start = 2)
 #' mature_age(mpm1$matU, mpm1$matF, start = 2)
-#' mature_life_expect(mpm1$matU, mpm1$matF, start = 2)
 #' 
 #' ### distribution of first reproductive maturity among stage classes
 #' repstage <- repro_stages(mpm1$matF)
@@ -90,19 +87,6 @@ mature_age <- function(matU, matR, start = 1L) {
   expTimeReprod <- colSums(ginv(diag(m) - Uprimecond))
   
   return(expTimeReprod[start])
-}
-
-
-#' @rdname repro_maturity
-#' @importFrom MASS ginv
-#' @export mature_life_expect
-mature_life_expect <- function(matU, matR, start = 1L) {
-  
-  # leave arg validaton to mature_age 
-  mean_age_mature <- mature_age(matU, matR, start)
-  l0 <- life_expect(matU, start)
-  
-  return(l0 - mean_age_mature)
 }
 
 

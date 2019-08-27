@@ -4,7 +4,6 @@
 \alias{repro_maturity}
 \alias{mature_prob}
 \alias{mature_age}
-\alias{mature_life_expect}
 \alias{mature_distrib}
 \title{Calculate traits relating to the age of reproductive maturity from a matrix
 population model}
@@ -12,8 +11,6 @@ population model}
 mature_prob(matU, matR, start = 1L)
 
 mature_age(matU, matR, start = 1L)
-
-mature_life_expect(matU, matR, start = 1L)
 
 mature_distrib(matU, start = 1L, repro_stages)
 }
@@ -42,17 +39,14 @@ Apply Markov chain approaches to decompose moments along the age-specific
 trajectory of reproduction for individuals in a matrix population model.
 Includes functions to calculated the probability of achieving reproductive
 maturity (\code{mature_prob}), mean age at first reproduction
-(\code{mature_age}), remaining life expectancy at the age of first
-reproduction (\code{mature_life_expect}), and distribution of individuals
-first achieving reproductive maturity among stage class
-(\code{mature_distrib}).
+(\code{mature_age}), and distribution of individuals first achieving
+reproductive maturity among stage class (\code{mature_distrib}).
 }
 \examples{
 data(mpm1)
 
 mature_prob(mpm1$matU, mpm1$matF, start = 2)
 mature_age(mpm1$matU, mpm1$matF, start = 2)
-mature_life_expect(mpm1$matU, mpm1$matF, start = 2)
 
 ### distribution of first reproductive maturity among stage classes
 repstage <- repro_stages(mpm1$matF)

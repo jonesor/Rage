@@ -43,7 +43,7 @@ mpm1
 #> seed    0.10  0.00   0.00  0.00    0.00
 #> small   0.05  0.12   0.10  0.00    0.00
 #> medium  0.00  0.35   0.12  0.23    0.12
-#> large   0.00  0.00   0.28  0.52    0.10
+#> large   0.00  0.03   0.28  0.52    0.10
 #> dormant 0.00  0.00   0.16  0.11    0.17
 #> 
 #> $matF
@@ -63,22 +63,22 @@ One of the most common arguments among functions in Rage is `start`, which is us
 
 ``` r
 life_expect(mpm1$matU, start = 2)               # life expectancy
-#> [1] 2.362
+#> [1] 2.509
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
 mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
 #> [1] 2.136
 mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
-#> [1] 0.3977
+#> [1] 0.4318
 ```
 
 Some life history traits are independent of the starting stage class, in which case we don't need to specify `start`.
 
 ``` r
 net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
-#> [1] 1.58
+#> [1] 1.852
 gen_time(mpm1$matU, mpm1$matF)          # generation time
-#> [1] 5.522
+#> [1] 5.394
 ```
 
 Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the `mpm_to_` group of functions to derive the necessary life table components.
@@ -90,13 +90,13 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
 entropy_k(lx)       # Keyfitz' entropy
-#> [1] 0.9508
+#> [1] 0.9482
 entropy_d(lx, mx)   # Demetrius' entropy
-#> [1] -1.787
+#> [1] -1.358
 shape_surv(lx)      # shape of survival/mortality trajectory
-#> [1] -0.03222
+#> [1] -0.02687
 shape_rep(lx)       # shape of fecundity trajectory
-#> [1] 0.4078
+#> [1] 0.4029
 ```
 
 ### Life tables and the quasi-stationary distribution
@@ -126,9 +126,9 @@ One approach to accounting for this artefactual plateau in subsequent life histo
 ``` r
 # calculate the shape of the survival/mortality trajectory
 shape_surv(lt$lx)       # based on full lx trajectory
-#> [1] -0.03222
+#> [1] -0.02687
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
-#> [1] -0.07063
+#> [1] -0.06475
 ```
 
 ### Standardized vital rates
@@ -142,16 +142,16 @@ To summarize vital rates *within* stage classes, we can use the `vr_vec_` group 
 ``` r
 vr_vec_survival(mpm1$matU)
 #>    seed   small  medium   large dormant 
-#>    0.15    0.47    0.66    0.86    0.39
+#>    0.15    0.50    0.66    0.86    0.39
 vr_vec_growth(mpm1$matU, exclude = c(1, 5))
 #>    seed   small  medium   large dormant 
-#>      NA  0.7447  0.4242      NA      NA
+#>      NA  0.7600  0.4242      NA      NA
 vr_vec_shrinkage(mpm1$matU, exclude = 5)
 #>    seed   small  medium   large dormant 
 #>      NA      NA  0.1515  0.2674      NA
 vr_vec_stasis(mpm1$matU)
 #>    seed   small  medium   large dormant 
-#>  0.6667  0.2553  0.1818  0.6047  0.4359
+#>  0.6667  0.2400  0.1818  0.6047  0.4359
 vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
 #>    seed   small  medium   large dormant 
 #>      NA      NA  0.2424  0.1279      NA
@@ -177,19 +177,19 @@ w <- popbio::stable.stage(mpm1$matA)
 
 # calculate MPM-specific vital rates
 vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
-#> [1] 0.5734
+#> [1] 0.5964
 vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.6483
+#> [1] 0.6603
 vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.192
+#> [1] 0.1961
 vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.2848
+#> [1] 0.2824
 vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
-#> [1] 0.2024
+#> [1] 0.1984
 vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
 #> [1] 0.5641
 vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
-#> [1] 36.17
+#> [1] 37.07
 ```
 
 Note how we've chosed to exclude the 'seed' and 'dormant' stage classes from our vital rate summaries, because we consider these to be special classes (e.g. 'growth' from the 'seed' stage is really 'germination', which we may think of as separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
@@ -201,23 +201,23 @@ The `perturb_matrix()` function measures the response of a demographic statistic
 ``` r
 # matrix element perturbation
 perturb_matrix(mpm1$matA, type = "sensitivity")
-#>         [,1]    [,2]     [,3]    [,4]     [,5]
-#> [1,]  0.2097 0.01136 0.004882 0.00262 0.001167
-#> [2,]  4.1373 0.22405 0.096310 0.05168 0.023021
-#> [3,] 11.4227 0.61857 0.265903 0.14269 0.063560
-#> [4,] 22.2906 1.20708 0.518886 0.27845 0.124031
-#> [5,]  3.9285 0.21274 0.091450 0.04908 0.021860
+#>            seed   small   medium    large  dormant
+#> seed     0.2173 0.01133 0.004786 0.002987 0.001151
+#> small    4.4375 0.23141 0.097740 0.060993 0.023498
+#> medium  10.8655 0.56662 0.239323 0.149347 0.057537
+#> large   21.3053 1.11104 0.469271 0.292843 0.112820
+#> dormant  3.6112 0.18832 0.079540 0.049636 0.019123
 
 # vital rate perturbation
 # (we use as.data.frame here for prettier printing)
 as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
 #>   survival growth shrinkage fecundity clonality
-#> 1    2.887 0.6291   -0.1726  0.005476         0
+#> 1    2.986  1.078   -0.1653  0.005728         0
 
 # transition type perturbation
 as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
 #>   stasis  retro progr fecundity clonality
-#> 1      1 0.4266 5.415  0.007502        NA
+#> 1      1 0.4174 6.714  0.007773        NA
 ```
 
 ### Transforming MPMs
@@ -228,10 +228,10 @@ Rage includes a variety of functions that can be used to manipulate or transform
 # collapse 'small', 'medium', and 'large' stages into single stage class
 col1 <- mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2:4, 5))
 col1$matA
-#>      [,1]    [,2] [,3]
-#> [1,] 0.10 10.9685 0.00
-#> [2,] 0.05  0.5167 0.22
-#> [3,] 0.00  0.0567 0.17
+#>      [,1]     [,2] [,3]
+#> [1,] 0.10 11.61332 0.00
+#> [2,] 0.05  0.53908 0.22
+#> [3,] 0.00  0.05728 0.17
 ```
 
 The transition rates in the collapsed matrix are a weighted average of the transition rates from the relevant stages of the original matrix, weighted by the stable distribution at equilibrium. This process guarantees that the collapsed MPM will retain the same population growth rate as the original. However, other demographic and life history characteristics will not necessarily be preserved.
@@ -239,15 +239,15 @@ The transition rates in the collapsed matrix are a weighted average of the trans
 ``` r
 # compare population growth rate of original and collapsed MPM (preserved)
 popbio::lambda(mpm1$matA)
-#> [1] 1.086
+#> [1] 1.121
 popbio::lambda(col1$matA)
-#> [1] 1.086
+#> [1] 1.121
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)
 net_repro_rate(mpm1$matU, mpm1$matF)
-#> [1] 1.58
+#> [1] 1.852
 net_repro_rate(col1$matU, col1$matF)
-#> [1] 1.301
+#> [1] 1.447
 ```
 
 Complete list of functions
@@ -299,8 +299,8 @@ Complete list of functions
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td align="left"><code>mature_life_expect</code></td>
-<td align="left">Remaining life expectancy at maturity</td>
+<td align="left"><code>mature_distrib</code></td>
+<td align="left">Stage distribution of reproductive maturity</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -429,7 +429,7 @@ Complete list of functions
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td align="left"><code>id_repro_stages</code></td>
+<td align="left"><code>repro_stages</code></td>
 <td align="left">Identify reproductive stages</td>
 </tr>
 <tr class="even">

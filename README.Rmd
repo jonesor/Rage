@@ -251,7 +251,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `gen_time`       | Generation time |
 |                      | `mature_age`     | Age at reproductive maturity |
 |                      | `mature_prob`    | Probability of reaching reproductive maturity |
-|                      | `mature_life_expect` | Remaining life expectancy at maturity |
+|                      | `mature_distrib` | Stage distribution of reproductive maturity |
 |                      | `entropy_d`      | Demetrius' entropy |
 |                      | `entropy_k`      | Keyfitz' entropy |
 |                      | `shape_surv`     | Shape of survival/mortality trajectory |
