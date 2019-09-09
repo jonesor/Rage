@@ -17,9 +17,13 @@
 #'   curves. Nature 275, 213-214. doi:10.1038/275213a0
 #'   
 #' @examples
-#' lx <- c(1.00, 0.85, 0.70, 0.65, 0.55, 0.50, 0.45, 0.40, 0.35)
-#' mx <- c(0.00, 0.00, 1.10, 1.50, 1.60, 1.70, 1.50, 1.20, 0.70)
+#' data(mpm1)
 #' 
+#' # derive trajectories of lx and mx, starting from stage 2
+#' lx <- mpm_to_lx(mpm1$matU, start = 2)
+#' mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
+#' 
+#' # calculate Demetrius' entropy
 #' entropy_d(lx, mx)
 #' 
 #' @export entropy_d

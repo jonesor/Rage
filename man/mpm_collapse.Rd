@@ -64,28 +64,13 @@ corresponding to a missing stage will be coerced to \code{NA}.
 }
 
 \examples{
-matU <- rbind(c(  0,   0,   0,   0),
-              c(0.5,   0,   0,   0),
-              c(  0, 0.3,   0,   0),
-              c(  0,   0, 0.2, 0.1))
+data(mpm1)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
-              
-matC <- rbind(c(  0,   0, 0.4, 0.5),
-              c(  0,   0, 0.3, 0.1),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+# check which stages reproductive
+repro_stages(mpm1$matF)
 
-# collapse reproductive stages
-collapse1 <- list(1, 2, 3:4)
-mpm_collapse(matU, matF, matC, collapse1)
-
-# collapse pre-reproductive stages, and reproductive stages
-collapse2 <- list(1:2, 3:4)
-mpm_collapse(matU, matF, matC, collapse2)
+# collapse reproductive stages (3 and 4) into single stage
+mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2, 3:4, 5))
 
 }
 \references{

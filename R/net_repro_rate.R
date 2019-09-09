@@ -37,20 +37,12 @@
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' @examples
-#' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1,   0),
-#'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.6))
+#' data(mpm1)
 #' 
-#' matF <- rbind(c(  0,   0, 1.1, 1.6),
-#'               c(  0,   0, 0.8, 0.4),
-#'               c(  0,   0,   0,   0),
-#'               c(  0,   0,   0,   0))
-#' 
-#' net_repro_rate(matU, matF)
+#' net_repro_rate(mpm1$matU, mpm1$matF)
 #' 
 #' # calculate R0 using the start method
-#' net_repro_rate(matU, matF, method = "start", start = 2)
+#' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
 #' 
 #' @importFrom popbio lambda
 #' @export net_repro_rate

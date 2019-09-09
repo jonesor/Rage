@@ -28,18 +28,10 @@
 #'   978-0878930968
 #' 
 #' @examples
-#' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1,   0),
-#'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.6))
-#' 
-#' matF <- rbind(c(  0,   0, 1.1, 1.6),
-#'               c(  0,   0, 0.8, 0.4),
-#'               c(  0,   0,   0,   0),
-#'               c(  0,   0,   0,   0))
+#' data(mpm1)
 #' 
 #' # calculate generation time
-#' gen_time(matU, matF)
+#' gen_time(matU = mpm1$matU, matR = mpm1$matF)
 #' 
 #' @importFrom popbio lambda
 #' @export gen_time

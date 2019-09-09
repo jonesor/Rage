@@ -55,10 +55,9 @@ data(mpm1)
 longevity(mpm1$matU, start = 2)
 longevity(mpm1$matU, start = 2, lx_crit = 0.05)
 
-### starting from first reproduction
+# starting from first reproduction
 repstages <- repro_stages(mpm1$matF)
 n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
-
 longevity(mpm1$matU, start = n1)
 
 }

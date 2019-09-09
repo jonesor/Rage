@@ -21,9 +21,15 @@ This function calculates Keyfitz's entropy from a vector of age-specific
 survivorship (lx).
 }
 \examples{
-lx <- 0.8^(0:20)
+data(mpm1)
 
+# derive lx trajectory, starting from stage 2
+lx <- mpm_to_lx(mpm1$matU, start = 2)
+
+# calculate Keyfitz' entropy
 entropy_k(lx)
+
+# use trapezoid approximation for definite integral
 entropy_k(lx, trapeze = TRUE)
 
 }

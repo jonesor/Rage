@@ -89,30 +89,15 @@ individuals achieving reproductive maturity in each stage class.
 }
 
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+data(mpm1)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
-              
-matC <- rbind(c(  0,   0, 0.4, 0.5),
-              c(  0,   0, 0.3, 0.1),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
-
-mpm_to_table(matU, start = 1, xmax = 30)
-mpm_to_table(matU, matF, start = 1, xmax = 30)
-mpm_to_table(matU, matF, matC, start = 1, xmax = 30)
+mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
+mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction
-repstages <- repro_stages(matF)
-n1 <- mature_distrib(matU, start = 2, repro_stages = repstages)
-
-mpm_to_table(matU, start = n1)
+repstages <- repro_stages(mpm1$matF)
+n1 <- mature_distrib(matU = mpm1$matU, start = 2, repro_stages = repstages)
+mpm_to_table(matU = mpm1$matU, start = n1)
 
 }
 \references{
