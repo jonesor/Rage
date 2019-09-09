@@ -85,3 +85,13 @@ area_under_curve <- function(x, y) {
   return(sum(delta_x * rect_heights))
 }
 
+
+#' @noRd
+#' @importFrom MASS ginv
+.matrix_inverse <- function(mat) {
+  mat_inv <- try(solve(mat), silent = TRUE)
+  if (class(mat_inv) == "try-error") {
+    mat_inv <- MASS::ginv(mat)
+  }
+  return(mat_inv)
+}

@@ -47,7 +47,6 @@ NULL
 
 
 #' @rdname repro_maturity
-#' @importFrom MASS ginv
 #' @export mature_prob
 mature_prob <- function(matU, matR, start = 1L) {
   
@@ -64,7 +63,6 @@ mature_prob <- function(matU, matR, start = 1L) {
 
 
 #' @rdname repro_maturity
-#' @importFrom MASS ginv
 #' @export mature_age
 mature_age <- function(matU, matR, start = 1L) {
 
@@ -87,15 +85,14 @@ mature_age <- function(matU, matR, start = 1L) {
   } else {
     # mean age at first reproduction ('L_a' in Caswell 2001, p 124)
     D <- diag(c(Bprime[2,]))
-    Uprimecond <- D %*% Uprime %*% ginv(D)
-    expTimeReprod <- colSums(ginv(diag(m) - Uprimecond))
+    Uprimecond <- D %*% Uprime %*% .matrix_inverse(D)
+    expTimeReprod <- colSums(.matrix_inverse(diag(m) - Uprimecond))
     return(expTimeReprod[start])
   }
 }
 
 
 #' @rdname repro_maturity
-#' @importFrom MASS ginv
 #' @export mature_distrib
 mature_distrib <- function(matU, start = 1L, repro_stages) {
   
@@ -109,10 +106,7 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   primeU <- matU
   primeU[,repro_stages] <- 0
   
-  N <- try(solve(diag(nrow(primeU)) - primeU), silent = TRUE)
-  if (class(N) == "try-error") {
-    N <- ginv(diag(nrow(primeU)) - primeU)
-  }
+  N <- .matrix_inverse(diag(nrow(primeU)) - primeU)
   
   n1 <- rep(0, nrow(matU))
   n1[repro_stages] <- N[repro_stages,start] / sum(N[repro_stages,start])
@@ -124,7 +118,6 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
 
 
 #' @noRd
-#' @importFrom MASS ginv
 calc_Bprime <- function(matU, fec_stages) {
   
   m <- ncol(matU)
@@ -144,6 +137,6 @@ calc_Bprime <- function(matU, fec_stages) {
     }
   }
   
-  Bprime <- Mprime %*% (ginv(diag(m) - Uprime))
+  Bprime <- Mprime %*% .matrix_inverse(diag(m) - Uprime)
   return(Bprime)
 }
