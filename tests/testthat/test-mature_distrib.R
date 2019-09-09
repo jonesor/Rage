@@ -12,6 +12,14 @@ test_that("mature_distrib works correctly", {
   mat_u2[4,2] <- 0.1
   x2 <- mature_distrib(mat_u2, repro_stages = repstages)
   expect_length(x2[x2 > 0], 2) # repro maturity in 2 stage classes
+  
+  # test life cycle with no connection from 'start' to repro stage(s)
+  matU <- rbind(c(0.0, 0.0, 0.0),
+                c(0.1, 0.2, 0.0),
+                c(0.0, 0.0, 0.0))
+  
+  x3 <- mature_distrib(matU, start = 1, repro_stages = c(FALSE, FALSE, TRUE))
+  expect_true(all(x3 == 0))
 })
 
 test_that("mature_distrib warns and fails gracefully", {

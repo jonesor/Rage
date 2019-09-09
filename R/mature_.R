@@ -81,16 +81,21 @@ mature_age <- function(matU, matR, start = 1L) {
   
   Bprime <- calc_Bprime(matU, fec_stages)
   
-  # mean age at first reproduction ('L_a' in Caswell 2001, p 124)
-  D <- diag(c(Bprime[2,]))
-  Uprimecond <- D %*% Uprime %*% ginv(D)
-  expTimeReprod <- colSums(ginv(diag(m) - Uprimecond))
-  
-  return(expTimeReprod[start])
+  if (Bprime[2, start] == 0) {
+    # if Pr[maturity] == 0
+    return(NA_real_)
+  } else {
+    # mean age at first reproduction ('L_a' in Caswell 2001, p 124)
+    D <- diag(c(Bprime[2,]))
+    Uprimecond <- D %*% Uprime %*% ginv(D)
+    expTimeReprod <- colSums(ginv(diag(m) - Uprimecond))
+    return(expTimeReprod[start])
+  }
 }
 
 
 #' @rdname repro_maturity
+#' @importFrom MASS ginv
 #' @export mature_distrib
 mature_distrib <- function(matU, start = 1L, repro_stages) {
   
@@ -101,20 +106,18 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
     stop("length(repro_stages) must equal ncol(matU)", call. = FALSE)
   }
   
-  if (sum(repro_stages) == 1) {
-    n1 <- as.numeric(repro_stages)
-  } else {
-    primeU <- matU
-    primeU[,repro_stages] <- 0
-    N <- try(solve(diag(nrow(primeU)) - primeU))
-    if (class(N) == "try-error") {
-      stop("Cannot derive fundamental matrix because matU is non-invertable",
-           .call = FALSE)
-    } else {
-      n1 <- rep(0, nrow(matU))
-      n1[repro_stages] <- N[repro_stages,start] / sum(N[repro_stages,start])
-    }
+  primeU <- matU
+  primeU[,repro_stages] <- 0
+  
+  N <- try(solve(diag(nrow(primeU)) - primeU), silent = TRUE)
+  if (class(N) == "try-error") {
+    N <- ginv(diag(nrow(primeU)) - primeU)
   }
+  
+  n1 <- rep(0, nrow(matU))
+  n1[repro_stages] <- N[repro_stages,start] / sum(N[repro_stages,start])
+  
+  n1[is.nan(n1)] <- 0.0 # coerce NaN to 0
   names(n1) <- colnames(matU)
   return(n1)
 }
@@ -144,4 +147,3 @@ calc_Bprime <- function(matU, fec_stages) {
   Bprime <- Mprime %*% (ginv(diag(m) - Uprime))
   return(Bprime)
 }
-
