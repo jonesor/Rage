@@ -5,7 +5,7 @@
 \title{Calculate time to reach quasi-stationary stage distribution from a matrix
 population model}
 \usage{
-qsd_converge(mat, start = 1L, conv = 0.05, N = 1000L)
+qsd_converge(mat, start = 1L, conv = 0.05, N = 100000L)
 }
 \arguments{
 \item{mat}{A matrix population model, or component thereof (i.e. a square
@@ -23,7 +23,7 @@ distance of 5\% of the stationary stage distribution.}
 
 \item{N}{Maximum number of time steps over which the population will be
 projected. Time steps are in the same units as the matrix population model
-(see AnnualPeriodicity column in COM(P)ADRE). Defaults to 1000.}
+(see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.}
 }
 \value{
 An integer indicating the first time step at which the
