@@ -20,6 +20,10 @@
 #'   (defaults to \code{100000}).
 #' @param lx_crit Minimum value of lx to which age-specific traits will be
 #'   calculated (defaults to \code{0.0001}).
+#' @param tol To account for floating point errors that occasionally lead to
+#'   values of lx slightly greater than 1, values of lx within the open interval
+#'   (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
+#'   prevent coersion, set \code{tol} to \code{0}.
 #' 
 #' @return A vector
 #' 
@@ -90,12 +94,13 @@ NULL
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+                      tol = 1e-4) {
   
   # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
   
-  N <- length(mpm_to_lx(matU, start, xmax, lx_crit))
+  N <- length(mpm_to_lx(matU, start, xmax, lx_crit, tol))
   
   if (length(start) > 1) {
     n <- start
@@ -120,7 +125,8 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
 
 #' @rdname age_from_stage
 #' @export mpm_to_lx
-mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
+mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+                      tol = 1e-4) {
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -144,23 +150,30 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
     lx_vec[t] <- lx
   }
   
+  # fix floating point errors resulting in lx > 1.0
+  if (tol > 0) {
+    lx_vec[lx_vec > 1.0 & lx_vec < (1.0 + tol)] <- 1.0
+  }
+  
   return(c(1.0, lx_vec))
 }
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_px
-mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
+mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+                      tol = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, start, xmax, lx_crit)
+  lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)
   return(lx_to_px(lx))
 }
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_hx
-mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4) {
+mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+                      tol = 1e-4) {
   # leave argument validation to mpm_to_lx
-  lx <- mpm_to_lx(matU, start, xmax, lx_crit)
+  lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)
   return(lx_to_hx(lx))
 }
