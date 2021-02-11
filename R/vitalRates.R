@@ -8,7 +8,7 @@
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matF The sexual component of a matrix population model (i.e. a square
 #'   projection matrix reflecting transitions due to sexual reproduction)
 #' @param matC The clonal component of a matrix population model (i.e. a square
