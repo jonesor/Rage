@@ -34,4 +34,4 @@ vignettes/*.pdf
 .Rproj.user
 
 # Other unwanted files
-.DS_Store 
+.DS_Store
