@@ -21,13 +21,13 @@ test_that("perturb_vr works correctly", {
   expect_equal(x_age$growth, 0)
   expect_equal(x_age$shrinkage, 0)
   
-  # check works with custom demogstat function
+  # check works with custom demog_stat function
   fn_custom <- function(x) return(1.0)
-  x_cust <- perturb_vr(mat_u, mat_f, demogstat = "fn_custom")
+  x_cust <- perturb_vr(mat_u, mat_f, demog_stat = "fn_custom")
   expect_true(all(x_cust == 0))
 })
 
 test_that("perturb_vr warns and fails gracefully", {
   notfn <- "rtpQswpAclFKhAmw"
-  expect_error(perturb_vr(mat_u, mat_f, demogstat = notfn))
+  expect_error(perturb_vr(mat_u, mat_f, demog_stat = notfn))
 })

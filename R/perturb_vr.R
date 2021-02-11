@@ -25,20 +25,20 @@
 #' @param pert Magnitude of the perturbation (defaults to \code{1e-6})
 #' @param type Whether to return "sensitivity" or "elasticity" values. Defaults
 #'   to "sensitivity'.
-#' @param demogstat The demographic statistic to be used, as in "the
-#'   sensitivity/elasticity of \code{demogstat} to vital rate perturbations."
+#' @param demog_stat The demographic statistic to be used, as in "the
+#'   sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 #'   Defaults to the per-capita population growth rate at equilibrium
 #'   (\eqn{lambda}). Also accepts a user-supplied function that performs a
 #'   calculation on a projection matrix and returns a single numeric value.
-#' @param ... Additional arguments passed to the function \code{demogstat}.
+#' @param ... Additional arguments passed to the function \code{demog_stat}.
 #' 
 #' @return A list with 5 elements:
-#' \item{survival}{sensitivity or elasticity of \code{demogstat} to survival}
-#' \item{growth}{sensitivity or elasticity of \code{demogstat} to growth}
-#' \item{shrinkage}{sensitivity or elasticity of \code{demogstat} to shrinkage}
-#' \item{fecundity}{sensitivity or elasticity of \code{demogstat} to sexual
+#' \item{survival}{sensitivity or elasticity of \code{demog_stat} to survival}
+#' \item{growth}{sensitivity or elasticity of \code{demog_stat} to growth}
+#' \item{shrinkage}{sensitivity or elasticity of \code{demog_stat} to shrinkage}
+#' \item{fecundity}{sensitivity or elasticity of \code{demog_stat} to sexual
 #' fecundity}
-#' \item{clonality}{sensitivity or elasticity of \code{demogstat} to clonality}
+#' \item{clonality}{sensitivity or elasticity of \code{demog_stat} to clonality}
 #' 
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
@@ -67,13 +67,13 @@
 #'   return(dm[1] / dm[2])
 #' }
 #' 
-#' perturb_vr(matU, matF, demogstat = "damping")
+#' perturb_vr(matU, matF, demog_stat = "damping")
 #' 
 #' @importFrom popbio lambda
 #' @export perturb_vr
 perturb_vr <- function(matU, matF, matC = NULL,
                        pert = 1e-6, type = "sensitivity",
-                       demogstat = "lambda", ...) {
+                       demog_stat = "lambda", ...) {
   
   # validate arguments
   checkValidMat(matU)
@@ -82,12 +82,12 @@ perturb_vr <- function(matU, matF, matC = NULL,
   type <- match.arg(type, c("sensitivity", "elasticity"))
   
   # get statfun
-  if (is.character(demogstat) && demogstat == "lambda") {
+  if (is.character(demog_stat) && demog_stat == "lambda") {
     statfun <- popbio::lambda
   } else {
-    statfun <- try(match.fun(demogstat), silent = TRUE)
+    statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demogstat must be 'lambda' or the name of a function that ",
+      stop("demog_stat must be 'lambda' or the name of a function that ",
            "returns a single numeric value", call. = FALSE)
     }
   }
@@ -103,7 +103,7 @@ perturb_vr <- function(matU, matF, matC = NULL,
   
   # get sensitivity matrix
   sensA <- perturb_matrix(matA = matA, pert = pert, type = "sensitivity",
-                          demogstat = statfun, ...)
+                          demog_stat = statfun, ...)
   
   stat <- statfun(matA, ...)
   

@@ -22,14 +22,14 @@ test_that("perturb_trans works correctly", {
   expect_true(is.na(x_age$stasis))
   expect_true(is.na(x_age$retro))
   
-  # check works with custom demogstat function
+  # check works with custom demog_stat function
   fn_custom <- function(x) return(1)
-  x_cust <- perturb_trans(mat_u, mat_f, mat_c, demogstat = "fn_custom")
+  x_cust <- perturb_trans(mat_u, mat_f, mat_c, demog_stat = "fn_custom")
   expect_true(all(x_cust == 0))
 })
 
 
 test_that("perturb_trans warns and fails gracefully", {
   notfn <- "rtpsqwpaclfkhamw"
-  expect_error(perturb_trans(mat_u, mat_f, demogstat = notfn))
+  expect_error(perturb_trans(mat_u, mat_f, demog_stat = notfn))
 })
