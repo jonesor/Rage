@@ -7,12 +7,12 @@
 #' @param matA A matrix population model (i.e. a square projection matrix)
 #' @param pert Magnitude of the perturbation (defaults to \code{1e-6})
 #' @param type Whether to return "sensitivity" or "elasticity" values
-#' @param demogstat The demographic statistic to be used, as in "the
+#' @param demog_stat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
 #'   the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
 #'   accepts a user-supplied function that performs a calculation on a
 #'   projection matrix and returns a single numeric value.
-#' @param ... Additional arguments passed to the function \code{demogstat}
+#' @param ... Additional arguments passed to the function \code{demog_stat}
 #' 
 #' @return A sensitivity or elasticity matrix
 #' 
@@ -36,23 +36,23 @@
 #'   return(dm[1] / dm[2])
 #' }
 #' 
-#' perturb_matrix(matA, demogstat = "damping")
+#' perturb_matrix(matA, demog_stat = "damping")
 #' 
 #' @importFrom popbio lambda
 #' @export perturb_matrix
 perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
-                           demogstat = "lambda", ...) {
+                           demog_stat = "lambda", ...) {
   
   # validate arguments
   checkValidMat(matA)
   
   # get statfun
-  if (is.character(demogstat) && demogstat == "lambda") {
+  if (is.character(demog_stat) && demog_stat == "lambda") {
     statfun <- popbio::lambda
   } else {
-    statfun <- try(match.fun(demogstat), silent = TRUE)
+    statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demogstat must be 'lambda' or the name of a function that ",
+      stop("demog_stat must be 'lambda' or the name of a function that ",
            "returns a single numeric value", call. = FALSE)
     }
   }
@@ -78,6 +78,9 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
   
   # keep only real values
   sensA <- Re(sensA)
+  
+  # copy attributes from matA
+  attributes(sensA) <- attributes(matA)
   
   # return
   if (type == "sensitivity") {

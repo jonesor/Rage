@@ -5,7 +5,7 @@
 \title{Perturbation analysis of vital rates in a matrix population model}
 \usage{
 perturb_vr(matU, matF, matC = NULL, pert = 1e-06,
-  type = "sensitivity", demogstat = "lambda", ...)
+  type = "sensitivity", demog_stat = "lambda", ...)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -25,22 +25,22 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \item{type}{Whether to return "sensitivity" or "elasticity" values. Defaults
 to "sensitivity'.}
 
-\item{demogstat}{The demographic statistic to be used, as in "the
-sensitivity/elasticity of \code{demogstat} to vital rate perturbations."
+\item{demog_stat}{The demographic statistic to be used, as in "the
+sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 Defaults to the per-capita population growth rate at equilibrium
 (\eqn{lambda}). Also accepts a user-supplied function that performs a
 calculation on a projection matrix and returns a single numeric value.}
 
-\item{...}{Additional arguments passed to the function \code{demogstat}.}
+\item{...}{Additional arguments passed to the function \code{demog_stat}.}
 }
 \value{
 A list with 5 elements:
-\item{survival}{sensitivity or elasticity of \code{demogstat} to survival}
-\item{growth}{sensitivity or elasticity of \code{demogstat} to growth}
-\item{shrinkage}{sensitivity or elasticity of \code{demogstat} to shrinkage}
-\item{fecundity}{sensitivity or elasticity of \code{demogstat} to sexual
+\item{survival}{sensitivity or elasticity of \code{demog_stat} to survival}
+\item{growth}{sensitivity or elasticity of \code{demog_stat} to growth}
+\item{shrinkage}{sensitivity or elasticity of \code{demog_stat} to shrinkage}
+\item{fecundity}{sensitivity or elasticity of \code{demog_stat} to sexual
 fecundity}
-\item{clonality}{sensitivity or elasticity of \code{demogstat} to clonality}
+\item{clonality}{sensitivity or elasticity of \code{demog_stat} to clonality}
 }
 \description{
 Perturbs lower-level vital rates within a matrix population model and
@@ -79,7 +79,7 @@ damping <- function(matA) {  # define function for damping ratio
   return(dm[1] / dm[2])
 }
 
-perturb_vr(matU, matF, demogstat = "damping")
+perturb_vr(matU, matF, demog_stat = "damping")
 
 }
 \author{

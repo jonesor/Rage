@@ -23,17 +23,25 @@ checkValidMat <- function(M,
   }
   if (warn_surv_issue && any(colSums(M) > 1)) {
     warning("Argument ", mn, " has at least one stage-specific survival",
-                  " probability > 1", call. = FALSE)
+            " probability > 1", call. = FALSE)
   }
 }
 
 
 #' @noRd
-checkValidStartLife <- function(s, M) {
+checkValidStartLife <- function(s, M, start_vec = FALSE) {
   
-  if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) ) {
-    stop("Argument startLife must be an integer within 1:nrow(matU)",
-         call. = FALSE)
+  if (start_vec) {
+    if ((length(s) > 1 & length(s) != ncol(M)) ||
+        (length(s) == 1 && !(s %in% seq_len(nrow(M))))) {
+      stop("Argument 'start' must be an integer within 1:nrow(matU), ",
+           "or a vector of length ncol(matU)", call. = FALSE)
+    }
+  } else {
+    if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) ) {
+      stop("Argument 'start' must be an integer within 1:nrow(matU)",
+           call. = FALSE)
+    }
   }
 }
 
@@ -77,3 +85,13 @@ area_under_curve <- function(x, y) {
   return(sum(delta_x * rect_heights))
 }
 
+
+#' @noRd
+#' @importFrom MASS ginv
+.matrix_inverse <- function(mat) {
+  mat_inv <- try(solve(mat), silent = TRUE)
+  if (class(mat_inv) == "try-error") {
+    mat_inv <- MASS::ginv(mat)
+  }
+  return(mat_inv)
+}

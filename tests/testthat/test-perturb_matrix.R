@@ -16,15 +16,15 @@ test_that("perturb_matrix works correctly", {
   expect_is(x_elas1, "matrix")
   expect_true(abs(sum(x_elas1) - 1) < 1e-6)
   
-  # check works with custom demogstat function
+  # check works with custom demog_stat function
   fn_custom <- function(x) return(1)
-  x_cust <- perturb_matrix(mat_a, demogstat = "fn_custom")
+  x_cust <- perturb_matrix(mat_a, demog_stat = "fn_custom")
   expect_true(all(x_cust == 0))
 })
 
 
 test_that("perturb_matrix warns and fails gracefully", {
   notfn <- "rtpsqwpaclfkhamw"
-  expect_error(perturb_matrix(mat_a, demogstat = notfn))
+  expect_error(perturb_matrix(mat_a, demog_stat = notfn))
 })
 

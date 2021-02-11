@@ -28,6 +28,9 @@
 #'   elements indicating whether a given \code{matR} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
 #'   Details).
+#' @param exclude Integer or logical vector indicating stages for which
+#'   transitions both \emph{to} and \emph{from} the stage should be excluded
+#'   from the calculation of vital rates. See section \emph{Excluding stages}.
 #' @param exclude_row Integer or logical vector indicating stages for which
 #'   transitions \emph{to} the stage should be excluded from the calculation of
 #'   vital rates. See section \emph{Excluding stages}.
@@ -74,7 +77,8 @@
 #' \emph{from} the dormant stage class, which can be done using
 #' \code{exclude_col}. The argument \code{exclude_col} effectively just coerces
 #' the respective vital rate to \code{NA}, to prevent it from getting used in
-#' subsequent calculations.
+#' subsequent calculations. To exclude transitions both \emph{to and from} a
+#' given set of stages, use argument \code{exclude}.
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'   
@@ -91,9 +95,9 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' vr_vec_survival(matU, exclude_col = 4)
-#' vr_vec_growth(matU, exclude_col = 4)
-#' vr_vec_shrinkage(matU, exclude_col = 4)
-#' vr_vec_stasis(matU, exclude_col = 4)
+#' vr_vec_growth(matU, exclude = 4)
+#' vr_vec_shrinkage(matU, exclude = 4)
+#' vr_vec_stasis(matU, exclude = 4)
 #' 
 #' vr_vec_dorm_enter(matU, dorm_stages = 4)
 #' vr_vec_dorm_exit(matU, dorm_stages = 4)
@@ -124,6 +128,7 @@ vr_vec_survival <- function(matU,
 #' @export vr_vec_growth
 vr_vec_growth <- function(matU,
                           posU = matU > 0,
+                          exclude = NULL,
                           exclude_row = NULL,
                           exclude_col = NULL,
                           surv_only_na = TRUE) {
@@ -135,9 +140,12 @@ vr_vec_growth <- function(matU,
   tri_low <- lower.tri(vmat, diag = FALSE)
   vmat[!tri_low] <- NA_real_
   
+  vmat[exclude, ] <- NA_real_
   vmat[exclude_row, ] <- NA_real_
   
   v <- colSums2(vmat)
+  
+  v[exclude] <- NA_real_
   v[exclude_col] <- NA_real_
   
   return(v)
@@ -148,6 +156,7 @@ vr_vec_growth <- function(matU,
 #' @export vr_vec_shrinkage
 vr_vec_shrinkage <- function(matU,
                              posU = matU > 0,
+                             exclude = NULL,
                              exclude_row = NULL,
                              exclude_col = NULL,
                              surv_only_na = TRUE) {
@@ -159,9 +168,12 @@ vr_vec_shrinkage <- function(matU,
   tri_upp <- upper.tri(vmat, diag = FALSE)
   vmat[!tri_upp] <- NA_real_
   
+  vmat[exclude, ] <- NA_real_
   vmat[exclude_row, ] <- NA_real_
   
   v <- colSums2(vmat)
+  
+  v[exclude] <- NA_real_
   v[exclude_col] <- NA_real_
   
   return(v)
@@ -172,7 +184,7 @@ vr_vec_shrinkage <- function(matU,
 #' @export vr_vec_stasis
 vr_vec_stasis <- function(matU,
                           posU = matU > 0,
-                          exclude_col = NULL,
+                          exclude = NULL,
                           surv_only_na = TRUE) {
   
   vmat <- vr_mat_U(matU = matU,
@@ -180,7 +192,7 @@ vr_vec_stasis <- function(matU,
                    surv_only_na = surv_only_na)
   
   v <- diag(vmat)
-  v[exclude_col] <- NA_real_
+  v[exclude] <- NA_real_
   
   pos_vital <- diag(posU)
   v[!pos_vital] <- NA_real_

@@ -13,13 +13,13 @@
 \usage{
 vr_vec_survival(matU, posU = matU > 0, exclude_col = NULL)
 
-vr_vec_growth(matU, posU = matU > 0, exclude_row = NULL,
-  exclude_col = NULL, surv_only_na = TRUE)
+vr_vec_growth(matU, posU = matU > 0, exclude = NULL,
+  exclude_row = NULL, exclude_col = NULL, surv_only_na = TRUE)
 
-vr_vec_shrinkage(matU, posU = matU > 0, exclude_row = NULL,
-  exclude_col = NULL, surv_only_na = TRUE)
+vr_vec_shrinkage(matU, posU = matU > 0, exclude = NULL,
+  exclude_row = NULL, exclude_col = NULL, surv_only_na = TRUE)
 
-vr_vec_stasis(matU, posU = matU > 0, exclude_col = NULL,
+vr_vec_stasis(matU, posU = matU > 0, exclude = NULL,
   surv_only_na = TRUE)
 
 vr_vec_dorm_enter(matU, posU = matU > 0, dorm_stages)
@@ -42,6 +42,10 @@ Details).}
 \item{exclude_col}{Integer or logical vector indicating stages for which
 transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
 See section \emph{Excluding stages}.}
+
+\item{exclude}{Integer or logical vector indicating stages for which
+transitions both \emph{to} and \emph{from} the stage should be excluded
+from the calculation of vital rates. See section \emph{Excluding stages}.}
 
 \item{exclude_row}{Integer or logical vector indicating stages for which
 transitions \emph{to} the stage should be excluded from the calculation of
@@ -116,7 +120,8 @@ exclude transitions \emph{to} the dormant stage class using the argument
 \emph{from} the dormant stage class, which can be done using
 \code{exclude_col}. The argument \code{exclude_col} effectively just coerces
 the respective vital rate to \code{NA}, to prevent it from getting used in
-subsequent calculations.
+subsequent calculations. To exclude transitions both \emph{to and from} a
+given set of stages, use argument \code{exclude}.
 }
 
 \examples{
@@ -132,9 +137,9 @@ matF <- rbind(c(  0,   0.7, 1.1, 0),
               c(  0,   0,   0,   0))
 
 vr_vec_survival(matU, exclude_col = 4)
-vr_vec_growth(matU, exclude_col = 4)
-vr_vec_shrinkage(matU, exclude_col = 4)
-vr_vec_stasis(matU, exclude_col = 4)
+vr_vec_growth(matU, exclude = 4)
+vr_vec_shrinkage(matU, exclude = 4)
+vr_vec_stasis(matU, exclude = 4)
 
 vr_vec_dorm_enter(matU, dorm_stages = 4)
 vr_vec_dorm_exit(matU, dorm_stages = 4)
