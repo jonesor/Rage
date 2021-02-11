@@ -35,3 +35,4 @@ vignettes/*.pdf
 
 # Other unwanted files
 .DS_Store 
+docs
