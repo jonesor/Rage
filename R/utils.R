@@ -90,7 +90,7 @@ area_under_curve <- function(x, y) {
 #' @importFrom MASS ginv
 .matrix_inverse <- function(mat) {
   mat_inv <- try(solve(mat), silent = TRUE)
-  if (class(mat_inv) == "try-error") {
+  if ("try-error" %in% class(mat_inv)) {
     mat_inv <- MASS::ginv(mat)
   }
   return(mat_inv)
