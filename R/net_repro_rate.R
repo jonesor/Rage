@@ -62,7 +62,7 @@ net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
   
   # calculate R0
   # first check for singular matU (if singular, R0 = NA)
-  if (class(N) == 'try-error' && grepl('singular', N[1])) {
+  if (("try-error" %in% class(N)) && grepl('singular', N[1])) {
     R0 <- NA_real_
   } else {
     R <- matR %*% N

@@ -70,7 +70,7 @@ life_expect <- function(matU, start = 1L) {
   
   # check for errors due to singular matrix
   # if singular, return NA
-  if (class(N) == "try-error" && grepl("singular", N[1])) {
+  if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
     life_expect <- NA_real_
   } else {
     life_expect <- sum(colSums(N) * start_vec)
