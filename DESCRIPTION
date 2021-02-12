@@ -1,11 +1,10 @@
 Package: Rage
 Type: Package
-Title: Miscellaneous functions for COMADRE/COMPADRE matrix databases
+Title: Functions for Calculating Life History Metrics from Matrix Population Models
 Version: 0.1
 Author: Owen R. Jones, Roberto Salguero-Gomez
-Maintainer: Owen R. Jones <jones@biology.sdu.dk>/Roberto Salguero-Gomez
-    <r.salguero@sheffield.ac.uk>
-Description: This package contains functions for performing ageing focussed analyses using matrix population models.
+Maintainer: Owen R. Jones <jones@biology.sdu.dk>
+Description: Functions for calculating life history metrics using matrix population models (MPMs).
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
 License: GPL-2 | file LICENSE
@@ -18,7 +17,7 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 2.10.0)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Suggests:
     knitr,
     rmarkdown,
