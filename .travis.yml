@@ -9,7 +9,7 @@ language: r
 # http://r.789695.n4.nabble.com/R-CMD-build-then-check-fails-on-R-devel-due-to-serialization-version-td4747582.html
 
 r:
-  - oldrel
+  #- oldrel
   - release
 
 # Operating systems to build on ------
@@ -19,7 +19,7 @@ os:
 
 # Linux options ---------
 sudo: false
-dist: trusty
+dist: xenial
 cache: packages
 
 # Branches
