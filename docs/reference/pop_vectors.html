@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rage — Rage-package • Rage</title>
+<title>Derive a hypothetical set of population vectors corresponding to a
+time-series of matrix population models — pop_vectors • Rage</title>
 
 
 <!-- jquery -->
@@ -39,9 +40,12 @@
 
 
 
-<meta property="og:title" content="Rage — Rage-package" />
-<meta property="og:description" content="An R package with tools to derive life history traits from matrix population
-models." />
+<meta property="og:title" content="Derive a hypothetical set of population vectors corresponding to a
+time-series of matrix population models — pop_vectors" />
+<meta property="og:description" content="Derive a hypothetical set of population vectors given a time-series of matrix
+population models, by taking the stable distribution of the mean matrix as
+the starting vector (or optionally, a uniform or random starting vector), and
+deriving subsequent vectors through recursive population projection." />
 
 
 
@@ -124,41 +128,97 @@ models." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><span class="pkg">Rage</span></h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/Rage-package.R'><code>R/Rage-package.R</code></a></small>
-    <div class="hidden name"><code>Rage-package.Rd</code></div>
+    <h1>Derive a hypothetical set of population vectors corresponding to a
+time-series of matrix population models</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/pop_vectors.R'><code>R/pop_vectors.R</code></a></small>
+    <div class="hidden name"><code>pop_vectors.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R package with tools to derive life history traits from matrix population
-models.</p>
+    <p>Derive a hypothetical set of population vectors given a time-series of matrix
+population models, by taking the stable distribution of the mean matrix as
+the starting vector (or optionally, a uniform or random starting vector), and
+deriving subsequent vectors through recursive population projection.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>pop_vectors</span><span class='op'>(</span><span class='va'>A</span>, start <span class='op'>=</span> <span class='st'>"stable.stage"</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>A</th>
+      <td><p>List of matrix population models (i.e. square projection matrices)</p></td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td><p>Method to derive the first population vector in the series.
+Either "stable.stage" to use the stable stage distribution of the mean
+matrix as the starting vector, "uniform" to use a uniform starting vector
+(all elements equal), or "random" to use a randomly-generated starting
+vector. Defaults to "stable.stage".</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Buckley, Y. M.,
-Che-Castaldo, J., Caswell, H., Hodgson, D., Scheuerlein, A., Conde, D. A.,
-Brinks, E., de Buhr, H., Farack, C., Gottschalk, F., Hartmann, A., Henning,
-A., Hoppe, G., Roemer, G., Runge, J., Ruoff, T., Wille, J., Zeh, S., Davison,
-R., Vieregg, D., Baudisch, A., Altwegg, R., Colchero, F., Dong, M., de Kroon,
-H., Lebreton, J.-D., Metcalf, C. J. E., Neel, M. M., Parker, I. M., Takada,
-T., Valverde, T., Velez-Espino, L. A., Wardle, G. M., Franco, M., Vaupel, J.
-W. (2015) The COMPADRE Plant Matrix Database: an open online repository for
-plant demography. Journal of Ecology, 103: 202-218. 
-<a href='https://doi.org/10.1111/1365-2745.12334'>https://doi.org/10.1111/1365-2745.12334</a></p>
-<p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Bein, C., de Buhr, H.,
-Farack, C., Gottschalk, F., Hartmann, A., Henning, A., Hoppe, G., Roemer, G.,
-Ruoff, T., Sommer, V., Wille, J., Voigt, J., Zeh, S., Vieregg, D., Buckley,
-Y. M., Che-Castaldo, J., Hodgson, D., Scheuerlein, A., Caswell, H., Vaupel,
-J. W. (2016) COMADRE: a global data base of animal demography. Journal of
-Animal Ecology, 85: 371-384. <a href='https://doi.org/10.1111/1365-2656.12482'>https://doi.org/10.1111/1365-2656.12482</a></p>
+    <p>A list of population vectors</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
+    <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># generate list of matrices</span>
+<span class='va'>matA_l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>9</span><span class='op'>)</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'># calculate corresponding population vectors</span>
+<span class='fu'>pop_vectors</span><span class='op'>(</span><span class='va'>matA_l</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 0.2706127 0.3956447 0.3337426
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 0.2822817 0.3361341 0.3815843
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 0.1155868 0.5120382 0.3723750
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 0.4616143 0.4306508 0.1077349
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 0.2199710 0.2863841 0.4936449
+#&gt; </div><div class='input'><span class='fu'>pop_vectors</span><span class='op'>(</span><span class='va'>matA_l</span>, start <span class='op'>=</span> <span class='st'>"uniform"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 0.3333333 0.3333333 0.3333333
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 0.3019577 0.2919136 0.4061287
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 0.1110506 0.5187931 0.3701563
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 0.4659578 0.4275552 0.1064871
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 0.2195318 0.2847771 0.4956911
+#&gt; </div><div class='input'><span class='fu'>pop_vectors</span><span class='op'>(</span><span class='va'>matA_l</span>, start <span class='op'>=</span> <span class='st'>"random"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 0.3342151 0.1675243 0.4982606
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 0.3362418 0.2078520 0.4559061
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 0.1019625 0.5316507 0.3663868
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 0.4742755 0.4216557 0.1040688
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 0.2186784 0.2817046 0.4996171
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rage — Rage-package • Rage</title>
+<title>Splits a matrix population model into the constituent U, F and C matrices — mpm_split • Rage</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,13 @@
 
 
 
-<meta property="og:title" content="Rage — Rage-package" />
-<meta property="og:description" content="An R package with tools to derive life history traits from matrix population
-models." />
+<meta property="og:title" content="Splits a matrix population model into the constituent U, F and C matrices — mpm_split" />
+<meta property="og:description" content="This function splits a matrix population model into three constituent
+matrices, U (growth and survival processes), F (sexual reproduction) and C
+(clonal reproduction). Warning! The functionality is very basic — it assumes
+that sexual reproduction is located in the top row of the matrix, and that
+everything else is growth or survival (the U matrix). Clonality is assumed to
+be non-existent." />
 
 
 
@@ -124,41 +128,67 @@ models." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><span class="pkg">Rage</span></h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/Rage-package.R'><code>R/Rage-package.R</code></a></small>
-    <div class="hidden name"><code>Rage-package.Rd</code></div>
+    <h1>Splits a matrix population model into the constituent U, F and C matrices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/mpm_split.R'><code>R/mpm_split.R</code></a></small>
+    <div class="hidden name"><code>mpm_split.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R package with tools to derive life history traits from matrix population
-models.</p>
+    <p>This function splits a matrix population model into three constituent
+matrices, U (growth and survival processes), F (sexual reproduction) and C
+(clonal reproduction). Warning! The functionality is very basic — it assumes
+that sexual reproduction is located in the top row of the matrix, and that
+everything else is growth or survival (the U matrix). Clonality is assumed to
+be non-existent.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>mpm_split</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>matA</th>
+      <td><p>A matrix population model (i.e. a square projection matrix)</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Buckley, Y. M.,
-Che-Castaldo, J., Caswell, H., Hodgson, D., Scheuerlein, A., Conde, D. A.,
-Brinks, E., de Buhr, H., Farack, C., Gottschalk, F., Hartmann, A., Henning,
-A., Hoppe, G., Roemer, G., Runge, J., Ruoff, T., Wille, J., Zeh, S., Davison,
-R., Vieregg, D., Baudisch, A., Altwegg, R., Colchero, F., Dong, M., de Kroon,
-H., Lebreton, J.-D., Metcalf, C. J. E., Neel, M. M., Parker, I. M., Takada,
-T., Valverde, T., Velez-Espino, L. A., Wardle, G. M., Franco, M., Vaupel, J.
-W. (2015) The COMPADRE Plant Matrix Database: an open online repository for
-plant demography. Journal of Ecology, 103: 202-218. 
-<a href='https://doi.org/10.1111/1365-2745.12334'>https://doi.org/10.1111/1365-2745.12334</a></p>
-<p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Bein, C., de Buhr, H.,
-Farack, C., Gottschalk, F., Hartmann, A., Henning, A., Hoppe, G., Roemer, G.,
-Ruoff, T., Sommer, V., Wille, J., Voigt, J., Zeh, S., Vieregg, D., Buckley,
-Y. M., Che-Castaldo, J., Hodgson, D., Scheuerlein, A., Caswell, H., Vaupel,
-J. W. (2016) COMADRE: a global data base of animal demography. Journal of
-Animal Ecology, 85: 371-384. <a href='https://doi.org/10.1111/1365-2656.12482'>https://doi.org/10.1111/1365-2656.12482</a></p>
+    <p>A list of three matrices: <code>matU</code>,<code>matF</code> and <code>matC</code></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
+    <p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>matA</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,   <span class='fl'>0</span>, <span class='fl'>5.3</span>, <span class='fl'>4.2</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.2</span>, <span class='fl'>0.1</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0.3</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>mpm_split</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $matU
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]  0.0  0.0  0.0  0.0
+#&gt; [2,]  0.5  0.2  0.1  0.0
+#&gt; [3,]  0.0  0.3  0.3  0.1
+#&gt; [4,]  0.0  0.0  0.5  0.6
+#&gt; 
+#&gt; $matF
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]  0.1    0  5.3  4.2
+#&gt; [2,]  0.0    0  0.0  0.0
+#&gt; [3,]  0.0    0  0.0  0.0
+#&gt; [4,]  0.0    0  0.0  0.0
+#&gt; 
+#&gt; $matC
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    0    0    0    0
+#&gt; [2,]    0    0    0    0
+#&gt; [3,]    0    0    0    0
+#&gt; [4,]    0    0    0    0
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

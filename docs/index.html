@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miscellaneous functions for COMADRE/COMPADRE matrix databases • Rage</title>
+<title>Functions for Calculating Life History Metrics from Matrix Population Models • Rage</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Miscellaneous functions for COMADRE/COMPADRE matrix databases">
-<meta property="og:description" content="This package contains functions for performing ageing focussed analyses using matrix population models.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Functions for Calculating Life History Metrics from Matrix Population Models">
+<meta property="og:description" content="Functions for calculating life history metrics using matrix population models (MPMs).">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -46,6 +46,21 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/getting-started.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="articles/vital-rates.html">Deriving vital rates from an MPM</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -70,74 +85,600 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rage" class="anchor"></a>Rage</h1></div>
 
-<p>An R package for matrix population model analysis. Note this package is at an early stage of development, and may contain bugs.</p>
+<p>An R package for manipulating and analyzing matrix population models (MPMs). Includes functions for:</p>
+<ul>
+<li>deriving life history traits</li>
+<li>deriving life tables or life table components</li>
+<li>deriving vital rates</li>
+<li>perturbation analyses</li>
+<li>manipulating and transforming MPMs</li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span>
-<span class="co">#</span>
-<span class="co"># or</span>
-<span class="co">#</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span> <span class="co"># smaller and quicker to install than devtools</span>
+<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div id="usage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span></code></pre></div>
-<p>First we need a matrix population model separated into the growth/survival component and sexual reproduction component (possibly also a clonal component, but we’ll skip that here).</p>
+</div>
+<div id="loading-an-example-mpm" class="section level3">
+<h3 class="hasAnchor">
+<a href="#loading-an-example-mpm" class="anchor"></a>Loading an example MPM</h3>
+<p>The functions in Rage work on MPMs (or components of MPMs), so we’ll start by loading one of the example MPMs included in the Rage package (<code>mpm1</code>).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>, <span class="co"># growth/survival component</span>
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>,   <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span>     <span class="co"># load data object 'mpm1'</span>
 
-<span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.2</span>, <span class="fl">0.6</span><span class="op">)</span>, <span class="co"># sexual reproduction component</span>
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Now we can get to work. Here are just a few example analyses. <br></p>
-<p>Calculate life expectancy:</p>
+<span class="va">mpm1</span>
+<span class="co">#&gt; $matU</span>
+<span class="co">#&gt;         seed small medium large dormant</span>
+<span class="co">#&gt; seed    0.10  0.00   0.00  0.00    0.00</span>
+<span class="co">#&gt; small   0.05  0.12   0.10  0.00    0.00</span>
+<span class="co">#&gt; medium  0.00  0.35   0.12  0.23    0.12</span>
+<span class="co">#&gt; large   0.00  0.03   0.28  0.52    0.10</span>
+<span class="co">#&gt; dormant 0.00  0.00   0.16  0.11    0.17</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $matF</span>
+<span class="co">#&gt;         seed small medium large dormant</span>
+<span class="co">#&gt; seed       0     0   17.9  45.6       0</span>
+<span class="co">#&gt; small      0     0    0.0   0.0       0</span>
+<span class="co">#&gt; medium     0     0    0.0   0.0       0</span>
+<span class="co">#&gt; large      0     0    0.0   0.0       0</span>
+<span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
+<p>The object <code>mpm1</code> is a list containing two elements: the growth/survival component of the MPM (the <strong>U</strong> matrix), and the sexual reproduction component (the <strong>F</strong> matrix). We can obtain the full MPM by adding the two components together (<strong>A</strong> = <strong>U</strong> + <strong>F</strong>).</p>
+</div>
+<div id="deriving-life-history-traits-from-an-mpm" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deriving-life-history-traits-from-an-mpm" class="anchor"></a>Deriving life history traits from an MPM</h3>
+<p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/lifeExpectancy.html">lifeExpectancy</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5.749</span></code></pre></div>
-<p>Calculate net reproductive rate:</p>
+<code class="sourceCode R"><span class="fu"><a href="reference/life_expect.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>               <span class="co"># life expectancy</span>
+<span class="co">#&gt; [1] 2.509</span>
+<span class="fu"><a href="reference/longevity.html">longevity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># longevity (age at lx = 0.05)</span>
+<span class="co">#&gt; [1] 7</span>
+<span class="fu"><a href="reference/repro_maturity.html">mature_age</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>     <span class="co"># mean age at first reproduction</span>
+<span class="co">#&gt; [1] 2.136</span>
+<span class="fu"><a href="reference/repro_maturity.html">mature_prob</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>    <span class="co"># prob survival to first repro</span>
+<span class="co">#&gt; [1] 0.4318</span></code></pre></div>
+<p>Some life history traits are independent of the starting stage class, in which case we don’t need to specify <code>start</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/R0.html">R0</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2.464</span></code></pre></div>
-<p>Produce a life table:</p>
+<code class="sourceCode R"><span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    <span class="co"># net reproductive rate</span>
+<span class="co">#&gt; [1] 1.852</span>
+<span class="fu"><a href="reference/gen_time.html">gen_time</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>          <span class="co"># generation time</span>
+<span class="co">#&gt; [1] 5.394</span></code></pre></div>
+<p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/makeLifeTable.html">makeLifeTable</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, nSteps <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt;     x     lx      dx     qx     Lx     Tx     ex     mx    lxmx</span>
-<span class="co">#&gt; 1   0 1.0000 0.30000 0.3000 0.8500 4.2910 4.2910 0.0000 0.00000</span>
-<span class="co">#&gt; 2   1 0.7000 0.21000 0.3000 0.5950 3.4410 4.9158 0.0000 0.00000</span>
-<span class="co">#&gt; 3   2 0.4900 0.08700 0.1776 0.4465 2.8460 5.8082 0.1837 0.09000</span>
-<span class="co">#&gt; 4   3 0.4030 0.05490 0.1362 0.3755 2.3995 5.9542 0.3573 0.14400</span>
-<span class="co">#&gt; 5   4 0.3481 0.04263 0.1225 0.3268 2.0240 5.8144 0.4731 0.16470</span>
-<span class="co">#&gt; 6   5 0.3055 0.03542 0.1160 0.2878 1.6972 5.5560 0.5457 0.16668</span>
-<span class="co">#&gt; 7   6 0.2700 0.03031 0.1122 0.2549 1.4094 5.2192 0.5903 0.15940</span>
-<span class="co">#&gt; 8   7 0.2397 0.02637 0.1100 0.2266 1.1545 4.8158 0.6174 0.14802</span>
-<span class="co">#&gt; 9   8 0.2134 0.02318 0.1087 0.2018 0.9280 4.3492 0.6339 0.13525</span>
-<span class="co">#&gt; 10  9 0.1902 0.02051 0.1078 0.1799 0.7262 3.8184 0.6438 0.12244</span>
-<span class="co">#&gt; 11 10 0.1697 0.01822 0.1074 0.1606 0.5463 3.2195 0.6498 0.11025</span>
-<span class="co">#&gt; 12 11 0.1515 0.01622 0.1071 0.1434 0.3857 2.5466 0.6534 0.09896</span>
-<span class="co">#&gt; 13 12 0.1352 0.01446 0.1069 0.1280 0.2424 1.7920 0.6555 0.08866</span>
-<span class="co">#&gt; 14 13 0.1208 0.01290 0.1068 0.1143 0.1143 0.9466 0.6568 0.07934</span>
-<span class="co">#&gt; 15 14 0.1079      NA     NA     NA     NA     NA 0.6576 0.07095</span></code></pre></div>
-<p>Collapse the matrix population model to two stages, pre-reproductive and reproductive, and conduct perturbation analyses on the vital rates of the collapsed matrix:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># pre-reproductive stages are 1 and 2, reproductive stages are 3 and 4</span>
-<span class="va">mpm_collapse</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/collapseMatrix.html">collapseMatrix</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># first derive age-trajectories of survivorship (lx) and fecundity (mx)</span>
+<span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
-<span class="co"># perturbation analysis (S- represent sensitivities, and E- elasticities)</span>
-<span class="fu"><a href="reference/vitalRatePerturbation.html">vitalRatePerturbation</a></span><span class="op">(</span><span class="va">mpm_collapse</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm_collapse</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt;   SSurvival SGrowth SShrinkage SReproduction SClonality ESurvival EGrowth</span>
-<span class="co">#&gt; 1     1.312  0.2707    -0.3888        0.2698          0         1 0.09701</span>
-<span class="co">#&gt;   EShrinkage EReproduction EClonality</span>
-<span class="co">#&gt; 1    -0.2368        0.1643          0</span></code></pre></div>
+<span class="co"># then calculate life history traits</span>
+<span class="fu"><a href="reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
+<span class="co">#&gt; [1] 0.9482</span>
+<span class="fu"><a href="reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
+<span class="co">#&gt; [1] -1.358</span>
+<span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
+<span class="co">#&gt; [1] -0.02687</span>
+<span class="fu"><a href="reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
+<span class="co">#&gt; [1] 0.4029</span></code></pre></div>
+</div>
+<div id="life-tables-and-the-quasi-stationary-distribution" class="section level3">
+<h3 class="hasAnchor">
+<a href="#life-tables-and-the-quasi-stationary-distribution" class="anchor"></a>Life tables and the quasi-stationary distribution</h3>
+<p>Some MPMs are parameterized with a stasis loop at the maximum stage class, which can lead to apparent plateaus in mortality or fertility trajectories derived using age-from-stage methods. The function <code><a href="reference/qsd_converge.html">qsd_converge()</a></code> can be used to identify the time it takes for a cohort to reach the quasi-stationary distribution (QSD). This quantity can then be used to subset age trajectories of mortality or fertility to periods earlier than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># derive life table from MPM</span>
+<span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># calculate time to QSD</span>
+<span class="op">(</span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/qsd_converge.html">qsd_converge</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 5</span>
+
+<span class="co"># plot mortality trajectory w/ vertical line at time to QSD</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.65</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-8-1.png"></p>
+<p>From the life table derived from <code>mpm1</code>, we can see a plateau in the mortality rate (qx) beginning around age 5. However, this plateau corresponds to the QSD and is therefore probably an artefact of the stasis loop rather than a biological reality for the population represented by <code>mpm1</code>.</p>
+<p>One approach to accounting for this artefactual plateau in subsequent life history calculations is to limit our life table to the period prior to the QSD.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate the shape of the survival/mortality trajectory</span>
+<span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># based on full lx trajectory</span>
+<span class="co">#&gt; [1] -0.02687</span>
+<span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">q</span><span class="op">]</span><span class="op">)</span>  <span class="co"># based on lx trajectory prior to the QSD</span>
+<span class="co">#&gt; [1] -0.06475</span></code></pre></div>
+</div>
+<div id="standardized-vital-rates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#standardized-vital-rates" class="anchor"></a>Standardized vital rates</h3>
+<p>The transition rates that make up MPMs generally reflect products of two or more vital rates (sometimes called ‘lower-level vital rates’). Assuming a post-breeding census design, we can retroactively break apart each transition rate into at least two vital rate components: survival, and ‘something’ conditional on survival. That ‘something’ might be growth, shrinkage, stasis, dormancy, fecundity, or clonality.</p>
+<div id="stage-specific-vital-rates-vector" class="section level5">
+<h5 class="hasAnchor">
+<a href="#stage-specific-vital-rates-vector" class="anchor"></a>Stage-specific vital rates (vector)</h5>
+<p>To summarize vital rates <em>within</em> stage classes, we can use the <code>vr_vec_</code> group of functions. We’ll use the <code>exclude</code> argument here to exclude certain stage classes (‘seed’ and ‘dormant’) from the calculation of certain vital rates (e.g. we don’t consider the large-to-dormant transition to actually represent ‘growth’).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;    0.15    0.50    0.66    0.86    0.39</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;      NA  0.7600  0.4242      NA      NA</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;      NA      NA  0.1515  0.2674      NA</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;  0.6667  0.2400  0.1818  0.6047  0.4359</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_dorm_enter</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;      NA      NA  0.2424  0.1279      NA</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_dorm_exit</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;      NA      NA      NA      NA  0.5641</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_fecundity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
+<span class="co">#&gt;    seed   small  medium   large dormant </span>
+<span class="co">#&gt;      NA      NA   27.12   53.02      NA</span></code></pre></div>
+</div>
+<div id="mpm-specific-vital-rates-scalar" class="section level5">
+<h5 class="hasAnchor">
+<a href="#mpm-specific-vital-rates-scalar" class="anchor"></a>MPM-specific vital rates (scalar)</h5>
+<p>To summarize vital rates <em>across</em> stage classes, we can use the <code>vr_</code> group of functions. By default these functions take a simple average of the stage-specific vital rates produced by the corresponding <code>vr_vec_</code> function. However, here we’ll demonstrate how to specify a <em>weighted</em> average across stages, based on the stable stage distribution at equilibrium (<em>w</em>).</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># derive full MPM (matA)</span>
+<span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>
+
+<span class="co"># calculate stable stage distribution at equilibrium using popbio::stable.stage</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popbio</span><span class="op">)</span>
+<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/stable.stage.html">stable.stage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
+
+<span class="co"># calculate MPM-specific vital rates</span>
+<span class="fu"><a href="reference/vr.html">vr_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.5964</span>
+<span class="fu"><a href="reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.6603</span>
+<span class="fu"><a href="reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1961</span>
+<span class="fu"><a href="reference/vr.html">vr_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.2824</span>
+<span class="fu"><a href="reference/vr.html">vr_dorm_enter</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1984</span>
+<span class="fu"><a href="reference/vr.html">vr_dorm_exit</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.5641</span>
+<span class="fu"><a href="reference/vr.html">vr_fecundity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="co">#&gt; [1] 37.07</span></code></pre></div>
+<p>Note how we’ve chosed to exclude the ‘seed’ and ‘dormant’ stage classes from our vital rate summaries, because we consider these to be special classes (e.g. ‘growth’ from the ‘seed’ stage is really ‘germination’, which we may think of as separate from somatic growth from ‘small’ to ‘medium’, or ‘medium’ to ‘large’).</p>
+</div>
+</div>
+<div id="perturbation-analyses" class="section level3">
+<h3 class="hasAnchor">
+<a href="#perturbation-analyses" class="anchor"></a>Perturbation analyses</h3>
+<p>The <code><a href="reference/perturb_matrix.html">perturb_matrix()</a></code> function measures the response of a demographic statistic to perturbation of individual matrix elements (i.e. sensitivities and elasticities). The <code><a href="reference/perturb_vr.html">perturb_vr()</a></code> and <code><a href="reference/perturb_trans.html">perturb_trans()</a></code> functions implement perturbation analyses by vital rate type (survival, growth, etc.) and transition type (stasis, retrogression, etc.), respectively.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># matrix element perturbation</span>
+<span class="fu"><a href="reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span>
+<span class="co">#&gt;            seed   small   medium    large  dormant</span>
+<span class="co">#&gt; seed     0.2173 0.01133 0.004786 0.002987 0.001151</span>
+<span class="co">#&gt; small    4.4375 0.23141 0.097740 0.060993 0.023498</span>
+<span class="co">#&gt; medium  10.8655 0.56662 0.239323 0.149347 0.057537</span>
+<span class="co">#&gt; large   21.3053 1.11104 0.469271 0.292843 0.112820</span>
+<span class="co">#&gt; dormant  3.6112 0.18832 0.079540 0.049636 0.019123</span>
+
+<span class="co"># vital rate perturbation</span>
+<span class="co"># (we use as.data.frame here for prettier printing)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_vr.html">perturb_vr</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   survival growth shrinkage fecundity clonality</span>
+<span class="co">#&gt; 1    2.986  1.078   -0.1653  0.005728         0</span>
+
+<span class="co"># transition type perturbation</span>
+<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_trans.html">perturb_trans</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   stasis  retro progr fecundity clonality</span>
+<span class="co">#&gt; 1      1 0.4174 6.714  0.007773        NA</span></code></pre></div>
+</div>
+<div id="transforming-mpms" class="section level3">
+<h3 class="hasAnchor">
+<a href="#transforming-mpms" class="anchor"></a>Transforming MPMs</h3>
+<p>Rage includes a variety of functions that can be used to manipulate or transform MPMs. For example, we can collapse an MPM to a smaller number of stage classes using <code><a href="reference/mpm_collapse.html">mpm_collapse()</a></code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># collapse 'small', 'medium', and 'large' stages into single stage class</span>
+<span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="va">col1</span><span class="op">$</span><span class="va">matA</span>
+<span class="co">#&gt;      [,1]     [,2] [,3]</span>
+<span class="co">#&gt; [1,] 0.10 11.61332 0.00</span>
+<span class="co">#&gt; [2,] 0.05  0.53908 0.22</span>
+<span class="co">#&gt; [3,] 0.00  0.05728 0.17</span></code></pre></div>
+<p>The transition rates in the collapsed matrix are a weighted average of the transition rates from the relevant stages of the original matrix, weighted by the stable distribution at equilibrium. This process guarantees that the collapsed MPM will retain the same population growth rate as the original. However, other demographic and life history characteristics will not necessarily be preserved.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># compare population growth rate of original and collapsed MPM (preserved)</span>
+<span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.121</span>
+<span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.121</span>
+
+<span class="co"># compare net reproductive rate of original and collapsed MPM (not preserved)</span>
+<span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.852</span>
+<span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">col1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.447</span></code></pre></div>
+</div>
+</div>
+<div id="complete-list-of-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#complete-list-of-functions" class="anchor"></a>Complete list of functions</h2>
+<table class="table">
+<colgroup>
+<col width="23%">
+<col width="20%">
+<col width="54%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">
+Category
+</th>
+<th align="left">
+Function
+</th>
+<th align="left">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">
+Life history traits
+</td>
+<td align="left">
+<code>life_expect</code>
+</td>
+<td align="left">
+Life expectancy
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>longevity</code>
+</td>
+<td align="left">
+Longevity
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>net_repro_rate</code>
+</td>
+<td align="left">
+Net reproductive rate
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>gen_time</code>
+</td>
+<td align="left">
+Generation time
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mature_age</code>
+</td>
+<td align="left">
+Age at reproductive maturity
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>mature_prob</code>
+</td>
+<td align="left">
+Probability of reaching reproductive maturity
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mature_distrib</code>
+</td>
+<td align="left">
+Stage distribution of reproductive maturity
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>entropy_d</code>
+</td>
+<td align="left">
+Demetrius’ entropy
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>entropy_k</code>
+</td>
+<td align="left">
+Keyfitz’ entropy
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>shape_surv</code>
+</td>
+<td align="left">
+Shape of survival/mortality trajectory
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>shape_rep</code>
+</td>
+<td align="left">
+Shape of fecundity trajectory
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+Life table
+</td>
+<td align="left">
+<code>mpm_to_table</code>
+</td>
+<td align="left">
+MPM to life table
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_to_lx</code>
+</td>
+<td align="left">
+MPM to survivorship trajectory
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_to_px</code>
+</td>
+<td align="left">
+MPM to survival trajectory
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_to_hx</code>
+</td>
+<td align="left">
+MPM to mortality hazard trajectory
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_to_mx</code>
+</td>
+<td align="left">
+MPM to fecundity trajectory
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>lx_to_[px/hx]</code>
+</td>
+<td align="left">
+Convert from survivorship trajectory
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>px_to_[lx/hx]</code>
+</td>
+<td align="left">
+Convert from survival trajectory
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>hx_to_[lx/px]</code>
+</td>
+<td align="left">
+Convert from mortality hazard trajectory
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>qsd_converge</code>
+</td>
+<td align="left">
+Time to quasi-stationary destribution
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+Vital rates
+</td>
+<td align="left">
+<code>vr_[…]</code>
+</td>
+<td align="left">
+MPM-averaged vital rates
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>vr_vec_[…]</code>
+</td>
+<td align="left">
+Stage-averaged vital rates
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>vr_mat_[…]</code>
+</td>
+<td align="left">
+Survival-independent vital rates
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+Perturbation
+</td>
+<td align="left">
+<code>perturb_matrix</code>
+</td>
+<td align="left">
+Perturbation analysis of whole matrix
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>perturb_trans</code>
+</td>
+<td align="left">
+Perturbation analysis of transition types
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>perturb_vitals</code>
+</td>
+<td align="left">
+Perturbation analysis of vital rate types
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>perturb_stochastic</code>
+</td>
+<td align="left">
+Stochastic perturbation analysis
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+MPM transformation
+</td>
+<td align="left">
+<code>mpm_split</code>
+</td>
+<td align="left">
+Split MPM into survival and reproductive components
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_rearrange</code>
+</td>
+<td align="left">
+Rearrange MPM to segregate reproductive stages
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_collapse</code>
+</td>
+<td align="left">
+Collapse MPM to smaller number of stages
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>mpm_standardize</code>
+</td>
+<td align="left">
+Collapse MPM to standardized set of stages
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>standard_stages</code>
+</td>
+<td align="left">
+Group stages into standardized sets
+</td>
+</tr>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">
+<code>repro_stages</code>
+</td>
+<td align="left">
+Identify reproductive stages
+</td>
+</tr>
+<tr class="even">
+<td align="left">
+</td>
+<td align="left">
+<code>plot_life_cycle</code>
+</td>
+<td align="left">
+Plot a life cycle diagram
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="contributions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributions" class="anchor"></a>Contributions</h2>
+<p>All contributions are welcome. Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
@@ -160,20 +701,25 @@
 </li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Owen R. Jones/Roberto Salguero-Gomez <r.salguero><br><small class="roles"> Maintainer </small>  </r.salguero>
-</li>
+<li>Owen R. Jones <br><small class="roles"> Maintainer </small>  </li>
 </ul>
 </div>
 
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/jonesor/Rage"><img src="https://travis-ci.org/jonesor/Rage.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/jonesor/Rage"><img src="https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/jonesor/Rage?branch=master"><img src="https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://travis-ci.org/jonesor/Rage"><img src="https://travis-ci.org/jonesor/Rage.svg?branch=devel" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/jonesor/Rage"><img src="https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://codecov.io/github/jonesor/Rage?branch=devel"><img src="https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg" alt="Coverage status"></a></li>
 </ul>
 </div>
 </div>
@@ -181,7 +727,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Owen R. Jones/Roberto Salguero-Gomez <r.salguero>.</r.salguero></p>
+  <p>Developed by Owen R. Jones.</p>
 </div>
 
 <div class="pkgdown">

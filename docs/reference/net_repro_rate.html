@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate longevity from a matrix population model — longevity • Rage</title>
+<title>Calculate net reproductive value (R0) from a matrix population model — net_repro_rate • Rage</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Calculate longevity from a matrix population model — longevity" />
-<meta property="og:description" content="Calculate longevity (the age a which survivorship falls to some critical
-proportion) from a matrix population model" />
+<meta property="og:title" content="Calculate net reproductive value (R0) from a matrix population model — net_repro_rate" />
+<meta property="og:description" content="Calculate net reproductive value (R0) from a matrix population model." />
 
 
 
@@ -124,17 +123,16 @@ proportion) from a matrix population model" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate longevity from a matrix population model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/longevity.R'><code>R/longevity.R</code></a></small>
-    <div class="hidden name"><code>longevity.Rd</code></div>
+    <h1>Calculate net reproductive value (R0) from a matrix population model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/net_repro_rate.R'><code>R/net_repro_rate.R</code></a></small>
+    <div class="hidden name"><code>net_repro_rate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate longevity (the age a which survivorship falls to some critical
-proportion) from a matrix population model</p>
+    <p>Calculate net reproductive value (R0) from a matrix population model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1000</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>net_repro_rate</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1</span>, method <span class='op'>=</span> <span class='st'>"generation"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,69 +144,59 @@ square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)</p></td>
     </tr>
     <tr>
+      <th>matR</th>
+      <td><p>The reproductive component of a matrix population model (i.e. a
+square projection matrix reflecting transitions due to reproduction; either
+sexual, clonal, or both)</p></td>
+    </tr>
+    <tr>
       <th>start</th>
-      <td><p>The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match
-<code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+      <td><p>Index of the first stage at which the author considers the
+beginning of life. Only used if <code>method = "start"</code>. Defaults to 1.</p></td>
     </tr>
     <tr>
-      <th>xmax</th>
-      <td><p>The maximum age to which survivorship will be calculated.
-Defaults to 1000.</p></td>
-    </tr>
-    <tr>
-      <th>lx_crit</th>
-      <td><p>The critical proportion to calculate longevity with respect to
-(a value between 0 and 1). Defaults to 0.01.</p></td>
+      <th>method</th>
+      <td><p>The method used to calculate net reproductive value, either
+<code>"generation"</code> or <code>"start"</code>. Defaults to <code>"generation"</code>.
+See Details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns longevity, the integer age at which expected survivorship
-  falls below <code>lx_crit</code>. If survivorship doesn't reach <code>lx_crit</code> by
-  <code>xmax</code>, returns <code>NA</code> and prints a warning message.</p>
-    <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
+    <p>Returns the net reproductive value. If <code>matU</code> is singular (often
+  indicating infinite life expectancy), returns <code>NA</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-
-<p>Rather than specifying argument <code>start</code> as a single stage class from
-which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
-calculation of longevity from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
-multiple stage classes in which an individual could first reproduce.</p>
-<p>To specify multiple starting stage classes, specify argument <code>start</code> as
-the desired starting population vector (<strong>n1</strong>), giving the proportion
-of individuals starting in each stage class (the length of <code>start</code>
-should match the number of columns in the relevant MPM).</p>
-<p>See function <code><a href='repro_maturity.html'>mature_distrib</a></code> for calculating the proportion of
-individuals achieving reproductive maturity in each stage class.</p>
+    <p>The <code>method</code> argument controls how net reproductive rate is calculated.</p>
+<p>If <code>method = "generation"</code>, net reproductive value is calculated as the
+per-generation population growth rate (i.e. the dominant eigenvalue of
+<code>matR %*% N</code>, where <code>N</code> is the fundamental matrix). See Caswell
+(2001) Section 5.3.4.</p>
+<p>If <code>method = "start"</code>, net reproductive value is calculated as the
+expected lifetime production of offspring that start life in stage
+<code>start</code>, by an individual also starting life in stage <code>start</code> (i.e.
+<code>(matR %*% N)[start,start]</code>).</p>
+<p>If offspring only arise in stage <code>start</code>, the two methods give the
+same result.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Caswell, H. (2001) Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968</p>
-<p>Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
-  Theory and Practice of Population Viability Analysis. Sinauer Associates,
-  Sunderland, Massachusetts, USA</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Hal Caswell &lt;hcaswell@whoi.edu&gt;</p>
+    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+<p>Hal Caswell &lt;h.caswell@uva.nl&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
 
-<span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7</div><div class='input'>
-<span class='co'># starting from first reproduction</span>
-<span class='va'>repstages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
-<span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>repstages</span><span class='op'>)</span>
-<span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 13</div><div class='input'>
+<span class='fu'>net_repro_rate</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.852091</div><div class='input'>
+<span class='co'># calculate R0 using the start method</span>
+<span class='fu'>net_repro_rate</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span>, method <span class='op'>=</span> <span class='st'>"start"</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

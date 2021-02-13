@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate longevity from a matrix population model — longevity • Rage</title>
+<title>Calculate time to reach quasi-stationary stage distribution from a matrix
+population model — qsd_converge • Rage</title>
 
 
 <!-- jquery -->
@@ -39,9 +40,10 @@
 
 
 
-<meta property="og:title" content="Calculate longevity from a matrix population model — longevity" />
-<meta property="og:description" content="Calculate longevity (the age a which survivorship falls to some critical
-proportion) from a matrix population model" />
+<meta property="og:title" content="Calculate time to reach quasi-stationary stage distribution from a matrix
+population model — qsd_converge" />
+<meta property="og:description" content="Calculate the time in the projection of a cohort through a matrix population
+model at which a defined quasi-stationary stage distribution is reached." />
 
 
 
@@ -124,51 +126,84 @@ proportion) from a matrix population model" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate longevity from a matrix population model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/longevity.R'><code>R/longevity.R</code></a></small>
-    <div class="hidden name"><code>longevity.Rd</code></div>
+    <h1>Calculate time to reach quasi-stationary stage distribution from a matrix
+population model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/qsd_converge.R'><code>R/qsd_converge.R</code></a></small>
+    <div class="hidden name"><code>qsd_converge.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate longevity (the age a which survivorship falls to some critical
-proportion) from a matrix population model</p>
+    <p>Calculate the time in the projection of a cohort through a matrix population
+model at which a defined quasi-stationary stage distribution is reached.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1000</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>qsd_converge</span><span class='op'>(</span><span class='va'>mat</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, conv <span class='op'>=</span> <span class='fl'>0.05</span>, N <span class='op'>=</span> <span class='fl'>100000L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+      <th>mat</th>
+      <td><p>A matrix population model, or component thereof (i.e. a square
+projection matrix)</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>The index of the first stage at which the author considers the
 beginning of life. Defaults to 1. Alternately, a numeric vector giving the
 starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match
-<code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+<code>ncol(matU))</code>. See section <em>Starting from first reproduction</em>.</p></td>
     </tr>
     <tr>
-      <th>xmax</th>
-      <td><p>The maximum age to which survivorship will be calculated.
-Defaults to 1000.</p></td>
+      <th>conv</th>
+      <td><p>Proportional distance threshold from the stationary stage
+distribution indicating convergence. E.g. This value should be 0.05 if the
+user wants to obtain the time step when the stage distribution is within a
+distance of 5% of the stationary stage distribution.</p></td>
     </tr>
     <tr>
-      <th>lx_crit</th>
-      <td><p>The critical proportion to calculate longevity with respect to
-(a value between 0 and 1). Defaults to 0.01.</p></td>
+      <th>N</th>
+      <td><p>Maximum number of time steps over which the population will be
+projected. Time steps are in the same units as the matrix population model
+(see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns longevity, the integer age at which expected survivorship
-  falls below <code>lx_crit</code>. If survivorship doesn't reach <code>lx_crit</code> by
-  <code>xmax</code>, returns <code>NA</code> and prints a warning message.</p>
+    <p>An integer indicating the first time step at which the
+  quasi-stationary stage distribution is reached (or an <code>NA</code> and a
+  warning if the quasi-stationary distribution is not reached).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Some matrix population models are parameterised with a stasis loop at the
+largest/most-developed stage class, which can lead to artefactual pleateaus
+in the mortality or fertility trajectories derived from such models. These
+plateaus occur as a projected cohort approaches its stationary stage
+distribution (SSD). Though there is generally no single time point at which
+the SSD is reached, we can define a quasi-stationary stage distribution (QSD)
+based on a given distance threshold from the SSD, and calculate the number of
+time steps required for a cohort to reach the QSD. This quantity can then be
+used to subset age trajectories of mortality or fertility to periods earlier
+than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The time required for a cohort to reach its QSD depends on the initial
+  population vector of the cohort (for our purposes, the starting stage
+  class), and so does not fundamentally require an ergodic matrix (where the
+  long-term equilibrium traits are independent of the initial population
+  vector). However, methods for efficiently calculating the stationary stage
+  distribution (SSD) generally do require ergodicity.</p>  
+<p>If the supplied matrix (<code>mat</code>) is non-ergodic, <code>qsd_converge</code>
+  first checks for stage classes with no connection (of any degree) from the
+  starting stage class specified by argument <code>start</code>, and strips such
+  stages from the matrix. These unconnected stages have no impact on
+  age-specific traits that we might derive from the matrix (given the
+  specifed starting stage), but often lead to non-ergodicity and therefore
+  prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
+  the function internally updates the starting stage class and continues with
+  the regular calculation. Otherwise, if the matrix cannot be made ergodic,
+  the function will throw an error.</p>
     <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
 
     
@@ -176,9 +211,9 @@ Defaults to 1000.</p></td>
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if we want to start our
-calculation of longevity from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
-multiple stage classes in which an individual could first reproduce.</p>
+calculation of QSD from reproductive maturity (i.e. first reproduction), we
+should account for the possibility that there may be multiple stage classes
+in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
 the desired starting population vector (<strong>n1</strong>), giving the proportion
 of individuals starting in each stage class (the length of <code>start</code>
@@ -190,25 +225,31 @@ individuals achieving reproductive maturity in each stage class.</p>
     <p>Caswell, H. (2001) Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968</p>
-<p>Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
-  Theory and Practice of Population Viability Analysis. Sinauer Associates,
-  Sunderland, Massachusetts, USA</p>
+<p>Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
+  Nature, 505(7482), 169–173. https://doi.org/10.1038/nature12789</p>
+<p>Salguero-Gómez R. (2018) Implications of clonality for ageing research.
+  Evolutionary Ecology, 32, 9-28. https://doi.org/10.1007/s10682-017-9923-2</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Hal Caswell &lt;hcaswell@whoi.edu&gt;</p>
+    <p>Hal Caswell &lt;h.caswell@uva.nl&gt;</p>
+<p>Owen Jones &lt;jones@biology.sdu.dk&gt;</p>
+<p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+<p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
 
-<span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7</div><div class='input'>
+<span class='co'># starting stage = 2 </span>
+<span class='fu'>qsd_converge</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+<span class='co'># convergence threshold = 0.001</span>
+<span class='fu'>qsd_converge</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, conv <span class='op'>=</span> <span class='fl'>0.001</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 8</div><div class='input'>
 <span class='co'># starting from first reproduction</span>
 <span class='va'>repstages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
 <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>repstages</span><span class='op'>)</span>
-<span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 13</div><div class='input'>
+<span class='fu'>qsd_converge</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
+ragg_png = function(..., res = 192) {
+  ragg::agg_png(..., res = res, units = "in")
+}
+knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
 ```
 
 Rage provides tools for manipulating and analyzing matrix population models
@@ -97,7 +101,7 @@ distribution (QSD). This quantity can then be used to subset age trajectories of
 mortality or fertility to periods earlier than the QSD, so as to avoid
 artefactual plateaus in mortality or fertility.
 
-```{r, warning=F, message=F, fig.width=6.5, fig.height=4}
+```{r, warning=FALSE, message=FALSE}
 # derive life table from MPM
 lt <- mpm_to_table(mpm1$matU, start = 2)
 

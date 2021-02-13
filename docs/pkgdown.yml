@@ -1,6 +1,8 @@
 pandoc: 2.10.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2021-02-11T14:54Z
+articles:
+  getting-started: getting-started.html
+  vital-rates: vital-rates.html
+last_built: 2021-02-13T11:27Z
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rage — Rage-package • Rage</title>
+<title>Calculate shape of survival over age — shape_surv • Rage</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Rage — Rage-package" />
-<meta property="og:description" content="An R package with tools to derive life history traits from matrix population
-models." />
+<meta property="og:title" content="Calculate shape of survival over age — shape_surv" />
+<meta property="og:description" content="Calculates a 'shape' value of survival lifespan inequality by comparing the 
+area under a survival curve (over age) with the area under a constant 
+survival function." />
 
 
 
@@ -124,41 +125,71 @@ models." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><span class="pkg">Rage</span></h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/Rage-package.R'><code>R/Rage-package.R</code></a></small>
-    <div class="hidden name"><code>Rage-package.Rd</code></div>
+    <h1>Calculate shape of survival over age</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/shape_surv.R'><code>R/shape_surv.R</code></a></small>
+    <div class="hidden name"><code>shape_surv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R package with tools to derive life history traits from matrix population
-models.</p>
+    <p>Calculates a 'shape' value of survival lifespan inequality by comparing the 
+area under a survival curve (over age) with the area under a constant 
+survival function.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>shape_surv</span><span class='op'>(</span><span class='va'>surv</span>, xmin <span class='op'>=</span> <span class='cn'>NULL</span>, xmax <span class='op'>=</span> <span class='cn'>NULL</span>, trunc <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>surv</th>
+      <td><p>Either 1) a numeric vector describing a survival curve (lx), or
+2) a <code>data.frame</code> / <code>list</code> with one column / element titled 'lx'
+describing a survival curve, optionally a column / element 'x' containing
+age classes (each element a number representing the age at the start of the
+class).</p>
+<p>If x is not supplied, the function will assume age classes starting at 0
+with time steps of 1 unit. If x begins at 0 then <code>lx[1]</code> should equal
+1. If x ends at maximum longevity, then <code>lx[which.max(x)]</code> should
+equal 0; however it is possible to supply partial survivorship curves.</p></td>
+    </tr>
+    <tr>
+      <th>xmin, xmax</th>
+      <td><p>The minimum and maximum age respectively over which to
+evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/base/Extremes.html'>min(x)</a></code> and
+<code><a href='https://rdrr.io/r/base/Extremes.html'>max(x)</a></code> respectively.</p></td>
+    </tr>
+    <tr>
+      <th>trunc</th>
+      <td><p>logical determining whether to truncate life tables or not 
+when any lx == 0. Usually this is the case only for the final value of lx.
+As the function calculates log(lx), these value(s) cannot be handled. 
+trunc == TRUE strips out the zero value(s). An alternative to this is to 
+transform the zeroes to something approximating zero (e.g. 1e-7).</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Buckley, Y. M.,
-Che-Castaldo, J., Caswell, H., Hodgson, D., Scheuerlein, A., Conde, D. A.,
-Brinks, E., de Buhr, H., Farack, C., Gottschalk, F., Hartmann, A., Henning,
-A., Hoppe, G., Roemer, G., Runge, J., Ruoff, T., Wille, J., Zeh, S., Davison,
-R., Vieregg, D., Baudisch, A., Altwegg, R., Colchero, F., Dong, M., de Kroon,
-H., Lebreton, J.-D., Metcalf, C. J. E., Neel, M. M., Parker, I. M., Takada,
-T., Valverde, T., Velez-Espino, L. A., Wardle, G. M., Franco, M., Vaupel, J.
-W. (2015) The COMPADRE Plant Matrix Database: an open online repository for
-plant demography. Journal of Ecology, 103: 202-218. 
-<a href='https://doi.org/10.1111/1365-2745.12334'>https://doi.org/10.1111/1365-2745.12334</a></p>
-<p>Salguero-Gomez, R., Jones, O. R., Archer, C. R., Bein, C., de Buhr, H.,
-Farack, C., Gottschalk, F., Hartmann, A., Henning, A., Hoppe, G., Roemer, G.,
-Ruoff, T., Sommer, V., Wille, J., Voigt, J., Zeh, S., Vieregg, D., Buckley,
-Y. M., Che-Castaldo, J., Hodgson, D., Scheuerlein, A., Caswell, H., Vaupel,
-J. W. (2016) COMADRE: a global data base of animal demography. Journal of
-Animal Ecology, 85: 371-384. <a href='https://doi.org/10.1111/1365-2656.12482'>https://doi.org/10.1111/1365-2656.12482</a></p>
+    <p>a shape value describing lifespan inequality by comparing the area
+  under a survival (lx) curve over age with the area under a constant (type
+  2) survival function. May take any real value between -0.5 and +0.5. A
+  value of 0 indicates negligible aging (neither generally increasing nor
+  generally decreasing survival with age); negative values indicate negative
+  senescence (generally increasing survival with age); positive values
+  indicate senescence (generally decreasing survival with age). A value of
+  +0.5 indicates that all individuals die at age of maximum longevity; a
+  value of -0.5 indicates that (hypothetically) all individuals die at birth.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
+    <p>Iain Stott &lt;iainmstott@gmail.com&gt;</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># exponential decline in lx yields shape = 0</span>
+<span class='va'>lx</span> <span class='op'>&lt;-</span> <span class='fl'>0.7</span><span class='op'>^</span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>
+<span class='fu'>shape_surv</span><span class='op'>(</span><span class='va'>lx</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

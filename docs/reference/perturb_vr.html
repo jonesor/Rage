@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Derive mean vital rates from a matrix population model — vitalRates • Rage</title>
+<title>Perturbation analysis of vital rates in a matrix population model — perturb_vr • Rage</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,17 @@
 
 
 
-<meta property="og:title" content="Derive mean vital rates from a matrix population model — vitalRates" />
-<meta property="og:description" content="Derive mean vital rates corresponding to separate demographic processes from
-a matrix population model. Specifically, this function decomposes vital rates
-of survival, progression, retrogression, sexual reproduction and clonal
-reproduction, with various options for weighting and grouping stages of the
-life cycle." />
+<meta property="og:title" content="Perturbation analysis of vital rates in a matrix population model — perturb_vr" />
+<meta property="og:description" content="Perturbs lower-level vital rates within a matrix population model and
+measures the response of the per-capita population growth rate at equilibrium
+(\(\lambda\)), or, with a user-supplied function, any other demographic
+statistic.
+These decompositions assume that all transition rates are products of a
+stage-specific survival term (column sums of matU) and a lower level
+vital rate that is conditional on survival (growth, shrinkage, stasis,
+dormancy, or reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are
+also allowed." />
 
 
 
@@ -127,27 +132,26 @@ life cycle." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Derive mean vital rates from a matrix population model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/vitalRates.R'><code>R/vitalRates.R</code></a></small>
-    <div class="hidden name"><code>vitalRates.Rd</code></div>
+    <h1>Perturbation analysis of vital rates in a matrix population model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/perturb_vr.R'><code>R/perturb_vr.R</code></a></small>
+    <div class="hidden name"><code>perturb_vr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derive mean vital rates corresponding to separate demographic processes from
-a matrix population model. Specifically, this function decomposes vital rates
-of survival, progression, retrogression, sexual reproduction and clonal
-reproduction, with various options for weighting and grouping stages of the
-life cycle.</p>
+    <p>Perturbs lower-level vital rates within a matrix population model and
+measures the response of the per-capita population growth rate at equilibrium
+(\(\lambda\)), or, with a user-supplied function, any other demographic
+statistic.</p>
+<p>These decompositions assume that all transition rates are products of a
+stage-specific survival term (column sums of <code>matU</code>) and a lower level
+vital rate that is conditional on survival (growth, shrinkage, stasis,
+dormancy, or reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are
+also allowed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vitalRates</span><span class='op'>(</span>
-  <span class='va'>matU</span>,
-  <span class='va'>matF</span>,
-  matC <span class='op'>=</span> <span class='cn'>NULL</span>,
-  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
-  splitStages <span class='op'>=</span> <span class='st'>"all"</span>,
-  matrixStages <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>perturb_vr</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, pert <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  type <span class='op'>=</span> <span class='st'>"sensitivity"</span>, demog_stat <span class='op'>=</span> <span class='st'>"lambda"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,7 +160,7 @@ life cycle.</p>
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression).</p></td>
+progression, stasis, and retrogression)</p></td>
     </tr>
     <tr>
       <th>matF</th>
@@ -171,41 +175,42 @@ Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
 <code>matC</code> is a matrix of zeros).</p></td>
     </tr>
     <tr>
-      <th>weights</th>
-      <td><p>Vector of stage-specific weights to apply while averaging
-vital rates. Default is <code>NULL</code> reflecting equal weighting for all
-stages. May also be <code>"SSD"</code> to weight vital rates by the stable
-distribution of <code>matA</code>.</p></td>
+      <th>pert</th>
+      <td><p>Magnitude of the perturbation (defaults to <code>1e-6</code>)</p></td>
     </tr>
     <tr>
-      <th>splitStages</th>
-      <td><p>What groups should vital rates be averaged over. Either:</p>
-<p><code>"all"</code>: all stages grouped</p>
-<p><code>"ontogeny"</code>: group juvenile stages (all stages prior to the first stage
-with sexual reproduction) and adult stages</p>
-<p><code>"matrixStages"</code>: group according to a standardized set of stage classes
-(propagule, active, and dormant). If <code>splitStages = "matrixStages"</code>,
-must also specify separate argument <code>matrixStages</code>.</p></td>
+      <th>type</th>
+      <td><p>Whether to return "sensitivity" or "elasticity" values. Defaults
+to "sensitivity'.</p></td>
     </tr>
     <tr>
-      <th>matrixStages</th>
-      <td><p>Vector of stage-specific standardized matrix classes
-("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
-<code>splitStages = "matrixClass"</code>.</p></td>
+      <th>demog_stat</th>
+      <td><p>The demographic statistic to be used, as in "the
+sensitivity/elasticity of <code>demog_stat</code> to vital rate perturbations."
+Defaults to the per-capita population growth rate at equilibrium
+(\(lambda\)). Also accepts a user-supplied function that performs a
+calculation on a projection matrix and returns a single numeric value.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to the function <code>demog_stat</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of averaged vital rates.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <p>A list with 5 elements:</p>
+<dt>survival</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to survival</p></dd>
+<dt>growth</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to growth</p></dd>
+<dt>shrinkage</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to shrinkage</p></dd>
+<dt>fecundity</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to sexual
+fecundity</p></dd>
+<dt>clonality</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to clonality</p></dd>
 
-    <p>Caswell, H. (2001) Matrix Population Models: Construction,
-  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>Rob Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+<p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
@@ -217,105 +222,63 @@ must also specify separate argument <code>matrixStages</code>.</p></td>
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.8</span>, <span class='fl'>0.4</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-              
-<span class='va'>matC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span><span class='op'>)</span>,
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
-              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># Vital rate outputs without weights</span>
-<span class='fu'>vitalRates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'all'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $surv
-#&gt; [1] 0.675
+<span class='fu'>perturb_vr</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $survival
+#&gt; [1] 1.74464
 #&gt; 
-#&gt; $retr
-#&gt; [1] 0.1269841
+#&gt; $growth
+#&gt; [1] 0.3319942
 #&gt; 
-#&gt; $prog
-#&gt; [1] 0.662963
+#&gt; $shrinkage
+#&gt; [1] -0.1760375
 #&gt; 
-#&gt; $fec
-#&gt; [1] 1.95
+#&gt; $fecundity
+#&gt; [1] 0.242957
 #&gt; 
-#&gt; $clo
-#&gt; [1] 0.65
-#&gt; </div><div class='input'><span class='fu'>vitalRates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'ontogeny'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $survJuv
-#&gt; [1] 0.55
-#&gt; 
-#&gt; $retrJuv
-#&gt; [1] 0
-#&gt; 
-#&gt; $progJuv
-#&gt; [1] 0.7166667
-#&gt; 
-#&gt; $cloJuv
-#&gt; [1] 0
-#&gt; 
-#&gt; $survAdu
-#&gt; [1] 0.8
-#&gt; 
-#&gt; $retrAdu
-#&gt; [1] 0.1269841
-#&gt; 
-#&gt; $progAdu
-#&gt; [1] 0.5555556
-#&gt; 
-#&gt; $fecAdu
-#&gt; [1] 1.95
-#&gt; 
-#&gt; $cloAdu
-#&gt; [1] 0.65
-#&gt; </div><div class='input'>
-<span class='co'># Group vital rates according to specified matrixStages</span>
-<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span><span class='op'>)</span>
-<span class='fu'>vitalRates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'matrixStages'</span>, matrixStages <span class='op'>=</span> <span class='va'>ms</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $survProp
-#&gt; [1] 0
-#&gt; 
-#&gt; $progProp
-#&gt; [1] 0
-#&gt; 
-#&gt; $survActive
-#&gt; [1] 0.7
-#&gt; 
-#&gt; $retrActive
-#&gt; [1] 0.1269841
-#&gt; 
-#&gt; $progActive
-#&gt; [1] 0.5777778
-#&gt; 
-#&gt; $fecActive
-#&gt; [1] 1.95
-#&gt; 
-#&gt; $cloActive
-#&gt; [1] 0.65
-#&gt; 
-#&gt; $survDorm
-#&gt; [1] 0
-#&gt; 
-#&gt; $retrDorm
-#&gt; [1] 0
-#&gt; 
-#&gt; $progDorm
+#&gt; $clonality
 #&gt; [1] 0
 #&gt; </div><div class='input'>
-<span class='co'># Vital rate outputs weighted by the stable stage distribution of 'matA'</span>
-<span class='fu'>vitalRates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'all'</span>, weights <span class='op'>=</span> <span class='st'>'SSD'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $surv
-#&gt; [1] 0.6123886
+<span class='co'># use a larger perturbation than the default</span>
+<span class='fu'>perturb_vr</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, pert <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $survival
+#&gt; [1] 1.741488
 #&gt; 
-#&gt; $retr
-#&gt; [1] 0.1250597
+#&gt; $growth
+#&gt; [1] 0.323864
 #&gt; 
-#&gt; $prog
-#&gt; [1] 0.6905906
+#&gt; $shrinkage
+#&gt; [1] -0.1793286
 #&gt; 
-#&gt; $fec
-#&gt; [1] 1.943938
+#&gt; $fecundity
+#&gt; [1] 0.2428359
 #&gt; 
-#&gt; $clo
-#&gt; [1] 0.656062
+#&gt; $clonality
+#&gt; [1] 0
+#&gt; </div><div class='input'>
+<span class='co'># calculate the sensitivity/elasticity of the damping ratio to vital rate</span>
+<span class='co'>#  perturbations</span>
+<span class='va'>damping</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span> <span class='op'>{</span>  <span class='co'># define function for damping ratio</span>
+  <span class='va'>eig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/eigen.html'>eigen</a></span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span><span class='op'>$</span><span class='va'>values</span>
+  <span class='va'>dm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rle.html'>rle</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/complex.html'>Mod</a></span><span class='op'>(</span><span class='va'>eig</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>values</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>dm</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>/</span> <span class='va'>dm</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'>perturb_vr</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, demog_stat <span class='op'>=</span> <span class='st'>"damping"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $survival
+#&gt; [1] -0.3015607
+#&gt; 
+#&gt; $growth
+#&gt; [1] -1.830972
+#&gt; 
+#&gt; $shrinkage
+#&gt; [1] 0.3132885
+#&gt; 
+#&gt; $fecundity
+#&gt; [1] 1.473109
+#&gt; 
+#&gt; $clonality
+#&gt; [1] 0
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
