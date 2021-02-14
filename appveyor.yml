@@ -10,9 +10,6 @@ init:
 install:
   ps: Bootstrap
 
-cache:
-  - C:\RLibrary
-
 # Adapt as necessary starting from here
 environment:
   matrix:
@@ -37,7 +34,6 @@ environment:
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_github jonesor/Rcompadre
 
 test_script:
   - travis-tool.sh run_tests

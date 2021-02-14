@@ -14,4 +14,11 @@ test_that("checkValidStartLife works correctly", {
   # outside 1:nrow(M)
   startLife <- 5
   expect_error(checkValidStartLife(startLife, M))
+  
+  # start_vec = TRUE
+  startLife <- c(0.4, 0.6)
+  expect_silent(checkValidStartLife(startLife, M, start_vec = TRUE))
+  
+  startLife <- c(0, 0.4, 0.6)
+  expect_error(checkValidStartLife(startLife, M, start_vec = TRUE))
 })

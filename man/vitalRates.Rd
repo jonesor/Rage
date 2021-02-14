@@ -4,13 +4,19 @@
 \alias{vitalRates}
 \title{Derive mean vital rates from a matrix population model}
 \usage{
-vitalRates(matU, matF, matC = NULL, weights = NULL,
-  splitStages = "all", matrixStages = NULL)
+vitalRates(
+  matU,
+  matF,
+  matC = NULL,
+  weights = NULL,
+  splitStages = "all",
+  matrixStages = NULL
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
 \item{matF}{The sexual component of a matrix population model (i.e. a square
 projection matrix reflecting transitions due to sexual reproduction)}
