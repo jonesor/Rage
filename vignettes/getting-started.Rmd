@@ -21,6 +21,7 @@ options(digits = 4)
 #  ragg::agg_png(..., res = res, units = "in")
 #}
 #knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 Rage provides tools for manipulating and analyzing matrix population models
