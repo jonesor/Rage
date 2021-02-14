@@ -33,6 +33,8 @@ environment:
 
 
 build_script:
+  - travis-tool.sh install_r utf8
+  - travis-tool.sh install_github jonesor/Rcompadre
   - travis-tool.sh install_deps
 
 test_script:
