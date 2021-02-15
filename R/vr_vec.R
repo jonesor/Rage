@@ -1,4 +1,4 @@
-#' Derive stage-specific vital rates from a matrix population model
+#' #' Derive stage-specific vital rates from a matrix population model
 #' 
 #' @description 
 #' Derive a vector of stage-specific vital rates of survival, growth, shrinkage,
@@ -7,7 +7,7 @@
 #' the calculation (see \emph{Excluding stages}), and defining the set of
 #' biologically-possible transitions (see \emph{Possible transitions}).
 #' 
-#' These decompositions assume that all transition rates are products of a
+#' This decomposition assume that all transition rates are products of a
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis,
 #' dormancy, or reproduction). Reproductive vital rates that are not conditional
@@ -15,11 +15,11 @@
 #' also allowed.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   square projection matrix only containing survival-related transitions; 
+#'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e. a
-#'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   square projection matrix only reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both).
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
 #'   elements indicating whether a given \code{matU} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
@@ -47,7 +47,7 @@
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
 #' 
-#' @return Vector of vital rates. Vital rates corrsponding to impossible
+#' @return Vector of vital rates. Vital rates corresponding to impossible
 #'   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 #' 
 #' @section Possible transitions:
@@ -70,10 +70,10 @@
 #' 
 #' @section Excluding stages:
 #' It may be desirable to exclude one or more stages from the calculation of
-#' certain vital rates. For instance, we might not believe that 'growth' to a
-#' dormant stage class really reflects biological growth, in which case we could
-#' exclude transitions \emph{to} the dormant stage class using the argument
-#' \code{exclude_row}. We may or may not want to ignore 'growth' transitions
+#' certain vital rates. For instance, a user might not believe that 'growth' to 
+#' a dormant stage class really reflects biological growth, in which case the user 
+#' could exclude transitions \emph{to} the dormant stage class using the argument
+#' \code{exclude_row}. The user may or may not want to ignore 'growth' transitions
 #' \emph{from} the dormant stage class, which can be done using
 #' \code{exclude_col}. The argument \code{exclude_col} effectively just coerces
 #' the respective vital rate to \code{NA}, to prevent it from getting used in
@@ -89,7 +89,7 @@
 #'               c(  0, 0.3, 0.3, 0.1),
 #'               c(  0,   0, 0.5, 0.4))
 #' 
-#' matF <- rbind(c(  0,   0.7, 1.1, 0),
+#' matR <- rbind(c(  0,   0.7, 1.1, 0),
 #'               c(  0,   0.3, 0.8, 0),
 #'               c(  0,   0,   0,   0),
 #'               c(  0,   0,   0,   0))
@@ -102,7 +102,7 @@
 #' vr_vec_dorm_enter(matU, dorm_stages = 4)
 #' vr_vec_dorm_exit(matU, dorm_stages = 4)
 #' 
-#' vr_vec_fecundity(matU, matF, exclude_col = 4)
+#' vr_vec_reproduction(matU, matR, exclude_col = 4)
 #' 
 #' @name vr_vec
 NULL
@@ -243,8 +243,8 @@ vr_vec_dorm_exit <- function(matU,
 
 
 #' @rdname vr_vec
-#' @export vr_vec_fecundity
-vr_vec_fecundity <- function(matU,
+#' @export vr_vec_reproduction
+vr_vec_reproduction <- function(matU,
                              matR,
                              posR = matR > 0,
                              exclude_col = NULL,
