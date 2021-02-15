@@ -40,7 +40,7 @@
 #' fecundity}
 #' \item{clonality}{sensitivity or elasticity of \code{demog_stat} to clonality}
 #' 
-#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @examples
