@@ -4,7 +4,7 @@
 \alias{longevity}
 \title{Calculate longevity from a matrix population model}
 \usage{
-longevity(matU, start = 1L, xmax = 1000, lx_crit = 0.01)
+longevity(matU, start = 1L, x_max = 1000, lx_crit = 0.01)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -16,20 +16,20 @@ beginning of life. Defaults to 1. Alternately, a numeric vector giving the
 starting population vector (in which case \code{length(start)} must match
 \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
-\item{xmax}{The maximum age to which survivorship will be calculated.
+\item{x_max}{The maximum age to which survivorship will be calculated.
 Defaults to 1000.}
 
-\item{lx_crit}{The critical proportion to calculate longevity with respect to
-(a value between 0 and 1). Defaults to 0.01.}
+\item{lx_crit}{Proportion of initial cohort remaining before all are considered
+dead (a value between 0 and 1). Defaults to 0.01.}
 }
 \value{
 Returns longevity, the integer age at which expected survivorship
   falls below \code{lx_crit}. If survivorship doesn't reach \code{lx_crit} by
-  \code{xmax}, returns \code{NA} and prints a warning message.
+  \code{x_max}, returns \code{NA} and prints a warning message.
 }
 \description{
-Calculate longevity (the age a which survivorship falls to some critical
-proportion) from a matrix population model
+Calculate longevity (the age \emph{x} at which survivorship falls below some 
+critical proportion) from a matrix population model
 }
 \section{Starting from multiple stages}{
 
@@ -41,12 +41,9 @@ reproduction), we should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.
 
 To specify multiple starting stage classes, specify argument \code{start} as
-the desired starting population vector (\strong{n1}), giving the proportion
+the desired starting population vector, giving the proportion
 of individuals starting in each stage class (the length of \code{start}
 should match the number of columns in the relevant MPM).
-
-See function \code{\link{mature_distrib}} for calculating the proportion of
-individuals achieving reproductive maturity in each stage class.
 }
 
 \examples{
@@ -69,6 +66,10 @@ Caswell, H. (2001) Matrix Population Models: Construction,
   Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
   Theory and Practice of Population Viability Analysis. Sinauer Associates,
   Sunderland, Massachusetts, USA
+}
+\seealso{
+\code{\link{mature_distrib}} for calculating the proportion of
+individuals achieving reproductive maturity in each stage class.
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
