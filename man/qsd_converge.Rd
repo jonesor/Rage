@@ -2,22 +2,21 @@
 % Please edit documentation in R/qsd_converge.R
 \name{qsd_converge}
 \alias{qsd_converge}
-\title{Calculate time to reach quasi-stationary stage distribution from a matrix
-population model}
+\title{Calculate time to reach quasi-stationary stage distribution}
 \usage{
 qsd_converge(mat, start = 1L, conv = 0.05, N = 100000L)
 }
 \arguments{
 \item{mat}{A matrix population model, or component thereof (i.e. a square
-projection matrix)}
+projection matrix).}
 
 \item{start}{The index of the first stage at which the author considers the
 beginning of life. Defaults to 1. Alternately, a numeric vector giving the
 starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from first reproduction}.}
+\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{conv}{Proportional distance threshold from the stationary stage
-distribution indicating convergence. E.g. This value should be 0.05 if the
+distribution indicating convergence. For example, this value should be 0.05 if the
 user wants to obtain the time step when the stage distribution is within a
 distance of 5\% of the stationary stage distribution.}
 
@@ -31,8 +30,8 @@ An integer indicating the first time step at which the
   warning if the quasi-stationary distribution is not reached).
 }
 \description{
-Calculate the time in the projection of a cohort through a matrix population
-model at which a defined quasi-stationary stage distribution is reached.
+Calculates the time for a cohort projected with a matrix population
+model to reach a defined quasi-stationary stage distribution.
 }
 \details{
 Some matrix population models are parameterised with a stasis loop at the
@@ -45,6 +44,20 @@ based on a given distance threshold from the SSD, and calculate the number of
 time steps required for a cohort to reach the QSD. This quantity can then be
 used to subset age trajectories of mortality or fertility to periods earlier
 than the QSD, so as to avoid artefactual plateaus in mortality or fertility.
+
+\strong{Starting from multiple stages}
+
+Rather than specifying argument \code{start} as a single stage class from
+which all individuals start life, it may sometimes be desirable to allow for
+multiple starting stage classes. For example, if we want to start our
+calculation of QSD from reproductive maturity (i.e. first reproduction), we
+should account for the possibility that there may be multiple stage classes
+in which an individual could first reproduce.
+
+To specify multiple starting stage classes, specify argument \code{start} as
+the desired starting population vector, giving the proportion
+of individuals starting in each stage class (the length of \code{start}
+should match the number of columns in the relevant MPM).
 }
 \note{
 The time required for a cohort to reach its QSD depends on the initial
@@ -63,26 +76,8 @@ The time required for a cohort to reach its QSD depends on the initial
   prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
   the function internally updates the starting stage class and continues with
   the regular calculation. Otherwise, if the matrix cannot be made ergodic,
-  the function will throw an error.
+  the function will return \code{NA} with a warning.
 }
-\section{Starting from multiple stages}{
-
-Rather than specifying argument \code{start} as a single stage class from
-which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
-calculation of QSD from reproductive maturity (i.e. first reproduction), we
-should account for the possibility that there may be multiple stage classes
-in which an individual could first reproduce.
-
-To specify multiple starting stage classes, specify argument \code{start} as
-the desired starting population vector (\strong{n1}), giving the proportion
-of individuals starting in each stage class (the length of \code{start}
-should match the number of columns in the relevant MPM).
-
-See function \code{\link{mature_distrib}} for calculating the proportion of
-individuals achieving reproductive maturity in each stage class.
-}
-
 \examples{
 data(mpm1)
 
@@ -104,17 +99,21 @@ Caswell, H. (2001) Matrix Population Models: Construction,
   978-0878930968
 
   Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-  Nature, 505(7482), 169–173. https://doi.org/10.1038/nature12789
+  Nature, 505(7482), 169-173. <doi:10.1038/nature12789>
 
-  Salguero-Gómez R. (2018) Implications of clonality for ageing research.
-  Evolutionary Ecology, 32, 9-28. https://doi.org/10.1007/s10682-017-9923-2
+  Salguero-Gomez R. (2018) Implications of clonality for ageing research.
+  Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
+}
+\seealso{
+\code{\link{mature_distrib}} for calculating the proportion of
+individuals achieving reproductive maturity in each stage class.
 }
 \author{
 Hal Caswell <h.caswell@uva.nl>
 
 Owen Jones <jones@biology.sdu.dk>
 
-Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }

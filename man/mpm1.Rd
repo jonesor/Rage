@@ -4,11 +4,13 @@
 \name{mpm1}
 \alias{mpm1}
 \title{Example matrix population model (MPM)}
-\format{A list with two elements:
+\format{
+A list with two elements:
 \describe{
   \item{matU}{The survival-related component of the MPM}
   \item{matF}{The sexual reproduction component of the MPM}
-}}
+}
+}
 \usage{
 mpm1
 }

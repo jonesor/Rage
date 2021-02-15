@@ -5,8 +5,13 @@
 \title{Group the stages of a matrix population model into a standardized set of
 stage classes}
 \usage{
-standard_stages(matF, reproStages, matrixStages, includeProp = TRUE,
-  includePost = TRUE)
+standard_stages(
+  matF,
+  reproStages,
+  matrixStages,
+  includeProp = TRUE,
+  includePost = TRUE
+)
 }
 \arguments{
 \item{matF}{The sexual component of a matrix population model (i.e. a square
