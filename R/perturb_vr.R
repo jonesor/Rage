@@ -2,9 +2,9 @@
 #'
 #' @description 
 #' Perturbs lower-level vital rates within a matrix population model and
-#' measures the response of the per-capita population growth rate at equilibrium
-#' (\eqn{\lambda}), or, with a user-supplied function, any other demographic
-#' statistic.
+#' measures the response (sensitivity or elasticity) of the per-capita 
+#' population growth rate at equilibrium (\eqn{\lambda}), or, with a 
+#' user-supplied function, any other demographic statistic.
 #' 
 #' These decompositions assume that all transition rates are products of a
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
@@ -15,20 +15,20 @@
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matF The sexual component of a matrix population model (i.e. a square
-#'   projection matrix reflecting transitions due to sexual reproduction)
+#'   projection matrix reflecting transitions due to sexual reproduction).
 #' @param matC The clonal component of a matrix population model (i.e. a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
-#' @param pert Magnitude of the perturbation (defaults to \code{1e-6})
+#' @param pert Magnitude of the perturbation. Defaults to \code{1e-6}.
 #' @param type Whether to return "sensitivity" or "elasticity" values. Defaults
-#'   to "sensitivity'.
+#'   to "sensitivity".
 #' @param demog_stat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 #'   Defaults to the per-capita population growth rate at equilibrium
-#'   (\eqn{lambda}). Also accepts a user-supplied function that performs a
+#'   (\eqn{\lambda}). Also accepts a user-supplied function that performs a
 #'   calculation on a projection matrix and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demog_stat}.
 #' 
@@ -55,6 +55,9 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' perturb_vr(matU, matF)
+#' 
+#' # use elasticities rather than sensitivities
+#' perturb_vr(matU, matF, type = "elasticity")
 #' 
 #' # use a larger perturbation than the default
 #' perturb_vr(matU, matF, pert = 0.01)
@@ -96,7 +99,7 @@ perturb_vr <- function(matU, matF, matC = NULL,
   m <- nrow(matU)
   
   # if matC null, convert to zeros
-  if (is.null(matC)) matC <- matrix(0, m, m)
+  if (is.null(matC)) matC <- matrix(0, nrow = m, ncol = m)
   
   # combine components into matA 
   matA <- matU + matF + matC
@@ -147,7 +150,7 @@ perturb_vr <- function(matU, matF, matC = NULL,
   matSensShri <- upr * matSensGrowShri
   
   # modify sigma (column-specific survival) for reproduction transitions;
-  # convert 0s to 1s, because don't want to 'pull out' survival from columns
+  # convert 0s to 1s, so as not to 'pull out' survival from columns
   #  from which there was no survival
   sigma_rep <- sigma
   sigma_rep[sigma_rep == 0] <- 1
