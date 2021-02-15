@@ -1,15 +1,17 @@
 #' Calculate generation time from a matrix population model
 #'
-#' Calculate generation time from a matrix population model, where generation
-#' time is defined as the time required for a population to increase by a factor
-#' of R0 (the net reproductive rate). See section 5.3.5 of Caswell (2001).
+#' @description 
+#' Calculate generation time from a matrix population model. Generation time
+#' is defined here as the time required for a population to increase by a factor
+#' of R0 (the net reproductive rate, see ). For more details please refer to 
+#' section 5.3.5 of Caswell (2001).
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e. a
-#'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   square projection matrix only reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both).
 #' 
 #' @details
 #' There are multiple definitions of generation time. Here we use \code{log(R0)
