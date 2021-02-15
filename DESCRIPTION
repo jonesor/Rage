@@ -9,9 +9,10 @@ Authors@R: as.person(c(
     "Iain Stott <stott@biology.sdu.dk> [aut]", 
     "Tamora James <tdjames1@sheffield.ac.uk> [aut]",
     "Owen Jones <jones@biology.sdu.dk> [aut,cre]", 
-    "Julia Jones <juliajones@biology.sdu.dk> [aut]"
+    "Julia Jones <juliajones@biology.sdu.dk> [aut]",
+    "Sam Levin <levisc8@gmail.com> [aut]"
       ))
-Maintainer: Owen R. Jones <jones@biology.sdu.dk>
+Maintainer: Owen Jones <jones@biology.sdu.dk>
 Description: Functions for calculating life history metrics using matrix population models (MPMs).
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
@@ -25,7 +26,7 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 2.10.0)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests:
     knitr,
     rmarkdown,
@@ -36,3 +37,5 @@ Suggests:
     covr
 Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
+Config/testthat/parallel: true
+Config/testthat/edition: 3
