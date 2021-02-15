@@ -5,12 +5,12 @@
 #' survivorship (lx) and fecundity (mx).
 #' 
 #' @param lx Age-specific survivorship trajectory (a vector of
-#'   monotonically-declining values in the interval [0,1])
-#' @param mx Age-specific fecundity trajectory (a vector of non-negative values)
+#'   monotonically-declining values in the interval [0,1]).
+#' @param mx Age-specific fecundity trajectory (a vector of non-negative values).
 #'   
 #' @return Demetrius' entropy.
 #' 
-#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @references Demetrius, L. (1978) Adaptive value, entropy and survivorship
