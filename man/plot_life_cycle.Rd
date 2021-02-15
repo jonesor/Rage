@@ -4,8 +4,15 @@
 \alias{plot_life_cycle}
 \title{Plot a life cycle diagram based on a matrix population model}
 \usage{
-plot_life_cycle(matA, stages, title = NULL, shape = "egg",
-  fontsize = 10, nodefontsize = 12, edgecol = "grey")
+plot_life_cycle(
+  matA,
+  stages,
+  title = NULL,
+  shape = "egg",
+  fontsize = 10,
+  nodefontsize = 12,
+  edgecol = "grey"
+)
 }
 \arguments{
 \item{matA}{A matrix population model (i.e. a square projection matrix)}

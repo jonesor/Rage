@@ -51,7 +51,7 @@
 #' to be \code{0}, one should specify the \code{posU} and/or \code{posR}
 #' arguments manually.
 #' 
-#' @return A matrix of vital rates. Vital rates corrsponding to impossible
+#' @return A matrix of vital rates. Vital rates corresponding to impossible
 #'   transitions will be coerced to \code{NA} (see Details).
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>

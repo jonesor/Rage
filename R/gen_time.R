@@ -21,7 +21,7 @@
 #' @return Returns generation time. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
 #' 
-#' @author Patrick Barks <patrick.barks@@gmail.copm>
+#' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

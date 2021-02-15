@@ -4,31 +4,38 @@
 \alias{perturb_matrix}
 \title{Perturbation analysis of a matrix population model}
 \usage{
-perturb_matrix(matA, pert = 1e-06, type = "sensitivity",
-  demog_stat = "lambda", ...)
+perturb_matrix(
+  matA,
+  pert = 1e-06,
+  type = "sensitivity",
+  demog_stat = "lambda",
+  ...
+)
 }
 \arguments{
-\item{matA}{A matrix population model (i.e. a square projection matrix)}
+\item{matA}{A matrix population model (i.e. a square projection matrix).}
 
-\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6})}
+\item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
 
-\item{type}{Whether to return "sensitivity" or "elasticity" values}
+\item{type}{Whether to return "sensitivity" or "elasticity" values.}
 
 \item{demog_stat}{The demographic statistic to be used, as in "the
-sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
-the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
-accepts a user-supplied function that performs a calculation on a
-projection matrix and returns a single numeric value.}
+sensitivity/elasticity of \code{demog_stat} to matrix element 
+perturbations." Defaults to the per-capita population growth rate at 
+equilibrium (\eqn{\lambda}). Also accepts a user-supplied function that 
+performs a calculation on a projection matrix and returns a single numeric 
+value.}
 
 \item{...}{Additional arguments passed to the function \code{demog_stat}}
 }
 \value{
-A sensitivity or elasticity matrix
+A sensitivity or elasticity matrix.
 }
 \description{
-Perturbs elements within a matrix population model and measures the response
-of the per-capita population growth rate at equilibrium (\eqn{\lambda}), or,
-with a user-supplied function, any other demographic statistic.
+Perturbs elements within a matrix population model and measures the response 
+(sensitivity or elasticity) of the per-capita population growth rate at 
+equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other 
+demographic statistic.
 }
 \examples{
 matA <- rbind(c(0.1,   0, 1.5, 4.6),
@@ -52,5 +59,5 @@ perturb_matrix(matA, demog_stat = "damping")
 
 }
 \author{
-Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
