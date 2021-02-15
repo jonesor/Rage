@@ -4,8 +4,15 @@
 \alias{perturb_vr}
 \title{Perturbation analysis of vital rates in a matrix population model}
 \usage{
-perturb_vr(matU, matF, matC = NULL, pert = 1e-06,
-  type = "sensitivity", demog_stat = "lambda", ...)
+perturb_vr(
+  matU,
+  matF,
+  matC = NULL,
+  pert = 1e-06,
+  type = "sensitivity",
+  demog_stat = "lambda",
+  ...
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a

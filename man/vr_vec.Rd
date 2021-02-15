@@ -13,21 +13,37 @@
 \usage{
 vr_vec_survival(matU, posU = matU > 0, exclude_col = NULL)
 
-vr_vec_growth(matU, posU = matU > 0, exclude = NULL,
-  exclude_row = NULL, exclude_col = NULL, surv_only_na = TRUE)
+vr_vec_growth(
+  matU,
+  posU = matU > 0,
+  exclude = NULL,
+  exclude_row = NULL,
+  exclude_col = NULL,
+  surv_only_na = TRUE
+)
 
-vr_vec_shrinkage(matU, posU = matU > 0, exclude = NULL,
-  exclude_row = NULL, exclude_col = NULL, surv_only_na = TRUE)
+vr_vec_shrinkage(
+  matU,
+  posU = matU > 0,
+  exclude = NULL,
+  exclude_row = NULL,
+  exclude_col = NULL,
+  surv_only_na = TRUE
+)
 
-vr_vec_stasis(matU, posU = matU > 0, exclude = NULL,
-  surv_only_na = TRUE)
+vr_vec_stasis(matU, posU = matU > 0, exclude = NULL, surv_only_na = TRUE)
 
 vr_vec_dorm_enter(matU, posU = matU > 0, dorm_stages)
 
 vr_vec_dorm_exit(matU, posU = matU > 0, dorm_stages)
 
-vr_vec_fecundity(matU, matR, posR = matR > 0, exclude_col = NULL,
-  weights_row = NULL)
+vr_vec_fecundity(
+  matU,
+  matR,
+  posR = matR > 0,
+  exclude_col = NULL,
+  weights_row = NULL
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a

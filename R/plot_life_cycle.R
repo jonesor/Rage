@@ -1,4 +1,4 @@
-#' Plot a life cycle diagram based on a matrix population model
+#' Plot a life cycle diagram from a matrix population model
 #' 
 #' Plots the life cycle diagram illustrated by a matrix population model. This
 #' function processes the matrix model and passes the information to the
@@ -6,8 +6,9 @@
 #' \url{http://rich-iannone.github.io/DiagrammeR/}.
 #' 
 #' @param matA A matrix population model (i.e. a square projection matrix)
-#' @param stages Optional vector of stage class labels. If missing, labels are
-#'   integers \code{1:ncol(A)}.
+#' @param stages Optional vector of stage class labels. If missing,  it first
+#'   attempts to infer them from \code{dimnames(matA)}. If these are also 
+#'   \code{NULL}, then reverts to integers \code{1:ncol(A)}.
 #' @param title Optional title for the plot. Defaults to \code{NULL}.
 #' @param shape The shape to be used for the stages of the diagram. Any node
 #'   shape accepted by graphViz is acceptable.
@@ -34,9 +35,19 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
                             fontsize = 10, nodefontsize = 12, edgecol = "grey") {
   
   # Identify stages
-  if (missing(stages)) {
+  if (missing(stages) && is.null(dimnames(matA))) {
     stages <- seq_len(ncol(matA))
-  }
+  } else if(missing(stages) && !is.null(dimnames(matA))) {
+    
+    stages <- dimnames(matA)[[1]]
+    
+    if(!identical(dimnames(matA)[[1]],
+                  dimnames(matA)[[2]])) {
+      message("Dimension names of 'matA' are not identical for rows and columns.\n",
+              "Using row names.")
+    }
+    
+  } 
   
   # Construct a "from" -> "to" graph dataset (edges)
   graph <- expand.grid(to = stages, from = stages)

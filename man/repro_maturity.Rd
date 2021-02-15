@@ -5,8 +5,7 @@
 \alias{mature_prob}
 \alias{mature_age}
 \alias{mature_distrib}
-\title{Calculate traits relating to the age of reproductive maturity from a matrix
-population model}
+\title{Age of reproductive maturity}
 \usage{
 mature_prob(matU, matR, start = 1L)
 
@@ -17,11 +16,11 @@ mature_distrib(matU, start = 1L, repro_stages)
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
+sexual, clonal, or both).}
 
 \item{start}{The index of the first stage at which the author considers
 the beginning of life. Defaults to 1.}
@@ -35,9 +34,9 @@ For \code{mature_distrib}, a vector giving the proportion of
   scalar trait value.
 }
 \description{
-Apply Markov chain approaches to decompose moments along the age-specific
+Apply Markov chain approaches to compute age-specific
 trajectory of reproduction for individuals in a matrix population model.
-Includes functions to calculated the probability of achieving reproductive
+Includes functions to calculate the probability of achieving reproductive
 maturity (\code{mature_prob}), mean age at first reproduction
 (\code{mature_age}), and distribution of individuals first achieving
 reproductive maturity among stage class (\code{mature_distrib}).

@@ -4,8 +4,13 @@
 \alias{perturb_matrix}
 \title{Perturbation analysis of a matrix population model}
 \usage{
-perturb_matrix(matA, pert = 1e-06, type = "sensitivity",
-  demog_stat = "lambda", ...)
+perturb_matrix(
+  matA,
+  pert = 1e-06,
+  type = "sensitivity",
+  demog_stat = "lambda",
+  ...
+)
 }
 \arguments{
 \item{matA}{A matrix population model (i.e. a square projection matrix)}
