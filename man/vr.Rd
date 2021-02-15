@@ -11,25 +11,48 @@
 \alias{vr_fecundity}
 \title{Derive mean vital rates from a matrix population model}
 \usage{
-vr_survival(matU, posU = matU > 0, exclude_col = NULL,
-  weights_col = NULL)
+vr_survival(matU, posU = matU > 0, exclude_col = NULL, weights_col = NULL)
 
-vr_growth(matU, posU = matU > 0, exclude = NULL, exclude_row = NULL,
-  exclude_col = NULL, weights_col = NULL, surv_only_na = TRUE)
+vr_growth(
+  matU,
+  posU = matU > 0,
+  exclude = NULL,
+  exclude_row = NULL,
+  exclude_col = NULL,
+  weights_col = NULL,
+  surv_only_na = TRUE
+)
 
-vr_shrinkage(matU, posU = matU > 0, exclude = NULL,
-  exclude_row = NULL, exclude_col = NULL, weights_col = NULL,
-  surv_only_na = TRUE)
+vr_shrinkage(
+  matU,
+  posU = matU > 0,
+  exclude = NULL,
+  exclude_row = NULL,
+  exclude_col = NULL,
+  weights_col = NULL,
+  surv_only_na = TRUE
+)
 
-vr_stasis(matU, posU = matU > 0, exclude = NULL, weights_col = NULL,
-  surv_only_na = TRUE)
+vr_stasis(
+  matU,
+  posU = matU > 0,
+  exclude = NULL,
+  weights_col = NULL,
+  surv_only_na = TRUE
+)
 
 vr_dorm_enter(matU, posU = matU > 0, dorm_stages, weights_col = NULL)
 
 vr_dorm_exit(matU, posU = matU > 0, dorm_stages, weights_col = NULL)
 
-vr_fecundity(matU, matR, posR = matR > 0, exclude_col = NULL,
-  weights_row = NULL, weights_col = NULL)
+vr_fecundity(
+  matU,
+  matR,
+  posR = matR > 0,
+  exclude_col = NULL,
+  weights_row = NULL,
+  weights_col = NULL
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
