@@ -2,16 +2,16 @@
 #'
 #' These functions use age-from-stage decomposition methods to calculate
 #' age-specific survivorship (lx), survival probability (px), mortality hazard
-#' (hx), or reproduction (mx) from a matrix population model. A detailed
+#' (hx), or reproduction (mx) from a matrix population model (MPM). A detailed
 #' description of these methods can be found in sections 5.3.1 and 5.3.2 of
 #' Caswell (2001).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a MPM (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   progression, stasis, and retrogression).
+#' @param matR The reproductive component of a MPM (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   sexual, clonal, or both).
 #' @param start The index of the first stage at which the author considers the
 #'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
 #'   starting population vector (in which case \code{length(start)} must match
@@ -30,15 +30,15 @@
 #' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
-#' multiple starting stage classes. For example, if we want to start our
+#' multiple starting stage classes. For example, if users want to start their
 #' calculation of age-specific traits from reproductive maturity (i.e. first
-#' reproduction), we should account for the possibility that there may be
+#' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
-#' To specify multiple starting stage classes, specify argument \code{start} as
-#' the desired starting population vector (\strong{n1}), giving the proportion
-#' of individuals starting in each stage class (the length of \code{start}
-#' should match the number of columns in the relevant MPM).
+#' To specify multiple starting stage classes, users should specify argument
+#' \code{start} as the desired starting population vector (\strong{n1}), giving
+#' the proportion of individuals starting in each stage class (the length of
+#' \code{start} should match the number of columns in the relevant MPM).
 #' 
 #' See function \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.
