@@ -10,8 +10,7 @@
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' 
 #' @references
-#' #' 
-#' #' Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
+#' Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
 #' Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
 #'
 #' Caswell, H. (2006) Applications of Markov chains in demography. pp. 319-334
