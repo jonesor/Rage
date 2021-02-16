@@ -23,8 +23,8 @@
 #' 62, 345- 364. \url{https://esajournals.onlinelibrary.wiley.com/doi/10.2307/2937115}
 #'
 #' Horvitz, C. & Tuljapurkar, S. (2008) Stage dynamics, period survival, and
-#' mortality plateaus. The American Naturalist 172: 203-2015. \url{https://www.jstor.org/stable/10.1086/589453?seq=1#metadata_info_tab_contents}
-#'
+#' mortality plateaus. The American Naturalist 172: 203-2015. <doi:10.1086/589453>
+#' 
 #' Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
 #' Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
 #' P. F., Caswell, H., Baudisch, A. & Vaupel, J. (2014) Diversity of ageing across
