@@ -9,18 +9,18 @@
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matF The sexual component of a matrix population model (i.e. a square
-#'   projection matrix reflecting transitions due to sexual reproduction)
+#'   projection matrix reflecting transitions due to sexual reproduction).
 #' @param matC The clonal component of a matrix population model (i.e. a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
-#' @param reproStages Logical vector indicating which stages are reproductive
+#' @param reproStages Logical vector indicating which stages are reproductive.
 #' @param matrixStages Character vector of matrix stage types (e.g. "propagule",
-#'   "active", or "dormant")
-#' @return A list with four elements reflecting the standardized matrix, and
-#'   it's components:
+#'   "active", or "dormant").
+#' @return A list with four elements reflecting the standardized matrix and
+#'   its components:
 #'   \item{matA}{Standardized projection matrix}
 #'   \item{matU}{Survival component of the standardized projection matrix}
 #'   \item{matF}{Sexual reproduction component of the standardized projection matrix}
@@ -36,7 +36,7 @@
 #'   \code{\link{mpm_rearrange}}, \code{\link{standard_stages}} and
 #'   \code{\link{mpm_collapse}}, which it calls in sequence.
 #' @note The method used by this function to collapse a matrix population model
-#'   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
+#'   preserves the equilibrium population growth rate (\eqn{\lambda}) and relative
 #'   stable distribution, but is not expected to preserve other demographic characteristics
 #'   such as relative reproductive value, sensitivities, net reproductive rate, life
 #'   expectancy, etc.
