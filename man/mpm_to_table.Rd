@@ -4,8 +4,14 @@
 \alias{mpm_to_table}
 \title{Generate a life table from a matrix population model}
 \usage{
-mpm_to_table(matU, matF = NULL, matC = NULL, start = 1L,
-  xmax = 1000, lx_crit = 1e-04)
+mpm_to_table(
+  matU,
+  matF = NULL,
+  matC = NULL,
+  start = 1L,
+  xmax = 1000,
+  lx_crit = 1e-04
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a

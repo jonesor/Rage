@@ -1,27 +1,35 @@
-#' Group the stages of a matrix population model into a standardized set of
-#' stage classes
+#' Identify stages corresponding to different parts of the reproductive life
+#' cycle
 #'
-#' Assumes that fecundity and mean fecundity matrices have been rearranged so
-#' that non-reproductive stages are in the final rows/columns.
-#'
+#'@description 
+#' Identify the stages of a matrix population model which correspond to
+#' different parts of the reproductive life cycle, namely propagule,
+#' pre-reproductive, reproductive and post-reproductive. These classifications
+#' are used to standardise matrices to allow comparisons across species with
+#' different life cycle structures, see \code{\link{mpm_standardize}}.
+#' 
+#' Assumes that fecundity and mean fecundity matrices have been 
+#' rearranged so that non-reproductive stages are in the final rows/columns.
 #' Output indicates groupings to be used when collapsing the matrix model.
 #'
 #' @param matF The sexual component of a matrix population model (i.e. a square
-#'   projection matrix reflecting transitions due to sexual reproduction) —
-#'   rearranged so that non-reproductive stages are in the final rows/columns
-#' @param reproStages Logical vector identifying which stages reproductive
+#'   projection matrix reflecting transitions only due to \emph{sexual} 
+#'   reproduction). It assumes that it has been rearranged so that 
+#'   non-reproductive stages are in the final rows/columns.
+#' @param reproStages Logical vector identifying which stages are reproductive.
 #' @param matrixStages (character) vector of stages, values are "prop"
-#' (propagule), "active", and "dorm" (dormant)
-#' @param includeProp (logical) include propagule stage. default: \code{TRUE}.
-#' if \code{TRUE}, propagule stage (if present) is given back in result. If
-#' \code{FALSE}, it's included into the pre-reproductive stage
-#' @param includePost (logical) include post-reproductive stage. default:
-#' \code{TRUE}. if \code{TRUE}, post-reproductive stage (if present) is given
-#' back in result. If \code{FALSE}, it's included into the reproductive
-#' stage
-#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' (propagule), "active", and "dorm" (dormant).
+#' 
+#' @return A list with four elements:
+#'   \item{propStages}{Position of the propagule stages}
+#'   \item{preRepStages}{Position of the pre-reproductive stages}
+#'   \item{repStages}{Position of the reproductive stages}
+#'   \item{postRepStages}{Position of the post-reproductive stages}
+#' 
+#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @note Dormant stages are not currently handled.
 #' @seealso \code{\link{mpm_standardize}}
+#' 
 #' @examples
 #' matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
 #'               c(  0, 0.8,   0, 0.4,   0),
@@ -33,21 +41,9 @@
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 #' standard_stages(matF, reproStages, matrixStages)
 #' 
-#' # combine post-reproductive and reproductive
-#' standard_stages(matF, reproStages, matrixStages, includePost = FALSE)
 #' @export standard_stages
-standard_stages <- function(matF, reproStages, matrixStages,
-                            includeProp = TRUE, includePost = TRUE) {
-  
-  # FIXME: can we combine propagule and pre-reproductive?
-  # FIXME: what about dormant stages?
-  # FIXME: once above solved, then fix logic internally
-  # FIXME: Scott and Tamora added extra parameter flags for switching whether
-  # to include propagule and post-reproductive stages but these are not used as
-  # yet. On reflection this is probably going too far and we should let the
-  # matrix structure guide the process. However, in animals we may wish to
-  # combine rep and post-rep to obtain a two-stage matrix model.
-  
+standard_stages <- function(matF, reproStages, matrixStages) {
+
   # validate arguments
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
@@ -61,12 +57,8 @@ standard_stages <- function(matF, reproStages, matrixStages,
          call. = FALSE)
   }
   
-  
   if ("prop" %in% matrixStages) {
     propStage <- which(matrixStages == "prop")
-    # if (!includeProp) {
-    #   warning("Propagule stage exists, but includeProp is set to FALSE")
-    # }
   } else {
     propStage <- NA
   }

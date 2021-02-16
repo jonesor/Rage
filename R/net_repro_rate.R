@@ -1,13 +1,16 @@
 #' Calculate net reproductive value (R0) from a matrix population model
-#'
-#' Calculate net reproductive value (R0) from a matrix population model.
+#' 
+#' @description 
+#' Calculate net reproductive value (R0) from a matrix population model. The net 
+#' reproduction value (R0) is the mean number of recruits produced during the 
+#' mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e. a
-#'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   square projection matrix only reflecting transitions due to reproduction; either
+#'   sexual, clonal, or both).
 #' @param start Index of the first stage at which the author considers the
 #'   beginning of life. Only used if \code{method = "start"}. Defaults to 1.
 #' @param method The method used to calculate net reproductive value, either
@@ -31,11 +34,14 @@
 #' same result.
 #' @return Returns the net reproductive value. If \code{matU} is singular (often
 #'   indicating infinite life expectancy), returns \code{NA}.
-#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#'
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
+#' 
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
+#' 
 #' @examples
 #' data(mpm1)
 #' 

@@ -1,19 +1,19 @@
-#' Calculate traits relating to the age of reproductive maturity from a matrix
-#' population model
+#' @title Age of reproductive maturity
 #'
-#' Apply Markov chain approaches to decompose moments along the age-specific
+#' @description 
+#' Apply Markov chain approaches to compute age-specific
 #' trajectory of reproduction for individuals in a matrix population model.
-#' Includes functions to calculated the probability of achieving reproductive
+#' Includes functions to calculate the probability of achieving reproductive
 #' maturity (\code{mature_prob}), mean age at first reproduction
 #' (\code{mature_age}), and distribution of individuals first achieving
 #' reproductive maturity among stage class (\code{mature_distrib}).
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
+#'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   sexual, clonal, or both).
 #' @param start The index of the first stage at which the author considers
 #'   the beginning of life. Defaults to 1.
 #' @param repro_stages Logical vector indicating which stages are reproductive.

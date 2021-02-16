@@ -1,0 +1,127 @@
+---
+title: "Age-from-stage analyses"
+author: "Patrick Barks"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Age-from-stage analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Regardless of whether the stage classes of a matrix population model (MPM) are based on age, size, and/or ontogeny, it's possible to obtain age-specific schedules of survivorship (lx) and reproduction (mx) using 'age-from-stage' methods, as described by Caswell (2001).
+
+## Preliminaries
+
+We'll start by loading a few packages and a dataset that we'll be using throughout this vignette. The dataset `Compadre` is a subset of a recent COMPADRE release that's built into Rcompadre.
+
+```{r}
+library(Rcompadre)
+library(Rage)
+data(Compadre)
+options(tibble.width = Inf) # always print all columns of tibble
+```
+
+## Age-from-stage methods with a single matrix population model
+
+Next we'll grab an MPM, arbitrarily selecting the fourth one in `Compadre`.
+
+```{r}
+mpm <- Compadre$mat[[4]]
+mpm
+```
+
+This MPM has 5 stage class, and it's apparent from the `MatrixClassAuthor` column that the stages are not based solely on age. Nonetheless, we can estimate age-schedules of survivorship and reproduction using the functions `ageSpecificSurv()` and `ageSpecificRepro()` from the library [Rage](https://github.com/jonesor/Rage).
+
+```{r}
+# extract U and F matrices
+mat_U <- matU(mpm)
+mat_F <- matF(mpm)
+
+# calculate lx
+lx <- ageSpecificSurv(mat_U, startLife = 1, N = 15)
+
+# calculate mx
+mx <- ageSpecificRepro(mat_U, mat_F, startLife = 1, N = 15)
+```
+
+In addition to the relevant matrix components, the `ageSpecific-` functions require two extra arguments. The first, `startLife`, is an integer indicating which stage reflects the 'start of life'. Usually this will be `1`, but sometimes we might want to skip over stages that are propagule (i.e. seed) or dormant. The MPM we selected didn't have any such stages (see the column `MatrixClassOrganized` above), so we can stick with `1`. The second argument, `N` is the number of time steps to calculate over.
+
+Let's take a look at the trajectories.
+
+```{r, fig.width = 6, fig.height = 4}
+plot(lx, ylim = c(0, 1), type = "l", xlab = "Age")
+plot(mx, type = "l", xlab = "Age")
+```
+
+## Extending to many matrix population models
+
+Now we'll extend the basic approach above to many models. Specifically, we'll examine trajectories of survivorship for all of the tree species in `Compadre`.
+
+First, we'll subset `Compadre` to our group of interest (`OrganismType == "Tree"`). We'll also remove matrices with missing values, and limit our selection to matrices with a periodicity (i.e. transition interval) of 1 year.
+
+```{r}
+comp_flag <- cdb_flag(Compadre, "check_NA_U")
+
+comp_use <- subset(comp_flag, OrganismType == "Tree" &
+                     check_NA_U == FALSE &
+                     AnnualPeriodicity == 1)
+```
+
+Let's take a look at the species/populations that made the cut.
+
+```{r}
+CompadreData(comp_use)[,c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+```
+
+Notice that there are 3 matrices for the species _Phyllanthus indofischeri_, reflecting different treatment groups. Let's collapse these replicates down to a single matrix per species, by averaging the relevant MPMs using `cdb_collapse()`. We'll also use the function `cdb_id_stages()`, to make sure we're only collapsing matrices that have the same stage class definitions.
+
+```{r}
+# add column ID-ing matrices with same MatrixClassAuthor vector
+comp_use$stage_id <- cdb_id_stages(comp_use)
+
+# collapse database to single matrix per species * MatrixClassAuthor
+comp_collapse <- cdb_collapse(comp_use, "stage_id")
+
+# check species/populations again
+CompadreData(comp_collapse)[,c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+```
+
+Next, let's look at the organized stage classes for each MPM. If any of our MPMs include propagule or dormant stage classes, we may want to account for them when calculating lx.
+
+```{r}
+MatrixClassOrganized(comp_collapse)
+```
+
+Indeed, 1 MPM incudes a propagule stage. So let's use the function `mpm_first_active()` to determine the first 'active' stage class for each MPM, which we'll use to define the start of life.
+
+```{r}
+comp_collapse$start_life <- mpm_first_active(comp_collapse)
+```
+
+Finally, we'll use `mapply()` to vectorize the function `ageSpecificSurv()` over arguments matU and startLife. By default, `mapply()` will return an array where the columns correspond to rows of our database, and rows correspond to ages — 0 through `N`. Given that the output is an array, we'll use the function `matplot()` to plot age-trajectories of survivorship for each species.
+
+```{r, fig.width = 6, fig.height = 4}
+lx_array <- mapply(ageSpecificSurv,
+                   matU = matU(comp_collapse),
+                   startLife = comp_collapse$start_life,
+                   N = 250)
+
+matplot(lx_array, type = "l", lty = 1, log = "y", ylim = c(0.0001, 1),
+        lwd = 1.5, xlab = "Age (years)", ylab = "lx")
+```
+
+## References
+
+Caswell, H. (2001). Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965

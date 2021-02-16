@@ -1,22 +1,24 @@
 #' Perturbation analysis of a matrix population model
 #'
-#' Perturbs elements within a matrix population model and measures the response
-#' of the per-capita population growth rate at equilibrium (\eqn{\lambda}), or,
-#' with a user-supplied function, any other demographic statistic.
+#' Perturbs elements within a matrix population model and measures the response 
+#' (sensitivity or elasticity) of the per-capita population growth rate at 
+#' equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other 
+#' demographic statistic.
 #'
-#' @param matA A matrix population model (i.e. a square projection matrix)
-#' @param pert Magnitude of the perturbation (defaults to \code{1e-6})
-#' @param type Whether to return "sensitivity" or "elasticity" values
+#' @param matA A matrix population model (i.e. a square projection matrix).
+#' @param pert Magnitude of the perturbation. Defaults to \code{1e-6}.
+#' @param type Whether to return "sensitivity" or "elasticity" values.
 #' @param demog_stat The demographic statistic to be used, as in "the
-#'   sensitivity/elasticity of ___ to matrix element perturbations." Defaults to
-#'   the per-capita population growth rate at equilibrium (\eqn{lambda}). Also
-#'   accepts a user-supplied function that performs a calculation on a
-#'   projection matrix and returns a single numeric value.
+#'   sensitivity/elasticity of \code{demog_stat} to matrix element 
+#'   perturbations." Defaults to the per-capita population growth rate at 
+#'   equilibrium (\eqn{\lambda}). Also accepts a user-supplied function that 
+#'   performs a calculation on a projection matrix and returns a single numeric 
+#'   value.
 #' @param ... Additional arguments passed to the function \code{demog_stat}
 #' 
-#' @return A sensitivity or elasticity matrix
+#' @return A sensitivity or elasticity matrix.
 #' 
-#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
 #' @examples
 #' matA <- rbind(c(0.1,   0, 1.5, 4.6),
@@ -64,7 +66,7 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
   stat <- statfun(matA, ...)
   
   # initialize sensitivity matrix
-  sensA <- matrix(NA, m, m)
+  sensA <- matrix(NA, ncol = m, nrow = m)
   
   # matrix perturbation
   for (i in 1:m) {
