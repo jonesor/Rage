@@ -35,7 +35,7 @@ model to reach a defined quasi-stationary stage distribution.
 }
 \details{
 Some matrix population models are parameterised with a stasis loop at the
-largest/most-developed stage class, which can lead to artefactual pleateaus
+largest/most-developed stage class, which can lead to artefactual plateaus
 in the mortality or fertility trajectories derived from such models. These
 plateaus occur as a projected cohort approaches its stationary stage
 distribution (SSD). Though there is generally no single time point at which
@@ -72,7 +72,7 @@ The time required for a cohort to reach its QSD depends on the initial
   starting stage class specified by argument \code{start}, and strips such
   stages from the matrix. These unconnected stages have no impact on
   age-specific traits that we might derive from the matrix (given the
-  specifed starting stage), but often lead to non-ergodicity and therefore
+  specified starting stage), but often lead to non-ergodicity and therefore
   prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
   the function internally updates the starting stage class and continues with
   the regular calculation. Otherwise, if the matrix cannot be made ergodic,

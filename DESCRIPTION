@@ -3,13 +3,14 @@ Type: Package
 Title: Functions for Calculating Life History Metrics from Matrix Population Models
 Version: 0.1
 Authors@R: as.person(c(
-    "Patrick Barks <barks@biology.sdu.dk> [aut]", 
+    "Patrick Barks <barks@biology.sdu.dk> [aut] (<https://orcid.org/0000-0002-5947-8151>)", 
     "Danny Buss <dlb50@cam.ac.uk> [aut]",
-    "Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk> [aut]",
-    "Iain Stott <stott@biology.sdu.dk> [aut]", 
-    "Tamora James <tdjames1@sheffield.ac.uk> [aut]",
-    "Owen Jones <jones@biology.sdu.dk> [aut,cre]", 
-    "Julia Jones <juliajones@biology.sdu.dk> [aut]",
+    "Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk> [aut] (<https://orcid.org/0000-0002-6085-4433>)",
+    "Iain Stott <stott@biology.sdu.dk> [aut] (<https://orcid.org/0000-0003-2724-7436>)",
+    "William K. Petry <wpetry@ncsu.edu> [ctb] (<https://orcid.org/0000-0002-5230-5987>)",
+    "Tamora James <tdjames1@sheffield.ac.uk> [aut] (<https://orcid.org/0000-0003-1363-4742>)",
+    "Owen Jones <jones@biology.sdu.dk> [aut,cre]  (<https://orcid.org/0000-0001-5720-4686>)", 
+    "Julia Jones <juliajones@biology.sdu.dk> [aut] (<https://orcid.org/0000-0001-9223-1778>)",
     "Sam Levin <levisc8@gmail.com> [aut] (<https://orcid.org/0000-0002-3289-9925>)"))
 Description: Functions for calculating life history metrics using matrix population models (MPMs).
 URL: https://github.com/jonesor/Rage
@@ -26,6 +27,8 @@ LazyData: true
 Depends: R(>= 2.10.0)
 RoxygenNote: 7.1.1
 Suggests:
+    spelling,
+    ggtern,
     knitr,
     rmarkdown,
     fields,
@@ -35,5 +38,6 @@ Suggests:
     covr
 Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
+Language: en-GB
 Config/testthat/parallel: true
 Config/testthat/edition: 3

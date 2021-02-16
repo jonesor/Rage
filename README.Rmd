@@ -14,9 +14,12 @@ options(digits = 4)
 ```
 
 # Rage
-[![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)  [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) [![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)  [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
 
-An R package for manipulating and analyzing matrix population models (MPMs).
+Functions for calculating life history metrics from matrix population models (MPMs).
+
+An R package for manipulating and analysing matrix population models (MPMs).
+
 Includes functions for:
 
 - deriving life history traits
@@ -107,7 +110,7 @@ distribution (QSD). This quantity can then be used to subset age trajectories of
 mortality or fertility to periods earlier than the QSD, so as to avoid
 artefactual plateaus in mortality or fertility.
 
-```{r, warning=F, message=F, fig.width=6.5, fig.height=4}
+```{r, warning=FALSE, message=FALSE, fig.width=6.5, fig.height=4,cache=TRUE}
 # derive life table from MPM
 lt <- mpm_to_table(mpm1$matU, start = 2)
 
@@ -158,7 +161,7 @@ vr_vec_shrinkage(mpm1$matU, exclude = 5)
 vr_vec_stasis(mpm1$matU)
 vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
 vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
-vr_vec_fecundity(mpm1$matU, mpm1$matF)
+vr_vec_reproduction(mpm1$matU, mpm1$matF)
 ```
 
 ##### MPM-specific vital rates (scalar)
@@ -187,7 +190,7 @@ vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
 vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
 ```
 
-Note how we've chosed to exclude the 'seed' and 'dormant' stage classes from our
+Note how we've chosen to exclude the 'seed' and 'dormant' stage classes from our
 vital rate summaries, because we consider these to be special classes (e.g.
 'growth' from the 'seed' stage is really 'germination', which we may think of as
 separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
@@ -253,7 +256,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `mature_prob`    | Probability of reaching reproductive maturity |
 |                      | `mature_distrib` | Stage distribution of reproductive maturity |
 |                      | `entropy_d`      | Demetrius' entropy |
-|                      | `entropy_k`      | Keyfitz' entropy |
+|                      | `entropy_k`      | Keyfitz's entropy |
 |                      | `shape_surv`     | Shape of survival/mortality trajectory |
 |                      | `shape_rep`      | Shape of fecundity trajectory |
 | Life table           | `mpm_to_table`   | MPM to life table |
@@ -264,7 +267,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `lx_to_[px/hx]`  | Convert from survivorship trajectory |
 |                      | `px_to_[lx/hx]`  | Convert from survival trajectory |
 |                      | `hx_to_[lx/px]`  | Convert from mortality hazard trajectory |
-|                      | `qsd_converge`   | Time to quasi-stationary destribution |
+|                      | `qsd_converge`   | Time to quasi-stationary distribution |
 | Vital rates          | `vr_[...]`       | MPM-averaged vital rates
 |                      | `vr_vec_[...]`   | Stage-averaged vital rates
 |                      | `vr_mat_[...]`   | Survival-independent vital rates |
@@ -279,6 +282,8 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `standard_stages`    | Group stages into standardized sets |
 |                      | `repro_stages`       | Identify reproductive stages |
 |                      | `plot_life_cycle`    | Plot a life cycle diagram |
+=======
+For a complete list of functions see the package [Reference](https://jonesor.github.io/Rage/reference/index.html) page.
 
 ## Contributions
 

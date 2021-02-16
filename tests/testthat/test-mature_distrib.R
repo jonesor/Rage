@@ -1,4 +1,3 @@
-context("mature_distrib")
 
 test_that("mature_distrib works correctly", {
   

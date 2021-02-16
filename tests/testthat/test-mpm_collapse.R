@@ -1,4 +1,3 @@
-context("mpm_collapse")
 
 test_that("mpm_collapse works correctly", {
   
@@ -8,7 +7,7 @@ test_that("mpm_collapse works correctly", {
   x1 <- mpm_collapse(mat_u, mat_f, collapse = c1)
   x2 <- mpm_collapse(mat_u, mat_f, collapse = c2)
   
-  expect_is(x1, "list")
+  expect_type(x1, "list")
   expect_length(x1, 4)
   expect_true(all(x1$matC == 0))
   

@@ -1,4 +1,3 @@
-context("standard_stages")
 
 test_that("standard_stages works correctly", {
   
@@ -8,7 +7,7 @@ test_that("standard_stages works correctly", {
   r <- mpm_rearrange(mat_u, mat_f, mat_c, reproStages, matrixStages)
 
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   
   # make sure all stages in original mpm represented in output
@@ -24,7 +23,7 @@ test_that("standard_stages works correctly", {
                      matrixStages = matrixStages)
   
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   
   # make sure all stages in original mpm represented in output
@@ -40,7 +39,7 @@ test_that("standard_stages works correctly", {
                      matrixStages = matrixStages)
   
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   expect_true(is.na(x$propStages))
   expect_true(is.na(x$preRepStages))
