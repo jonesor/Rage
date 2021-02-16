@@ -1,15 +1,12 @@
-#' Group the stages of a matrix population model into a standardized set of
-#' stage classes
+#' Identify stages corresponding to different parts of the reproductive life
+#' cycle
 #'
 #'@description 
-#' Group the stages of a matrix population model into a standardized set of
-#' stage classes. Matrix population model have stages representing different
-#' moments of the life cycle. Standard stages allows the user to obtain a vector 
-#' describing the position of the different stages in the matrix population
-#' model; e.g. to identify which are the reproductive stages in a matrix 
-#' population model. This is particularly useful to use in combination with 
-#' functions that require entering some particular stages, see
-#' \code{\link{net_repo_rate}}. 
+#' Identify the stages of a matrix population model that correspond to
+#' different parts of the reproductive life cycle, namely propagule,
+#' pre-reproductive, reproductive and post-reproductive. These classifications
+#' are used to standardise matrices to allow comparisons across species with
+#' different life cycle structures, see \code{\link{mpm_standardize}}.
 #' 
 #' Assumes that fecundity and mean fecundity matrices have been 
 #' rearranged so that non-reproductive stages are in the final rows/columns.
@@ -22,21 +19,12 @@
 #' @param reproStages Logical vector identifying which stages are reproductive.
 #' @param matrixStages (character) vector of stages, values are "prop"
 #' (propagule), "active", and "dorm" (dormant).
-#' @param includeProp (logical) include propagule stage. default: \code{TRUE}.
-#' if \code{TRUE}, propagule stage (if present) is given back in result. If
-#' \code{FALSE}, it's included into the pre-reproductive stage
-#' @param includePost (logical) include post-reproductive stage. default:
-#' \code{TRUE}. if \code{TRUE}, post-reproductive stage (if present) is given
-#' back in result. If \code{FALSE}, it's included into the reproductive
-#' stage
 #' 
-#' @return A list with four potential elements:
+#' @return A list with four elements:
 #'   \item{propStages}{Position of the propagule stages}
-#'   \item{preRepStages}{Position of the reproductive stages}
-#'   \item{matF}{Sexual reproduction component of the collapsed projection
-#'   matrix}
-#'   \item{matC}{Clonal reproduction component of the collapsed projection
-#'   matrix}
+#'   \item{preRepStages}{Position of the pre-reproductive stages}
+#'   \item{repStages}{Position of the reproductive stages}
+#'   \item{postRepStages}{Position of the post-reproductive stages}
 #' 
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @note Dormant stages are not currently handled.
@@ -53,22 +41,9 @@
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 #' standard_stages(matF, reproStages, matrixStages)
 #' 
-#' # combine post-reproductive and reproductive
-#' standard_stages(matF, reproStages, matrixStages, includePost = FALSE)
-#' 
 #' @export standard_stages
-standard_stages <- function(matF, reproStages, matrixStages,
-                            includeProp = TRUE, includePost = TRUE) {
-  
-  # FIXME: can we combine propagule and pre-reproductive?
-  # FIXME: what about dormant stages?
-  # FIXME: once above solved, then fix logic internally
-  # FIXME: Scott and Tamora added extra parameter flags for switching whether
-  # to include propagule and post-reproductive stages but these are not used as
-  # yet. On reflection this is probably going too far and we should let the
-  # matrix structure guide the process. However, in animals we may wish to
-  # combine rep and post-rep to obtain a two-stage matrix model.
-  
+standard_stages <- function(matF, reproStages, matrixStages) {
+
   # validate arguments
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
@@ -82,12 +57,8 @@ standard_stages <- function(matF, reproStages, matrixStages,
          call. = FALSE)
   }
   
-  
   if ("prop" %in% matrixStages) {
     propStage <- which(matrixStages == "prop")
-    # if (!includeProp) {
-    #   warning("Propagule stage exists, but includeProp is set to FALSE")
-    # }
   } else {
     propStage <- NA
   }

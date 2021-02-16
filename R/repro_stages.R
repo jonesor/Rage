@@ -1,13 +1,13 @@
 #' Identify which stages in a matrix population model are reproductive
 #' 
-#' Takes a fecundity matrix and returns a vector of logical values (TRUE/FALSE)
-#' indicating which stages are reproductive (i.e. exhibit any positive level of
-#' reproduction). This is a preparatory step to collapsing the matrix model into
-#' a standardized set of stage classes.
+#' Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
+#' indicating which stages are reproductive (i.e. exhibit any positive values for
+#' reproduction). This function is a preparatory step to collapsing the matrix
+#' model into a standardized set of stage classes using the function \code{\link{mpm_standardize}}.
 #'
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
+#'   sexual (e.g. \code{matF}), clonal (e.g. \code{matC}), or both).
 #' @param na_handling One of \code{"return.na"}, \code{"return.true"}, or
 #'   \code{"return.false"}. Determines how values of \code{NA} within
 #'   \code{matR} should be handled. See Value for more details.
@@ -15,12 +15,12 @@
 #'   \code{FALSE} corresponding to non-reproductive stages and values of
 #'   \code{TRUE} corresponding to reproductive stages.\cr\cr For a given matrix
 #'   stage (i.e. column of \code{matR}), if there are any positive values of
-#'   fecundity, the function will return \code{TRUE}. However, for a given
-#'   stage, if there are no positive values of fecundity and one or more values
+#'   reproduction, the function will return \code{TRUE}. However, for a given
+#'   stage, if there are no positive values of reproduction and one or more values
 #'   of \code{NA}, the function will return \code{NA} if \code{na_handling ==
 #'   "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
 #'   \code{FALSE} if \code{na_handling == "return.false"}.
-#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' @examples
 #' matR1 <- rbind(c( 0, 0.2,   0, 0.5),
