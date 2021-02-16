@@ -1,10 +1,11 @@
 #' Calculate age-specific traits from a matrix population model
 #'
+#'@description
 #' These functions use age-from-stage decomposition methods to calculate
-#' age-specific survivorship (lx), survival probability (px), mortality hazard
-#' (hx), or reproduction (mx) from a matrix population model. A detailed
-#' description of these methods can be found in sections 5.3.1 and 5.3.2 of
-#' Caswell (2001).
+#' age-specific survivorship (\code{mpm_to_lx}), survival probability 
+#' (\code{mpm_to_px}), mortality hazard (\code{mpm_to_hx}), or reproduction 
+#' (\code{mpm_to_mx}) from a matrix population model. A detailed description of 
+#' these methods can be found in sections 5.3.1 and 5.3.2 of Caswell (2001).
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -49,7 +50,7 @@
 #'   \code{lx_crit} to \code{0}. Conversely, to force calculation to
 #'   \code{lx_crit}, set \code{xmax} to \code{Inf}.
 #'   
-#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
