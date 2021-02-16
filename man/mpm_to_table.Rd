@@ -115,7 +115,7 @@ in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 Meeting. Boson Books, Raleigh, North Caroline, USA
 
 Horvitz, C. & Tuljapurkar, S. (2008) Stage dynamics, period survival, and
-mortality plateaus. The American Naturalist 172: 203-2015. \url{https://www.jstor.org/stable/10.1086/589453?seq=1#metadata_info_tab_contents}
+mortality plateaus. The American Naturalist 172: 203-2015. \url{https://doi.org/10.1086/589453}
 
 Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
 Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
