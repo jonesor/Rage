@@ -9,9 +9,9 @@ entropy_d(lx, mx)
 }
 \arguments{
 \item{lx}{Age-specific survivorship trajectory (a vector of
-monotonically-declining values in the interval [0,1])}
+monotonically-declining values in the interval [0,1]).}
 
-\item{mx}{Age-specific fecundity trajectory (a vector of non-negative values)}
+\item{mx}{Age-specific fecundity trajectory (a vector of non-negative values).}
 }
 \value{
 Demetrius' entropy.
@@ -33,10 +33,10 @@ entropy_d(lx, mx)
 }
 \references{
 Demetrius, L. (1978) Adaptive value, entropy and survivorship
-  curves. Nature 275, 213-214. doi:10.1038/275213a0
+  curves. Nature 275, 213-214. DOI:10.1038/275213a0
 }
 \author{
-Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }

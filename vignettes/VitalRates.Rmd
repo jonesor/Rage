@@ -232,7 +232,7 @@ return to in a later section.
 
 #### Weighted average across stage classes
 
-Rather than taking a simple average of the given vital rate across stage clases,
+Rather than taking a simple average of the given vital rate across stage classes,
 we may wish to take a _weighted_ average across stage classes. For instance, we
 may wish to weight stage classes based on the stable distribution at
 equilibrium. Here's an example of how to do that using the `weights_col`

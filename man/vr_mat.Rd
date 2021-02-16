@@ -38,7 +38,7 @@ elements indicating whether a given \code{matR} transition is possible
 Details).}
 }
 \value{
-A matrix of vital rates. Vital rates corrsponding to impossible
+A matrix of vital rates. Vital rates corresponding to impossible
   transitions will be coerced to \code{NA} (see Details).
 }
 \description{

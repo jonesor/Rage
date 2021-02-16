@@ -1,9 +1,24 @@
-#' Calculate time to reach quasi-stationary stage distribution from a matrix
-#' population model
+#' Calculate time to reach quasi-stationary stage distribution
+#' 
+#' @description
+#' Calculates the time for a cohort projected with a matrix population
+#' model to reach a defined quasi-stationary stage distribution.
 #'
-#' Calculate the time in the projection of a cohort through a matrix population
-#' model at which a defined quasi-stationary stage distribution is reached.
-#'
+#' @param mat A matrix population model, or component thereof (i.e. a square
+#'   projection matrix).
+#' @param start The index of the first stage at which the author considers the
+#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
+#'   starting population vector (in which case \code{length(start)} must match
+#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#' @param conv Proportional distance threshold from the stationary stage
+#'   distribution indicating convergence. For example, this value should be 0.05 if the
+#'   user wants to obtain the time step when the stage distribution is within a
+#'   distance of 5\% of the stationary stage distribution.
+#' @param N Maximum number of time steps over which the population will be
+#'   projected. Time steps are in the same units as the matrix population model
+#'   (see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.
+#' 
+#' @details
 #' Some matrix population models are parameterised with a stasis loop at the
 #' largest/most-developed stage class, which can lead to artefactual pleateaus
 #' in the mortality or fertility trajectories derived from such models. These
@@ -15,25 +30,8 @@
 #' used to subset age trajectories of mortality or fertility to periods earlier
 #' than the QSD, so as to avoid artefactual plateaus in mortality or fertility.
 #' 
-#' @param mat A matrix population model, or component thereof (i.e. a square
-#'   projection matrix)
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from first reproduction}.
-#' @param conv Proportional distance threshold from the stationary stage
-#'   distribution indicating convergence. E.g. This value should be 0.05 if the
-#'   user wants to obtain the time step when the stage distribution is within a
-#'   distance of 5\% of the stationary stage distribution.
-#' @param N Maximum number of time steps over which the population will be
-#'   projected. Time steps are in the same units as the matrix population model
-#'   (see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.
+#' \strong{Starting from multiple stages}
 #' 
-#' @return An integer indicating the first time step at which the
-#'   quasi-stationary stage distribution is reached (or an \code{NA} and a
-#'   warning if the quasi-stationary distribution is not reached).
-#' 
-#' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
 #' multiple starting stage classes. For example, if we want to start our
@@ -42,12 +40,14 @@
 #' in which an individual could first reproduce.
 #' 
 #' To specify multiple starting stage classes, specify argument \code{start} as
-#' the desired starting population vector (\strong{n1}), giving the proportion
+#' the desired starting population vector, giving the proportion
 #' of individuals starting in each stage class (the length of \code{start}
 #' should match the number of columns in the relevant MPM).
 #' 
-#' See function \code{\link{mature_distrib}} for calculating the proportion of
+#' @seealso 
+#' \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.
+#' 
 #' 
 #' @note The time required for a cohort to reach its QSD depends on the initial
 #'   population vector of the cohort (for our purposes, the starting stage
@@ -61,15 +61,19 @@
 #'   starting stage class specified by argument \code{start}, and strips such
 #'   stages from the matrix. These unconnected stages have no impact on
 #'   age-specific traits that we might derive from the matrix (given the
-#'   specifed starting stage), but often lead to non-ergodicity and therefore
+#'   specified starting stage), but often lead to non-ergodicity and therefore
 #'   prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
 #'   the function internally updates the starting stage class and continues with
 #'   the regular calculation. Otherwise, if the matrix cannot be made ergodic,
-#'   the function will throw an error.
+#'   the function will return \code{NA} with a warning.
 #' 
+#' @return An integer indicating the first time step at which the
+#'   quasi-stationary stage distribution is reached (or an \code{NA} and a
+#'   warning if the quasi-stationary distribution is not reached).
+#'   
 #' @author Hal Caswell <h.caswell@@uva.nl>
 #' @author Owen Jones <jones@@biology.sdu.dk>
-#' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @references Caswell, H. (2001) Matrix Population Models: Construction,
@@ -77,10 +81,10 @@
 #'   978-0878930968
 #'
 #'   Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-#'   Nature, 505(7482), 169–173. https://doi.org/10.1038/nature12789
+#'   Nature, 505(7482), 169-173. <doi:10.1038/nature12789>
 #'
-#'   Salguero-Gómez R. (2018) Implications of clonality for ageing research.
-#'   Evolutionary Ecology, 32, 9-28. https://doi.org/10.1007/s10682-017-9923-2
+#'   Salguero-Gomez R. (2018) Implications of clonality for ageing research.
+#'   Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
 #' 
 #' @examples
 #' data(mpm1)

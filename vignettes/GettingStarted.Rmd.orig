@@ -1,46 +1,39 @@
 ---
-output: github_document
+title: "Getting started with Rage"
+author: "Patrick Barks"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with Rage}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, echo = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/"
+  comment = "#>"
 )
 options(digits = 4)
+#ragg_png = function(..., res = 192) {
+#  ragg::agg_png(..., res = res, units = "in")
+#}
+#knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
+# knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
-# Rage
-[![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)  [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
-
-An R package for manipulating and analysing matrix population models (MPMs).
-Includes functions for:
+Rage provides tools for manipulating and analysing matrix population models
+(MPMs). The functions can be grouped into five broad categories:
 
 - deriving life history traits
 - deriving life tables or life table components
 - deriving vital rates
 - perturbation analyses
-- manipulating and transforming MPMs
+- manipulating or transforming MPMs
 
-## Installation
+This vignette introduces a few of the main functions within each category.
 
-Install from GitHub with:
-
-```{r, eval=FALSE}
-# install.packages("remotes")
-remotes::install_github("jonesor/Rage")
-```
-
-### Usage
-
-```{r}
-library(Rage)
-```
-
-### Loading an example MPM
+## Loading an example MPM
 
 The functions in Rage work on MPMs (or components of MPMs), so we'll start by
 loading one of the example MPMs included in the Rage package (`mpm1`).
@@ -57,7 +50,7 @@ component of the MPM (the __U__ matrix), and the sexual reproduction component
 (the __F__ matrix). We can obtain the full MPM by adding the two components
 together (__A__ = __U__ + __F__).
 
-### Deriving life history traits from an MPM
+## Deriving life history traits from an MPM
 
 One of the most common arguments among functions in Rage is `start`, which is
 used to specify the stage class that represents the 'beginning of life' for the
@@ -77,8 +70,8 @@ Some life history traits are independent of the starting stage class, in which
 case we don't need to specify `start`.
 
 ```{r}
-net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
-gen_time(mpm1$matU, mpm1$matF)          # generation time
+net_repro_rate(mpm1$matU, mpm1$matF)   # net reproductive rate
+gen_time(mpm1$matU, mpm1$matF)         # generation time
 ```
 
 Other life history traits are calculated from a life table rather than an MPM,
@@ -97,7 +90,7 @@ shape_surv(lx)      # shape of survival/mortality trajectory
 shape_rep(lx)       # shape of fecundity trajectory
 ```
 
-### Life tables and the quasi-stationary distribution
+## Life tables and the quasi-stationary distribution
 
 Some MPMs are parameterized with a stasis loop at the maximum stage class, which
 can lead to apparent plateaus in mortality or fertility trajectories derived
@@ -107,7 +100,7 @@ distribution (QSD). This quantity can then be used to subset age trajectories of
 mortality or fertility to periods earlier than the QSD, so as to avoid
 artefactual plateaus in mortality or fertility.
 
-```{r, warning=F, message=F, fig.width=6.5, fig.height=4}
+```{r, warning=FALSE, message=FALSE}
 # derive life table from MPM
 lt <- mpm_to_table(mpm1$matU, start = 2)
 
@@ -134,7 +127,7 @@ shape_surv(lt$lx)       # based on full lx trajectory
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
 ```
 
-### Standardized vital rates
+## Standardized vital rates
 
 The transition rates that make up MPMs generally reflect products of two or more
 vital rates (sometimes called ‘lower-level vital rates’). Assuming a
@@ -143,7 +136,7 @@ rate into at least two vital rate components: survival, and ‘something’
 conditional on survival. That ‘something’ might be growth, shrinkage, stasis,
 dormancy, fecundity, or clonality.
 
-##### Stage-specific vital rates (vector)
+#### Stage-specific vital rates (vector)
 
 To summarize vital rates _within_ stage classes, we can use the `vr_vec_` group
 of functions. We'll use the `exclude` argument here to exclude certain stage
@@ -161,7 +154,7 @@ vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
 vr_vec_fecundity(mpm1$matU, mpm1$matF)
 ```
 
-##### MPM-specific vital rates (scalar)
+#### MPM-specific vital rates (scalar)
 
 To summarize vital rates _across_ stage classes, we can use the `vr_` group of
 functions. By default these functions take a simple average of the
@@ -192,7 +185,7 @@ vital rate summaries, because we consider these to be special classes (e.g.
 'growth' from the 'seed' stage is really 'germination', which we may think of as
 separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
 
-### Perturbation analyses
+## Perturbation analyses
 
 The `perturb_matrix()` function measures the response of a demographic statistic
 to perturbation of individual matrix elements (i.e. sensitivities and
@@ -212,7 +205,7 @@ as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
 as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
 ```
 
-### Transforming MPMs
+## Transforming MPMs
 
 Rage includes a variety of functions that can be used to manipulate or transform
 MPMs. For example, we can collapse an MPM to a smaller number of stage classes
@@ -253,7 +246,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `mature_prob`    | Probability of reaching reproductive maturity |
 |                      | `mature_distrib` | Stage distribution of reproductive maturity |
 |                      | `entropy_d`      | Demetrius' entropy |
-|                      | `entropy_k`      | Keyfitz's entropy |
+|                      | `entropy_k`      | Keyfitz' entropy |
 |                      | `shape_surv`     | Shape of survival/mortality trajectory |
 |                      | `shape_rep`      | Shape of fecundity trajectory |
 | Life table           | `mpm_to_table`   | MPM to life table |
@@ -279,18 +272,3 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `standard_stages`    | Group stages into standardized sets |
 |                      | `repro_stages`       | Identify reproductive stages |
 |                      | `plot_life_cycle`    | Plot a life cycle diagram |
-
-## Contributions
-
-All contributions are welcome. Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
-
-
-There are numerous ways of contributing. 
-
-1. You can submit bug reports, suggestions etc. by [opening an issue](https://github.com/jonesor/Rcompadre/issues).
-
-2. You can copy or fork the repository, make your own code edits and then send us a pull request. [Here's how to do that](https://jarv.is/notes/how-to-pull-request-fork-github/).
-
-3. You can get to know us and join as a collaborator on the main repository.
-
-4. You are also welcome to email us.

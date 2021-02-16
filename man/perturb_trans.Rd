@@ -4,9 +4,20 @@
 \alias{perturb_trans}
 \title{Perturbation analysis of transition types within a matrix population model}
 \usage{
-perturb_trans(matU, matF, matC = NULL, posU = matU > 0, posF = matF >
-  0, posC = matC > 0, exclude_row = NULL, exclude_col = NULL,
-  pert = 1e-06, type = "sensitivity", demog_stat = "lambda", ...)
+perturb_trans(
+  matU,
+  matF,
+  matC = NULL,
+  posU = matU > 0,
+  posF = matF > 0,
+  posC = matC > 0,
+  exclude_row = NULL,
+  exclude_col = NULL,
+  pert = 1e-06,
+  type = "sensitivity",
+  demog_stat = "lambda",
+  ...
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a

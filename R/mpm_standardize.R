@@ -2,10 +2,10 @@
 #'
 #' Transform a matrix population model to a standardized set of stage classes
 #' (e.g. propagule, pre-reproductive, reproductive, and post-reproductive). The
-#' transition rates in the standardized matrix are a weighted average of the
-#' transition rates from the relevant stages of the original matrix, weighted by
-#' the relative proportion of each stage class expected at the stable
-#' distribution.
+#' transition rates in the standardized matrix are a weighted mean of the
+#' transition rates and per-capita reproductive values from the relevant stages
+#' of the original matrix, weighted by the relative proportion of each stage
+#' class expected at the stable distribution.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -37,10 +37,10 @@
 #'   \code{\link{mpm_collapse}}, which it calls in sequence.
 #' @note The method used by this function to collapse a matrix population model
 #'   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
-#'   stable distribution, but is not expected to preserve other traits such as
-#'   relative reproductive values, sensitivities, net reproductive rates, life
+#'   stable distribution, but is not expected to preserve other demographic characteristics
+#'   such as relative reproductive value, sensitivities, net reproductive rate, life
 #'   expectancy, etc.
-#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0,   0),

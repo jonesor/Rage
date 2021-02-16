@@ -4,11 +4,11 @@
 #' probability (px), or mortality hazard (hx). Input vectors must be arranged in
 #' order of increasing age, starting with age 0.
 #'
-#' @param lx Vector of age-specific survivorship
-#' @param px Vector of age-specific survival probabilities
-#' @param hx Vector of age-specific mortality hazards
+#' @param lx Vector of age-specific survivorship.
+#' @param px Vector of age-specific survival probabilities.
+#' @param hx Vector of age-specific mortality hazards.
 #' 
-#' @return A vector
+#' @return A vector.
 #' 
 #' @details \code{lx} gives the proportional survivorship to the start of age
 #'   class \code{x} (where survivorship at first age class is defined as 1),

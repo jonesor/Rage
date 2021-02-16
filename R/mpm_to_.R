@@ -24,7 +24,7 @@
 #' @param tol To account for floating point errors that occasionally lead to
 #'   values of lx slightly greater than 1, values of lx within the open interval
 #'   (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
-#'   prevent coersion, set \code{tol} to \code{0}.
+#'   prevent coercion, set \code{tol} to \code{0}.
 #' 
 #' @return A vector
 #' 

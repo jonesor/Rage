@@ -26,7 +26,7 @@
 #' @return a shape value describing lifespan inequality by comparing the area
 #'   under a survival (lx) curve over age with the area under a constant (type
 #'   2) survival function. May take any real value between -0.5 and +0.5. A
-#'   value of 0 indicates negligible aging (neither generally increasing nor
+#'   value of 0 indicates negligible ageing (neither generally increasing nor
 #'   generally decreasing survival with age); negative values indicate negative
 #'   senescence (generally increasing survival with age); positive values
 #'   indicate senescence (generally decreasing survival with age). A value of
@@ -75,7 +75,7 @@ or transforming zero values. See ?shape_surv for more details.\n")
   }
   if(is.null(xmin)) xmin <- min(x)
   if(is.null(xmax)) xmax <- max(x)
-  if(any(diff(x) <= 0)) stop("much as we'd like to reverse aging, x must all be ascending")
+  if(any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending")
   if(any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx)")
   x_sub <- x[x >= xmin & x <= xmax]
   if(length(x_sub) <= 2) {

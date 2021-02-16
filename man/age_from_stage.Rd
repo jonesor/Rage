@@ -8,17 +8,13 @@
 \alias{mpm_to_hx}
 \title{Calculate age-specific traits from a matrix population model}
 \usage{
-mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lx_crit = 1e-04,
-  tol = 1e-04)
+mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 
-mpm_to_lx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04,
-  tol = 1e-04)
+mpm_to_lx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 
-mpm_to_px(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04,
-  tol = 1e-04)
+mpm_to_px(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 
-mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04,
-  tol = 1e-04)
+mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -43,7 +39,7 @@ calculated (defaults to \code{0.0001}).}
 \item{tol}{To account for floating point errors that occasionally lead to
 values of lx slightly greater than 1, values of lx within the open interval
 (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
-prevent coersion, set \code{tol} to \code{0}.}
+prevent coercion, set \code{tol} to \code{0}.}
 }
 \value{
 A vector
