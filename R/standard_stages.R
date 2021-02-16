@@ -57,18 +57,7 @@
 #' standard_stages(matF, reproStages, matrixStages, includePost = FALSE)
 #' 
 #' @export standard_stages
-standard_stages <- function(matF, reproStages, matrixStages,
-                            includeProp = TRUE, includePost = TRUE) {
-  
-  # FIXME: can we combine propagule and pre-reproductive?
-  # FIXME: what about dormant stages?
-  # FIXME: once above solved, then fix logic internally
-  # FIXME: Scott and Tamora added extra parameter flags for switching whether
-  # to include propagule and post-reproductive stages but these are not used as
-  # yet. On reflection this is probably going too far and we should let the
-  # matrix structure guide the process. However, in animals we may wish to
-  # combine rep and post-rep to obtain a two-stage matrix model.
-  
+standard_stages <- function(matF, reproStages, matrixStages) {
   # validate arguments
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
