@@ -89,7 +89,7 @@ Details).}
 vital rates across rows within columns (e.g. reproductive value vector).}
 }
 \value{
-Vector of vital rates. Vital rates corrsponding to impossible
+Vector of vital rates. Vital rates corresponding to impossible
   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 }
 \description{

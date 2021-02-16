@@ -8,7 +8,7 @@ entropy_k(lx, trapeze = FALSE)
 }
 \arguments{
 \item{lx}{Survivorship trajectory (a vector of monotonically-declining values
-in the interval [0,1])}
+in the interval [0,1]).}
 
 \item{trapeze}{A logical argument indicating whether the composite trapezoid
 approximation should be used for approximating the definite integral.}
@@ -17,8 +17,7 @@ approximation should be used for approximating the definite integral.}
 Keyfitz's life table entropy.
 }
 \description{
-This function calculates Keyfitz's entropy from a vector of age-specific
-survivorship (lx).
+Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
 }
 \examples{
 data(mpm1)

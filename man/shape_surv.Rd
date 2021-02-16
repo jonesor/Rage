@@ -32,7 +32,7 @@ transform the zeroes to something approximating zero (e.g. 1e-7).}
 a shape value describing lifespan inequality by comparing the area
   under a survival (lx) curve over age with the area under a constant (type
   2) survival function. May take any real value between -0.5 and +0.5. A
-  value of 0 indicates negligible aging (neither generally increasing nor
+  value of 0 indicates negligible ageing (neither generally increasing nor
   generally decreasing survival with age); negative values indicate negative
   senescence (generally increasing survival with age); positive values
   indicate senescence (generally decreasing survival with age). A value of

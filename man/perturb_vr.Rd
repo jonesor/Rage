@@ -17,25 +17,25 @@ perturb_vr(
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
 \item{matF}{The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction)}
+projection matrix reflecting transitions due to sexual reproduction).}
 
 \item{matC}{The clonal component of a matrix population model (i.e. a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6})}
+\item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
 
 \item{type}{Whether to return "sensitivity" or "elasticity" values. Defaults
-to "sensitivity'.}
+to "sensitivity".}
 
 \item{demog_stat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 Defaults to the per-capita population growth rate at equilibrium
-(\eqn{lambda}). Also accepts a user-supplied function that performs a
+(\eqn{\lambda}). Also accepts a user-supplied function that performs a
 calculation on a projection matrix and returns a single numeric value.}
 
 \item{...}{Additional arguments passed to the function \code{demog_stat}.}
@@ -51,9 +51,9 @@ fecundity}
 }
 \description{
 Perturbs lower-level vital rates within a matrix population model and
-measures the response of the per-capita population growth rate at equilibrium
-(\eqn{\lambda}), or, with a user-supplied function, any other demographic
-statistic.
+measures the response (sensitivity or elasticity) of the per-capita 
+population growth rate at equilibrium (\eqn{\lambda}), or, with a 
+user-supplied function, any other demographic statistic.
 
 These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
@@ -75,6 +75,9 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
 
 perturb_vr(matU, matF)
 
+# use elasticities rather than sensitivities
+perturb_vr(matU, matF, type = "elasticity")
+
 # use a larger perturbation than the default
 perturb_vr(matU, matF, pert = 0.01)
 
@@ -90,7 +93,7 @@ perturb_vr(matU, matF, demog_stat = "damping")
 
 }
 \author{
-Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
