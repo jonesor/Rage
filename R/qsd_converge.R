@@ -117,7 +117,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   }
   
   # if not ergodic, remove stages not connected from start
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     nonzero <- rep(FALSE, nrow(mat))
     nonzero[start_vec > 0] <- TRUE
@@ -137,7 +137,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   
   # if still not ergodic, check whether observed dist at t = N matches stable
   #  dist
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     # check whether stable dist is __0__
     check_stable_zero <- stable_zero(mat, n1 = start_vec)

@@ -1,10 +1,9 @@
-context("repro_stages")
 
 test_that("repro_stages works correctly", {
 
   x <- repro_stages(mat_f)
   
-  expect_is(x, "logical")
+  expect_type(x, "logical")
   expect_length(x, ncol(mat_f))
   
   x_na_1 <- repro_stages(mat_f_na, na_handling = "return.true")

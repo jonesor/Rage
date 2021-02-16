@@ -1,4 +1,3 @@
-context("life_expect")
 
 test_that("life_expect works correctly", {
   

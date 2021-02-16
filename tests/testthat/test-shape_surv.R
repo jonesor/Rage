@@ -1,4 +1,3 @@
-context("shape_surv")
 
 test_that("shape_surv works correctly", {
   
@@ -35,15 +34,15 @@ test_that("shape_surv works correctly", {
 test_that("shape_surv warns and fails gracefully", {
   
   # lx[1] != 1
-  expect_error(shape_surv(c(0.8, 0.7, 0.6)), trunc = TRUE)
+  expect_error(shape_surv(c(0.8, 0.7, 0.6), trunc = TRUE))
 
   # Zero not dealt with
   expect_error(shape_surv(c(1, 0.5, 0.25, 0)))
 
   # zombies
-  expect_error(shape_surv(c(1, 0.7, 0.8, 0.3)), trunc = TRUE)
+  expect_error(shape_surv(c(1, 0.7, 0.8, 0.3), trunc = TRUE))
   
   # < 3 nozero values of lx
-  expect_error(shape_surv(c(1, 0.5, 0)), trunc = TRUE)
+  expect_error(shape_surv(c(1, 0.5, 0), trunc = TRUE))
   
 })

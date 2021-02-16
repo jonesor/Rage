@@ -200,7 +200,7 @@ vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
 vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
 #>    seed   small  medium   large dormant 
 #>      NA      NA      NA      NA  0.5641
-vr_vec_fecundity(mpm1$matU, mpm1$matF)
+vr_vec_reproduction(mpm1$matU, mpm1$matF)
 #>    seed   small  medium   large dormant 
 #>      NA      NA   27.12   53.02      NA
 ```

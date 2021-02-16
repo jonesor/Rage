@@ -10,12 +10,12 @@
 #' expected at the stable distribution.
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting only survival-related transitions; e.g.
-#'   progression, stasis, and retrogression).
+#'   square projection matrix reflecting survival-related transitions; e.g.
+#'   progression, stasis, and retrogression)
 #' @param matF The sexual component of a matrix population model (i.e. a square
-#'   projection matrix reflecting transitions only due to \emph{sexual} reproduction).
+#'   projection matrix reflecting transitions due to sexual reproduction)
 #' @param matC The clonal component of a matrix population model (i.e. a square
-#'   projection matrix reflecting only transitions due to clonal reproduction).
+#'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
 #' @param collapse A list giving the mapping between stages of the original
@@ -41,19 +41,16 @@
 #' in the original matrix). In the collapsed matrix, any row/column
 #' corresponding to a missing stage will be coerced to \code{NA}.
 #' 
-#' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @references Salguero-Gomez, R. & Plotkin, J. B. (2010) Matrix dimensions bias
 #'   demographic inferences: implications for comparative plant demography. The
-#'   American Naturalist 176, 710-722.URL(url/{https://www.journals.uchicago.edu/doi/10.1086/657044})
-#' 
+#'   American Naturalist 176, 710-722.
 #' @note This method of collapsing a matrix population model preserves the
 #'   equilibrium population growth rate (\eqn{lambda}) and relative stable
 #'   distribution, but is not expected to preserve other traits such as relative
 #'   reproductive values, sensitivities, net reproductive rates, life
 #'   expectancy, etc.
-#' 
 #' @seealso \code{\link{mpm_standardize}}
-#' 
 #' @examples
 #' data(mpm1)
 #' 

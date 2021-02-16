@@ -1,4 +1,3 @@
-context("entropy_d")
 
 test_that("entropy_d works correctly", {
 

@@ -194,7 +194,7 @@ more straightforward to summarize, as they only reflect a single process (i.e.
 fecundity).
 
 ```{r}
-vr_vec_fecundity(matU, matF)
+vr_vec_reproduction(matU, matF)
 ```
 
 In the example MPM we're using here, individuals produced by fecundity always

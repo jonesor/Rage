@@ -1,4 +1,3 @@
-context("meanMat")
 
 test_that("meanMat works correctly", {
   
@@ -9,12 +8,12 @@ test_that("meanMat works correctly", {
   x2[[1]][1,1] <- NA
   
   y1 <- meanMat(x1)
-  expect_is(y1, "matrix")
+  expect_true(inherits(y1, "matrix"))
   expect_true(nrow(y1) == s)
   
   # na handling
   y2 <- meanMat(x2)
-  expect_is(y2, "matrix")
+  expect_true(inherits(y2, "matrix"))
   expect_true(is.na(y2[1,1]))
   
   y3 <- meanMat(x2, na.rm = TRUE)
