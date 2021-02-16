@@ -1,4 +1,3 @@
-context("mpm_rearrange")
 
 test_that("mpm_rearrange works correctly", {
 
@@ -9,7 +8,7 @@ test_that("mpm_rearrange works correctly", {
   x <- mpm_rearrange(mat_u_inter, mat_f_inter, reproStages = reproStages,
                      matrixStages = matrixStages)
   
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 6)
   
   expect_equal(sum(mat_u_inter), sum(x$matU))

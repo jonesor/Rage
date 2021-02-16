@@ -20,14 +20,14 @@ perturb_trans(
 )
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
+\item{matU}{The survival component of a MPM (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
-\item{matF}{The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction)}
+\item{matF}{The sexual component of a MPM (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction).}
 
-\item{matC}{The clonal component of a matrix population model (i.e. a square
+\item{matC}{The clonal component of a MPM (i.e. a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction possible.}
 
@@ -46,57 +46,57 @@ elements indicating whether a given \code{matC} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matC > 0} (see
 Details).}
 
-\item{exclude_row}{Integer or logical vector indicating stages for which
+\item{exclude_row}{An integer or logical vector indicating stages for which
 transitions \emph{to} the stage should be excluded from perturbation
 analysis. See section \emph{Excluding stages}.}
 
-\item{exclude_col}{Integer or logical vector indicating stages for which
+\item{exclude_col}{An integer or logical vector indicating stages for which
 transitions \emph{from} the stage should be excluded from perturbation
 analysis. See section \emph{Excluding stages}.}
 
-\item{pert}{Magnitude of the perturbation (defaults to \code{1e-6})}
+\item{pert}{The magnitude of the perturbation (defaults to \code{1e-6})}
 
-\item{type}{Whether to return "sensitivity" or "elasticity" values. Defaults
-to "sensitivity'.}
+\item{type}{An argument defining whether to return `sensitivity` or `elasticity` values. Defaults
+to `sensitivity`.}
 
-\item{demog_stat}{The demographic statistic to be used, as in "the
+\item{demog_stat}{An argument defining which demographic statistic should be used, as in "the
 sensitivity/elasticity of \code{demog_stat} to matrix element
 perturbations." Defaults to the per-capita population growth rate at
 equilibrium (\eqn{lambda}). Also accepts a user-supplied function that
-performs a calculation on a projection matrix and returns a single numeric
+performs a calculation on a MPM and returns a single numeric
 value.}
 
 \item{...}{Additional arguments passed to the function \code{demog_stat}.}
 }
 \value{
 A list with 5 elements:
-\item{stasis}{sensitivity or elasticity of \code{demog_stat} to stasis}
-\item{retrogression}{sensitivity or elasticity of \code{demog_stat} to
-retrogression}
-\item{progression}{sensitivity or elasticity of \code{demog_stat} to
-progression}
-\item{fecundity}{sensitivity or elasticity of \code{demog_stat} to sexual
-fecundity}
-\item{clonality}{sensitivity or elasticity of \code{demog_stat} to clonality}
+\item{stasis}{The sensitivity or elasticity of \code{demog_stat} to stasis.}
+\item{retrogression}{The sensitivity or elasticity of \code{demog_stat} to
+retrogression.}
+\item{progression}{The sensitivity or elasticity of \code{demog_stat} to
+progression.}
+\item{fecundity}{The sensitivity or elasticity of \code{demog_stat} to sexual
+fecundity.}
+\item{clonality}{The sensitivity or elasticity of \code{demog_stat} to clonality.}
 }
 \description{
 Calculates the summed sensitivities or elasticities for various transition
-types within a matrix population model, including stasis, retrogression,
+types within a matrix population model (MPM), including stasis, retrogression,
 progression, fecundity, and clonality.
 
 Sensitivities or elasticities are calculated by perturbing elements of the
-matrix population model and measuring the response of the per-capita
+MPM and measuring the response of the per-capita
 population growth rate at equilibrium (\eqn{\lambda}), or, with a
 user-supplied function, any other demographic statistic.
 }
 \details{
-A transition rate of \code{0} within a matrix population model may indicate
+A transition rate of \code{0} within a matrix population model can either indicate
 that the transition is not possible in the given life cycle (e.g. tadpoles
 never revert to eggs), or that the transition is possible but was estimated
 to be \code{0} in the relevant population and time period. Because transition
 rates of zero \emph{do} generally yield non-zero sensitivities, it is
-important to distinguish between structural zeros and sampled zeros when
-summing multiple sensitivities for a given process (e.g. progression).
+important to distinguish between structural (i.e. impossible) zeros and sampled zeros when
+summing multiple sensitivities for a given process (e.g. progression/growth).
 
 By default, the \code{perturb_} functions assume that a transition rate of
 \code{0} indicates an impossible transition, in which case the sensitivity
@@ -108,19 +108,19 @@ argument(s) manually.
 
 If there are no possible transitions for a given process (e.g. clonality),
 the value of sensitivity or elasticity returned for that process will be
-\code{NA}
+\code{NA}.
 }
 \section{Excluding stages}{
 
 It may be desirable to exclude one or more stages from the calculation. For
 instance, we might not believe that 'progression' to a dormant stage class
-really reflects progression, in which case we could exclude transitions
+truly reflects progression. In this case we could exclude transitions
 \emph{to} the dormant stage class using the argument \code{exclude_row}. We
 may or may not want to ignore progression transitions \emph{from} the dormant
-stage class, which can be done using \code{exclude_col}. The \code{exclude_}
-arguments effectively just set the relevant row or column of the \code{posX}
-arguments to \code{FALSE}, to prevent those transitions from being used in
-subsequent calculations.
+stage class, which can be done in a similar way using the argument
+\code{exclude_col}. The \code{exclude_} arguments simply set the
+relevant row or column of the \code{posX} arguments to \code{FALSE}, to
+prevent those transitions from being used in subsequent calculations.
 }
 
 \examples{
@@ -137,16 +137,18 @@ matF <- rbind(c(  0,   0, 1.1, 1.6),
 \dontrun{
 perturb_trans(matU, matF)
 
-# use a larger perturbation than the default
+# Use a larger perturbation than the default of 1e-6.
 perturb_trans(matU, matF, pert = 0.01)
 
-# calculate the sensitivity/elasticity of the damping ratio to perturbations
-damping <- function(matA) {  # define function for damping ratio
+# Calculate the sensitivity/elasticity of the damping ratio to perturbations.
+# First, define function for damping ratio:
+damping <- function(matA) {  
   eig <- eigen(matA)$values
   dm <- rle(Mod(eig))$values
   return(dm[1] / dm[2])
 }
 
+#Second, run the perturbation analysis using demog_stat = "damping".
 perturb_trans(matU, matF, demog_stat = "damping")
 }
 }

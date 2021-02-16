@@ -61,7 +61,7 @@ to be \code{0} in the relevant population and time period. If vital rates are
 to be averaged across multiple stage classes, or compared across populations,
 it may be important to distinguish between these two types of zeros.
 
-By default, the \code{vitals_mat} functions assume that a transition rate of
+By default, \code{vr_mat} assumes that a transition rate of
 \code{0} indicates an impossible transition, in which case a value of
 \code{NA} will be returned in the relevant matrix cell. Specifically, the
 arguments \code{posU} and \code{posR} are specified by the logical
@@ -84,7 +84,7 @@ matR <- rbind(c(  0,   0, 1.1, 1.6),
 # extract vital rates of survival from matU
 vr_mat_U(matU)
 
-# extract vital rates of survival from matR
+# extract vital rates of reproduction from matR
 vr_mat_R(matU, matR)
 
 }

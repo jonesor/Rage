@@ -1,14 +1,13 @@
-context("perturb_trans")
 
 test_that("perturb_trans works correctly", {
   
   x_sens <- perturb_trans(mat_u, mat_f)
-  expect_is(x_sens, "list")
+  expect_type(x_sens, "list")
   expect_equal(length(x_sens), 5)
   expect_true(is.na(x_sens$clonality))
   
   x_elas <- perturb_trans(mat_u, mat_f, type = "elasticity")
-  expect_is(x_elas, "list")
+  expect_type(x_elas, "list")
   expect_equal(length(x_elas), 5)
   expect_true(is.na(x_elas$clonality))
   

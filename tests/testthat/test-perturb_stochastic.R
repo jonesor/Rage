@@ -1,4 +1,3 @@
-context("perturb_stochastic")
 
 test_that("perturb_stochastic works correctly", {
   
@@ -11,8 +10,8 @@ test_that("perturb_stochastic works correctly", {
   u1 <- lapply(u1, function(x) x / sum(x))
   
   e1 <- perturb_stochastic(X1, u1)
-  expect_is(e1, "list")
-  expect_is(e1[[1]], "matrix")
+  expect_type(e1, "list")
+  expect_true(inherits(e1[[1]], "matrix"))
   expect_length(e1, 3)
   expect_true(nrow(e1[[1]]) == s)
   
