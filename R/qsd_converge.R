@@ -20,7 +20,7 @@
 #' 
 #' @details
 #' Some matrix population models are parameterised with a stasis loop at the
-#' largest/most-developed stage class, which can lead to artefactual pleateaus
+#' largest/most-developed stage class, which can lead to artefactual plateaus
 #' in the mortality or fertility trajectories derived from such models. These
 #' plateaus occur as a projected cohort approaches its stationary stage
 #' distribution (SSD). Though there is generally no single time point at which
