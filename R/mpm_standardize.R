@@ -20,7 +20,7 @@
 #' @param matrixStages Character vector of matrix stage types (e.g. "propagule",
 #'   "active", or "dormant")
 #' @return A list with four elements reflecting the standardized matrix, and
-#'   it's components:
+#'   its components:
 #'   \item{matA}{Standardized projection matrix}
 #'   \item{matU}{Survival component of the standardized projection matrix}
 #'   \item{matF}{Sexual reproduction component of the standardized projection matrix}
@@ -36,7 +36,7 @@
 #'   \code{\link{mpm_rearrange}}, \code{\link{standard_stages}} and
 #'   \code{\link{mpm_collapse}}, which it calls in sequence.
 #' @note The method used by this function to collapse a matrix population model
-#'   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
+#'   preserves the equilibrium population growth rate (\eqn{\lambda}) and relative
 #'   stable distribution, but is not expected to preserve other traits such as
 #'   relative reproductive values, sensitivities, net reproductive rates, life
 #'   expectancy, etc.
