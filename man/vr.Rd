@@ -106,8 +106,8 @@ Vector of vital rates. Vital rates corrsponding to impossible
   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 }
 \description{
-Derive mean vital rates of survival, growth, shrinkage, stasis, dormancy, or
-reproduction from a matrix population model, by averaging across stage
+Derive mean vital rates of survival, growth (or development), shrinkage (or de-development),
+stasis, dormancy, or reproduction from a matrix population model, by averaging across stage
 classes. These functions include optional arguments for custom weighting of
 different stage classes (see \emph{Weighting stages}), excluding certain
 stage classes from the calculation (see \emph{Excluding stages}), and
@@ -116,10 +116,9 @@ transitions}).
 
 These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
-vital rate that is conditional on survival (growth, shrinkage, stasis,
-dormancy, or reproduction). Reproductive vital rates that are not conditional
-on survival (i.e. within a stage class from which there is no survival) are
-also allowed.
+vital rate that is conditional on survival (growth/development, shrinkage/de-development,
+stasis, dormancy, or a/sexual reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are also allowed.
 }
 \section{Possible transitions}{
 
@@ -144,17 +143,17 @@ arguments manually.
 \section{Weighting stages}{
 
 In averaging vital rates across stages, it may be desirable to weight stage
-classes differently (e.g. based on reproductive values, or stable
+classes differently (e.g. based on reproductive values or stable
 distributions). Weights are generally applied when averaging across columns,
 i.e., across transitions \emph{from} a set of stage classes (e.g. averaging
 stage-specific survival probabilities across multiple stages). All \code{vr_}
 functions therefore include an optional argument \code{weights_from}.
 
-In principle, particularly for vital rates of reproduction, we could also
+In principle, particularly for vital rates of reproduction, the user can also
 apply weights when summing across rows within columns, i.e., across
 reproductive transitions \emph{to} a set of stage classes (e.g. summing the
-production of different types of offspring, such as seeds vs. seedlings). For
-the function \code{vr_fecundity}, we therefore also include an optional
+production of different types of offspring, such as seeds vs. seedlings). The
+function \code{vr_fecundity} therefore also includes an optional
 argument \code{weights_to}.
 
 If supplied, \code{weights_from} will automatically be scaled to sum to 1

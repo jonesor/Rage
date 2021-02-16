@@ -60,14 +60,14 @@ test_that("vr_vec functions work correctly", {
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
   
-  fecu1 <- vr_vec_fecundity(U1, R1)
+  fecu1 <- vr_vec_reproduction(U1, R1)
   expect_is(fecu1, "numeric")
   expect_length(fecu1, 4)
   expect_true(all(is.na(fecu1[1:2])))
   
   # weighting
   v <- reproductive.value(U1 + R1)
-  fecu2 <- vr_vec_fecundity(U1, R1, weights_row = v)
+  fecu2 <- vr_vec_reproduction(U1, R1, weights_row = v)
   expect_true(fecu2[3] != fecu1[3])
   
   # no survival in a stage with reproduction
@@ -76,7 +76,7 @@ test_that("vr_vec functions work correctly", {
               c(  0, 0.3, 0.3,   0),
               c(  0,   0, 0.5,   0))
   
-  fecu3 <- vr_vec_fecundity(U2, R1)
+  fecu3 <- vr_vec_reproduction(U2, R1)
   expect_equal(fecu3[4], sum(R1[,4]))
 })
 
@@ -87,5 +87,5 @@ test_that("vr_vec functions warn and fail gracefully", {
   expect_error(vr_vec_growth(mat_u_na))
   expect_error(vr_vec_shrinkage(mat_u_na))
   expect_error(vr_vec_stasis(mat_u_na))
-  expect_error(vr_vec_fecundity(mat_u_na))
+  expect_error(vr_vec_reproduction(mat_u_na))
 })

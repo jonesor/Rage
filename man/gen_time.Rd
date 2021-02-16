@@ -9,20 +9,21 @@ gen_time(matU, matR)
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
+square projection matrix only reflecting transitions due to reproduction; either
+sexual, clonal, or both).}
 }
 \value{
 Returns generation time. If \code{matU} is singular (often indicating
   infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculate generation time from a matrix population model, where generation
-time is defined as the time required for a population to increase by a factor
-of R0 (the net reproductive rate). See section 5.3.5 of Caswell (2001).
+Calculate generation time from a matrix population model. Generation time
+is defined here as the time required for a population to increase by a factor
+of R0 (the net reproductive rate, see ). For more details please refer to 
+section 5.3.5 of Caswell (2001).
 }
 \details{
 There are multiple definitions of generation time. Here we use \code{log(R0)

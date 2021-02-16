@@ -35,10 +35,10 @@ A list with four elements reflecting the standardized matrix, and
 \description{
 Transform a matrix population model to a standardized set of stage classes
 (e.g. propagule, pre-reproductive, reproductive, and post-reproductive). The
-transition rates in the standardized matrix are a weighted average of the
-transition rates from the relevant stages of the original matrix, weighted by
-the relative proportion of each stage class expected at the stable
-distribution.
+transition rates in the standardized matrix are a weighted mean of the
+transition rates and per-capita reproductive values from the relevant stages
+of the original matrix, weighted by the relative proportion of each stage
+class expected at the stable distribution.
 }
 \details{
 This function is a wrapper for the functions
@@ -48,8 +48,8 @@ This function is a wrapper for the functions
 \note{
 The method used by this function to collapse a matrix population model
   preserves the equilibrium population growth rate (\eqn{lamda}) and relative
-  stable distribution, but is not expected to preserve other traits such as
-  relative reproductive values, sensitivities, net reproductive rates, life
+  stable distribution, but is not expected to preserve other demographic characteristics
+  such as relative reproductive value, sensitivities, net reproductive rate, life
   expectancy, etc.
 }
 \section{Missing Stages}{
@@ -86,5 +86,5 @@ mpm_standardize(matU, matF, matC, reproStages, matrixStages)
 
 }
 \author{
-Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
