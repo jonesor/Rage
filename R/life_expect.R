@@ -72,11 +72,15 @@ life_expect <- function(matU, start = 1L) {
   # check for errors due to singular matrix
   # if singular, return NA
   if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
-    life_expect <- NA_real_
+    mean <- NA_real_
+    var <- NA_real_
   } else {
-    life_expect$mean <- sum(colSums(N) * start_vec)
-    life_expect$var <- sum(Nvar * start_vec)
+    mean <- sum(colSums(N) * start_vec)
+    var <- sum(Nvar * start_vec)
   }
+  
+  life_expect <- data.frame("mean" = mean,
+                            "var" = var)
   
 	return(life_expect)
 }
