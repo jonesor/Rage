@@ -1,12 +1,12 @@
 #' Calculate life expectancy from a matrix population model
 #'
-#' Applies Markov chain approaches to obtain mean life expectancy from a matrix
+#' Applies Markov chain approaches to obtain mean and variance of life expectancy from a matrix
 #' population model.
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression)
-#' @param start The index of the first stage at which the author considers the
+#' @param start The index of the first stage at which the user considers the
 #'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
 #'   starting population vector (in which case \code{length(start)} must match
 #'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
@@ -44,8 +44,8 @@
 #' life_expect(mpm1$matU, start = 2)
 #' 
 #' # life expectancy starting from first reproduction
-#' repstages <- repro_stages(mpm1$matF)
-#' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+#' rep_stages <- repro_stages(mpm1$matF)
+#' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
 #' life_expect(mpm1$matU, start = n1)
 #'
 #' @export life_expect
@@ -67,13 +67,15 @@ life_expect <- function(matU, start = 1L) {
   
   # try calculating fundamental matrix (will fail if matrix singular)
   N <- try(solve(diag(matDim) - matU), silent = TRUE)
+  Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
   
   # check for errors due to singular matrix
   # if singular, return NA
   if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
     life_expect <- NA_real_
   } else {
-    life_expect <- sum(colSums(N) * start_vec)
+    life_expect$mean <- sum(colSums(N) * start_vec)
+    life_expect$var <- sum(Nvar * start_vec)
   }
   
 	return(life_expect)
