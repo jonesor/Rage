@@ -3,6 +3,9 @@
 
 # Rage
 
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Travis-CI Build
 Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage)
 [![AppVeyor Build
@@ -215,30 +218,30 @@ average across stages, based on the stable stage distribution at
 equilibrium (*w*).
 
 ``` r
-# derive full MPM (matA)
-mpm1$matA <- mpm1$matU + mpm1$matF
 
-# calculate stable stage distribution at equilibrium using popbio::stable.stage
-library(popbio)
-w <- popbio::stable.stage(mpm1$matA)
+    # derive full MPM (matA)
+    mpm1$matA <- mpm1$matU + mpm1$matF
 
-# calculate MPM-specific vital rates
-vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
-#> [1] 0.5964
-vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.6603
-vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.1961
-vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.2824
-vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
-#> [1] 0.1984
-vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
-#> [1] 0.5641
-vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
-#> [1] 37.07
+    # calculate stable stage distribution at equilibrium using popbio::stable.stage
+    library(popbio)
+    w <- popbio::stable.stage(mpm1$matA)
+
+    # calculate MPM-specific vital rates
+    vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
+    #> [1] 0.5964
+    vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
+    #> [1] 0.6603
+    vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
+    #> [1] 0.1961
+    vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
+    #> [1] 0.2824
+    vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
+    #> [1] 0.1984
+    vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
+    #> [1] 0.5641
+    vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
+    #> [1] 37.07
 ```
-
 Note how we’ve chosen to exclude the ‘seed’ and ‘dormant’ stage classes
 from our vital rate summaries, because we consider these to be special
 classes (e.g. ‘growth’ from the ‘seed’ stage is really ‘germination’,
@@ -351,6 +354,10 @@ net_repro_rate(col1$matU, col1$matF)
 |                     | `standard_stages`    | Group stages into standardized sets                 |
 |                     | `repro_stages`       | Identify reproductive stages                        |
 |                     | `plot_life_cycle`    | Plot a life cycle diagram                           |
+
+
+For a complete list of functions see the package
+[Reference](https://jonesor.github.io/Rage/reference/index.html) page.
 
 ## Contributions
 
