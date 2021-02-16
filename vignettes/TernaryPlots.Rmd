@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Here we produce a ternary plot *a la* Silvertown & Franco (1993) with population growth rate as the "fourth" dimension. We will use functions from the `popdemo`, `Rage` and `ggtern` packages so first we need to load those:
+Here we produce a ternary plot *a la* Silvertown & Franco (1993) with population growth rate as the "fourth" dimension. We will use functions from the `popdemo`, `Rage` and `ggtern` packages, so first we need to load those packages:
 
 ```{r, message=FALSE}
 library(Rcompadre)
@@ -27,7 +27,7 @@ library(Rage)
 library(ggtern)
 ```
 
-Next, we will load the dataset, flag problematic data (non-ergodic matrices) and exclude them, like this:
+Next, we will load the dataset directly from the COMPADRE online repository. Then, we will subset making sure that we only select matrix population models (*MPMs*, hereafter) fulfilling two conditions. The first one is that the components of the MPM **A** (e.g. **A** = **U** + **F** + **C**; **U**: survival-dependent matrix; **F**: sexual reproduction matrix; **C**: clonal reproduction matrix) have already been split so we can automatically calculate vital-rate dependent processes (e.g. elasticities of population growth rate (*$\lambda*). The second condition is that the MPM **A** must be non-ergodic (See Caswell 2001 for further details), so there is a unique solution for the dominant eigenvalue of **A**.
 
 ```{r load example COMPADRE data, eval=TRUE}
 data(Compadre)
@@ -41,7 +41,7 @@ We can calculate elasticities of population growth rate to changes in the matrix
 popdemo::elas(matA(Compadre)[[1]])
 ```
 
-We have split most matrices in COMPADRE into the constituent U, F and C matrices, which represent growth/survival, sexual reproduction and clonal reproduction respectively. Therefore, we can classify the elements of the matrix to growth processes (which we can further identify as stasis, progression, and retrogression), sexual reproduction, and clonal reproduction. 
+Because the subset of MPMs here has split **A** into the matrices **U**, **F**, and **C**, we can now also automatise the calculation of elasticities, regardless of the varying degree of life cycle complexities represented in these MPMs. Therefore, we can classify the elements of the matrix to changes in stages (which we can further identify as stasis, progression, and retrogression), sexual reproduction, and clonal reproduction. 
 
 We can use the `matrixElementPerturbation` function from the `Rage` package to conduct this element-by-element elasticity analysis. The function outputs both sensitivities (prefixed with S) and elasticities (prefixed with E) as follows:
 
