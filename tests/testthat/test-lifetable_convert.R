@@ -1,4 +1,3 @@
-context("surv_conversion functions")
 
 test_that("surv_conversion functions work correctly", {
 

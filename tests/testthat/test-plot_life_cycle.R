@@ -1,4 +1,3 @@
-context("plot_life_cycle")
 
 test_that("plot_life_cycle works correctly", {
 
@@ -9,8 +8,8 @@ test_that("plot_life_cycle works correctly", {
   p2 <- plot_life_cycle(mat_a, stages = stages)
   p3 <- plot_life_cycle(mat_a, stages = stages, title = "my_title")
   
-  expect_is(p1, "grViz")
-  expect_is(p2, "grViz")
-  expect_is(p3, "grViz")
+  expect_s3_class(p1, "grViz")
+  expect_s3_class(p2, "grViz")
+  expect_s3_class(p3, "grViz")
 })
 

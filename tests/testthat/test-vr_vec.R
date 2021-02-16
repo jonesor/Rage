@@ -1,4 +1,3 @@
-context("vr_vec")
 
 test_that("vr_vec functions work correctly", {
   
@@ -11,7 +10,7 @@ test_that("vr_vec functions work correctly", {
               c(  0,   0, 0.5, 0.6))
   
   surv1 <- vr_vec_survival(U1)
-  expect_is(surv1, "numeric")
+  expect_type(surv1, "double")
   expect_length(surv1, 4)
   
   surv2 <- vr_vec_survival(U1, exclude_col = 4)
@@ -21,7 +20,7 @@ test_that("vr_vec functions work correctly", {
   expect_true(is.na(surv3[4]))
   
   grow1 <- vr_vec_growth(U1)
-  expect_is(grow1, "numeric")
+  expect_type(grow1, "double")
   expect_length(grow1, 4)
   
   grow2 <- vr_vec_growth(U1, posU = matrix(TRUE, nrow = 4, ncol = 4))
@@ -31,26 +30,26 @@ test_that("vr_vec functions work correctly", {
   expect_true(!is.na(grow3[1]))
   
   shri1 <- vr_vec_shrinkage(U1)
-  expect_is(shri1, "numeric")
+  expect_type(shri1, "double")
   expect_length(shri1, 4)
   
   shri2 <- vr_vec_shrinkage(U1, exclude_row = 2)
   expect_true(is.na(shri2[3]))
   
   stas1 <- vr_vec_stasis(U1)
-  expect_is(stas1, "numeric")
+  expect_type(stas1, "double")
   expect_length(stas1, 4)
   
   stas2 <- vr_vec_stasis(U1, posU = matrix(TRUE, nrow = 4, ncol = 4))
   expect_equal(stas2[1], 0)
   
   dent1 <- vr_vec_dorm_enter(U1, dorm_stages = 4)
-  expect_is(dent1, "numeric")
+  expect_type(dent1, "double")
   expect_length(dent1, 4)
   expect_true(!is.na(dent1[3]))
   
   dexi1 <- vr_vec_dorm_exit(U1, dorm_stages = 4)
-  expect_is(dexi1, "numeric")
+  expect_type(dexi1, "double")
   expect_length(dexi1, 4)
   expect_true(!is.na(dexi1[4]))
   
@@ -61,7 +60,7 @@ test_that("vr_vec functions work correctly", {
               c(  0,   0,   0,   0))
   
   fecu1 <- vr_vec_reproduction(U1, R1)
-  expect_is(fecu1, "numeric")
+  expect_type(fecu1, "double")
   expect_length(fecu1, 4)
   expect_true(all(is.na(fecu1[1:2])))
   
