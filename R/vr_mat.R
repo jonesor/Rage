@@ -42,7 +42,7 @@
 #' to be averaged across multiple stage classes, or compared across populations,
 #' it may be important to distinguish between these two types of zeros.
 #' 
-#' By default, the \code{vitals_mat} functions assume that a transition rate of
+#' By default, \code{vr_mat} assumes that a transition rate of
 #' \code{0} indicates an impossible transition, in which case a value of
 #' \code{NA} will be returned in the relevant matrix cell. Specifically, the
 #' arguments \code{posU} and \code{posR} are specified by the logical
@@ -51,7 +51,7 @@
 #' to be \code{0}, one should specify the \code{posU} and/or \code{posR}
 #' arguments manually.
 #' 
-#' @return A matrix of vital rates. Vital rates corrsponding to impossible
+#' @return A matrix of vital rates. Vital rates corresponding to impossible
 #'   transitions will be coerced to \code{NA} (see Details).
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
@@ -74,11 +74,10 @@
 #' # extract vital rates of survival from matU
 #' vr_mat_U(matU)
 #' 
-#' # extract vital rates of survival from matR
+#' # extract vital rates of reproduction from matR
 #' vr_mat_R(matU, matR)
 #' 
 #' @name vr_mat
-
 
 #' @rdname vr_mat
 #' @export vr_mat_U
@@ -99,7 +98,6 @@ vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
   return(vmat)
 }
 
-
 #' @rdname vr_mat
 #' @export vr_mat_R
 vr_mat_R <- function(matU, matR, posR = matR > 0) {
@@ -114,4 +112,3 @@ vr_mat_R <- function(matU, matR, posR = matR > 0) {
   vmat[!posR] <- NA_real_
   return(vmat)
 }
-

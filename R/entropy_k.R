@@ -1,10 +1,9 @@
 #' Calculate Keyfitz's entropy from a trajectory of age-specific survivorship
 #' 
-#' This function calculates Keyfitz's entropy from a vector of age-specific
-#' survivorship (lx).
+#' Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
 #' 
 #' @param lx Survivorship trajectory (a vector of monotonically-declining values
-#'   in the interval [0,1])
+#'   in the interval [0,1]).
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
 #'   
