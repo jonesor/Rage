@@ -14,14 +14,14 @@
 #'   with time steps of unit. If x ends at maximum longevity,
 #'   \code{mx[which.max(x)]} should equal 0; however it is possible to supply
 #'   partial reproduction schedules.
-#' @param xmin,xmax The minimum and maximum age repectively over which to
+#' @param xmin,xmax The minimum and maximum age respectively over which to
 #'   evaluate shape. If not given, these default to \code{min(x)} and
 #'   \code{max(x)} respectively.
 #'
 #' @return a shape value describing symmetry of reproduction over age by
 #'   comparing the area under a cumulative reproduction curve over age with the
 #'   area under constant reproduction. May take any real value between -0.5 and
-#'   +0.5. A value of 0 indicates negligible aging (neither generally increasing
+#'   +0.5. A value of 0 indicates negligible ageing (neither generally increasing
 #'   nor generally decreasing reproduction with age); positive values indicate
 #'   senescence (generally decreasing reproduction with age); negative values
 #'   indicate negative senescence (generally increasing reproduction with age).
@@ -62,7 +62,7 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   }
   if(is.null(xmin)) xmin <- x[min(which(mx > 0))]
   if(is.null(xmax)) xmax <- max(x)
-  if(any(diff(x) <= 0)) stop("much as we'd like to reverse aging, x must all be ascending")
+  if(any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending")
   if(any(mx < 0)) stop("You appear to have minus-babies (check mx)")
   x_sub <- x[x >= xmin & x <= xmax]
   if(length(x_sub) <= 2) {

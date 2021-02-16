@@ -22,7 +22,7 @@ options(digits = 4)
 # knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
-Rage provides tools for manipulating and analyzing matrix population models
+Rage provides tools for manipulating and analysing matrix population models
 (MPMs). The functions can be grouped into five broad categories:
 
 - deriving life history traits
@@ -180,7 +180,7 @@ vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
 vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
 ```
 
-Note how we've chosed to exclude the 'seed' and 'dormant' stage classes from our
+Note how we've chosen to exclude the 'seed' and 'dormant' stage classes from our
 vital rate summaries, because we consider these to be special classes (e.g.
 'growth' from the 'seed' stage is really 'germination', which we may think of as
 separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
@@ -257,7 +257,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `lx_to_[px/hx]`  | Convert from survivorship trajectory |
 |                      | `px_to_[lx/hx]`  | Convert from survival trajectory |
 |                      | `hx_to_[lx/px]`  | Convert from mortality hazard trajectory |
-|                      | `qsd_converge`   | Time to quasi-stationary destribution |
+|                      | `qsd_converge`   | Time to quasi-stationary distribution |
 | Vital rates          | `vr_[...]`       | MPM-averaged vital rates
 |                      | `vr_vec_[...]`   | Stage-averaged vital rates
 |                      | `vr_mat_[...]`   | Survival-independent vital rates |

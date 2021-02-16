@@ -44,5 +44,5 @@ Caswell, H. (2001) Matrix Population Models: Construction,
   978-0878930968
 }
 \author{
-Patrick Barks <patrick.barks@gmail.copm>
+Patrick Barks <patrick.barks@gmail.com>
 }
