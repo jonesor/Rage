@@ -14,7 +14,7 @@
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @references Demetrius, L. (1978) Adaptive value, entropy and survivorship
-#'   curves. Nature 275, 213-214. doi:10.1038/275213a0
+#'   curves. Nature 275, 213-214. DOI:10.1038/275213a0
 #'   
 #' @examples
 #' data(mpm1)

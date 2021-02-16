@@ -51,7 +51,7 @@
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
 #' 
-#' @return Vector of vital rates. Vital rates corrsponding to impossible
+#' @return Vector of vital rates. Vital rates corresponding to impossible
 #'   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 #' 
 #' @section Possible transitions:

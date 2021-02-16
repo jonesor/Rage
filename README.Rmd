@@ -16,7 +16,7 @@ options(digits = 4)
 # Rage
 [![Travis-CI Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)  [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
 
-An R package for manipulating and analyzing matrix population models (MPMs).
+An R package for manipulating and analysing matrix population models (MPMs).
 Includes functions for:
 
 - deriving life history traits
@@ -187,7 +187,7 @@ vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
 vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
 ```
 
-Note how we've chosed to exclude the 'seed' and 'dormant' stage classes from our
+Note how we've chosen to exclude the 'seed' and 'dormant' stage classes from our
 vital rate summaries, because we consider these to be special classes (e.g.
 'growth' from the 'seed' stage is really 'germination', which we may think of as
 separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
@@ -253,7 +253,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `mature_prob`    | Probability of reaching reproductive maturity |
 |                      | `mature_distrib` | Stage distribution of reproductive maturity |
 |                      | `entropy_d`      | Demetrius' entropy |
-|                      | `entropy_k`      | Keyfitz' entropy |
+|                      | `entropy_k`      | Keyfitz's entropy |
 |                      | `shape_surv`     | Shape of survival/mortality trajectory |
 |                      | `shape_rep`      | Shape of fecundity trajectory |
 | Life table           | `mpm_to_table`   | MPM to life table |
@@ -264,7 +264,7 @@ net_repro_rate(col1$matU, col1$matF)
 |                      | `lx_to_[px/hx]`  | Convert from survivorship trajectory |
 |                      | `px_to_[lx/hx]`  | Convert from survival trajectory |
 |                      | `hx_to_[lx/px]`  | Convert from mortality hazard trajectory |
-|                      | `qsd_converge`   | Time to quasi-stationary destribution |
+|                      | `qsd_converge`   | Time to quasi-stationary distribution |
 | Vital rates          | `vr_[...]`       | MPM-averaged vital rates
 |                      | `vr_vec_[...]`   | Stage-averaged vital rates
 |                      | `vr_mat_[...]`   | Survival-independent vital rates |

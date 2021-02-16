@@ -61,7 +61,7 @@
 #'   starting stage class specified by argument \code{start}, and strips such
 #'   stages from the matrix. These unconnected stages have no impact on
 #'   age-specific traits that we might derive from the matrix (given the
-#'   specifed starting stage), but often lead to non-ergodicity and therefore
+#'   specified starting stage), but often lead to non-ergodicity and therefore
 #'   prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
 #'   the function internally updates the starting stage class and continues with
 #'   the regular calculation. Otherwise, if the matrix cannot be made ergodic,

@@ -6,7 +6,8 @@ Authors@R: as.person(c(
     "Patrick Barks <barks@biology.sdu.dk> [aut]", 
     "Danny Buss <dlb50@cam.ac.uk> [aut]",
     "Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk> [aut]",
-    "Iain Stott <stott@biology.sdu.dk> [aut]", 
+    "Iain Stott <stott@biology.sdu.dk> [aut]",
+    "William K. Petry <wpetry@ncsu.edu> [ctb]",
     "Tamora James <tdjames1@sheffield.ac.uk> [aut]",
     "Owen Jones <jones@biology.sdu.dk> [aut,cre]", 
     "Julia Jones <juliajones@biology.sdu.dk> [aut]",
@@ -26,6 +27,7 @@ LazyData: true
 Depends: R(>= 2.10.0)
 RoxygenNote: 7.1.1
 Suggests:
+    spelling,
     knitr,
     rmarkdown,
     fields,
@@ -35,5 +37,6 @@ Suggests:
     covr
 Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
+Language: en-GB
 Config/testthat/parallel: true
 Config/testthat/edition: 3
