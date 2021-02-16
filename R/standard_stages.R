@@ -2,7 +2,7 @@
 #' cycle
 #'
 #'@description 
-#' Identify the stages of a matrix population model which correspond to
+#' Identify the stages of a matrix population model that correspond to
 #' different parts of the reproductive life cycle, namely propagule,
 #' pre-reproductive, reproductive and post-reproductive. These classifications
 #' are used to standardise matrices to allow comparisons across species with
