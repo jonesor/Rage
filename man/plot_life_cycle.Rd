@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_life_cycle.R
 \name{plot_life_cycle}
 \alias{plot_life_cycle}
-\title{Plot a life cycle diagram based on a matrix population model}
+\title{Plot a life cycle diagram from a matrix population model}
 \usage{
 plot_life_cycle(
   matA,
@@ -17,8 +17,9 @@ plot_life_cycle(
 \arguments{
 \item{matA}{A matrix population model (i.e. a square projection matrix)}
 
-\item{stages}{Optional vector of stage class labels. If missing, labels are
-integers \code{1:ncol(A)}.}
+\item{stages}{Optional vector of stage class labels. If missing,  it first
+attempts to infer them from \code{dimnames(matA)}. If these are also 
+\code{NULL}, then reverts to integers \code{1:ncol(A)}.}
 
 \item{title}{Optional title for the plot. Defaults to \code{NULL}.}
 

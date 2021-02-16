@@ -7,8 +7,6 @@ vignette: >
   %\VignetteIndexEntry{Getting started with Rage}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -21,7 +19,7 @@ options(digits = 4)
 #  ragg::agg_png(..., res = res, units = "in")
 #}
 #knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
-knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+# knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 Rage provides tools for manipulating and analysing matrix population models

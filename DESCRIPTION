@@ -10,9 +10,8 @@ Authors@R: as.person(c(
     "William K. Petry <wpetry@ncsu.edu> [ctb]",
     "Tamora James <tdjames1@sheffield.ac.uk> [aut]",
     "Owen Jones <jones@biology.sdu.dk> [aut,cre]", 
-    "Julia Jones <juliajones@biology.sdu.dk> [aut]"
-      ))
-Maintainer: Owen R. Jones <jones@biology.sdu.dk>
+    "Julia Jones <juliajones@biology.sdu.dk> [aut]",
+    "Sam Levin <levisc8@gmail.com> [aut] (<https://orcid.org/0000-0002-3289-9925>)"))
 Description: Functions for calculating life history metrics using matrix population models (MPMs).
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
@@ -39,3 +38,5 @@ Suggests:
 Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
 Language: en-GB
+Config/testthat/parallel: true
+Config/testthat/edition: 3
