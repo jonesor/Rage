@@ -29,7 +29,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-5230-5987")),
     person(given = "Tamora",
            family = "James",
-           email = "tdjames@sheffield.ac.uk",
+           email = "tamoradjames@protonmail.com",
            role = "aut",
            comment = c(ORCID = "0000-0003-1363-4742")),
     person(given = "owen",
