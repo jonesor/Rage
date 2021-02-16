@@ -1,5 +1,5 @@
 ---
-title: "Getting started with Rage"
+title: "Getting started with `Rage`"
 author: "Patrick Barks"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -22,7 +22,7 @@ options(digits = 4)
 # knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
-Rage provides tools for manipulating and analysing matrix population models
+`Rage` provides tools for manipulating and analysing matrix population models
 (MPMs). The functions can be grouped into five broad categories:
 
 - deriving life history traits
@@ -35,7 +35,7 @@ This vignette introduces a few of the main functions within each category.
 
 ## Loading an example MPM
 
-The functions in Rage work on MPMs (or components of MPMs), so we'll start by
+The functions in `Rage` work on either MPMs or components of MPMs, so we'll start by
 loading one of the example MPMs included in the Rage package (`mpm1`).
 
 ```{r}
@@ -45,14 +45,26 @@ data(mpm1)     # load data object 'mpm1'
 mpm1
 ```
 
-The object `mpm1` is a list containing two elements: the growth/survival
-component of the MPM (the __U__ matrix), and the sexual reproduction component
-(the __F__ matrix). We can obtain the full MPM by adding the two components
-together (__A__ = __U__ + __F__).
+The object `mpm1` is a list containing two elements, `matU` and `matF`, which 
+are individual components of the full MPM (growth/survival and sexual 
+reproduction, respectively). The functions and workflow within `Rage` use four 
+main matrix components:
+
+- `matU` is the __U__ matrix, which is the __growth/survival__ component of an MPM 
+containing transitions related to progression, stasis and retrogression.
+- `matF` is the __F__ matrix, which is the __sexual reproduction__ or fecundity 
+component of the MPM containing transitions due to sexual reproduction.
+- `matR` is the __R__ matrix, which is the __reproductive__ component of an MPM,
+containing transitions due to reproduction; either sexual, clonal, or both.
+- `matC` is the __C__ matrix, which is the __clonal__ component of an MPM 
+containing transitions due to clonal reproduction.
+
+We can obtain the full projection matrix (often denoted with __A__) by summing
+matrix components. In the `mpm1` example,  __A__ = __U__ + __F__.
 
 ## Deriving life history traits from an MPM
 
-One of the most common arguments among functions in Rage is `start`, which is
+One of the most common arguments among functions in `Rage` is `start`, which is
 used to specify the stage class that represents the 'beginning of life' for the
 purposes of calculation. Because the first stage class in `mpm1` is a 'seed'
 stage, which we might consider functionally-distinct from the 'above-ground'
@@ -207,7 +219,7 @@ as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
 
 ## Transforming MPMs
 
-Rage includes a variety of functions that can be used to manipulate or transform
+`Rage` includes a variety of functions that can be used to manipulate or transform
 MPMs. For example, we can collapse an MPM to a smaller number of stage classes
 using `mpm_collapse()`.
 
