@@ -23,14 +23,14 @@ hx_to_lx(hx)
 hx_to_px(hx)
 }
 \arguments{
-\item{lx}{Vector of age-specific survivorship}
+\item{lx}{Vector of age-specific survivorship.}
 
-\item{px}{Vector of age-specific survival probabilities}
+\item{px}{Vector of age-specific survival probabilities.}
 
-\item{hx}{Vector of age-specific mortality hazards}
+\item{hx}{Vector of age-specific mortality hazards.}
 }
 \value{
-A vector
+A vector.
 }
 \description{
 Convert between vectors of age-specific survivorship (lx), survival

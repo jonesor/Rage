@@ -1,4 +1,3 @@
-context("vr_mat")
 
 test_that("vr_mat functions work correctly", {
   
@@ -9,7 +8,7 @@ test_that("vr_mat functions work correctly", {
               c(  0,   0, 0.5, 0.6))
   
   x1 <- vr_mat_U(U1)
-  expect_is(x1, "matrix")
+  expect_true(inherits(U1, "matrix"))
   expect_true(all(is.na(x1[,1])))
   
   x2 <- vr_mat_U(U1, surv_only_na = FALSE)
@@ -27,7 +26,7 @@ test_that("vr_mat functions work correctly", {
               c(  0,   0,   0,   0))
   
   x4 <- vr_mat_R(U1, R1)
-  expect_is(x4, "matrix")
+  expect_true(inherits(x4, "matrix"))
   expect_true(all(is.na(x4[,1:2])))
   
   # all transitions possible

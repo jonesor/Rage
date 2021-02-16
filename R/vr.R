@@ -51,7 +51,7 @@
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
 #' 
-#' @return Vector of vital rates. Vital rates corrsponding to impossible
+#' @return Vector of vital rates. Vital rates corresponding to impossible
 #'   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 #' 
 #' @section Possible transitions:
@@ -243,11 +243,11 @@ vr_fecundity <- function(matU,
                          weights_row = NULL,
                          weights_col = NULL) {
   
-  vr_vec <- vr_vec_fecundity(matU = matU,
-                             matR = matR,
-                             posR = posR,
-                             exclude_col = exclude_col,
-                             weights_row = weights_row)
+  vr_vec <- vr_vec_reproduction(matU = matU,
+                                matR = matR,
+                                posR = posR,
+                                exclude_col = exclude_col,
+                                weights_row = weights_row)
   
   return(column_weight(vr_vec, weights_col))
 }

@@ -1,15 +1,16 @@
 #' Calculate life expectancy from a matrix population model
 #'
-#' Applies Markov chain approaches to obtain mean and variance of life expectancy from a matrix
-#' population model.
+#' Applies Markov chain approaches to obtain mean and variance of life
+#' expectancy from a matrix population model (MPM).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param start The index of the first stage at which the user considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#' @param matU The survival component of a MPM (i.e. a square projection matrix
+#'   reflecting survival-related transitions; e.g. progression, stasis, and
+#'   retrogression).
+#' @param start The index of the first stage of the life cycle which the user
+#'   considers to be the beginning of life. Defaults to 1. Alternately, a
+#'   numeric vector giving the starting population vector (in which case
+#'   \code{length(start)} must match \code{ncol(matU))}. See section
+#'   \emph{Starting from multiple stages}.
 #' 
 #' @return Returns life expectancy. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
@@ -24,9 +25,9 @@
 #' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
-#' multiple starting stage classes. For example, if we want to start our
+#' multiple starting stage classes. For example, if the user wants to start their
 #' calculation of life expectancy from reproductive maturity (i.e. first
-#' reproduction), we should account for the possibility that there may be
+#' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
 #' To specify multiple starting stage classes, specify argument \code{start} as

@@ -1,10 +1,9 @@
-context("perturb_vr")
 
 
 test_that("perturb_vr works correctly", {
   
   x <- perturb_vr(mat_u, mat_f)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_equal(length(x), 5)
   expect_equal(x$clonality, 0)
   

@@ -1,4 +1,3 @@
-context("mpm_split")
 
 test_that("mpm_split works correctly", {
   
@@ -6,7 +5,7 @@ test_that("mpm_split works correctly", {
   
   x <- mpm_split(matA)
   
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 3)
   expect_true(all(x$matC == 0))
   

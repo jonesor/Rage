@@ -18,7 +18,7 @@ with time steps of unit. If x ends at maximum longevity,
 \code{mx[which.max(x)]} should equal 0; however it is possible to supply
 partial reproduction schedules.}
 
-\item{xmin, xmax}{The minimum and maximum age repectively over which to
+\item{xmin, xmax}{The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to \code{min(x)} and
 \code{max(x)} respectively.}
 }
@@ -26,7 +26,7 @@ evaluate shape. If not given, these default to \code{min(x)} and
 a shape value describing symmetry of reproduction over age by
   comparing the area under a cumulative reproduction curve over age with the
   area under constant reproduction. May take any real value between -0.5 and
-  +0.5. A value of 0 indicates negligible aging (neither generally increasing
+  +0.5. A value of 0 indicates negligible ageing (neither generally increasing
   nor generally decreasing reproduction with age); positive values indicate
   senescence (generally decreasing reproduction with age); negative values
   indicate negative senescence (generally increasing reproduction with age).

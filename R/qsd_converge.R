@@ -20,7 +20,7 @@
 #' 
 #' @details
 #' Some matrix population models are parameterised with a stasis loop at the
-#' largest/most-developed stage class, which can lead to artefactual pleateaus
+#' largest/most-developed stage class, which can lead to artefactual plateaus
 #' in the mortality or fertility trajectories derived from such models. These
 #' plateaus occur as a projected cohort approaches its stationary stage
 #' distribution (SSD). Though there is generally no single time point at which
@@ -61,7 +61,7 @@
 #'   starting stage class specified by argument \code{start}, and strips such
 #'   stages from the matrix. These unconnected stages have no impact on
 #'   age-specific traits that we might derive from the matrix (given the
-#'   specifed starting stage), but often lead to non-ergodicity and therefore
+#'   specified starting stage), but often lead to non-ergodicity and therefore
 #'   prevent the reliable calculation of SSD. If the reduced matrix is ergodic,
 #'   the function internally updates the starting stage class and continues with
 #'   the regular calculation. Otherwise, if the matrix cannot be made ergodic,
@@ -117,7 +117,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   }
   
   # if not ergodic, remove stages not connected from start
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     nonzero <- rep(FALSE, nrow(mat))
     nonzero[start_vec > 0] <- TRUE
@@ -137,7 +137,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   
   # if still not ergodic, check whether observed dist at t = N matches stable
   #  dist
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     # check whether stable dist is __0__
     check_stable_zero <- stable_zero(mat, n1 = start_vec)

@@ -1,4 +1,3 @@
-context("gen_time")
 
 test_that("gen_time works correctly", {
   

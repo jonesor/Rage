@@ -1,4 +1,3 @@
-context("net_repro_rate")
 
 test_that("net_repro_rate works correctly", {
   

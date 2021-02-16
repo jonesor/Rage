@@ -8,8 +8,8 @@
 \alias{vr_vec_stasis}
 \alias{vr_vec_dorm_enter}
 \alias{vr_vec_dorm_exit}
-\alias{vr_vec_fecundity}
-\title{Derive stage-specific vital rates from a matrix population model}
+\alias{vr_vec_reproduction}
+\title{#' Derive stage-specific vital rates from a matrix population model}
 \usage{
 vr_vec_survival(matU, posU = matU > 0, exclude_col = NULL)
 
@@ -37,7 +37,7 @@ vr_vec_dorm_enter(matU, posU = matU > 0, dorm_stages)
 
 vr_vec_dorm_exit(matU, posU = matU > 0, dorm_stages)
 
-vr_vec_fecundity(
+vr_vec_reproduction(
   matU,
   matR,
   posR = matR > 0,
@@ -47,8 +47,8 @@ vr_vec_fecundity(
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+square projection matrix only containing survival-related transitions; 
+progression, stasis, and retrogression).}
 
 \item{posU}{A logical matrix of the same dimension as \code{matU}, with
 elements indicating whether a given \code{matU} transition is possible
@@ -77,8 +77,8 @@ value of \code{1}. Defaults to \code{TRUE}.}
 \item{dorm_stages}{Integer indicator(s) for dormant stage classes.}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
+square projection matrix only reflecting transitions due to reproduction; either
+sexual, clonal, or both).}
 
 \item{posR}{A logical matrix of the same dimension as \code{matR}, with
 elements indicating whether a given \code{matR} transition is possible
@@ -89,7 +89,7 @@ Details).}
 vital rates across rows within columns (e.g. reproductive value vector).}
 }
 \value{
-Vector of vital rates. Vital rates corrsponding to impossible
+Vector of vital rates. Vital rates corresponding to impossible
   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
 }
 \description{
@@ -99,7 +99,7 @@ functions include optional arguments for excluding certain stage classes from
 the calculation (see \emph{Excluding stages}), and defining the set of
 biologically-possible transitions (see \emph{Possible transitions}).
 
-These decompositions assume that all transition rates are products of a
+This decomposition assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis,
 dormancy, or reproduction). Reproductive vital rates that are not conditional
@@ -129,10 +129,10 @@ arguments manually.
 \section{Excluding stages}{
 
 It may be desirable to exclude one or more stages from the calculation of
-certain vital rates. For instance, we might not believe that 'growth' to a
-dormant stage class really reflects biological growth, in which case we could
-exclude transitions \emph{to} the dormant stage class using the argument
-\code{exclude_row}. We may or may not want to ignore 'growth' transitions
+certain vital rates. For instance, a user might not believe that 'growth' to 
+a dormant stage class really reflects biological growth, in which case the user 
+could exclude transitions \emph{to} the dormant stage class using the argument
+\code{exclude_row}. The user may or may not want to ignore 'growth' transitions
 \emph{from} the dormant stage class, which can be done using
 \code{exclude_col}. The argument \code{exclude_col} effectively just coerces
 the respective vital rate to \code{NA}, to prevent it from getting used in
@@ -147,7 +147,7 @@ matU <- rbind(c(0.1,   0,   0,   0),
               c(  0, 0.3, 0.3, 0.1),
               c(  0,   0, 0.5, 0.4))
 
-matF <- rbind(c(  0,   0.7, 1.1, 0),
+matR <- rbind(c(  0,   0.7, 1.1, 0),
               c(  0,   0.3, 0.8, 0),
               c(  0,   0,   0,   0),
               c(  0,   0,   0,   0))
@@ -160,7 +160,7 @@ vr_vec_stasis(matU, exclude = 4)
 vr_vec_dorm_enter(matU, dorm_stages = 4)
 vr_vec_dorm_exit(matU, dorm_stages = 4)
 
-vr_vec_fecundity(matU, matF, exclude_col = 4)
+vr_vec_reproduction(matU, matR, exclude_col = 4)
 
 }
 \author{
