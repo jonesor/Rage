@@ -1,7 +1,7 @@
 Package: Rage
 Type: Package
 Title: Functions for Calculating Life History Metrics from Matrix Population Models
-Version: 0.1
+Version: 0.1.0
 Authors@R: c(
     person(given = "Patrick", 
            family = "Barks",
@@ -32,7 +32,7 @@ Authors@R: c(
            email = "tamoradjames@protonmail.com",
            role = "aut",
            comment = c(ORCID = "0000-0003-1363-4742")),
-    person(given = "owen",
+    person(given = "Owen",
            family = "Jones",
            email = "jones@biology.sdu.dk",
            role = c("aut", "cre"),
