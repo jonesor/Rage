@@ -12,7 +12,7 @@
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
-#' @references Keyfitz, N. (1977) Applied Mathematical Demography. New York:
+#' @references Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 #'   Wiley.
 #' 
 #' @examples
