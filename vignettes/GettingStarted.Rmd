@@ -1,5 +1,5 @@
 ---
-title: "Getting started with `Rage`"
+title: "Getting started with Rage"
 author: "Patrick Barks"
 date: "`r Sys.Date()`"
 output:
@@ -18,11 +18,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
-#ragg_png = function(..., res = 192) {
-#  ragg::agg_png(..., res = res, units = "in")
-#}
-#knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
-# knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 `Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
