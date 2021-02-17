@@ -266,8 +266,7 @@
       "version": ">= 2.10.0"
     }
   ],
-  "readme": "https://github.com/jonesor/Rage/blob/master/README.md",
-  "fileSize": "1771.099KB",
+  "fileSize": "1771.124KB",
   "contIntegration": ["https://codecov.io/github/jonesor/Rage?branch=devel", "https://codecov.io/github/jonesor/Rage?branch=master"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"]
 }
