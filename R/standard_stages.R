@@ -48,11 +48,11 @@ standard_stages <- function(matF, reproStages, matrixStages) {
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
       length(reproStages) != length(matrixStages)) {
-    stop("Arguments do not correspond to MPM of single dimension",
+    stop("Arguments do not correspond to MPM of the same dimension",
          call. = FALSE)
   }
   if (!any(reproStages == TRUE)) {
-    stop("Cannot identify standardized stages because no stages are ",
+    stop("Cannot identify standardised stages because no stages are ",
          "reproductive (i.e. at least one element of reproStages must be TRUE)",
          call. = FALSE)
   }
