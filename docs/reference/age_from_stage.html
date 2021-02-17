@@ -42,7 +42,7 @@
 <meta property="og:title" content="Calculate age-specific traits from a matrix population model — age_from_stage" />
 <meta property="og:description" content="These functions use age-from-stage decomposition methods to calculate
 age-specific survivorship (lx), survival probability (px), mortality hazard
-(hx), or reproduction (mx) from a matrix population model. A detailed
+(hx), or reproduction (mx) from a matrix population model (MPM). A detailed
 description of these methods can be found in sections 5.3.1 and 5.3.2 of
 Caswell (2001)." />
 
@@ -84,7 +84,7 @@ Caswell (2001)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,10 +99,16 @@ Caswell (2001)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -110,7 +116,7 @@ Caswell (2001)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,37 +141,33 @@ Caswell (2001)." />
     <div class="ref-description">
     <p>These functions use age-from-stage decomposition methods to calculate
 age-specific survivorship (lx), survival probability (px), mortality hazard
-(hx), or reproduction (mx) from a matrix population model. A detailed
+(hx), or reproduction (mx) from a matrix population model (MPM). A detailed
 description of these methods can be found in sections 5.3.1 and 5.3.2 of
 Caswell (2001).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
 
-<span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
+<span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
 
-<span class='fu'>mpm_to_px</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
+<span class='fu'>mpm_to_px</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
 
-<span class='fu'>mpm_to_hx</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span></pre>
+<span class='fu'>mpm_to_hx</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
+      <td><p>The survival component of a MPM (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
+      <td><p>The reproductive component of a MPM (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)</p></td>
+sexual, clonal, or both).</p></td>
     </tr>
     <tr>
       <th>start</th>
@@ -189,7 +191,7 @@ calculated (defaults to <code>0.0001</code>).</p></td>
       <td><p>To account for floating point errors that occasionally lead to
 values of lx slightly greater than 1, values of lx within the open interval
 (<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults to <code>0.0001</code>. To
-prevent coersion, set <code>tol</code> to <code>0</code>.</p></td>
+prevent coercion, set <code>tol</code> to <code>0</code>.</p></td>
     </tr>
     </table>
 
@@ -209,19 +211,19 @@ prevent coersion, set <code>tol</code> to <code>0</code>.</p></td>
 
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
+multiple starting stage classes. For example, if users want to start their
 calculation of age-specific traits from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
+reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
-<p>To specify multiple starting stage classes, specify argument <code>start</code> as
-the desired starting population vector (<strong>n1</strong>), giving the proportion
-of individuals starting in each stage class (the length of <code>start</code>
-should match the number of columns in the relevant MPM).</p>
+<p>To specify multiple starting stage classes, users should specify argument
+<code>start</code> as the desired starting population vector (<strong>n1</strong>), giving
+the proportion of individuals starting in each stage class (the length of
+<code>start</code> should match the number of columns in the relevant MPM).</p>
 <p>See function <code><a href='repro_maturity.html'>mature_distrib</a></code> for calculating the proportion of
 individuals achieving reproductive maturity in each stage class.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Caswell, H. (2001) Matrix Population Models: Construction,
+    <p>Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -303,7 +305,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

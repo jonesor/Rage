@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Splits a matrix population model into the constituent U, F and C matrices — mpm_split • Rage</title>
+<title>Convert matrix population model into U, F and C matrices — mpm_split • Rage</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,13 @@
 
 
 
-<meta property="og:title" content="Splits a matrix population model into the constituent U, F and C matrices — mpm_split" />
-<meta property="og:description" content="This function splits a matrix population model into three constituent
+<meta property="og:title" content="Convert matrix population model into U, F and C matrices — mpm_split" />
+<meta property="og:description" content="Splits a matrix population model into three constituent
 matrices, U (growth and survival processes), F (sexual reproduction) and C
-(clonal reproduction). Warning! The functionality is very basic — it assumes
+(clonal reproduction). Warning! The functionality is very basic: it assumes
 that sexual reproduction is located in the top row of the matrix, and that
-everything else is growth or survival (the U matrix). Clonality is assumed to
-be non-existent." />
+everything else is growth or survival (i.e. the U matrix). Clonality is
+assumed to be non-existent." />
 
 
 
@@ -85,7 +85,7 @@ be non-existent." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,10 +100,16 @@ be non-existent." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -111,7 +117,7 @@ be non-existent." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,18 +134,18 @@ be non-existent." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Splits a matrix population model into the constituent U, F and C matrices</h1>
+    <h1>Convert matrix population model into U, F and C matrices</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/mpm_split.R'><code>R/mpm_split.R</code></a></small>
     <div class="hidden name"><code>mpm_split.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function splits a matrix population model into three constituent
+    <p>Splits a matrix population model into three constituent
 matrices, U (growth and survival processes), F (sexual reproduction) and C
-(clonal reproduction). Warning! The functionality is very basic — it assumes
+(clonal reproduction). <strong>Warning!</strong> The functionality is very basic: it assumes
 that sexual reproduction is located in the top row of the matrix, and that
-everything else is growth or survival (the U matrix). Clonality is assumed to
-be non-existent.</p>
+everything else is growth or survival (i.e. the U matrix). Clonality is
+assumed to be non-existent.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mpm_split</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span></pre>
@@ -149,13 +155,14 @@ be non-existent.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matA</th>
-      <td><p>A matrix population model (i.e. a square projection matrix)</p></td>
+      <td><p>A matrix population model (i.e. a square projection matrix).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of three matrices: <code>matU</code>,<code>matF</code> and <code>matC</code></p>
+    <p>A list of three matrices: <code>matU</code>,<code>matF</code> and <code>matC</code>. 
+<code>matC</code> will always contain only 0s.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
@@ -200,7 +207,7 @@ be non-existent.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

@@ -41,10 +41,10 @@
 
 <meta property="og:title" content="Perturbation analysis of transition types within a matrix population model — perturb_trans" />
 <meta property="og:description" content="Calculates the summed sensitivities or elasticities for various transition
-types within a matrix population model, including stasis, retrogression,
+types within a matrix population model (MPM), including stasis, retrogression,
 progression, fecundity, and clonality.
 Sensitivities or elasticities are calculated by perturbing elements of the
-matrix population model and measuring the response of the per-capita
+MPM and measuring the response of the per-capita
 population growth rate at equilibrium (\(\lambda\)), or, with a
 user-supplied function, any other demographic statistic." />
 
@@ -86,7 +86,7 @@ user-supplied function, any other demographic statistic." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -101,10 +101,16 @@ user-supplied function, any other demographic statistic." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -112,7 +118,7 @@ user-supplied function, any other demographic statistic." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,35 +142,46 @@ user-supplied function, any other demographic statistic." />
 
     <div class="ref-description">
     <p>Calculates the summed sensitivities or elasticities for various transition
-types within a matrix population model, including stasis, retrogression,
+types within a matrix population model (MPM), including stasis, retrogression,
 progression, fecundity, and clonality.</p>
 <p>Sensitivities or elasticities are calculated by perturbing elements of the
-matrix population model and measuring the response of the per-capita
+MPM and measuring the response of the per-capita
 population growth rate at equilibrium (\(\lambda\)), or, with a
 user-supplied function, any other demographic statistic.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>perturb_trans</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, posF <span class='op'>=</span> <span class='va'>matF</span> <span class='op'>&gt;</span>
-  <span class='fl'>0</span>, posC <span class='op'>=</span> <span class='va'>matC</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>, exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  pert <span class='op'>=</span> <span class='fl'>1e-06</span>, type <span class='op'>=</span> <span class='st'>"sensitivity"</span>, demog_stat <span class='op'>=</span> <span class='st'>"lambda"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>perturb_trans</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  <span class='va'>matF</span>,
+  matC <span class='op'>=</span> <span class='cn'>NULL</span>,
+  posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  posF <span class='op'>=</span> <span class='va'>matF</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  posC <span class='op'>=</span> <span class='va'>matC</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pert <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  type <span class='op'>=</span> <span class='st'>"sensitivity"</span>,
+  demog_stat <span class='op'>=</span> <span class='st'>"lambda"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
+      <td><p>The survival component of a MPM (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
       <th>matF</th>
-      <td><p>The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction)</p></td>
+      <td><p>The sexual component of a MPM (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction).</p></td>
     </tr>
     <tr>
       <th>matC</th>
-      <td><p>The clonal component of a matrix population model (i.e. a square
+      <td><p>The clonal component of a MPM (i.e. a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to <code>NULL</code>, indicating no clonal reproduction possible.</p></td>
     </tr>
@@ -191,32 +208,32 @@ Details).</p></td>
     </tr>
     <tr>
       <th>exclude_row</th>
-      <td><p>Integer or logical vector indicating stages for which
+      <td><p>An integer or logical vector indicating stages for which
 transitions <em>to</em> the stage should be excluded from perturbation
 analysis. See section <em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>exclude_col</th>
-      <td><p>Integer or logical vector indicating stages for which
+      <td><p>An integer or logical vector indicating stages for which
 transitions <em>from</em> the stage should be excluded from perturbation
 analysis. See section <em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>pert</th>
-      <td><p>Magnitude of the perturbation (defaults to <code>1e-6</code>)</p></td>
+      <td><p>The magnitude of the perturbation (defaults to <code>1e-6</code>)</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Whether to return "sensitivity" or "elasticity" values. Defaults
-to "sensitivity'.</p></td>
+      <td><p>An argument defining whether to return `sensitivity` or `elasticity` values. Defaults
+to `sensitivity`.</p></td>
     </tr>
     <tr>
       <th>demog_stat</th>
-      <td><p>The demographic statistic to be used, as in "the
+      <td><p>An argument defining which demographic statistic should be used, as in "the
 sensitivity/elasticity of <code>demog_stat</code> to matrix element
 perturbations." Defaults to the per-capita population growth rate at
 equilibrium (\(lambda\)). Also accepts a user-supplied function that
-performs a calculation on a projection matrix and returns a single numeric
+performs a calculation on a MPM and returns a single numeric
 value.</p></td>
     </tr>
     <tr>
@@ -228,24 +245,24 @@ value.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with 5 elements:</p>
-<dt>stasis</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to stasis</p></dd>
-<dt>retrogression</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to
-retrogression</p></dd>
-<dt>progression</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to
-progression</p></dd>
-<dt>fecundity</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to sexual
-fecundity</p></dd>
-<dt>clonality</dt><dd><p>sensitivity or elasticity of <code>demog_stat</code> to clonality</p></dd>
+<dt>stasis</dt><dd><p>The sensitivity or elasticity of <code>demog_stat</code> to stasis.</p></dd>
+<dt>retrogression</dt><dd><p>The sensitivity or elasticity of <code>demog_stat</code> to
+retrogression.</p></dd>
+<dt>progression</dt><dd><p>The sensitivity or elasticity of <code>demog_stat</code> to
+progression.</p></dd>
+<dt>fecundity</dt><dd><p>The sensitivity or elasticity of <code>demog_stat</code> to sexual
+fecundity.</p></dd>
+<dt>clonality</dt><dd><p>The sensitivity or elasticity of <code>demog_stat</code> to clonality.</p></dd>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A transition rate of <code>0</code> within a matrix population model may indicate
+    <p>A transition rate of <code>0</code> within a matrix population model can either indicate
 that the transition is not possible in the given life cycle (e.g. tadpoles
 never revert to eggs), or that the transition is possible but was estimated
 to be <code>0</code> in the relevant population and time period. Because transition
 rates of zero <em>do</em> generally yield non-zero sensitivities, it is
-important to distinguish between structural zeros and sampled zeros when
-summing multiple sensitivities for a given process (e.g. progression).</p>
+important to distinguish between structural (i.e. impossible) zeros and sampled zeros when
+summing multiple sensitivities for a given process (e.g. progression/growth).</p>
 <p>By default, the <code>perturb_</code> functions assume that a transition rate of
 <code>0</code> indicates an impossible transition, in which case the sensitivity
 for that transition will not be included in any calculation. Specifically,
@@ -255,20 +272,20 @@ but estimated to be <code>0</code>, users should specify the <code>posX</code>
 argument(s) manually.</p>
 <p>If there are no possible transitions for a given process (e.g. clonality),
 the value of sensitivity or elasticity returned for that process will be
-<code>NA</code></p>
+<code>NA</code>.</p>
     <h2 class="hasAnchor" id="excluding-stages"><a class="anchor" href="#excluding-stages"></a>Excluding stages</h2>
 
     
 
 <p>It may be desirable to exclude one or more stages from the calculation. For
 instance, we might not believe that 'progression' to a dormant stage class
-really reflects progression, in which case we could exclude transitions
+truly reflects progression. In this case we could exclude transitions
 <em>to</em> the dormant stage class using the argument <code>exclude_row</code>. We
 may or may not want to ignore progression transitions <em>from</em> the dormant
-stage class, which can be done using <code>exclude_col</code>. The <code>exclude_</code>
-arguments effectively just set the relevant row or column of the <code>posX</code>
-arguments to <code>FALSE</code>, to prevent those transitions from being used in
-subsequent calculations.</p>
+stage class, which can be done in a similar way using the argument
+<code>exclude_col</code>. The <code>exclude_</code> arguments simply set the
+relevant row or column of the <code>posX</code> arguments to <code>FALSE</code>, to
+prevent those transitions from being used in subsequent calculations.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Rob Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
@@ -288,16 +305,18 @@ subsequent calculations.</p>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'>perturb_trans</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span><span class='op'>)</span>
 
-<span class='co'># use a larger perturbation than the default</span>
+<span class='co'># Use a larger perturbation than the default of 1e-6.</span>
 <span class='fu'>perturb_trans</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, pert <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
 
-<span class='co'># calculate the sensitivity/elasticity of the damping ratio to perturbations</span>
-<span class='va'>damping</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span> <span class='op'>{</span>  <span class='co'># define function for damping ratio</span>
+<span class='co'># Calculate the sensitivity/elasticity of the damping ratio to perturbations.</span>
+<span class='co'># First, define function for damping ratio:</span>
+<span class='va'>damping</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span> <span class='op'>{</span>  
   <span class='va'>eig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/eigen.html'>eigen</a></span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span><span class='op'>$</span><span class='va'>values</span>
   <span class='va'>dm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rle.html'>rle</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/complex.html'>Mod</a></span><span class='op'>(</span><span class='va'>eig</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>values</span>
   <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>dm</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>/</span> <span class='va'>dm</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
 <span class='op'>}</span>
 
+<span class='co'>#Second, run the perturbation analysis using demog_stat = "damping".</span>
 <span class='fu'>perturb_trans</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, demog_stat <span class='op'>=</span> <span class='st'>"damping"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
@@ -312,7 +331,7 @@ subsequent calculations.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Derive mean vital rates from a matrix population model — vr" />
-<meta property="og:description" content="Derive mean vital rates of survival, growth, shrinkage, stasis, dormancy, or
-reproduction from a matrix population model, by averaging across stage
+<meta property="og:description" content="Derive mean vital rates of survival, growth (or development), shrinkage (or de-development),
+stasis, dormancy, or reproduction from a matrix population model, by averaging across stage
 classes. These functions include optional arguments for custom weighting of
 different stage classes (see Weighting stages), excluding certain
 stage classes from the calculation (see Excluding stages), and
@@ -49,10 +49,9 @@ defining the set of biologically-possible transitions (see Possible
 transitions).
 These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of matU) and a lower level
-vital rate that is conditional on survival (growth, shrinkage, stasis,
-dormancy, or reproduction). Reproductive vital rates that are not conditional
-on survival (i.e. within a stage class from which there is no survival) are
-also allowed." />
+vital rate that is conditional on survival (growth/development, shrinkage/de-development,
+stasis, dormancy, or a/sexual reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are also allowed." />
 
 
 
@@ -92,7 +91,7 @@ also allowed." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,10 +106,16 @@ also allowed." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -118,7 +123,7 @@ also allowed." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,8 +146,8 @@ also allowed." />
     </div>
 
     <div class="ref-description">
-    <p>Derive mean vital rates of survival, growth, shrinkage, stasis, dormancy, or
-reproduction from a matrix population model, by averaging across stage
+    <p>Derive mean vital rates of survival, growth (or development), shrinkage (or de-development),
+stasis, dormancy, or reproduction from a matrix population model, by averaging across stage
 classes. These functions include optional arguments for custom weighting of
 different stage classes (see <em>Weighting stages</em>), excluding certain
 stage classes from the calculation (see <em>Excluding stages</em>), and
@@ -150,31 +155,53 @@ defining the set of biologically-possible transitions (see <em>Possible
 transitions</em>).</p>
 <p>These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of <code>matU</code>) and a lower level
-vital rate that is conditional on survival (growth, shrinkage, stasis,
-dormancy, or reproduction). Reproductive vital rates that are not conditional
-on survival (i.e. within a stage class from which there is no survival) are
-also allowed.</p>
+vital rate that is conditional on survival (growth/development, shrinkage/de-development,
+stasis, dormancy, or a/sexual reproduction). Reproductive vital rates that are not conditional
+on survival (i.e. within a stage class from which there is no survival) are also allowed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vr_survival</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  weights_col <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>vr_survival</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>vr_growth</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span>, exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>,
-  exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span>, surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>vr_growth</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>vr_shrinkage</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
-  exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>, exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>vr_shrinkage</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude_row <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>vr_stasis</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>vr_stasis</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='fu'>vr_dorm_enter</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, <span class='va'>dorm_stages</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>vr_dorm_exit</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, <span class='va'>dorm_stages</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>vr_fecundity</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, posR <span class='op'>=</span> <span class='va'>matR</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  weights_row <span class='op'>=</span> <span class='cn'>NULL</span>, weights_col <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>vr_fecundity</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  <span class='va'>matR</span>,
+  posR <span class='op'>=</span> <span class='va'>matR</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+  exclude_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights_row <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights_col <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -251,7 +278,7 @@ stages</em>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Vector of vital rates. Vital rates corrsponding to impossible
+    <p>Vector of vital rates. Vital rates corresponding to impossible
   transitions are coerced to <code>NA</code> (see <em>Possible transitions</em>).</p>
     <h2 class="hasAnchor" id="possible-transitions"><a class="anchor" href="#possible-transitions"></a>Possible transitions</h2>
 
@@ -277,16 +304,16 @@ arguments manually.</p>
     
 
 <p>In averaging vital rates across stages, it may be desirable to weight stage
-classes differently (e.g. based on reproductive values, or stable
+classes differently (e.g. based on reproductive values or stable
 distributions). Weights are generally applied when averaging across columns,
 i.e., across transitions <em>from</em> a set of stage classes (e.g. averaging
 stage-specific survival probabilities across multiple stages). All <code>vr_</code>
 functions therefore include an optional argument <code>weights_from</code>.</p>
-<p>In principle, particularly for vital rates of reproduction, we could also
+<p>In principle, particularly for vital rates of reproduction, the user can also
 apply weights when summing across rows within columns, i.e., across
 reproductive transitions <em>to</em> a set of stage classes (e.g. summing the
-production of different types of offspring, such as seeds vs. seedlings). For
-the function <code>vr_fecundity</code>, we therefore also include an optional
+production of different types of offspring, such as seeds vs. seedlings). The
+function <code>vr_fecundity</code> therefore also includes an optional
 argument <code>weights_to</code>.</p>
 <p>If supplied, <code>weights_from</code> will automatically be scaled to sum to 1
 over the set of possible transitions, whereas <code>weights_to</code> will not be
@@ -342,7 +369,7 @@ set of stages, use argument <code>exclude</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

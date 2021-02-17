@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a life cycle diagram based on a matrix population model — plot_life_cycle • Rage</title>
+<title>Plot a life cycle diagram from a matrix population model — plot_life_cycle • Rage</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Plot a life cycle diagram based on a matrix population model — plot_life_cycle" />
+<meta property="og:title" content="Plot a life cycle diagram from a matrix population model — plot_life_cycle" />
 <meta property="og:description" content="Plots the life cycle diagram illustrated by a matrix population model. This
 function processes the matrix model and passes the information to the
 graphViz function in DiagrammeR. See
@@ -83,7 +83,7 @@ http://rich-iannone.github.io/DiagrammeR/." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,10 +98,16 @@ http://rich-iannone.github.io/DiagrammeR/." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -109,7 +115,7 @@ http://rich-iannone.github.io/DiagrammeR/." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -126,7 +132,7 @@ http://rich-iannone.github.io/DiagrammeR/." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a life cycle diagram based on a matrix population model</h1>
+    <h1>Plot a life cycle diagram from a matrix population model</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/plot_life_cycle.R'><code>R/plot_life_cycle.R</code></a></small>
     <div class="hidden name"><code>plot_life_cycle.Rd</code></div>
     </div>
@@ -138,8 +144,15 @@ graphViz function in DiagrammeR. See
 <a href='http://rich-iannone.github.io/DiagrammeR/'>http://rich-iannone.github.io/DiagrammeR/</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_life_cycle</span><span class='op'>(</span><span class='va'>matA</span>, <span class='va'>stages</span>, title <span class='op'>=</span> <span class='cn'>NULL</span>, shape <span class='op'>=</span> <span class='st'>"egg"</span>,
-  fontsize <span class='op'>=</span> <span class='fl'>10</span>, nodefontsize <span class='op'>=</span> <span class='fl'>12</span>, edgecol <span class='op'>=</span> <span class='st'>"grey"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_life_cycle</span><span class='op'>(</span>
+  <span class='va'>matA</span>,
+  <span class='va'>stages</span>,
+  title <span class='op'>=</span> <span class='cn'>NULL</span>,
+  shape <span class='op'>=</span> <span class='st'>"egg"</span>,
+  fontsize <span class='op'>=</span> <span class='fl'>10</span>,
+  nodefontsize <span class='op'>=</span> <span class='fl'>12</span>,
+  edgecol <span class='op'>=</span> <span class='st'>"grey"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,8 +163,9 @@ graphViz function in DiagrammeR. See
     </tr>
     <tr>
       <th>stages</th>
-      <td><p>Optional vector of stage class labels. If missing, labels are
-integers <code>1:ncol(A)</code>.</p></td>
+      <td><p>Optional vector of stage class labels. If missing,  it first
+attempts to infer them from <code><a href='https://rdrr.io/r/base/dimnames.html'>dimnames(matA)</a></code>. If these are also 
+<code>NULL</code>, then reverts to integers <code>1:ncol(A)</code>.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -204,7 +218,7 @@ shape accepted by graphViz is acceptable.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

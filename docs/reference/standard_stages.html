@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Group the stages of a matrix population model into a standardized set of
-stage classes — standard_stages • Rage</title>
+<title>Identify stages corresponding to different parts of the reproductive life
+cycle — standard_stages • Rage</title>
 
 
 <!-- jquery -->
@@ -40,10 +40,13 @@ stage classes — standard_stages • Rage</title>
 
 
 
-<meta property="og:title" content="Group the stages of a matrix population model into a standardized set of
-stage classes — standard_stages" />
-<meta property="og:description" content="Assumes that fecundity and mean fecundity matrices have been rearranged so
-that non-reproductive stages are in the final rows/columns." />
+<meta property="og:title" content="Identify stages corresponding to different parts of the reproductive life
+cycle — standard_stages" />
+<meta property="og:description" content="Identify the stages of a matrix population model that correspond to
+different parts of the reproductive life cycle, namely propagule,
+pre-reproductive, reproductive and post-reproductive. These classifications
+are used to standardise matrices to allow comparisons across species with
+different life cycle structures, see mpm_standardize." />
 
 
 
@@ -83,7 +86,7 @@ that non-reproductive stages are in the final rows/columns." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,10 +101,16 @@ that non-reproductive stages are in the final rows/columns." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -109,7 +118,7 @@ that non-reproductive stages are in the final rows/columns." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -126,19 +135,21 @@ that non-reproductive stages are in the final rows/columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Group the stages of a matrix population model into a standardized set of
-stage classes</h1>
+    <h1>Identify stages corresponding to different parts of the reproductive life
+cycle</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/standard_stages.R'><code>R/standard_stages.R</code></a></small>
     <div class="hidden name"><code>standard_stages.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Assumes that fecundity and mean fecundity matrices have been rearranged so
-that non-reproductive stages are in the final rows/columns.</p>
+    <p>Identify the stages of a matrix population model that correspond to
+different parts of the reproductive life cycle, namely propagule,
+pre-reproductive, reproductive and post-reproductive. These classifications
+are used to standardise matrices to allow comparisons across species with
+different life cycle structures, see <code><a href='mpm_standardize.html'>mpm_standardize</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>matF</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span>, includeProp <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  includePost <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>matF</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,36 +157,34 @@ that non-reproductive stages are in the final rows/columns.</p>
     <tr>
       <th>matF</th>
       <td><p>The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction) —
-rearranged so that non-reproductive stages are in the final rows/columns</p></td>
+projection matrix reflecting transitions only due to <em>sexual</em> 
+reproduction). It assumes that it has been rearranged so that 
+non-reproductive stages are in the final rows/columns.</p></td>
     </tr>
     <tr>
       <th>reproStages</th>
-      <td><p>Logical vector identifying which stages reproductive</p></td>
+      <td><p>Logical vector identifying which stages are reproductive.</p></td>
     </tr>
     <tr>
       <th>matrixStages</th>
       <td><p>(character) vector of stages, values are "prop"
-(propagule), "active", and "dorm" (dormant)</p></td>
-    </tr>
-    <tr>
-      <th>includeProp</th>
-      <td><p>(logical) include propagule stage. default: <code>TRUE</code>.
-if <code>TRUE</code>, propagule stage (if present) is given back in result. If
-<code>FALSE</code>, it's included into the pre-reproductive stage</p></td>
-    </tr>
-    <tr>
-      <th>includePost</th>
-      <td><p>(logical) include post-reproductive stage. default:
-<code>TRUE</code>. if <code>TRUE</code>, post-reproductive stage (if present) is given
-back in result. If <code>FALSE</code>, it's included into the reproductive
-stage</p></td>
+(propagule), "active", and "dorm" (dormant).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with four elements:</p>
+<dt>propStages</dt><dd><p>Position of the propagule stages</p></dd>
+  <dt>preRepStages</dt><dd><p>Position of the pre-reproductive stages</p></dd>
+  <dt>repStages</dt><dd><p>Position of the reproductive stages</p></dd>
+  <dt>postRepStages</dt><dd><p>Position of the post-reproductive stages</p></dd>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Output indicates groupings to be used when collapsing the matrix model.</p>
+    <p>Assumes that fecundity and mean fecundity matrices have been 
+rearranged so that non-reproductive stages are in the final rows/columns.
+Output indicates groupings to be used when collapsing the matrix model.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Dormant stages are not currently handled.</p>
@@ -184,10 +193,16 @@ stage</p></td>
     <div class='dont-index'><p><code><a href='mpm_standardize.html'>mpm_standardize</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Rob Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>Rob Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>matF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>1.1</span>,   <span class='fl'>0</span>, <span class='fl'>1.6</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+    <pre class="examples"><div class='input'><span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.2</span>, <span class='fl'>0.1</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0.3</span>, <span class='fl'>0.1</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.4</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>matF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>1.1</span>,   <span class='fl'>0</span>, <span class='fl'>1.6</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>0.8</span>,   <span class='fl'>0</span>, <span class='fl'>0.4</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
@@ -195,7 +210,11 @@ stage</p></td>
 
 <span class='va'>reproStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>matrixStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span><span class='op'>)</span>
-<span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>matF</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span><span class='op'>)</span>
+
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mpm_rearrange.html'>mpm_rearrange</a></span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, reproStages <span class='op'>=</span> <span class='va'>reproStages</span>,
+                   matrixStages <span class='op'>=</span> <span class='va'>matrixStages</span><span class='op'>)</span>
+
+<span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>r</span><span class='op'>$</span><span class='va'>matF</span>, <span class='va'>r</span><span class='op'>$</span><span class='va'>reproStages</span>, <span class='va'>r</span><span class='op'>$</span><span class='va'>matrixStages</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $propStages
 #&gt; [1] 1
 #&gt; 
@@ -203,25 +222,12 @@ stage</p></td>
 #&gt; [1] NA
 #&gt; 
 #&gt; $repStages
-#&gt; [1] 2 4
+#&gt; [1] 2 3
 #&gt; 
 #&gt; $postRepStages
-#&gt; [1] 5
+#&gt; [1] 4 5
 #&gt; </div><div class='input'>
-<span class='co'># combine post-reproductive and reproductive</span>
-<span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>matF</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span>, includePost <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $propStages
-#&gt; [1] 1
-#&gt; 
-#&gt; $preRepStages
-#&gt; [1] NA
-#&gt; 
-#&gt; $repStages
-#&gt; [1] 2 4
-#&gt; 
-#&gt; $postRepStages
-#&gt; [1] 5
-#&gt; </div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -233,7 +239,7 @@ stage</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

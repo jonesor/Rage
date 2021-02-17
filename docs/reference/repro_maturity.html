@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate traits relating to the age of reproductive maturity from a matrix
-population model — repro_maturity • Rage</title>
+<title>Age of reproductive maturity — repro_maturity • Rage</title>
 
 
 <!-- jquery -->
@@ -40,11 +39,10 @@ population model — repro_maturity • Rage</title>
 
 
 
-<meta property="og:title" content="Calculate traits relating to the age of reproductive maturity from a matrix
-population model — repro_maturity" />
-<meta property="og:description" content="Apply Markov chain approaches to decompose moments along the age-specific
+<meta property="og:title" content="Age of reproductive maturity — repro_maturity" />
+<meta property="og:description" content="Apply Markov chain approaches to compute age-specific
 trajectory of reproduction for individuals in a matrix population model.
-Includes functions to calculated the probability of achieving reproductive
+Includes functions to calculate the probability of achieving reproductive
 maturity (mature_prob), mean age at first reproduction
 (mature_age), and distribution of individuals first achieving
 reproductive maturity among stage class (mature_distrib)." />
@@ -87,7 +85,7 @@ reproductive maturity among stage class (mature_distrib)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -102,10 +100,16 @@ reproductive maturity among stage class (mature_distrib)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -113,7 +117,7 @@ reproductive maturity among stage class (mature_distrib)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -130,16 +134,15 @@ reproductive maturity among stage class (mature_distrib)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate traits relating to the age of reproductive maturity from a matrix
-population model</h1>
+    <h1>Age of reproductive maturity</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/mature_.R'><code>R/mature_.R</code></a></small>
     <div class="hidden name"><code>repro_maturity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Apply Markov chain approaches to decompose moments along the age-specific
+    <p>Apply Markov chain approaches to compute age-specific
 trajectory of reproduction for individuals in a matrix population model.
-Includes functions to calculated the probability of achieving reproductive
+Includes functions to calculate the probability of achieving reproductive
 maturity (<code>mature_prob</code>), mean age at first reproduction
 (<code>mature_age</code>), and distribution of individuals first achieving
 reproductive maturity among stage class (<code>mature_distrib</code>).</p>
@@ -158,13 +161,13 @@ reproductive maturity among stage class (<code>mature_distrib</code>).</p>
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
       <th>matR</th>
       <td><p>The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)</p></td>
+sexual, clonal, or both).</p></td>
     </tr>
     <tr>
       <th>start</th>
@@ -185,7 +188,7 @@ Must be of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a
   scalar trait value.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Caswell, H. (2001) Matrix Population Models: Construction,
+    <p>Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
@@ -219,7 +222,7 @@ Must be of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

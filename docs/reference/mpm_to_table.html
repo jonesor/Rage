@@ -42,7 +42,7 @@
 <meta property="og:title" content="Generate a life table from a matrix population model — mpm_to_table" />
 <meta property="og:description" content="This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
-can be found in section 5.3 of Caswell (2001)." />
+can be found in section 5.3 &quot;Age-specific traits from stage-specific models&quot; of Caswell (2001)." />
 
 
 
@@ -82,7 +82,7 @@ can be found in section 5.3 of Caswell (2001)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,10 +97,16 @@ can be found in section 5.3 of Caswell (2001)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+    </li>
+    <li>
+      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+    </li>
+    <li>
+      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
   </ul>
 </li>
@@ -108,7 +114,7 @@ can be found in section 5.3 of Caswell (2001)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,11 +139,17 @@ can be found in section 5.3 of Caswell (2001)." />
     <div class="ref-description">
     <p>This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
-can be found in section 5.3 of Caswell (2001).</p>
+can be found in section 5.3 "Age-specific traits from stage-specific models" of Caswell (2001).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mpm_to_table</span><span class='op'>(</span><span class='va'>matU</span>, matF <span class='op'>=</span> <span class='cn'>NULL</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, start <span class='op'>=</span> <span class='fl'>1L</span>,
-  xmax <span class='op'>=</span> <span class='fl'>1000</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mpm_to_table</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  matF <span class='op'>=</span> <span class='cn'>NULL</span>,
+  matC <span class='op'>=</span> <span class='cn'>NULL</span>,
+  start <span class='op'>=</span> <span class='fl'>1L</span>,
+  xmax <span class='op'>=</span> <span class='fl'>1000</span>,
+  lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,13 +158,13 @@ can be found in section 5.3 of Caswell (2001).</p>
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and/or retrogression).</p></td>
     </tr>
     <tr>
       <th>matF</th>
       <td><p>(Optional) The sexual component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to sexual
-reproduction)</p></td>
+reproduction).</p></td>
     </tr>
     <tr>
       <th>matC</th>
@@ -171,7 +183,7 @@ starting population vector (in which case <code><a href='https://rdrr.io/r/base/
       <th>xmax</th>
       <td><p>Maximum age to which the life table will be calculated (defaults
 to <code>1000</code>). Time steps are in the same units as the matrix population
-model (see MatrixPeriodicity column in metadata of COM(P)ADRE).</p></td>
+model (see MatrixPeriodicity metadata variable COM(P)ADRE).</p></td>
     </tr>
     <tr>
       <th>lx_crit</th>
@@ -182,30 +194,30 @@ calculated (defaults to <code>1e-4</code>).</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> containing 7-13 columns.
+    <p>A <code>data.frame</code> containing 7-13 columns, depending on input variables.
   Columns include:</p>
-<dt>x</dt><dd><p>age</p></dd>
-  <dt>lx</dt><dd><p>survivorship to start of age class x</p></dd>
-  <dt>dx</dt><dd><p>proportion of original cohort dying in interval [x, x+1)</p></dd>
-  <dt>qx</dt><dd><p>force of mortality at age x</p></dd>
-  <dt>Lx</dt><dd><p>survivorship to middle of age class x</p></dd>
-  <dt>Tx</dt><dd><p>proportion of original cohort alive at age x and beyond</p></dd>
-  <dt>ex</dt><dd><p>remaining life expectancy at age x</p></dd>
+<dt>x</dt><dd><p>age.</p></dd>
+  <dt>lx</dt><dd><p>survivorship to start of age class x.</p></dd>
+  <dt>dx</dt><dd><p>proportion of original cohort dying in interval [x, x+1).</p></dd>
+  <dt>qx</dt><dd><p>force of mortality at age x.</p></dd>
+  <dt>Lx</dt><dd><p>survivorship to middle of age class x.</p></dd>
+  <dt>Tx</dt><dd><p>proportion of original cohort alive at age x and beyond.</p></dd>
+  <dt>ex</dt><dd><p>remaining life expectancy at age x.</p></dd>
 
 If matF is provided, also includes:
-  <dt>mx</dt><dd><p>per-capita rate of sexual reproduction at age x</p></dd>
+  <dt>mx</dt><dd><p>per-capita rate of sexual reproduction at age x.</p></dd>
   <dt>lxmx</dt><dd><p>expected number of sexual offspring per original
-  cohort member produced at age x</p></dd>
+  cohort member produced at age x.</p></dd>
   
 If matC is provided, also includes:
-  <dt>cx</dt><dd><p>per-capita rate of clonal reproduction at age x</p></dd>
+  <dt>cx</dt><dd><p>per-capita rate of clonal reproduction at age x.</p></dd>
   <dt>lxcx</dt><dd><p>expected number of clonal offspring per original
-  cohort member produced at age x</p></dd>
+  cohort member produced at age x.</p></dd>
   
 If both matF and matC are provided, also includes:
-  <dt>mxcx</dt><dd><p>per-capita rate of total reproduction (sexual + clonal) at age x</p></dd>
+  <dt>mxcx</dt><dd><p>per-capita rate of total reproduction (sexual + clonal) at age x.</p></dd>
   <dt>lxmxcx</dt><dd><p>expected number of total offspring (sexual + clonal) per original
-  cohort member produced at age x</p></dd>
+  cohort member produced at age x.</p></dd>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -220,9 +232,9 @@ If both matF and matC are provided, also includes:
 
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
+multiple starting stage classes. For example, if the user wants to start the
 calculation of age-specific traits from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
+reproduction), the user should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
 the desired starting population vector (<strong>n1</strong>), giving the proportion
@@ -232,13 +244,17 @@ should match the number of columns in the relevant MPM).</p>
 individuals achieving reproductive maturity in each stage class.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
+    <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968</p>
-<p>Caswell, H. (2006) Applications of Markov chains in demography. pp. 319-334
+<p>Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334
 in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 Meeting. Boson Books, Raleigh, North Caroline, USA</p>
-<p>Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-Nature, 505(7482), 169–173</p>
+<p>Horvitz, C. &amp; Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+mortality plateaus. The American Naturalist 172: 203-2015. &lt;doi:10.1086/589453&gt;</p>
+<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
+Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
+P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014. Diversity of ageing across
+the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
@@ -301,8 +317,8 @@ Nature, 505(7482), 169–173</p>
 #&gt; 15 27.85756 0.11960798
 #&gt; 16 27.85757 0.08428657</div><div class='input'>
 <span class='co'>### starting from first reproduction</span>
-<span class='va'>repstages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
-<span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>repstages</span><span class='op'>)</span>
+<span class='va'>repStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
+<span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>repStages</span><span class='op'>)</span>
 <span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     x           lx           dx        qx           Lx           Tx        ex
 #&gt; 1   0 1.000000e+00 3.242105e-01 0.3242105 0.8378947368 2.6787186124 2.6787186
@@ -344,7 +360,7 @@ Nature, 505(7482), 169–173</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">
