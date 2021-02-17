@@ -266,7 +266,7 @@
       "version": ">= 2.10.0"
     }
   ],
-  "fileSize": "1771.116KB",
+  "fileSize": "1771.524KB",
   "contIntegration": ["https://codecov.io/github/jonesor/Rage?branch=devel", "https://codecov.io/github/jonesor/Rage?branch=master"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"]
 }
