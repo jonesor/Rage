@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: r-lib/actions/setup-r@v1
+      - name: Install digest
+        run: Rscript -e 'install.packages("digest")'
       - name: Install codemetar
         run: Rscript -e 'install.packages("codemetar")'
       - name: Render codemeta
