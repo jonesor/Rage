@@ -6,6 +6,7 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^README\.Rmd$
+^README_cache$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
