@@ -14,3 +14,4 @@
 ^\.github$
 ^tests/testthat-problems\.rds$
 ^tests/spelling\.Rout\.save$
+^codemeta\.json$
