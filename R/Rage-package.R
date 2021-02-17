@@ -17,7 +17,7 @@
 #' in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 #' Meeting. Boson Books, Raleigh, North Caroline, USA.
 #' 
-#' Cochran, M.E. & Ellner, S. 1992. Simple methods for calculating age-based
+#' Cochran, M. E. & Ellner, S. 1992. Simple methods for calculating age-based
 #' life history parameters for stage-structured populations. Ecological Monographs,
 #' 62, 345- 364. <doi:10.2307/2937115>
 #'

@@ -42,9 +42,11 @@
 #' corresponding to a missing stage will be coerced to \code{NA}.
 #' 
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#'
 #' @references Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 #'   demographic inferences: implications for comparative plant demography. The
 #'   American Naturalist 176, 710-722. <doi:10.1086/657044>
+#'
 #' @note This method of collapsing a matrix population model preserves the
 #'   equilibrium population growth rate (\eqn{lambda}) and relative stable
 #'   distribution, but is not expected to preserve other traits such as relative
