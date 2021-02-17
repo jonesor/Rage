@@ -5,6 +5,8 @@
 
 **Development branch**
 
+[![License: GPL
+v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
@@ -15,6 +17,8 @@ status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https:
 
 **Master branch**
 
+[![License: GPL
+v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -336,6 +340,11 @@ net_repro_rate(col1$matU, col1$matF)
 
 For a complete list of functions see the package
 [Reference](https://jonesor.github.io/Rage/reference/index.html) page.
+
+## Citation
+
+We are working on a manuscript to describe the package. In the meantime,
+please use `citation("Rage")`.
 
 ## Contributions
 
