@@ -94,14 +94,14 @@ qsd_converge(mpm1$matU, start = n1)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 
-  Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
+  Jones, O.R. et al. 2014. Diversity of ageing across the tree of life.
   Nature, 505(7482), 169-173. <doi:10.1038/nature12789>
 
-  Salguero-Gomez R. (2018) Implications of clonality for ageing research.
+  Salguero-Gomez R. 2018. Implications of clonality for ageing research.
   Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
 }
 \seealso{

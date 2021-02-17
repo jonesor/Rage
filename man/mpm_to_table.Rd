@@ -107,20 +107,20 @@ mpm_to_table(matU = mpm1$matU, start = n1)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
+Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
 
-Caswell, H. (2006) Applications of Markov chains in demography. pp. 319-334
+Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334
 in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 Meeting. Boson Books, Raleigh, North Caroline, USA
 
-Horvitz, C. & Tuljapurkar, S. (2008) Stage dynamics, period survival, and
-mortality plateaus. The American Naturalist 172: 203-2015. \url{https://doi.org/10.1086/589453}
+Horvitz, C. & Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+mortality plateaus. The American Naturalist 172: 203-2015. <doi:10.1086/589453>
 
 Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
 Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
-P. F., Caswell, H., Baudisch, A. & Vaupel, J. (2014) Diversity of ageing across
-the tree of life. Nature 505, 169-173. \url{https://www.nature.com/articles/nature12789}
+P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
+the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

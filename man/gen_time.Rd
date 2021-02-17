@@ -40,7 +40,7 @@ gen_time(matU = mpm1$matU, matR = mpm1$matF)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 }

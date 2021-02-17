@@ -63,8 +63,7 @@ px <- hx_to_px(hx)
 \references{
 Ergon, T., Borgan, Ø., Nater, C. R., & Vindenes, Y. 2018. The
   utility of mortality hazard rates in population analyses. Methods in
-  Ecology and Evolution, 9, 2046-2056.
-  \url{https://doi.org/10.1111/2041-210X.13059}
+  Ecology and Evolution, 9, 2046-2056. <doi:10.1111/2041-210X.13059>
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>
