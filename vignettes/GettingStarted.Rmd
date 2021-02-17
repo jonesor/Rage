@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
-
-knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+#knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 `Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
