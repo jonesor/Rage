@@ -27,19 +27,32 @@ checkValidMat <- function(M,
   }
 }
 
+#' @noRd
+checkMatchingStageNames <- function(M) {
+  if (!identical(rownames(M), colnames(M))) {
+    stop("When naming lifestages, both rows and columns must be named ",
+         "and their names must be identical")
+  }
+}
 
 #' @noRd
 checkValidStartLife <- function(s, M, start_vec = FALSE) {
   
   if (start_vec) {
+    # check that abundances of all stages have been set if passing a population vector
     if ((length(s) > 1 & length(s) != ncol(M)) ||
-        (length(s) == 1 && !(s %in% seq_len(nrow(M))))) {
+        (is.numeric(s) && length(s) == 1 && !(s %in% seq_len(nrow(M)))) ||
+        (is.character(s) && length(s) == 1 && !(s %in% unique(unlist(dimnames(M)))))) {
       stop("Argument 'start' must be an integer within 1:nrow(matU), ",
-           "or a vector of length ncol(matU)", call. = FALSE)
+           "a character matching a stage class name in dimnames(matU), ",
+           "or an integer vector of starting abundances of length ncol(matU)",
+           call. = FALSE)
     }
   } else {
-    if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) ) {
-      stop("Argument 'start' must be an integer within 1:nrow(matU)",
+    # check that start is a single value, either an index or named life stage
+    if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) && !(s %in% unique(unlist(dimnames(M))))) {
+      stop("Argument 'start' must be an integer within 1:nrow(matU), ",
+           "or a character matching a stage class name in dimnames(matU)",
            call. = FALSE)
     }
   }

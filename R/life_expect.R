@@ -63,6 +63,10 @@ life_expect <- function(matU, start = 1L) {
     start_vec <- start / sum(start)
   } else {
     start_vec <- rep(0.0, matDim)
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
     start_vec[start] <- 1.0
   }
   
