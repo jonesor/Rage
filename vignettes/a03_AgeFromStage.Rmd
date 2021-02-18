@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
+#The following line seems to be required by pkgdown::build_site(), but causes build to break with R-CMD-CHECK on GH
 #knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
@@ -127,6 +128,8 @@ lx_list <- lapply(seq_len(nrow(comp_collapse)),
                    function(x, comp_collapse) {
                      
                      U <- matU(comp_collapse$mat[[x]])
+                    
+                    rownames(U) <- colnames(U) #ensure row and col names are present
                      
                      mpm_to_lx(
                        matU = U,
