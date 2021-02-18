@@ -13,11 +13,17 @@ test_that("qsd_converge works correctly", {
   x3 <- qsd_converge(mat_u, start = c(0.8, 0.2, 0, 0))
   expect_length(x3, 1L)
   expect_true(x3 > 0)
+  
+  # named life stages
+  x4 <- qsd_converge(mat_u_named, start = "sm")
+  expect_equal(x1, x4)
 })
 
 test_that("qsd_converge warns and fails gracefully", {
   expect_error(qsd_converge(mat_u_na))
   expect_error(qsd_converge(mat_u, start = 10))
+  expect_error(qsd_converge(mat_u, start = "stage name"))
+  expect_error(qsd_converge(mat_u_named, start = "invalid name"))
 })
 
 test_that("qsd_converge works w/ non-ergodic matrix", {
