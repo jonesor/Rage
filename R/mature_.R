@@ -10,12 +10,14 @@
 #' 
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression).
+#'   progression, stasis, and retrogression). Optionally with named rows and
+#'   columns indicating the corresponding life stage names.
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both).
-#' @param start The index of the first stage at which the author considers
-#'   the beginning of life. Defaults to 1.
+#'   sexual, clonal, or both). Optionally with named rows and columns indicating
+#'    the corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1.
 #' @param repro_stages Logical vector indicating which stages are reproductive.
 #'   Must be of length \code{ncol(matU)}.
 #'   
@@ -54,11 +56,14 @@ mature_prob <- function(matU, matR, start = 1L) {
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
   checkValidStartLife(start, matU)
+  if (!is.numeric(start)){
+    checkMatchingStageNames(M = matU, N = matR)
+  }
   
   fec_stages <- apply(matR, 2, function(x) any(x > 0))
   Bprime <- calc_Bprime(matU, fec_stages)
   
-  return(Bprime[2, start])
+  return(unname(Bprime[2, start]))
 }
 
 
@@ -70,12 +75,15 @@ mature_age <- function(matU, matR, start = 1L) {
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
   checkValidStartLife(start, matU)
+  if (!is.numeric(start)){
+    checkMatchingStageNames(M = matU, N = matR)
+  }
   
   m <- nrow(matU)
   fec_stages <- apply(matR, 2, function(x) any(x > 0))
   
   Uprime <- matU
-  Uprime[,fec_stages] <- 0
+  Uprime[, fec_stages] <- 0
   
   Bprime <- calc_Bprime(matU, fec_stages)
   
@@ -84,8 +92,9 @@ mature_age <- function(matU, matR, start = 1L) {
     return(NA_real_)
   } else {
     # mean age at first reproduction ('L_a' in Caswell 2001, p 124)
-    D <- diag(c(Bprime[2,]))
+    D <- diag(c(Bprime[2, ]))
     Uprimecond <- D %*% Uprime %*% .matrix_inverse(D)
+    dimnames(Uprimecond) <- dimnames(matU)
     expTimeReprod <- colSums(.matrix_inverse(diag(m) - Uprimecond))
     return(expTimeReprod[start])
   }
@@ -102,14 +111,17 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   if (ncol(matU) != length(repro_stages)) {
     stop("length(repro_stages) must equal ncol(matU)", call. = FALSE)
   }
+  if (!is.numeric(start)){
+    checkMatchingStageNames(M = matU)
+  }
   
   primeU <- matU
-  primeU[,repro_stages] <- 0
+  primeU[, repro_stages] <- 0
   
   N <- .matrix_inverse(diag(nrow(primeU)) - primeU)
   
   n1 <- rep(0, nrow(matU))
-  n1[repro_stages] <- N[repro_stages,start] / sum(N[repro_stages,start])
+  n1[repro_stages] <- N[repro_stages, start] / sum(N[repro_stages, start])
   
   n1[is.nan(n1)] <- 0.0 # coerce NaN to 0
   names(n1) <- colnames(matU)
@@ -125,7 +137,7 @@ calc_Bprime <- function(matU, fec_stages) {
   # Probability of survival to first sexual reproductive event
   # Note: U matrices are called 'T' in Caswell (2001)
   Uprime <- matU
-  Uprime[,fec_stages] <- 0
+  Uprime[, fec_stages] <- 0
   
   Mprime <- matrix(0, nrow = 2, ncol = m)
   

@@ -5,11 +5,12 @@
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   progression, stasis, and retrogression). Optionally with named rows and
+#'   columns indicating the corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   giving the starting population vector (in which case \code{length(start)}
+#'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param x_max The maximum age to which survivorship will be calculated.
 #'   Defaults to 1000.
 #' @param lx_crit Proportion of initial cohort remaining before all are considered
@@ -51,6 +52,7 @@
 #' data(mpm1)
 #' 
 #' longevity(mpm1$matU, start = 2)
+#' longevity(mpm1$matU, start = "small")  # equivalent using named life stages
 #' longevity(mpm1$matU, start = 2, lx_crit = 0.05)
 #' 
 #' # starting from first reproduction
@@ -68,19 +70,23 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
     stop("lx_crit must be a proportion between 0 and 1", call. = FALSE)
   }
   
-  if (length(start) > 1) {
-    n <- start
+  if (length(start) == 1) {
+    start_vec <- rep(0.0, nrow(matU))
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
+    start_vec[start] <- 1.0
   } else {
-    n <- rep(0.0, nrow(matU))
-    n[start] <- 1.0
+    start_vec <- start
   }
   
-  lx <- sum(n)
+  lx <- sum(start_vec)
   t <- 0L
   
   while (lx > lx_crit & t < x_max) {
-    n <- matU %*% n
-    lx <- sum(n)
+    start_vec <- matU %*% start_vec
+    lx <- sum(start_vec)
     t <- t + 1L
   }
   

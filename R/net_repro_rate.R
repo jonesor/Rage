@@ -7,12 +7,15 @@
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression).
+#'   progression, stasis, and retrogression). Optionally with named rows and
+#'   columns indicating the corresponding life stage names.
 #' @param matR The reproductive component of a matrix population model (i.e. a
 #'   square projection matrix only reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both).
-#' @param start Index of the first stage at which the author considers the
-#'   beginning of life. Only used if \code{method = "start"}. Defaults to 1.
+#'   sexual, clonal, or both). Optionally with named rows and columns indicating
+#'   the corresponding life stage names.
+#' @param start Index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Only used if \code{method = "start"}.
+#'   Defaults to 1.
 #' @param method The method used to calculate net reproductive value, either
 #'   \code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
 #'   See Details.
@@ -47,8 +50,10 @@
 #' 
 #' net_repro_rate(mpm1$matU, mpm1$matF)
 #' 
-#' # calculate R0 using the start method
+#' # calculate R0 using the start method, specifying either the life stage index
+#' # or name
 #' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
+#' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "small")
 #' 
 #' @importFrom popbio lambda
 #' @export net_repro_rate
@@ -59,7 +64,10 @@ net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
   checkValidMat(matR)
   checkValidStartLife(start, matU)
   method <- match.arg(method, c("generation", "start"))
-                 
+  if (!is.numeric(start)){
+    checkMatchingStageNames(M = matU, N = matR)
+  }
+  
   # matrix dimensions
   matDim <- nrow(matU)
   
