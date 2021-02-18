@@ -268,5 +268,6 @@
   ],
   "fileSize": "2254.978KB",
   "contIntegration": ["https://codecov.io/github/jonesor/Rage?branch=devel", "https://codecov.io/github/jonesor/Rage?branch=master"],
-  "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"]
+  "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"],
+  "readme": "https://github.com/jonesor/Rage/blob/master/README.md"
 }
