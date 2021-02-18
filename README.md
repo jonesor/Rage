@@ -24,7 +24,7 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![R-CMD-check](https://github.com/jonesor/Rage/workflows/R-CMD-check/badge.svg?branch=master)
 [![Coverage
-status](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master)
+status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master)
 ![test-coverage](https://github.com/jonesor/Rage/workflows/test-coverage/badge.svg?branch=master)
 
 ------------------------------------------------------------------------
@@ -108,10 +108,10 @@ life_expect(mpm1$matU, start = 2)               # life expectancy
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
 mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
-#> [1] 2.136
+#> small 
+#> 2.136
 mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
-#>  small 
-#> 0.4318
+#> [1] 0.4318
 ```
 
 Some life history traits are independent of the starting stage class, in
