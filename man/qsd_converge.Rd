@@ -8,12 +8,13 @@ qsd_converge(mat, start = 1L, conv = 0.05, N = 100000L)
 }
 \arguments{
 \item{mat}{A matrix population model, or component thereof (i.e. a square
-projection matrix).}
+projection matrix). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+ considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+ giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{conv}{Proportional distance threshold from the stationary stage
 distribution indicating convergence. For example, this value should be 0.05 if the
@@ -81,8 +82,9 @@ The time required for a cohort to reach its QSD depends on the initial
 \examples{
 data(mpm1)
 
-# starting stage = 2 
+# starting stage = 2 (i.e., "small")
 qsd_converge(mpm1$matU, start = 2)
+qsd_converge(mpm1$matU, start = "small")  # equivalent using named life stages
 
 # convergence threshold = 0.001
 qsd_converge(mpm1$matU, start = 2, conv = 0.001)

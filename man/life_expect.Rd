@@ -9,12 +9,13 @@ life_expect(matU, start = 1L)
 \arguments{
 \item{matU}{The survival component of a MPM (i.e. a square projection matrix
 reflecting survival-related transitions; e.g. progression, stasis, and
-retrogression).}
+retrogression). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage of the life cycle which the user
-considers to be the beginning of life. Defaults to 1. Alternately, a
-numeric vector giving the starting population vector (in which case
-\code{length(start)} must match \code{ncol(matU))}. See section
+\item{start}{The index (or stage name) of the first stage of the life cycle
+which the user considers to be the beginning of life. Defaults to 1.
+Alternately, a numeric vector giving the starting population vector (in which
+ case \code{length(start)} must match \code{ncol(matU))}. See section
 \emph{Starting from multiple stages}.}
 }
 \value{
@@ -48,6 +49,7 @@ data(mpm1)
 
 # life expectancy starting from stage class 2 
 life_expect(mpm1$matU, start = 2)
+life_expect(mpm1$matU, start = "small")  # equivalent using named life stages
 
 # life expectancy starting from first reproduction
 rep_stages <- repro_stages(mpm1$matF)

@@ -19,16 +19,18 @@ mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 \arguments{
 \item{matU}{The survival component of a MPM (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression).}
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
 \item{matR}{The reproductive component of a MPM (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both).}
+sexual, clonal, or both). Optionally with named rows and columns indicating
+the corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{xmax}{Maximum age to which age-specific traits will be calculated
 (defaults to \code{100000}).}
@@ -82,6 +84,7 @@ data(mpm1)
 # age-specific survivorship
 mpm_to_lx(mpm1$matU)
 mpm_to_lx(mpm1$matU, start = 2)       # starting from stage 2
+mpm_to_lx(mpm1$matU, start = "small") # equivalent using named life stages
 mpm_to_lx(mpm1$matU, xmax = 10)       # to a maximum age of 10
 mpm_to_lx(mpm1$matU, lx_crit = 0.05)  # to a minimum lx of 0.05
 

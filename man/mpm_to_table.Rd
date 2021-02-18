@@ -16,20 +16,23 @@ mpm_to_table(
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and/or retrogression).}
+progression, stasis, and/or retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
 \item{matF}{(Optional) The sexual component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to sexual
-reproduction).}
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
 \item{matC}{(Optional) The clonal component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to clonal
-reproduction).}
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{xmax}{Maximum age to which the life table will be calculated (defaults
 to \code{1000}). Time steps are in the same units as the matrix population
@@ -98,6 +101,7 @@ individuals achieving reproductive maturity in each stage class.
 data(mpm1)
 
 mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
+mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)  # equivalent using named life stages
 mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction
