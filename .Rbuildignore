@@ -6,6 +6,7 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^README\.Rmd$
+^README_cache$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
@@ -13,3 +14,5 @@
 ^Meta$
 ^\.github$
 ^tests/testthat-problems\.rds$
+^tests/spelling\.Rout\.save$
+^codemeta\.json$

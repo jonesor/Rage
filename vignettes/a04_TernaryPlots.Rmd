@@ -16,7 +16,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(digits = 4)
 ```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+```
+
 
 Here we produce a ternary plot *a la* Silvertown & Franco (1993) with population growth rate as the "fourth" dimension. We will use functions from the `popdemo`, `Rage` and `ggtern` packages, so first we need to load those packages:
 
@@ -47,6 +54,10 @@ We can use the `matrixElementPerturbation` function from the `Rage` package to c
 
 
 ```{r}
+mat_a <- matA(Compadre)[[1]]
+
+perturb_matrix(mat_a, type = "elasticity")
+
 #Rage::matrixElementPerturbation(matU = matU(Compadre)[[1]],    This function used to be able to accommodate partioning
 #                                matF = matF(Compadre)[[1]],    into U F and C so we coudl partition this... but it's now gone
 #                                matC = matC(Compadre)[[1]])    in perturb_matrix.... why?
@@ -61,17 +72,19 @@ Fmats <- matF(Compadre)
 Cmats <- matC(Compadre)
 
 output <- data.frame(S=rep(NA,length(Umats)),G=NA,R=NA,lam=NA)
-for(i in 1:length(Umats)){
-  temp <- Rage::matrixElementPerturbation(Umats[[i]],   #The same issue as above
-                                          Fmats[[i]],
-                                          Cmats[[i]])
-  
-output$S[i] <- temp$EStasis + temp$ERetrogression
-output$G[i] <- temp$EProgression
-output$R[i] <- temp$EFecundity + temp$EClonality
 
-#Calculate growth rate
-output$lam[i] <- popdemo::eigs(Amats[[i]], "lambda")
+for(i in 1:length(Umats)){
+  temp <- perturb_vr(Umats[[i]],   #The same issue as above
+                     Fmats[[i]],
+                     Cmats[[i]],
+                     type = "elasticity")
+  
+  output$S[i] <- temp$survival
+  output$G[i] <- temp$growth + temp$shrinkage
+  output$R[i] <- temp$fecundity + temp$clonality
+  
+  #Calculate growth rate
+  output$lam[i] <- popdemo::eigs(Amats[[i]], "lambda")
 }
 ```
 
@@ -90,10 +103,16 @@ output[,1:3] <- t(apply(output[,1:3], 1, function(x) x/sum(x)))
 Now for the plot:
 
 ```{r}
-B<-ggtern::ggtern(data=output,aes(x = R,y=G,z=S,colour = lam))  +  
-  geom_point() +    scale_color_viridis_c()+
-  theme_showarrows() +theme_clockwise() + 
-  NULL
+B<-ggtern::ggtern(data = output,
+                  aes(x = R,
+                      y = G,
+                      z = S,
+                      colour = lam))  +  
+  geom_point() +    
+  scale_color_viridis_c()+
+  theme_showarrows() +
+  theme_clockwise() 
+
 B
 ```
 
@@ -101,14 +120,17 @@ Now you can try this, try using another variable, such as reactivity, or life ex
 
 IN THE TEXT BELOW I RE-DO THE FUNCTIONALITY ABOVE AT THE VITAL RATE LEVEL. WE SHOULD FIRST FIX THE FUNCTION ABOVE SO IT DOES THE PARTITIONING OF MATRICES INTO SUBCOMPONENTS U F AND C
 
-We can use the `perturb_vr` function from the `Rage` package to conduct the perturbations at the level of underlying vital rates rather than matrix elements. It is worth noting that in a MPM, most matrix elements are composites of vital rates. For instance, the element a[2,1] (second row, first column in the matrix **A**) is composed by the survival probabilit of the first stage *times* the probability that individuals in the first stage transition to the second one in the life cycle of the species. To proceed with the calculation of the vital rate perturbations:
+We can use the `perturb_vr` function from the `Rage` package to conduct the perturbations at the level of underlying vital rates rather than matrix elements. It is worth noting that in a MPM, most matrix elements are composites of vital rates. For instance, the element a[2,1] (second row, first column in the matrix **A**) is composed by the survival probability of the first stage *times* the probability that individuals in the first stage transition to the second one in the life cycle of the species. To proceed with the calculation of the vital rate perturbations:
 
 
 ```{r}
-Rage::perturb_vr(mpm1$matU,
-                 mpm1$matF,
-                 mpm1$matF,
-                 type = "elasticity")
+
+data(mpm1)
+
+perturb_vr(mpm1$matU,
+           mpm1$matF,
+           mpm1$matF,
+           type = "elasticity")
 ```
 
 We can use a `for` loop to run through each set of matrices in turn to calculate the summed elasticity for (i) survival ($\sigma), (ii) growth ($\gamma) and shrinkage ($\rho), and (iii) sexual ($\phi) and clonal reproduction ($\kappa) like this:
@@ -121,14 +143,14 @@ Cmats <- matC(Compadre)
 
 output <- data.frame(survival=rep(NA,length(Umats)),growthShrinkage=NA,reproduction=NA,lam=NA)
 for(i in 1:length(Umats)){
-  temp <- Rage::perturb_vr(Umats[[i]],
-                           Fmats[[i]],
-                           Cmats[[i]],
-                           type = "elasticity")
+  temp <- perturb_vr(Umats[[i]],
+                     Fmats[[i]],
+                     Cmats[[i]],
+                     type = "elasticity")
   
 output$survival[i] <- temp$survival
 output$growthShrinkage[i] <- temp$growth + temp$shrinkage
-output$reproduciton[i] <- temp$fecundity + temp$clonality
+output$reproduction[i] <- temp$fecundity + temp$clonality
 
 #Calculate growth rate
 output$lam[i] <- popdemo::eigs(Amats[[i]], "lambda")
@@ -150,9 +172,16 @@ output[,1:3] <- t(apply(output[,1:3], 1, function(x) x/sum(x)))
 Now for the plot:
 
 ```{r}
-B<-ggtern::ggtern(data=output,aes(x = R,y=G,z=S,colour = lam))  +  
-  geom_point() +    scale_color_viridis_c()+
-  theme_showarrows() +theme_clockwise() + 
-  NULL
+
+B<-ggtern::ggtern(data = output,
+                  aes(x = reproduction,
+                      y = growthShrinkage,
+                      z = survival,
+                      colour = lam))  +  
+  geom_point() +  
+  scale_color_viridis_c()+
+  theme_showarrows() +
+  theme_clockwise() 
+
 B
 ```

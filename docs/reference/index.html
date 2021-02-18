@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,10 +94,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
+    </li>
+    <li>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+    </li>
+    <li>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -105,7 +111,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -218,7 +224,7 @@ non-reproductive stages</p></td>
         <td>
           <p><code><a href="mpm_split.html">mpm_split()</a></code> </p>
         </td>
-        <td><p>Splits a matrix population model into the constituent U, F and C matrices</p></td>
+        <td><p>Convert matrix population model into U, F and C matrices</p></td>
       </tr><tr>
         
         <td>
@@ -267,7 +273,7 @@ models and corresponding population vectors</p></td>
         <td>
           <p><code><a href="plot_life_cycle.html">plot_life_cycle()</a></code> </p>
         </td>
-        <td><p>Plot a life cycle diagram based on a matrix population model</p></td>
+        <td><p>Plot a life cycle diagram from a matrix population model</p></td>
       </tr><tr>
         
         <td>
@@ -280,15 +286,13 @@ time-series of matrix population models</p></td>
         <td>
           <p><code><a href="qsd_converge.html">qsd_converge()</a></code> </p>
         </td>
-        <td><p>Calculate time to reach quasi-stationary stage distribution from a matrix
-population model</p></td>
+        <td><p>Calculate time to reach quasi-stationary stage distribution</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="repro_maturity.html">mature_prob()</a></code> <code><a href="repro_maturity.html">mature_age()</a></code> <code><a href="repro_maturity.html">mature_distrib()</a></code> </p>
         </td>
-        <td><p>Calculate traits relating to the age of reproductive maturity from a matrix
-population model</p></td>
+        <td><p>Age of reproductive maturity</p></td>
       </tr><tr>
         
         <td>
@@ -312,8 +316,8 @@ population model</p></td>
         <td>
           <p><code><a href="standard_stages.html">standard_stages()</a></code> </p>
         </td>
-        <td><p>Group the stages of a matrix population model into a standardized set of
-stage classes</p></td>
+        <td><p>Identify stages corresponding to different parts of the reproductive life
+cycle</p></td>
       </tr><tr>
         
         <td>
@@ -336,9 +340,9 @@ reproduction</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="vr_vec.html">vr_vec_survival()</a></code> <code><a href="vr_vec.html">vr_vec_growth()</a></code> <code><a href="vr_vec.html">vr_vec_shrinkage()</a></code> <code><a href="vr_vec.html">vr_vec_stasis()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_enter()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_exit()</a></code> <code><a href="vr_vec.html">vr_vec_fecundity()</a></code> </p>
+          <p><code><a href="vr_vec.html">vr_vec_survival()</a></code> <code><a href="vr_vec.html">vr_vec_growth()</a></code> <code><a href="vr_vec.html">vr_vec_shrinkage()</a></code> <code><a href="vr_vec.html">vr_vec_stasis()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_enter()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_exit()</a></code> <code><a href="vr_vec.html">vr_vec_reproduction()</a></code> </p>
         </td>
-        <td><p>Derive stage-specific vital rates from a matrix population model</p></td>
+        <td><p>#' Derive stage-specific vital rates from a matrix population model</p></td>
       </tr>
     </tbody>
     </table>
@@ -354,7 +358,7 @@ reproduction</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

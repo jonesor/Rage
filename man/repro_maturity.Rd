@@ -55,7 +55,7 @@ mature_distrib(mpm1$matU, start = 2, repro_stages = repstage)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 }

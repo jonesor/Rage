@@ -19,7 +19,7 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
 #' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' 
@@ -74,17 +74,18 @@ life_expect <- function(matU, start = 1L) {
   
   # try calculating fundamental matrix (will fail if matrix singular)
   N <- try(solve(diag(matDim) - matU), silent = TRUE)
-  Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
   
-  # check for errors due to singular matrix
-  # if singular, return NA
-  if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
+  if(inherits(N, "try-error")) {
     mean <- NA_real_
     var <- NA_real_
   } else {
+  
+    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
     mean <- sum(colSums(N) * start_vec)
     var <- sum(Nvar * start_vec)
+    
   }
+  
   
   life_expect <- data.frame("mean" = mean,
                             "var" = var)

@@ -40,11 +40,11 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
 #' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #'
-#'   Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
+#'   Morris, W. F. & Doak, D. F. 2003. Quantitative Conservation Biology:
 #'   Theory and Practice of Population Viability Analysis. Sinauer Associates,
 #'   Sunderland, Massachusetts, USA
 #' 

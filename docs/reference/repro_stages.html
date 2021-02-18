@@ -40,10 +40,10 @@
 
 
 <meta property="og:title" content="Identify which stages in a matrix population model are reproductive — repro_stages" />
-<meta property="og:description" content="Takes a fecundity matrix and returns a vector of logical values (TRUE/FALSE)
-indicating which stages are reproductive (i.e. exhibit any positive level of
-reproduction). This is a preparatory step to collapsing the matrix model into
-a standardized set of stage classes." />
+<meta property="og:description" content="Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
+indicating which stages are reproductive (i.e. exhibit any positive values for
+reproduction). This function is a preparatory step to collapsing the matrix
+model into a standardized set of stage classes using the function mpm_standardize." />
 
 
 
@@ -75,7 +75,7 @@ a standardized set of stage classes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ a standardized set of stage classes." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,10 +98,16 @@ a standardized set of stage classes." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
+    </li>
+    <li>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+    </li>
+    <li>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -109,7 +115,7 @@ a standardized set of stage classes." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,10 +138,10 @@ a standardized set of stage classes." />
     </div>
 
     <div class="ref-description">
-    <p>Takes a fecundity matrix and returns a vector of logical values (TRUE/FALSE)
-indicating which stages are reproductive (i.e. exhibit any positive level of
-reproduction). This is a preparatory step to collapsing the matrix model into
-a standardized set of stage classes.</p>
+    <p>Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
+indicating which stages are reproductive (i.e. exhibit any positive values for
+reproduction). This function is a preparatory step to collapsing the matrix
+model into a standardized set of stage classes using the function <code><a href='mpm_standardize.html'>mpm_standardize</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>repro_stages</span><span class='op'>(</span><span class='va'>matR</span>, na_handling <span class='op'>=</span> <span class='st'>"return.true"</span><span class='op'>)</span></pre>
@@ -147,7 +153,7 @@ a standardized set of stage classes.</p>
       <th>matR</th>
       <td><p>The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)</p></td>
+sexual (e.g. <code>matF</code>), clonal (e.g. <code>matC</code>), or both).</p></td>
     </tr>
     <tr>
       <th>na_handling</th>
@@ -163,14 +169,14 @@ sexual, clonal, or both)</p></td>
   <code>FALSE</code> corresponding to non-reproductive stages and values of
   <code>TRUE</code> corresponding to reproductive stages.<br /><br /> For a given matrix
   stage (i.e. column of <code>matR</code>), if there are any positive values of
-  fecundity, the function will return <code>TRUE</code>. However, for a given
-  stage, if there are no positive values of fecundity and one or more values
+  reproduction, the function will return <code>TRUE</code>. However, for a given
+  stage, if there are no positive values of reproduction and one or more values
   of <code>NA</code>, the function will return <code>NA</code> if <code>na_handling ==
   "return.na"</code>, <code>TRUE</code> if <code>na_handling == "return.true"</code>, or
   <code>FALSE</code> if <code>na_handling == "return.false"</code>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Rob Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>Rob Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
 <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -202,7 +208,7 @@ sexual, clonal, or both)</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

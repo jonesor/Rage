@@ -31,7 +31,8 @@ different parts of the reproductive life cycle, namely propagule,
 pre-reproductive, reproductive and post-reproductive. These classifications
 are used to standardise matrices to allow comparisons across species with
 different life cycle structures, see \code{\link{mpm_standardize}}.
-
+}
+\details{
 Assumes that fecundity and mean fecundity matrices have been 
 rearranged so that non-reproductive stages are in the final rows/columns.
 Output indicates groupings to be used when collapsing the matrix model.
@@ -40,6 +41,12 @@ Output indicates groupings to be used when collapsing the matrix model.
 Dormant stages are not currently handled.
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0,   0),
+              c(  0, 0.3, 0.3, 0.1,   0),
+              c(  0,   0, 0.4, 0.4, 0.1),
+              c(  0,   0,   0, 0.1, 0.4))
+
 matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
               c(  0, 0.8,   0, 0.4,   0),
               c(  0,   0,   0,   0,   0),
@@ -48,7 +55,11 @@ matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
 
 reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-standard_stages(matF, reproStages, matrixStages)
+
+r <- mpm_rearrange(matU, matF, reproStages = reproStages,
+                   matrixStages = matrixStages)
+
+standard_stages(r$matF, r$reproStages, r$matrixStages)
 
 }
 \seealso{

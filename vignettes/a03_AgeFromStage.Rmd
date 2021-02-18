@@ -2,13 +2,14 @@
 title: "Age-from-stage analyses"
 author: "Patrick Barks"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    depth: 2
 vignette: >
   %\VignetteIndexEntry{Age-from-stage analyses}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -16,6 +17,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(digits = 4)
+
+```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 ## Introduction
@@ -27,10 +35,9 @@ Regardless of whether the stage classes of a matrix population model (MPM) are b
 We'll start by loading a few packages and a dataset that we'll be using throughout this vignette. 
 
 ```{r}
-library(Rage)
-data(mpm1)
-
-options(tibble.width = Inf) # always print all columns of tibble
+library(Rage)  # load Rage
+data(mpm1)     # load data object 'mpm1'
+mpm1           # display the contents
 ```
 
 ## Age-from-stage methods with a single matrix population model
@@ -38,7 +45,6 @@ options(tibble.width = Inf) # always print all columns of tibble
 This MPM has 5 stage class, and it's apparent from the `dimnames` attribute that the stages are not based solely on age. Nonetheless, we can estimate age-schedules of survivorship and reproduction using the functions `mpm_to_lx()` and `mpm_to_mx()` from `Rage`.
 
 ```{r}
-
 dimnames(mpm1$matU)
 
 # extract U and F matrices
@@ -126,6 +132,8 @@ lx_list <- lapply(seq_len(nrow(comp_collapse)),
                    function(x, comp_collapse) {
                      
                      U <- matU(comp_collapse$mat[[x]])
+                    
+                    rownames(U) <- colnames(U) #ensure row and col names are present
                      
                      mpm_to_lx(
                        matU = U,

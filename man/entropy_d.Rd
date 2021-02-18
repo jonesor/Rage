@@ -32,8 +32,8 @@ entropy_d(lx, mx)
 
 }
 \references{
-Demetrius, L. (1978) Adaptive value, entropy and survivorship
-  curves. Nature 275, 213-214. DOI:10.1038/275213a0
+Demetrius, L. 1978 Adaptive value, entropy and survivorship
+  curves. Nature, 275, 213-214. <doi:10.1038/275213a0>
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

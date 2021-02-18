@@ -2,7 +2,10 @@
 title: "Getting started with Rage"
 author: "Patrick Barks"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    depth: 2
 vignette: >
   %\VignetteIndexEntry{Getting started with Rage}
   %\VignetteEncoding{UTF-8}
@@ -15,82 +18,87 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
-#ragg_png = function(..., res = 192) {
-#  ragg::agg_png(..., res = res, units = "in")
-#}
-#knitr::opts_chunk$set(dev = "ragg_png", fig.ext = "png")
-# knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
-Rage provides tools for manipulating and analysing matrix population models
-(MPMs). The functions can be grouped into five broad categories:
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+```
 
-- deriving life history traits
-- deriving life tables or life table components
-- deriving vital rates
-- perturbation analyses
-- manipulating or transforming MPMs
 
-This vignette introduces a few of the main functions within each category.
+`Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
 
-## Loading an example MPM
+# Loading MPMs and basic anatomy
 
-The functions in Rage work on MPMs (or components of MPMs), so we'll start by
-loading one of the example MPMs included in the Rage package (`mpm1`).
+We'll begin by loading one of the example MPMs called `mpm1` included in the `Rage` package and which can be retrieved using the base 'data' function.
 
 ```{r}
 library(Rage)  # load Rage
 data(mpm1)     # load data object 'mpm1'
-
-mpm1
+mpm1           # display the contents
 ```
 
-The object `mpm1` is a list containing two elements: the growth/survival
-component of the MPM (the __U__ matrix), and the sexual reproduction component
-(the __F__ matrix). We can obtain the full MPM by adding the two components
-together (__A__ = __U__ + __F__).
+The object `mpm1` is a list containing square matrices as elements that are the decomposition products of an MPM projection matrix. `Rage` functions use one or more of these components in analyses and recognizes the biological meaning of each list element by its name:
 
-## Deriving life history traits from an MPM
+- `matU` is the __U__ matrix, which is the __growth/survival__ component of an MPM 
+containing transitions related to progression, stasis and retrogression. This is how individuals move among ages or life stages.
+- `matR` is the __R__ matrix, which is the __reproductive__ component of an MPM,
+containing transitions due to reproduction; either sexual, clonal, or both.
+When the mode of reproduction is known (e.g., a species only reproduces sexually or the sexual and clonal offspring have been counted separately), `matR` can be substituted with:
+- `matF` is the __F__ matrix, which is the __sexual reproduction__ or fecundity 
+component of the MPM containing transitions due to sexual reproduction. This is one way that new individuals are produced.
+- `matC` is the __C__ matrix, which is the __clonal__ component of an MPM 
+containing transitions due to clonal reproduction.
 
-One of the most common arguments among functions in Rage is `start`, which is
-used to specify the stage class that represents the 'beginning of life' for the
-purposes of calculation. Because the first stage class in `mpm1` is a 'seed'
-stage, which we might consider functionally-distinct from the 'above-ground'
-stages, we'll specify `start = 2` to set our starting stage class of interest to
-the 'small' stage.
+For any life history, we can reconstruct the full projection matrix, __A__, by adding together the components. For `mpm1`,  __A__ = __U__ + __F__. A population with separately counted sexual and clonal offspring production would be __A__ = __U__ + __F__ + __C__.
 
+`Rage` functions currently accept MPM components as arguments; therefore, it is not necessary to group the `mat*`s together in a list. We anticipate that future package releases will define methods that accept objects of classes `matrix`, `CompadreMat`, and `CompadreDB` for compatibility with the [COM(P)ADRE databases](https://compadre-db.org/) and its accessor package [`Rcompadre`](https://github.com/jonesor/Rcompadre).
+
+The remaining numbered sections introduce the key functions of `Rage` across five broad categories:
+
+1. [deriving life history traits](#lifehisttraits)
+2. [deriving life tables or life table components](#lifetablecomponents)
+3. [deriving vital rates](#vitalrates)
+4. [perturbation analyses](#perturbanalyses)
+5. [manipulating or transforming MPMs](#maniptransform)
+
+# 1. Deriving life history traits {#lifehisttraits}
+
+What is the life expectancy of an individual? At what age will it begin to reproduce? How likely is it to survive to reproduction? What is the generation time? These high level questions address the population-level life history traits that emerge from aggregating individual-level demographic rates, and tracing trajectories through the life cycle.
+
+Life history traits that do not involve reproduction require only a __U__ matrix (supplied to the function's `matU` argument) and the stage class that represents the starting point for the calculation (supplied to the `start` argument). In the example MPM, a natural starting point for calculating life expectancy could be from either the seed stage or post-recruitment. Both calculations are possible by modifying the `start` argument. Longevity, defined as the age at which survivorship falls below a user-defined threshold, follows a similar pattern.
 ```{r}
-life_expect(mpm1$matU, start = 2)               # life expectancy
-longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
-mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
-mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
+life_expect(matU = mpm1$matU, start = 1)  # life expectancy from "seed" stage
+life_expect(matU = mpm1$matU, start = 2)  # life expectancy from "small" stage
+longevity(matU = mpm1$matU, start = 2, lx_crit = 0.05)  # post-germination years until survivorship falls below 5%
 ```
 
-Some life history traits are independent of the starting stage class, in which
-case we don't need to specify `start`.
+An expanded set of life history traits can be calculated by incorporating a reproduction matrix to the `matR` argument. In our example, we'll assume that reproduction only happens sexually and therefore we can substitute __F__ in place of __R__. For species with both modes of reproduction, using __F__ or __C__ alone in these functions allows for a more nuanced assessment of reproductive life history. For reproductive traits that aggregate across the life cycle, we need not supply a `start` stage.
 
 ```{r}
-net_repro_rate(mpm1$matU, mpm1$matF)   # net reproductive rate
-gen_time(mpm1$matU, mpm1$matF)         # generation time
+mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)     # post-germination years to first reproduction
+mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination Pr(survival to first repro)
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            # net reproductive rate (aggregate)
+gen_time(matU = mpm1$matU, matR = mpm1$matF)                  # generation time (aggregate)
 ```
 
 Other life history traits are calculated from a life table rather than an MPM,
 in which case we can first use the `mpm_to_` group of functions to derive the
-necessary life table components.
-
+necessary life table components: (st)age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*).
 ```{r}
-# first derive age-trajectories of survivorship (lx) and fecundity (mx)
-lx <- mpm_to_lx(mpm1$matU, start = 2)
-mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
+lx <- mpm_to_lx(matU = mpm1$matU, start = 2)
+px <- mpm_to_px(matU = mpm1$matU, start = 2)
+hx <- mpm_to_hx(matU = mpm1$matU, start = 2)
+mx <- mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = 2)
 
 # then calculate life history traits
 entropy_k(lx)       # Keyfitz' entropy
 entropy_d(lx, mx)   # Demetrius' entropy
 shape_surv(lx)      # shape of survival/mortality trajectory
-shape_rep(lx)       # shape of fecundity trajectory
+shape_rep(mx)       # shape of fecundity trajectory
 ```
 
-## Life tables and the quasi-stationary distribution
+# 2. Life tables and the quasi-stationary distribution {#lifetablecomponents}
 
 Some MPMs are parameterized with a stasis loop at the maximum stage class, which
 can lead to apparent plateaus in mortality or fertility trajectories derived
@@ -127,7 +135,7 @@ shape_surv(lt$lx)       # based on full lx trajectory
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
 ```
 
-## Standardized vital rates
+# 3. Standardized vital rates {#vitalrates}
 
 The transition rates that make up MPMs generally reflect products of two or more
 vital rates (sometimes called ‘lower-level vital rates’). Assuming a
@@ -136,7 +144,7 @@ rate into at least two vital rate components: survival, and ‘something’
 conditional on survival. That ‘something’ might be growth, shrinkage, stasis,
 dormancy, fecundity, or clonality.
 
-#### Stage-specific vital rates (vector)
+## Stage-specific vital rates (vector)
 
 To summarize vital rates _within_ stage classes, we can use the `vr_vec_` group
 of functions. We'll use the `exclude` argument here to exclude certain stage
@@ -151,10 +159,10 @@ vr_vec_shrinkage(mpm1$matU, exclude = 5)
 vr_vec_stasis(mpm1$matU)
 vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
 vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
-vr_vec_fecundity(mpm1$matU, mpm1$matF)
+vr_vec_reproduction(mpm1$matU, mpm1$matF)
 ```
 
-#### MPM-specific vital rates (scalar)
+## MPM-specific vital rates (scalar)
 
 To summarize vital rates _across_ stage classes, we can use the `vr_` group of
 functions. By default these functions take a simple average of the
@@ -185,7 +193,7 @@ vital rate summaries, because we consider these to be special classes (e.g.
 'growth' from the 'seed' stage is really 'germination', which we may think of as
 separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
 
-## Perturbation analyses
+# 4. Perturbation analyses {#perturbanalyses}
 
 The `perturb_matrix()` function measures the response of a demographic statistic
 to perturbation of individual matrix elements (i.e. sensitivities and
@@ -205,9 +213,9 @@ as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
 as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
 ```
 
-## Transforming MPMs
+# 5. Transforming MPMs {#maniptransform}
 
-Rage includes a variety of functions that can be used to manipulate or transform
+`Rage` includes a variety of functions that can be used to manipulate or transform
 MPMs. For example, we can collapse an MPM to a smaller number of stage classes
 using `mpm_collapse()`.
 
@@ -234,7 +242,7 @@ net_repro_rate(mpm1$matU, mpm1$matF)
 net_repro_rate(col1$matU, col1$matF)
 ```
 
-## Complete list of functions
+# Appendix: Complete list of functions
 
 | Category | Function | Description   |
 |:---------------|:-------------|:-------------------------------------|

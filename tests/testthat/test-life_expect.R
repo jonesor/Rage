@@ -5,9 +5,9 @@ test_that("life_expect works correctly", {
   l0_singular <- life_expect(mat_u_singular)
   l1 <- life_expect(mat_u_named, start = "sm")
 
-  expect_length(l0, 1L)
-  expect_true(l0 > 0)
-  expect_equal(l0_singular, NA_real_)
+  expect_equal(ncol(l0), 2L)
+  expect_true(all(l0 > 0))
+  expect_true(all(unlist(is.na(l0_singular))))
   expect_equal(l0, l1)
 })
 

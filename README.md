@@ -3,18 +3,39 @@
 
 # Rage
 
+**Development branch**
+
+[![License: GPL
+v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![Travis-CI Build
-Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)
+![R-CMD-check](https://github.com/jonesor/Rage/workflows/R-CMD-check/badge.svg?branch=devel)
 [![Coverage
 status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel)
+![test-coverage](https://github.com/jonesor/Rage/workflows/test-coverage/badge.svg?branch=devel)
+
+**Master branch**
+
+[![License: GPL
+v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+![R-CMD-check](https://github.com/jonesor/Rage/workflows/R-CMD-check/badge.svg?branch=master)
+[![Coverage
+status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master)
+![test-coverage](https://github.com/jonesor/Rage/workflows/test-coverage/badge.svg?branch=master)
+
+------------------------------------------------------------------------
+
+Functions for calculating life history metrics from matrix population
+models (MPMs).
 
 An R package for manipulating and analysing matrix population models
-(MPMs). Includes functions for:
+(MPMs).
+
+Includes functions for:
 
 -   deriving life history traits
 -   deriving life tables or life table components
@@ -82,14 +103,15 @@ stage.
 
 ``` r
 life_expect(mpm1$matU, start = 2)               # life expectancy
-#> [1] 2.509
+#>    mean  var
+#> 1 2.509 14.5
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
 mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
-#> [1] 2.136
+#> small 
+#> 2.136
 mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
-#>  small 
-#> 0.4318
+#> [1] 0.4318
 ```
 
 Some life history traits are independent of the starting stage class, in
@@ -218,30 +240,30 @@ average across stages, based on the stable stage distribution at
 equilibrium (*w*).
 
 ``` r
+# derive full MPM (matA)
+mpm1$matA <- mpm1$matU + mpm1$matF
 
-    # derive full MPM (matA)
-    mpm1$matA <- mpm1$matU + mpm1$matF
+# calculate stable stage distribution at equilibrium using popbio::stable.stage
+library(popbio)
+w <- popbio::stable.stage(mpm1$matA)
 
-    # calculate stable stage distribution at equilibrium using popbio::stable.stage
-    library(popbio)
-    w <- popbio::stable.stage(mpm1$matA)
-
-    # calculate MPM-specific vital rates
-    vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
-    #> [1] 0.5964
-    vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
-    #> [1] 0.6603
-    vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
-    #> [1] 0.1961
-    vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
-    #> [1] 0.2824
-    vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
-    #> [1] 0.1984
-    vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
-    #> [1] 0.5641
-    vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
-    #> [1] 37.07
+# calculate MPM-specific vital rates
+vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
+#> [1] 0.5964
+vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
+#> [1] 0.6603
+vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
+#> [1] 0.1961
+vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
+#> [1] 0.2824
+vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
+#> [1] 0.1984
+vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
+#> [1] 0.5641
+vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
+#> [1] 37.07
 ```
+
 Note how we’ve chosen to exclude the ‘seed’ and ‘dormant’ stage classes
 from our vital rate summaries, because we consider these to be special
 classes (e.g. ‘growth’ from the ‘seed’ stage is really ‘germination’,
@@ -316,48 +338,13 @@ net_repro_rate(col1$matU, col1$matF)
 #> [1] 1.447
 ```
 
-## Complete list of functions
-
-| Category            | Function             | Description                                         |
-|:--------------------|:---------------------|:----------------------------------------------------|
-| Life history traits | `life_expect`        | Life expectancy                                     |
-|                     | `longevity`          | Longevity                                           |
-|                     | `net_repro_rate`     | Net reproductive rate                               |
-|                     | `gen_time`           | Generation time                                     |
-|                     | `mature_age`         | Age at reproductive maturity                        |
-|                     | `mature_prob`        | Probability of reaching reproductive maturity       |
-|                     | `mature_distrib`     | Stage distribution of reproductive maturity         |
-|                     | `entropy_d`          | Demetrius’ entropy                                  |
-|                     | `entropy_k`          | Keyfitz’s entropy                                   |
-|                     | `shape_surv`         | Shape of survival/mortality trajectory              |
-|                     | `shape_rep`          | Shape of fecundity trajectory                       |
-| Life table          | `mpm_to_table`       | MPM to life table                                   |
-|                     | `mpm_to_lx`          | MPM to survivorship trajectory                      |
-|                     | `mpm_to_px`          | MPM to survival trajectory                          |
-|                     | `mpm_to_hx`          | MPM to mortality hazard trajectory                  |
-|                     | `mpm_to_mx`          | MPM to fecundity trajectory                         |
-|                     | `lx_to_[px/hx]`      | Convert from survivorship trajectory                |
-|                     | `px_to_[lx/hx]`      | Convert from survival trajectory                    |
-|                     | `hx_to_[lx/px]`      | Convert from mortality hazard trajectory            |
-|                     | `qsd_converge`       | Time to quasi-stationary distribution               |
-| Vital rates         | `vr_[...]`           | MPM-averaged vital rates                            |
-|                     | `vr_vec_[...]`       | Stage-averaged vital rates                          |
-|                     | `vr_mat_[...]`       | Survival-independent vital rates                    |
-| Perturbation        | `perturb_matrix`     | Perturbation analysis of whole matrix               |
-|                     | `perturb_trans`      | Perturbation analysis of transition types           |
-|                     | `perturb_vitals`     | Perturbation analysis of vital rate types           |
-|                     | `perturb_stochastic` | Stochastic perturbation analysis                    |
-| MPM transformation  | `mpm_split`          | Split MPM into survival and reproductive components |
-|                     | `mpm_rearrange`      | Rearrange MPM to segregate reproductive stages      |
-|                     | `mpm_collapse`       | Collapse MPM to smaller number of stages            |
-|                     | `mpm_standardize`    | Collapse MPM to standardized set of stages          |
-|                     | `standard_stages`    | Group stages into standardized sets                 |
-|                     | `repro_stages`       | Identify reproductive stages                        |
-|                     | `plot_life_cycle`    | Plot a life cycle diagram                           |
-
-
 For a complete list of functions see the package
 [Reference](https://jonesor.github.io/Rage/reference/index.html) page.
+
+## Citation
+
+We are working on a manuscript to describe the package. In the meantime,
+please use `citation("Rage")`.
 
 ## Contributions
 
