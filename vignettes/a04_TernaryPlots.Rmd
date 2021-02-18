@@ -16,9 +16,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-#The following line seems to be required by pkgdown::build_site(), but causes build to break with R-CMD-CHECK on GH
-#knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+options(digits = 4)
 ```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+```
+
 
 Here we produce a ternary plot *a la* Silvertown & Franco (1993) with population growth rate as the "fourth" dimension. We will use functions from the `popdemo`, `Rage` and `ggtern` packages, so first we need to load those packages:
 

@@ -18,9 +18,13 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
-#The following line seems to be required by pkgdown::build_site(), but causes build to break with R-CMD-CHECK on GH
-#knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+```
+
 
 `Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
 
