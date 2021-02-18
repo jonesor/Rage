@@ -21,7 +21,7 @@ A list of three matrices:
 }
 \description{
 Calculate stochastic elasticities given a time-series of matrix population
-models and corresponding population vectors, using the method described in
+models (MPMs) and corresponding population vectors, using the method described in
 Haridas et al. (2009).
 }
 \examples{
@@ -45,7 +45,7 @@ perturb_stochastic(X, u)
 \references{
 Haridas, C. V., Tuljapurkar, S., & Coulson, T. 2009. Estimating
   stochastic elasticities directly from longitudinal data. Ecology Letters,
-  12, 806-812. https://doi.org/10.1111/j.1461-0248.2009.01330.x
+  12, 806-812. <doi:10.1111/j.1461-0248.2009.01330.x>
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>

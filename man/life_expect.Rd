@@ -7,30 +7,32 @@
 life_expect(matU, start = 1L)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+\item{matU}{The survival component of a MPM (i.e. a square projection matrix
+reflecting survival-related transitions; e.g. progression, stasis, and
+retrogression). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage of the life cycle
+which the user considers to be the beginning of life. Defaults to 1.
+Alternately, a numeric vector giving the starting population vector (in which
+ case \code{length(start)} must match \code{ncol(matU))}. See section
+\emph{Starting from multiple stages}.}
 }
 \value{
 Returns life expectancy. If \code{matU} is singular (often indicating
   infinite life expectancy), returns \code{NA}.
 }
 \description{
-Applies Markov chain approaches to obtain mean life expectancy from a matrix
-population model.
+Applies Markov chain approaches to obtain mean and variance of life
+expectancy from a matrix population model (MPM).
 }
 \section{Starting from multiple stages}{
 
 Rather than specifying argument \code{start} as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
+multiple starting stage classes. For example, if the user wants to start their
 calculation of life expectancy from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
+reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.
 
 To specify multiple starting stage classes, specify argument \code{start} as
@@ -47,10 +49,11 @@ data(mpm1)
 
 # life expectancy starting from stage class 2 
 life_expect(mpm1$matU, start = 2)
+life_expect(mpm1$matU, start = "small")  # equivalent using named life stages
 
 # life expectancy starting from first reproduction
-repstages <- repro_stages(mpm1$matF)
-n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
+rep_stages <- repro_stages(mpm1$matF)
+n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
 life_expect(mpm1$matU, start = n1)
 
 }
