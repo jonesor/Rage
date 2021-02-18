@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
+#The following line seems to be required by pkgdown::build_site(), but causes build to break with R-CMD-CHECK on GH
 #knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
