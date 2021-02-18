@@ -74,7 +74,7 @@ can be found in section 5.3 &quot;Age-specific traits from stage-specific models
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -97,16 +97,16 @@ can be found in section 5.3 &quot;Age-specific traits from stage-specific models
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -158,26 +158,29 @@ can be found in section 5.3 "Age-specific traits from stage-specific models" of 
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and/or retrogression).</p></td>
+progression, stasis, and/or retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>matF</th>
       <td><p>(Optional) The sexual component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to sexual
-reproduction).</p></td>
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>matC</th>
       <td><p>(Optional) The clonal component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to clonal
-reproduction).</p></td>
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match
-<code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+      <td><p>The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
+must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>xmax</th>
@@ -281,6 +284,23 @@ the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
 #&gt; 13 12 0.008646119 0.002553291 0.2953106 0.007369474 0.016222256 1.876247
 #&gt; 14 13 0.006092829 0.001799274 0.2953101 0.005193192 0.008852782 1.452984
 #&gt; 15 14 0.004293555 0.001267929 0.2953100 0.003659590 0.003659590 0.852345
+#&gt; 16 15 0.003025625          NA        NA          NA          NA       NA</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>  <span class='co'># equivalent using named life stages</span>
+</div><div class='output co'>#&gt;     x          lx          dx        qx          Lx          Tx       ex
+#&gt; 1   0 1.000000000 0.500000000 0.5000000 0.750000000 2.000382820 2.000383
+#&gt; 2   1 0.500000000 0.183200000 0.3664000 0.408400000 1.250382820 2.500766
+#&gt; 3   2 0.316800000 0.108187000 0.3414994 0.262706500 0.841982820 2.657774
+#&gt; 4   3 0.208613000 0.064699290 0.3101403 0.176263355 0.579276320 2.776799
+#&gt; 5   4 0.143913710 0.043329919 0.3010826 0.122248751 0.403012965 2.800379
+#&gt; 6   5 0.100583791 0.029887091 0.2971363 0.085640246 0.280764215 2.791347
+#&gt; 7   6 0.070696700 0.020921617 0.2959348 0.060235892 0.195123969 2.760015
+#&gt; 8   7 0.049775083 0.014708992 0.2955091 0.042420587 0.134888077 2.709952
+#&gt; 9   8 0.035066091 0.010357661 0.2953754 0.029887261 0.092467490 2.636949
+#&gt; 10  9 0.024708430 0.007297162 0.2953309 0.021059849 0.062580229 2.532748
+#&gt; 11 10 0.017411268 0.005141838 0.2953167 0.014840349 0.041520380 2.384684
+#&gt; 12 11 0.012269430 0.003623311 0.2953121 0.010457775 0.026680031 2.174513
+#&gt; 13 12 0.008646119 0.002553291 0.2953106 0.007369474 0.016222256 1.876247
+#&gt; 14 13 0.006092829 0.001799274 0.2953101 0.005193192 0.008852782 1.452984
+#&gt; 15 14 0.004293555 0.001267929 0.2953100 0.003659590 0.003659590 0.852345
 #&gt; 16 15 0.003025625          NA        NA          NA          NA       NA</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, matF <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span>, start <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     x          lx          dx        qx          Lx          Tx       ex
 #&gt; 1   0 1.000000000 0.500000000 0.5000000 0.750000000 2.000382820 2.000383
@@ -360,7 +380,7 @@ the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

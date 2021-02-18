@@ -263,10 +263,11 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 2.10.0"
+      "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "1775.497KB",
+  "fileSize": "1937.35KB",
   "contIntegration": ["https://codecov.io/github/jonesor/Rage?branch=devel", "https://codecov.io/github/jonesor/Rage?branch=master"],
-  "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"]
+  "developmentStatus": ["https://www.repostatus.org/#wip", "https://www.repostatus.org/#active"],
+  "readme": "https://github.com/jonesor/Rage/blob/master/README.md"
 }

@@ -76,7 +76,7 @@ Caswell (2001)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -99,16 +99,16 @@ Caswell (2001)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -161,20 +161,22 @@ Caswell (2001).</p>
       <th>matU</th>
       <td><p>The survival component of a MPM (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression).</p></td>
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>matR</th>
       <td><p>The reproductive component of a MPM (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both).</p></td>
+sexual, clonal, or both). Optionally with named rows and columns indicating
+the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match
-<code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+      <td><p>The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
+must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>xmax</th>
@@ -250,6 +252,12 @@ individuals achieving reproductive maturity in each stage class.</p>
 #&gt; [11] 0.0174112681 0.0122694301 0.0086461194 0.0060928288 0.0042935549
 #&gt; [16] 0.0030256254 0.0021321283 0.0015024897 0.0010587897 0.0007461186
 #&gt; [21] 0.0005257824 0.0003705137 0.0002610973 0.0001839927 0.0001296578
+#&gt; [26] 0.0000913686</div><div class='input'><span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span><span class='op'>)</span> <span class='co'># equivalent using named life stages</span>
+</div><div class='output co'>#&gt;  [1] 1.0000000000 0.5000000000 0.3168000000 0.2086130000 0.1439137100
+#&gt;  [6] 0.1005837911 0.0706967003 0.0497750832 0.0350660912 0.0247084304
+#&gt; [11] 0.0174112681 0.0122694301 0.0086461194 0.0060928288 0.0042935549
+#&gt; [16] 0.0030256254 0.0021321283 0.0015024897 0.0010587897 0.0007461186
+#&gt; [21] 0.0005257824 0.0003705137 0.0002610973 0.0001839927 0.0001296578
 #&gt; [26] 0.0000913686</div><div class='input'><span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, xmax <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>       <span class='co'># to a maximum age of 10</span>
 </div><div class='output co'>#&gt;  [1] 1.000000000 0.150000000 0.040000000 0.019840000 0.012414650 0.008437150
 #&gt;  [7] 0.005872905 0.004122125 0.002900967 0.002043401 0.001439762</div><div class='input'><span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>  <span class='co'># to a minimum lx of 0.05</span>
@@ -305,7 +313,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

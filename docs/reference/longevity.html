@@ -73,7 +73,7 @@ critical proportion) from a matrix population model" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -96,16 +96,16 @@ critical proportion) from a matrix population model" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/GettingStarted.html">Getting started with Rage</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/VitalRates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -149,14 +149,15 @@ critical proportion) from a matrix population model</p>
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match
-<code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+      <td><p>The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
+must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>x_max</th>
@@ -194,7 +195,7 @@ should match the number of columns in the relevant MPM).</p>
     <p>Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968</p>
-<p>Morris, W. F. &amp; D. F. Doak. 2003. Quantitative Conservation Biology:
+<p>Morris, W. F. &amp; Doak, D. F. 2003. Quantitative Conservation Biology:
   Theory and Practice of Population Viability Analysis. Sinauer Associates,
   Sunderland, Massachusetts, USA</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -210,6 +211,7 @@ individuals achieving reproductive maturity in each stage class.</p></div>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
 
 <span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span><span class='op'>)</span>  <span class='co'># equivalent using named life stages</span>
 </div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>longevity</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 7</div><div class='input'>
 <span class='co'># starting from first reproduction</span>
@@ -229,7 +231,7 @@ individuals achieving reproductive maturity in each stage class.</p></div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, owen Jones, Julia Jones, Sam Levin.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">
