@@ -5,11 +5,12 @@
 #' model to reach a defined quasi-stationary stage distribution.
 #'
 #' @param mat A matrix population model, or component thereof (i.e. a square
-#'   projection matrix).
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   projection matrix). Optionally with named rows and columns indicating the
+#'   corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   giving the starting population vector (in which case \code{length(start)}
+#'  must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param conv Proportional distance threshold from the stationary stage
 #'   distribution indicating convergence. For example, this value should be 0.05 if the
 #'   user wants to obtain the time step when the stage distribution is within a
@@ -89,8 +90,9 @@
 #' @examples
 #' data(mpm1)
 #' 
-#' # starting stage = 2 
+#' # starting stage = 2 (i.e., "small")
 #' qsd_converge(mpm1$matU, start = 2)
+#' qsd_converge(mpm1$matU, start = "small")  # equivalent using named life stages
 #' 
 #' # convergence threshold = 0.001
 #' qsd_converge(mpm1$matU, start = 2, conv = 0.001)
@@ -111,6 +113,10 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   
   if (length(start) == 1) {
     start_vec <- rep(0.0, nrow(mat))
+    if(!is.null(dimnames(mat))) {
+      checkMatchingStageNames(mat)
+      names(start_vec) <- colnames(mat)
+    }
     start_vec[start] <- 1.0
   } else {
     start_vec <- start
@@ -145,7 +151,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
       w <- rep(0, nrow(mat))
     } else {
       
-      w <- stable.stage(mat)
+      w <- popbio::stable.stage(mat)
       
       n <- start_vec
       dist <- 1
@@ -166,7 +172,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
       }
     }
   } else {
-    w <- stable.stage(mat)
+    w <- popbio::stable.stage(mat)
   }
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others
