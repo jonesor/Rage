@@ -59,7 +59,10 @@ net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
   checkValidMat(matR)
   checkValidStartLife(start, matU)
   method <- match.arg(method, c("generation", "start"))
-                 
+  if (!is.numeric(start)){
+    checkMatchingStageNames(M = matU, N = matR)
+  }
+  
   # matrix dimensions
   matDim <- nrow(matU)
   
