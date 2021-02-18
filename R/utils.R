@@ -28,10 +28,19 @@ checkValidMat <- function(M,
 }
 
 #' @noRd
-checkMatchingStageNames <- function(M) {
-  if (!identical(rownames(M), colnames(M))) {
-    stop("When naming lifestages, both rows and columns must be named ",
-         "and their names must be identical")
+checkMatchingStageNames <- function(M, N = NULL) {
+  if (is.null(N)) {
+    if (!identical(rownames(M), colnames(M))) {
+      stop("When naming lifestages, both rows and columns must be named ",
+           "and their names must be identical")
+    }
+  } else {
+    if (!identical(rownames(M), colnames(M)) || !identical(rownames(N), colnames(N)) ||
+        !identical(M * 0L, N * 0L)) {
+      stop("When naming lifestages, both rows and columns must be named ",
+           "their names must be identical, and they must be the same between ",
+           "both matrices passed to the function.")
+    }
   }
 }
 
