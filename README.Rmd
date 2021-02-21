@@ -15,21 +15,17 @@ options(digits = 4)
 
 # Rage
 
-**Development branch**
 
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-![R-CMD-check](https://github.com/jonesor/Rage/workflows/R-CMD-check/badge.svg?branch=devel)
-[![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=devel) 
-![test-coverage](https://github.com/jonesor/Rage/workflows/test-coverage/badge.svg?branch=devel)
 
-**Master branch**
+<!--- Continuous integration badges --->
 
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-![R-CMD-check](https://github.com/jonesor/Rage/workflows/R-CMD-check/badge.svg?branch=master)
-[![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master) 
-![test-coverage](https://github.com/jonesor/Rage/workflows/test-coverage/badge.svg?branch=master)
+| Project   |      Master branch     |  Devel branch |
+|----------|:--------------|:------------------------|
+| [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) |  [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/jonesor/Rage/actions/workflows/R-CMD-check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/R-CMD-check.yaml/badge.svg?branch=devel)](https://github.com/jonesor/Rage/actions/workflows/R-CMD-check.yaml) |
+| [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) |    [![Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=master)](https://travis-ci.org/jonesor/Rage)   |   [![Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=master)](https://travis-ci.org/jonesor/Rage) |
+|   | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=master&svg=true)](https://ci.appveyor.com/project/jonesor/Rage) |    [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage) |
+|   | [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master) |    |
+    
 
 ------
 
@@ -275,7 +271,7 @@ All contributions are welcome. Please note that this project is released with a 
 
 There are numerous ways of contributing. 
 
-1. You can submit bug reports, suggestions etc. by [opening an issue](https://github.com/jonesor/Rcompadre/issues).
+1. You can submit bug reports, suggestions etc. by [opening an issue](https://github.com/jonesor/Rage/issues).
 
 2. You can copy or fork the repository, make your own code edits and then send us a pull request. [Here's how to do that](https://jarv.is/notes/how-to-pull-request-fork-github/).
 
