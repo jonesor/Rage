@@ -27,7 +27,7 @@ options(digits = 4)
 |   | [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master) |    |
     
 
-------
+-------
 
 Functions for calculating life history metrics from matrix population models (MPMs).
 
