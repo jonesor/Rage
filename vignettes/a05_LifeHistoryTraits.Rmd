@@ -128,7 +128,9 @@ mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination
 text text
 
 ```{r}
-mature_distrib(matU = mpm1$matU, matR = mpm1$matF)   
+mpm1$matF #Can see that medium and large stages are reproductive
+
+mature_distrib(matU = mpm1$matU, start = 1L, repro_stages = c(FALSE,FALSE,TRUE,TRUE,FALSE))   
 ```
 
 
