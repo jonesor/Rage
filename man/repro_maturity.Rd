@@ -16,14 +16,16 @@ mature_distrib(matU, start = 1L, repro_stages)
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression).}
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
 square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both).}
+sexual, clonal, or both). Optionally with named rows and columns indicating
+ the corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers
-the beginning of life. Defaults to 1.}
+\item{start}{The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1.}
 
 \item{repro_stages}{Logical vector indicating which stages are reproductive.
 Must be of length \code{ncol(matU)}.}
@@ -53,7 +55,7 @@ mature_distrib(mpm1$matU, start = 2, repro_stages = repstage)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 }

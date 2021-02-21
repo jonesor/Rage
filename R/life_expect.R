@@ -1,15 +1,17 @@
 #' Calculate life expectancy from a matrix population model
 #'
-#' Applies Markov chain approaches to obtain mean and variance of life expectancy from a matrix
-#' population model.
+#' Applies Markov chain approaches to obtain mean and variance of life
+#' expectancy from a matrix population model (MPM).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param start The index of the first stage at which the user considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#' @param matU The survival component of a MPM (i.e. a square projection matrix
+#'   reflecting survival-related transitions; e.g. progression, stasis, and
+#'   retrogression). Optionally with named rows and columns indicating the
+#'   corresponding life stage names.
+#' @param start The index (or stage name) of the first stage of the life cycle
+#'   which the user considers to be the beginning of life. Defaults to 1.
+#'   Alternately, a numeric vector giving the starting population vector (in which
+#'    case \code{length(start)} must match \code{ncol(matU))}. See section
+#'   \emph{Starting from multiple stages}.
 #' 
 #' @return Returns life expectancy. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
@@ -17,16 +19,16 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
 #' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' 
 #' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
-#' multiple starting stage classes. For example, if we want to start our
+#' multiple starting stage classes. For example, if the user wants to start their
 #' calculation of life expectancy from reproductive maturity (i.e. first
-#' reproduction), we should account for the possibility that there may be
+#' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
 #' To specify multiple starting stage classes, specify argument \code{start} as
@@ -42,6 +44,7 @@
 #' 
 #' # life expectancy starting from stage class 2 
 #' life_expect(mpm1$matU, start = 2)
+#' life_expect(mpm1$matU, start = "small")  # equivalent using named life stages
 #' 
 #' # life expectancy starting from first reproduction
 #' rep_stages <- repro_stages(mpm1$matF)
@@ -62,22 +65,27 @@ life_expect <- function(matU, start = 1L) {
     start_vec <- start / sum(start)
   } else {
     start_vec <- rep(0.0, matDim)
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
     start_vec[start] <- 1.0
   }
   
   # try calculating fundamental matrix (will fail if matrix singular)
   N <- try(solve(diag(matDim) - matU), silent = TRUE)
-  Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
   
-  # check for errors due to singular matrix
-  # if singular, return NA
-  if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
+  if(inherits(N, "try-error")) {
     mean <- NA_real_
     var <- NA_real_
   } else {
+  
+    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
     mean <- sum(colSums(N) * start_vec)
     var <- sum(Nvar * start_vec)
+    
   }
+  
   
   life_expect <- data.frame("mean" = mean,
                             "var" = var)

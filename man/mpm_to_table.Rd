@@ -16,58 +16,61 @@ mpm_to_table(
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and/or retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
 \item{matF}{(Optional) The sexual component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to sexual
-reproduction)}
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
 \item{matC}{(Optional) The clonal component of a matrix population model
 (i.e. a square projection matrix reflecting transitions due to clonal
-reproduction).}
+reproduction). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{xmax}{Maximum age to which the life table will be calculated (defaults
 to \code{1000}). Time steps are in the same units as the matrix population
-model (see MatrixPeriodicity column in metadata of COM(P)ADRE).}
+model (see MatrixPeriodicity metadata variable COM(P)ADRE).}
 
 \item{lx_crit}{Minimum value of lx to which age-specific traits will be
 calculated (defaults to \code{1e-4}).}
 }
 \value{
-A \code{data.frame} containing 7-13 columns.
+A \code{data.frame} containing 7-13 columns, depending on input variables.
   Columns include:
-  \item{x}{age}
-  \item{lx}{survivorship to start of age class x}
-  \item{dx}{proportion of original cohort dying in interval [x, x+1)}
-  \item{qx}{force of mortality at age x}
-  \item{Lx}{survivorship to middle of age class x}
-  \item{Tx}{proportion of original cohort alive at age x and beyond}
-  \item{ex}{remaining life expectancy at age x}
+  \item{x}{age.}
+  \item{lx}{survivorship to start of age class x.}
+  \item{dx}{proportion of original cohort dying in interval [x, x+1).}
+  \item{qx}{force of mortality at age x.}
+  \item{Lx}{survivorship to middle of age class x.}
+  \item{Tx}{proportion of original cohort alive at age x and beyond.}
+  \item{ex}{remaining life expectancy at age x.}
 
 If \code{matF} is provided, also includes:
-  \item{mx}{per-capita rate of sexual reproduction at age x}
+  \item{mx}{per-capita rate of sexual reproduction at age x.}
   \item{lxmx}{expected number of sexual offspring per original
-  cohort member produced at age x}
+  cohort member produced at age x.}
   
 If \code{matC} is provided, also includes:
-  \item{cx}{per-capita rate of clonal reproduction at age x}
+  \item{cx}{per-capita rate of clonal reproduction at age x.}
   \item{lxcx}{expected number of clonal offspring per original
-  cohort member produced at age x}
+  cohort member produced at age x.}
   
 If both \code{matF} and \code{matC} are provided, also includes:
-  \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) at age x}
+  \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) at age x.}
   \item{lxmxcx}{expected number of total offspring (sexual + clonal) per original
-  cohort member produced at age x}
+  cohort member produced at age x.}
 }
 \description{
 This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
-can be found in section 5.3 of Caswell (2001).
+can be found in section 5.3 "Age-specific traits from stage-specific models" of Caswell (2001).
 }
 \note{
 The life table is calculated recursively until the age class (x)
@@ -80,9 +83,9 @@ The life table is calculated recursively until the age class (x)
 
 Rather than specifying argument \code{start} as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if we want to start our
+multiple starting stage classes. For example, if the user wants to start the
 calculation of age-specific traits from reproductive maturity (i.e. first
-reproduction), we should account for the possibility that there may be
+reproduction), the user should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.
 
 To specify multiple starting stage classes, specify argument \code{start} as
@@ -98,24 +101,30 @@ individuals achieving reproductive maturity in each stage class.
 data(mpm1)
 
 mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
+mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)  # equivalent using named life stages
 mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction
-repstages <- repro_stages(mpm1$matF)
-n1 <- mature_distrib(matU = mpm1$matU, start = 2, repro_stages = repstages)
+repStages <- repro_stages(mpm1$matF)
+n1 <- mature_distrib(matU = mpm1$matU, start = 2, repro_stages = repStages)
 mpm_to_table(matU = mpm1$matU, start = n1)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
+Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
 
-Caswell, H. (2006) Applications of Markov chains in demography. pp. 319-334
+Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334
 in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 Meeting. Boson Books, Raleigh, North Caroline, USA
 
-Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-Nature, 505(7482), 169–173
+Horvitz, C. & Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+mortality plateaus. The American Naturalist 172: 203-2015. <doi:10.1086/589453>
+
+Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
+Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
+P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
+the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

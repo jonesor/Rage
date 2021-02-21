@@ -2,20 +2,22 @@
 #'
 #' These functions use age-from-stage decomposition methods to calculate
 #' age-specific survivorship (lx), survival probability (px), mortality hazard
-#' (hx), or reproduction (mx) from a matrix population model. A detailed
+#' (hx), or reproduction (mx) from a matrix population model (MPM). A detailed
 #' description of these methods can be found in sections 5.3.1 and 5.3.2 of
 #' Caswell (2001).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a MPM (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression)
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#'   progression, stasis, and retrogression). Optionally with named rows and
+#'   columns indicating the corresponding life stage names.
+#' @param matR The reproductive component of a MPM (i.e. a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both)
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   sexual, clonal, or both). Optionally with named rows and columns indicating
+#'   the corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   giving the starting population vector (in which case \code{length(start)}
+#'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which age-specific traits will be calculated
 #'   (defaults to \code{100000}).
 #' @param lx_crit Minimum value of lx to which age-specific traits will be
@@ -30,15 +32,15 @@
 #' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
-#' multiple starting stage classes. For example, if we want to start our
+#' multiple starting stage classes. For example, if users want to start their
 #' calculation of age-specific traits from reproductive maturity (i.e. first
-#' reproduction), we should account for the possibility that there may be
+#' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
-#' To specify multiple starting stage classes, specify argument \code{start} as
-#' the desired starting population vector (\strong{n1}), giving the proportion
-#' of individuals starting in each stage class (the length of \code{start}
-#' should match the number of columns in the relevant MPM).
+#' To specify multiple starting stage classes, users should specify argument
+#' \code{start} as the desired starting population vector (\strong{n1}), giving
+#' the proportion of individuals starting in each stage class (the length of
+#' \code{start} should match the number of columns in the relevant MPM).
 #' 
 #' See function \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.
@@ -56,7 +58,7 @@
 #' 
 #' @seealso \code{\link{lifetable_convert}}
 #' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #' 
@@ -66,6 +68,7 @@
 #' # age-specific survivorship
 #' mpm_to_lx(mpm1$matU)
 #' mpm_to_lx(mpm1$matU, start = 2)       # starting from stage 2
+#' mpm_to_lx(mpm1$matU, start = "small") # equivalent using named life stages
 #' mpm_to_lx(mpm1$matU, xmax = 10)       # to a maximum age of 10
 #' mpm_to_lx(mpm1$matU, lx_crit = 0.05)  # to a minimum lx of 0.05
 #' 
@@ -102,13 +105,18 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4,
   
   N <- length(mpm_to_lx(matU, start, xmax, lx_crit, tol))
   
-  if (length(start) > 1) {
-    n <- start
+  if (length(start) == 1) {
+    start_vec <- rep(0.0, nrow(matU))
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
+    start_vec[start] <- 1.0
   } else {
-    n <- rep(0.0, nrow(matU))
-    n[start] <- 1.0
+    start_vec <- start
   }
   
+  n <- start_vec
   mx <- numeric(N)
   
   for (i in 1:N) {
@@ -136,12 +144,18 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
   lx <- 1.0
   lx_vec <- lx
   
-  if (length(start) > 1) {
-    n <- start / sum(start)
+  if (length(start) == 1) {
+    start_vec <- rep(0.0, nrow(matU))
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
+    start_vec[start] <- 1.0
   } else {
-    n <- rep(0.0, nrow(matU))
-    n[start] <- 1.0
+    start_vec <- start
   }
+  
+  n <- start_vec
   
   while (lx > lx_crit & t < xmax) {
     n <- matU %*% n

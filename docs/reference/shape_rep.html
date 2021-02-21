@@ -74,7 +74,7 @@ area under a cumulative function describing constant reproduction." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ area under a cumulative function describing constant reproduction." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,10 +97,16 @@ area under a cumulative function describing constant reproduction." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Getting started with Rage</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
-      <a href="../articles/vital-rates.html">Deriving vital rates from an MPM</a>
+      <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
+    </li>
+    <li>
+      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+    </li>
+    <li>
+      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
   </ul>
 </li>
@@ -108,7 +114,7 @@ area under a cumulative function describing constant reproduction." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jonesor/Rage/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -155,7 +161,7 @@ partial reproduction schedules.</p></td>
     </tr>
     <tr>
       <th>xmin, xmax</th>
-      <td><p>The minimum and maximum age repectively over which to
+      <td><p>The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/base/Extremes.html'>min(x)</a></code> and
 <code><a href='https://rdrr.io/r/base/Extremes.html'>max(x)</a></code> respectively.</p></td>
     </tr>
@@ -166,7 +172,7 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
     <p>a shape value describing symmetry of reproduction over age by
   comparing the area under a cumulative reproduction curve over age with the
   area under constant reproduction. May take any real value between -0.5 and
-  +0.5. A value of 0 indicates negligible aging (neither generally increasing
+  +0.5. A value of 0 indicates negligible ageing (neither generally increasing
   nor generally decreasing reproduction with age); positive values indicate
   senescence (generally decreasing reproduction with age); negative values
   indicate negative senescence (generally increasing reproduction with age).
@@ -202,7 +208,7 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
 
       <footer>
       <div class="copyright">
-  <p>Developed by Owen R. Jones.</p>
+  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
 </div>
 
 <div class="pkgdown">

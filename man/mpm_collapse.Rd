@@ -74,9 +74,9 @@ mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2, 3:4, 5))
 
 }
 \references{
-Salguero-Gomez, R. & Plotkin, J. B. (2010) Matrix dimensions bias
+Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
   demographic inferences: implications for comparative plant demography. The
-  American Naturalist 176, 710-722.
+  American Naturalist 176, 710-722. <doi:10.1086/657044>
 }
 \seealso{
 \code{\link{mpm_standardize}}

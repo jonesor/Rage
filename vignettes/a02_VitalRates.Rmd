@@ -16,6 +16,12 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(digits = 4)
+```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 ## Introduction
@@ -194,7 +200,7 @@ more straightforward to summarize, as they only reflect a single process (i.e.
 fecundity).
 
 ```{r}
-vr_vec_fecundity(matU, matF)
+vr_vec_reproduction(matU, matF)
 ```
 
 In the example MPM we're using here, individuals produced by fecundity always

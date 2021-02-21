@@ -2,13 +2,14 @@
 title: "Age-from-stage analyses"
 author: "Patrick Barks"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    depth: 2
 vignette: >
   %\VignetteIndexEntry{Age-from-stage analyses}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -16,6 +17,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(digits = 4)
+
+```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 ## Introduction
@@ -24,39 +32,41 @@ Regardless of whether the stage classes of a matrix population model (MPM) are b
 
 ## Preliminaries
 
-We'll start by loading a few packages and a dataset that we'll be using throughout this vignette. The dataset `Compadre` is a subset of a recent COMPADRE release that's built into Rcompadre.
+We'll start by loading a few packages and a dataset that we'll be using throughout this vignette. 
 
 ```{r}
-library(Rcompadre)
-library(Rage)
-data(Compadre)
-options(tibble.width = Inf) # always print all columns of tibble
+library(Rage)  # load Rage
+data(mpm1)     # load data object 'mpm1'
+mpm1           # display the contents
 ```
 
 ## Age-from-stage methods with a single matrix population model
 
-Next we'll grab an MPM, arbitrarily selecting the fourth one in `Compadre`.
+This MPM has 5 stage class, and it's apparent from the `dimnames` attribute that the stages are not based solely on age. Nonetheless, we can estimate age-schedules of survivorship and reproduction using the functions `mpm_to_lx()` and `mpm_to_mx()` from `Rage`.
 
 ```{r}
-mpm <- Compadre$mat[[4]]
-mpm
-```
+dimnames(mpm1$matU)
 
-This MPM has 5 stage class, and it's apparent from the `MatrixClassAuthor` column that the stages are not based solely on age. Nonetheless, we can estimate age-schedules of survivorship and reproduction using the functions `ageSpecificSurv()` and `ageSpecificRepro()` from the library [Rage](https://github.com/jonesor/Rage).
-
-```{r}
 # extract U and F matrices
-mat_U <- matU(mpm)
-mat_F <- matF(mpm)
+mat_U <- mpm1$matU
+mat_F <- mpm1$matF
 
 # calculate lx
-lx <- ageSpecificSurv(mat_U, startLife = 1, N = 15)
+lx <- mpm_to_lx(mat_U, start = 1, xmax = 30)
 
 # calculate mx
-mx <- ageSpecificRepro(mat_U, mat_F, startLife = 1, N = 15)
+mx <- mpm_to_mx(mat_U, mat_F, start = 1, xmax = 30)
 ```
 
-In addition to the relevant matrix components, the `ageSpecific-` functions require two extra arguments. The first, `startLife`, is an integer indicating which stage reflects the 'start of life'. Usually this will be `1`, but sometimes we might want to skip over stages that are propagule (i.e. seed) or dormant. The MPM we selected didn't have any such stages (see the column `MatrixClassOrganized` above), so we can stick with `1`. The second argument, `N` is the number of time steps to calculate over.
+In addition to the relevant matrix components, the `mpm_to_*` functions require two extra arguments. The first, `start`, is an integer indicating which stage reflects the 'start of life'. Usually this will be `1`, but sometimes we might want to skip over stages that are propagule (i.e. seed) or dormant. The MPM we selected begins with a seed stage, so we may want to start from the second stage, corresponding to `start = 2`. The second argument, `N` is the number of time steps to calculate over.
+
+```{r}
+# calculate lx
+lx <- mpm_to_lx(mat_U, start = 1, xmax = 30)
+
+# calculate mx
+mx <- mpm_to_mx(mat_U, mat_F, start = 1, xmax = 30)
+```
 
 Let's take a look at the trajectories.
 
@@ -67,11 +77,15 @@ plot(mx, type = "l", xlab = "Age")
 
 ## Extending to many matrix population models
 
-Now we'll extend the basic approach above to many models. Specifically, we'll examine trajectories of survivorship for all of the tree species in `Compadre`.
+Now we'll extend the basic approach above to many models. Specifically, we'll examine trajectories of survivorship for all of the tree species in `Compadre`. `Compadre` is a database of matrix population models. You can read more about it [here](https://compadre-db.org/), and the associated _R_ package [here](https://jonesor.github.io/Rcompadre/). The `Rcompadre` package contains a subset of the database that we can use to demonstrate computations on many models simultaneously.
 
 First, we'll subset `Compadre` to our group of interest (`OrganismType == "Tree"`). We'll also remove matrices with missing values, and limit our selection to matrices with a periodicity (i.e. transition interval) of 1 year.
 
 ```{r}
+
+library(Rcompadre)
+data(Compadre)
+
 comp_flag <- cdb_flag(Compadre, "check_NA_U")
 
 comp_use <- subset(comp_flag, OrganismType == "Tree" &
@@ -110,13 +124,26 @@ Indeed, 1 MPM incudes a propagule stage. So let's use the function `mpm_first_ac
 comp_collapse$start_life <- mpm_first_active(comp_collapse)
 ```
 
-Finally, we'll use `mapply()` to vectorize the function `ageSpecificSurv()` over arguments matU and startLife. By default, `mapply()` will return an array where the columns correspond to rows of our database, and rows correspond to ages — 0 through `N`. Given that the output is an array, we'll use the function `matplot()` to plot age-trajectories of survivorship for each species.
+Finally, we'll use `lapply()` to apply the function `mpm_to_lx` to each row of `comp_collapse`. By default, `lapply()` will return a vector for each row, and the length of which is `xmax`. We can convert the output to an matrix, with columns representing each row from `comp_collapse` using `do.call`. After that, we'll use the function `matplot()` to plot age-trajectories of survivorship for each species.
 
 ```{r, fig.width = 6, fig.height = 4}
-lx_array <- mapply(ageSpecificSurv,
-                   matU = matU(comp_collapse),
-                   startLife = comp_collapse$start_life,
-                   N = 250)
+
+lx_list <- lapply(seq_len(nrow(comp_collapse)),
+                   function(x, comp_collapse) {
+                     
+                     U <- matU(comp_collapse$mat[[x]])
+                    
+                    rownames(U) <- colnames(U) #ensure row and col names are present
+                     
+                     mpm_to_lx(
+                       matU = U,
+                       start = comp_collapse$start_life[x],
+                       xmax = 40
+                     )
+                   },
+                   comp_collapse = comp_collapse)
+
+lx_array <- do.call(cbind, lx_list)
 
 matplot(lx_array, type = "l", lty = 1, log = "y", ylim = c(0.0001, 1),
         lwd = 1.5, xlab = "Age (years)", ylab = "lx")

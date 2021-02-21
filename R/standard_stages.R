@@ -1,7 +1,6 @@
 #' Identify stages corresponding to different parts of the reproductive life
 #' cycle
 #'
-#'@description 
 #' Identify the stages of a matrix population model that correspond to
 #' different parts of the reproductive life cycle, namely propagule,
 #' pre-reproductive, reproductive and post-reproductive. These classifications
@@ -31,6 +30,12 @@
 #' @seealso \code{\link{mpm_standardize}}
 #' 
 #' @examples
+#' matU <- rbind(c(0.1,   0,   0,   0,   0),
+#'               c(0.5, 0.2, 0.1,   0,   0),
+#'               c(  0, 0.3, 0.3, 0.1,   0),
+#'               c(  0,   0, 0.4, 0.4, 0.1),
+#'               c(  0,   0,   0, 0.1, 0.4))
+#'
 #' matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
 #'               c(  0, 0.8,   0, 0.4,   0),
 #'               c(  0,   0,   0,   0,   0),
@@ -39,8 +44,12 @@
 #'
 #' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 #' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-#' standard_stages(matF, reproStages, matrixStages)
-#' 
+#'
+#' r <- mpm_rearrange(matU, matF, reproStages = reproStages,
+#'                    matrixStages = matrixStages)
+#'
+#' standard_stages(r$matF, r$reproStages, r$matrixStages)
+#'
 #' @export standard_stages
 standard_stages <- function(matF, reproStages, matrixStages) {
 
@@ -48,11 +57,11 @@ standard_stages <- function(matF, reproStages, matrixStages) {
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(reproStages) ||
       length(reproStages) != length(matrixStages)) {
-    stop("Arguments do not correspond to MPM of single dimension",
+    stop("Arguments do not correspond to MPM of the same dimension",
          call. = FALSE)
   }
   if (!any(reproStages == TRUE)) {
-    stop("Cannot identify standardized stages because no stages are ",
+    stop("Cannot identify standardised stages because no stages are ",
          "reproductive (i.e. at least one element of reproStages must be TRUE)",
          call. = FALSE)
   }

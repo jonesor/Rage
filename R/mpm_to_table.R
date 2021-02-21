@@ -6,17 +6,20 @@
 #'
 #' @param matU The survival component of a matrix population model (i.e. a
 #'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and/or retrogression).
+#'   progression, stasis, and/or retrogression). Optionally with named rows and
+#'   columns indicating the corresponding life stage names.
 #' @param matF (Optional) The sexual component of a matrix population model
 #'   (i.e. a square projection matrix reflecting transitions due to sexual
-#'   reproduction).
+#'   reproduction). Optionally with named rows and columns indicating the
+#'   corresponding life stage names.
 #' @param matC (Optional) The clonal component of a matrix population model
 #'   (i.e. a square projection matrix reflecting transitions due to clonal
-#'   reproduction).
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   reproduction). Optionally with named rows and columns indicating the
+#'   corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   giving the starting population vector (in which case \code{length(start)}
+#'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which the life table will be calculated (defaults
 #'   to \code{1000}). Time steps are in the same units as the matrix population
 #'   model (see MatrixPeriodicity metadata variable COM(P)ADRE).
@@ -75,25 +78,26 @@
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' 
 #' @references
-#' Caswell, H. (2001) Matrix Population Models: Construction, Analysis, and
+#' Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 #' Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
 #'
-#' Caswell, H. (2006) Applications of Markov chains in demography. pp. 319-334
+#' Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334
 #' in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 #' Meeting. Boson Books, Raleigh, North Caroline, USA
 #'
-#' Horvitz, C. & Tuljapurkar, S. (2008) Stage dynamics, period survival, and
-#' mortality plateaus. The American Naturalist 172: 203-2015. \url{https://www.jstor.org/stable/10.1086/589453?seq=1#metadata_info_tab_contents}
+#' Horvitz, C. & Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+#' mortality plateaus. The American Naturalist 172: 203-2015. <doi:10.1086/589453>
 #'
 #' Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
 #' Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
-#' P. F., Caswell, H., Baudisch, A. & Vaupel, J. (2014) Diversity of ageing across
-#' the tree of life. Nature 505, 169-173. \url{https://www.nature.com/articles/nature12789}
+#' P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
+#' the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 #' 
 #' @examples
 #' data(mpm1)
 #' 
 #' mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
+#' mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)  # equivalent using named life stages
 #' mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 #' 
 #' ### starting from first reproduction

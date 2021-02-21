@@ -1,8 +1,10 @@
-pandoc: 2.10.1
+pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  getting-started: getting-started.html
-  vital-rates: vital-rates.html
-last_built: 2021-02-14T13:13Z
+  a01_GettingStarted: a01_GettingStarted.html
+  a02_VitalRates: a02_VitalRates.html
+  a03_AgeFromStage: a03_AgeFromStage.html
+  a04_TernaryPlots: a04_TernaryPlots.html
+last_built: 2021-02-21T18:38Z
 

@@ -33,7 +33,7 @@ entropy_k(lx, trapeze = TRUE)
 
 }
 \references{
-Keyfitz, N. (1977) Applied Mathematical Demography. New York:
+Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   Wiley.
 }
 \author{

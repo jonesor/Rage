@@ -97,3 +97,14 @@ mat_u_allrep <- rbind(c(0.1, 0.0),
 mat_f_allrep <- rbind(c(0.7, 1.6),
                       c(  0,   0))
 
+# matrices with properly named life stages
+mat_u_named <- `dimnames<-`(mat_u, list(c("sm", "md", "lg", "xl"),
+                                        c("sm", "md", "lg", "xl")))
+
+mat_f_named <- `dimnames<-`(mat_f, list(c("sm", "md", "lg", "xl"),
+                                        c("sm", "md", "lg", "xl")))
+
+# matrices with improperly named life stages
+mat_u_named_mismatch <- `colnames<-`(mat_u_named, rev(colnames(mat_u_named)))
+
+mat_u_named_partial <- `rownames<-`(mat_u_named, NULL)

@@ -9,24 +9,24 @@ mpm_standardize(matU, matF, matC = NULL, reproStages, matrixStages)
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression).}
 
 \item{matF}{The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction)}
+projection matrix reflecting transitions due to sexual reproduction).}
 
 \item{matC}{The clonal component of a matrix population model (i.e. a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-\item{reproStages}{Logical vector indicating which stages are reproductive}
+\item{reproStages}{Logical vector indicating which stages are reproductive.}
 
 \item{matrixStages}{Character vector of matrix stage types (e.g. "propagule",
-"active", or "dormant")}
+"active", or "dormant").}
 }
 \value{
-A list with four elements reflecting the standardized matrix, and
-  it's components:
+A list with four elements reflecting the standardized matrix and
+  its components:
   \item{matA}{Standardized projection matrix}
   \item{matU}{Survival component of the standardized projection matrix}
   \item{matF}{Sexual reproduction component of the standardized projection matrix}
@@ -35,10 +35,10 @@ A list with four elements reflecting the standardized matrix, and
 \description{
 Transform a matrix population model to a standardized set of stage classes
 (e.g. propagule, pre-reproductive, reproductive, and post-reproductive). The
-transition rates in the standardized matrix are a weighted average of the
-transition rates from the relevant stages of the original matrix, weighted by
-the relative proportion of each stage class expected at the stable
-distribution.
+transition rates in the standardized matrix are a weighted mean of the
+transition rates and per-capita reproductive values from the relevant stages
+of the original matrix, weighted by the relative proportion of each stage
+class expected at the stable distribution.
 }
 \details{
 This function is a wrapper for the functions
@@ -47,9 +47,9 @@ This function is a wrapper for the functions
 }
 \note{
 The method used by this function to collapse a matrix population model
-  preserves the equilibrium population growth rate (\eqn{lamda}) and relative
-  stable distribution, but is not expected to preserve other traits such as
-  relative reproductive values, sensitivities, net reproductive rates, life
+  preserves the equilibrium population growth rate (\eqn{\lambda}) and relative
+  stable distribution, but is not expected to preserve other demographic characteristics
+  such as relative reproductive value, sensitivities, net reproductive rate, life
   expectancy, etc.
 }
 \section{Missing Stages}{
@@ -86,5 +86,5 @@ mpm_standardize(matU, matF, matC, reproStages, matrixStages)
 
 }
 \author{
-Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }

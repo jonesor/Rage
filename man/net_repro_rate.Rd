@@ -9,14 +9,17 @@ net_repro_rate(matU, matR, start = 1, method = "generation")
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)}
+square projection matrix only reflecting transitions due to reproduction; either
+sexual, clonal, or both). Optionally with named rows and columns indicating
+the corresponding life stage names.}
 
-\item{start}{Index of the first stage at which the author considers the
-beginning of life. Only used if \code{method = "start"}. Defaults to 1.}
+\item{start}{Index (or stage name) of the first stage at which the author
+considers the beginning of life. Only used if \code{method = "start"}.
+Defaults to 1.}
 
 \item{method}{The method used to calculate net reproductive value, either
 \code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
@@ -27,7 +30,9 @@ Returns the net reproductive value. If \code{matU} is singular (often
   indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculate net reproductive value (R0) from a matrix population model.
+Calculate net reproductive value (R0) from a matrix population model. The net 
+reproduction value (R0) is the mean number of recruits produced during the 
+mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 }
 \details{
 The \code{method} argument controls how net reproductive rate is calculated.
@@ -50,17 +55,19 @@ data(mpm1)
 
 net_repro_rate(mpm1$matU, mpm1$matF)
 
-# calculate R0 using the start method
+# calculate R0 using the start method, specifying either the life stage index
+# or name
 net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
+net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "small")
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 }
 \author{
-Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Hal Caswell <h.caswell@uva.nl>
 }

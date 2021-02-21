@@ -5,11 +5,12 @@
 #' model to reach a defined quasi-stationary stage distribution.
 #'
 #' @param mat A matrix population model, or component thereof (i.e. a square
-#'   projection matrix).
-#' @param start The index of the first stage at which the author considers the
-#'   beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-#'   starting population vector (in which case \code{length(start)} must match
-#'   \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   projection matrix). Optionally with named rows and columns indicating the
+#'   corresponding life stage names.
+#' @param start The index (or stage name) of the first stage at which the author
+#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   giving the starting population vector (in which case \code{length(start)}
+#'  must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param conv Proportional distance threshold from the stationary stage
 #'   distribution indicating convergence. For example, this value should be 0.05 if the
 #'   user wants to obtain the time step when the stage distribution is within a
@@ -20,7 +21,7 @@
 #' 
 #' @details
 #' Some matrix population models are parameterised with a stasis loop at the
-#' largest/most-developed stage class, which can lead to artefactual pleateaus
+#' largest/most-developed stage class, which can lead to artefactual plateaus
 #' in the mortality or fertility trajectories derived from such models. These
 #' plateaus occur as a projected cohort approaches its stationary stage
 #' distribution (SSD). Though there is generally no single time point at which
@@ -76,21 +77,24 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
 #'
-#'   Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-#'   Nature, 505(7482), 169-173. <doi:10.1038/nature12789>
+#'   Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
+#'   Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
+#'   P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
+#'   the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 #'
-#'   Salguero-Gomez R. (2018) Implications of clonality for ageing research.
+#'   Salguero-Gomez R. 2018. Implications of clonality for ageing research.
 #'   Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
 #' 
 #' @examples
 #' data(mpm1)
 #' 
-#' # starting stage = 2 
+#' # starting stage = 2 (i.e., "small")
 #' qsd_converge(mpm1$matU, start = 2)
+#' qsd_converge(mpm1$matU, start = "small")  # equivalent using named life stages
 #' 
 #' # convergence threshold = 0.001
 #' qsd_converge(mpm1$matU, start = 2, conv = 0.001)
@@ -111,13 +115,17 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   
   if (length(start) == 1) {
     start_vec <- rep(0.0, nrow(mat))
+    if(!is.null(dimnames(mat))) {
+      checkMatchingStageNames(mat)
+      names(start_vec) <- colnames(mat)
+    }
     start_vec[start] <- 1.0
   } else {
     start_vec <- start
   }
   
   # if not ergodic, remove stages not connected from start
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     nonzero <- rep(FALSE, nrow(mat))
     nonzero[start_vec > 0] <- TRUE
@@ -137,7 +145,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
   
   # if still not ergodic, check whether observed dist at t = N matches stable
   #  dist
-  if (!isErgodic(mat)) {
+  if (!popdemo::isErgodic(mat)) {
     
     # check whether stable dist is __0__
     check_stable_zero <- stable_zero(mat, n1 = start_vec)
@@ -145,7 +153,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
       w <- rep(0, nrow(mat))
     } else {
       
-      w <- stable.stage(mat)
+      w <- popbio::stable.stage(mat)
       
       n <- start_vec
       dist <- 1
@@ -166,7 +174,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
       }
     }
   } else {
-    w <- stable.stage(mat)
+    w <- popbio::stable.stage(mat)
   }
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others

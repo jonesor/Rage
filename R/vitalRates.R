@@ -36,9 +36,11 @@
 #' @return A list of averaged vital rates.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
-#' @references Caswell, H. (2001) Matrix Population Models: Construction,
+#' 
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
 #'   978-0878930968
+#'   
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0),

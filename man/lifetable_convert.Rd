@@ -23,14 +23,14 @@ hx_to_lx(hx)
 hx_to_px(hx)
 }
 \arguments{
-\item{lx}{Vector of age-specific survivorship}
+\item{lx}{Vector of age-specific survivorship.}
 
-\item{px}{Vector of age-specific survival probabilities}
+\item{px}{Vector of age-specific survival probabilities.}
 
-\item{hx}{Vector of age-specific mortality hazards}
+\item{hx}{Vector of age-specific mortality hazards.}
 }
 \value{
-A vector
+A vector.
 }
 \description{
 Convert between vectors of age-specific survivorship (lx), survival
@@ -63,8 +63,7 @@ px <- hx_to_px(hx)
 \references{
 Ergon, T., Borgan, Ø., Nater, C. R., & Vindenes, Y. 2018. The
   utility of mortality hazard rates in population analyses. Methods in
-  Ecology and Evolution, 9, 2046-2056.
-  \url{https://doi.org/10.1111/2041-210X.13059}
+  Ecology and Evolution, 9, 2046-2056. <doi:10.1111/2041-210X.13059>
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>

@@ -1,4 +1,3 @@
-context("mpm_to_")
 
 test_that("mpm_to_ functions work correctly", {
   
@@ -36,6 +35,17 @@ test_that("mpm_to_ functions work correctly", {
   mx_zero <- suppressWarnings(mpm_to_mx(mat_u_zero, mat_f,
                                         start = 1, xmax = xmax))
   expect_true(all(mx_zero == 0))
+  
+  # using named life stages
+  lx_named <- mpm_to_lx(mat_u_named, start = "sm", xmax = xmax, lx_crit = 0)
+  px_named <- mpm_to_px(mat_u_named, start = 1, xmax = xmax)
+  hx_named <- mpm_to_hx(mat_u_named, start = 1, xmax = xmax)
+  mx_named <- mpm_to_mx(mat_u_named, mat_f_named, start = 1, xmax = xmax)
+  expect_equal(lx, lx_named)
+  expect_equal(px, px_named)
+  expect_equal(hx, hx_named)
+  expect_equal(mx, mx_named)
+  
 })
 
 
@@ -44,17 +54,21 @@ test_that("mpm_to_ functions warn and fail gracefully", {
   # mpm_to_lx
   expect_error(mpm_to_lx(mat_u, start = 10))
   expect_error(mpm_to_lx(mat_u_na))
+  expect_error(mpm_to_lx(mat_u, start = "stage name"))
   
   # mpm_to_px
   expect_error(mpm_to_px(mat_u, start = 10))
   expect_error(mpm_to_px(mat_u_na))
+  expect_error(mpm_to_px(mat_u, start = "stage name"))
   
   # mpm_to_hx
   expect_error(mpm_to_hx(mat_u, start = 10))
   expect_error(mpm_to_hx(mat_u_na))
+  expect_error(mpm_to_hx(mat_u, start = "stage name"))
   
   # mpm_to_mx
   expect_error(mpm_to_mx(mat_u, mat_f, start = 10))
   expect_error(mpm_to_mx(mat_u_na, mat_f))
   expect_error(mpm_to_mx(mat_u, mat_f_na))
+  expect_error(mpm_to_mx(mat_u, mat_f, start = "stage name"))
 })

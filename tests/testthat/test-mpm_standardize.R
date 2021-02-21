@@ -1,4 +1,3 @@
-context("mpm_standardize")
 
 test_that("mpm_standardize works correctly", {
 
@@ -9,7 +8,7 @@ test_that("mpm_standardize works correctly", {
   x <- mpm_standardize(mat_u_inter, mat_f_inter, reproStages = reproStages,
                        matrixStages = matrixStages)
   
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   expect_equal(ncol(x$matA), 4)
 })

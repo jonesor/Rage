@@ -2,47 +2,51 @@
 % Please edit documentation in R/standard_stages.R
 \name{standard_stages}
 \alias{standard_stages}
-\title{Group the stages of a matrix population model into a standardized set of
-stage classes}
+\title{Identify stages corresponding to different parts of the reproductive life
+cycle}
 \usage{
-standard_stages(
-  matF,
-  reproStages,
-  matrixStages,
-  includeProp = TRUE,
-  includePost = TRUE
-)
+standard_stages(matF, reproStages, matrixStages)
 }
 \arguments{
 \item{matF}{The sexual component of a matrix population model (i.e. a square
-projection matrix reflecting transitions due to sexual reproduction) —
-rearranged so that non-reproductive stages are in the final rows/columns}
+projection matrix reflecting transitions only due to \emph{sexual} 
+reproduction). It assumes that it has been rearranged so that 
+non-reproductive stages are in the final rows/columns.}
 
-\item{reproStages}{Logical vector identifying which stages reproductive}
+\item{reproStages}{Logical vector identifying which stages are reproductive.}
 
 \item{matrixStages}{(character) vector of stages, values are "prop"
-(propagule), "active", and "dorm" (dormant)}
-
-\item{includeProp}{(logical) include propagule stage. default: \code{TRUE}.
-if \code{TRUE}, propagule stage (if present) is given back in result. If
-\code{FALSE}, it's included into the pre-reproductive stage}
-
-\item{includePost}{(logical) include post-reproductive stage. default:
-\code{TRUE}. if \code{TRUE}, post-reproductive stage (if present) is given
-back in result. If \code{FALSE}, it's included into the reproductive
-stage}
+(propagule), "active", and "dorm" (dormant).}
+}
+\value{
+A list with four elements:
+  \item{propStages}{Position of the propagule stages}
+  \item{preRepStages}{Position of the pre-reproductive stages}
+  \item{repStages}{Position of the reproductive stages}
+  \item{postRepStages}{Position of the post-reproductive stages}
 }
 \description{
-Assumes that fecundity and mean fecundity matrices have been rearranged so
-that non-reproductive stages are in the final rows/columns.
+Identify the stages of a matrix population model that correspond to
+different parts of the reproductive life cycle, namely propagule,
+pre-reproductive, reproductive and post-reproductive. These classifications
+are used to standardise matrices to allow comparisons across species with
+different life cycle structures, see \code{\link{mpm_standardize}}.
 }
 \details{
+Assumes that fecundity and mean fecundity matrices have been 
+rearranged so that non-reproductive stages are in the final rows/columns.
 Output indicates groupings to be used when collapsing the matrix model.
 }
 \note{
 Dormant stages are not currently handled.
 }
 \examples{
+matU <- rbind(c(0.1,   0,   0,   0,   0),
+              c(0.5, 0.2, 0.1,   0,   0),
+              c(  0, 0.3, 0.3, 0.1,   0),
+              c(  0,   0, 0.4, 0.4, 0.1),
+              c(  0,   0,   0, 0.1, 0.4))
+
 matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
               c(  0, 0.8,   0, 0.4,   0),
               c(  0,   0,   0,   0,   0),
@@ -51,14 +55,16 @@ matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
 
 reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
 matrixStages <- c('prop', 'active', 'active', 'active', 'active')
-standard_stages(matF, reproStages, matrixStages)
 
-# combine post-reproductive and reproductive
-standard_stages(matF, reproStages, matrixStages, includePost = FALSE)
+r <- mpm_rearrange(matU, matF, reproStages = reproStages,
+                   matrixStages = matrixStages)
+
+standard_stages(r$matF, r$reproStages, r$matrixStages)
+
 }
 \seealso{
 \code{\link{mpm_standardize}}
 }
 \author{
-Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }

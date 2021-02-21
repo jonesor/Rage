@@ -1,4 +1,3 @@
-context("standard_stages")
 
 test_that("standard_stages works correctly", {
   
@@ -8,13 +7,13 @@ test_that("standard_stages works correctly", {
   r <- mpm_rearrange(mat_u, mat_f, mat_c, reproStages, matrixStages)
 
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   
   # make sure all stages in original mpm represented in output
   stages <- as.numeric(unlist(x))
   stages <- stages[!is.na(stages)]
-  expect_true(all(stages %in% 1:nrow(r$matU)))
+  expect_true(all(1:nrow(r$matU) %in% stages))
 
   
   ## mpm with inter-reproductive stage
@@ -24,13 +23,13 @@ test_that("standard_stages works correctly", {
                      matrixStages = matrixStages)
   
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   
   # make sure all stages in original mpm represented in output
   stages <- as.numeric(unlist(x))
   stages <- stages[!is.na(stages)]
-  expect_true(all(stages %in% 1:nrow(r$matU)))
+  expect_true(all(1:nrow(r$matU) %in% stages))
   
   
   ## mpm with all stages reproductive
@@ -40,11 +39,14 @@ test_that("standard_stages works correctly", {
                      matrixStages = matrixStages)
   
   x <- standard_stages(r$matF, r$reproStages, r$matrixStages)
-  expect_is(x, "list")
+  expect_type(x, "list")
   expect_length(x, 4)
   expect_true(is.na(x$propStages))
   expect_true(is.na(x$preRepStages))
   expect_true(is.na(x$postRepStages))
+
+  # make sure all stages in original mpm represented in output
+  expect_true(all(1:nrow(r$matU) %in% stages))
 })
 
 
@@ -53,10 +55,10 @@ test_that("standard_stages warns and fails gracefully", {
   # arguments of different dimension
   reproStages <- apply(mat_f, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active')
-  expect_error(standard_stages(mat_f, mat_c, reproStages, matrixStages))
+  expect_error(standard_stages(mat_f, reproStages, matrixStages))
   
   # matF contains NA
-  reproStages <- apply(mat_f, 2, function(x) any(x > 0))
+  reproStages <- apply(mat_f_na, 2, function(x) any(x > 0))
   matrixStages <- c('prop', 'active', 'active', 'active')
   expect_error(standard_stages(mat_f_na, reproStages, matrixStages))
   

@@ -1,4 +1,3 @@
-context("checkValidStartLife")
 
 test_that("checkValidStartLife works correctly", {
   

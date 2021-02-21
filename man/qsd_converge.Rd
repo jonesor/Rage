@@ -8,12 +8,13 @@ qsd_converge(mat, start = 1L, conv = 0.05, N = 100000L)
 }
 \arguments{
 \item{mat}{A matrix population model, or component thereof (i.e. a square
-projection matrix).}
+projection matrix). Optionally with named rows and columns indicating the
+corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+ considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+ giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{conv}{Proportional distance threshold from the stationary stage
 distribution indicating convergence. For example, this value should be 0.05 if the
@@ -81,8 +82,9 @@ The time required for a cohort to reach its QSD depends on the initial
 \examples{
 data(mpm1)
 
-# starting stage = 2 
+# starting stage = 2 (i.e., "small")
 qsd_converge(mpm1$matU, start = 2)
+qsd_converge(mpm1$matU, start = "small")  # equivalent using named life stages
 
 # convergence threshold = 0.001
 qsd_converge(mpm1$matU, start = 2, conv = 0.001)
@@ -94,14 +96,16 @@ qsd_converge(mpm1$matU, start = n1)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 
-  Jones, O.R. et al. (2014) Diversity of ageing across the tree of life.
-  Nature, 505(7482), 169-173. <doi:10.1038/nature12789>
+  Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
+  Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
+  P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
+  the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 
-  Salguero-Gomez R. (2018) Implications of clonality for ageing research.
+  Salguero-Gomez R. 2018. Implications of clonality for ageing research.
   Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
 }
 \seealso{

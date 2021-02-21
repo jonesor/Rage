@@ -9,12 +9,13 @@ longevity(matU, start = 1L, x_max = 1000, lx_crit = 0.01)
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)}
+progression, stasis, and retrogression). Optionally with named rows and
+columns indicating the corresponding life stage names.}
 
-\item{start}{The index of the first stage at which the author considers the
-beginning of life. Defaults to 1. Alternately, a numeric vector giving the
-starting population vector (in which case \code{length(start)} must match
-\code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+\item{start}{The index (or stage name) of the first stage at which the author
+considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+giving the starting population vector (in which case \code{length(start)}
+must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{x_max}{The maximum age to which survivorship will be calculated.
 Defaults to 1000.}
@@ -50,6 +51,7 @@ should match the number of columns in the relevant MPM).
 data(mpm1)
 
 longevity(mpm1$matU, start = 2)
+longevity(mpm1$matU, start = "small")  # equivalent using named life stages
 longevity(mpm1$matU, start = 2, lx_crit = 0.05)
 
 # starting from first reproduction
@@ -59,11 +61,11 @@ longevity(mpm1$matU, start = n1)
 
 }
 \references{
-Caswell, H. (2001) Matrix Population Models: Construction,
+Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 
-  Morris, W. F., and D. F. Doak. (2003) Quantitative Conservation Biology:
+  Morris, W. F. & Doak, D. F. 2003. Quantitative Conservation Biology:
   Theory and Practice of Population Viability Analysis. Sinauer Associates,
   Sunderland, Massachusetts, USA
 }

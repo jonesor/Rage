@@ -1,4 +1,3 @@
-context("shape_rep")
 
 test_that("shape_rep works correctly", {
   
