@@ -123,7 +123,7 @@ mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination
 
 
 
-# Stage distribution of reproductive maturit
+# Stage distribution of reproductive maturity
 
 text text
 
