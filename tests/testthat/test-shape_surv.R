@@ -45,4 +45,20 @@ test_that("shape_surv warns and fails gracefully", {
   # < 3 nozero values of lx
   expect_error(shape_surv(c(1, 0.5, 0), trunc = TRUE))
   
+  #'surv' doesn't contain both x and lx
+  surv1 <- list(years = 0:3,lx = c(1,0.8,0.7,0.6))
+  expect_error(shape_surv(surv1))
+  
+  #x and lx must be the same length
+  surv2 <- list(x = 0:2,lx = c(1,0.8,0.7,0.6))
+  expect_error(shape_surv(surv2))
+  
+  #lx must start with 1 where x[1] is 0
+  surv3 <- list(x = 0:3,lx = c(0.9,0.8,0.7,0.6))
+  expect_error(shape_surv(surv3))
+  
+  #much as we'd like to reverse ageing, x must all be ascending
+  surv3 <- list(x = c(0,1,2,1),lx = c(1,0.8,0.7,0.6))
+  expect_error(shape_surv(surv3))
+  
 })
