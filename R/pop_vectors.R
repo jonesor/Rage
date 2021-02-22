@@ -18,6 +18,8 @@
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
+#' @family {transformation}
+#' 
 #' @examples 
 #' # generate list of matrices
 #' matA_l <- replicate(5, matrix(runif(9), 3, 3), simplify = FALSE)

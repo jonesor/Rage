@@ -35,6 +35,8 @@
 #' 
 #' @author Iain Stott <iainmstott@@gmail.com>
 #' 
+#' @family {life history traits}
+#' 
 #' @examples
 #' # exponential decline in lx yields shape = 0
 #' lx <- 0.7^(0:20)

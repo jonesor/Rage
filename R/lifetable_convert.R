@@ -18,6 +18,8 @@
 #'   
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
+#' @family {life tables}
+#' 
 #' @references Ergon, T., Borgan, Ø., Nater, C. R., & Vindenes, Y. 2018. The
 #'   utility of mortality hazard rates in population analyses. Methods in
 #'   Ecology and Evolution, 9, 2046-2056. <doi:10.1111/2041-210X.13059>

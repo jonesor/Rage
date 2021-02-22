@@ -1,0 +1,169 @@
+---
+title: "Deriving life history traits from an MPM"
+author: "Judy Che-Castaldo"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Deriving life history traits from an MPM}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(digits = 4)
+```
+
+```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
+#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
+```
+
+## Introduction
+
+This vignette provides additional details on the functions in `Rage` for estimating life history traits. Life history describes the sequence and pattern of the key events in an organism's life cycle, pertaining to the schedule of development, reproduction, and survival. By aggregating individual-level demographic rates into an MPM, we can then calculate a set of life history traits to describe the expected patterns for all individuals within the population. These calculations follow methods from Caswell (2001) and Morris & Doak (2003).
+
+
+# Loading MPMs and basic anatomy
+
+We'll start by loading the `Rage` package and an example MPM included in the package called `mpm1`, which we'll be using throughout this vignette.
+
+```{r}
+library(Rage)  # load Rage
+data(mpm1)     # load data object 'mpm1'
+mpm1           # display the contents
+```
+
+
+# Life expectancy and longevity
+
+Two life history traits pertaining to survival can be estimated using the functions `life_expect()` and `longevity()` in `Rage`. These do not involve reproduction and require only a __U__ matrix (supplied to the function's `matU` argument).
+
+The function `life_expect()` estimates life expectancy, given as the mean and variance of the time to death. This is dependent on a starting stage, which is specified using the `start` argument. That is, the expected time to death will be different when calculated from the first stage (i.e., `start = 1`) compared to a later stage, which assumes survival to that stage. In the example MPM, life expectancy from the first stage ("seed") is shorter than that from the second stage ("small") due to the relatively low probability of survival in the seed stage, reducing the expected time to death.   
+
+```{r}
+life_expect(matU = mpm1$matU, start = 1)  # life expectancy from "seed" stage
+life_expect(matU = mpm1$matU, start = 2)  # life expectancy from "small" stage
+```
+
+
+It may sometimes be desirable to allow for multiple starting stage classes. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the `start` argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the "small" stage and 60% from the "medium" stage of the example MPM would be calculated as:
+
+```{r}
+life_expect(matU = mpm1$matU, start = c(0,0.4,0.6,0,0))    
+```
+
+
+The function `longevity()` estimates the time to which survivorship falls below a user-defined critical threshold, specified as a value (between 0 and 1) supplied to the `lx_crit` argument. The specifications regarding the `start` argument for `life_expect()` also applies to this function. Using the example MPM, the post-germination years until survivorship falls to below 5% would be calculated as:
+
+```{r}
+longevity(matU = mpm1$matU, start = 2, lx_crit = 0.05)  
+```
+
+
+We can look at how longevity differs depending on the starting stage. With the example MPM, we see that longevity increases from 2 years to at 7 years after an individual germinates. Longevity is highest for the "medium" and "large" stages, but is the same for individuals starting in the "small" stage as those starting in the "dormant" stage.  
+
+```{r}
+longval <- c()
+startvec <- c(1:dim(mpm1$matU)[1])
+
+for(i in c(1:dim(mpm1$matU)[1])) {
+  longval[i] <- longevity(matU = mpm1$matU, start = startvec[i], lx_crit = 0.05)  
+}
+  
+plot(longval, type = "l", xlab = "Stage", ylab = "Longevity to 5% survivorship")
+longval
+```
+
+
+
+
+# Net reproductive rate
+
+The function `net_repro_rate()` estimates the net reproductive rate, *R<sub>0</sub>*, or the number of offspring by which a newborn individual will produce over its lifetime.
+
+```{r}
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            # net reproductive rate (aggregate)
+```
+
+
+
+# Generation time
+
+text text
+
+```{r}
+gen_time(matU = mpm1$matU, matR = mpm1$matF)    # generation time (aggregate)
+```
+
+
+
+# Age at reproductive maturity
+
+text text
+
+```{r}
+mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)     # post-germination years to first reproduction
+```
+
+
+
+# Probability of reaching reproductive maturity
+
+text text
+
+```{r}
+mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination Pr(survival to first repro)
+```
+
+
+
+# Stage distribution of reproductive maturit
+
+text text
+
+```{r}
+mpm1$matF #Can see that medium and large stages are reproductive
+
+mature_distrib(matU = mpm1$matU, start = 1L, repro_stages = c(FALSE,FALSE,TRUE,TRUE,FALSE))   
+```
+
+
+
+# Life history traits based on life table components
+
+Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the `mpm_to_` group of functions to derive the necessary life table components: (st)age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*).
+
+
+```{r}
+lx <- mpm_to_lx(matU = mpm1$matU, start = 2)
+px <- mpm_to_px(matU = mpm1$matU, start = 2)
+hx <- mpm_to_hx(matU = mpm1$matU, start = 2)
+mx <- mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = 2)
+```
+
+We can then calculate these 
+
+
+```{r}
+# then calculate life history traits
+entropy_d(lx, mx)   # Demetrius' entropy
+entropy_k(lx)       # Keyfitz' entropy
+shape_surv(lx)      # shape of survival/mortality trajectory
+shape_rep(mx)       # shape of fecundity trajectory
+```
+
+
+
+
+## References
+
+Caswell, H. (2001). Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965
+
+Morris, W. F. & Doak, D. F. (2003). Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460
+

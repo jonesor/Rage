@@ -50,8 +50,18 @@ repro_stages(matR2, na_handling = "return.na")
 repro_stages(matR2, na_handling = "return.true")
 repro_stages(matR2, na_handling = "return.false")
 }
+\seealso{
+Other {transformation}: 
+\code{\link{mpm_collapse}()},
+\code{\link{mpm_split}()},
+\code{\link{mpm_standardize}()},
+\code{\link{plot_life_cycle}()},
+\code{\link{pop_vectors}()},
+\code{\link{standard_stages}()}
+}
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{transformation}}

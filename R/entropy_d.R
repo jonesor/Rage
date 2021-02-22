@@ -13,6 +13,8 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
+#' @family {life history traits}
+#' 
 #' @references Demetrius, L. 1978 Adaptive value, entropy and survivorship
 #'   curves. Nature, 275, 213-214. <doi:10.1038/275213a0>
 #'   

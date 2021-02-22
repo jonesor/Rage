@@ -35,8 +35,19 @@ entropy_d(lx, mx)
 Demetrius, L. 1978 Adaptive value, entropy and survivorship
   curves. Nature, 275, 213-214. <doi:10.1038/275213a0>
 }
+\seealso{
+Other {life history traits}: 
+\code{\link{entropy_k}()},
+\code{\link{gen_time}()},
+\code{\link{life_expect}()},
+\code{\link{longevity}()},
+\code{\link{net_repro_rate}()},
+\code{\link{shape_rep}()},
+\code{\link{shape_surv}()}
+}
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{life history traits}}

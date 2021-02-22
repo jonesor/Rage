@@ -14,6 +14,9 @@
 #' \code{matC} will always contain only 0s.
 #' 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
+#' 
+#' @family {transformation}
+#' 
 #' @examples
 #' matA <- rbind(c(0.1,   0, 5.3, 4.2),
 #'               c(0.5, 0.2, 0.1,   0),

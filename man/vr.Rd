@@ -197,6 +197,13 @@ vr_dorm_exit(matU, dorm_stages = 4)
 vr_fecundity(matU, matF, exclude_col = 4)
 
 }
+\seealso{
+Other {vital rates}: 
+\code{\link{vitalRates}()},
+\code{\link{vr_mat}},
+\code{\link{vr_vec}}
+}
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{vital rates}}
