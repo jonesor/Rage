@@ -34,6 +34,13 @@
     },
     {
       "@type": "Person",
+      "givenName": ["Judy", "P."],
+      "familyName": "Che-Castaldo",
+      "email": "jchecastaldo@lpzoo.org",
+      "@id": "https://orcid.org/0000-0002-9118-9202"
+    },
+    {
+      "@type": "Person",
       "givenName": "John",
       "familyName": "Jackson",
       "email": "jjackson0308@gmail.com",
@@ -55,13 +62,6 @@
     },
     {
       "@type": "Person",
-      "givenName": "Julia",
-      "familyName": "Jones",
-      "email": "juliajones@biology.sdu.dk",
-      "@id": "https://orcid.org/0000-0001-9223-1778"
-    },
-    {
-      "@type": "Person",
       "givenName": "Sam",
       "familyName": "Levin",
       "email": "levisc8@gmail.com",
@@ -80,6 +80,13 @@
       "familyName": "Stott",
       "email": "stott@biology.sdu.dk",
       "@id": "https://orcid.org/0000-0003-2724-7436"
+    },
+    {
+      "@type": "Person",
+      "givenName": ["Chelsea", "C."],
+      "familyName": "Thomas",
+      "email": "esochels@gmail.com",
+      "@id": "https://orcid.org/0000-0002-8155-9353"
     }
   ],
   "contributor": [
@@ -280,7 +287,7 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "2375.289KB",
+  "fileSize": "2377.169KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active"
 }
