@@ -45,7 +45,7 @@ Authors@R: c(
     person(given = "William K.",
            family = "Petry",
            email = "wpetry@ncsu.edu",
-           role = "ctb",
+           role = "aut",
            comment = c(ORCID = "0000-0002-5230-5987")),
     person(given = "Roberto",
            family = "Salguero-Gomez",
