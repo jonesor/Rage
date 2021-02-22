@@ -15,12 +15,17 @@ Authors@R: c(
     person(given = "Pol",
            family = "Capdevila",
            email = "pcapdevila.pc@gmail.com",
-           role = c("aut"),
+           role = "aut",
            comment = c(ORCID = "0000-0002-2842-4302")),
+    person(given = c("Judy", "P."),
+           family = "Che-Castaldo",
+           email = "jchecastaldo@lpzoo.org",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-9118-9202")),
     person(given = "John",
            family = "Jackson",
            email = "jjackson0308@gmail.com",
-           role = c("aut"),
+           role = "aut",
            comment = c(ORCID = "0000-0002-4563-2840")),
     person(given = "Tamora",
            family = "James",
@@ -56,7 +61,12 @@ Authors@R: c(
            family = "Stott",
            email = "stott@biology.sdu.dk",
            role = "aut",
-           comment = c(ORCID = "0000-0003-2724-7436")))
+           comment = c(ORCID = "0000-0003-2724-7436")),
+    person(given = c("Chelsea", "C."),
+           family = "Thomas",
+           email = "esochels@gmail.com",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-8155-9353")))
 Description: Functions for calculating life history metrics using matrix population models (MPMs).
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
