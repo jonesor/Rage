@@ -69,6 +69,13 @@
     },
     {
       "@type": "Person",
+      "givenName": "William K.",
+      "familyName": "Petry",
+      "email": "wpetry@ncsu.edu",
+      "@id": "https://orcid.org/0000-0002-5230-5987"
+    },
+    {
+      "@type": "Person",
       "givenName": "Roberto",
       "familyName": "Salguero-Gomez",
       "email": "rob.salguero@zoo.ox.ac.uk",
@@ -95,13 +102,6 @@
       "givenName": "Danny",
       "familyName": "Buss",
       "email": "dlb50@cam.ac.uk"
-    },
-    {
-      "@type": "Person",
-      "givenName": "William K.",
-      "familyName": "Petry",
-      "email": "wpetry@ncsu.edu",
-      "@id": "https://orcid.org/0000-0002-5230-5987"
     }
   ],
   "copyrightHolder": {},
@@ -287,7 +287,8 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "2377.169KB",
+  "fileSize": "2384.891KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=master"],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "readme": "https://github.com/jonesor/Rage/blob/master/README.md"
 }
