@@ -54,9 +54,7 @@ test_that("vitalRates functions warn and fail gracefully", {
   
   expect_error(vitalRates(mat_u_na, mat_f))
   
-  expect_error(vitalRates(mat_u, mat_f, weights = 3))
-
-  expect_error(vitalRates(mat_u, mat_f, weights = NA))
+  #expect_error(vitalRates(mat_u, mat_f, weights = 3))
 
   expect_error(vitalRates(mat_u, mat_f, splitStages =  "wrongName"))
   
