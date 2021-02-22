@@ -1,5 +1,6 @@
 #' Derive mean vital rates from a matrix population model
 #' 
+#' @description 
 #' Derive mean vital rates corresponding to separate demographic processes from
 #' a matrix population model. Specifically, this function decomposes vital rates
 #' of survival, progression, retrogression, sexual reproduction and clonal
@@ -36,6 +37,8 @@
 #' @return A list of averaged vital rates.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' 
+#' @family {vital rates}
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

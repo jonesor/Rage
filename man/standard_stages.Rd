@@ -64,7 +64,16 @@ standard_stages(r$matF, r$reproStages, r$matrixStages)
 }
 \seealso{
 \code{\link{mpm_standardize}}
+
+Other {transformation}: 
+\code{\link{mpm_collapse}()},
+\code{\link{mpm_split}()},
+\code{\link{mpm_standardize}()},
+\code{\link{plot_life_cycle}()},
+\code{\link{pop_vectors}()},
+\code{\link{repro_stages}()}
 }
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
+\concept{{transformation}}

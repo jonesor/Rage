@@ -115,6 +115,11 @@ Caswell, H. 2001. Matrix Population Models: Construction,
 }
 \seealso{
 \code{\link{lifetable_convert}}
+
+Other {life tables}: 
+\code{\link{lifetable_convert}},
+\code{\link{mpm_to_table}()},
+\code{\link{qsd_converge}()}
 }
 \author{
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
@@ -125,3 +130,4 @@ Owen R. Jones <jones@biology.sdu.dk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{life tables}}

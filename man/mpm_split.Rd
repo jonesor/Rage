@@ -30,6 +30,16 @@ matA <- rbind(c(0.1,   0, 5.3, 4.2),
 mpm_split(matA)
 
 }
+\seealso{
+Other {transformation}: 
+\code{\link{mpm_collapse}()},
+\code{\link{mpm_standardize}()},
+\code{\link{plot_life_cycle}()},
+\code{\link{pop_vectors}()},
+\code{\link{repro_stages}()},
+\code{\link{standard_stages}()}
+}
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
 }
+\concept{{transformation}}

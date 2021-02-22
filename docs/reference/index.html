@@ -105,6 +105,9 @@
     <li>
       <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
+    <li>
+      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -142,8 +145,253 @@
     <tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-life-history-traits" class="hasAnchor"><a href="#section-life-history-traits" class="anchor"></a>Life history traits</h2>
+          <p class="section-desc"><p>Functions for calculating life history traits.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="entropy_d.html">entropy_d()</a></code> </p>
+        </td>
+        <td><p>Calculate Demetrius' entropy from trajectories of age-specific survivorship
+and fecundity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="entropy_k.html">entropy_k()</a></code> </p>
+        </td>
+        <td><p>Calculate Keyfitz's entropy from a trajectory of age-specific survivorship</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gen_time.html">gen_time()</a></code> </p>
+        </td>
+        <td><p>Calculate generation time from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="life_expect.html">life_expect()</a></code> </p>
+        </td>
+        <td><p>Calculate life expectancy from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="longevity.html">longevity()</a></code> </p>
+        </td>
+        <td><p>Calculate longevity from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="net_repro_rate.html">net_repro_rate()</a></code> </p>
+        </td>
+        <td><p>Calculate net reproductive value (R0) from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="repro_maturity.html">mature_prob()</a></code> <code><a href="repro_maturity.html">mature_age()</a></code> <code><a href="repro_maturity.html">mature_distrib()</a></code> </p>
+        </td>
+        <td><p>Age of reproductive maturity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shape_rep.html">shape_rep()</a></code> </p>
+        </td>
+        <td><p>Calculate shape of reproduction over age</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shape_surv.html">shape_surv()</a></code> </p>
+        </td>
+        <td><p>Calculate shape of survival over age</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-vital-rates" class="hasAnchor"><a href="#section-vital-rates" class="anchor"></a>Vital rates</h2>
+          <p class="section-desc"><p>Functions for calculating vital rates.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="vitalRates.html">vitalRates()</a></code> </p>
+        </td>
+        <td><p>Derive mean vital rates from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vr.html">vr_survival()</a></code> <code><a href="vr.html">vr_growth()</a></code> <code><a href="vr.html">vr_shrinkage()</a></code> <code><a href="vr.html">vr_stasis()</a></code> <code><a href="vr.html">vr_dorm_enter()</a></code> <code><a href="vr.html">vr_dorm_exit()</a></code> <code><a href="vr.html">vr_fecundity()</a></code> </p>
+        </td>
+        <td><p>Derive mean vital rates from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vr_mat.html">vr_mat_U()</a></code> <code><a href="vr_mat.html">vr_mat_R()</a></code> </p>
+        </td>
+        <td><p>Derive survival-independent vital rates for growth, stasis, shrinkage, and
+reproduction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vr_vec.html">vr_vec_survival()</a></code> <code><a href="vr_vec.html">vr_vec_growth()</a></code> <code><a href="vr_vec.html">vr_vec_shrinkage()</a></code> <code><a href="vr_vec.html">vr_vec_stasis()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_enter()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_exit()</a></code> <code><a href="vr_vec.html">vr_vec_reproduction()</a></code> </p>
+        </td>
+        <td><p>Derive stage-specific vital rates from a matrix population model</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-life-tables" class="hasAnchor"><a href="#section-life-tables" class="anchor"></a>Life tables</h2>
+          <p class="section-desc"><p>Functions for calculating life tables.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="age_from_stage.html">mpm_to_mx()</a></code> <code><a href="age_from_stage.html">mpm_to_lx()</a></code> <code><a href="age_from_stage.html">mpm_to_px()</a></code> <code><a href="age_from_stage.html">mpm_to_hx()</a></code> </p>
+        </td>
+        <td><p>Calculate age-specific traits from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lifetable_convert.html">lx_to_px()</a></code> <code><a href="lifetable_convert.html">lx_to_hx()</a></code> <code><a href="lifetable_convert.html">px_to_lx()</a></code> <code><a href="lifetable_convert.html">px_to_hx()</a></code> <code><a href="lifetable_convert.html">hx_to_lx()</a></code> <code><a href="lifetable_convert.html">hx_to_px()</a></code> </p>
+        </td>
+        <td><p>Convert between age-specific survivorship, survival, or mortality hazard</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mpm_to_table.html">mpm_to_table()</a></code> </p>
+        </td>
+        <td><p>Generate a life table from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="qsd_converge.html">qsd_converge()</a></code> </p>
+        </td>
+        <td><p>Calculate time to reach quasi-stationary stage distribution</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-perturbation-analyiss" class="hasAnchor"><a href="#section-perturbation-analyiss" class="anchor"></a>Perturbation analyiss</h2>
+          <p class="section-desc"><p>Functions for perturbation analysis.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="perturb_matrix.html">perturb_matrix()</a></code> </p>
+        </td>
+        <td><p>Perturbation analysis of a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="perturb_stochastic.html">perturb_stochastic()</a></code> </p>
+        </td>
+        <td><p>Calculate stochastic elasticities from a time-series of matrix population
+models and corresponding population vectors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="perturb_trans.html">perturb_trans()</a></code> </p>
+        </td>
+        <td><p>Perturbation analysis of transition types within a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="perturb_vr.html">perturb_vr()</a></code> </p>
+        </td>
+        <td><p>Perturbation analysis of vital rates in a matrix population model</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transformation" class="hasAnchor"><a href="#section-transformation" class="anchor"></a>Transformation</h2>
+          <p class="section-desc"><p>Functions for transforming matrices.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="mpm_collapse.html">mpm_collapse()</a></code> </p>
+        </td>
+        <td><p>Collapse a matrix population model to a smaller number of stages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mpm_rearrange.html">mpm_rearrange()</a></code> </p>
+        </td>
+        <td><p>Rearrange stages of a matrix population model to segregate reproductive and
+non-reproductive stages</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mpm_split.html">mpm_split()</a></code> </p>
+        </td>
+        <td><p>Convert matrix population model into U, F and C matrices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mpm_standardize.html">mpm_standardize()</a></code> </p>
+        </td>
+        <td><p>Transform a matrix population model to a standardized form</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_life_cycle.html">plot_life_cycle()</a></code> </p>
+        </td>
+        <td><p>Plot a life cycle diagram from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pop_vectors.html">pop_vectors()</a></code> </p>
+        </td>
+        <td><p>Derive a hypothetical set of population vectors corresponding to a
+time-series of matrix population models</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="repro_stages.html">repro_stages()</a></code> </p>
+        </td>
+        <td><p>Identify which stages in a matrix population model are reproductive</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="standard_stages.html">standard_stages()</a></code> </p>
+        </td>
+        <td><p>Identify stages corresponding to different parts of the reproductive life
+cycle</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>All funcitons listed alphabetically.</p></p>
         </th>
       </tr>
       
@@ -342,7 +590,7 @@ reproduction</p></td>
         <td>
           <p><code><a href="vr_vec.html">vr_vec_survival()</a></code> <code><a href="vr_vec.html">vr_vec_growth()</a></code> <code><a href="vr_vec.html">vr_vec_shrinkage()</a></code> <code><a href="vr_vec.html">vr_vec_stasis()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_enter()</a></code> <code><a href="vr_vec.html">vr_vec_dorm_exit()</a></code> <code><a href="vr_vec.html">vr_vec_reproduction()</a></code> </p>
         </td>
-        <td><p>#' Derive stage-specific vital rates from a matrix population model</p></td>
+        <td><p>Derive stage-specific vital rates from a matrix population model</p></td>
       </tr>
     </tbody>
     </table>
@@ -358,7 +606,7 @@ reproduction</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, John Jackson, Tamora James, Owen Jones, Julia Jones, Sam Levin, Roberto Salguero-Gomez, Iain Stott.</p>
 </div>
 
 <div class="pkgdown">

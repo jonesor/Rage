@@ -53,6 +53,17 @@ mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 shape_rep(mx)
 
 }
+\seealso{
+Other {life history traits}: 
+\code{\link{entropy_d}()},
+\code{\link{entropy_k}()},
+\code{\link{gen_time}()},
+\code{\link{life_expect}()},
+\code{\link{longevity}()},
+\code{\link{net_repro_rate}()},
+\code{\link{shape_surv}()}
+}
 \author{
 Iain Stott <iainmstott@gmail.com>
 }
+\concept{{life history traits}}

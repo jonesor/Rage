@@ -68,3 +68,4 @@ Owen R. Jones <jones@biology.sdu.dk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{life history traits}

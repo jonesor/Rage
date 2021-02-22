@@ -1,0 +1,27 @@
+reference:
+  - title: "Life history traits"
+    desc: "Functions for calculating life history traits."
+    contents:
+      - has_concept("life history traits")
+  - title: "Vital rates"
+    desc: "Functions for calculating vital rates."
+    contents:
+      - has_concept("vital rates")
+  - title: "Life tables"
+    desc: "Functions for calculating life tables."
+    contents:
+      - has_concept("life tables")
+  - title: "Perturbation analyiss"
+    desc: "Functions for perturbation analysis."
+    contents:
+      - has_concept("perturbation analysis")
+  - title: "Transformation"
+    desc: "Functions for transforming matrices."
+    contents:
+      - has_concept("transformation")
+
+  - title: "All functions"
+    desc: "All funcitons listed alphabetically."
+    contents:
+      - starts_with("[a-zA-Z]")
+

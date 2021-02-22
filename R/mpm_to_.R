@@ -56,6 +56,8 @@
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
+#' @family {life tables}
+#' 
 #' @seealso \code{\link{lifetable_convert}}
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,

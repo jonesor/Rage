@@ -92,6 +92,8 @@
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
+#' @family {perturbation analysis}
+#' 
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0),

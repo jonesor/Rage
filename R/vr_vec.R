@@ -1,4 +1,4 @@
-#' #' Derive stage-specific vital rates from a matrix population model
+#' Derive stage-specific vital rates from a matrix population model
 #' 
 #' @description 
 #' Derive a vector of stage-specific vital rates of survival, growth, shrinkage,
@@ -81,7 +81,9 @@
 #' given set of stages, use argument \code{exclude}.
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
-#'   
+#'
+#' @family {vital rates}
+#' 
 #' @examples
 #' # create example MPM (stage 4 is dormant)
 #' matU <- rbind(c(0.1,   0,   0,   0),

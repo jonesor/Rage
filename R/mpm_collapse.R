@@ -42,6 +42,8 @@
 #' corresponding to a missing stage will be coerced to \code{NA}.
 #' 
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' 
+#' @family {transformation}
 #'
 #' @references Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 #'   demographic inferences: implications for comparative plant demography. The
@@ -52,6 +54,7 @@
 #'   distribution, but is not expected to preserve other traits such as relative
 #'   reproductive values, sensitivities, net reproductive rates, life
 #'   expectancy, etc.
+#'   
 #' @seealso \code{\link{mpm_standardize}}
 #' @examples
 #' data(mpm1)

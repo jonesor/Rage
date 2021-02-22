@@ -58,6 +58,13 @@ damping <- function(matA) {  # define function for damping ratio
 perturb_matrix(matA, demog_stat = "damping")
 
 }
+\seealso{
+Other {perturbation analysis}: 
+\code{\link{perturb_stochastic}()},
+\code{\link{perturb_trans}()},
+\code{\link{perturb_vr}()}
+}
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
+\concept{{perturbation analysis}}

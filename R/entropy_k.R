@@ -15,6 +15,8 @@
 #' @references Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 #'   Wiley.
 #' 
+#' @family {life history traits}
+#' 
 #' @examples
 #' data(mpm1)
 #' 

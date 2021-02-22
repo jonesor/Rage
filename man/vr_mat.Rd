@@ -93,6 +93,13 @@ Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
   978-0878930968
 }
+\seealso{
+Other {vital rates}: 
+\code{\link{vitalRates}()},
+\code{\link{vr_vec}},
+\code{\link{vr}}
+}
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{vital rates}}

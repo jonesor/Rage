@@ -31,6 +31,8 @@
 #' 
 #' @author Iain Stott <iainmstott@@gmail.com>
 #' 
+#' @family {life history traits}
+#' 
 #' @examples
 #' # increasing mx yields negative shape
 #' mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)

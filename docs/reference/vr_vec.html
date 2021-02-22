@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>#' Derive stage-specific vital rates from a matrix population model — vr_vec • Rage</title>
+<title>Derive stage-specific vital rates from a matrix population model — vr_vec • Rage</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="#' Derive stage-specific vital rates from a matrix population model — vr_vec" />
+<meta property="og:title" content="Derive stage-specific vital rates from a matrix population model — vr_vec" />
 <meta property="og:description" content="Derive a vector of stage-specific vital rates of survival, growth, shrinkage,
 stasis, dormancy, or reproduction from a matrix population model. These
 functions include optional arguments for excluding certain stage classes from
@@ -116,6 +116,9 @@ also allowed." />
     <li>
       <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
     </li>
+    <li>
+      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -139,7 +142,7 @@ also allowed." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>#' Derive stage-specific vital rates from a matrix population model</h1>
+    <h1>Derive stage-specific vital rates from a matrix population model</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/vr_vec.R'><code>R/vr_vec.R</code></a></small>
     <div class="hidden name"><code>vr_vec.Rd</code></div>
     </div>
@@ -296,6 +299,12 @@ could exclude transitions <em>to</em> the dormant stage class using the argument
 the respective vital rate to <code>NA</code>, to prevent it from getting used in
 subsequent calculations. To exclude transitions both <em>to and from</em> a
 given set of stages, use argument <code>exclude</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other vital rates: 
+<code><a href='vitalRates.html'>vitalRates</a>()</code>,
+<code><a href='vr_mat.html'>vr_mat</a></code>,
+<code><a href='vr.html'>vr</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
@@ -334,7 +343,7 @@ given set of stages, use argument <code>exclude</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Danny Buss, Roberto Salguero-Gomez, Iain Stott, Tamora James, Owen Jones, Julia Jones, Sam Levin.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, John Jackson, Tamora James, Owen Jones, Julia Jones, Sam Levin, Roberto Salguero-Gomez, Iain Stott.</p>
 </div>
 
 <div class="pkgdown">

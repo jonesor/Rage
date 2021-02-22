@@ -20,8 +20,12 @@
 #'   of \code{NA}, the function will return \code{NA} if \code{na_handling ==
 #'   "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
 #'   \code{FALSE} if \code{na_handling == "return.false"}.
+#'   
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
+#' 
+#' @family {transformation}
+#' 
 #' @examples
 #' matR1 <- rbind(c( 0, 0.2,   0, 0.5),
 #'                c( 0, 0.3,   0, 0.6),

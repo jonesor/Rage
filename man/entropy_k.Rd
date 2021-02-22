@@ -36,8 +36,19 @@ entropy_k(lx, trapeze = TRUE)
 Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   Wiley.
 }
+\seealso{
+Other {life history traits}: 
+\code{\link{entropy_d}()},
+\code{\link{gen_time}()},
+\code{\link{life_expect}()},
+\code{\link{longevity}()},
+\code{\link{net_repro_rate}()},
+\code{\link{shape_rep}()},
+\code{\link{shape_surv}()}
+}
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
 
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
+\concept{{life history traits}}

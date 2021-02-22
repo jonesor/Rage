@@ -40,7 +40,11 @@
 #'   stable distribution, but is not expected to preserve other demographic characteristics
 #'   such as relative reproductive value, sensitivities, net reproductive rate, life
 #'   expectancy, etc.
+#'   
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
+#' 
+#' @family {transformation}
+#' 
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0,   0),
 #'               c(0.5, 0.2, 0.1,   0,   0),

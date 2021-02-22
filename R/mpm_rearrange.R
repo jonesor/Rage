@@ -25,7 +25,11 @@
 #' \item{reproStages}{Rearranged logical vector of reproductive stages}
 #' \item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
 #'  stages}
+#'  
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' 
+#' @family transformation
+#' 
 #' @seealso \code{\link{mpm_standardize}}
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0,   0),

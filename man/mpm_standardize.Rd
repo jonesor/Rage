@@ -85,6 +85,16 @@ matrixStages <- c('prop', 'active', 'active', 'active', 'active')
 mpm_standardize(matU, matF, matC, reproStages, matrixStages)
 
 }
+\seealso{
+Other {transformation}: 
+\code{\link{mpm_collapse}()},
+\code{\link{mpm_split}()},
+\code{\link{plot_life_cycle}()},
+\code{\link{pop_vectors}()},
+\code{\link{repro_stages}()},
+\code{\link{standard_stages}()}
+}
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
+\concept{{transformation}}

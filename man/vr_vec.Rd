@@ -9,7 +9,7 @@
 \alias{vr_vec_dorm_enter}
 \alias{vr_vec_dorm_exit}
 \alias{vr_vec_reproduction}
-\title{#' Derive stage-specific vital rates from a matrix population model}
+\title{Derive stage-specific vital rates from a matrix population model}
 \usage{
 vr_vec_survival(matU, posU = matU > 0, exclude_col = NULL)
 
@@ -163,6 +163,13 @@ vr_vec_dorm_exit(matU, dorm_stages = 4)
 vr_vec_reproduction(matU, matR, exclude_col = 4)
 
 }
+\seealso{
+Other {vital rates}: 
+\code{\link{vitalRates}()},
+\code{\link{vr_mat}},
+\code{\link{vr}}
+}
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
+\concept{{vital rates}}
