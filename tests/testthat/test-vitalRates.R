@@ -38,14 +38,11 @@ expect_type(vrOut_wt, "list")
 expect_length(vrOut_wt, 5)
 expect_equal(vrOut$clo, 0)
 
-
 vrOut_wt2 <- vitalRates(matU = mat_u,matF = mat_f,weights = c(1,2,3,4))
 
 expect_type(vrOut_wt2, "list")
 expect_length(vrOut_wt2, 5)
 expect_equal(vrOut_wt2$clo, 0)
-
-
 })
 
 
@@ -68,7 +65,7 @@ test_that("vitalRates functions warn and fail gracefully", {
   
   expect_error(vitalRates(mat_u, mat_f, splitStages = "matrixStages"))
   
-  expect_error(vitalRates(mat_u,mat_f,splitStages = "matrixStages",
+  expect_error(vitalRates(mat_u, mat_f, splitStages = "matrixStages",
                              matrixStages = c("active","active","active")))
   
 
