@@ -99,6 +99,12 @@ vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
     }
   }
   
+  if(!is.null(matrixStages)){
+    if(sum(matrixStages %in% c("prop", "active", "dorm")) != length(matrixStages)){
+      stop("matrixStage names must be 'prop','active' or 'dorm'", call. = FALSE)
+    }
+  }
+  
   if (is.null(matC)) {
     matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
   }
