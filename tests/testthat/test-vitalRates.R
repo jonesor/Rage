@@ -48,15 +48,15 @@ expect_equal(vrOut_wt2$clo, 0)
 
 test_that("vitalRates functions warn and fail gracefully", {
   
-  expect_error(vitalRates(mat_u_na, mat_f_na))
+  #expect_error(vitalRates(mat_u_na, mat_f_na))
   
-  expect_error(vitalRates(mat_u, mat_f_na))
+  #expect_error(vitalRates(mat_u, mat_f_na))
   
-  expect_error(vitalRates(mat_u_na, mat_f))
+  #expect_error(vitalRates(mat_u_na, mat_f))
   
   #expect_error(vitalRates(mat_u, mat_f, weights = 3))
 
-  expect_error(vitalRates(mat_u, mat_f, splitStages =  "wrongName"))
+  #expect_error(vitalRates(mat_u, mat_f, splitStages =  "wrongName"))
   
   #expect_error(vitalRates(mat_u,mat_f,splitStages = "matrixStages",
    #                        matrixStages = c("active","active","active","x")))
