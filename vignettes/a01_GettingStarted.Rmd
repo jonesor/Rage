@@ -75,7 +75,7 @@ nodes,"
 }"
   ))
 ```
-**Figure 1.** Life cycle diagramme for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability--how many individuals will there be in the stage at the arrow's end at the next time step for each individual at the arrow's start?
+**Figure 1.** Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability--how many individuals will there be in the stage at the arrow's end at the next time step for each individual at the arrow's start?
 
 The **transition** or **projection matrix** (Fig. 2; called __A__ in matrix notation) for this life cycle is a square matrix where the rows and columns correspond to the life stages (nodes) and the elements correspond to transition probabilities (arrows). By convention, the columns reflect the current life stage (i.e., the arrow's start) and the rows reflect the arrow's end.
 
@@ -147,9 +147,11 @@ Simple matrix multiplication allows the full transition matrix, __A__, to be pro
 $$
 \mathbf{n}_{t+1} = \mathbf{A}\mathbf{n}_{t}.
 $$
-Suppose we initialize the example plant population (Fig. 1) with five seedlings, 10 rosettes, and 15 flowering individuals. We expect that the population in the next time step will be,
+Suppose we initialize the example plant population, $\mathbf{n}_{t=0}$, with five seedlings, 10 rosettes, and 15 flowering individuals. We expect that the population in the next time step will be,
 
 $$
+\begin{aligned}
+\mathbf{n}_{t=1} &= \mathbf{A}\mathbf{n}_{t=0}, \\
 \left[
 \begin{matrix}
 48.0 \\
@@ -157,7 +159,7 @@ $$
 17.5
 \end{matrix}
 \right]
-=
+&=
 \left[
 \begin{matrix}
 0 & 0 & 3.2 \\
@@ -172,11 +174,12 @@ $$
 15
 \end{matrix}
 \right].
+\end{aligned}
 $$
-Summing the population vectors gives us the total population size ($N_{t=0} = 30$ and $N_{t=1} = 83$). Likewise, we can measure the instantaneous per-capita population growth rate as $N_{t+1}/N{t} = 83/30 = 2.7\overline{6}$). Recursively substituting the new $\mathbf{n}_{t+1}$ into the projection equation in place of $\mathbf{n}_{t}$ allows us to continue projecting the population dynamics and life stage composition forward in time.
+Summing the population vectors gives us the total population size ($N_{t} =\sum\mathbf{n}_{t=0} = 30$ and $N_{t=1} = 83$). Likewise, we can measure the instantaneous per-capita population growth rate as $N_{t+1}/N_{t} = 83/30 = 2.7\overline{6}$). Recursively substituting the new $\mathbf{n}_{t+1}$ into the projection equation in place of $\mathbf{n}_{t}$ allows us to continue projecting the population dynamics and life stage composition forward in time.
 
 ## R.3. Analysis of population equilibrium (eigenanalysis)
-Provided that the transition matrix, __A__, meets certain conditions, iterative projections from any starting population vector, $\mathbf{n}_{t=0}$ will eventually converge to an equilbrium per-capita population growth rate ($\lambda$) and stable stage distribution ($\mathbf{w}$). We can determine $\lambda$ and $\mathbf{w}$ by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The `popbio` and `popdemo` package provide functions to do these calculations:
+Provided that the transition matrix, __A__, meets certain conditions, iterative projections from any starting population vector, $\mathbf{n}_{t=0}$ will eventually converge to an equilibrium per-capita population growth rate ($\lambda$) and stable stage distribution ($\mathbf{w}$). We can determine $\lambda$ and $\mathbf{w}$ by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The `popbio` and `popdemo` package provide functions to do these calculations:
 
 ```{r,message=FALSE}
 library(popbio)
@@ -225,53 +228,70 @@ For any life history, we can reconstruct the full projection matrix, __A__, by a
 
 `Rage` functions currently accept MPM components as arguments; therefore, it is not necessary to group the `mat*`s together in a list. We anticipate that future package releases will define methods that accept objects of classes `matrix`, `CompadreMat`, and `CompadreDB` for compatibility with the [COM(P)ADRE databases](https://compadre-db.org/) and its accessor package [`Rcompadre`](https://github.com/jonesor/Rcompadre).
 
-
 # Families of `Rage` functions for life history analysis
 The functions in `Rage` fall into five broad categories, and are detailed in the subsections below:
 
-1. [deriving life history traits](#lifehisttraits)
-2. [deriving life tables or life table components](#lifetablecomponents)
-3. [deriving vital rates](#vitalrates)
-4. [perturbation analyses](#perturbanalyses)
-5. [manipulating or transforming MPMs](#maniptransform)
-
-## 1. Deriving life history traits {#lifehisttraits}
-
-What is the life expectancy of an individual? At what age will it begin to reproduce? How likely is it to survive to reproduction? What is the generation time? These high level questions address the population-level life history traits that emerge from aggregating individual-level demographic rates, and tracing trajectories through the life cycle.
-
-Life history traits that do not involve reproduction require only a __U__ matrix (supplied to the function's `matU` argument) and the stage class that represents the starting point for the calculation (supplied to the `start` argument). In the example MPM, a natural starting point for calculating life expectancy could be from either the seed stage or post-recruitment. Both calculations are possible by modifying the `start` argument. Longevity, defined as the age at which survivorship falls below a user-defined threshold, follows a similar pattern.
-```{r}
-life_expect(matU = mpm1$matU, start = 1)  # life expectancy from "seed" stage
-life_expect(matU = mpm1$matU, start = 2)  # life expectancy from "small" stage
-longevity(matU = mpm1$matU, start = 2, lx_crit = 0.05)  # post-germination years until survivorship falls below 5%
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Function category                       | Stand-alone vignette                  |
+|-----------------------------------------|---------------------------------------|
+| 1. [Vital rates](#vitalrates)  | [VitalRates](a02_VitalRates.html)     |
+| 2. [Life tables](#lifetable) | [AgeFromStage](a03_AgeFromStage.html) |
+| 3. [Perturbation analysis](#perturb)    | [TernaryPlots](a04_TernaryPlots.html) |
+| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](a05_LifeHistoryTraits.html) |
+| 5. [Transformation of matrices](#maniptransform) | n/a                                   |
+"
+cat(tabl)
 ```
 
-An expanded set of life history traits can be calculated by incorporating a reproduction matrix to the `matR` argument. In our example, we'll assume that reproduction only happens sexually and therefore we can substitute __F__ in place of __R__. For species with both modes of reproduction, using __F__ or __C__ alone in these functions allows for a more nuanced assessment of reproductive life history. For reproductive traits that aggregate across the life cycle, we need not supply a `start` stage.
+A full list of functions by category is available at the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html).
+
+## 1. Standardized vital rates {#vitalrates}
+
+The elements of an MPM transition matrix (__A__) generally are composites of two
+or more vital rates (sometimes called ‘lower-level vital rates’). For example,
+the transition from stage 1 to stage 2 (element $a_{21}$) may colloquially be thought
+of as 'growth,' but importantly this transition is growth *conditional* on the 
+individual surviving. Assuming a post-breeding census design, we can retroactively
+partition each transition in MPM submatrices into survival (using the column sums 
+of __U__) and one of the following: growth (using the lower triangle of __U__), 
+shrinkage (upper triangle of __U__), stasis (diagonal of __U__), dormancy (from 
+__U__ with user-indicated dormant stages), fecundity (from __F__) or clonality 
+(from __C__).
+
+The `vr_vec_*` family of functions provide a means to calculate lower-level vital 
+rates for each life stage in the input matrix or matrices. For example, we can
+calculate stage-specific survival and stasis from our example __U__ matrix,
 
 ```{r}
-mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)     # post-germination years to first reproduction
-mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination Pr(survival to first repro)
-net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            # net reproductive rate (aggregate)
-gen_time(matU = mpm1$matU, matR = mpm1$matF)                  # generation time (aggregate)
+vr_vec_survival(mpm1$matU)
+vr_vec_stasis(mpm1$matU)
 ```
 
-Other life history traits are calculated from a life table rather than an MPM,
-in which case we can first use the `mpm_to_` group of functions to derive the
-necessary life table components: (st)age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*).
+Multiplying these two together yields the probability of stasis conditional on
+survival, in other words that diagonal of our example __U__ matrix.
+
 ```{r}
-lx <- mpm_to_lx(matU = mpm1$matU, start = 2)
-px <- mpm_to_px(matU = mpm1$matU, start = 2)
-hx <- mpm_to_hx(matU = mpm1$matU, start = 2)
-mx <- mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = 2)
-
-# then calculate life history traits
-entropy_k(lx)       # Keyfitz' entropy
-entropy_d(lx, mx)   # Demetrius' entropy
-shape_surv(lx)      # shape of survival/mortality trajectory
-shape_rep(mx)       # shape of fecundity trajectory
+# product of Pr(survival) and Pr(stasis) yields Pr(stasis|survived)
+vr_vec_survival(mpm1$matU) * vr_vec_stasis(mpm1$matU)
+diag(mpm1$matU)  # equivalent to the diagonal of U matrix
 ```
 
-## 2. Life tables and the quasi-stationary distribution {#lifetablecomponents}
+`Rage` also provides functions to summarize these vital rates _across_ stage 
+classes using the `vr_*` family of functions. These return a single value that 
+is the mean of the corresponding stage-specific vital rate vector from `vr_vec_*`.
+Life stages may be excluded, allowing the user to tailor these calculations to 
+the life history of the organism and their working definition of each vital rate.
+Similarly, custom weights are allowed to control the contributions of life stages 
+to the average. This functionality is more fully described in the 
+[Vital Rates vignette](a02_VitalRates.html).
+
+```{r}
+vr_survival(mpm1$matU, exclude_col = 1)  # exclude 'seed' stage
+mean(vr_vec_survival(mpm1$matU)[-1])     # equivalent to the mean without 'seed'
+```
+
+## 2. Age from stage methods for converting MPMs to life tables {#lifetable}
 
 Some MPMs are parameterized with a stasis loop at the maximum stage class, which
 can lead to apparent plateaus in mortality or fertility trajectories derived
@@ -308,65 +328,7 @@ shape_surv(lt$lx)       # based on full lx trajectory
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
 ```
 
-## 3. Standardized vital rates {#vitalrates}
-
-The transition rates that make up MPMs generally reflect products of two or more
-vital rates (sometimes called ‘lower-level vital rates’). Assuming a
-post-breeding census design, we can retroactively break apart each transition
-rate into at least two vital rate components: survival, and ‘something’
-conditional on survival. That ‘something’ might be growth, shrinkage, stasis,
-dormancy, fecundity, or clonality.
-
-### Stage-specific vital rates (vector)
-
-To summarize vital rates _within_ stage classes, we can use the `vr_vec_` group
-of functions. We'll use the `exclude` argument here to exclude certain stage
-classes ('seed' and 'dormant') from the calculation of certain vital rates (e.g.
-we don't consider the large-to-dormant transition to actually represent
-'growth').
-
-```{r}
-vr_vec_survival(mpm1$matU)
-vr_vec_growth(mpm1$matU, exclude = c(1, 5))
-vr_vec_shrinkage(mpm1$matU, exclude = 5)
-vr_vec_stasis(mpm1$matU)
-vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
-vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
-vr_vec_reproduction(mpm1$matU, mpm1$matF)
-```
-
-### MPM-specific vital rates (scalar)
-
-To summarize vital rates _across_ stage classes, we can use the `vr_` group of
-functions. By default these functions take a simple average of the
-stage-specific vital rates produced by the corresponding `vr_vec_` function.
-However, here we'll demonstrate how to specify a _weighted_ average across
-stages, based on the stable stage distribution at equilibrium (_w_).
-
-```{r}
-# derive full MPM (matA)
-mpm1$matA <- mpm1$matU + mpm1$matF
-
-# calculate stable stage distribution at equilibrium using popbio::stable.stage
-library(popbio)
-w <- popbio::stable.stage(mpm1$matA)
-
-# calculate MPM-specific vital rates
-vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
-vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
-vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
-vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
-vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
-vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
-vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
-```
-
-Note how we've chosen to exclude the 'seed' and 'dormant' stage classes from our
-vital rate summaries, because we consider these to be special classes (e.g.
-'growth' from the 'seed' stage is really 'germination', which we may think of as
-separate from somatic growth from 'small' to 'medium', or 'medium' to 'large').
-
-## 4. Perturbation analyses {#perturbanalyses}
+## 3. Perturbation analyses {#perturb}
 
 The `perturb_matrix()` function measures the response of a demographic statistic
 to perturbation of individual matrix elements (i.e. sensitivities and
@@ -375,6 +337,9 @@ perturbation analyses by vital rate type (survival, growth, etc.) and transition
 type (stasis, retrogression, etc.), respectively.
 
 ```{r}
+# construct the transition matrix A = U + F (+ C when present)
+mpm1$matA <- with(mpm1, matU + matF)
+
 # matrix element perturbation
 perturb_matrix(mpm1$matA, type = "sensitivity")
 
@@ -384,6 +349,42 @@ as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
 
 # transition type perturbation
 as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
+```
+
+## 4. Deriving life history traits {#lifehist}
+
+What is the life expectancy of an individual? At what age will it begin to reproduce? How likely is it to survive to reproduction? What is the generation time? These high level questions address the population-level life history traits that emerge from aggregating individual-level demographic rates, and tracing trajectories through the life cycle.
+
+Life history traits that do not involve reproduction require only a __U__ matrix (supplied to the function's `matU` argument) and the stage class that represents the starting point for the calculation (supplied to the `start` argument). In the example MPM, a natural starting point for calculating life expectancy could be from either the seed stage or post-recruitment. Both calculations are possible by modifying the `start` argument. Longevity, defined as the age at which survivorship falls below a user-defined threshold, follows a similar pattern.
+```{r}
+life_expect(matU = mpm1$matU, start = 1)  # life expectancy from "seed" stage
+life_expect(matU = mpm1$matU, start = 2)  # life expectancy from "small" stage
+longevity(matU = mpm1$matU, start = 2, lx_crit = 0.05)  # post-germination years until survivorship falls below 5%
+```
+
+An expanded set of life history traits can be calculated by incorporating a reproduction matrix to the `matR` argument. In our example, we'll assume that reproduction only happens sexually and therefore we can substitute __F__ in place of __R__. For species with both modes of reproduction, using __F__ or __C__ alone in these functions allows for a more nuanced assessment of reproductive life history. For reproductive traits that aggregate across the life cycle, we need not supply a `start` stage.
+
+```{r}
+mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)     # post-germination years to first reproduction
+mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination Pr(survival to first repro)
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            # net reproductive rate (aggregate)
+gen_time(matU = mpm1$matU, matR = mpm1$matF)                  # generation time (aggregate)
+```
+
+Other life history traits are calculated from a life table rather than an MPM,
+in which case we can first use the `mpm_to_` group of functions to derive the
+necessary life table components: (st)age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*).
+```{r}
+lx <- mpm_to_lx(matU = mpm1$matU, start = 2)
+px <- mpm_to_px(matU = mpm1$matU, start = 2)
+hx <- mpm_to_hx(matU = mpm1$matU, start = 2)
+mx <- mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = 2)
+
+# then calculate life history traits
+entropy_k(lx)       # Keyfitz' entropy
+entropy_d(lx, mx)   # Demetrius' entropy
+shape_surv(lx)      # shape of survival/mortality trajectory
+shape_rep(mx)       # shape of fecundity trajectory
 ```
 
 ## 5. Transforming MPMs {#maniptransform}
