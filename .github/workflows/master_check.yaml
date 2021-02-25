@@ -91,6 +91,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE, force = TRUE)
           remotes::install_cran("rcmdcheck")
+          remotes::install_github("jonesor/Rage")
         shell: Rscript {0}
 
       - name: Session info
