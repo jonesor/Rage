@@ -30,9 +30,26 @@ test_that("shape_rep works correctly", {
 test_that("shape_rep warns and fails gracefully", {
 
   # negative reproduction
+  # You appear to have minus-babies (check mx)
   expect_error(shape_rep(c(0, 1, 1, 1, -0.1, 0)))
   
   # < 3 nozero values of mx
+  # must have > 2 nonzero values of mx to calculate shape
   expect_error(shape_rep(c(0, 0.5, 0.5)))
+  
+  #"'rep' doesn't contain both x and mx"
+  rep1 <- list(mx = c(0, 0, 0.3, 0.4, 0.5, 0.6))
+  expect_error(shape_rep(rep1))
+  
+  rep1 <- list(years = 0:5, mx = c(0, 0, 0.3, 0.4, 0.5, 0.6))
+  expect_error(shape_rep(rep1))
+  
+  #x and mx must be the same length
+  rep1 <- list(x = 0:4,mx = c(0, 0, 0.3, 0.4, 0.5, 0.6))
+  expect_error(shape_rep(rep1))
+
+  #much as we'd like to reverse ageing, x must all be ascending
+  rep1 <- list(x = c(0,1,2,3,4,3),mx = c(0, 0, 0.3, 0.4, 0.5, 0.6))
+  expect_error(shape_rep(rep1))
   
 })

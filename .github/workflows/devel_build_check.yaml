@@ -1,0 +1,145 @@
+# This workflow builds the site, renders the codemeta data, and 
+# then does a build check with R-CMD-check
+
+
+# Name (appears on badge, keep it short)
+name: R-CMD-check
+
+
+# When to run
+on:
+  push:
+    branches:
+      - devel
+
+# Define job
+# What systems to run on (the matrix)
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: windows-latest, r: 'release'}
+          #- {os: windows-latest, r: 'oldrel'}
+          #- {os: windows-latest, r: 'devel'}
+          - {os: macOS-latest, r: 'release'}
+          #- {os: macOS-latest, r: 'oldrel'}
+          #- {os: macOS-latest, r: 'devel'}
+          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          #- {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+
+# Set up the environment
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+
+#Steps of the jobs
+# What things to use to complete the job
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+#Add dependencies
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+#Windows
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+#System dependencies for linux
+      - name: Install system dependencies for Linux
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
+#Add quartz for macOS only
+      - name: Install XQuartz for macOS
+        if: runner.os == 'macOS'
+        run: |
+          wget https://dl.bintray.com/xquartz/downloads/XQuartz-2.7.11.dmg
+          sudo hdiutil attach XQuartz-2.7.11.dmg
+          sudo installer -package /Volumes/XQuartz-2.7.11/XQuartz.pkg -target / 
+
+#R script to install rcmdcheck and Rage
+      - name: Install dependencies, rcmdcheck, Rage
+        run: |
+          remotes::install_deps(dependencies = TRUE, force = TRUE)
+          remotes::install_cran("rcmdcheck")
+          remotes::install_github("jonesor/Rage")
+        shell: Rscript {0}
+
+#R script to build the site
+      - name: Build the site (on macOS, and latest release R version)
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
+        run: |
+          install.packages("textshaping",type = "binary",dependencies = TRUE)
+          install.packages("devtools")
+          devtools::install(pkg = ".", dependencies = TRUE)
+          install.packages("rmarkdown",dependencies = TRUE)
+          rmarkdown::render(input = "README.Rmd","github_document",clean = TRUE)
+          unlink("README.html")
+          install.packages("pkgdown", dependencies = TRUE)    
+          pkgdown::build_site()
+          install.packages("digest",dependencies = TRUE)
+          install.packages("codemetar", dependencies = TRUE)
+          codemetar::write_codemeta()
+        shell: Rscript {0}
+
+#Commit changes to the codemeta, site and README.
+#Need only run on macOS-latest with release version of R
+      - name: Commit results
+        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
+        #if: "!contains(github.event.head_commit.message, 'cm-skip')"
+        run: |
+           git add codemeta.json
+           git add docs/
+           git add README.md
+           git commit -m 'Re-build site, codemeta.json and README' || echo "No changes to commit"
+           git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git HEAD:${{ github.ref }} || echo "No changes to commit"
+      
+      - name: Session info
+        run: |
+          options(width = 100)
+          sessionInfo()
+        shell: Rscript {0}
+
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+          _R_CHECK_FORCE_SUGGESTS_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        #run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--ignore-vignettes"), build_args = c("--no-build-vignettes"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check
+          
+          

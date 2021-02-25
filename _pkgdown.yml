@@ -11,7 +11,7 @@ reference:
     desc: "Functions for calculating life tables."
     contents:
       - has_concept("life tables")
-  - title: "Perturbation analyiss"
+  - title: "Perturbation analysis"
     desc: "Functions for perturbation analysis."
     contents:
       - has_concept("perturbation analysis")
@@ -21,7 +21,7 @@ reference:
       - has_concept("transformation")
 
   - title: "All functions"
-    desc: "All funcitons listed alphabetically."
+    desc: "All functions listed alphabetically."
     contents:
       - starts_with("[a-zA-Z]")
 

@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
@@ -88,13 +88,13 @@
 
       
 
-      </header><script src="a04_TernaryPlots_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="a04_TernaryPlots_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Ternary Plots</h1>
                         <h4 class="author">Rob Salguero-Gomez and Owen Jones</h4>
             
-            <h4 class="date">2021-02-22</h4>
+            <h4 class="date">2021-02-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a04_TernaryPlots.Rmd"><code>vignettes/a04_TernaryPlots.Rmd</code></a></small>
       <div class="hidden name"><code>a04_TernaryPlots.Rmd</code></div>
@@ -105,7 +105,7 @@
     
 <p>Here we produce a ternary plot <em>a la</em> Silvertown &amp; Franco (1993) with population growth rate as the “fourth” dimension. We will use functions from the <code>popdemo</code>, <code>Rage</code> and <code>ggtern</code> packages, so first we need to load those packages:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">Rcompadre</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rcompadre">Rcompadre</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.ggtern.com">ggtern</a></span><span class="op">)</span></code></pre></div>
@@ -117,22 +117,22 @@
 <p>We can calculate elasticities of population growth rate to changes in the matrix elements using the <code>elas</code> function from the <code>popdemo</code> package. For example, the elasticity matrix for the first <strong>A</strong> matrix in this example database looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/elas.html">elas</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">matA</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;          A1      A2      A3      A4</span>
-<span class="co">#&gt; [1,] 0.1646 0.06524 0.02431 0.03132</span>
-<span class="co">#&gt; [2,] 0.1209 0.16722 0.04893 0.01683</span>
-<span class="co">#&gt; [3,] 0.0000 0.07803 0.11047 0.02795</span>
-<span class="co">#&gt; [4,] 0.0000 0.04336 0.03274 0.06818</span></code></pre></div>
+<span class="co">#&gt;        A1      A2      A3      A4</span>
+<span class="co">#&gt; A1 0.1646 0.06524 0.02431 0.03132</span>
+<span class="co">#&gt; A2 0.1209 0.16722 0.04893 0.01683</span>
+<span class="co">#&gt; A3 0.0000 0.07803 0.11047 0.02795</span>
+<span class="co">#&gt; A4 0.0000 0.04336 0.03274 0.06818</span></code></pre></div>
 <p>Because the subset of MPMs here has split <strong>A</strong> into the matrices <strong>U</strong>, <strong>F</strong>, and <strong>C</strong>, we can now also automatise the calculation of elasticities, regardless of the varying degree of life cycle complexities represented in these MPMs. Therefore, we can classify the elements of the matrix to changes in stages (which we can further identify as stasis, progression, and retrogression), sexual reproduction, and clonal reproduction.</p>
 <p>We can use the <code>matrixElementPerturbation</code> function from the <code>Rage</code> package to conduct this element-by-element elasticity analysis. The function outputs both sensitivities (prefixed with S) and elasticities (prefixed with E) as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mat_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">matA</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="fu"><a href="../reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mat_a</span>, type <span class="op">=</span> <span class="st">"elasticity"</span><span class="op">)</span>
-<span class="co">#&gt;          A1      A2      A3      A4</span>
-<span class="co">#&gt; [1,] 0.1646 0.06524 0.02431 0.03132</span>
-<span class="co">#&gt; [2,] 0.1209 0.16722 0.04893 0.01683</span>
-<span class="co">#&gt; [3,] 0.0000 0.07803 0.11047 0.02795</span>
-<span class="co">#&gt; [4,] 0.0000 0.04336 0.03274 0.06818</span>
+<span class="co">#&gt;        A1      A2      A3      A4</span>
+<span class="co">#&gt; A1 0.1646 0.06524 0.02431 0.03132</span>
+<span class="co">#&gt; A2 0.1209 0.16722 0.04893 0.01683</span>
+<span class="co">#&gt; A3 0.0000 0.07803 0.11047 0.02795</span>
+<span class="co">#&gt; A4 0.0000 0.04336 0.03274 0.06818</span>
 
 <span class="co">#Rage::matrixElementPerturbation(matU = matU(Compadre)[[1]],    This function used to be able to accommodate partioning</span>
 <span class="co">#                                matF = matF(Compadre)[[1]],    into U F and C so we coudl partition this... but it's now gone</span>
@@ -309,7 +309,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, John Jackson, Tamora James, Owen Jones, Julia Jones, Sam Levin, Roberto Salguero-Gomez, Iain Stott.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

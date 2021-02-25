@@ -8,8 +8,8 @@ test_that("mature_ functions work correctly", {
   x_prob2 <- mature_prob(mat_u, mat_f, start = 2)
   expect_gt(x_prob2, x_prob1)
   
-#  x_prob3 <- mature_prob(mat_u_named, mat_f_named, start = "md")
-#  expect_gt(x_prob3, x_prob2) #These are equal (fix)
+  #x_prob3 <- mature_prob(mat_u_named, mat_f_named, start = "md")
+  #expect_gt(x_prob3, x_prob2) #These are equal (fix)
   
   x_age1 <- mature_age(mat_u, mat_f)
   expect_type(x_age1, "double")
