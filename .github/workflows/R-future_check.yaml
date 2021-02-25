@@ -1,14 +1,17 @@
 # This workflow does a build check with R-CMD-check
-# On devel branch only, for PULL requests
+# for the development version of R. 
+# It will often fail, but it is useful to know what the failures are
+# because we can fix them in advance of a new R release.
 
 # Name (appears on badge, keep it short)
-name: devel pull R-CMD-check
-
+name: Future R version check
 
 # When to run
 on:
-  pull_request:
+  schedule:
+    - cron: "0 13 * * 1*" # Every Monday at 1PM UTC (9AM EST)
     branches:
+      - master
       - devel
 
 # Define job
@@ -24,14 +27,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
-          #- {os: windows-latest, r: 'oldrel'}
-          #- {os: windows-latest, r: 'devel'}
-          - {os: macOS-latest, r: 'release'}
-          #- {os: macOS-latest, r: 'oldrel'}
-          #- {os: macOS-latest, r: 'devel'}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-          #- {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: windows-latest, r: 'devel'}
+          - {os: macOS-latest, r: 'devel'}
+          - {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
 # Set up the environment
     env:
