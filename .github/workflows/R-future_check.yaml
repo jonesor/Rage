@@ -8,13 +8,12 @@ name: Future R version check
 
 # When to run
 # Every Monday at 1PM UTC (9AM EST)
-on:
+'on':
   schedule:
-    - cron: '* 13 * * 1' 
+    - cron: "0 13 * * 1"
     branches:
       - master
-      - devel
-
+      
 # Define job
 # What systems to run on (the matrix)
 
