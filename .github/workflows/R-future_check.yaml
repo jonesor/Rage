@@ -7,9 +7,10 @@
 name: Future R version check
 
 # When to run
+# Every Monday at 1PM UTC (9AM EST)
 on:
   schedule:
-    - cron: "0 13 * * 1*" # Every Monday at 1PM UTC (9AM EST)
+    - cron: "0 13 * * 1*" 
     branches:
       - master
       - devel
