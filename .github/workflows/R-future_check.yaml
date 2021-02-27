@@ -9,9 +9,10 @@ name: Future R version check
 # When to run
 # Every Monday at 1PM UTC (9AM EST)
 
-on:  
+on:
   schedule:
-    - cron: '0 0 * * *'  # every day at midnight
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/15 * * * *'
 
       
 # Define job
