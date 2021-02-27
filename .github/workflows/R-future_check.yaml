@@ -4,7 +4,8 @@
 # because we can fix them in advance of a new R release.
 
 # Name (appears on badge, keep it short)
-name: Future R version check
+
+name: Future-R-version-check
 
 # When to run
 # Every Monday at 1PM UTC (9AM EST)
@@ -12,7 +13,8 @@ name: Future R version check
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    #- cron:  '0 1 * * *'
+    - cron:  '0 0 * * SUN'
+
 
       
 # Define job
