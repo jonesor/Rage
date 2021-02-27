@@ -7,13 +7,14 @@
 name: Future R version check
 
 # When to run
+# Every Monday at 1PM UTC (9AM EST)
+
 on:
   schedule:
-    - cron: "0 13 * * 1*" # Every Monday at 1PM UTC (9AM EST)
-    branches:
-      - master
-      - devel
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/15 * * * *'
 
+      
 # Define job
 # What systems to run on (the matrix)
 
