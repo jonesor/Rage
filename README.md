@@ -5,7 +5,6 @@
 
 <!--- Continuous integration badges --->
 
-
 | Project                                                                                                                                                                                                | Master branch                                                                                                                                                                      | Devel branch                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)                                                                | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/master_check.yaml/badge.svg?branch=master)](https://github.com/jonesor/Rage/actions/workflows/master_check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml/badge.svg)](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml) |
@@ -13,8 +12,7 @@
 |                                                                                                                                                                                                        | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=master&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)                   | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)                |
 |                                                                                                                                                                                                        | [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=master)                                        |                                                                                                                                                                                |
 
-
-
+-----
 
 Functions for calculating life history metrics from matrix population
 models (MPMs).
