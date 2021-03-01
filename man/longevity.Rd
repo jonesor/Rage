@@ -17,8 +17,8 @@ considers the beginning of life. Defaults to 1. Alternately, a numeric vector
 giving the starting population vector (in which case \code{length(start)}
 must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
-\item{x_max}{The maximum age to which survivorship will be calculated.
-Defaults to 1000.}
+\item{x_max}{The maximum age, in units of the MPM projection interval, to
+which survivorship will be calculated. Defaults to 1000.}
 
 \item{lx_crit}{Proportion of initial cohort remaining before all are considered
 dead (a value between 0 and 1). Defaults to 0.01.}
@@ -29,7 +29,7 @@ Returns longevity, the integer age at which expected survivorship
   \code{x_max}, returns \code{NA} and prints a warning message.
 }
 \description{
-Calculate longevity (the age \emph{x} at which survivorship falls below some 
+Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some 
 critical proportion) from a matrix population model
 }
 \section{Starting from multiple stages}{

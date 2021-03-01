@@ -3,16 +3,16 @@
 #'
 #' Derive a hypothetical set of population vectors (i.e. population size
 #' distributions across stages) given a time-series of matrix population models
-#' (MPMs), by taking the stable distribution of the mean matrix as the starting
+#' (MPMs), by taking the stable stage distribution of the mean matrix as the starting
 #' vector (or optionally, a uniform or random starting vector), and deriving
 #' subsequent vectors through recursive population projection.
 #' 
-#' @param A List of MPMs (i.e. square population projection matrices).
+#' @param A A list of MPMs (i.e. square population projection matrices).
 #' @param start Method to derive the first population vector in the series.
-#'   Either "stable.stage" to use the stable stage distribution of the mean
-#'   matrix as the starting vector, "uniform" to use a uniform starting vector
-#'   (all elements equal), or "random" to use a randomly-generated starting
-#'   vector. Defaults to "stable.stage".
+#'   Either `stable.stage` to use the stable stage distribution of the mean
+#'   matrix as the starting vector, `uniform` to use a uniform starting vector
+#'   (all elements equal), or `random` to use a randomly-generated starting
+#'   vector. Defaults to `stable.stage`.
 #' 
 #' @return A list of population vectors
 #' 
