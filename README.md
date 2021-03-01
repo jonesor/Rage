@@ -17,9 +17,6 @@
 Functions for calculating life history metrics from matrix population
 models (MPMs).
 
-An R package for manipulating and analysing matrix population models
-(MPMs).
-
 Includes functions for:
 
   - deriving life history traits
