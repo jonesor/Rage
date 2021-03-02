@@ -44,7 +44,7 @@ time-series of matrix population models — pop_vectors • Rage</title>
 time-series of matrix population models — pop_vectors" />
 <meta property="og:description" content="Derive a hypothetical set of population vectors (i.e. population size
 distributions across stages) given a time-series of matrix population models
-(MPMs), by taking the stable distribution of the mean matrix as the starting
+(MPMs), by taking the stable stage distribution of the mean matrix as the starting
 vector (or optionally, a uniform or random starting vector), and deriving
 subsequent vectors through recursive population projection." />
 
@@ -147,7 +147,7 @@ time-series of matrix population models</h1>
     <div class="ref-description">
     <p>Derive a hypothetical set of population vectors (i.e. population size
 distributions across stages) given a time-series of matrix population models
-(MPMs), by taking the stable distribution of the mean matrix as the starting
+(MPMs), by taking the stable stage distribution of the mean matrix as the starting
 vector (or optionally, a uniform or random starting vector), and deriving
 subsequent vectors through recursive population projection.</p>
     </div>
@@ -159,15 +159,15 @@ subsequent vectors through recursive population projection.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p>List of MPMs (i.e. square population projection matrices).</p></td>
+      <td><p>A list of MPMs (i.e. square population projection matrices).</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>Method to derive the first population vector in the series.
-Either "stable.stage" to use the stable stage distribution of the mean
-matrix as the starting vector, "uniform" to use a uniform starting vector
-(all elements equal), or "random" to use a randomly-generated starting
-vector. Defaults to "stable.stage".</p></td>
+Either `stable.stage` to use the stable stage distribution of the mean
+matrix as the starting vector, `uniform` to use a uniform starting vector
+(all elements equal), or `random` to use a randomly-generated starting
+vector. Defaults to `stable.stage`.</p></td>
     </tr>
     </table>
 
