@@ -2,6 +2,7 @@
 
 * Name changes of functions to consistent snake_case.
 * Improved documentation with fuller descriptions and executable examples.
+* Grouped functions by type in the documentation.
 * Improved vignettes by greatly expanding them.
 * Replaced old function `lifeTimeRepEvents` with specific functions for events (`gen_time`, `life_expect`, `longevity`).
 * Added functions for manipulating matrices: `mpm_collapse`, `mpm_rearrange`, `mpm_split`, `mpm_standardize`. 
