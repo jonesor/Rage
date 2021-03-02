@@ -22,6 +22,10 @@
 #' 
 #' @family {perturbation analysis}
 #' 
+#' @references Caswell, H. 2001. Matrix Population Models: Construction,
+#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
+#'   978-0878930968#' 
+#'   
 #' @examples
 #' matA <- rbind(c(0.1,   0, 1.5, 4.6),
 #'               c(0.5, 0.2, 0.1,   0),

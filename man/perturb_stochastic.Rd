@@ -21,7 +21,7 @@ A list of three matrices:
 }
 \description{
 Calculate stochastic elasticities given a time-series of matrix population
-models (MPMs) and corresponding population vectors, using the method described in
+models and corresponding population vectors, using the method described in
 Haridas et al. (2009).
 }
 \examples{

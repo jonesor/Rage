@@ -2,7 +2,7 @@
 #' models and corresponding population vectors
 #'
 #' Calculate stochastic elasticities given a time-series of matrix population
-#' models (MPMs) and corresponding population vectors, using the method described in
+#' models and corresponding population vectors, using the method described in
 #' Haridas et al. (2009).
 #' 
 #' @param X_t A list of matrix population models

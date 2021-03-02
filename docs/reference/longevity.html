@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Calculate longevity from a matrix population model — longevity" />
-<meta property="og:description" content="Calculate longevity (the age x at which survivorship falls below some 
+<meta property="og:description" content="Calculate longevity (the age x at which survivorship for a synthetic cohort falls below some 
 critical proportion) from a matrix population model" />
 
 
@@ -112,6 +112,9 @@ critical proportion) from a matrix population model" />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -139,7 +142,7 @@ critical proportion) from a matrix population model" />
     </div>
 
     <div class="ref-description">
-    <p>Calculate longevity (the age <em>x</em> at which survivorship falls below some 
+    <p>Calculate longevity (the age <em>x</em> at which survivorship for a synthetic cohort falls below some 
 critical proportion) from a matrix population model</p>
     </div>
 
@@ -164,8 +167,8 @@ must match <code>ncol(matU))</code>. See section <em>Starting from multiple stag
     </tr>
     <tr>
       <th>x_max</th>
-      <td><p>The maximum age to which survivorship will be calculated.
-Defaults to 1000.</p></td>
+      <td><p>The maximum age, in units of the MPM projection interval, to
+which survivorship will be calculated. Defaults to 1000.</p></td>
     </tr>
     <tr>
       <th>lx_crit</th>
