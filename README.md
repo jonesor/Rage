@@ -323,6 +323,19 @@ net_repro_rate(col1$matU, col1$matF)
 For a complete list of functions see the package
 [Reference](https://jonesor.github.io/Rage/reference/index.html) page.
 
+## Previous releases
+
+Specific earlier releases of this package can be installed using the
+appropriate `@` tag.
+
+For example to install version 0.1.0:
+
+``` r
+remotes::install_github("jonesor/Rage@v0.1.0")
+```
+
+See the Changelog for more details.
+
 ## Citation
 
 We are working on a manuscript to describe the package. In the meantime,
