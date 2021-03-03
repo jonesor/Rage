@@ -15,9 +15,13 @@
 * Expanded use of unit tests for all functions.
 * Updated DESCRIPTION with contributors
 * Added build checks via continuous integration on Travis, Appveyor and Github actions (including weekly checks).
+* Added machine-readable codemeta-data information (`codemeta.json`)
+
 
 
 # Rage v. 0.1.0
+
+_Released on 14th December 2018_
 
 First (pre) release package. Functions include: `R0`, `dEntropy`, `kEntropy`, `lifeTimeRepEvents`, `longevity`, `makeLifeTable`, `matrixElementPerturbation`, `plotLifeCycle`, `qsdConverge`, `reprodStages`, `standardizedVitalrates`, `vitalRatePerturbation`, `vitalRates`.
 
