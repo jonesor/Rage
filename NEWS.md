@@ -17,7 +17,7 @@
 * Added build checks via continuous integration on Travis, Appveyor and Github actions (including weekly checks).
 
 
-# Rage 0.1.0
+# Rage v. 0.1.0
 
 First (pre) release package. Functions include: `R0`, `dEntropy`, `kEntropy`, `lifeTimeRepEvents`, `longevity`, `makeLifeTable`, `matrixElementPerturbation`, `plotLifeCycle`, `qsdConverge`, `reprodStages`, `standardizedVitalrates`, `vitalRatePerturbation`, `vitalRates`.
 
