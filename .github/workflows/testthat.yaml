@@ -1,11 +1,11 @@
 on:
   push:
     branches:
-      - master
+      - main
       - devel
   pull_request:
     branches:
-      - master
+      - main
       - devel
 
 name: test-coverage
@@ -18,9 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@main
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@main
 
       - name: Query dependencies
         run: |
