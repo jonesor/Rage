@@ -19,9 +19,9 @@
 
 
 
-# Rage v. 0.1.0
+# Rage 0.1.0
 
-_Released on 14th December 2018_
+_Released on Github on 14th December 2018_
 
 First (pre) release package. Functions include: `R0`, `dEntropy`, `kEntropy`, `lifeTimeRepEvents`, `longevity`, `makeLifeTable`, `matrixElementPerturbation`, `plotLifeCycle`, `qsdConverge`, `reprodStages`, `standardizedVitalrates`, `vitalRatePerturbation`, `vitalRates`.
 
