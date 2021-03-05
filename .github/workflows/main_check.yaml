@@ -1,5 +1,5 @@
 # This workflow does a build check with R-CMD-check
-# On the master branch only
+# On the main branch only
 
 # Name (appears on badge, keep it short)
 name: R-CMD-check
@@ -8,10 +8,10 @@ name: R-CMD-check
 on:
   push:
     branches:
-      - master
+      - main
 #  pull_request:
 #    branches:
-#      - master
+#      - main
       
       
 # Define job
