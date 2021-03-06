@@ -38,7 +38,7 @@ test_that("nameStages warns and fails gracefully", {
   expect_error(nameStages(x2))
   
   # overwriting existing stage names
-  expect_warning(nameStages(x3))
+  expect_warning(nameStages(mat_u_named))
   
   # supplying both prefix and names arguments
   expect_warning(nameStages(x1, names = LETTERS[1:s]))

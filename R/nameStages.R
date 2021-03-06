@@ -72,7 +72,8 @@ nameStages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
          " names supplied for ", mdim, " life stages.")
   }
   # warn if overwriting existing stage names
-  if (!is.null(unlist(lapply(mat, dimnames), use.names = FALSE))) {
+  if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames), use.names = FALSE)) |
+      is.matrix(mat) && !is.null(unlist(dimnames(mat), use.names = FALSE))) {
     warning("Existing stage names have been overwritten!")
   }
   # add stage names to matrix/matrices
