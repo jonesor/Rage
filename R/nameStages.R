@@ -11,6 +11,10 @@
 #'   have equal length, enabling lexicographic sorting. For example, stage '1'
 #'   becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
 #'   stages, and so on. Defaults to TRUE.
+#'   
+#' @author William K. Petry <wpetry@@ncsu.edu>
+#' 
+#' @family {transformation}
 #'
 #' @return The input matrix or matrices with named rows and columns.
 #' @export nameStages
