@@ -192,16 +192,16 @@ A <- rbind(c(0.0, 0.0, 3.2),
            c(0.0, 0.4, 0.9))
 
 # lambda: equilibrium per-capita population growth rate
-popbio::lambda(A)
-popdemo::eigs(A, what = "lambda")
+popbio::lambda(A = A)
+popdemo::eigs(A = A, what = "lambda")
 
 # w: stable stage distribution (relative frequencies)
-popbio::stable.stage(A)
-popdemo::eigs(A, what = "ss")
+popbio::stable.stage(A = A)
+popdemo::eigs(A = A, what = "ss")
 ```
 From $\lambda$, we infer that the population would eventually grow at an equilibrium rate of 51% per time step. Likewise, from $\mathbf{w}$ we infer that nearly half of individuals will be seedlings, about a third will be rosettes and a fifth will be flowering at equilibrium.
 
-Finally, we are reminded that MPM *projections* rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. These tell us what would happen if this strong assumption were to be met. Projection differs radically from *forecasts*, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. Keyfitz (1972) unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of `Rage` rests on this ethos.
+Finally, we are reminded that MPM *projections* rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. These tell us what would happen if this strong assumption were to be met. Projection differs radically from *forecasts*, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. [Keyfitz (1972)](#references) unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of `Rage` rests on this ethos.
 
 # Representing and loading MPMs in `R` {#mpms_in_r}
 
@@ -265,8 +265,8 @@ rates for each life stage in the input matrix or matrices. For example, we can
 calculate stage-specific survival and stasis from our example __U__ matrix,
 
 ```{r}
-vr_vec_survival(mpm1$matU)
-vr_vec_stasis(mpm1$matU)
+vr_vec_survival(matU = mpm1$matU)
+vr_vec_stasis(matU = mpm1$matU)
 ```
 
 Multiplying these two together yields the probability of stasis conditional on
@@ -274,7 +274,7 @@ survival, in other words that diagonal of our example __U__ matrix.
 
 ```{r}
 # product of Pr(survival) and Pr(stasis) yields Pr(stasis|survived)
-vr_vec_survival(mpm1$matU) * vr_vec_stasis(mpm1$matU)
+vr_vec_survival(matU = mpm1$matU) * vr_vec_stasis(matU = mpm1$matU)
 diag(mpm1$matU)  # equivalent to the diagonal of U matrix
 ```
 
@@ -288,7 +288,7 @@ to the average. This functionality is more fully described in the
 [Vital Rates vignette](a02_VitalRates.html).
 
 ```{r}
-vr_survival(mpm1$matU, exclude_col = 1)  # exclude 'seed' stage
+vr_survival(matU = mpm1$matU, exclude_col = 1)  # exclude 'seed' stage
 mean(vr_vec_survival(mpm1$matU)[-1])     # equivalent to the mean without 'seed'
 ```
 
@@ -322,8 +322,8 @@ probability (px) or mortality hazard (hx), following an `x_to_y` function name
 pattern.
 
 ```{r}
-lx_to_px(lx)  # survivorship to survival probability
-lx_to_hx(lx)  # survivorship to mortality hazard
+lx_to_px(lx = lx)  # survivorship to survival probability
+lx_to_hx(lx = lx)  # survivorship to mortality hazard
 ```
 
 When individuals can remain in the last life stage class, age-specific trajectories
@@ -339,14 +339,15 @@ accordingly.
 
 ```{r, warning=FALSE, message=FALSE, fig.align='center', fig.height=5, fig.width=6}
 # project a germinated cohort through the U matrix
-cohort <- popbio::pop.projection(mpm1$matU, n = c(0, 1, 0, 0, 0), iterations = 10)
-popbio::stage.vector.plot(cohort$stage.vectors[-1,], xlab = "time",
-                          ylab = "proportion in stage class", col = "black")
+cohort <- popbio::pop.projection(A = mpm1$matU, n = c(0, 1, 0, 0, 0), iterations = 10)
+popbio::stage.vector.plot(stage.vectors = cohort$stage.vectors[-1,],
+                          xlab = "time", ylab = "proportion in stage class",
+                          col = "black")
 
 # calculate time to QSD from the U matrix of an MPM
-(q <- qsd_converge(mpm1$matU, start = "small"))
+(q <- qsd_converge(mat = mpm1$matU, start = "small"))
 
-# subset the life table to ages prior to the QSD
+# subset the life table rows to ages prior to the QSD
 lt_preQSD <- lt[1:q,]
 
 # plot mortality trajectory from the life table subset (blue),
@@ -419,7 +420,7 @@ age-based trajectory prior to analysis.
 ```{r}
 # derive post-germination survivorship trajectory from U matrix
 lx <- mpm_to_lx(matU = mpm1$matU, start = "small")
-entropy_k(lx)       # calculate Keyfitz' entropy
+entropy_k(lx = lx)       # calculate Keyfitz' entropy
 ```
 
 ## 5. Transforming MPMs {#maniptransform}
@@ -440,8 +441,9 @@ stage names using the function `nameStages`, electing to use generic or custom
 names.
 
 ```{r}
-(col1_auto <- nameStages(col1, prefix = "class_"))  # automated stage naming
-(col1_cust <- nameStages(col1, names = c("seed", "active", "dormant"), prefix = NULL))  # overwrite with custom stages
+(col1_auto <- nameStages(mat = col1, prefix = "class_"))  # automated stage naming
+(col1_cust <- nameStages(mat = col1, names = c("seed", "active", "dormant"),
+                         prefix = NULL))  # overwrite with custom stages
 ```
 
 The transition rates in the collapsed matrix are a weighted average of the
@@ -453,12 +455,12 @@ be preserved.
 
 ```{r}
 # compare population growth rate of original and collapsed MPM (preserved)
-popbio::lambda(mpm1$matA)
-popbio::lambda(col1_cust$matA)
+popbio::lambda(A = mpm1$matA)
+popbio::lambda(A = col1_cust$matA)
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)
-net_repro_rate(mpm1$matU, mpm1$matF)
-net_repro_rate(col1_cust$matU, col1$matF)
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)
+net_repro_rate(matU = col1_cust$matU, matR = col1_cust$matF)
 ```
 
 # References {#references}
