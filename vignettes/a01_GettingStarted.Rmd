@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
+par(mar = c(4.5, 4.5, 1, 1))
 ```
 
 ```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
@@ -30,7 +31,7 @@ knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 `Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
 
 # Recap: Assumed knowledge
-The functions in `Rage` assume that the reader is familiar with the basic structure of MPMs and how they are used to project population change and basic demographic statistics (e.g., the equilibrium population growth rate, $\lambda$). This section is intended as a recap of these concepts--readers ready to begin calculating more advanced life history metrics may want to skip ahead to [the next section](#mpms_in_r). For a full introduction to MPMs we refer readers to [Caswell (2001)](#references).
+The functions in `Rage` assume that the reader is familiar with the basic structure of MPMs and how they are used to project population change and basic demographic statistics (e.g., the equilibrium population growth rate, $\lambda$). This section is intended as a recap of these concepts--readers ready to begin calculating more advanced life history metrics may want to skip ahead to [the next section](#mpms_in_r). We refer readers to [Caswell (2001)](#references) for a comprehensive introduction to MPMs.
 
 ## R.1. Basic anatomy of life cycles and MPMs
 Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different 'types' of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: **seedlings** that have newly recruited into the population from seeds, non-reproductive **rosettes**, and **flowering** adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.
@@ -291,100 +292,134 @@ vr_survival(mpm1$matU, exclude_col = 1)  # exclude 'seed' stage
 mean(vr_vec_survival(mpm1$matU)[-1])     # equivalent to the mean without 'seed'
 ```
 
-## 2. Age from stage methods for converting MPMs to life tables {#lifetable}
+## 2. Deriving life tables from MPMs for age-from-stage analyses {#lifetable}
 
-Some MPMs are parameterized with a stasis loop at the maximum stage class, which
-can lead to apparent plateaus in mortality or fertility trajectories derived
-using age-from-stage methods. The function `qsd_converge()` can be used to
-identify the time it takes for a cohort to reach the quasi-stationary
-distribution (QSD). This quantity can then be used to subset age trajectories of
-mortality or fertility to periods earlier than the QSD, so as to avoid
-artefactual plateaus in mortality or fertility.
+Classical demographic analyses were based on age-structured populations, in which 
+surviving individuals always progress to the next age class. However, MPMs allow 
+for demographic rates to be structured by any number of biological criteria, 
+whether stage, sex, size, or condition. In these alternatively-structured models, 
+individuals may remain in the same state or even 'regress' to states they had 
+previously. Here there is no one-to-one mapping between state and age. Each 
+individual still has an age, and understanding their age-specific demographic 
+trajectories nevertheless offers a useful window into their life history. `Rage`
+provides functions that decompose MPMs into life tables, thereby allowing for a 
+wide array of demographic analyses based on age-specific trajectories (described 
+below in [section 4](#lifehist)).
 
-```{r, warning=FALSE, message=FALSE}
-# derive life table from MPM
-lt <- mpm_to_table(mpm1$matU, start = 2)
-
-# calculate time to QSD
-(q <- qsd_converge(mpm1$matU, start = 2))
-
-# plot mortality trajectory w/ vertical line at time to QSD
-par(mar = c(4.5, 4.5, 1, 1))
-plot(qx ~ x, data = lt, type = "l", ylim = c(0, 0.65))
-abline(v = q, lty = 2)
-```
-
-From the life table derived from `mpm1`, we can see a plateau in the mortality
-rate (qx) beginning around age 5. However, this plateau corresponds to the QSD
-and is therefore probably an artefact of the stasis loop rather than a
-biological reality for the population represented by `mpm1`.
-
-One approach to accounting for this artefactual plateau in subsequent life
-history calculations is to limit our life table to the period prior to the QSD.
+Following the age-from-stage methods of [Caswell (2001, ch. 5.3)](#references), 
+we can convert an MPM to a full, age-structured life table or any of its component
+columns.
 
 ```{r}
-# calculate the shape of the survival/mortality trajectory
-shape_surv(lt$lx)       # based on full lx trajectory
-shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
+mpm1  # a stage-structured MPM for a plant
+lt <- mpm_to_table(matU = mpm1$matU, matF = mpm1$matF)  # full life table
+lx <- mpm_to_lx(matU = mpm1$matU)  # survivorship to start of each age class
 ```
+
+`Rage` also supports translation between the different ways of expressing
+age-specific mortality/survival, whether proportional survivorship (lx), survival 
+probability (px) or mortality hazard (hx), following an `x_to_y` function name 
+pattern.
+
+```{r}
+lx_to_px(lx)  # survivorship to survival probability
+lx_to_hx(lx)  # survivorship to mortality hazard
+```
+
+When individuals can remain in the last life stage class, age-specific trajectories
+of mortality and fertility can appear to plateau as a cohort asymptotically 
+approaches its stable stage distribution (SSD). For these MPMs, we can choose
+a quasi-stationary distribution (QSD) of stages that is within an arbitrarily 
+close threshold of the SSD. Subsetting age-specific demographic trajectories to 
+time points before a cohort reaches the QSD will minimise these plateau artefacts. 
+In the example MPM, `mpm1`, a cohort of germinated individuals quickly converges 
+towards the SSD. Using `qsd_converge`, we can find the time at which the cohort 
+reaches the QSD and subset the life table or any component age-specific trajectory
+accordingly.
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', fig.height=5, fig.width=6}
+# project a germinated cohort through the U matrix
+cohort <- popbio::pop.projection(mpm1$matU, n = c(0, 1, 0, 0, 0), iterations = 10)
+popbio::stage.vector.plot(cohort$stage.vectors[-1,], xlab = "time",
+                          ylab = "proportion in stage class", col = "black")
+
+# calculate time to QSD from the U matrix of an MPM
+(q <- qsd_converge(mpm1$matU, start = "small"))
+
+# subset the life table to ages prior to the QSD
+lt_preQSD <- lt[1:q,]
+
+# plot mortality trajectory from the life table subset (blue),
+# showing plateau effect if the trajectory (grey) was allowed to continue to the
+# QSD (dashed vertical line) and beyond
+plot(qx ~ x, data = lt, type = "l", col = "darkgrey", ylim = c(0, 1), xlab = "age")
+lines(qx ~ x, data = lt_preQSD, type = "l", col = "blue", lwd = 4)
+abline(v = q, lty = "dashed")
+```
+
+We refer readers to the [AgeFromStage vignette](a03_AgeFromStage.html) for further
+detail on these methods.
 
 ## 3. Perturbation analyses {#perturb}
 
-The `perturb_matrix()` function measures the response of a demographic statistic
-to perturbation of individual matrix elements (i.e. sensitivities and
-elasticities). The `perturb_vr()` and `perturb_trans()` functions implement
-perturbation analyses by vital rate type (survival, growth, etc.) and transition
-type (stasis, retrogression, etc.), respectively.
+Perturbation analyses of MPMs measure the response of demographic statistics, such 
+as the equilibrium per-capita population growth rate ($\lambda$), to perturbations 
+typically applied at the level of individual matrix elements and which may be by 
+a fixed or proportionate amount (**sensitivities** and **elasticities**, 
+respectively). By extension, the vital rates (survivial, growth, etc.) or 
+transition type (stasis, retrogression, etc.) underlying multiple matrix elements 
+may be similarly perturbed. `Rage` provides a functions for each scope of 
+perturbation, allowing the user to specify the desired demographic statistic and 
+type of perturbation.
 
 ```{r}
 # construct the transition matrix A = U + F (+ C when present)
 mpm1$matA <- with(mpm1, matU + matF)
 
-# matrix element perturbation
-perturb_matrix(mpm1$matA, type = "sensitivity")
-
-# vital rate perturbation
-# (we use as.data.frame here for prettier printing)
-as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
-
-# transition type perturbation
-as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
+# sensitivity of lambda to...
+# ...matrix element perturbations
+perturb_matrix(matA = mpm1$matA,
+               type = "sensitivity", demog_stat = "lambda")
+# ...vital rate perturbations
+perturb_vr(matU = mpm1$matU, matF = mpm1$matF,
+           type = "sensitivity", demog_stat = "lambda")
+# ...transition type perturbations
+perturb_trans(matU = mpm1$matU, matF = mpm1$matF,
+              type = "sensitivity", demog_stat = "lambda")
 ```
 
 ## 4. Deriving life history traits {#lifehist}
 
-What is the life expectancy of an individual? At what age will it begin to reproduce? How likely is it to survive to reproduction? What is the generation time? These high level questions address the population-level life history traits that emerge from aggregating individual-level demographic rates, and tracing trajectories through the life cycle.
+What is the life expectancy of an individual? At what age will it begin to 
+reproduce? How likely is it to survive to reproduction? What is the generation 
+time? These high-level questions address the population-level life history traits 
+that emerge from aggregating individual-level demographic rates, and tracing 
+trajectories through the life cycle.
 
-Life history traits that do not involve reproduction require only a __U__ matrix (supplied to the function's `matU` argument) and the stage class that represents the starting point for the calculation (supplied to the `start` argument). In the example MPM, a natural starting point for calculating life expectancy could be from either the seed stage or post-recruitment. Both calculations are possible by modifying the `start` argument. Longevity, defined as the age at which survivorship falls below a user-defined threshold, follows a similar pattern.
+`Rage` provides functions to calculate a wide range of life history traits from 
+both MPMs and life tables. We illustrate the general pattern of these functions 
+below, referring the reader to the [LifeHistoryTraits vignette](a05_LifeHistoryTraits.html)
+and the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html) 
+for a complete list of functionality.
+
+MPM-based analyses take the required submatix (or submatrices), optionally allowing 
+the user to specify the life stage at which to start the calculation, choose among 
+alternative methods and set cut-off thresholds.
 ```{r}
-life_expect(matU = mpm1$matU, start = 1)  # life expectancy from "seed" stage
-life_expect(matU = mpm1$matU, start = 2)  # life expectancy from "small" stage
-longevity(matU = mpm1$matU, start = 2, lx_crit = 0.05)  # post-germination years until survivorship falls below 5%
+# post-germination time steps until post-germination survivorship falls below 5%
+longevity(matU = mpm1$matU, start = "small", lx_crit = 0.05)
+# expected lifetime production of 'small' offspring by a 'small' individual
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF, start = "seed",
+               method = "start")
 ```
 
-An expanded set of life history traits can be calculated by incorporating a reproduction matrix to the `matR` argument. In our example, we'll assume that reproduction only happens sexually and therefore we can substitute __F__ in place of __R__. For species with both modes of reproduction, using __F__ or __C__ alone in these functions allows for a more nuanced assessment of reproductive life history. For reproductive traits that aggregate across the life cycle, we need not supply a `start` stage.
+When calculating life table-based traits, MPMs can be transformed to the necessary 
+age-based trajectory prior to analysis.
 
 ```{r}
-mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)     # post-germination years to first reproduction
-mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)    # post-germination Pr(survival to first repro)
-net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            # net reproductive rate (aggregate)
-gen_time(matU = mpm1$matU, matR = mpm1$matF)                  # generation time (aggregate)
-```
-
-Other life history traits are calculated from a life table rather than an MPM,
-in which case we can first use the `mpm_to_` group of functions to derive the
-necessary life table components: (st)age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*).
-```{r}
-lx <- mpm_to_lx(matU = mpm1$matU, start = 2)
-px <- mpm_to_px(matU = mpm1$matU, start = 2)
-hx <- mpm_to_hx(matU = mpm1$matU, start = 2)
-mx <- mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = 2)
-
-# then calculate life history traits
-entropy_k(lx)       # Keyfitz' entropy
-entropy_d(lx, mx)   # Demetrius' entropy
-shape_surv(lx)      # shape of survival/mortality trajectory
-shape_rep(mx)       # shape of fecundity trajectory
+# derive post-germination survivorship trajectory from U matrix
+lx <- mpm_to_lx(matU = mpm1$matU, start = "small")
+entropy_k(lx)       # calculate Keyfitz' entropy
 ```
 
 ## 5. Transforming MPMs {#maniptransform}
@@ -395,8 +430,18 @@ using `mpm_collapse()`.
 
 ```{r}
 # collapse 'small', 'medium', and 'large' stages into single stage class
-col1 <- mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2:4, 5))
+col1 <- mpm_collapse(matU = mpm1$matU, matF = mpm1$matF,
+                     collapse = list(1, 2:4, 5))
 col1$matA
+```
+
+Notice that the stage names are lost during this operation. We can re-add new 
+stage names using the function `nameStages`, electing to use generic or custom 
+names.
+
+```{r}
+(col1_auto <- nameStages(col1, prefix = "class_"))  # automated stage naming
+(col1_cust <- nameStages(col1, names = c("seed", "active", "dormant"), prefix = NULL))  # overwrite with custom stages
 ```
 
 The transition rates in the collapsed matrix are a weighted average of the
@@ -409,11 +454,11 @@ be preserved.
 ```{r}
 # compare population growth rate of original and collapsed MPM (preserved)
 popbio::lambda(mpm1$matA)
-popbio::lambda(col1$matA)
+popbio::lambda(col1_cust$matA)
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)
 net_repro_rate(mpm1$matU, mpm1$matF)
-net_repro_rate(col1$matU, col1$matF)
+net_repro_rate(col1_cust$matU, col1$matF)
 ```
 
 # References {#references}

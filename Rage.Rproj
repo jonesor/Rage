@@ -16,3 +16,5 @@ BuildType: Package
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageCheckArgs: --multiarch --as-cran
 PackageRoxygenize: rd,collate,namespace
+
+SpellingDictionary: en_GB

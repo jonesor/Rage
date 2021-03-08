@@ -11,6 +11,10 @@
 #'   have equal length, enabling lexicographic sorting. For example, stage '1'
 #'   becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
 #'   stages, and so on. Defaults to TRUE.
+#'   
+#' @author William K. Petry <wpetry@@ncsu.edu>
+#' 
+#' @family {transformation}
 #'
 #' @return The input matrix or matrices with named rows and columns.
 #' @export nameStages
@@ -68,7 +72,8 @@ nameStages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
          " names supplied for ", mdim, " life stages.")
   }
   # warn if overwriting existing stage names
-  if (!is.null(unlist(lapply(mat, dimnames), use.names = FALSE))) {
+  if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames), use.names = FALSE)) |
+      is.matrix(mat) && !is.null(unlist(dimnames(mat), use.names = FALSE))) {
     warning("Existing stage names have been overwritten!")
   }
   # add stage names to matrix/matrices

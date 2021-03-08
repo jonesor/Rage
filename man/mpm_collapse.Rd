@@ -84,6 +84,7 @@ Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 Other {transformation}: 
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
+\code{\link{nameStages}()},
 \code{\link{plot_life_cycle}()},
 \code{\link{pop_vectors}()},
 \code{\link{repro_stages}()},
