@@ -7,6 +7,12 @@ test_that("mature_distrib works correctly", {
   expect_equal(sum(x1), 1)
   expect_length(x1[x1 > 0], 1) # repro maturity in only 1 stage class
   
+  # test using named stages
+  x2 <- mature_distrib(mat_u_named, repro_stages = c("lg", "xl"))
+  expect_length(x2, ncol(mat_u_named))
+  expect_equal(sum(x2), 1)
+  expect_identical(x1, unname(x2))
+  
   mat_u2 <- mat_u
   mat_u2[4,2] <- 0.1
   x2 <- mature_distrib(mat_u2, repro_stages = repstages)
@@ -26,4 +32,7 @@ test_that("mature_distrib warns and fails gracefully", {
   repstages <- repro_stages(mat_f)
   expect_error(mature_distrib(mat_u_na, repro_stages = repstages))
   expect_error(mature_distrib(mat_u, start = 10, repro_stages = repstages))
+  expect_error(mature_distrib(mat_u_named, repro_stages = c(3, "lg")))
+  expect_error(mature_distrib(mat_u_named, repro_stages = 3:6))
+  expect_error(mature_distrib(mat_u_named, repro_stages = c("lg", "xl", "xxl")))
 })
