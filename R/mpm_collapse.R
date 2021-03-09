@@ -20,10 +20,11 @@
 #'   \code{matC} is a matrix of zeros).
 #' @param collapse A list giving the mapping between stages of the original
 #'   matrix and the desired stages of the collapsed matrix (e.g. \code{list(1,
-#'   2:3, 4)}). The indices of \code{collapse} correspond to the desired stages
-#'   of the collapsed matrix, and the corresponding values give the stage index
-#'   or vector of stage indices from the original matrix that correspond to the
-#'   relevant stage of the collapsed matrix.
+#'   2:3, 4)}). Original stages may be passed as either indices or stage names
+#'   corresponding to stage index or name in \code{matU}, \code{matF} and 
+#'   \code{matC}). Names given to the elements of \code{collapse} are used as 
+#'   stage names in the new, collapsed matrix. 
+#'   
 #'   
 #'   See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.
 #' @return A list with four elements:
@@ -42,6 +43,7 @@
 #' corresponding to a missing stage will be coerced to \code{NA}.
 #' 
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
+#' @author William K. Petry <wpetry@@ncsu.edu>
 #' 
 #' @family {transformation}
 #'
@@ -60,10 +62,16 @@
 #' data(mpm1)
 #' 
 #' # check which stages reproductive
-#' repro_stages(mpm1$matF)
+#' repro_stages(matF = mpm1$matF)
 #' 
 #' # collapse reproductive stages (3 and 4) into single stage
-#' mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2, 3:4, 5))
+#' mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, collapse = list(1, 2, 3:4, 5))
+#' 
+#' # use stage names instead, and name stages in the collapsed matrix
+#' mpm_collapse(matU = mpm1$matU, matF = mpm1$matF,
+#'              collapse = list(seed = "seed", vegetative = "small",
+#'                              flowering = c("medium", "large"),
+#'                              dormant = "dormant"))
 #' 
 #' @importFrom popbio stable.stage
 #' @export mpm_collapse
@@ -72,11 +80,35 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  checkMatchingStageNames(matU, matF)
+  if (!is.null(matC)) {
+    checkValidMat(matC, warn_all_zero = FALSE)
+    checkMatchingStageNames(matU, matC)
+  }
+  if (all(sapply(collapse, is.character)) && !all(unlist(collapse) %in% colnames(matU))) {
+    stop("The following stage names supplied to `collapse` were not found in the ",
+         "matrices provided: ",
+         paste(unlist(collapse)[!unlist(collapse) %in% colnames(matU)],
+               collapse = ", "),
+         call. = FALSE)
+  } else if (all(sapply(collapse, is.numeric)) &&
+             (max(unlist(collapse)) > ncol(matU) | any(unlist(collapse) <= 0L))) {
+    stop("The following stage numbers supplied to `collapse` were outside the ",
+         "dimensions of the matrices provided: ",
+         paste(unlist(collapse)[unlist(collapse) > ncol(matU) | unlist(collapse) <= 0L],
+               collapse = ", "), call. = FALSE)
+  } else if (!all(sapply(collapse, is.character)) && !all(sapply(collapse, is.numeric))) {
+    stop("The list supplied to `collapse` must be all be either stage numbers or ",
+         "all be stage names.", call. = FALSE)
+  }
   
   # populate matC with zeros, if NULL
   if (is.null(matC)) {
+    outC <- FALSE
     matC <- matrix(0, nrow = nrow(matU), ncol = ncol(matU))
+    if (!is.null(dimnames(matU))) {
+      dimnames(matC) <- dimnames(matU)
+    }
   }
   
   # sum components to matA
@@ -87,6 +119,14 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   collapseDim <- length(collapse)
   
   P <- matrix(0, nrow = collapseDim , ncol = originalDim)
+  if (!is.null(names(collapse))) {
+    rownames(P) <- names(collapse)
+  }
+  
+  # convert `collapse` names to corresponding row/col numbers if needed
+  if (all(sapply(collapse, is.character))) {
+    collapse <- lapply(collapse, function(x) which(colnames(matU) %in% x))
+  }
   
   for (i in 1:collapseDim) {
     columns <- as.numeric(collapse[[i]])
