@@ -62,7 +62,7 @@
 #' data(mpm1)
 #' 
 #' # check which stages reproductive
-#' repro_stages(matF = mpm1$matF)
+#' repro_stages(matR = mpm1$matF)
 #' 
 #' # collapse reproductive stages (3 and 4) into single stage
 #' mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, collapse = list(1, 2, 3:4, 5))
@@ -85,22 +85,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
     checkValidMat(matC, warn_all_zero = FALSE)
     checkMatchingStageNames(matU, matC)
   }
-  if (all(sapply(collapse, is.character)) && !all(unlist(collapse) %in% colnames(matU))) {
-    stop("The following stage names supplied to `collapse` were not found in the ",
-         "matrices provided: ",
-         paste(unlist(collapse)[!unlist(collapse) %in% colnames(matU)],
-               collapse = ", "),
-         call. = FALSE)
-  } else if (all(sapply(collapse, is.numeric)) &&
-             (max(unlist(collapse)) > ncol(matU) | any(unlist(collapse) <= 0L))) {
-    stop("The following stage numbers supplied to `collapse` were outside the ",
-         "dimensions of the matrices provided: ",
-         paste(unlist(collapse)[unlist(collapse) > ncol(matU) | unlist(collapse) <= 0L],
-               collapse = ", "), call. = FALSE)
-  } else if (!all(sapply(collapse, is.character)) && !all(sapply(collapse, is.numeric))) {
-    stop("The list supplied to `collapse` must be all be either stage numbers or ",
-         "all be stage names.", call. = FALSE)
-  }
+  checkValidStages(matU, stages = collapse)
   
   # populate matC with zeros, if NULL
   if (is.null(matC)) {

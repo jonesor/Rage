@@ -46,13 +46,17 @@ elements indicating whether a given \code{matC} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matC > 0} (see
 Details).}
 
-\item{exclude_row}{An integer or logical vector indicating stages for which
-transitions \emph{to} the stage should be excluded from perturbation
-analysis. See section \emph{Excluding stages}.}
+\item{exclude_row}{A vector of row indices or stages names indicating stages 
+for which transitions \emph{to} the stage should be excluded from perturbation
+analysis. Alternatively, a logical vector of length \code{nrow(matU)} 
+indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+the calculation. See section \emph{Excluding stages}.}
 
-\item{exclude_col}{An integer or logical vector indicating stages for which
-transitions \emph{from} the stage should be excluded from perturbation
-analysis. See section \emph{Excluding stages}.}
+\item{exclude_col}{A vector of column indices or stages names indicating stages 
+for which transitions \emph{to} the stage should be excluded from perturbation
+analysis. Alternatively, a logical vector of length \code{ncol(matU)} 
+indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+the calculation. See section \emph{Excluding stages}.}
 
 \item{pert}{The magnitude of the perturbation (defaults to \code{1e-6}).}
 
@@ -146,7 +150,7 @@ damping <- function(matA) {
   return(dm[1] / dm[2])
 }
 
-#Second, run the perturbation analysis using demog_stat = "damping".
+# Second, run the perturbation analysis using demog_stat = "damping".
 perturb_trans(matU, matF, demog_stat = "damping")
 
 }

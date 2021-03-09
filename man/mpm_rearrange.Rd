@@ -5,7 +5,7 @@
 \title{Rearrange stages of a matrix population model to segregate reproductive and
 non-reproductive stages}
 \usage{
-mpm_rearrange(matU, matF, matC = NULL, reproStages, matrixStages)
+mpm_rearrange(matU, matF, matC = NULL, repro_stages, matrix_stages)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -20,17 +20,19 @@ projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-\item{reproStages}{Logical vector identifying which stages reproductive}
+\item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating 
+which stages are reproductive. Alternatively, a vector of stage indices or 
+stage names of the reproductive classes.}
 
-\item{matrixStages}{A character vector identifying organized matrix stages}
+\item{matrix_stages}{A character vector identifying organized matrix stages.}
 }
 \value{
 Returns a list with 6 elements:
 \item{matU}{Rearranged survival matrix}
 \item{matF}{Rearranged sexual reproduction matrix}
 \item{matC}{Rearranged clonal reproduction matrix}
-\item{matrixStages}{Rearranged vector of organized matrix stages}
-\item{reproStages}{Rearranged logical vector of reproductive stages}
+\item{matrix_stages}{Rearranged vector of organized matrix stages}
+\item{repro_stages}{Rearranged logical vector of reproductive stages}
 \item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
  stages}
 }
@@ -53,11 +55,11 @@ matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
               c(  0,   0,   0,   0,   0),
               c(  0,   0,   0,   0,   0))
 
-reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+repro_stages <- c(2, 4)
+matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 
-mpm_rearrange(matU, matF, reproStages = reproStages,
-              matrixStages = matrixStages)
+mpm_rearrange(matU, matF, repro_stages = repro_stages,
+              matrix_stages = matrix_stages)
 
 }
 \seealso{

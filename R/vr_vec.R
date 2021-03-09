@@ -28,16 +28,20 @@
 #'   elements indicating whether a given \code{matR} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
 #'   Details).
-#' @param exclude Integer or logical vector indicating stages for which
-#'   transitions both \emph{to} and \emph{from} the stage should be excluded
-#'   from the calculation of vital rates. See section \emph{Excluding stages}.
-#' @param exclude_row Integer or logical vector indicating stages for which
-#'   transitions \emph{to} the stage should be excluded from the calculation of
-#'   vital rates. See section \emph{Excluding stages}.
-#' @param exclude_col Integer or logical vector indicating stages for which
-#'   transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
-#'   See section \emph{Excluding stages}.
-#' @param dorm_stages Integer indicator(s) for dormant stage classes.
+#' @param exclude Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param exclude_row Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param exclude_col Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param dorm_stages Integer or character vector indicating dormant stage 
+#'   classes.
 #' @param weights_row Vector of stage-specific weights to apply while summing
 #'   vital rates across rows within columns (e.g. reproductive value vector).
 #' @param surv_only_na If there is only one possible \code{matU} transition in a
@@ -98,13 +102,17 @@
 #' 
 #' vr_vec_survival(matU, exclude_col = 4)
 #' vr_vec_growth(matU, exclude = 4)
+#' 
+#' # `exclude*` and `*_stages` arguments can accept stage names
+#' matU <- nameStages(matU)
+#' matR <- nameStages(matR)
 #' vr_vec_shrinkage(matU, exclude = 4)
-#' vr_vec_stasis(matU, exclude = 4)
+#' vr_vec_stasis(matU, exclude = "stage_4")
 #' 
 #' vr_vec_dorm_enter(matU, dorm_stages = 4)
-#' vr_vec_dorm_exit(matU, dorm_stages = 4)
+#' vr_vec_dorm_exit(nameStages(matU), dorm_stages = "stage_4")
 #' 
-#' vr_vec_reproduction(matU, matR, exclude_col = 4)
+#' vr_vec_reproduction(matU, matR, exclude_col = "stage_4")
 #' 
 #' @name vr_vec
 NULL
@@ -117,6 +125,7 @@ vr_vec_survival <- function(matU,
                             exclude_col = NULL) {
   
   checkValidMat(matU)
+  checkValidStages(matU, exclude_col)
   pos_vital <- apply(posU, 2, any)
   
   v <- colSums(matU)
@@ -134,6 +143,11 @@ vr_vec_growth <- function(matU,
                           exclude_row = NULL,
                           exclude_col = NULL,
                           surv_only_na = TRUE) {
+  
+  checkValidMat(matU)
+  checkValidStages(matU, exclude)
+  checkValidStages(matU, exclude_row)
+  checkValidStages(matU, exclude_col)
   
   vmat <- vr_mat_U(matU = matU,
                    posU = posU,
@@ -163,6 +177,11 @@ vr_vec_shrinkage <- function(matU,
                              exclude_col = NULL,
                              surv_only_na = TRUE) {
   
+  checkValidMat(matU)
+  checkValidStages(matU, exclude)
+  checkValidStages(matU, exclude_row)
+  checkValidStages(matU, exclude_col)
+  
   vmat <- vr_mat_U(matU = matU,
                    posU = posU,
                    surv_only_na = surv_only_na)
@@ -189,6 +208,9 @@ vr_vec_stasis <- function(matU,
                           exclude = NULL,
                           surv_only_na = TRUE) {
   
+  checkValidMat(matU)
+  checkValidStages(matU, exclude)
+  
   vmat <- vr_mat_U(matU = matU,
                    posU = posU,
                    surv_only_na = surv_only_na)
@@ -209,6 +231,9 @@ vr_vec_dorm_enter <- function(matU,
                               posU = matU > 0,
                               dorm_stages) {
   
+  checkValidMat(matU)
+  checkValidStages(matU, dorm_stages)
+  
   vmat <- vr_mat_U(matU = matU,
                    posU = posU)
   
@@ -228,11 +253,19 @@ vr_vec_dorm_exit <- function(matU,
                              posU = matU > 0,
                              dorm_stages) {
   
+  checkValidMat(matU)
+  checkValidStages(matU, dorm_stages)
+  
   vmat <- vr_mat_U(matU = matU,
                    posU = posU)
   
   vmat[dorm_stages, ] <- 0
   v <- colSums2(vmat)
+  
+  # convert dorm_stages to indices, if necessary
+  if (is.character(dorm_stages)) {
+    dorm_stages <- which(colnames(matU) == dorm_stages)
+  }
   
   # possible transitions from dormant to non-dormant
   pos_exit <- matrix(FALSE, nrow = nrow(matU), ncol = nrow(matU))
@@ -251,6 +284,11 @@ vr_vec_reproduction <- function(matU,
                              posR = matR > 0,
                              exclude_col = NULL,
                              weights_row = NULL) {
+  
+  checkValidMat(matU)
+  checkValidMat(matR)
+  checkMatchingStageNames(matU, matR)
+  checkValidStages(matU, exclude_col)
   
   vmat <- vr_mat_R(matU = matU,
                    matR = matR,

@@ -29,12 +29,16 @@
 #'   elements indicating whether a given \code{matC} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matC > 0} (see
 #'   Details).
-#' @param exclude_row An integer or logical vector indicating stages for which
-#'   transitions \emph{to} the stage should be excluded from perturbation
-#'   analysis. See section \emph{Excluding stages}.
-#' @param exclude_col An integer or logical vector indicating stages for which
-#'   transitions \emph{from} the stage should be excluded from perturbation
-#'   analysis. See section \emph{Excluding stages}.
+#' @param exclude_row A vector of row indices or stages names indicating stages 
+#'   for which transitions \emph{to} the stage should be excluded from perturbation
+#'   analysis. Alternatively, a logical vector of length \code{nrow(matU)} 
+#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+#'   the calculation. See section \emph{Excluding stages}.
+#' @param exclude_col A vector of column indices or stages names indicating stages 
+#'   for which transitions \emph{to} the stage should be excluded from perturbation
+#'   analysis. Alternatively, a logical vector of length \code{ncol(matU)} 
+#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+#'   the calculation. See section \emph{Excluding stages}.
 #' @param pert The magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param type An argument defining whether to return `sensitivity` or
 #'   `elasticity` values. Defaults to `sensitivity`.
@@ -115,7 +119,7 @@
 #'   return(dm[1] / dm[2])
 #' }
 #' 
-#' #Second, run the perturbation analysis using demog_stat = "damping".
+#' # Second, run the perturbation analysis using demog_stat = "damping".
 #' perturb_trans(matU, matF, demog_stat = "damping")
 #' 
 #' @importFrom popbio lambda
@@ -129,7 +133,13 @@ perturb_trans <- function(matU, matF, matC = NULL,
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  checkMatchingStageNames(matU, matF)
+  if (!is.null(matC)) {
+    checkValidMat(matC, warn_all_zero = FALSE)
+    checkMatchingStageNames(matU, matC)
+  }
+  checkValidStages(matU, exclude_row)
+  checkValidStages(matU, exclude_col)
   type <- match.arg(type, c("sensitivity", "elasticity"))
   
   # Get statfun
@@ -150,6 +160,10 @@ perturb_trans <- function(matU, matF, matC = NULL,
   if (is.null(matC)) {
     matC <- matrix(0, m, m)
     posC <- matrix(FALSE, m, m)
+    
+    if (!is.null(dimnames(matU))) {
+      dimnames(posC) <- dimnames(matC) <- dimnames(matU)
+    }
   }
   
   # Excluded stage classes
