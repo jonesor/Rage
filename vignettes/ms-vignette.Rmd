@@ -2,13 +2,7 @@
 title: "The functionality of RCompadre and Rage"
 author: "Pol Capdevila and John Jackson"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Getting started with Rage}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
+output: word_document
 ---
 
 ```{r setup, include = FALSE}
