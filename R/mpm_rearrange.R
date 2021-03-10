@@ -15,14 +15,16 @@
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
-#' @param matrixStages A character vector identifying organized matrix stages
-#' @param reproStages Logical vector identifying which stages reproductive
+#' @param repro_stages Logical vector of length \code{ncol(matU)} indicating 
+#'   which stages are reproductive. Alternatively, a vector of stage indices or 
+#'   stage names of the reproductive classes.
+#' @param matrix_stages A character vector identifying organized matrix stages.
 #' @return Returns a list with 6 elements:
 #' \item{matU}{Rearranged survival matrix}
 #' \item{matF}{Rearranged sexual reproduction matrix}
 #' \item{matC}{Rearranged clonal reproduction matrix}
-#' \item{matrixStages}{Rearranged vector of organized matrix stages}
-#' \item{reproStages}{Rearranged logical vector of reproductive stages}
+#' \item{matrix_stages}{Rearranged vector of organized matrix stages}
+#' \item{repro_stages}{Rearranged logical vector of reproductive stages}
 #' \item{nonRepInterRep}{Numeric index for any rearranged inter-reproductive
 #'  stages}
 #'  
@@ -44,26 +46,40 @@
 #'               c(  0,   0,   0,   0,   0),
 #'               c(  0,   0,   0,   0,   0))
 #' 
-#' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-#' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+#' repro_stages <- c(2, 4)
+#' matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 #' 
-#' mpm_rearrange(matU, matF, reproStages = reproStages,
-#'               matrixStages = matrixStages)
+#' mpm_rearrange(matU, matF, repro_stages = repro_stages,
+#'               matrix_stages = matrix_stages)
 #' 
 #' @export mpm_rearrange
-mpm_rearrange <- function(matU, matF, matC = NULL, reproStages,
-                          matrixStages) {
+mpm_rearrange <- function(matU, matF, matC = NULL, repro_stages,
+                          matrix_stages) {
 
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
   if (!is.null(matC)) checkValidMat(matC, warn_all_zero = FALSE)
+  # convert repro_stages indices and names to logical vector, if needed
+  if (any(is.numeric(repro_stages[!is.na(repro_stages)]))) {
+    temprs <-  vector(mode = "logical", length = ncol(matU))
+    temprs[repro_stages] <- TRUE
+    repro_stages <- temprs
+  } else if (any(is.character(repro_stages[!is.na(repro_stages)]))) {
+    repro_stages <- colnames(matU) %in% repro_stages
+  }
   if (ncol(matU) != ncol(matF) ||
-        ncol(matU) != length(reproStages) ||
-          length(reproStages) != length(matrixStages)) {
+        ncol(matU) != length(repro_stages) ||
+          length(repro_stages) != length(matrix_stages)) {
     stop("Arguments do not correspond to MPM of single dimension",
          call. = FALSE)
   }
+  checkMatchingStageNames(matU, matF)
+  if (!is.null(matC)) {
+    checkValidMat(matC, warn_all_zero = FALSE)
+    checkMatchingStageNames(matU, matC)
+  }
+  checkValidStages(matU, repro_stages)
   
   # populate matC with zeros, if NULL
   if (is.null(matC)) {
@@ -72,7 +88,7 @@ mpm_rearrange <- function(matU, matF, matC = NULL, reproStages,
   
   # preliminaries
   matDim <- ncol(matF)              # matrix dim
-  Rep <- which(reproStages == TRUE) # reproductive stage indices
+  Rep <- which(repro_stages == TRUE) # reproductive stage indices
   out <- NULL                       # initalize output list
   
   # which stages reproductive, incl. inter-reproductive
@@ -92,15 +108,15 @@ mpm_rearrange <- function(matU, matF, matC = NULL, reproStages,
     out$matU <- matU[rearrange, rearrange]
     out$matF <- matF[rearrange, rearrange]
     out$matC <- matC[rearrange, rearrange]
-    out$matrixStages <- matrixStages[rearrange]
-    out$reproStages <- reproStages[rearrange]
+    out$matrix_stages <- matrix_stages[rearrange]
+    out$repro_stages <- repro_stages[rearrange]
   } else {
     # else, no need to rearrange
     out$matU <- matU
     out$matF <- matF
     out$matC <- matC
-    out$matrixStages <- matrixStages
-    out$reproStages <- reproStages
+    out$matrix_stages <- matrix_stages
+    out$repro_stages <- repro_stages
   }
   
   # inter-repro stages that were moved to the last column(s)

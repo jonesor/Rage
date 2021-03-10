@@ -18,7 +18,7 @@
 #'    the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
 #'   considers the beginning of life. Defaults to 1.
-#' @param repro_stages A vector of stage names or numbers indicating which stages
+#' @param repro_stages A vector of stage names or indices indicating which stages
 #'   are reproductive. Alternatively, a logical vector of length \code{ncol(matU)} 
 #'   indicating whether each stage is reproductive (TRUE) or not (FALSE).
 #'   
@@ -121,14 +121,8 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   if (!is.numeric(start)){
     checkMatchingStageNames(M = matU)
   }
-  if (is.numeric(repro_stages) && max(repro_stages) > ncol(matU)) {
-    stop("Stage numbers supplied to `repro_stages` exceeds the number of ",
-         "stages in `matU`.", call. = FALSE)
-  }
-  if (is.character(repro_stages) && !all(repro_stages %in% colnames(matU))) {
-    stop("One or more stage names supplied to `repro_stages` does not match ",
-         "stage names of `matU`. This may also occur if both stage names and ",
-         "stage numbers are supplied.", call. = FALSE)
+  if (is.numeric(repro_stages) | is.character(repro_stages)) {
+    checkValidStages(matU, repro_stages)
   }
   
   primeU <- matU
@@ -147,7 +141,7 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
 
 #' @noRd
 calc_Bprime <- function(matU, fec_stages) {
-  
+  # Note: internal function; doesn't need stage name support in current use context
   m <- ncol(matU)
   
   # Probability of survival to first sexual reproductive event

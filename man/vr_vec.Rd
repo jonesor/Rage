@@ -55,17 +55,20 @@ elements indicating whether a given \code{matU} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
 Details).}
 
-\item{exclude_col}{Integer or logical vector indicating stages for which
-transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
-See section \emph{Excluding stages}.}
+\item{exclude_col}{Integer, character or logical vector indicating stages for 
+which transitions both \emph{to} and \emph{from} the stage should be 
+excluded from the calculation of vital rates. See section 
+\emph{Excluding stages}.}
 
-\item{exclude}{Integer or logical vector indicating stages for which
-transitions both \emph{to} and \emph{from} the stage should be excluded
-from the calculation of vital rates. See section \emph{Excluding stages}.}
+\item{exclude}{Integer, character or logical vector indicating stages for 
+which transitions both \emph{to} and \emph{from} the stage should be 
+excluded from the calculation of vital rates. See section 
+\emph{Excluding stages}.}
 
-\item{exclude_row}{Integer or logical vector indicating stages for which
-transitions \emph{to} the stage should be excluded from the calculation of
-vital rates. See section \emph{Excluding stages}.}
+\item{exclude_row}{Integer, character or logical vector indicating stages for 
+which transitions both \emph{to} and \emph{from} the stage should be 
+excluded from the calculation of vital rates. See section 
+\emph{Excluding stages}.}
 
 \item{surv_only_na}{If there is only one possible \code{matU} transition in a
 given column, should that transition be attributed exclusively to survival?
@@ -74,7 +77,8 @@ will be coerced to \code{NA}. If \code{FALSE}, dividing the single
 transition by the stage-specific survival probability will always yield a
 value of \code{1}. Defaults to \code{TRUE}.}
 
-\item{dorm_stages}{Integer indicator(s) for dormant stage classes.}
+\item{dorm_stages}{Integer or character vector indicating dormant stage 
+classes.}
 
 \item{matR}{The reproductive component of a matrix population model (i.e. a
 square projection matrix only reflecting transitions due to reproduction; either
@@ -154,13 +158,17 @@ matR <- rbind(c(  0,   0.7, 1.1, 0),
 
 vr_vec_survival(matU, exclude_col = 4)
 vr_vec_growth(matU, exclude = 4)
+
+# `exclude*` and `*_stages` arguments can accept stage names
+matU <- nameStages(matU)
+matR <- nameStages(matR)
 vr_vec_shrinkage(matU, exclude = 4)
-vr_vec_stasis(matU, exclude = 4)
+vr_vec_stasis(matU, exclude = "stage_4")
 
 vr_vec_dorm_enter(matU, dorm_stages = 4)
-vr_vec_dorm_exit(matU, dorm_stages = 4)
+vr_vec_dorm_exit(nameStages(matU), dorm_stages = "stage_4")
 
-vr_vec_reproduction(matU, matR, exclude_col = 4)
+vr_vec_reproduction(matU, matR, exclude_col = "stage_4")
 
 }
 \seealso{

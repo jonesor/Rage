@@ -27,7 +27,7 @@ sexual, clonal, or both). Optionally with named rows and columns indicating
 \item{start}{The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to 1.}
 
-\item{repro_stages}{A vector of stage names or numbers indicating which stages
+\item{repro_stages}{A vector of stage names or indices indicating which stages
 are reproductive. Alternatively, a logical vector of length \code{ncol(matU)} 
 indicating whether each stage is reproductive (TRUE) or not (FALSE).}
 }

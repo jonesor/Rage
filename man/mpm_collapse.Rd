@@ -21,10 +21,11 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 
 \item{collapse}{A list giving the mapping between stages of the original
 matrix and the desired stages of the collapsed matrix (e.g. \code{list(1,
-2:3, 4)}). The indices of \code{collapse} correspond to the desired stages
-of the collapsed matrix, and the corresponding values give the stage index
-or vector of stage indices from the original matrix that correspond to the
-relevant stage of the collapsed matrix.
+2:3, 4)}). Original stages may be passed as either indices or stage names
+corresponding to stage index or name in \code{matU}, \code{matF} and 
+\code{matC}). Names given to the elements of \code{collapse} are used as 
+stage names in the new, collapsed matrix. 
+
 
 See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.}
 }
@@ -67,10 +68,16 @@ corresponding to a missing stage will be coerced to \code{NA}.
 data(mpm1)
 
 # check which stages reproductive
-repro_stages(mpm1$matF)
+repro_stages(matR = mpm1$matF)
 
 # collapse reproductive stages (3 and 4) into single stage
-mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2, 3:4, 5))
+mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, collapse = list(1, 2, 3:4, 5))
+
+# use stage names instead, and name stages in the collapsed matrix
+mpm_collapse(matU = mpm1$matU, matF = mpm1$matF,
+             collapse = list(seed = "seed", vegetative = "small",
+                             flowering = c("medium", "large"),
+                             dormant = "dormant"))
 
 }
 \references{
@@ -92,5 +99,7 @@ Other {transformation}:
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
+
+William K. Petry <wpetry@ncsu.edu>
 }
 \concept{{transformation}}
