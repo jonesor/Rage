@@ -53,6 +53,7 @@
 #'               matrix_stages = matrix_stages)
 #' 
 #' @export mpm_rearrange
+#' 
 mpm_rearrange <- function(matU, matF, matC = NULL, repro_stages,
                           matrix_stages) {
 

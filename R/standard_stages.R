@@ -15,8 +15,8 @@
 #'   projection matrix reflecting transitions only due to \emph{sexual} 
 #'   reproduction). It assumes that it has been rearranged so that 
 #'   non-reproductive stages are in the final rows/columns.
-#' @param reproStages Logical vector identifying which stages are reproductive.
-#' @param matrixStages (character) vector of stages, values are "prop"
+#' @param repro_stages Logical vector identifying which stages are reproductive.
+#' @param matrix_stages (character) vector of stages, values are "prop"
 #' (propagule), "active", and "dorm" (dormant).
 #' 
 #' @return A list with four elements:
@@ -45,49 +45,50 @@
 #'               c(  0,   0,   0,   0,   0),
 #'               c(  0,   0,   0,   0,   0))
 #'
-#' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-#' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+#' repro_stages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+#' matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 #'
-#' r <- mpm_rearrange(matU, matF, reproStages = reproStages,
-#'                    matrixStages = matrixStages)
+#' r <- mpm_rearrange(matU, matF, repro_stages = repro_stages,
+#'                    matrix_stages = matrix_stages)
 #'
-#' standard_stages(r$matF, r$reproStages, r$matrixStages)
+#' standard_stages(r$matF, r$repro_stages, r$matrix_stages)
 #'
 #' @export standard_stages
-standard_stages <- function(matF, reproStages, matrixStages) {
+#' 
+standard_stages <- function(matF, repro_stages, matrix_stages) {
 
   # validate arguments
   checkValidMat(matF, warn_all_zero = FALSE)
-  if (ncol(matF) != length(reproStages) ||
-      length(reproStages) != length(matrixStages)) {
+  if (ncol(matF) != length(repro_stages) ||
+      length(repro_stages) != length(matrix_stages)) {
     stop("Arguments do not correspond to MPM of the same dimension",
          call. = FALSE)
   }
-  if (!any(reproStages == TRUE)) {
+  if (!any(repro_stages == TRUE)) {
     stop("Cannot identify standardised stages because no stages are ",
          "reproductive (i.e. at least one element of reproStages must be TRUE)",
          call. = FALSE)
   }
   
-  if ("prop" %in% matrixStages) {
-    propStage <- which(matrixStages == "prop")
+  if ("prop" %in% matrix_stages) {
+    propStage <- which(matrix_stages == "prop")
   } else {
     propStage <- NA
   }
   
   # set max reproductive stage
-  maxRep <- max(which(reproStages == TRUE))
+  maxRep <- max(which(repro_stages == TRUE))
   
   # prerep
   matDim <- nrow(matF)
-  Rep <- which(reproStages == TRUE)
+  Rep <- which(repro_stages == TRUE)
   
   if (min(Rep) == 1) {
     preRep <- NA
   } else if (!is.na(propStage[1]) && (min(Rep) - max(propStage) == 1)) {
     preRep <- NA
   } else {
-    preRep <- min(which(matrixStages == "active")):(min(Rep) - 1)
+    preRep <- min(which(matrix_stages == "active")):(min(Rep) - 1)
   }
   
   # postrep
