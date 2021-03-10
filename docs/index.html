@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
@@ -185,7 +185,7 @@
 <a href="#deriving-life-history-traits-from-an-mpm" class="anchor"></a>Deriving life history traits from an MPM</h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/life_expect.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>               <span class="co"># life expectancy</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>               <span class="co"># life expectancy</span>
 <span class="co">#&gt;    mean  var</span>
 <span class="co">#&gt; 1 2.509 14.5</span>
 <span class="fu"><a href="reference/longevity.html">longevity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># longevity (age at lx = 0.05)</span>

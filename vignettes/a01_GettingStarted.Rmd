@@ -1,5 +1,5 @@
 ---
-title: "Getting started with `Rage`"
+title: "Getting started with Rage"
 author:
   - Patrick Barks
   - William K. Petry

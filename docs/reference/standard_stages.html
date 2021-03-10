@@ -101,7 +101,7 @@ different life cycle structures, see mpm_standardize." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
@@ -227,20 +227,9 @@ Output indicates groupings to be used when collapsing the matrix model.</p>
 
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mpm_rearrange.html'>mpm_rearrange</a></span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, reproStages <span class='op'>=</span> <span class='va'>reproStages</span>,
                    matrixStages <span class='op'>=</span> <span class='va'>matrixStages</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='error'>Error in mpm_rearrange(matU, matF, reproStages = reproStages, matrixStages = matrixStages): unused arguments (reproStages = reproStages, matrixStages = matrixStages)</span></div><div class='input'>
 <span class='fu'>standard_stages</span><span class='op'>(</span><span class='va'>r</span><span class='op'>$</span><span class='va'>matF</span>, <span class='va'>r</span><span class='op'>$</span><span class='va'>reproStages</span>, <span class='va'>r</span><span class='op'>$</span><span class='va'>matrixStages</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $propStages
-#&gt; [1] 1
-#&gt; 
-#&gt; $preRepStages
-#&gt; [1] NA
-#&gt; 
-#&gt; $repStages
-#&gt; [1] 2 3
-#&gt; 
-#&gt; $postRepStages
-#&gt; [1] 4 5
-#&gt; </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in checkValidMat(matF, warn_all_zero = FALSE): object 'r' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

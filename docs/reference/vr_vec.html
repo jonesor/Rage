@@ -105,7 +105,7 @@ also allowed." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
@@ -216,21 +216,24 @@ Details).</p></td>
     </tr>
     <tr>
       <th>exclude_col</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions <em>from</em> the stage should be ignore (coerced to <code>NA</code>).
-See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>exclude</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions both <em>to</em> and <em>from</em> the stage should be excluded
-from the calculation of vital rates. See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>exclude_row</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions <em>to</em> the stage should be excluded from the calculation of
-vital rates. See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>surv_only_na</th>
@@ -243,7 +246,8 @@ value of <code>1</code>. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>dorm_stages</th>
-      <td><p>Integer indicator(s) for dormant stage classes.</p></td>
+      <td><p>Integer or character vector indicating dormant stage 
+classes.</p></td>
     </tr>
     <tr>
       <th>matR</th>
@@ -326,14 +330,23 @@ given set of stages, use argument <code>exclude</code>.</p>
 
 <span class='fu'>vr_vec_survival</span><span class='op'>(</span><span class='va'>matU</span>, exclude_col <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.6 0.5 0.9  NA</div><div class='input'><span class='fu'>vr_vec_growth</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.8333333 0.6000000        NA        NA</div><div class='input'><span class='fu'>vr_vec_shrinkage</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]        NA        NA 0.1111111        NA</div><div class='input'><span class='fu'>vr_vec_stasis</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.1666667 0.4000000 0.3333333        NA</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.8333333 0.6000000        NA        NA</div><div class='input'>
+<span class='co'># `exclude*` and `*_stages` arguments can accept stage names</span>
+<span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='nameStages.html'>nameStages</a></span><span class='op'>(</span><span class='va'>matU</span><span class='op'>)</span>
+<span class='va'>matR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='nameStages.html'>nameStages</a></span><span class='op'>(</span><span class='va'>matR</span><span class='op'>)</span>
+<span class='fu'>vr_vec_shrinkage</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   stage_1   stage_2   stage_3   stage_4 
+#&gt;        NA        NA 0.1111111        NA </div><div class='input'><span class='fu'>vr_vec_stasis</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='st'>"stage_4"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   stage_1   stage_2   stage_3   stage_4 
+#&gt; 0.1666667 0.4000000 0.3333333        NA </div><div class='input'>
 <span class='fu'>vr_vec_dorm_enter</span><span class='op'>(</span><span class='va'>matU</span>, dorm_stages <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]        NA        NA 0.5555556        NA</div><div class='input'><span class='fu'>vr_vec_dorm_exit</span><span class='op'>(</span><span class='va'>matU</span>, dorm_stages <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]        NA        NA        NA 0.3333333</div><div class='input'>
-<span class='fu'>vr_vec_reproduction</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, exclude_col <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]       NA 2.000000 2.111111       NA</div><div class='input'>
+</div><div class='output co'>#&gt;   stage_1   stage_2   stage_3   stage_4 
+#&gt;        NA        NA 0.5555556        NA </div><div class='input'><span class='fu'>vr_vec_dorm_exit</span><span class='op'>(</span><span class='fu'><a href='nameStages.html'>nameStages</a></span><span class='op'>(</span><span class='va'>matU</span><span class='op'>)</span>, dorm_stages <span class='op'>=</span> <span class='st'>"stage_4"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Existing stage names have been overwritten!</span></div><div class='output co'>#&gt;   stage_1   stage_2   stage_3   stage_4 
+#&gt;        NA        NA        NA 0.3333333 </div><div class='input'>
+<span class='fu'>vr_vec_reproduction</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, exclude_col <span class='op'>=</span> <span class='st'>"stage_4"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  stage_1  stage_2  stage_3  stage_4 
+#&gt;       NA 2.000000 2.111111       NA </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
