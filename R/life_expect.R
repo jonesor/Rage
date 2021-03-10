@@ -57,13 +57,14 @@
 #'life_expect_var(mpm1$matU, start = 1)
 #'
 #'
-#' @export life_expect
+#' @rdname life_expect
+#' @export life_expect_mean
 life_expect_mean <- function(matU, start = 1L) {
-
+  
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)
-
+  
   # matrix dimension
   matDim <- nrow(matU)
   
@@ -84,18 +85,19 @@ life_expect_mean <- function(matU, start = 1L) {
   if(inherits(N, "try-error")) {
     mean <- NA_real_
   } else {
-  
-    mean <- sum(colSums(N) * start_vec)
-    var <- sum(Nvar * start_vec)
     
+    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
+    mean <- sum(colSums(N) * start_vec)
   }
   
   
-  life_expect_mean <- mean
+  life_expect_mean <-  mean
   
-	return(life_expect_mean)
+  return(life_expect_mean)
 }
 
+#' @rdname life_expect
+#' @export life_expect_var
 life_expect_var <- function(matU, start = 1L) {
   
   # validate arguments
@@ -127,12 +129,58 @@ life_expect_var <- function(matU, start = 1L) {
     var <- sum(Nvar * start_vec)
     
   }
- 
   
-  life_expect_var <- var
+  
+  life_expect_var <-  var
   
   return(life_expect_var)
 }
-  
 
+#This is the old function from v.0.1.0
+#Deprecated now, but retaining for backwards
+#compatibility.
+
+#' @rdname life_expect
+#' @export life_expect
+life_expect <- function(matU, start = 1L) {
+  .Deprecated("life_expect_mean")
+  
+  # validate arguments
+  checkValidMat(matU, warn_surv_issue = TRUE)
+  checkValidStartLife(start, matU, start_vec = TRUE)
+  
+  # matrix dimension
+  matDim <- nrow(matU)
+  
+  if (length(start) > 1) {
+    start_vec <- start / sum(start)
+  } else {
+    start_vec <- rep(0.0, matDim)
+    if(!is.null(dimnames(matU))) {
+      checkMatchingStageNames(matU)
+      names(start_vec) <- colnames(matU)
+    }
+    start_vec[start] <- 1.0
+  }
+  
+  # try calculating fundamental matrix (will fail if matrix singular)
+  N <- try(solve(diag(matDim) - matU), silent = TRUE)
+  
+  if(inherits(N, "try-error")) {
+    mean <- NA_real_
+    var <- NA_real_
+  } else {
+    
+    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
+    mean <- sum(colSums(N) * start_vec)
+    var <- sum(Nvar * start_vec)
+    
+  }
+  
+  
+  life_expect <- data.frame("mean" = mean,
+                            "var" = var)
+  
+  return(life_expect)
+}
 

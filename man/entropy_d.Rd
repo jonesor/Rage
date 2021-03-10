@@ -39,7 +39,7 @@ Demetrius, L. 1978 Adaptive value, entropy and survivorship
 Other {life history traits}: 
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
-\code{\link{life_expect}()},
+\code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
 \code{\link{shape_rep}()},
