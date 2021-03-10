@@ -66,7 +66,7 @@ standard_stages <- function(matF, repro_stages, matrix_stages) {
   }
   if (!any(repro_stages == TRUE)) {
     stop("Cannot identify standardised stages because no stages are ",
-         "reproductive (i.e. at least one element of reproStages must be TRUE)",
+         "reproductive (i.e. at least one element of repro_stages must be TRUE)",
          call. = FALSE)
   }
   
