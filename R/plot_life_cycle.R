@@ -20,7 +20,7 @@
 #'   
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' 
-#' @family {transformation}
+#' @family {visualisation}
 #' 
 #' @examples
 #' matA <- rbind(c(0.1,   0,   0,   0, 1.4),
