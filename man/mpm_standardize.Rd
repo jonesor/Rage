@@ -94,8 +94,7 @@ mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 Other {transformation}: 
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_split}()},
-\code{\link{nameStages}()},
-\code{\link{plot_life_cycle}()},
+\code{\link{name_stages}()},
 \code{\link{pop_vectors}()},
 \code{\link{repro_stages}()},
 \code{\link{standard_stages}()}

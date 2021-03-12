@@ -437,12 +437,12 @@ col1$matA
 ```
 
 Notice that the stage names are lost during this operation. We can re-add new 
-stage names using the function `nameStages`, electing to use generic or custom 
+stage names using the function `name_stages`, electing to use generic or custom 
 names.
 
 ```{r}
-(col1_auto <- nameStages(mat = col1, prefix = "class_"))  # automated stage naming
-(col1_cust <- nameStages(mat = col1, names = c("seed", "active", "dormant"),
+(col1_auto <- name_stages(mat = col1, prefix = "class_"))  # automated stage naming
+(col1_cust <- name_stages(mat = col1, names = c("seed", "active", "dormant"),
                          prefix = NULL))  # overwrite with custom stages
 ```
 

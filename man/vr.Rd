@@ -196,8 +196,8 @@ vr_shrinkage(matU, exclude = 4)
 vr_stasis(matU, exclude = 4)
 
 # `exclude*` and `*_stages` arguments can accept stage names
-matU <- nameStages(matU)
-matF <- nameStages(matF)
+matU <- name_stages(matU)
+matF <- name_stages(matF)
 vr_dorm_enter(matU, dorm_stages = "stage_4")
 vr_dorm_exit(matU, dorm_stages = 4)
 

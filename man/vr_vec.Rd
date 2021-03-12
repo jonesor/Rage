@@ -160,13 +160,13 @@ vr_vec_survival(matU, exclude_col = 4)
 vr_vec_growth(matU, exclude = 4)
 
 # `exclude*` and `*_stages` arguments can accept stage names
-matU <- nameStages(matU)
-matR <- nameStages(matR)
+matU <- name_stages(matU)
+matR <- name_stages(matR)
 vr_vec_shrinkage(matU, exclude = 4)
 vr_vec_stasis(matU, exclude = "stage_4")
 
 vr_vec_dorm_enter(matU, dorm_stages = 4)
-vr_vec_dorm_exit(nameStages(matU), dorm_stages = "stage_4")
+vr_vec_dorm_exit(name_stages(matU), dorm_stages = "stage_4")
 
 vr_vec_reproduction(matU, matR, exclude_col = "stage_4")
 

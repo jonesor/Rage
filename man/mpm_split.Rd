@@ -34,8 +34,7 @@ mpm_split(matA)
 Other {transformation}: 
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_standardize}()},
-\code{\link{nameStages}()},
-\code{\link{plot_life_cycle}()},
+\code{\link{name_stages}()},
 \code{\link{pop_vectors}()},
 \code{\link{repro_stages}()},
 \code{\link{standard_stages}()}

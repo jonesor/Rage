@@ -17,22 +17,22 @@
 #' @family {transformation}
 #'
 #' @return The input matrix or matrices with named rows and columns.
-#' @export nameStages
+#' @export name_stages
 #'
 #' @examples
 #' matU <- rbind(c(0.0, 0.0, 0.0),
 #'               c(0.3, 0.1, 0.0),
 #'               c(0.0, 0.5, 0.8))
 #' # (semi)automated naming
-#' nameStages(matU)
-#' nameStages(matU, prefix = "s")
+#' name_stages(matU)
+#' name_stages(matU, prefix = "s")
 #' # custom stage names
-#' nameStages(matU, names = c("small", "medium", "large"))
+#' name_stages(matU, names = c("small", "medium", "large"))
 #' # overwrite existing stage names
 #' data(mpm1)
-#' nameStages(mpm1)
+#' name_stages(mpm1)
 
-nameStages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
+name_stages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
   # check argument inputs
   if (!is.matrix(mat) && !is.list(mat)) {
     stop("Argument `mat` must be either a matrix or list of matrices.")

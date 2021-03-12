@@ -4,7 +4,7 @@
 * Improved documentation with fuller descriptions and executable examples.
 * Grouped functions by type in the documentation.
 * Improved vignettes by greatly expanding them.
-* Added support using stage names in addition to stage number, plus helper function `nameStages` for (re)naming MPM stages.
+* Added support using stage names in addition to stage number, plus helper function `name_stages` for (re)naming MPM stages.
 * Replaced old function `lifeTimeRepEvents` with specific functions for events (`gen_time`, `life_expect`, `longevity`).
 * Added functions for manipulating matrices: `mpm_collapse`, `mpm_rearrange`, `mpm_split`, `mpm_standardize`. 
 * Added functions to calculate various vital rates `vr`, `vr_mat`, `vr_vec`.
