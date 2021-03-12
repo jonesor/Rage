@@ -83,6 +83,7 @@ Depends: R(>= 3.5.0)
 RoxygenNote: 7.1.1
 Suggests:
     spelling,
+    ggplot2,
     ggtern,
     knitr,
     rmarkdown,
