@@ -2,6 +2,12 @@
 #' 
 #' Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
 #' 
+#' @section Warning:
+#' Note that this function may produce unexpected results if used on partial 
+#' survivorship trajectories. In addition, it is sensitive to the length of the 
+#' survivorship vector. We direct users to the function `\code{\link{shape_surv}}` 
+#' which is relatively robust to these issues.
+#' 
 #' @param lx Survivorship trajectory (a vector of monotonically-declining values
 #'   in the interval [0,1]).
 #' @param trapeze A logical argument indicating whether the composite trapezoid
