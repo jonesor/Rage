@@ -173,7 +173,7 @@ vr_vec_reproduction(matU, matR, exclude_col = "stage_4")
 }
 \seealso{
 Other {vital rates}: 
-\code{\link{vitalRates}()},
+\code{\link{vital_rates}()},
 \code{\link{vr_mat}},
 \code{\link{vr}}
 }

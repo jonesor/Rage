@@ -61,19 +61,19 @@
 #'               c(  0,   0,   0,   0))
 #' 
 #' # Vital rate outputs without weights
-#' vitalRates(matU, matF, matC, splitStages = 'all')
-#' vitalRates(matU, matF, matC, splitStages = 'ontogeny')
+#' vital_rates(matU, matF, matC, splitStages = 'all')
+#' vital_rates(matU, matF, matC, splitStages = 'ontogeny')
 #' 
 #' # Group vital rates according to specified matrixStages
 #' ms <- c('prop', 'active', 'active', 'active')
-#' vitalRates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
+#' vital_rates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
 #' 
 #' # Vital rate outputs weighted by the stable stage distribution of 'matA'
-#' vitalRates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
+#' vital_rates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 #' 
 #' @importFrom popbio stable.stage
-#' @export vitalRates
-vitalRates <- function(matU, matF, matC = NULL, weights = NULL,
+#' @export vital_rates
+vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
                        splitStages = "all", matrixStages = NULL) {
   # validate arguments
   checkValidMat(matU)

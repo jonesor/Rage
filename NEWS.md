@@ -9,6 +9,7 @@
 * Added functions for manipulating matrices: `mpm_collapse`, `mpm_rearrange`, `mpm_split`, `mpm_standardize`. 
 * Added functions to calculate various vital rates `vr`, `vr_mat`, `vr_vec`.
 * Added utility functions `repro_stages` and `standard_stages` to identify reproductive stages either logically (TRUE/FALSE) or by the standardised set of reproductive stages (propagule, pre-reproductive, reproductive and post-reproductive).
+* Renamed `vitalRates` to `vital_rates`.
 * Renamed (and modified) old function `makeLifeTable` to create new function, `mpm_to_table`. 
 * Added `lifetable_convert` function to convert between types of life table (hazard, survivorship and survival probability).
 * Replaced `matrixElementPerturbation` and `vitalRatePerturbation` functions with enhanced perturbation functions: `perturb_matrix`, `perturb_stochastic`, `perturb_trans`, `perturb_vr`.

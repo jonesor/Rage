@@ -1,11 +1,11 @@
-test_that("vitalRates functions work correctly", {
-  vrOut <- vitalRates(matU = mat_u, matF = mat_f)
+test_that("vital_rates functions work correctly", {
+  vrOut <- vital_rates(matU = mat_u, matF = mat_f)
   
   expect_type(vrOut, "list")
   expect_length(vrOut, 5)
   expect_equal(vrOut$clo, 0)
   
-  vrOut_c <- vitalRates(matU = mat_u,
+  vrOut_c <- vital_rates(matU = mat_u,
                         matF = mat_f,
                         matC = mat_c)
   
@@ -14,7 +14,7 @@ test_that("vitalRates functions work correctly", {
   
   
   vrOut_ss <-
-    vitalRates(matU = mat_u,
+    vital_rates(matU = mat_u,
                matF = mat_f,
                splitStages = "all")
   
@@ -23,7 +23,7 @@ test_that("vitalRates functions work correctly", {
   expect_equal(vrOut_ss$clo, 0)
   
   vrOut_ss2 <-
-    vitalRates(matU = mat_u,
+    vital_rates(matU = mat_u,
                matF = mat_f,
                splitStages = "ontogeny")
   
@@ -32,7 +32,7 @@ test_that("vitalRates functions work correctly", {
   expect_equal(vrOut_ss2$cloAdu, 0)
   
   vrOut_ss3 <-
-    vitalRates(
+    vital_rates(
       matU = mat_u,
       matF = mat_f,
       splitStages = "matrixStages",
@@ -43,7 +43,7 @@ test_that("vitalRates functions work correctly", {
   expect_length(vrOut_ss3, 10)
   expect_equal(vrOut_ss3$clo, 0)
   
-  vrOut_wt <- vitalRates(matU = mat_u,
+  vrOut_wt <- vital_rates(matU = mat_u,
                          matF = mat_f,
                          weights = "SSD")
   
@@ -52,7 +52,7 @@ test_that("vitalRates functions work correctly", {
   expect_equal(vrOut$clo, 0)
   
   vrOut_wt2 <-
-    vitalRates(matU = mat_u,
+    vital_rates(matU = mat_u,
                matF = mat_f,
                weights = c(1, 2, 3, 4))
   
@@ -62,27 +62,27 @@ test_that("vitalRates functions work correctly", {
 })
 
 
-test_that("vitalRates functions warn and fail gracefully", {
-  expect_error(vitalRates(mat_u_na, mat_f_na))
+test_that("vital_rates functions warn and fail gracefully", {
+  expect_error(vital_rates(mat_u_na, mat_f_na))
   
-  expect_error(vitalRates(mat_u, mat_f_na))
+  expect_error(vital_rates(mat_u, mat_f_na))
   
-  expect_error(vitalRates(mat_u_na, mat_f))
+  expect_error(vital_rates(mat_u_na, mat_f))
   
-  expect_error(vitalRates(mat_u, mat_f, weights = 3))
+  expect_error(vital_rates(mat_u, mat_f, weights = 3))
   
-  expect_error(vitalRates(mat_u, mat_f, splitStages =  "wrongName"))
+  expect_error(vital_rates(mat_u, mat_f, splitStages =  "wrongName"))
   
-  expect_error(vitalRates(
+  expect_error(vital_rates(
     mat_u,
     mat_f,
     splitStages = "matrixStages",
     matrixStages = c("active", "active", "active", "x")
   ))
   
-  expect_error(vitalRates(mat_u, mat_f, splitStages = "matrixStages"))
+  expect_error(vital_rates(mat_u, mat_f, splitStages = "matrixStages"))
   
-  expect_error(vitalRates(
+  expect_error(vital_rates(
     mat_u,
     mat_f,
     splitStages = "matrixStages",
