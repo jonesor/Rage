@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Derive survival-independent vital rates for growth, stasis, shrinkage, and
-reproduction — vr_mat • Rage</title>
+<title>Derive mean vital rates from a matrix population model — vital_rates • Rage</title>
 
 
 <!-- jquery -->
@@ -40,17 +39,12 @@ reproduction — vr_mat • Rage</title>
 
 
 
-<meta property="og:title" content="Derive survival-independent vital rates for growth, stasis, shrinkage, and
-reproduction — vr_mat" />
-<meta property="og:description" content="Divides columns of a matrix population model by the corresponding
-stage-specific survival probability, to obtain lower-level vital rates for
-growth, stasis, shrinkage, and reproduction. Vital rates corresponding to
-biologically impossible transitions are coerced to NA.
-These decompositions assume that all transition rates are products of a
-stage-specific survival term (column sums of matU) and a lower level
-vital rate that is conditional on survival (growth, shrinkage, stasis, or
-reproduction). Reproductive vital rates that are not conditional on survival
-(i.e. within a stage class from which there is no survival) are also allowed." />
+<meta property="og:title" content="Derive mean vital rates from a matrix population model — vital_rates" />
+<meta property="og:description" content="Derive mean vital rates corresponding to separate demographic processes from
+a matrix population model. Specifically, this function decomposes vital rates
+of survival, progression, retrogression, sexual reproduction and clonal
+reproduction, with various options for weighting and grouping stages of the
+life cycle." />
 
 
 
@@ -145,27 +139,27 @@ reproduction). Reproductive vital rates that are not conditional on survival
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Derive survival-independent vital rates for growth, stasis, shrinkage, and
-reproduction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/vr_mat.R'><code>R/vr_mat.R</code></a></small>
-    <div class="hidden name"><code>vr_mat.Rd</code></div>
+    <h1>Derive mean vital rates from a matrix population model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/vital_rates.R'><code>R/vital_rates.R</code></a></small>
+    <div class="hidden name"><code>vital_rates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Divides columns of a matrix population model by the corresponding
-stage-specific survival probability, to obtain lower-level vital rates for
-growth, stasis, shrinkage, and reproduction. Vital rates corresponding to
-biologically impossible transitions are coerced to <code>NA</code>.</p>
-<p>These decompositions assume that all transition rates are products of a
-stage-specific survival term (column sums of <code>matU</code>) and a lower level
-vital rate that is conditional on survival (growth, shrinkage, stasis, or
-reproduction). Reproductive vital rates that are not conditional on survival
-(i.e. within a stage class from which there is no survival) are also allowed.</p>
+    <p>Derive mean vital rates corresponding to separate demographic processes from
+a matrix population model. Specifically, this function decomposes vital rates
+of survival, progression, retrogression, sexual reproduction and clonal
+reproduction, with various options for weighting and grouping stages of the
+life cycle.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vr_mat_U</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='fu'>vr_mat_R</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, posR <span class='op'>=</span> <span class='va'>matR</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>vital_rates</span><span class='op'>(</span>
+  <span class='va'>matU</span>,
+  <span class='va'>matF</span>,
+  matC <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  splitStages <span class='op'>=</span> <span class='st'>"all"</span>,
+  matrixStages <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,59 +168,48 @@ reproduction). Reproductive vital rates that are not conditional on survival
       <th>matU</th>
       <td><p>The survival component of a matrix population model (i.e. a
 square projection matrix reflecting survival-related transitions; e.g.
-progression, stasis, and retrogression)</p></td>
+progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
-      <th>posU</th>
-      <td><p>A logical matrix of the same dimension as <code>matU</code>, with
-elements indicating whether a given <code>matU</code> transition is possible
-(<code>TRUE</code>) or not (<code>FALSE</code>). Defaults to <code>matU &gt; 0</code> (see
-Details).</p></td>
+      <th>matF</th>
+      <td><p>The sexual component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to sexual reproduction)</p></td>
     </tr>
     <tr>
-      <th>surv_only_na</th>
-      <td><p>If there is only one possible <code>matU</code> transition in a
-given column, should that transition be attributed exclusively to survival?
-If <code>TRUE</code>, the vital rate of growth/stasis/shrinkage in that column
-will be coerced to <code>NA</code>. If <code>FALSE</code>, dividing the single
-transition by the stage-specific survival probability will always yield a
-value of <code>1</code>. Defaults to <code>TRUE</code>.</p></td>
+      <th>matC</th>
+      <td><p>The clonal component of a matrix population model (i.e. a square
+projection matrix reflecting transitions due to clonal reproduction).
+Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
+<code>matC</code> is a matrix of zeros).</p></td>
     </tr>
     <tr>
-      <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both)</p></td>
+      <th>weights</th>
+      <td><p>Vector of stage-specific weights to apply while averaging
+vital rates. Default is <code>NULL</code> reflecting equal weighting for all
+stages. May also be <code>"SSD"</code> to weight vital rates by the stable
+distribution of <code>matA</code>.</p></td>
     </tr>
     <tr>
-      <th>posR</th>
-      <td><p>A logical matrix of the same dimension as <code>matR</code>, with
-elements indicating whether a given <code>matR</code> transition is possible
-(<code>TRUE</code>) or not (<code>FALSE</code>). Defaults to <code>matR &gt; 0</code> (see
-Details).</p></td>
+      <th>splitStages</th>
+      <td><p>What groups should vital rates be averaged over. Either:</p>
+<p><code>"all"</code>: all stages grouped</p>
+<p><code>"ontogeny"</code>: group juvenile stages (all stages prior to the first stage
+with sexual reproduction) and adult stages</p>
+<p><code>"matrixStages"</code>: group according to a standardized set of stage classes
+(propagule, active, and dormant). If <code>splitStages = "matrixStages"</code>,
+must also specify separate argument <code>matrixStages</code>.</p></td>
+    </tr>
+    <tr>
+      <th>matrixStages</th>
+      <td><p>Vector of stage-specific standardized matrix classes
+("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
+<code>splitStages = "matrixClass"</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A matrix of vital rates. Vital rates corresponding to impossible
-  transitions will be coerced to <code>NA</code> (see Details).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>A transition rate of <code>0</code> within a matrix population model may indicate
-that the transition is not possible in the given life cycle (e.g. tadpoles
-never revert to eggs), or that the transition is possible but was estimated
-to be <code>0</code> in the relevant population and time period. If vital rates are
-to be averaged across multiple stage classes, or compared across populations,
-it may be important to distinguish between these two types of zeros.</p>
-<p>By default, <code>vr_mat</code> assumes that a transition rate of
-<code>0</code> indicates an impossible transition, in which case a value of
-<code>NA</code> will be returned in the relevant matrix cell. Specifically, the
-arguments <code>posU</code> and <code>posR</code> are specified by the logical
-expressions <code>(matU &gt; 0)</code> and <code>(matR &gt; 0)</code>, respectively. If the
-matrix population model includes transitions that are possible but estimated
-to be <code>0</code>, one should specify the <code>posU</code> and/or <code>posR</code>
-arguments manually.</p>
+    <p>A list of averaged vital rates.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Caswell, H. 2001. Matrix Population Models: Construction,
@@ -235,12 +218,12 @@ arguments manually.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other vital rates: 
-<code><a href='vital_rates.html'>vital_rates</a>()</code>,
+<code><a href='vr_mat.html'>vr_mat</a></code>,
 <code><a href='vr_vec.html'>vr_vec</a></code>,
 <code><a href='vr.html'>vr</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
+    <p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
@@ -248,25 +231,110 @@ arguments manually.</p>
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0.3</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>matR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>1.1</span>, <span class='fl'>1.6</span><span class='op'>)</span>,
+<span class='va'>matF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>1.1</span>, <span class='fl'>1.6</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.8</span>, <span class='fl'>0.4</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+              
+<span class='va'>matC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># extract vital rates of survival from matU</span>
-<span class='fu'>vr_mat_U</span><span class='op'>(</span><span class='va'>matU</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1] [,2]      [,3]      [,4]
-#&gt; [1,] 0.1666667   NA        NA        NA
-#&gt; [2,] 0.8333333  0.4 0.1111111        NA
-#&gt; [3,]        NA  0.6 0.3333333 0.1428571
-#&gt; [4,]        NA   NA 0.5555556 0.8571429</div><div class='input'>
-<span class='co'># extract vital rates of reproduction from matR</span>
-<span class='fu'>vr_mat_R</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2]      [,3]      [,4]
-#&gt; [1,]   NA   NA 1.2222222 2.2857143
-#&gt; [2,]   NA   NA 0.8888889 0.5714286
-#&gt; [3,]   NA   NA        NA        NA
-#&gt; [4,]   NA   NA        NA        NA</div><div class='input'>
+<span class='co'># Vital rate outputs without weights</span>
+<span class='fu'>vital_rates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'all'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $surv
+#&gt; [1] 0.675
+#&gt; 
+#&gt; $retr
+#&gt; [1] 0.1269841
+#&gt; 
+#&gt; $prog
+#&gt; [1] 0.662963
+#&gt; 
+#&gt; $fec
+#&gt; [1] 1.95
+#&gt; 
+#&gt; $clo
+#&gt; [1] 0.65
+#&gt; </div><div class='input'><span class='fu'>vital_rates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'ontogeny'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $survJuv
+#&gt; [1] 0.55
+#&gt; 
+#&gt; $retrJuv
+#&gt; [1] 0
+#&gt; 
+#&gt; $progJuv
+#&gt; [1] 0.7166667
+#&gt; 
+#&gt; $cloJuv
+#&gt; [1] 0
+#&gt; 
+#&gt; $survAdu
+#&gt; [1] 0.8
+#&gt; 
+#&gt; $retrAdu
+#&gt; [1] 0.1269841
+#&gt; 
+#&gt; $progAdu
+#&gt; [1] 0.5555556
+#&gt; 
+#&gt; $fecAdu
+#&gt; [1] 1.95
+#&gt; 
+#&gt; $cloAdu
+#&gt; [1] 0.65
+#&gt; </div><div class='input'>
+<span class='co'># Group vital rates according to specified matrixStages</span>
+<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span><span class='op'>)</span>
+<span class='fu'>vital_rates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'matrixStages'</span>, matrixStages <span class='op'>=</span> <span class='va'>ms</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $survProp
+#&gt; [1] 0
+#&gt; 
+#&gt; $progProp
+#&gt; [1] 0
+#&gt; 
+#&gt; $survActive
+#&gt; [1] 0.7
+#&gt; 
+#&gt; $retrActive
+#&gt; [1] 0.1269841
+#&gt; 
+#&gt; $progActive
+#&gt; [1] 0.5777778
+#&gt; 
+#&gt; $fecActive
+#&gt; [1] 1.95
+#&gt; 
+#&gt; $cloActive
+#&gt; [1] 0.65
+#&gt; 
+#&gt; $survDorm
+#&gt; [1] 0
+#&gt; 
+#&gt; $retrDorm
+#&gt; [1] 0
+#&gt; 
+#&gt; $progDorm
+#&gt; [1] 0
+#&gt; </div><div class='input'>
+<span class='co'># Vital rate outputs weighted by the stable stage distribution of 'matA'</span>
+<span class='fu'>vital_rates</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, splitStages <span class='op'>=</span> <span class='st'>'all'</span>, weights <span class='op'>=</span> <span class='st'>'SSD'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $surv
+#&gt; [1] 0.6123886
+#&gt; 
+#&gt; $retr
+#&gt; [1] 0.1250597
+#&gt; 
+#&gt; $prog
+#&gt; [1] 0.6905906
+#&gt; 
+#&gt; $fec
+#&gt; [1] 1.943938
+#&gt; 
+#&gt; $clo
+#&gt; [1] 0.656062
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
