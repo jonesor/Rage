@@ -95,7 +95,7 @@ Caswell, H. 2001. Matrix Population Models: Construction,
 }
 \seealso{
 Other {vital rates}: 
-\code{\link{vitalRates}()},
+\code{\link{vital_rates}()},
 \code{\link{vr_vec}},
 \code{\link{vr}}
 }

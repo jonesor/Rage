@@ -19,6 +19,14 @@ Keyfitz's life table entropy.
 \description{
 Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
 }
+\section{Warning}{
+
+Note that this function may produce unexpected results if used on partial 
+survivorship trajectories. In addition, it is sensitive to the length of the 
+survivorship vector. We direct users to the function `\code{\link{shape_surv}}` 
+which is relatively robust to these issues.
+}
+
 \examples{
 data(mpm1)
 
@@ -40,7 +48,7 @@ Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 Other {life history traits}: 
 \code{\link{entropy_d}()},
 \code{\link{gen_time}()},
-\code{\link{life_expect}()},
+\code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
 \code{\link{shape_rep}()},

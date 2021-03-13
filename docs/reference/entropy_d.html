@@ -98,19 +98,19 @@ survivorship (lx) and fecundity (mx)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -168,6 +168,14 @@ monotonically-declining values in the interval [0,1]).</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Demetrius' entropy.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>#' @section Warning:
+Note that this function may produce unexpected results if used on partial
+survivorship and fecundity trajectories. In addition, it is sensitive to the
+length of the these vectors. We direct users to the functions
+`<code><a href='shape_surv.html'>shape_surv</a></code>` and `<code><a href='shape_rep.html'>shape_rep</a></code>` which are relatively
+robust to these issues.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Demetrius, L. 1978 Adaptive value, entropy and survivorship
@@ -177,7 +185,7 @@ monotonically-declining values in the interval [0,1]).</p></td>
     <div class='dont-index'><p>Other life history traits: 
 <code><a href='entropy_k.html'>entropy_k</a>()</code>,
 <code><a href='gen_time.html'>gen_time</a>()</code>,
-<code><a href='life_expect.html'>life_expect</a>()</code>,
+<code><a href='life_expect_mean.html'>life_expect_mean</a>()</code>,
 <code><a href='longevity.html'>longevity</a>()</code>,
 <code><a href='net_repro_rate.html'>net_repro_rate</a>()</code>,
 <code><a href='shape_rep.html'>shape_rep</a>()</code>,

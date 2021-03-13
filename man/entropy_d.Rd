@@ -20,6 +20,14 @@ Demetrius' entropy.
 This function calculates Demetrius' entropy from vectors of age-specific
 survivorship (lx) and fecundity (mx).
 }
+\details{
+#' @section Warning:
+Note that this function may produce unexpected results if used on partial
+survivorship and fecundity trajectories. In addition, it is sensitive to the
+length of the these vectors. We direct users to the functions
+`\code{\link{shape_surv}}` and `\code{\link{shape_rep}}` which are relatively
+robust to these issues.
+}
 \examples{
 data(mpm1)
 
@@ -39,7 +47,7 @@ Demetrius, L. 1978 Adaptive value, entropy and survivorship
 Other {life history traits}: 
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
-\code{\link{life_expect}()},
+\code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
 \code{\link{shape_rep}()},

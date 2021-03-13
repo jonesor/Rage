@@ -16,8 +16,10 @@
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
-#' @param reproStages Logical vector indicating which stages are reproductive.
-#' @param matrixStages Character vector of matrix stage types (e.g. "propagule",
+#' @param repro_stages Logical vector of length \code{ncol(matU)} indicating 
+#'   which stages are reproductive. Alternatively, a vector of stage indices or 
+#'   stage names of the reproductive classes.
+#' @param matrix_stages Character vector of matrix stage types (e.g. "propagule",
 #'   "active", or "dormant").
 #' @return A list with four elements reflecting the standardized matrix and
 #'   its components:
@@ -64,14 +66,23 @@
 #'               c(  0,   0,   0,   0,   0),
 #'               c(  0,   0,   0,   0,   0))
 #' 
-#' reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-#' matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+#' repro_stages <- c(2, 4)
+#' matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 #'
-#' mpm_standardize(matU, matF, matC, reproStages, matrixStages)
+#' mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 #' 
 #' @export mpm_standardize
-mpm_standardize <- function(matU, matF, matC = NULL, reproStages,
-                            matrixStages) {
+mpm_standardize <- function(matU, matF, matC = NULL, repro_stages,
+                            matrix_stages) {
+  
+  checkValidMat(matU)
+  checkValidMat(matF)
+  checkMatchingStageNames(matU, matF)
+  if (!is.null(matC)) {
+    checkValidMat(matC, warn_all_zero = FALSE)
+    checkMatchingStageNames(matU, matC)
+  }
+  checkValidStages(matU, repro_stages)
   
   # note argument validation done by component functions
   
@@ -81,15 +92,19 @@ mpm_standardize <- function(matU, matF, matC = NULL, reproStages,
   }
   
   # put non-reproductive stages at the end of the matrix
-  rearr <- mpm_rearrange(matU, matF, matC, reproStages, matrixStages)
+  rearr <- mpm_rearrange(matU, matF, matC, repro_stages, matrix_stages)
   
   # defines which columns need to be collapsed for each of the four stages
   collapse <- standard_stages(rearr$matF,
-                              rearr$reproStages,
-                              rearr$matrixStages)
+                              rearr$repro_stages,
+                              rearr$matrix_stages)
   
   # collapse
   out <- mpm_collapse(matU, matF, matC, collapse = collapse)
 
   return(out)
 }
+
+#' @rdname mpm_standardize
+#' @export mpm_standardise
+mpm_standardise <- mpm_standardize

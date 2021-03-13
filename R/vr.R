@@ -29,16 +29,20 @@
 #'   elements indicating whether a given \code{matR} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
 #'   \emph{Possible transitions}).
-#' @param exclude Integer or logical vector indicating stages for which
-#'   transitions both \emph{to} and \emph{from} the stage should be excluded
-#'   from the calculation of vital rates. See section \emph{Excluding stages}.
-#' @param exclude_row Integer or logical vector indicating stages for which
-#'   transitions \emph{to} the stage should be excluded from the calculation of
-#'   vital rates. See section \emph{Excluding stages}.
-#' @param exclude_col Integer or logical vector indicating stages for which
-#'   transitions \emph{from} the stage should be ignore (coerced to \code{NA}).
-#'   See section \emph{Excluding stages}.
-#' @param dorm_stages Integer indicator(s) for dormant stage classes.
+#' @param exclude Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param exclude_row Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param exclude_col Integer, character or logical vector indicating stages for 
+#'   which transitions both \emph{to} and \emph{from} the stage should be 
+#'   excluded from the calculation of vital rates. See section 
+#'   \emph{Excluding stages}.
+#' @param dorm_stages Integer or character vector indicating dormant stage
+#'   classes.
 #' @param weights_row Vector of stage-specific weights to apply while summing
 #'   vital rates across rows within columns. See section \emph{Weighting
 #'   stages}.
@@ -123,7 +127,10 @@
 #' vr_shrinkage(matU, exclude = 4)
 #' vr_stasis(matU, exclude = 4)
 #' 
-#' vr_dorm_enter(matU, dorm_stages = 4)
+#' # `exclude*` and `*_stages` arguments can accept stage names
+#' matU <- name_stages(matU)
+#' matF <- name_stages(matF)
+#' vr_dorm_enter(matU, dorm_stages = "stage_4")
 #' vr_dorm_exit(matU, dorm_stages = 4)
 #' 
 #' vr_fecundity(matU, matF, exclude_col = 4)

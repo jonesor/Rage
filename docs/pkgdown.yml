@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   a01_GettingStarted: a01_GettingStarted.html
   a02_VitalRates: a02_VitalRates.html
-  a03_AgeFromStage: a03_AgeFromStage.html
-  a04_TernaryPlots: a04_TernaryPlots.html
-  a05_LifeHistoryTraits: a05_LifeHistoryTraits.html
-last_built: 2021-03-05T12:23Z
+  a03_LifeHistoryTraits: a03_LifeHistoryTraits.html
+  a04_AgeFromStage: a04_AgeFromStage.html
+  a05_TernaryPlots: a05_TernaryPlots.html
+last_built: 2021-03-12T19:30Z
 

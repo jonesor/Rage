@@ -1,10 +1,10 @@
 ---
-title: "Ternary Plots"
+title: "Ternary plots"
 author: "Rob Salguero-Gomez and Owen Jones"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Ternary Plots}
+  %\VignetteIndexEntry{Ternary plots}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

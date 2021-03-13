@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate life expectancy from a matrix population model — life_expect • Rage</title>
+<title>Calculate mean and variance of life expectancy from a matrix population model — life_expect_mean • Rage</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Calculate life expectancy from a matrix population model — life_expect" />
+<meta property="og:title" content="Calculate mean and variance of life expectancy from a matrix population model — life_expect_mean" />
 <meta property="og:description" content="Applies Markov chain approaches to obtain mean and variance of life
 expectancy from a matrix population model (MPM)." />
 
@@ -96,19 +96,19 @@ expectancy from a matrix population model (MPM)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -136,7 +136,7 @@ expectancy from a matrix population model (MPM)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate life expectancy from a matrix population model</h1>
+    <h1>Calculate mean and variance of life expectancy from a matrix population model</h1>
     <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/life_expect.R'><code>R/life_expect.R</code></a></small>
     <div class="hidden name"><code>life_expect.Rd</code></div>
     </div>
@@ -146,7 +146,11 @@ expectancy from a matrix population model (MPM)." />
 expectancy from a matrix population model (MPM).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>life_expect</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>life_expect_mean</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span>
+
+<span class='fu'>life_expect_var</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span>
+
+<span class='fu'>life_expect</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,18 +215,19 @@ individuals achieving reproductive maturity in each stage class.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
 
-<span class='co'># life expectancy starting from stage class 2 </span>
-<span class='fu'>life_expect</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       mean     var
-#&gt; 1 2.509116 14.5045</div><div class='input'><span class='fu'>life_expect</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span><span class='op'>)</span>  <span class='co'># equivalent using named life stages</span>
-</div><div class='output co'>#&gt;       mean     var
-#&gt; 1 2.509116 14.5045</div><div class='input'>
-<span class='co'># life expectancy starting from first reproduction</span>
+<span class='co'># mean life expectancy starting from stage class 2 </span>
+<span class='fu'>life_expect_mean</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2.509116</div><div class='input'><span class='fu'>life_expect_mean</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span><span class='op'>)</span>  <span class='co'># equivalent using named life stages</span>
+</div><div class='output co'>#&gt; [1] 2.509116</div><div class='input'>
+<span class='co'># mean life expectancy starting from first reproduction</span>
 <span class='va'>rep_stages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
 <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>rep_stages</span><span class='op'>)</span>
-<span class='fu'>life_expect</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       mean      var
-#&gt; 1 3.179005 10.62734</div><div class='input'>
+<span class='fu'>life_expect_mean</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3.179005</div><div class='input'>
+<span class='co'># variance of life expectancy from stage class 2</span>
+<span class='fu'>life_expect_var</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 19.23639</div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

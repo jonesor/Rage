@@ -95,19 +95,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -164,6 +164,14 @@ approximation should be used for approximating the definite integral.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Keyfitz's life table entropy.</p>
+    <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
+
+    
+
+<p>Note that this function may produce unexpected results if used on partial 
+survivorship trajectories. In addition, it is sensitive to the length of the 
+survivorship vector. We direct users to the function `<code><a href='shape_surv.html'>shape_surv</a></code>` 
+which is relatively robust to these issues.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Keyfitz, N. 1977. Applied Mathematical Demography. New York:
@@ -173,7 +181,7 @@ approximation should be used for approximating the definite integral.</p></td>
     <div class='dont-index'><p>Other life history traits: 
 <code><a href='entropy_d.html'>entropy_d</a>()</code>,
 <code><a href='gen_time.html'>gen_time</a>()</code>,
-<code><a href='life_expect.html'>life_expect</a>()</code>,
+<code><a href='life_expect_mean.html'>life_expect_mean</a>()</code>,
 <code><a href='longevity.html'>longevity</a>()</code>,
 <code><a href='net_repro_rate.html'>net_repro_rate</a>()</code>,
 <code><a href='shape_rep.html'>shape_rep</a>()</code>,

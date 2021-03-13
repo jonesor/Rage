@@ -94,19 +94,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -146,10 +146,12 @@
 <li>Improved documentation with fuller descriptions and executable examples.</li>
 <li>Grouped functions by type in the documentation.</li>
 <li>Improved vignettes by greatly expanding them.</li>
+<li>Added support using stage names in addition to stage number, plus helper function <code>name_stages</code> for (re)naming MPM stages.</li>
 <li>Replaced old function <code>lifeTimeRepEvents</code> with specific functions for events (<code>gen_time</code>, <code>life_expect</code>, <code>longevity</code>).</li>
 <li>Added functions for manipulating matrices: <code>mpm_collapse</code>, <code>mpm_rearrange</code>, <code>mpm_split</code>, <code>mpm_standardize</code>.</li>
 <li>Added functions to calculate various vital rates <code>vr</code>, <code>vr_mat</code>, <code>vr_vec</code>.</li>
 <li>Added utility functions <code>repro_stages</code> and <code>standard_stages</code> to identify reproductive stages either logically (TRUE/FALSE) or by the standardised set of reproductive stages (propagule, pre-reproductive, reproductive and post-reproductive).</li>
+<li>Renamed <code>vitalRates</code> to <code>vital_rates</code>.</li>
 <li>Renamed (and modified) old function <code>makeLifeTable</code> to create new function, <code>mpm_to_table</code>.</li>
 <li>Added <code>lifetable_convert</code> function to convert between types of life table (hazard, survivorship and survival probability).</li>
 <li>Replaced <code>matrixElementPerturbation</code> and <code>vitalRatePerturbation</code> functions with enhanced perturbation functions: <code>perturb_matrix</code>, <code>perturb_stochastic</code>, <code>perturb_trans</code>, <code>perturb_vr</code>.</li>

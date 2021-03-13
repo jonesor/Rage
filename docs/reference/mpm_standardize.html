@@ -100,19 +100,19 @@ class expected at the stable distribution." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -154,7 +154,9 @@ of the original matrix, weighted by the relative proportion of each stage
 class expected at the stable distribution.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mpm_standardize</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mpm_standardize</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>repro_stages</span>, <span class='va'>matrix_stages</span><span class='op'>)</span>
+
+<span class='fu'>mpm_standardise</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, matC <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>repro_stages</span>, <span class='va'>matrix_stages</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,11 +180,13 @@ Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
 <code>matC</code> is a matrix of zeros).</p></td>
     </tr>
     <tr>
-      <th>reproStages</th>
-      <td><p>Logical vector indicating which stages are reproductive.</p></td>
+      <th>repro_stages</th>
+      <td><p>Logical vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a></code> indicating 
+which stages are reproductive. Alternatively, a vector of stage indices or 
+stage names of the reproductive classes.</p></td>
     </tr>
     <tr>
-      <th>matrixStages</th>
+      <th>matrix_stages</th>
       <td><p>Character vector of matrix stage types (e.g. "propagule",
 "active", or "dormant").</p></td>
     </tr>
@@ -222,7 +226,7 @@ row/column of the standardized matrix will be coerced to <code>NA</code>.</p>
     <div class='dont-index'><p>Other transformation: 
 <code><a href='mpm_collapse.html'>mpm_collapse</a>()</code>,
 <code><a href='mpm_split.html'>mpm_split</a>()</code>,
-<code><a href='plot_life_cycle.html'>plot_life_cycle</a>()</code>,
+<code><a href='name_stages.html'>name_stages</a>()</code>,
 <code><a href='pop_vectors.html'>pop_vectors</a>()</code>,
 <code><a href='repro_stages.html'>repro_stages</a>()</code>,
 <code><a href='standard_stages.html'>standard_stages</a>()</code></p></div>
@@ -249,37 +253,37 @@ row/column of the standardized matrix will be coerced to <code>NA</code>.</p>
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span>,
               <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span>,   <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>reproStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>matrixStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span><span class='op'>)</span>
+<span class='va'>repro_stages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>
+<span class='va'>matrix_stages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span>, <span class='st'>'active'</span><span class='op'>)</span>
 
-<span class='fu'>mpm_standardize</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, <span class='va'>reproStages</span>, <span class='va'>matrixStages</span><span class='op'>)</span>
+<span class='fu'>mpm_standardize</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, <span class='va'>matC</span>, <span class='va'>repro_stages</span>, <span class='va'>matrix_stages</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $matA
-#&gt;      [,1] [,2]       [,3]     [,4]
-#&gt; [1,]  0.1   NA 1.39996142 1.953150
-#&gt; [2,]   NA   NA         NA       NA
-#&gt; [3,]  0.5   NA 1.22350672 0.744057
-#&gt; [4,]  0.0   NA 0.07059731 0.500000
+#&gt;               propStages preRepStages  repStages postRepStages
+#&gt; propStages           0.1           NA 1.39996142      1.953150
+#&gt; preRepStages          NA           NA         NA            NA
+#&gt; repStages            0.5           NA 1.22350672      0.744057
+#&gt; postRepStages        0.0           NA 0.07059731      0.500000
 #&gt; 
 #&gt; $matU
-#&gt;      [,1] [,2]       [,3]       [,4]
-#&gt; [1,]  0.1   NA 0.00000000 0.00000000
-#&gt; [2,]   NA   NA         NA         NA
-#&gt; [3,]  0.5   NA 0.48235067 0.09300712
-#&gt; [4,]  0.0   NA 0.07059731 0.50000000
+#&gt;               propStages preRepStages  repStages postRepStages
+#&gt; propStages           0.1           NA 0.00000000    0.00000000
+#&gt; preRepStages          NA           NA         NA            NA
+#&gt; repStages            0.5           NA 0.48235067    0.09300712
+#&gt; postRepStages        0.0           NA 0.07059731    0.50000000
 #&gt; 
 #&gt; $matF
-#&gt;      [,1] [,2]      [,3]      [,4]
-#&gt; [1,]    0   NA 0.9058574 1.4881140
-#&gt; [2,]   NA   NA        NA        NA
-#&gt; [3,]    0   NA 0.6588054 0.3720285
-#&gt; [4,]    0   NA 0.0000000 0.0000000
+#&gt;               propStages preRepStages repStages postRepStages
+#&gt; propStages             0           NA 0.9058574     1.4881140
+#&gt; preRepStages          NA           NA        NA            NA
+#&gt; repStages              0           NA 0.6588054     0.3720285
+#&gt; postRepStages          0           NA 0.0000000     0.0000000
 #&gt; 
 #&gt; $matC
-#&gt;      [,1] [,2]       [,3]      [,4]
-#&gt; [1,]    0   NA 0.49410403 0.4650356
-#&gt; [2,]   NA   NA         NA        NA
-#&gt; [3,]    0   NA 0.08235067 0.2790214
-#&gt; [4,]    0   NA 0.00000000 0.0000000
+#&gt;               propStages preRepStages  repStages postRepStages
+#&gt; propStages             0           NA 0.49410403     0.4650356
+#&gt; preRepStages          NA           NA         NA            NA
+#&gt; repStages              0           NA 0.08235067     0.2790214
+#&gt; postRepStages          0           NA 0.00000000     0.0000000
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

@@ -5,7 +5,7 @@
 \title{Identify stages corresponding to different parts of the reproductive life
 cycle}
 \usage{
-standard_stages(matF, reproStages, matrixStages)
+standard_stages(matF, repro_stages, matrix_stages)
 }
 \arguments{
 \item{matF}{The sexual component of a matrix population model (i.e. a square
@@ -13,9 +13,9 @@ projection matrix reflecting transitions only due to \emph{sexual}
 reproduction). It assumes that it has been rearranged so that 
 non-reproductive stages are in the final rows/columns.}
 
-\item{reproStages}{Logical vector identifying which stages are reproductive.}
+\item{repro_stages}{Logical vector identifying which stages are reproductive.}
 
-\item{matrixStages}{(character) vector of stages, values are "prop"
+\item{matrix_stages}{(character) vector of stages, values are "prop"
 (propagule), "active", and "dorm" (dormant).}
 }
 \value{
@@ -53,13 +53,13 @@ matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
               c(  0,   0,   0,   0,   0),
               c(  0,   0,   0,   0,   0))
 
-reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+repro_stages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 
-r <- mpm_rearrange(matU, matF, reproStages = reproStages,
-                   matrixStages = matrixStages)
+r <- mpm_rearrange(matU, matF, repro_stages = repro_stages,
+                   matrix_stages = matrix_stages)
 
-standard_stages(r$matF, r$reproStages, r$matrixStages)
+standard_stages(r$matF, r$repro_stages, r$matrix_stages)
 
 }
 \seealso{
@@ -69,7 +69,7 @@ Other {transformation}:
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
-\code{\link{plot_life_cycle}()},
+\code{\link{name_stages}()},
 \code{\link{pop_vectors}()},
 \code{\link{repro_stages}()}
 }

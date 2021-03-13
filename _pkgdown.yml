@@ -15,10 +15,14 @@ reference:
     desc: "Functions for perturbation analysis."
     contents:
       - has_concept("perturbation analysis")
-  - title: "Transformation"
+  - title: "MPM transformation"
     desc: "Functions for transforming matrices."
     contents:
       - has_concept("transformation")
+  - title: "Visualisation"
+    desc: "Functions for visualising matrices."
+    contents:
+      - has_concept("visualisation")      
 
   - title: "All functions"
     desc: "All functions listed alphabetically."

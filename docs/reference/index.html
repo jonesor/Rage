@@ -94,19 +94,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -179,9 +179,9 @@ and fecundity</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="life_expect.html">life_expect()</a></code> </p>
+          <p><code><a href="life_expect.html">life_expect_mean()</a></code> <code><a href="life_expect.html">life_expect_var()</a></code> <code><a href="life_expect.html">life_expect()</a></code> </p>
         </td>
-        <td><p>Calculate life expectancy from a matrix population model</p></td>
+        <td><p>Calculate mean and variance of life expectancy from a matrix population model</p></td>
       </tr><tr>
         
         <td>
@@ -228,7 +228,7 @@ and fecundity</p></td>
       <tr>
         
         <td>
-          <p><code><a href="vitalRates.html">vitalRates()</a></code> </p>
+          <p><code><a href="vital_rates.html">vital_rates()</a></code> </p>
         </td>
         <td><p>Derive mean vital rates from a matrix population model</p></td>
       </tr><tr>
@@ -329,7 +329,7 @@ models and corresponding population vectors</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-transformation" class="hasAnchor"><a href="#section-transformation" class="anchor"></a>Transformation</h2>
+          <h2 id="section-mpm-transformation" class="hasAnchor"><a href="#section-mpm-transformation" class="anchor"></a>MPM transformation</h2>
           <p class="section-desc"><p>Functions for transforming matrices.</p></p>
         </th>
       </tr>
@@ -360,15 +360,15 @@ non-reproductive stages</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="mpm_standardize.html">mpm_standardize()</a></code> </p>
+          <p><code><a href="mpm_standardize.html">mpm_standardize()</a></code> <code><a href="mpm_standardize.html">mpm_standardise()</a></code> </p>
         </td>
         <td><p>Transform a matrix population model to a standardized form</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plot_life_cycle.html">plot_life_cycle()</a></code> </p>
+          <p><code><a href="name_stages.html">name_stages()</a></code> </p>
         </td>
-        <td><p>Plot a life cycle diagram from a matrix population model</p></td>
+        <td><p>Add stage names to matrices</p></td>
       </tr><tr>
         
         <td>
@@ -389,6 +389,25 @@ time-series of matrix population models</p></td>
         </td>
         <td><p>Identify stages corresponding to different parts of the reproductive life
 cycle</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-visualisation" class="hasAnchor"><a href="#section-visualisation" class="anchor"></a>Visualisation</h2>
+          <p class="section-desc"><p>Functions for visualising matrices.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="plot_life_cycle.html">plot_life_cycle()</a></code> </p>
+        </td>
+        <td><p>Plot a life cycle diagram from a matrix population model</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -436,9 +455,9 @@ and fecundity</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="life_expect.html">life_expect()</a></code> </p>
+          <p><code><a href="life_expect.html">life_expect_mean()</a></code> <code><a href="life_expect.html">life_expect_var()</a></code> <code><a href="life_expect.html">life_expect()</a></code> </p>
         </td>
-        <td><p>Calculate life expectancy from a matrix population model</p></td>
+        <td><p>Calculate mean and variance of life expectancy from a matrix population model</p></td>
       </tr><tr>
         
         <td>
@@ -479,7 +498,7 @@ non-reproductive stages</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="mpm_standardize.html">mpm_standardize()</a></code> </p>
+          <p><code><a href="mpm_standardize.html">mpm_standardize()</a></code> <code><a href="mpm_standardize.html">mpm_standardise()</a></code> </p>
         </td>
         <td><p>Transform a matrix population model to a standardized form</p></td>
       </tr><tr>
@@ -488,6 +507,12 @@ non-reproductive stages</p></td>
           <p><code><a href="mpm_to_table.html">mpm_to_table()</a></code> </p>
         </td>
         <td><p>Generate a life table from a matrix population model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="name_stages.html">name_stages()</a></code> </p>
+        </td>
+        <td><p>Add stage names to matrices</p></td>
       </tr><tr>
         
         <td>
@@ -572,7 +597,7 @@ cycle</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="vitalRates.html">vitalRates()</a></code> </p>
+          <p><code><a href="vital_rates.html">vital_rates()</a></code> </p>
         </td>
         <td><p>Derive mean vital rates from a matrix population model</p></td>
       </tr><tr>

@@ -18,8 +18,9 @@
 #'    the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
 #'   considers the beginning of life. Defaults to 1.
-#' @param repro_stages Logical vector indicating which stages are reproductive.
-#'   Must be of length \code{ncol(matU)}.
+#' @param repro_stages A vector of stage names or indices indicating which stages
+#'   are reproductive. Alternatively, a logical vector of length \code{ncol(matU)} 
+#'   indicating whether each stage is reproductive (TRUE) or not (FALSE).
 #'   
 #' @return For \code{mature_distrib}, a vector giving the proportion of
 #'   individuals that first reproduce within each stage class. For all others, a
@@ -110,11 +111,18 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU)
-  if (ncol(matU) != length(repro_stages)) {
+  if (length(repro_stages) > ncol(matU)) {
+    stop("More repro_stages were supplied, (", length(repro_stages),
+         ") than there are life stages (", ncol(matU), ").", call. = FALSE)
+  }
+  if (is.logical(repro_stages) && ncol(matU) != length(repro_stages)) {
     stop("length(repro_stages) must equal ncol(matU)", call. = FALSE)
   }
   if (!is.numeric(start)){
     checkMatchingStageNames(M = matU)
+  }
+  if (is.numeric(repro_stages) | is.character(repro_stages)) {
+    checkValidStages(matU, repro_stages)
   }
   
   primeU <- matU
@@ -123,17 +131,17 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   N <- .matrix_inverse(diag(nrow(primeU)) - primeU)
   
   n1 <- rep(0, nrow(matU))
+  names(n1) <- rownames(matU)
   n1[repro_stages] <- N[repro_stages, start] / sum(N[repro_stages, start])
-  
   n1[is.nan(n1)] <- 0.0 # coerce NaN to 0
-  names(n1) <- colnames(matU)
+  
   return(n1)
 }
 
 
 #' @noRd
 calc_Bprime <- function(matU, fec_stages) {
-  
+  # Note: internal function; doesn't need stage name support in current use context
   m <- ncol(matU)
   
   # Probability of survival to first sexual reproductive event

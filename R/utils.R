@@ -67,6 +67,43 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
   }
 }
 
+#' @noRd
+checkValidStages <- function(M, stages) {
+  # checks that the stages vector supplied has valid indices or names
+  arg <- deparse(substitute(stages))
+  if (is.logical(stages) && length(stages) != ncol(M)) {
+    stop("Length of `", arg, "` (logical vector) must equal the dimension of ",
+         "the matrix (", ncol(M), ")", call. = FALSE)
+  } else if (is.numeric(stages) && !all(stages[!is.na(stages)] %in% 1:ncol(M))) {
+    stop("Some stage indices ",
+         ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
+         "exceeded matrix dimension (", nrow(M), "): ",
+         paste(stages[stages > ncol(M) | stages <= 0L], collapse = ", "),
+         call. = FALSE)
+  } else if (is.character(stages) && any(!stages[!is.na(stages)] %in% colnames(M))) {
+    stop("Some stage names ",
+         ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
+         "were not found in matrix: ",
+         paste(stages[!stages %in% colnames(M)], collapse = ", "),
+         call. = FALSE)
+  } else if (is.list(stages) && any(sapply(stages, is.numeric)) &&
+             any(!unique(unlist(stages))[!is.na(unique(unlist(stages)))] %in% 1:ncol(M))) {
+    stop("Some stage indices ",
+         ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
+         "exceeded matrix dimension (", nrow(M), "): ",
+         paste(unique(unlist(stages))[!unique(unlist(stages)) %in% 1:ncol(M)],
+               collapse = ", "),
+         call. = FALSE)
+  } else if (is.list(stages) && any(sapply(stages, is.character)) &&
+             any(!unique(unlist(stages))[!is.na(unique(unlist(stages)))] %in% colnames(M))) {
+    stop("Some stage names ",
+         ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
+         "were not found in matrix: ",
+         paste(unique(unlist(stages))[!unique(unlist(stages)) %in% colnames(M)],
+         collapse = ", "),
+         call. = FALSE)
+  }
+}
 
 #' @noRd
 colSums2 <- function(mat) {

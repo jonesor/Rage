@@ -100,19 +100,19 @@ reproductive maturity among stage class (mature_distrib)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -184,8 +184,9 @@ considers the beginning of life. Defaults to 1.</p></td>
     </tr>
     <tr>
       <th>repro_stages</th>
-      <td><p>Logical vector indicating which stages are reproductive.
-Must be of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a></code>.</p></td>
+      <td><p>A vector of stage names or indices indicating which stages
+are reproductive. Alternatively, a logical vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a></code> 
+indicating whether each stage is reproductive (TRUE) or not (FALSE).</p></td>
     </tr>
     </table>
 

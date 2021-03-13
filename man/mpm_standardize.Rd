@@ -2,9 +2,12 @@
 % Please edit documentation in R/mpm_standardize.R
 \name{mpm_standardize}
 \alias{mpm_standardize}
+\alias{mpm_standardise}
 \title{Transform a matrix population model to a standardized form}
 \usage{
-mpm_standardize(matU, matF, matC = NULL, reproStages, matrixStages)
+mpm_standardize(matU, matF, matC = NULL, repro_stages, matrix_stages)
+
+mpm_standardise(matU, matF, matC = NULL, repro_stages, matrix_stages)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e. a
@@ -19,9 +22,11 @@ projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
 
-\item{reproStages}{Logical vector indicating which stages are reproductive.}
+\item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating 
+which stages are reproductive. Alternatively, a vector of stage indices or 
+stage names of the reproductive classes.}
 
-\item{matrixStages}{Character vector of matrix stage types (e.g. "propagule",
+\item{matrix_stages}{Character vector of matrix stage types (e.g. "propagule",
 "active", or "dormant").}
 }
 \value{
@@ -79,17 +84,17 @@ matC <- rbind(c(  0, 0.6,   0, 0.5,   0),
               c(  0,   0,   0,   0,   0),
               c(  0,   0,   0,   0,   0))
 
-reproStages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-matrixStages <- c('prop', 'active', 'active', 'active', 'active')
+repro_stages <- c(2, 4)
+matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
 
-mpm_standardize(matU, matF, matC, reproStages, matrixStages)
+mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 
 }
 \seealso{
 Other {transformation}: 
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_split}()},
-\code{\link{plot_life_cycle}()},
+\code{\link{name_stages}()},
 \code{\link{pop_vectors}()},
 \code{\link{repro_stages}()},
 \code{\link{standard_stages}()}

@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Deriving life history traits from an MPM</h1>
                         <h4 class="author">Judy Che-Castaldo</h4>
             
-            <h4 class="date">2021-03-05</h4>
+            <h4 class="date">2021-03-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a05_LifeHistoryTraits.Rmd"><code>vignettes/a05_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a05_LifeHistoryTraits.Rmd</code></div>
@@ -138,21 +138,30 @@
 <div id="life-expectancy-and-longevity" class="section level1">
 <h1 class="hasAnchor">
 <a href="#life-expectancy-and-longevity" class="anchor"></a>Life expectancy and longevity</h1>
-<p>Two life history traits pertaining to survival can be estimated using the functions <code><a href="../reference/life_expect.html">life_expect()</a></code> and <code><a href="../reference/longevity.html">longevity()</a></code> in <code>Rage</code>. These do not involve reproduction and require only a <strong>U</strong> matrix (supplied to the function’s <code>matU</code> argument).</p>
-<p>The function <code><a href="../reference/life_expect.html">life_expect()</a></code> estimates life expectancy, given as the mean and variance of the time to death. This is dependent on a starting stage, which is specified using the <code>start</code> argument. That is, the expected time to death will be different when calculated from the first stage (i.e., <code>start = 1</code>) compared to a later stage, which assumes survival to that stage. In the example MPM, life expectancy from the first stage (“seed”) is shorter than that from the second stage (“small”) due to the relatively low probability of survival in the seed stage, reducing the expected time to death.</p>
+<p>Two life history traits pertaining to survival can be estimated using the functions <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> and <code><a href="../reference/longevity.html">longevity()</a></code> in <code>Rage</code>. These do not involve reproduction and require only a <strong>U</strong> matrix (supplied to the function’s <code>matU</code> argument).</p>
+<p>The function <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> estimates life expectancy, given as the mean and variance of the time to death. This is dependent on a starting stage, which is specified using the <code>start</code> argument. That is, the expected time to death will be different when calculated from the first stage (i.e., <code>start = 1</code>) compared to a later stage, which assumes survival to that stage. In the example MPM, life expectancy from the first stage (“seed”) is shorter than that from the second stage (“small”) due to the relatively low probability of survival in the seed stage, reducing the expected time to death.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># life expectancy from "seed" stage</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># life expectancy from "seed" stage</span>
+<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
+<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
+<span class="co">#&gt; See help("Deprecated")</span>
 <span class="co">#&gt;    mean   var</span>
 <span class="co">#&gt; 1 1.251 19.24</span>
-<span class="fu"><a href="../reference/life_expect.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># life expectancy from "small" stage</span>
+<span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># life expectancy from "small" stage</span>
+<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
+<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
+<span class="co">#&gt; See help("Deprecated")</span>
 <span class="co">#&gt;    mean  var</span>
 <span class="co">#&gt; 1 2.509 14.5</span></code></pre></div>
 <p>It may sometimes be desirable to allow for multiple starting stage classes. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the <code>start</code> argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the “small” stage and 60% from the “medium” stage of the example MPM would be calculated as:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>    
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>    
+<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
+<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
+<span class="co">#&gt; See help("Deprecated")</span>
 <span class="co">#&gt;    mean  var</span>
 <span class="co">#&gt; 1 2.866 12.5</span></code></pre></div>
-<p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which survivorship falls below a user-defined critical threshold, specified as a value (between 0 and 1) supplied to the <code>lx_crit</code> argument. The specifications regarding the <code>start</code> argument for <code><a href="../reference/life_expect.html">life_expect()</a></code> also applies to this function. Using the example MPM, the post-germination years until survivorship falls to below 5% would be calculated as:</p>
+<p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which survivorship falls below a user-defined critical threshold, specified as a value (between 0 and 1) supplied to the <code>lx_crit</code> argument. The specifications regarding the <code>start</code> argument for <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> also applies to this function. Using the example MPM, the post-germination years until survivorship falls to below 5% would be calculated as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/longevity.html">longevity</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>  
 <span class="co">#&gt; [1] 7</span></code></pre></div>

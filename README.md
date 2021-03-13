@@ -85,6 +85,9 @@ stage.
 
 ``` r
 life_expect(mpm1$matU, start = 2)               # life expectancy
+#> Warning: 'life_expect' is deprecated.
+#> Use 'life_expect_mean' instead.
+#> See help("Deprecated")
 #>    mean  var
 #> 1 2.509 14.5
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)

@@ -106,19 +106,19 @@ on survival (i.e. within a stage class from which there is no survival) are also
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a01_GettingStarted.html">Getting started with `Rage`</a>
+      <a href="../articles/a01_GettingStarted.html">Getting started with Rage</a>
     </li>
     <li>
       <a href="../articles/a02_VitalRates.html">Deriving vital rates from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a03_AgeFromStage.html">Age-from-stage analyses</a>
+      <a href="../articles/a03_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
     </li>
     <li>
-      <a href="../articles/a04_TernaryPlots.html">Ternary Plots</a>
+      <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
     <li>
-      <a href="../articles/a05_LifeHistoryTraits.html">Deriving life history traits from an MPM</a>
+      <a href="../articles/a05_TernaryPlots.html">Ternary plots</a>
     </li>
   </ul>
 </li>
@@ -227,9 +227,10 @@ elements indicating whether a given <code>matU</code> transition is possible
     </tr>
     <tr>
       <th>exclude_col</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions <em>from</em> the stage should be ignore (coerced to <code>NA</code>).
-See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>weights_col</th>
@@ -238,15 +239,17 @@ vital rates across columns. See section <em>Weighting stages</em>.</p></td>
     </tr>
     <tr>
       <th>exclude</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions both <em>to</em> and <em>from</em> the stage should be excluded
-from the calculation of vital rates. See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>exclude_row</th>
-      <td><p>Integer or logical vector indicating stages for which
-transitions <em>to</em> the stage should be excluded from the calculation of
-vital rates. See section <em>Excluding stages</em>.</p></td>
+      <td><p>Integer, character or logical vector indicating stages for 
+which transitions both <em>to</em> and <em>from</em> the stage should be 
+excluded from the calculation of vital rates. See section 
+<em>Excluding stages</em>.</p></td>
     </tr>
     <tr>
       <th>surv_only_na</th>
@@ -259,7 +262,8 @@ value of <code>1</code>. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>dorm_stages</th>
-      <td><p>Integer indicator(s) for dormant stage classes.</p></td>
+      <td><p>Integer or character vector indicating dormant stage
+classes.</p></td>
     </tr>
     <tr>
       <th>matR</th>
@@ -340,7 +344,7 @@ set of stages, use argument <code>exclude</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other vital rates: 
-<code><a href='vitalRates.html'>vitalRates</a>()</code>,
+<code><a href='vital_rates.html'>vital_rates</a>()</code>,
 <code><a href='vr_mat.html'>vr_mat</a></code>,
 <code><a href='vr_vec.html'>vr_vec</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
@@ -364,7 +368,10 @@ set of stages, use argument <code>exclude</code>.</p>
 </div><div class='output co'>#&gt; [1] 0.7166667</div><div class='input'><span class='fu'>vr_shrinkage</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.1111111</div><div class='input'><span class='fu'>vr_stasis</span><span class='op'>(</span><span class='va'>matU</span>, exclude <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.3</div><div class='input'>
-<span class='fu'>vr_dorm_enter</span><span class='op'>(</span><span class='va'>matU</span>, dorm_stages <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+<span class='co'># `exclude*` and `*_stages` arguments can accept stage names</span>
+<span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='name_stages.html'>name_stages</a></span><span class='op'>(</span><span class='va'>matU</span><span class='op'>)</span>
+<span class='va'>matF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='name_stages.html'>name_stages</a></span><span class='op'>(</span><span class='va'>matF</span><span class='op'>)</span>
+<span class='fu'>vr_dorm_enter</span><span class='op'>(</span><span class='va'>matU</span>, dorm_stages <span class='op'>=</span> <span class='st'>"stage_4"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.5555556</div><div class='input'><span class='fu'>vr_dorm_exit</span><span class='op'>(</span><span class='va'>matU</span>, dorm_stages <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.3333333</div><div class='input'>
 <span class='fu'>vr_fecundity</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matF</span>, exclude_col <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
