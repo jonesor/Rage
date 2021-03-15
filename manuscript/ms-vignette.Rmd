@@ -19,7 +19,7 @@ The aim of this vignette is to give the user a walkthrough of integrating the fu
 
 `Rcompadre` is an R package that allows us to access to the COMPADRE and COMADRE Plant and Animal Matrix Databases (Salguero-Gomez et al. 2015, 2016). These two databases contain matrix population models (MPMs) and associated metadata obtained from the published literature.
 
-On the other hand, `Rage` provides tools for manipulating and analysing MPMs. More precisely, `Rage` includes a wide variety of functions allowing us to calculate life history traits (e.g. longevity, generation time), vital rates (e.g. growth, reproduction) and run perturbation analyses (e.g. vital rate elasticities). Furthermore, `Rage` includes several functions to manipulate and transform MPMs and life tables. 
+On the other hand, `Rage` provides tools for manipulating and analysing MPMs. More precisely, `Rage` includes a wide variety of functions allowing us to calculate life history traits (e.g. longevity, generation time), vital rates (e.g. growth, reproduction) and to run perturbation analyses (e.g. vital rate elasticities). Furthermore, `Rage` includes several functions to manipulate and transform MPMs and life tables.
 
 ## Research question 
 
@@ -27,7 +27,7 @@ On the other hand, `Rage` provides tools for manipulating and analysing MPMs. Mo
 
 ## Data acquisition 
 
-We can  download the COMADRE dataset from the website at [www.compadre-db.org](http://www.compadre-db.org), and use `Rcompadre` to manipulate the data. It is important to note that `Rcompadre` coerces the data as a `CompadreDB` S4 class object. While the specific details of this data type are beyond the scope of this vignette, overall it means that we will be able to manipulate our database using functionality already built into R. Furthermore, because we are going to manipulate the whole database we are going to use the `tidyverse` package to facilitate the process.
+We can  download the COMADRE dataset from the website at [www.compadre-db.org](http://www.compadre-db.org), and use `Rcompadre` to manipulate the data. It is important to note that `Rcompadre` coerces the data into a `CompadreDB` S4 class object. While the specific details of this data type are beyond the scope of this vignette, overall it means that we will be able to manipulate our database using functionality already built into R. Furthermore, because we are going to manipulate the whole database we are going to use the `tidyverse` package to facilitate the process.
 
 First we load the libraries:
 
@@ -72,13 +72,13 @@ names(comadre)
 
 You will notice that each element of the `mat` column contains a list of the four matrices (**A**, **U**, **F**, **C**) and information on matrix stages while the other columns are ordinary vectors. The **A** matrix represents the full MPM, which has been split into three additional constituent matrices based on the nature of the demographic processes involved: The **U** matrix, which summarises growth and survival; the **F** matrix, which summarises sexual reproduction; and the **C** matrix, which summarises asexual (clonal) reproduction. These additional matrices sum to equal the **A** matrix (**A** = **U** + **F** + **C**).
 
-Given that we are only interested mammals, we can explore the taxonomic groups available in the dataset. 
+Given that we are only interested in mammals, we can explore the taxonomic groups available in the dataset.
 
 ```{r taxonomic table}
 table(comadre$Class)
 ```
 
-We can see here that C0MADRE contains information for many different taxonomic groups. However, in this case we are only interested in mammals. The functionality in `Rcompadre` and its data class allows us to subset the data base easily. We can simply use the function `filter` from `dplyr` as if our `cdb` object was a data frame. 
+We can see here that C0MADRE contains information for many different taxonomic groups. However, in this case we are only interested in mammals. The functionality in `Rcompadre` and its data class allows us to subset the database easily. We can simply use the function `filter` from `dplyr` as if our `cdb` object was a data frame.
 
 ```{r subset mammals}
 mammals <- comadre %>% 
@@ -126,7 +126,7 @@ mammals_with_u <- mammals_flag %>%
   filter(check_NA_U==FALSE, check_zero_U==FALSE)
 ```
 
-Note that there are a wide variety of data checks that one can do with *Rcompadre*, but going through all of them is beyond the scope of this vignette. However, we encourage users to explore a wide range of these checks for their own research questions. 
+Note that there are a wide variety of data checks that one can do with `Rcompadre`, but going through all of them is beyond the scope of this vignette. However, we encourage users to explore a wide range of these checks for their own research questions.
 
 Finally, COMPADRE and COMADRE often contain information about the geolocation of each study, and this spatial information is an important component of comparative studies. This information is stored in the `$Lat` and `$Lon` columns. Using the handy additions to `ggplot2` from the `maps` package, we can visualise this spatial information very easily. Here, each spatial point is from one of the entries in our `mammals_with_u` data. Note that not all entries (269 or ~10%) have spatial information.
 
@@ -140,7 +140,7 @@ ggplot(mammals_with_u, aes(x = Lon, y = Lat)) +
 
 ## Data analyses
 
-Now that we are sure that our data set contains the right information, we are now ready to calculate longevity using `Rage`.  
+Now that we are sure that our data set contains the right information, we are ready to calculate longevity using `Rage`.
 
 ```{r load Rage}
 library(Rage)
@@ -150,7 +150,7 @@ If we remember, our goal is to calculate the longevity of mammals from across th
 
 The function also requires information about the first stage i.e. the point that the user considers the beginning of life. In this comparative example, we need a way of calculating this first stage as considered by the original authors for each of the matrices. While we could spend time doing this manually, `Rcompadre` has a function that can do it for us called `mpm_first_active`. This function returns an integer index giving the first active stage class noted by the author in the study. 
 
-Finally, the `longevity` function also allows us to set a maximum age using `xmax` (defaults to 1000) and the proportion of the initial cohort remaining before all are considered dead, `lx_crit` a critical proportion that defaults to 0.01. We will leave these at their defaults for the purposes of this example.
+Finally, the `longevity` function also allows us to set a maximum age using `xmax` (defaults to 1000) and the proportion of the initial cohort remaining before all are considered dead, `lx_crit`, a critical proportion that defaults to 0.01. We will leave these at their defaults for the purposes of this example.
 
 We will combine this workflow here, extracting all the **U** matrices with `matU()` and then extracting the first stage with `mpm_first_active`, applied to all the entries of our mammal data with `mutate`.  
 
@@ -164,12 +164,12 @@ Now we can apply the `longevity` function over our dataset using `mapply`.
 
 ```{r, warning=FALSE}
 mammals_long <- mammals_with_u %>% 
-  mutate(longevity= mapply(longevity, matU, start_life))
+  mutate(longevity = mapply(longevity, matU, start_life))
 ```
 
 Now that we have the longevity data for all of our mammals we can actually explore its variation across the globe and across different orders of mammals.
 
-First, we will look at how longevity varies spatially. Lets repeat our map from before but now incorporating the longevity on the log scale as the colour of each point.
+First, we will look at how longevity varies spatially. Lets repeat our map from before but now incorporating longevity on the log scale as the colour of each point.
 
 ```{r long map plot}
 ggplot(mammals_long, aes(Lon, Lat)) +
