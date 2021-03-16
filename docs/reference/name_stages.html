@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate Keyfitz's entropy from a trajectory of age-specific survivorship — entropy_k • Rage</title>
+<title>Add stage names to matrices — name_stages • Rage</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Calculate Keyfitz's entropy from a trajectory of age-specific survivorship — entropy_k" />
-<meta property="og:description" content="Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx)." />
+<meta property="og:title" content="Add stage names to matrices — name_stages" />
+<meta property="og:description" content="Adds user-supplied or automatically-generated stage names to an MPM." />
 
 
 
@@ -135,75 +135,96 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate Keyfitz's entropy from a trajectory of age-specific survivorship</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/entropy_k.R'><code>R/entropy_k.R</code></a></small>
-    <div class="hidden name"><code>entropy_k.Rd</code></div>
+    <h1>Add stage names to matrices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jonesor/Rage/blob/master/R/name_stages.R'><code>R/name_stages.R</code></a></small>
+    <div class="hidden name"><code>name_stages.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).</p>
+    <p>Adds user-supplied or automatically-generated stage names to an MPM.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>entropy_k</span><span class='op'>(</span><span class='va'>lx</span>, trapeze <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>mat</span>, names <span class='op'>=</span> <span class='cn'>NULL</span>, prefix <span class='op'>=</span> <span class='st'>"stage_"</span>, left_pad <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lx</th>
-      <td><p>Survivorship trajectory (a vector of monotonically-declining values
-in the interval [0,1]).</p></td>
+      <th>mat</th>
+      <td><p>An MPM, either as a single matrix or list of matrices.</p></td>
     </tr>
     <tr>
-      <th>trapeze</th>
-      <td><p>A logical argument indicating whether the composite trapezoid
-approximation should be used for approximating the definite integral.</p></td>
+      <th>names</th>
+      <td><p>A character vector specifying the name of each life stage, in
+order. If provided, `prefix` and `left_pad` arguments are ignored.</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>A string to be pre-pended to the stage number when automatically
+naming stages. Defaults to "stage_".</p></td>
+    </tr>
+    <tr>
+      <th>left_pad</th>
+      <td><p>Logical, whether to pre-pend 0 such that all stage numbers
+have equal length, enabling lexicographic sorting. For example, stage '1'
+becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
+stages, and so on. Defaults to TRUE.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Keyfitz's life table entropy.</p>
-    <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
-
-    
-
-<p>Note that this function may produce unexpected results if used on partial 
-survivorship trajectories. In addition, it is sensitive to the length of the 
-survivorship vector. We direct users to the function `<code><a href='shape_surv.html'>shape_surv</a></code>` 
-which is relatively robust to these issues.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Keyfitz, N. 1977. Applied Mathematical Demography. New York:
-  Wiley.</p>
+    <p>The input matrix or matrices with named rows and columns.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other life history traits: 
-<code><a href='entropy_d.html'>entropy_d</a>()</code>,
-<code><a href='gen_time.html'>gen_time</a>()</code>,
-<code><a href='life_expect_mean.html'>life_expect_mean</a>()</code>,
-<code><a href='longevity.html'>longevity</a>()</code>,
-<code><a href='net_repro_rate.html'>net_repro_rate</a>()</code>,
-<code><a href='shape_rep.html'>shape_rep</a>()</code>,
-<code><a href='shape_surv.html'>shape_surv</a>()</code></p></div>
+    <div class='dont-index'><p>Other transformation: 
+<code><a href='mpm_collapse.html'>mpm_collapse</a>()</code>,
+<code><a href='mpm_split.html'>mpm_split</a>()</code>,
+<code><a href='mpm_standardize.html'>mpm_standardize</a>()</code>,
+<code><a href='pop_vectors.html'>pop_vectors</a>()</code>,
+<code><a href='repro_stages.html'>repro_stages</a>()</code>,
+<code><a href='standard_stages.html'>standard_stages</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
-<p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>William K. Petry &lt;wpetry@ncsu.edu&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
-
-<span class='co'># derive lx trajectory, starting from stage 2</span>
-<span class='va'>lx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='age_from_stage.html'>mpm_to_lx</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='co'># calculate Keyfitz' entropy</span>
-<span class='fu'>entropy_k</span><span class='op'>(</span><span class='va'>lx</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.948235</div><div class='input'>
-<span class='co'># use trapezoid approximation for definite integral</span>
-<span class='fu'>entropy_k</span><span class='op'>(</span><span class='va'>lx</span>, trapeze <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1.184059</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>matU</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0</span>, <span class='fl'>0.0</span>, <span class='fl'>0.0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.1</span>, <span class='fl'>0.0</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># (semi)automated naming</span>
+<span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>matU</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         stage_1 stage_2 stage_3
+#&gt; stage_1     0.0     0.0     0.0
+#&gt; stage_2     0.3     0.1     0.0
+#&gt; stage_3     0.0     0.5     0.8</div><div class='input'><span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>matU</span>, prefix <span class='op'>=</span> <span class='st'>"s"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     s1  s2  s3
+#&gt; s1 0.0 0.0 0.0
+#&gt; s2 0.3 0.1 0.0
+#&gt; s3 0.0 0.5 0.8</div><div class='input'><span class='co'># custom stage names</span>
+<span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>matU</span>, names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"small"</span>, <span class='st'>"medium"</span>, <span class='st'>"large"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Naming `prefix` ignored, using stage `names` instead.</span></div><div class='output co'>#&gt;        small medium large
+#&gt; small    0.0    0.0   0.0
+#&gt; medium   0.3    0.1   0.0
+#&gt; large    0.0    0.5   0.8</div><div class='input'><span class='co'># overwrite existing stage names</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
+<span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Existing stage names have been overwritten!</span></div><div class='output co'>#&gt; $matU
+#&gt;         stage_1 stage_2 stage_3 stage_4 stage_5
+#&gt; stage_1    0.10    0.00    0.00    0.00    0.00
+#&gt; stage_2    0.05    0.12    0.10    0.00    0.00
+#&gt; stage_3    0.00    0.35    0.12    0.23    0.12
+#&gt; stage_4    0.00    0.03    0.28    0.52    0.10
+#&gt; stage_5    0.00    0.00    0.16    0.11    0.17
+#&gt; 
+#&gt; $matF
+#&gt;         stage_1 stage_2 stage_3 stage_4 stage_5
+#&gt; stage_1       0       0    17.9    45.6       0
+#&gt; stage_2       0       0     0.0     0.0       0
+#&gt; stage_3       0       0     0.0     0.0       0
+#&gt; stage_4       0       0     0.0     0.0       0
+#&gt; stage_5       0       0     0.0     0.0       0
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
