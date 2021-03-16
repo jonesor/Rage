@@ -28,13 +28,15 @@ par(mar = c(4.5, 4.5, 1, 1))
 knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
+# Overview
+
 `Rage` provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.
 
 # Recap: Assumed knowledge
 The functions in `Rage` assume that the reader is familiar with the basic structure of MPMs and how they are used to project population change and basic demographic statistics (e.g., the equilibrium population growth rate, $\lambda$). This section is intended as a recap of these concepts--readers ready to begin calculating more advanced life history metrics may want to skip ahead to [the next section](#mpms_in_r). We refer readers to [Caswell (2001)](#references) for a comprehensive introduction to MPMs.
 
 ## R.1. Basic anatomy of life cycles and MPMs
-Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different 'types' of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: **seedlings** that have newly recruited into the population from seeds, non-reproductive **rosettes**, and **flowering** adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.
+Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different 'types' of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: **seedlings** that have newly recruited into the population from seeds, non-reproductive **rosettes**, and **flowering** adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically (Fig. 1) where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.
 
 ```{r,echo=FALSE,fig.align='center',fig.height=2,fig.width=6}
 # hidden code to produce figures
@@ -177,10 +179,10 @@ $$
 \right].
 \end{aligned}
 $$
-Summing the population vectors gives us the total population size ($N_{t} =\sum\mathbf{n}_{t=0} = 30$ and $N_{t=1} = 83$). Likewise, we can measure the instantaneous per-capita population growth rate as $N_{t+1}/N_{t} = 83/30 = 2.7\overline{6}$). Recursively substituting the new $\mathbf{n}_{t+1}$ into the projection equation in place of $\mathbf{n}_{t}$ allows us to continue projecting the population dynamics and life stage composition forward in time.
+Summing the population vectors gives us the total population size ($N_{t=0} =\sum\mathbf{n}_{t=0} = 30$ and $N_{t=1} = 83$). Likewise, we can measure the instantaneous per-capita population growth rate as $N_{t+1}/N_{t} = 83/30 = 2.7\overline{6}$). Recursively substituting the new $\mathbf{n}_{t+1}$ into the projection equation in place of $\mathbf{n}_{t}$ allows us to continue projecting the population dynamics and life stage composition forward in time.
 
 ## R.3. Analysis of population equilibrium (eigenanalysis)
-Provided that the transition matrix, __A__, meets certain conditions, iterative projections from any starting population vector, $\mathbf{n}_{t=0}$ will eventually converge to an equilibrium per-capita population growth rate ($\lambda$) and stable stage distribution ($\mathbf{w}$). We can determine $\lambda$ and $\mathbf{w}$ by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The `popbio` and `popdemo` package provide functions to do these calculations:
+Provided that the transition matrix, __A__, meets certain conditions, iterative projections from any starting population vector $\mathbf{n}_{t=0}$ will eventually converge to an equilibrium per-capita population growth rate ($\lambda$) and stable stage distribution ($\mathbf{w}$). We can determine $\lambda$ and $\mathbf{w}$ by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The `popbio` and `popdemo` package provide functions to do these calculations:
 
 ```{r,message=FALSE}
 library(popbio)
@@ -201,11 +203,11 @@ popdemo::eigs(A = A, what = "ss")
 ```
 From $\lambda$, we infer that the population would eventually grow at an equilibrium rate of 51% per time step. Likewise, from $\mathbf{w}$ we infer that nearly half of individuals will be seedlings, about a third will be rosettes and a fifth will be flowering at equilibrium.
 
-Finally, we are reminded that MPM *projections* rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. These tell us what would happen if this strong assumption were to be met. Projection differs radically from *forecasts*, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. [Keyfitz (1972)](#references) unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of `Rage` rests on this ethos.
+Finally, we are reminded that MPM *projections* rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. Projections tell us what would happen if this strong assumption were to be met. Projections differ radically from *forecasts*, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. [Keyfitz (1972)](#references) unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of `Rage` rests on this ethos.
 
-# Representing and loading MPMs in `R` {#mpms_in_r}
+# Representing and loading MPMs in `Rage` {#mpms_in_r}
 
-We'll begin by loading one of the example MPMs called `mpm1` included in the `Rage` package and which can be retrieved using the base 'data' function.
+We'll begin by loading one of the example MPMs included in the `Rage` package, `mpm1`, which can be retrieved using the base 'data' function.
 
 ```{r}
 library(Rage)  # load Rage
@@ -213,21 +215,25 @@ data(mpm1)     # load data object 'mpm1'
 mpm1           # display the contents
 ```
 
-The object `mpm1` is a list containing square matrices as elements that are the decomposition products of an MPM projection matrix. `Rage` functions use one or more of these components in analyses and recognizes the biological meaning of each list element by its name:
+`mpm1` is a list containing the decomposition of an MPM projection matrix into
+its components of growth and survival (__U__) and reproduction (__R__ = __F__ + __C__). Many
+`Rage` functions accept one or more of these components in analyses. The
+biological meaning of each list element is indicated by its name:
 
-- `matU` is the __U__ matrix, which is the __growth/survival__ component of an MPM 
+- `matU` is the __U__ matrix, which is the __growth/survival__ component of an MPM,
 containing transitions related to progression, stasis and retrogression. This is how individuals move among ages or life stages.
 - `matR` is the __R__ matrix, which is the __reproductive__ component of an MPM,
 containing transitions due to reproduction; either sexual, clonal, or both.
-When the mode of reproduction is known (e.g., a species only reproduces sexually or the sexual and clonal offspring have been counted separately), `matR` can be substituted with:
 - `matF` is the __F__ matrix, which is the __sexual reproduction__ or fecundity 
-component of the MPM containing transitions due to sexual reproduction. This is one way that new individuals are produced.
-- `matC` is the __C__ matrix, which is the __clonal__ component of an MPM 
+component of the MPM, containing transitions due to sexual reproduction.
+- `matC` is the __C__ matrix, which is the __clonal__ component of an MPM,
 containing transitions due to clonal reproduction.
+
+When the mode of reproduction is known (e.g., a species only reproduces sexually or the sexual and clonal offspring have been counted separately), `matR` can be substituted with `matF` or `matC`.
 
 For any life history, we can reconstruct the full projection matrix, __A__, by adding together the components. For `mpm1`,  __A__ = __U__ + __F__. A population with separately counted sexual and clonal offspring production would be __A__ = __U__ + __F__ + __C__.
 
-`Rage` functions currently accept MPM components as arguments; therefore, it is not necessary to group the `mat*`s together in a list. We anticipate that future package releases will define methods that accept objects of classes `matrix`, `CompadreMat`, and `CompadreDB` for compatibility with the [COM(P)ADRE databases](https://compadre-db.org/) and its accessor package [`Rcompadre`](https://github.com/jonesor/Rcompadre).
+`Rage` functions currently accept MPM components as arguments; therefore, it is not necessary to group the matrix components together in a list. We anticipate that future package releases will define methods that accept objects of classes `matrix`, `CompadreMat`, and `CompadreDB` for compatibility with the [COM(P)ADRE databases](https://compadre-db.org/) and its accessor package [`Rcompadre`](https://github.com/jonesor/Rcompadre).
 
 # Families of `Rage` functions for life history analysis
 The functions in `Rage` fall into five broad categories, and are detailed in the subsections below:
@@ -262,7 +268,7 @@ __U__ with user-indicated dormant stages), fecundity (from __F__) or clonality
 
 The `vr_vec_*` family of functions provide a means to calculate lower-level vital 
 rates for each life stage in the input matrix or matrices. For example, we can
-calculate stage-specific survival and stasis from our example __U__ matrix,
+calculate stage-specific survival and stasis from our example __U__ matrix:
 
 ```{r}
 vr_vec_survival(matU = mpm1$matU)
@@ -270,7 +276,7 @@ vr_vec_stasis(matU = mpm1$matU)
 ```
 
 Multiplying these two together yields the probability of stasis conditional on
-survival, in other words that diagonal of our example __U__ matrix.
+survival, in other words the diagonal of our example __U__ matrix.
 
 ```{r}
 # product of Pr(survival) and Pr(stasis) yields Pr(stasis|survived)
@@ -279,7 +285,7 @@ diag(mpm1$matU)  # equivalent to the diagonal of U matrix
 ```
 
 `Rage` also provides functions to summarize these vital rates _across_ stage 
-classes using the `vr_*` family of functions. These return a single value that 
+classes using the `vr_*` family of functions. These functions return a single value that
 is the mean of the corresponding stage-specific vital rate vector from `vr_vec_*`.
 Life stages may be excluded, allowing the user to tailor these calculations to 
 the life history of the organism and their working definition of each vital rate.
@@ -311,15 +317,16 @@ we can convert an MPM to a full, age-structured life table or any of its compone
 columns.
 
 ```{r}
-mpm1  # a stage-structured MPM for a plant
 lt <- mpm_to_table(matU = mpm1$matU, matF = mpm1$matF)  # full life table
+lt
 lx <- mpm_to_lx(matU = mpm1$matU)  # survivorship to start of each age class
+lx
 ```
 
 `Rage` also supports translation between the different ways of expressing
-age-specific mortality/survival, whether proportional survivorship (lx), survival 
-probability (px) or mortality hazard (hx), following an `x_to_y` function name 
-pattern.
+age-specific mortality/survival, whether proportional survivorship (`lx`),
+survival probability (`px`) or mortality hazard (`hx`), following an `x_to_y`
+function name pattern.
 
 ```{r}
 lx_to_px(lx = lx)  # survivorship to survival probability
@@ -333,9 +340,7 @@ a quasi-stationary distribution (QSD) of stages that is within an arbitrarily
 close threshold of the SSD. Subsetting age-specific demographic trajectories to 
 time points before a cohort reaches the QSD will minimise these plateau artefacts. 
 In the example MPM, `mpm1`, a cohort of germinated individuals quickly converges 
-towards the SSD. Using `qsd_converge`, we can find the time at which the cohort 
-reaches the QSD and subset the life table or any component age-specific trajectory
-accordingly.
+towards the SSD:
 
 ```{r, warning=FALSE, message=FALSE, fig.align='center', fig.height=5, fig.width=6}
 # project a germinated cohort through the U matrix
@@ -343,7 +348,12 @@ cohort <- popbio::pop.projection(A = mpm1$matU, n = c(0, 1, 0, 0, 0), iterations
 popbio::stage.vector.plot(stage.vectors = cohort$stage.vectors[-1,],
                           xlab = "time", ylab = "proportion in stage class",
                           col = "black")
+```
 
+Using `qsd_converge`, we can find the time at which the cohort reaches the QSD
+and subset the life table or any component age-specific trajectory accordingly.
+
+```{r}
 # calculate time to QSD from the U matrix of an MPM
 (q <- qsd_converge(mat = mpm1$matU, start = "small"))
 
@@ -365,11 +375,11 @@ detail on these methods.
 
 Perturbation analyses of MPMs measure the response of demographic statistics, such 
 as the equilibrium per-capita population growth rate ($\lambda$), to perturbations 
-typically applied at the level of individual matrix elements and which may be by 
+typically applied at the level of individual matrix elements and which may be perturbations of
 a fixed or proportionate amount (**sensitivities** and **elasticities**, 
-respectively). By extension, the vital rates (survivial, growth, etc.) or 
+respectively). By extension, the vital rates (survival, growth, etc.) or
 transition type (stasis, retrogression, etc.) underlying multiple matrix elements 
-may be similarly perturbed. `Rage` provides a functions for each scope of 
+may be similarly perturbed. `Rage` provides functions for each scope of
 perturbation, allowing the user to specify the desired demographic statistic and 
 type of perturbation.
 
@@ -403,7 +413,7 @@ below, referring the reader to the [LifeHistoryTraits vignette](a05_LifeHistoryT
 and the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html) 
 for a complete list of functionality.
 
-MPM-based analyses take the required submatix (or submatrices), optionally allowing 
+MPM-based analyses take the required submatrix (or submatrices), optionally allowing
 the user to specify the life stage at which to start the calculation, choose among 
 alternative methods and set cut-off thresholds.
 ```{r}
