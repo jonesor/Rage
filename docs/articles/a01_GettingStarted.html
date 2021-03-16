@@ -99,7 +99,7 @@
                         <h4 class="author">Patrick Barks</h4>
                         <h4 class="author">William K. Petry</h4>
             
-            <h4 class="date">2021-03-14</h4>
+            <h4 class="date">2021-03-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a01_GettingStarted.Rmd"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
@@ -108,7 +108,11 @@
 
     
     
+<div id="overview" class="section level1">
+<h1 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h1>
 <p><code>Rage</code> provides tools for manipulating and analysing matrix population models (MPMs). This vignette introduces the structure of the input and highlights key analysis functions across the package.</p>
+</div>
 <div id="recap-assumed-knowledge" class="section level1">
 <h1 class="hasAnchor">
 <a href="#recap-assumed-knowledge" class="anchor"></a>Recap: Assumed knowledge</h1>
@@ -116,9 +120,9 @@
 <div id="r-1--basic-anatomy-of-life-cycles-and-mpms" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-1--basic-anatomy-of-life-cycles-and-mpms" class="anchor"></a>R.1. Basic anatomy of life cycles and MPMs</h2>
-<p>Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different ‘types’ of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: <strong>seedlings</strong> that have newly recruited into the population from seeds, non-reproductive <strong>rosettes</strong>, and <strong>flowering</strong> adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.</p>
-<div id="htmlwidget-eba09c4aa184251fda71" style="width:576px;height:192px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eba09c4aa184251fda71">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
+<p>Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different ‘types’ of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: <strong>seedlings</strong> that have newly recruited into the population from seeds, non-reproductive <strong>rosettes</strong>, and <strong>flowering</strong> adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically (Fig. 1) where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.</p>
+<div id="htmlwidget-960e638af4f668cb2da7" style="width:576px;height:192px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-960e638af4f668cb2da7">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
 <p>The <strong>transition</strong> or <strong>projection matrix</strong> (Fig. 2; called <strong>A</strong> in matrix notation) for this life cycle is a square matrix where the rows and columns correspond to the life stages (nodes) and the elements correspond to transition probabilities (arrows). By convention, the columns reflect the current life stage (i.e., the arrow’s start) and the rows reflect the arrow’s end.</p>
 <p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;"><strong>Figure 2.</strong> Transition (projection) matrix corresponding to the life cycle in Fig. 1.</p>
 <p>For basic MPM projection and equilibrium analyses, this single matrix is all that is needed. However, more advanced analyses like many of those in <code>Rage</code> use decompositions of the <strong>A</strong> matrix into its components of growth and survival (<strong>U</strong>) and reproduction (<strong>R</strong>). Reproduction can be further decomposed into offspring produced sexually (<strong>F</strong>) and asexually/clonally (<strong>C</strong>; Fig. 3). The submatrices combine additively to create the transition matrix,</p>
@@ -163,12 +167,12 @@
 \end{matrix}
 \right].
 \end{aligned}
-\]</span> Summing the population vectors gives us the total population size (<span class="math inline">\(N_{t} =\sum\mathbf{n}_{t=0} = 30\)</span> and <span class="math inline">\(N_{t=1} = 83\)</span>). Likewise, we can measure the instantaneous per-capita population growth rate as <span class="math inline">\(N_{t+1}/N_{t} = 83/30 = 2.7\overline{6}\)</span>). Recursively substituting the new <span class="math inline">\(\mathbf{n}_{t+1}\)</span> into the projection equation in place of <span class="math inline">\(\mathbf{n}_{t}\)</span> allows us to continue projecting the population dynamics and life stage composition forward in time.</p>
+\]</span> Summing the population vectors gives us the total population size (<span class="math inline">\(N_{t=0} =\sum\mathbf{n}_{t=0} = 30\)</span> and <span class="math inline">\(N_{t=1} = 83\)</span>). Likewise, we can measure the instantaneous per-capita population growth rate as <span class="math inline">\(N_{t+1}/N_{t} = 83/30 = 2.7\overline{6}\)</span>). Recursively substituting the new <span class="math inline">\(\mathbf{n}_{t+1}\)</span> into the projection equation in place of <span class="math inline">\(\mathbf{n}_{t}\)</span> allows us to continue projecting the population dynamics and life stage composition forward in time.</p>
 </div>
 <div id="r-3--analysis-of-population-equilibrium-eigenanalysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-3--analysis-of-population-equilibrium-eigenanalysis" class="anchor"></a>R.3. Analysis of population equilibrium (eigenanalysis)</h2>
-<p>Provided that the transition matrix, <strong>A</strong>, meets certain conditions, iterative projections from any starting population vector, <span class="math inline">\(\mathbf{n}_{t=0}\)</span> will eventually converge to an equilibrium per-capita population growth rate (<span class="math inline">\(\lambda\)</span>) and stable stage distribution (<span class="math inline">\(\mathbf{w}\)</span>). We can determine <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mathbf{w}\)</span> by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The <code>popbio</code> and <code>popdemo</code> package provide functions to do these calculations:</p>
+<p>Provided that the transition matrix, <strong>A</strong>, meets certain conditions, iterative projections from any starting population vector <span class="math inline">\(\mathbf{n}_{t=0}\)</span> will eventually converge to an equilibrium per-capita population growth rate (<span class="math inline">\(\lambda\)</span>) and stable stage distribution (<span class="math inline">\(\mathbf{w}\)</span>). We can determine <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mathbf{w}\)</span> by finding the dominant eigenvalue and its associated (right) eigenvector, respectively. The <code>popbio</code> and <code>popdemo</code> package provide functions to do these calculations:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popbio</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
@@ -190,14 +194,14 @@
 <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.4552 0.3296 0.2152</span></code></pre></div>
 <p>From <span class="math inline">\(\lambda\)</span>, we infer that the population would eventually grow at an equilibrium rate of 51% per time step. Likewise, from <span class="math inline">\(\mathbf{w}\)</span> we infer that nearly half of individuals will be seedlings, about a third will be rosettes and a fifth will be flowering at equilibrium.</p>
-<p>Finally, we are reminded that MPM <em>projections</em> rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. These tell us what would happen if this strong assumption were to be met. Projection differs radically from <em>forecasts</em>, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. <a href="#references">Keyfitz (1972)</a> unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of <code>Rage</code> rests on this ethos.</p>
+<p>Finally, we are reminded that MPM <em>projections</em> rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. Projections tell us what would happen if this strong assumption were to be met. Projections differ radically from <em>forecasts</em>, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. <a href="#references">Keyfitz (1972)</a> unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of <code>Rage</code> rests on this ethos.</p>
 </div>
 </div>
 <div id="mpms_in_r" class="section level1">
 <h1 class="hasAnchor">
-<a href="#mpms_in_r" class="anchor"></a>Representing and loading MPMs in <code>R</code>
+<a href="#mpms_in_r" class="anchor"></a>Representing and loading MPMs in <code>Rage</code>
 </h1>
-<p>We’ll begin by loading one of the example MPMs called <code>mpm1</code> included in the <code>Rage</code> package and which can be retrieved using the base ‘data’ function.</p>
+<p>We’ll begin by loading one of the example MPMs included in the <code>Rage</code> package, <code>mpm1</code>, which can be retrieved using the base ‘data’ function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span>     <span class="co"># load data object 'mpm1'</span>
@@ -217,19 +221,20 @@
 <span class="co">#&gt; medium     0     0    0.0   0.0       0</span>
 <span class="co">#&gt; large      0     0    0.0   0.0       0</span>
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
-<p>The object <code>mpm1</code> is a list containing square matrices as elements that are the decomposition products of an MPM projection matrix. <code>Rage</code> functions use one or more of these components in analyses and recognizes the biological meaning of each list element by its name:</p>
+<p><code>mpm1</code> is a list containing the decomposition of an MPM projection matrix into its components of growth and survival (<strong>U</strong>) and reproduction (<strong>R</strong> = <strong>F</strong> + <strong>C</strong>). Many <code>Rage</code> functions accept one or more of these components in analyses. The biological meaning of each list element is indicated by its name:</p>
 <ul>
 <li>
-<code>matU</code> is the <strong>U</strong> matrix, which is the <strong>growth/survival</strong> component of an MPM containing transitions related to progression, stasis and retrogression. This is how individuals move among ages or life stages.</li>
+<code>matU</code> is the <strong>U</strong> matrix, which is the <strong>growth/survival</strong> component of an MPM, containing transitions related to progression, stasis and retrogression. This is how individuals move among ages or life stages.</li>
 <li>
-<code>matR</code> is the <strong>R</strong> matrix, which is the <strong>reproductive</strong> component of an MPM, containing transitions due to reproduction; either sexual, clonal, or both. When the mode of reproduction is known (e.g., a species only reproduces sexually or the sexual and clonal offspring have been counted separately), <code>matR</code> can be substituted with:</li>
+<code>matR</code> is the <strong>R</strong> matrix, which is the <strong>reproductive</strong> component of an MPM, containing transitions due to reproduction; either sexual, clonal, or both.</li>
 <li>
-<code>matF</code> is the <strong>F</strong> matrix, which is the <strong>sexual reproduction</strong> or fecundity component of the MPM containing transitions due to sexual reproduction. This is one way that new individuals are produced.</li>
+<code>matF</code> is the <strong>F</strong> matrix, which is the <strong>sexual reproduction</strong> or fecundity component of the MPM, containing transitions due to sexual reproduction.</li>
 <li>
-<code>matC</code> is the <strong>C</strong> matrix, which is the <strong>clonal</strong> component of an MPM containing transitions due to clonal reproduction.</li>
+<code>matC</code> is the <strong>C</strong> matrix, which is the <strong>clonal</strong> component of an MPM, containing transitions due to clonal reproduction.</li>
 </ul>
+<p>When the mode of reproduction is known (e.g., a species only reproduces sexually or the sexual and clonal offspring have been counted separately), <code>matR</code> can be substituted with <code>matF</code> or <code>matC</code>.</p>
 <p>For any life history, we can reconstruct the full projection matrix, <strong>A</strong>, by adding together the components. For <code>mpm1</code>, <strong>A</strong> = <strong>U</strong> + <strong>F</strong>. A population with separately counted sexual and clonal offspring production would be <strong>A</strong> = <strong>U</strong> + <strong>F</strong> + <strong>C</strong>.</p>
-<p><code>Rage</code> functions currently accept MPM components as arguments; therefore, it is not necessary to group the <code>mat*</code>s together in a list. We anticipate that future package releases will define methods that accept objects of classes <code>matrix</code>, <code>CompadreMat</code>, and <code>CompadreDB</code> for compatibility with the <a href="https://compadre-db.org/">COM(P)ADRE databases</a> and its accessor package <a href="https://github.com/jonesor/Rcompadre"><code>Rcompadre</code></a>.</p>
+<p><code>Rage</code> functions currently accept MPM components as arguments; therefore, it is not necessary to group the matrix components together in a list. We anticipate that future package releases will define methods that accept objects of classes <code>matrix</code>, <code>CompadreMat</code>, and <code>CompadreDB</code> for compatibility with the <a href="https://compadre-db.org/">COM(P)ADRE databases</a> and its accessor package <a href="https://github.com/jonesor/Rcompadre"><code>Rcompadre</code></a>.</p>
 </div>
 <div id="families-of-rage-functions-for-life-history-analysis" class="section level1">
 <h1 class="hasAnchor">
@@ -273,7 +278,7 @@
 <h2 class="hasAnchor">
 <a href="#vitalrates" class="anchor"></a>1. Standardized vital rates</h2>
 <p>The elements of an MPM transition matrix (<strong>A</strong>) generally are composites of two or more vital rates (sometimes called ‘lower-level vital rates’). For example, the transition from stage 1 to stage 2 (element <span class="math inline">\(a_{21}\)</span>) may colloquially be thought of as ‘growth,’ but importantly this transition is growth <em>conditional</em> on the individual surviving. Assuming a post-breeding census design, we can retroactively partition each transition in MPM submatrices into survival (using the column sums of <strong>U</strong>) and one of the following: growth (using the lower triangle of <strong>U</strong>), shrinkage (upper triangle of <strong>U</strong>), stasis (diagonal of <strong>U</strong>), dormancy (from <strong>U</strong> with user-indicated dormant stages), fecundity (from <strong>F</strong>) or clonality (from <strong>C</strong>).</p>
-<p>The <code>vr_vec_*</code> family of functions provide a means to calculate lower-level vital rates for each life stage in the input matrix or matrices. For example, we can calculate stage-specific survival and stasis from our example <strong>U</strong> matrix,</p>
+<p>The <code>vr_vec_*</code> family of functions provide a means to calculate lower-level vital rates for each life stage in the input matrix or matrices. For example, we can calculate stage-specific survival and stasis from our example <strong>U</strong> matrix:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
@@ -281,7 +286,7 @@
 <span class="fu"><a href="../reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;  0.6667  0.2400  0.1818  0.6047  0.4359</span></code></pre></div>
-<p>Multiplying these two together yields the probability of stasis conditional on survival, in other words that diagonal of our example <strong>U</strong> matrix.</p>
+<p>Multiplying these two together yields the probability of stasis conditional on survival, in other words the diagonal of our example <strong>U</strong> matrix.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># product of Pr(survival) and Pr(stasis) yields Pr(stasis|survived)</span>
 <span class="fu"><a href="../reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="../reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
@@ -290,7 +295,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>  <span class="co"># equivalent to the diagonal of U matrix</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;    0.10    0.12    0.12    0.52    0.17</span></code></pre></div>
-<p><code>Rage</code> also provides functions to summarize these vital rates <em>across</em> stage classes using the <code>vr_*</code> family of functions. These return a single value that is the mean of the corresponding stage-specific vital rate vector from <code>vr_vec_*</code>. Life stages may be excluded, allowing the user to tailor these calculations to the life history of the organism and their working definition of each vital rate. Similarly, custom weights are allowed to control the contributions of life stages to the average. This functionality is more fully described in the <a href="a02_VitalRates.html">Vital Rates vignette</a>.</p>
+<p><code>Rage</code> also provides functions to summarize these vital rates <em>across</em> stage classes using the <code>vr_*</code> family of functions. These functions return a single value that is the mean of the corresponding stage-specific vital rate vector from <code>vr_vec_*</code>. Life stages may be excluded, allowing the user to tailor these calculations to the life history of the organism and their working definition of each vital rate. Similarly, custom weights are allowed to control the contributions of life stages to the average. This functionality is more fully described in the <a href="a02_VitalRates.html">Vital Rates vignette</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vr.html">vr_survival</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># exclude 'seed' stage</span>
 <span class="co">#&gt; [1] 0.6025</span>
@@ -303,25 +308,34 @@
 <p>Classical demographic analyses were based on age-structured populations, in which surviving individuals always progress to the next age class. However, MPMs allow for demographic rates to be structured by any number of biological criteria, whether stage, sex, size, or condition. In these alternatively-structured models, individuals may remain in the same state or even ‘regress’ to states they had previously. Here there is no one-to-one mapping between state and age. Each individual still has an age, and understanding their age-specific demographic trajectories nevertheless offers a useful window into their life history. <code>Rage</code> provides functions that decompose MPMs into life tables, thereby allowing for a wide array of demographic analyses based on age-specific trajectories (described below in <a href="#lifehist">section 4</a>).</p>
 <p>Following the age-from-stage methods of <a href="#references">Caswell (2001, ch. 5.3)</a>, we can convert an MPM to a full, age-structured life table or any of its component columns.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpm1</span>  <span class="co"># a stage-structured MPM for a plant</span>
-<span class="co">#&gt; $matU</span>
-<span class="co">#&gt;         seed small medium large dormant</span>
-<span class="co">#&gt; seed    0.10  0.00   0.00  0.00    0.00</span>
-<span class="co">#&gt; small   0.05  0.12   0.10  0.00    0.00</span>
-<span class="co">#&gt; medium  0.00  0.35   0.12  0.23    0.12</span>
-<span class="co">#&gt; large   0.00  0.03   0.28  0.52    0.10</span>
-<span class="co">#&gt; dormant 0.00  0.00   0.16  0.11    0.17</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $matF</span>
-<span class="co">#&gt;         seed small medium large dormant</span>
-<span class="co">#&gt; seed       0     0   17.9  45.6       0</span>
-<span class="co">#&gt; small      0     0    0.0   0.0       0</span>
-<span class="co">#&gt; medium     0     0    0.0   0.0       0</span>
-<span class="co">#&gt; large      0     0    0.0   0.0       0</span>
-<span class="co">#&gt; dormant    0     0    0.0   0.0       0</span>
-<span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>  <span class="co"># full life table</span>
-<span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>  <span class="co"># survivorship to start of each age class</span></code></pre></div>
-<p><code>Rage</code> also supports translation between the different ways of expressing age-specific mortality/survival, whether proportional survivorship (lx), survival probability (px) or mortality hazard (hx), following an <code>x_to_y</code> function name pattern.</p>
+<code class="sourceCode R"><span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>  <span class="co"># full life table</span>
+<span class="va">lt</span>
+<span class="co">#&gt;     x        lx        dx     qx        Lx        Tx     ex     mx     lxmx</span>
+<span class="co">#&gt; 1   0 1.000e+00 8.500e-01 0.8500 0.5750000 0.7502537 0.7503  0.000 0.000000</span>
+<span class="co">#&gt; 2   1 1.500e-01 1.100e-01 0.7333 0.0950000 0.1752537 1.1684  0.000 0.000000</span>
+<span class="co">#&gt; 3   2 4.000e-02 2.016e-02 0.5040 0.0299200 0.0802537 2.0063  9.541 0.381650</span>
+<span class="co">#&gt; 4   3 1.984e-02 7.425e-03 0.3743 0.0161273 0.0503337 2.5370 19.493 0.386736</span>
+<span class="co">#&gt; 5   4 1.241e-02 3.977e-03 0.3204 0.0104259 0.0342064 2.7553 24.833 0.308288</span>
+<span class="co">#&gt; 6   5 8.437e-03 2.564e-03 0.3039 0.0071550 0.0237805 2.8185 26.800 0.226114</span>
+<span class="co">#&gt; 7   6 5.873e-03 1.751e-03 0.2981 0.0049975 0.0166255 2.8309 27.506 0.161543</span>
+<span class="co">#&gt; 8   7 4.122e-03 1.221e-03 0.2962 0.0035115 0.0116280 2.8209 27.741 0.114353</span>
+<span class="co">#&gt; 9   8 2.901e-03 8.576e-04 0.2956 0.0024722 0.0081164 2.7978 27.820 0.080704</span>
+<span class="co">#&gt; 10  9 2.043e-03 6.036e-04 0.2954 0.0017416 0.0056442 2.7622 27.845 0.056899</span>
+<span class="co">#&gt; 11 10 1.440e-03 4.252e-04 0.2953 0.0012272 0.0039027 2.7106 27.854 0.040103</span>
+<span class="co">#&gt; 12 11 1.015e-03 2.996e-04 0.2953 0.0008647 0.0026755 2.6372 27.856 0.028261</span>
+<span class="co">#&gt; 13 12 7.149e-04 2.111e-04 0.2953 0.0006094 0.0018108 2.5328 27.857 0.019916</span>
+<span class="co">#&gt; 14 13 5.038e-04 1.488e-04 0.2953 0.0004294 0.0012014 2.3847 27.857 0.014035</span>
+<span class="co">#&gt; 15 14 3.550e-04 1.048e-04 0.2953 0.0003026 0.0007720 2.1745 27.858 0.009890</span>
+<span class="co">#&gt; 16 15 2.502e-04 7.388e-05 0.2953 0.0002132 0.0004694 1.8762 27.858 0.006969</span>
+<span class="co">#&gt; 17 16 1.763e-04 5.206e-05 0.2953 0.0001503 0.0002562 1.4530 27.858 0.004911</span>
+<span class="co">#&gt; 18 17 1.242e-04 3.669e-05 0.2953 0.0001059 0.0001059 0.8523 27.858 0.003461</span>
+<span class="co">#&gt; 19 18 8.755e-05        NA     NA        NA        NA     NA 27.858 0.002439</span>
+<span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>  <span class="co"># survivorship to start of each age class</span>
+<span class="va">lx</span>
+<span class="co">#&gt;  [1] 1.000e+00 1.500e-01 4.000e-02 1.984e-02 1.241e-02 8.437e-03 5.873e-03</span>
+<span class="co">#&gt;  [8] 4.122e-03 2.901e-03 2.043e-03 1.440e-03 1.015e-03 7.149e-04 5.038e-04</span>
+<span class="co">#&gt; [15] 3.550e-04 2.502e-04 1.763e-04 1.242e-04 8.755e-05</span></code></pre></div>
+<p><code>Rage</code> also supports translation between the different ways of expressing age-specific mortality/survival, whether proportional survivorship (<code>lx</code>), survival probability (<code>px</code>) or mortality hazard (<code>hx</code>), following an <code>x_to_y</code> function name pattern.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/lifetable_convert.html">lx_to_px</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span>  <span class="co"># survivorship to survival probability</span>
 <span class="co">#&gt;  [1] 0.1500 0.2667 0.4960 0.6257 0.6796 0.6961 0.7019 0.7038 0.7044 0.7046</span>
@@ -329,7 +343,7 @@
 <span class="fu"><a href="../reference/lifetable_convert.html">lx_to_hx</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span>  <span class="co"># survivorship to mortality hazard</span>
 <span class="co">#&gt;  [1] 1.8971 1.3218 0.7012 0.4688 0.3862 0.3623 0.3540 0.3513 0.3504 0.3501</span>
 <span class="co">#&gt; [11] 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500     NA</span></code></pre></div>
-<p>When individuals can remain in the last life stage class, age-specific trajectories of mortality and fertility can appear to plateau as a cohort asymptotically approaches its stable stage distribution (SSD). For these MPMs, we can choose a quasi-stationary distribution (QSD) of stages that is within an arbitrarily close threshold of the SSD. Subsetting age-specific demographic trajectories to time points before a cohort reaches the QSD will minimise these plateau artefacts. In the example MPM, <code>mpm1</code>, a cohort of germinated individuals quickly converges towards the SSD. Using <code>qsd_converge</code>, we can find the time at which the cohort reaches the QSD and subset the life table or any component age-specific trajectory accordingly.</p>
+<p>When individuals can remain in the last life stage class, age-specific trajectories of mortality and fertility can appear to plateau as a cohort asymptotically approaches its stable stage distribution (SSD). For these MPMs, we can choose a quasi-stationary distribution (QSD) of stages that is within an arbitrarily close threshold of the SSD. Subsetting age-specific demographic trajectories to time points before a cohort reaches the QSD will minimise these plateau artefacts. In the example MPM, <code>mpm1</code>, a cohort of germinated individuals quickly converges towards the SSD:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># project a germinated cohort through the U matrix</span>
 <span class="va">cohort</span> <span class="op">&lt;-</span> <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/pop.projection.html">pop.projection</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, iterations <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -337,9 +351,9 @@
                           xlab <span class="op">=</span> <span class="st">"time"</span>, ylab <span class="op">=</span> <span class="st">"proportion in stage class"</span>,
                           col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
 <p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>Using <code>qsd_converge</code>, we can find the time at which the cohort reaches the QSD and subset the life table or any component age-specific trajectory accordingly.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># calculate time to QSD from the U matrix of an MPM</span>
+<code class="sourceCode R"><span class="co"># calculate time to QSD from the U matrix of an MPM</span>
 <span class="op">(</span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qsd_converge.html">qsd_converge</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 5</span>
 
@@ -352,13 +366,13 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"darkgrey"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt_preQSD</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></code></pre></div>
-<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-12-2.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <p>We refer readers to the <a href="a03_AgeFromStage.html">AgeFromStage vignette</a> for further detail on these methods.</p>
 </div>
 <div id="perturb" class="section level2">
 <h2 class="hasAnchor">
 <a href="#perturb" class="anchor"></a>3. Perturbation analyses</h2>
-<p>Perturbation analyses of MPMs measure the response of demographic statistics, such as the equilibrium per-capita population growth rate (<span class="math inline">\(\lambda\)</span>), to perturbations typically applied at the level of individual matrix elements and which may be by a fixed or proportionate amount (<strong>sensitivities</strong> and <strong>elasticities</strong>, respectively). By extension, the vital rates (survivial, growth, etc.) or transition type (stasis, retrogression, etc.) underlying multiple matrix elements may be similarly perturbed. <code>Rage</code> provides a functions for each scope of perturbation, allowing the user to specify the desired demographic statistic and type of perturbation.</p>
+<p>Perturbation analyses of MPMs measure the response of demographic statistics, such as the equilibrium per-capita population growth rate (<span class="math inline">\(\lambda\)</span>), to perturbations typically applied at the level of individual matrix elements and which may be perturbations of a fixed or proportionate amount (<strong>sensitivities</strong> and <strong>elasticities</strong>, respectively). By extension, the vital rates (survival, growth, etc.) or transition type (stasis, retrogression, etc.) underlying multiple matrix elements may be similarly perturbed. <code>Rage</code> provides functions for each scope of perturbation, allowing the user to specify the desired demographic statistic and type of perturbation.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># construct the transition matrix A = U + F (+ C when present)</span>
 <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">mpm1</span>, <span class="va">matU</span> <span class="op">+</span> <span class="va">matF</span><span class="op">)</span>
@@ -413,7 +427,7 @@
 <a href="#lifehist" class="anchor"></a>4. Deriving life history traits</h2>
 <p>What is the life expectancy of an individual? At what age will it begin to reproduce? How likely is it to survive to reproduction? What is the generation time? These high-level questions address the population-level life history traits that emerge from aggregating individual-level demographic rates, and tracing trajectories through the life cycle.</p>
 <p><code>Rage</code> provides functions to calculate a wide range of life history traits from both MPMs and life tables. We illustrate the general pattern of these functions below, referring the reader to the <a href="a05_LifeHistoryTraits.html">LifeHistoryTraits vignette</a> and the <a href="https://jonesor.github.io/Rage/reference/index.html">documentation webpage</a> for a complete list of functionality.</p>
-<p>MPM-based analyses take the required submatix (or submatrices), optionally allowing the user to specify the life stage at which to start the calculation, choose among alternative methods and set cut-off thresholds.</p>
+<p>MPM-based analyses take the required submatrix (or submatrices), optionally allowing the user to specify the life stage at which to start the calculation, choose among alternative methods and set cut-off thresholds.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># post-germination time steps until post-germination survivorship falls below 5%</span>
 <span class="fu"><a href="../reference/longevity.html">longevity</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
