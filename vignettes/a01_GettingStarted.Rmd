@@ -113,7 +113,7 @@ $$
 $$
 In our example, all of the elements of __A__ are found in only one of the submatrices. However, other life cycles may have multiple pathways from one life stage to another.
 
-```{r,echo=FALSE,fig.align='center',fig.height=4,fig.width=9}
+```{r,echo=FALSE,fig.align='center',fig.height=4,fig.width=9,out.width='100%'}
 blankdat <- expand.grid(to = stages, from = stages, trans = 0)
 blankdat$to <- factor(blankdat$to, levels = c("flowering", "rosette", "seedling"))
 blankdat$from <- factor(blankdat$from,
