@@ -306,9 +306,8 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "84913.463KB",
+  "fileSize": "84913.53KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
+  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md"
 }
