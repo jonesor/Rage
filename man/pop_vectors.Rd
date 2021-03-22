@@ -26,6 +26,13 @@ distributions across stages) given a time-series of matrix population models
 vector (or optionally, a uniform or random starting vector), and deriving
 subsequent vectors through recursive population projection.
 }
+\details{
+This function is useful for providing population vectors as input to the
+\code{\link{perturb_stochastic}} function which calculates stochastic
+elasticities given a time-series of matrix population models and
+corresponding population vectors, using the method described in Haridas et
+al. (2009).
+}
 \examples{
 # generate list of matrices
 matA_l <- replicate(5, matrix(runif(9), 3, 3), simplify = FALSE)
@@ -36,16 +43,19 @@ pop_vectors(matA_l, start = "uniform")
 pop_vectors(matA_l, start = "random")
 
 }
+\references{
+Haridas, C. V., Tuljapurkar, S., & Coulson, T. 2009. Estimating
+  stochastic elasticities directly from longitudinal data. Ecology Letters,
+  12, 806-812. <doi:10.1111/j.1461-0248.2009.01330.x>
+}
 \seealso{
-Other {transformation}: 
-\code{\link{mpm_collapse}()},
-\code{\link{mpm_split}()},
-\code{\link{mpm_standardize}()},
-\code{\link{name_stages}()},
-\code{\link{repro_stages}()},
-\code{\link{standard_stages}()}
+Other {perturbation analysis}: 
+\code{\link{perturb_matrix}()},
+\code{\link{perturb_stochastic}()},
+\code{\link{perturb_trans}()},
+\code{\link{perturb_vr}()}
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{transformation}}
+\concept{{perturbation analysis}}

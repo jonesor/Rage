@@ -70,7 +70,6 @@ Other {transformation}:
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
 \code{\link{name_stages}()},
-\code{\link{pop_vectors}()},
 \code{\link{repro_stages}()}
 }
 \author{

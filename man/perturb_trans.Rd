@@ -158,7 +158,8 @@ perturb_trans(matU, matF, demog_stat = "damping")
 Other {perturbation analysis}: 
 \code{\link{perturb_matrix}()},
 \code{\link{perturb_stochastic}()},
-\code{\link{perturb_vr}()}
+\code{\link{perturb_vr}()},
+\code{\link{pop_vectors}()}
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
