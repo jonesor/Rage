@@ -20,15 +20,8 @@ matrix:
       dist: xenial
       r: release
     - os: osx
-      osx_image: xcode10.1
+      osx_image: xcode12
       r: release
-
-
-
-# Linux options ---------
-#sudo: false
-#dist: xenial
-#cache: packages
 
 # Branches
 branches:
