@@ -18,6 +18,8 @@ os:
   - linux
   - osx
 
+osx_image: xcode10.1
+
 # Linux options ---------
 sudo: false
 dist: xenial
