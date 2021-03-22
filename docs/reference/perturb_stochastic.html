@@ -184,7 +184,8 @@ Haridas et al. (2009).</p>
     <div class='dont-index'><p>Other perturbation analysis: 
 <code><a href='perturb_matrix.html'>perturb_matrix</a>()</code>,
 <code><a href='perturb_trans.html'>perturb_trans</a>()</code>,
-<code><a href='perturb_vr.html'>perturb_vr</a>()</code></p></div>
+<code><a href='perturb_vr.html'>perturb_vr</a>()</code>,
+<code><a href='pop_vectors.html'>pop_vectors</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
@@ -194,7 +195,7 @@ Haridas et al. (2009).</p>
 <span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fl'>20</span>     <span class='co'># number of years</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>      <span class='co'># matrix dimension</span>
 <span class='va'>X</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># matrix population model at time t</span>
-<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># populaton vector at time t</span>
+<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># population vector at time t</span>
 
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>t</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>X</span><span class='op'>[[</span><span class='va'>t</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='va'>s</span>, ncol <span class='op'>=</span> <span class='va'>s</span><span class='op'>)</span>
