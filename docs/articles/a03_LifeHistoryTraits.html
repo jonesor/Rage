@@ -95,9 +95,12 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Deriving life history traits from an MPM</h1>
+                        <h4 class="author">Patrick Barks</h4>
                         <h4 class="author">Judy Che-Castaldo</h4>
+                        <h4 class="author">Rob Salguero-Gomez</h4>
+                        <h4 class="author">Others</h4>
             
-            <h4 class="date">2021-03-16</h4>
+            <h4 class="date">2021-03-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a03_LifeHistoryTraits.Rmd"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -109,12 +112,12 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This vignette provides additional details on the functions in <code>Rage</code> for estimating life history traits. Life history describes the sequence and pattern of the key events in an organism’s life cycle, pertaining to the schedule of development, reproduction, and survival. By aggregating individual-level demographic rates into an MPM, we can then calculate a set of life history traits to describe the expected patterns for all individuals within the population. These calculations follow methods from Caswell (2001) and Morris &amp; Doak (2003).</p>
+<p>The aim of this vignette is to provide further details on the functions in <code>Rage</code> for estimating life history traits and on the traits themselves. Life history describes the sequence and pattern of the key events in an organism’s life cycle, pertaining to the schedule of survival, development, and reproduction. By aggregating individual-level demographic rates into an MPM, we can calculate a set of life history traits to describe the expected patterns for individuals within the population. These calculations follow methods from Caswell (2001) and Morris &amp; Doak (2003).</p>
 </div>
 <div id="loading-mpms-and-basic-anatomy" class="section level1">
 <h1 class="hasAnchor">
 <a href="#loading-mpms-and-basic-anatomy" class="anchor"></a>Loading MPMs and basic anatomy</h1>
-<p>We’ll start by loading the <code>Rage</code> package and an example MPM included in the package called <code>mpm1</code>, which we’ll be using throughout this vignette.</p>
+<p>We will start by loading the <code>Rage</code> package and an example MPM included in the package called <code>mpm1</code>, which we’ll be using throughout this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span>     <span class="co"># load data object 'mpm1'</span>
@@ -134,91 +137,69 @@
 <span class="co">#&gt; medium     0     0    0.0   0.0       0</span>
 <span class="co">#&gt; large      0     0    0.0   0.0       0</span>
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
+<p>Although we demonstrate these trait calculations using a single MPM, each function can be applied to a set of MPMs for comparative analysis of life histories across species and populations. See the vignette “The functionality of RCompadre and Rage” for an example looking at longevity in mammal species across different ecoregions and taxonomic orders.</p>
 </div>
-<div id="life-expectancy-and-longevity" class="section level1">
+<div id="survival-and-lifespan-traits" class="section level1">
 <h1 class="hasAnchor">
-<a href="#life-expectancy-and-longevity" class="anchor"></a>Life expectancy and longevity</h1>
-<p>Two life history traits pertaining to survival can be estimated using the functions <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> and <code><a href="../reference/longevity.html">longevity()</a></code> in <code>Rage</code>. These do not involve reproduction and require only a <strong>U</strong> matrix (supplied to the function’s <code>matU</code> argument).</p>
-<p>The function <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> estimates life expectancy, given as the mean and variance of the time to death. This is dependent on a starting stage, which is specified using the <code>start</code> argument. That is, the expected time to death will be different when calculated from the first stage (i.e., <code>start = 1</code>) compared to a later stage, which assumes survival to that stage. In the example MPM, life expectancy from the first stage (“seed”) is shorter than that from the second stage (“small”) due to the relatively low probability of survival in the seed stage, reducing the expected time to death.</p>
+<a href="#survival-and-lifespan-traits" class="anchor"></a>Survival and lifespan traits</h1>
+<p>Two life history traits pertaining to survival that can be estimated using functions in <code>Rage</code> are mean life expectancy and longevity. Assuming that there is no trade-off between survival and reprdouction, these functions do not require information about reproduction. Instead, they only require a <strong>U</strong> matrix (supplied to the functions’ <code>matU</code> argument).</p>
+<p>The function <code><a href="../reference/life_expect_mean.html">life_expect_mean()</a></code> estimates mean life expectancy, or the mean time to death, and the variance in time to death can be obtained using <code><a href="../reference/life_expect_mean.html">life_expect_var()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># life expectancy from "seed" stage</span>
-<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
-<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
-<span class="co">#&gt; See help("Deprecated")</span>
-<span class="co">#&gt;    mean   var</span>
-<span class="co">#&gt; 1 1.251 19.24</span>
-<span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># life expectancy from "small" stage</span>
-<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
-<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
-<span class="co">#&gt; See help("Deprecated")</span>
-<span class="co">#&gt;    mean  var</span>
-<span class="co">#&gt; 1 2.509 14.5</span></code></pre></div>
-<p>It may sometimes be desirable to allow for multiple starting stage classes. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the <code>start</code> argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the “small” stage and 60% from the “medium” stage of the example MPM would be calculated as:</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># mean life expectancy from "seed" stage</span>
+<span class="co">#&gt; [1] 1.251</span>
+<span class="fu"><a href="../reference/life_expect_mean.html">life_expect_var</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>   <span class="co"># variance in life expectancy from "seed" stage</span>
+<span class="co">#&gt; [1] 19.24</span></code></pre></div>
+<p>Life expectancy is dependent on a starting stage, which is specified using the <code>start</code> argument. That is, the expected time to death will be different for an individual that is currently in the first stage (i.e., <code>start = 1</code>) than if it is in a later stage along its life cycle. This is because the latter assumes the individual has survived to that stage, and it has already lived a portion of its lifespan. In the example MPM, life expectancy from the first stage (“seed”) is shorter than that from the second stage (“small”) due to the relatively low probability of survival in the seed stage, reducing the expected time to death.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>    
-<span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
-<span class="co">#&gt; Use 'life_expect_mean' instead.</span>
-<span class="co">#&gt; See help("Deprecated")</span>
-<span class="co">#&gt;    mean  var</span>
-<span class="co">#&gt; 1 2.866 12.5</span></code></pre></div>
-<p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which survivorship falls below a user-defined critical threshold, specified as a value (between 0 and 1) supplied to the <code>lx_crit</code> argument. The specifications regarding the <code>start</code> argument for <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> also applies to this function. Using the example MPM, the post-germination years until survivorship falls to below 5% would be calculated as:</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># mean life expectancy from "small" stage</span>
+<span class="co">#&gt; [1] 2.509</span></code></pre></div>
+<p>Sometimes one may want to include multiple starting stage classes when calculating life expectancy. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the <code>start</code> argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the “small” stage and 60% from the “medium” stage of the example MPM would be calculated as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>    
+<span class="co">#&gt; [1] 2.866</span></code></pre></div>
+<p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which the survivorship of a cohort falls below a user-defined critical threshold, specified as a value (between 0 and 1) supplied to the <code>lx_crit</code> argument. The specifications regarding the <code>start</code> argument for <code><a href="../reference/life_expect_mean.html">life_expect()</a></code> also applies to this function. Using the example MPM, the post-germination years until survivorship falls to below 5% would be calculated as:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/longevity.html">longevity</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>  
 <span class="co">#&gt; [1] 7</span></code></pre></div>
-<p>We can look at how longevity differs depending on the starting stage. With the example MPM, we see that longevity increases from 2 years to at 7 years after an individual germinates. Longevity is highest for the “medium” and “large” stages, but is the same for individuals starting in the “small” stage as those starting in the “dormant” stage.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>Similarly to the mean life expectancy function, here one too can examine how longevity differs depending on the starting stage. With the example MPM, longevity increases from 2 years to 7 years after an individual germinates. Longevity is highest for the “medium” and “large” stages, but is the same for individuals starting in the “small” stage as those starting in the “dormant” stage.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">longval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">startvec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="va">startvec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>   <span class="co"># vector of starting stages</span>
 
-<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">startvec</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">longval</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/longevity.html">longevity</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">startvec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>  
 <span class="op">}</span>
   
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">longval</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Stage"</span>, ylab <span class="op">=</span> <span class="st">"Longevity to 5% survivorship"</span><span class="op">)</span></code></pre></div>
-<p><img src="a03_LifeHistoryTraits_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">longval</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Starting stage"</span>, ylab <span class="op">=</span> <span class="st">"Longevity to 5% survivorship"</span><span class="op">)</span></code></pre></div>
+<p><img src="a03_LifeHistoryTraits_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">longval</span>
 <span class="co">#&gt; [1]  2  7  9 10  7</span></code></pre></div>
 </div>
-<div id="net-reproductive-rate" class="section level1">
+<div id="reproduction-and-maturation-traits" class="section level1">
 <h1 class="hasAnchor">
-<a href="#net-reproductive-rate" class="anchor"></a>Net reproductive rate</h1>
-<p>The function <code><a href="../reference/net_repro_rate.html">net_repro_rate()</a></code> estimates the net reproductive rate, <em>R<sub>0</sub></em>, or the number of offspring by which a newborn individual will produce over its lifetime.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>            <span class="co"># net reproductive rate (aggregate)</span>
-<span class="co">#&gt; [1] 1.852</span></code></pre></div>
-</div>
-<div id="generation-time" class="section level1">
-<h1 class="hasAnchor">
-<a href="#generation-time" class="anchor"></a>Generation time</h1>
-<p>text text</p>
+<a href="#reproduction-and-maturation-traits" class="anchor"></a>Reproduction and maturation traits</h1>
+<p>In addition how long individuals can be expected to live, species and populations also differ in how quickly and often they reproduce, and how many offspring are produced and recruited into the population. Several related traits measure these various aspects of reproduction, and they require information contained in the <strong>F</strong> submatrix as well as the <strong>U</strong> submatrix.</p>
+<p>The net reproductive rate, <em>R<sub>0</sub></em> is the cumulative number of offspring that a newborn individual will produce over its lifetime.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gen_time.html">gen_time</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    <span class="co"># generation time (aggregate)</span>
-<span class="co">#&gt; [1] 5.394</span></code></pre></div>
-</div>
-<div id="age-at-reproductive-maturity" class="section level1">
-<h1 class="hasAnchor">
-<a href="#age-at-reproductive-maturity" class="anchor"></a>Age at reproductive maturity</h1>
-<p>text text</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>            
+<span class="co">#&gt; [1] 1.852</span></code></pre></div>
+<p>This life history trait is also called the the per-generation growth rate, because if an individual produces more than one offspring, it more than replaces itself and so the population will grow. Note that this growth rate is different than the population growth rate $because the units of <em>R<sub>0</sub></em> are in generations rather than absolute time (i.e., the time step of the transition matrix, often 1 year). The length of time for one generation, or the generation time (<em>T</em>), can be obtained by:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/repro_maturity.html">mature_age</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>     <span class="co"># post-germination years to first reproduction</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/gen_time.html">gen_time</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    
+<span class="co">#&gt; [1] 5.394</span></code></pre></div>
+<p>The age at reproductive maturity is the average amount of time an individual will take to enter a reproductive stage for the first time in the population. Similar to life expectancy, mean time to reproduction will depend on the starting stage, again specified using the <code>start</code> argument. In the case of the example MPM where the first stage is “seed”, one may be more interested in estimating the time to reproduction for individuals that have already germinated (i.e., <code>start = 2</code>).</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/repro_maturity.html">mature_age</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>     
 <span class="co">#&gt; small </span>
 <span class="co">#&gt; 2.136</span></code></pre></div>
-</div>
-<div id="probability-of-reaching-reproductive-maturity" class="section level1">
-<h1 class="hasAnchor">
-<a href="#probability-of-reaching-reproductive-maturity" class="anchor"></a>Probability of reaching reproductive maturity</h1>
-<p>text text</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/repro_maturity.html">mature_prob</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>    <span class="co"># post-germination Pr(survival to first repro)</span>
-<span class="co">#&gt; [1] 0.4318</span></code></pre></div>
-</div>
-<div id="stage-distribution-of-reproductive-maturity" class="section level1">
-<h1 class="hasAnchor">
-<a href="#stage-distribution-of-reproductive-maturity" class="anchor"></a>Stage distribution of reproductive maturity</h1>
-<p>text text</p>
+<p>The probability of reaching reproductive maturity before death, for individuals that have already become established (e.g. germinated in the case of plants in this particular example), is:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span> <span class="co">#Can see that medium and large stages are reproductive</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/repro_maturity.html">mature_prob</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>   
+<span class="co">#&gt; [1] 0.4318</span></code></pre></div>
+<p>As discussed above, there may be multiple stages in which an individual can first reproduce. One can also use an MPM to estimate the proportion of individuals that would be expected to first reproduce in each of the reproductive stage classes. For this, we need to specify which stages are reproductive in the <code>repro_stages</code> argument. This can be determined from the <strong>F</strong> matrix based on the columns that have non-zero values, or a non-zero probability of producing offspring.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span> <span class="co"># We see that the "medium" and "large" stages are reproductive</span>
 <span class="co">#&gt;         seed small medium large dormant</span>
 <span class="co">#&gt; seed       0     0   17.9  45.6       0</span>
 <span class="co">#&gt; small      0     0    0.0   0.0       0</span>
@@ -226,35 +207,64 @@
 <span class="co">#&gt; large      0     0    0.0   0.0       0</span>
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span>
 
-<span class="fu"><a href="../reference/repro_maturity.html">mature_distrib</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, repro_stages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>   
+<span class="va">maturedist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repro_maturity.html">mature_distrib</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, repro_stages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> 
+<span class="va">maturedist</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt; 0.00000 0.00000 0.92105 0.07895 0.00000</span></code></pre></div>
-</div>
-<div id="life-history-traits-based-on-life-table-components" class="section level1">
-<h1 class="hasAnchor">
-<a href="#life-history-traits-based-on-life-table-components" class="anchor"></a>Life history traits based on life table components</h1>
-<p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components: (st)age-specific survivorship (<em>lx</em>), survival probability (<em>px</em>), mortality hazard (<em>hx</em>), and reproduction (<em>mx</em>).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">px</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_px</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_hx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p>We can then calculate these</p>
+<p>One can then use this distribution to update the estimate of mean life expectancy from reproductive maturity, using the data-based distribution rather than the hypothetical one (40% in “small” stage and 60% in “medium” stage) used above:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># then calculate life history traits</span>
-<span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/life_expect_mean.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span>   <span class="co"># mean life expectancy from maturity</span>
+<span class="co">#&gt; [1] 3.179</span>
+<span class="fu"><a href="../reference/life_expect_mean.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># mean life expectancy from "small" stage</span>
+<span class="co">#&gt; [1] 2.509</span></code></pre></div>
+<p>In doing so, mean life expectancy from maturity is 0.67 years longer than that after germination (from “small” stage). In this case, this difference is due to the higher average survival once an individual reaches reproductive maturity.</p>
+</div>
+<div id="life-table-component-traits" class="section level1">
+<h1 class="hasAnchor">
+<a href="#life-table-component-traits" class="anchor"></a>Life table component traits</h1>
+<p>Other life history traits are calculated from a life table rather than an MPM, in which case one can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components: age-specific survivorship (<em>lx</em>), survival probability (<em>px</em>), mortality hazard (<em>hx</em>), and reproduction (<em>mx</em>). As above, start stage can too be specified as a specific stage (by number or by name), as well as a vector of proportions in each stage. One can calculate the age-specific rates for post-germination individuals using the example MPM:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>
+<span class="va">px</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_px</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>
+<span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_hx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>
+<span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></code></pre></div>
+<p>There are multiple applications for these life table estimates. For example, one can visualize the difference in survival curves for individuals starting from the seed stage compared to survival post-germination.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lx_seed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"seed"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lx</span>, xlab<span class="op">=</span><span class="st">"Survival time (years)"</span>, ylab<span class="op">=</span><span class="st">"Survivorship"</span>, type<span class="op">=</span><span class="st">"s"</span>, col<span class="op">=</span><span class="st">"black"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">lx_seed</span>, type<span class="op">=</span><span class="st">"s"</span>, col<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, inset<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.05</span>,<span class="fl">0.05</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"From seed stage"</span>, <span class="st">"From small stage"</span><span class="op">)</span>, 
+       lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>,<span class="st">"black"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="a03_LifeHistoryTraits_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p>In this case, there is a large drop in survival (and thus high mortality) in the first year for seeds. Specifically, more than 80% of seeds are not expected to survive their first year, compared to germinated individuals that have a 50% chance of surviving their first year.</p>
+<p>Finally, one can use these life table components to calculate additional life history traits related to the types of survival and reproduction trajectories.</p>
+<p>Demetrius’ entropy is a measure of how reproductive episodes are spread across the lifespan (Demetrius &amp; Gundlach 2014). A value of 0 indicates only one reproduction event in the entire life time (also known as semelparity), and larger values indicate a more even distribution of reproductive events over the life cycle.</p>
+<p>Keyfitz’ entropy describes the shape of the age-specific survivorship curve (Demetrius 1978). Values greater than 1 correspond to survival curves type I (high survival in early part of life and decreasing over time), a value of 1 to survival curve type II (constant survival), and values less than 1 to survival curve type III (low survival early and increasing over time) (Salguero-Gómez et al. 2016).</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
 <span class="co">#&gt; [1] -1.358</span>
 <span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
-<span class="co">#&gt; [1] 0.9482</span>
-<span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
+<span class="co">#&gt; [1] 0.9482</span></code></pre></div>
+<p>It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius’ entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the “small” stage, and therefore it does not include the full life cycle.</p>
+<p>A more robust way to describe these trajectories is using the area under the curve method.</p>
+</div>
+<div id="please-add-more-on-these-iain-stott" class="section level1">
+<h1 class="hasAnchor">
+<a href="#please-add-more-on-these-iain-stott" class="anchor"></a>Please add more on these IAIN STOTT!</h1>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
 <span class="co">#&gt; [1] -0.02687</span>
 <span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
 <span class="co">#&gt; [1] -0.01506</span></code></pre></div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>Caswell, H. (2001). Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965</p>
-<p>Morris, W. F. &amp; Doak, D. F. (2003). Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460</p>
+<p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965</p>
+<p>Demetrius, L. 1978. Adaptive value, entropy and survivorship curves. Nature 275: 213-214.</p>
+<p>Demetrius, L., &amp; Gundlach, V. M. 2014. Directionality theory and the entropic principle of natural selection. Entropy 16: 5428-5522.</p>
+<p>Morris, W. F. &amp; Doak, D. F. 2003. Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460</p>
+<p>Salguero-Gómez, R., Jones, O. R., Jongejans, E., Blomberg, S. P., Hodgson, D. J., Mbeau-Ache, C., Zuidema, P. A., de Kroon, H., &amp; Buckley, Y. M. 2016. Fast–Slow continuum and reproductive strategies structure plant life-history variation worldwide. Proceedings of the National Academy of Sciences 113 (1): 230–35</p>
 </div>
 </div>
   </div>

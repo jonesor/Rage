@@ -29,7 +29,7 @@ Haridas et al. (2009).
 N <- 20     # number of years
 s <- 3      # matrix dimension
 X <- list() # matrix population model at time t
-u <- list() # populaton vector at time t
+u <- list() # population vector at time t
 
 for(t in 1:N) {
   X[[t]] <- matrix(runif(s^2), nrow = s, ncol = s)
@@ -51,7 +51,8 @@ Haridas, C. V., Tuljapurkar, S., & Coulson, T. 2009. Estimating
 Other {perturbation analysis}: 
 \code{\link{perturb_matrix}()},
 \code{\link{perturb_trans}()},
-\code{\link{perturb_vr}()}
+\code{\link{perturb_vr}()},
+\code{\link{pop_vectors}()}
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>

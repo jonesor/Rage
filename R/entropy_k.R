@@ -20,6 +20,9 @@
 #' 
 #' @references Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 #'   Wiley.
+#'   
+#'   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
+#'   the entropic principle of natural selection. Entropy 16: 5428-5522.
 #' 
 #' @family {life history traits}
 #' 
