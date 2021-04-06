@@ -31,7 +31,7 @@ We can  download the COMADRE dataset from the website at [www.compadre-db.org](h
 
 First we load the libraries:
 
-```{r}
+```{r, echo=FALSE}
 library(Rcompadre)
 library(tidyverse)
 ```
