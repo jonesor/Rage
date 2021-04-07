@@ -109,14 +109,14 @@ mammals <- mammals %>%
 Finally, most COM(P)ADRE data includes geolocation information. In addition to `Country` and `Continent`, precise latitude and longitude (`Lat` and `Lon`) make it easy to visualise the spatial extent of our data set using tools in the `ggplot2` and `maps` packages (Figure X). 
 
 
-*Figure X: The spatial extent of data in the subset of mammal data used in our example analysis. Note that `r table(mammals$latLongPresent)[1]` of matrices in our set (~`r round(100*(table(mammals$latLongPresent)[1]/nrow(mammals)))`%) do not have associated spatial information.*
+*Figure 2: The spatial extent of data in the subset of mammal data used in our example analysis. Note that `r table(mammals$latLongPresent)[1]` of matrices in our set (~`r round(100*(table(mammals$latLongPresent)[1]/nrow(mammals)))`%) do not have associated spatial information.*
 
 ```{r map of data, fig.width= 10, fig.height= 8, warning=FALSE}
-(A <- ggplot(mammals, aes(x = Lon, y = Lat)) +
+globalDist <- ggplot(mammals, aes(x = Lon, y = Lat)) +
   borders(database = "world", fill = "grey80", col = NA) +
   geom_point(alpha = 0.9) +
   labs(x = NULL, y = NULL) +
-  theme_minimal())
+  theme_minimal()
 ```
 
 
@@ -167,20 +167,27 @@ Now that we have the longevity data for all of our mammals we can actually explo
 First, we will look at how longevity varies spatially. Lets repeat our map from before but now incorporating longevity on the log scale as the colour of each point.
 
 ```{r long map plot, message = FALSE, warning=FALSE}
-(B <- ggplot(mammals, aes(Lon, Lat)) +
+globalDist_longevity <- ggplot(mammals, aes(Lon, Lat)) +
   borders(database = "world", fill = "grey80", col = NA) +
   geom_point(aes(colour = log10(longevity)), alpha = 0.4) +
   scale_colour_viridis_c(option = "C") +
   labs(x = NULL, y = NULL) +
-  theme_minimal())
+  theme_minimal()
 ```
+
+```{r echo = FALSE}
+library(patchwork)
+(globalDist + ggtitle("A")) + (globalDist_longevity + ggtitle("B"))
+ggsave("fig02_globalDistribution.png",width = 20,height = 8,units = "cm")
+```
+
 
 Although we see that longevity varies spatially, it isn't clear whether there are any spatial patterns. Lets look at whether longevity varies with either absolute latitude or across `Ecoregion` (we could naturally investigate associations with other variables in the metadata).
 
 ```{r long latitude, fig.width= 10, fig.height= 6, message = FALSE, warning=FALSE}
 longevity_lat <- ggplot(mammals, aes(x = abs(Lat), y = log10(longevity))) +
   geom_point(alpha = 0.4) +
-  labs(x = "Absolute Latitude", y = "log 10 (Longevity)") +
+  labs(x = "Absolute Latitude", y = "log 10 (longevity)") +
   theme_minimal() +
   geom_smooth()
 
@@ -192,10 +199,14 @@ longevity_ecoregion <- ggplot(mammals, aes(
   labs(x = "Ecoregion", y = "log 10 (longevity)") +
   coord_flip() +
   theme_minimal()
+```
 
+```{r echo = FALSE}
 library(patchwork)
 (longevity_lat + ggtitle("A")) + (longevity_ecoregion + ggtitle("B"))
+ggsave("fig03_longevityLatAndEcoregion.png", width = 20,height = 8,units = "cm")
 ```
+
 
 There appears to be a decline in longevity at intermediate latitudes (Figure XA), and there is some variation among ecoregions (Figure XB). These patterns could well be driven by data biases, but would make an interesting topic for future exploration.
 
