@@ -100,7 +100,7 @@
                         <h4 class="author">Rob Salguero-Gomez</h4>
                         <h4 class="author">Others</h4>
             
-            <h4 class="date">2021-04-07</h4>
+            <h4 class="date">2021-04-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a03_LifeHistoryTraits.Rmd"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -249,9 +249,10 @@
 <p>It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius’ entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the “small” stage, and therefore it does not include the full life cycle.</p>
 <p>A more robust way to describe these trajectories is using the area under the curve method.</p>
 </div>
-<div id="please-add-more-on-these-iain-stott" class="section level1">
+<div id="shape-of-mortality-and-fecundity" class="section level1">
 <h1 class="hasAnchor">
-<a href="#please-add-more-on-these-iain-stott" class="anchor"></a>Please add more on these IAIN STOTT!</h1>
+<a href="#shape-of-mortality-and-fecundity" class="anchor"></a>Shape of mortality and fecundity</h1>
+<p>A life course can be described in terms of its pace (timing of events) and its shape (the distribution of events, either for an individual or for a population). There are several candidate metrics for the pace and shape of mortality, and of fertility. A good measure of the pace of mortality is life expectancy (the average age of death) and a good measure of the shape of mortality are the life-table entropy measures mentioned above, which describe both the survivorship curve and the mortality trajectory (see Baudisch 2011). Measures describing the pace and shape of fertility have also been developed (Baudisch &amp; Stott 2019). In addition to the entropy measures described above, the <code>shape_</code> functions are also useful metrics.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
 <span class="co">#&gt; [1] -0.02687</span>
@@ -260,6 +261,8 @@
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
+<p>Baudisch, A. 2011. The pace and shape of ageing. Methods in Ecology and Evolution, 2(4), 375– 382. <a href="https://doi.org/10.1111/j.2041-210X.2010.00087.x" class="uri">https://doi.org/10.1111/j.2041-210X.2010.00087.x</a></p>
+<p>Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <a href="https://doi.org/10.1111/2041-210X.13289" class="uri">https://doi.org/10.1111/2041-210X.13289</a></p>
 <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965</p>
 <p>Demetrius, L. 1978. Adaptive value, entropy and survivorship curves. Nature 275: 213-214.</p>
 <p>Demetrius, L., &amp; Gundlach, V. M. 2014. Directionality theory and the entropic principle of natural selection. Entropy 16: 5428-5522.</p>
