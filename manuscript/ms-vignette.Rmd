@@ -1,6 +1,6 @@
 ---
 title: "The functionality of RCompadre and Rage"
-author: "Pol Capdevila and John Jackson"
+author: "Pol Capdevila, John Jackson & Owen Jones"
 date: "`r Sys.Date()`"
 output: word_document
 ---
@@ -11,7 +11,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 options(digits = 4)
-options(width = 60)
+options(width = 55)
+options(warn = -1)
 ```
 
 ## Introduction
@@ -30,21 +31,21 @@ Let's imagine that we are interested in exploring variation in mammal longevity 
 
 # [RCOMPADRE SECTION BEGINS]
 
-The first task is to install the latest version of `Rcompadre.` `RCompadre` is developed on the github platform and can therefore be installed using `remotes::install_github` and loaded using `library` as follows:
+The first task is to install the latest version of `Rcompadre.` `RCompadre` is developed on the GitHub platform and can be installed using `remotes::install_github`.
 
 ```{r eval = FALSE,message=FALSE}
 install.packages("remotes")
 remotes::install_github("jonesor/Rcompadre")
 ```
 
-After ensuring that the packages are installed we load them:
+After ensuring that the package is installed we load it, along with other useful packages.
 
 ```{r, echo=TRUE,message=FALSE}
 library(Rcompadre)
 library(tidyverse)
 ```
 
-After that, users can download the latest version of the COMPADRE or COMADRE databases from the website (or load from a local file) using the function `cdb_fetch`. Note that users can also load local files with the same function `x <- cdb_fetch("PATH/TO/FILE/COMADRE_v.4.21.1.0.RData")`. After loading the data, a message is displayed stating the database version number, date of release, and links to the user agreement and citation request.   
+After that, we can download the latest version of the COMPADRE or COMADRE databases from the website using `cdb_fetch`. We could also load local files with the same function (`x <- cdb_fetch("PATH/TO/FILE/COMADRE_v.4.21.1.0.RData")`). After loading the data, a message is displayed stating the database version number, release date, and links to the user agreement and citation information.
 
 ```{r fetch data with cdb_fetch}
 comadre <- cdb_fetch("comadre")
@@ -52,21 +53,21 @@ comadre <- cdb_fetch("comadre")
 
 ### Data management
 
-The COMADRE database includes metadata associated with each matrix including taxonomic information, geolocation, and details of the source publication. A full description of these variables can be found in the User Guide via the website [www.compadre-db.org](http://www.compadre-db.org). We can get an idea of the richness of this metadata simply by using the `names` command. 
+The COMADRE database includes metadata associated with each matrix including taxonomic information, geolocation, and details of the source publication (see the User Guide at [www.compadre-db.org](http://www.compadre-db.org) or Salguero-Gomez et al. 2015, 2016 for details). We can get an idea of the richness of the metadata with the `names` function. 
 
-```{r Names, eval = FALSE}
+```{r Names, eval = TRUE}
 names(comadre)
 ```
 
-The MPMs are contained in a list column called `mat` where each element contains a list of the four matrices, **A** and the submatrices **U**, **F** and **C** (see above). The list also includes information on matrix stage definitions. All other columns of the COMADRE database object are ordinary vectors. 
+The MPMs are contained in a list column called `mat` where each element contains a list of the four matrices: **A** and the submatrices **U**, **F** and **C** (see above). The list also includes information on matrix stage definitions. All other columns of the COMADRE database object are ordinary vectors. 
 
-We can explore the taxonomic groups available in the dataset.
+We first explore taxonomic groups available in the dataset.
 
 ```{r taxonomic table}
 table(comadre$Class)
 ```
 
-We see that COMADRE contains information for many taxonomic groups. However, in this case we are only interested in mammals.`Rcompadre` allows us to subset the database easily using the function `filter` from `dplyr` as if our `CompadreDB` object was an ordinary data frame.
+We see that COMADRE contains information for many groups. In this case, we are only interested in mammals.`Rcompadre` allows us to subset the database easily using the function `filter` from `dplyr` as if our `CompadreDB` object was an ordinary data frame.
 
 ```{r subset mammals}
 mammals <- comadre %>%
@@ -79,7 +80,7 @@ table(mammals$Order)
 
 Although COMPADRE and COMADRE data undergo rigorous checks before being made available, that doesn't necessarily mean that all data will meet the exact requirements of any particular analysis. `Rcompadre` includes several functions for checking the data. 
 
-For example, for a minority of studies, it is not possible decompose **A** matrices into the **U** **F** and **C** submatrices. This is potentially important because the calculation of some life history traits requires one or more of these submatrices. For instance, in our example analysis focussing on longevity we require a **U** submatrix with no missing values. 
+For example, for a minority of studies, it is not possible to decompose **A** matrices into the **U**, **F** and **C** submatrices. This is potentially important because the calculation of some life history traits requires one or more of these submatrices. For instance, in our example analysis focussing on longevity we require a **U** submatrix with no missing values. 
 
 To check, and filter out un-usable matrices, we use the function `cdb_flag` and, in this case, specify `checks = c("check_NA_U","check_zero_U")` (see `?cdb_flag` for all available data checks). This specifies that we want to check whether the studies contain **U** matrices (`check_NA_U`) and whether these **U** matrices are all zeros (`check_zero_U`). 
 
@@ -87,7 +88,7 @@ To check, and filter out un-usable matrices, we use the function `cdb_flag` and,
 mammals <- cdb_flag(mammals, checks = c("check_NA_U", "check_zero_U"))
 ```
 
-The `cdb_flag` function will return a version of the data with additional logical columns for each of the checks, which we can summarise using `table`.
+The `cdb_flag` function returns a version of the data with additional logical columns for each of the checks, which we can summarise using `table`.
 
 ```{r Check matU2}
 table(mammals$check_NA_U)
@@ -106,27 +107,15 @@ mammals <- mammals %>%
   mutate(latLongPresent = (is.na(Lat) + is.na(Lon)) == 0)
 ```
 
-Finally, most COM(P)ADRE data includes geolocation information. In addition to `Country` and `Continent`, precise latitude and longitude (`Lat` and `Lon`) make it easy to visualise the spatial extent of our data set using tools in the `ggplot2` and `maps` packages (Figure X). 
+Finally, most COM(P)ADRE data includes geolocation information. In addition to `Country` and `Continent`, precise latitude and longitude (`Lat` and `Lon`) make it easy to visualise the spatial patterns in our data set using tools in the `ggplot2` and `maps` packages. We illustrate this in the next section. 
 
-
-*Figure 2: The spatial extent of data in the subset of mammal data used in our example analysis. Note that `r table(mammals$latLongPresent)[1]` of matrices in our set (~`r round(100*(table(mammals$latLongPresent)[1]/nrow(mammals)))`%) do not have associated spatial information.*
-
-```{r map of data, fig.width= 10, fig.height= 8, warning=FALSE}
-globalDist <- ggplot(mammals, aes(x = Lon, y = Lat)) +
-  borders(database = "world", fill = "grey80", col = NA) +
-  geom_point(alpha = 0.9) +
-  labs(x = NULL, y = NULL) +
-  theme_minimal()
-```
-
-
-Now that we are sure that our data set contains the right information, we are ready to calculate longevity using `Rage`. 
+Now that we are sure that our data set contains the right information, we are ready to calculate longevity using functions in the `Rage` package. 
 
 # [RCOMPADRE SECTION ENDS]
 
 # [RAGE SECTION BEGINS]
 
-In the following section we illustrate the use of some of these functions, focussing on carrying out the longevity analysis introduced above. Our first task will be to install the package from Github.
+In the following section we demonstrate the use of `Rage`, focussing on the longevity analysis introduced above. We first install the package from GitHub.
 
 ```{r eval = FALSE}
 install.packages("remotes")
@@ -145,69 +134,78 @@ The function also requires us to define which stage we consider to be the beginn
 
 The `longevity` function also the argument `lx_crit`, which defines the critical threshold of survivorship that defines longevity. The default is 0.01, meaning that longevity is defined as the age at which only 1% of the synthetic cohort remain alive. Finally, the function requires us to set a maximum age to consider (`xmax`, which defaults to 1000).
 
-Thus, our first steps in this analysis are to (i) extract the **U** matrices with `matU`, then (ii) extract the first stage with `mpm_first_active`. We add the outputs of these functions to our data using `mutate`.  
+Thus, our first steps in this analysis are to first extract the **U** matrices with `matU`, then add using `mutate` the first stage with `mpm_first_active` before applying the `longevity` function over our dataset using `mapply`.   
 
-```{r first active and start life}
+```{r first active and start life, warning=FALSE}
 mammals <- mammals %>%
   mutate(
     matU = matU(.),
     start_life = mpm_first_active(.)
-  )
-```
-
-Now we can apply the `longevity` function over our dataset using `mapply`. 
-
-```{r, warning=FALSE}
-mammals <- mammals %>%
+  ) %>%
   mutate(longevity = mapply(longevity, matU, start_life))
 ```
 
-Now that we have the longevity data for all of our mammals we can actually explore its variation across the globe and across different orders of mammals.
+Now that we have the longevity data for all of our mammals we can explore its variation across the globe and across the mammal orders.
 
-First, we will look at how longevity varies spatially. Lets repeat our map from before but now incorporating longevity on the log scale as the colour of each point.
+First, we will examine how longevity varies spatially (Fig. 2).
 
-```{r long map plot, message = FALSE, warning=FALSE}
+```{r long map plot, message = FALSE, warning = FALSE,fig.show='hide'}
 globalDist_longevity <- ggplot(mammals, aes(Lon, Lat)) +
   borders(database = "world", fill = "grey80", col = NA) +
   geom_point(aes(colour = log10(longevity)), alpha = 0.4) +
-  scale_colour_viridis_c(option = "C") +
+  scale_colour_viridis_c(option = "C",name = expression(log[10]*"(longevity)")) +
   labs(x = NULL, y = NULL) +
-  theme_minimal()
+  theme_minimal() 
+
+globalDist_longevity
 ```
 
-```{r echo = FALSE}
-library(patchwork)
-(globalDist + ggtitle("A")) + (globalDist_longevity + ggtitle("B"))
-ggsave("fig02_globalDistribution.png",width = 20,height = 8,units = "cm")
-```
+Next we examine the association between longevity and latitude and ecoregion. A visual inspection of the data shows an apparent decline in longevity at intermediate latitudes (Fig. 3A), and variation among ecoregions (Fig. 3B). These patterns could well be driven by data biases, but would make an interesting topic for future exploration.
 
-
-Although we see that longevity varies spatially, it isn't clear whether there are any spatial patterns. Lets look at whether longevity varies with either absolute latitude or across `Ecoregion` (we could naturally investigate associations with other variables in the metadata).
-
-```{r long latitude, fig.width= 10, fig.height= 6, message = FALSE, warning=FALSE}
+```{r long latitude, fig.width= 10, fig.height= 6, message = FALSE, warning = FALSE,fig.show='hide'}
 longevity_lat <- ggplot(mammals, aes(x = abs(Lat), y = log10(longevity))) +
   geom_point(alpha = 0.4) +
-  labs(x = "Absolute Latitude", y = "log 10 (longevity)") +
+  labs(x = "Absolute Latitude", y = expression(log[10]*"(longevity)")) +
   theme_minimal() +
   geom_smooth()
+
+longevity_lat
 
 longevity_ecoregion <- ggplot(mammals, aes(
   x = Ecoregion, y = log10(longevity),
   fill = Ecoregion
 )) +
-  geom_violin(show.legend = FALSE) +
-  labs(x = "Ecoregion", y = "log 10 (longevity)") +
+  geom_boxplot(show.legend = FALSE) +
+  geom_jitter(alpha = 0.5, width = 0.1, show.legend = FALSE) +
+  labs(x = "Ecoregion", y = expression(log[10]*"(longevity)")) +
   coord_flip() +
   theme_minimal()
+
+longevity_ecoregion
 ```
+
+
+
+With the broad range of tools at our fingertips in `Rcompadre` and `Rage`, we can thus begin to address such detailed comparative questions with increased ease. 
+
+# Figure captions
+
+*Figure 2. The spatial extent of data, colour-coded by estimated longevity. Note that `r table(mammals$latLongPresent)[1]` of matrices in our set (~`r round(100*(table(mammals$latLongPresent)[1]/nrow(mammals)))`%) do not have associated spatial information.*
+
+
+*Figure 3. The relationship between estimated longevity and (A) absolute latitude and (B) ecoregion. The line in 3A represents a smoothed spline fitted using ggplot's default settings.*
+
+
+# Figures
+
 
 ```{r echo = FALSE}
 library(patchwork)
-(longevity_lat + ggtitle("A")) + (longevity_ecoregion + ggtitle("B"))
-ggsave("fig03_longevityLatAndEcoregion.png", width = 20,height = 8,units = "cm")
+globalDist_longevity
+ggsave("fig02_globalDistribution.png", width = 10, height = 6, units = "cm")
 ```
 
-
-There appears to be a decline in longevity at intermediate latitudes (Figure XA), and there is some variation among ecoregions (Figure XB). These patterns could well be driven by data biases, but would make an interesting topic for future exploration.
-
-With the broad range of tools at our fingertips in `Rcompadre` and `Rage`, we can begin to address such detailed comparative questions with increased ease. 
+```{r echo = FALSE}
+(longevity_lat + ggtitle("A")) + (longevity_ecoregion + ggtitle("B"))
+ggsave("fig03_longevityLatAndEcoregion.png", width = 20, height = 8, units = "cm")
+```
