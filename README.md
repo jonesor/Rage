@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Rage
+# Rage <img src="man/figures/logo_rage.png" height="160px" align="right" />
 
 <!--- Continuous integration badges --->
 
