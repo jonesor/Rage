@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Ternary plots</h1>
                         <h4 class="author">Rob Salguero-Gomez and Owen Jones</h4>
             
-            <h4 class="date">2021-03-24</h4>
+            <h4 class="date">2021-04-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a05_TernaryPlots.Rmd"><code>vignettes/a05_TernaryPlots.Rmd</code></a></small>
       <div class="hidden name"><code>a05_TernaryPlots.Rmd</code></div>
@@ -116,6 +116,17 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span>
 <span class="va">Compadre</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html">cdb_flag</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span>
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
+
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
+
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
+
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
+
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
+
+<span class="co">#&gt; Warning in FUN(X[[i]], ...): no non-missing arguments to max; returning -Inf</span>
 <span class="va">Compadre</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">Compadre</span>, <span class="va">MatrixSplit</span> <span class="op">==</span> <span class="st">"Divided"</span> <span class="op">&amp;</span> <span class="va">check_ergodic</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>We can calculate elasticities of population growth rate to changes in the matrix elements using the <code>elas</code> function from the <code>popdemo</code> package. For example, the elasticity matrix for the first <strong>A</strong> matrix in this example database looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">

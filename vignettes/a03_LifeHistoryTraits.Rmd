@@ -194,7 +194,9 @@ It is important to note that both of these entropy measures may produce unexpect
 
 A more robust way to describe these trajectories is using the area under the curve method. 
 
-# Please add more on these IAIN STOTT!
+# Shape of mortality and fecundity
+
+A life course can be described in terms of its pace (timing of events) and its shape (the distribution of events, either for an individual or for a population). There are several candidate metrics for the pace and shape of mortality, and of fertility. A good measure of the pace of mortality is life expectancy (the average age of death) and a good measure of the shape of mortality are the life-table entropy measures mentioned above, which describe both the survivorship curve and the mortality trajectory (see Baudisch 2011). Measures describing the pace and shape of fertility have also been developed (Baudisch & Stott 2019). In addition to the entropy measures described above, the `shape_` functions are also useful metrics. 
 
 ```{r}
 shape_surv(lx)      # shape of survival/mortality trajectory
@@ -202,6 +204,9 @@ shape_rep(mx)       # shape of fecundity trajectory
 ```
 
 ## References
+Baudisch, A. 2011. The pace and shape of ageing. Methods in Ecology and Evolution, 2(4), 375– 382. <https://doi.org/10.1111/j.2041-210X.2010.00087.x>
+
+Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <https://doi.org/10.1111/2041-210X.13289>
 
 Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965
 

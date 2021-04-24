@@ -13,9 +13,7 @@ knitr::opts_chunk$set(
 options(digits = 4)
 ```
 
-# Rage
-
-
+# Rage  <img src="man/figures/logo_rage.png" height="160px" align="right" />
 
 <!--- Continuous integration badges --->
 
