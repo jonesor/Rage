@@ -152,11 +152,12 @@ First, we will examine how longevity varies spatially (Fig. 2).
 ```{r long map plot, message = FALSE, warning = FALSE,fig.show='hide'}
 globalDist_longevity <- ggplot(mammals, aes(Lon, Lat)) +
   borders(database = "world", fill = "grey80", col = NA) +
-  geom_point(aes(colour = log10(longevity)), alpha = 0.4) +
-  scale_colour_viridis_c(option = "C",name = expression(log[10]*"(longevity)")) +
-  labs(x = NULL, y = NULL) +
-  theme_minimal() 
-
+  geom_point(aes(colour = log10(longevity)), alpha = 0.4, size = 0.75) +
+  scale_colour_viridis_c(option = "C", name = expression(log[10] * "(longevity, yrs)")) +
+  labs(x = "longitude", y = "latitude") +
+  ylim(-90, 90) +
+  xlim(-180, 180) +
+  theme_minimal()
 globalDist_longevity
 ```
 
@@ -165,7 +166,7 @@ Next we examine the association between longevity and latitude and ecoregion. A 
 ```{r long latitude, fig.width= 10, fig.height= 6, message = FALSE, warning = FALSE,fig.show='hide'}
 longevity_lat <- ggplot(mammals, aes(x = abs(Lat), y = log10(longevity))) +
   geom_point(alpha = 0.4) +
-  labs(x = "Absolute Latitude", y = expression(log[10]*"(longevity)")) +
+  labs(x = "Absolute latitude", y = expression(log[10]*"(longevity, yrs)")) +
   theme_minimal() +
   geom_smooth()
 
@@ -177,7 +178,7 @@ longevity_ecoregion <- ggplot(mammals, aes(
 )) +
   geom_boxplot(show.legend = FALSE) +
   geom_jitter(alpha = 0.5, width = 0.1, show.legend = FALSE) +
-  labs(x = "Ecoregion", y = expression(log[10]*"(longevity)")) +
+  labs(x = "Ecoregion", y = expression(log[10]*"(longevity, yrs)")) +
   coord_flip() +
   theme_minimal()
 
@@ -202,7 +203,7 @@ With the broad range of tools at our fingertips in `Rcompadre` and `Rage`, we ca
 ```{r echo = FALSE}
 library(patchwork)
 globalDist_longevity
-ggsave("fig02_globalDistribution.png", width = 10, height = 6, units = "cm")
+ggsave("fig02_globalDistribution.png", width = 16, height = 8, units = "cm")
 ```
 
 ```{r echo = FALSE}
