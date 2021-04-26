@@ -166,7 +166,7 @@ Next we examine the association between longevity and latitude and ecoregion. A 
 ```{r long latitude, fig.width= 10, fig.height= 6, message = FALSE, warning = FALSE,fig.show='hide'}
 longevity_lat <- ggplot(mammals, aes(x = abs(Lat), y = log10(longevity))) +
   geom_point(alpha = 0.4) +
-  labs(x = "Absolute latitude", y = expression(log[10]*"(longevity, yrs)")) +
+  labs(x = "Absolute latitude", y = expression(log[10] * "(longevity, yrs)")) +
   theme_minimal() +
   geom_smooth()
 
@@ -178,7 +178,7 @@ longevity_ecoregion <- ggplot(mammals, aes(
 )) +
   geom_boxplot(show.legend = FALSE) +
   geom_jitter(alpha = 0.5, width = 0.1, show.legend = FALSE) +
-  labs(x = "Ecoregion", y = expression(log[10]*"(longevity, yrs)")) +
+  labs(x = "Ecoregion", y = expression(log[10] * "(longevity, yrs)")) +
   coord_flip() +
   theme_minimal()
 
