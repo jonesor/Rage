@@ -1,4 +1,10 @@
-# Rage (development version)
+# Rage (Development version)
+
+* No changes yet.
+
+# Rage 1.0.0
+
+_Released on Github on 25th April 2021_
 
 * Name changes of functions to consistent snake_case.
 * Improved documentation with fuller descriptions and executable examples.
