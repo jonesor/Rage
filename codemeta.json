@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -306,9 +306,8 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85851.83KB",
+  "fileSize": "85086.624KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
+  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md"
 }
