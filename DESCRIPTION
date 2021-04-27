@@ -67,7 +67,7 @@ Authors@R: c(
            email = "esochels@gmail.com",
            role = "aut",
            comment = c(ORCID = "0000-0002-8155-9353")))
-Description: Functions for calculating life history metrics using matrix population models (MPMs).
+Description: Functions for calculating life history metrics using matrix population models ('MPMs').
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
 License: GPL-2 | file LICENSE
