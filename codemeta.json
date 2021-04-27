@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "Rage",
-  "description": "Functions for calculating life history metrics using matrix population models (MPMs).",
+  "description": "Functions for calculating life history metrics using matrix population models ('MPMs').",
   "name": "Rage: Functions for Calculating Life History Metrics from Matrix Population Models",
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
@@ -306,8 +306,9 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85853.309KB",
+  "fileSize": "85851.83KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md"
+  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
+  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
 }
