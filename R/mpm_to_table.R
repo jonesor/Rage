@@ -77,7 +77,7 @@
 #' @author Hal Caswell <h.caswell@@uva.nl> 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' 
-#' @family {life tables}
+#' @family life tables
 #' 
 #' @references
 #' Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and

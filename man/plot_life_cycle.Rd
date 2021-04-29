@@ -54,4 +54,4 @@ plot_life_cycle(matA)
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\concept{{visualisation}}
+\concept{visualisation}

@@ -27,7 +27,7 @@
 #' 
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
-#' @family {transformation}
+#' @family transformation
 #' 
 #' @note Dormant stages are not currently handled.
 #' @seealso \code{\link{mpm_standardize}}

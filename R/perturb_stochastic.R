@@ -16,7 +16,7 @@
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @family {perturbation analysis}
+#' @family perturbation analysis
 #' 
 #' @references Haridas, C. V., Tuljapurkar, S., & Coulson, T. 2009. Estimating
 #'   stochastic elasticities directly from longitudinal data. Ecology Letters,

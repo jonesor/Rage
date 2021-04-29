@@ -67,12 +67,13 @@ Caswell, H. 2001. Matrix Population Models: Construction,
   978-0878930968
 }
 \seealso{
-Other {life history traits}: 
+Other life history traits: 
 \code{\link{entropy_d}()},
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
+\code{\link{repro_maturity}},
 \code{\link{shape_rep}()},
 \code{\link{shape_surv}()}
 }
@@ -81,4 +82,4 @@ Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Hal Caswell <h.caswell@uva.nl>
 }
-\concept{{life history traits}}
+\concept{life history traits}

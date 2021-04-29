@@ -48,7 +48,7 @@ Haridas, C. V., Tuljapurkar, S., & Coulson, T. 2009. Estimating
   12, 806-812. <doi:10.1111/j.1461-0248.2009.01330.x>
 }
 \seealso{
-Other {perturbation analysis}: 
+Other perturbation analysis: 
 \code{\link{perturb_matrix}()},
 \code{\link{perturb_trans}()},
 \code{\link{perturb_vr}()},
@@ -57,4 +57,4 @@ Other {perturbation analysis}:
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{perturbation analysis}}
+\concept{perturbation analysis}

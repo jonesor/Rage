@@ -40,8 +40,9 @@ data(mpm1)
 name_stages(mpm1)
 }
 \seealso{
-Other {transformation}: 
+Other transformation: 
 \code{\link{mpm_collapse}()},
+\code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
 \code{\link{repro_stages}()},
@@ -50,4 +51,4 @@ Other {transformation}:
 \author{
 William K. Petry <wpetry@ncsu.edu>
 }
-\concept{{transformation}}
+\concept{transformation}

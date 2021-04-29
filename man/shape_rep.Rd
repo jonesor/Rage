@@ -8,15 +8,15 @@ shape_rep(rep, xmin = NULL, xmax = NULL)
 }
 \arguments{
 \item{rep}{Either 1) a numeric vector describing reproduction over age (mx),
-or 2) a \code{data.frame} / \code{list} with one column / element titled
-'mx' describing a reproduction over age, optionally a column / element 'x'
-containing age classes (each element a number representing the age at the
-start of the class).
+  or 2) a \code{data.frame} / \code{list} with one column / element titled
+  'mx' describing a reproduction over age, optionally a column / element 'x'
+  containing age classes (each element a number representing the age at the
+  start of the class).
 
-If x is not supplied, the function will assume age classes starting at 0
-with time steps of unit. If x ends at maximum longevity,
-\code{mx[which.max(x)]} should equal 0; however it is possible to supply
-partial reproduction schedules.}
+  If x is not supplied, the function will assume age classes starting at 0
+  with time steps of unit. If x ends at maximum longevity,
+  \code{mx[which.max(x)]} should equal 0; however it is possible to supply
+  partial reproduction schedules.}
 
 \item{xmin, xmax}{The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to \code{min(x)} and
@@ -51,19 +51,22 @@ shape_rep(mx)
 # constant mx yields shape = 0
 mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 shape_rep(mx)
-
+}
+\references{
+Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <https://doi.org/10.1111/2041-210X.13289>
 }
 \seealso{
-Other {life history traits}: 
+Other life history traits: 
 \code{\link{entropy_d}()},
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
+\code{\link{repro_maturity}},
 \code{\link{shape_surv}()}
 }
 \author{
 Iain Stott <iainmstott@gmail.com>
 }
-\concept{{life history traits}}
+\concept{life history traits}

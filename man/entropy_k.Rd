@@ -48,12 +48,13 @@ Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   the entropic principle of natural selection. Entropy 16: 5428-5522.
 }
 \seealso{
-Other {life history traits}: 
+Other life history traits: 
 \code{\link{entropy_d}()},
 \code{\link{gen_time}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
+\code{\link{repro_maturity}},
 \code{\link{shape_rep}()},
 \code{\link{shape_surv}()}
 }
@@ -62,4 +63,4 @@ Owen R. Jones <jones@biology.sdu.dk>
 
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
-\concept{{life history traits}}
+\concept{life history traits}

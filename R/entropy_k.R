@@ -24,7 +24,7 @@
 #'   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
 #'   the entropic principle of natural selection. Entropy 16: 5428-5522.
 #' 
-#' @family {life history traits}
+#' @family life history traits
 #' 
 #' @examples
 #' data(mpm1)

@@ -20,7 +20,7 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @family {life history traits}
+#' @family life history traits
 #' 
 #' @references Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
 #'   the entropic principle of natural selection. Entropy 16: 5428-5522.

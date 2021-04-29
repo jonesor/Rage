@@ -41,7 +41,7 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
 #' 
-#' @family {life history traits}
+#' @family life history traits
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

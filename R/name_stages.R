@@ -14,7 +14,7 @@
 #'   
 #' @author William K. Petry <wpetry@@ncsu.edu>
 #' 
-#' @family {transformation}
+#' @family transformation
 #'
 #' @return The input matrix or matrices with named rows and columns.
 #' @export name_stages

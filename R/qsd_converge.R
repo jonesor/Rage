@@ -77,7 +77,7 @@
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @family {life tables}
+#' @family life tables
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

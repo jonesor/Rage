@@ -205,7 +205,7 @@ vr_fecundity(matU, matF, exclude_col = 4)
 
 }
 \seealso{
-Other {vital rates}: 
+Other vital rates: 
 \code{\link{vital_rates}()},
 \code{\link{vr_mat}},
 \code{\link{vr_vec}}
@@ -213,4 +213,4 @@ Other {vital rates}:
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{vital rates}}
+\concept{vital rates}

@@ -108,7 +108,7 @@
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'
-#' @family {vital rates}
+#' @family vital rates
 #'    
 #' @examples
 #' # create example MPM (stage 4 is dormant)

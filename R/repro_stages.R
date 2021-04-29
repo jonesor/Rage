@@ -24,7 +24,7 @@
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
-#' @family {transformation}
+#' @family transformation
 #' 
 #' @examples
 #' matR1 <- rbind(c( 0, 0.2,   0, 0.5),
