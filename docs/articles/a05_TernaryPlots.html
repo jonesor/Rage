@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Ternary plots</h1>
                         <h4 class="author">Rob Salguero-Gomez and Owen Jones</h4>
             
-            <h4 class="date">2021-04-27</h4>
+            <h4 class="date">2021-04-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a05_TernaryPlots.Rmd"><code>vignettes/a05_TernaryPlots.Rmd</code></a></small>
       <div class="hidden name"><code>a05_TernaryPlots.Rmd</code></div>
@@ -120,22 +120,22 @@
 <p>We can calculate elasticities of population growth rate to changes in the matrix elements using the <code>elas</code> function from the <code>popdemo</code> package. For example, the elasticity matrix for the first <strong>A</strong> matrix in this example database looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/elas.html">elas</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">matA</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;        A1      A2      A3      A4</span>
-<span class="co">#&gt; A1 0.1646 0.06524 0.02431 0.03132</span>
-<span class="co">#&gt; A2 0.1209 0.16722 0.04893 0.01683</span>
-<span class="co">#&gt; A3 0.0000 0.07803 0.11047 0.02795</span>
-<span class="co">#&gt; A4 0.0000 0.04336 0.03274 0.06818</span></code></pre></div>
+<span class="co">#&gt;           A1         A2         A3         A4</span>
+<span class="co">#&gt; A1 0.1645631 0.06524073 0.02430743 0.03131899</span>
+<span class="co">#&gt; A2 0.1208672 0.16721803 0.04892799 0.01682975</span>
+<span class="co">#&gt; A3 0.0000000 0.07802604 0.11046976 0.02794895</span>
+<span class="co">#&gt; A4 0.0000000 0.04335812 0.03273957 0.06818440</span></code></pre></div>
 <p>Because the subset of MPMs here has split <strong>A</strong> into the matrices <strong>U</strong>, <strong>F</strong>, and <strong>C</strong>, we can now also automatise the calculation of elasticities, regardless of the varying degree of life cycle complexities represented in these MPMs. Therefore, we can classify the elements of the matrix to changes in stages (which we can further identify as stasis, progression, and retrogression), sexual reproduction, and clonal reproduction.</p>
 <p>We can use the <code>matrixElementPerturbation</code> function from the <code>Rage</code> package to conduct this element-by-element elasticity analysis. The function outputs both sensitivities (prefixed with S) and elasticities (prefixed with E) as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mat_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">matA</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="fu"><a href="../reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mat_a</span>, type <span class="op">=</span> <span class="st">"elasticity"</span><span class="op">)</span>
-<span class="co">#&gt;        A1      A2      A3      A4</span>
-<span class="co">#&gt; A1 0.1646 0.06524 0.02431 0.03132</span>
-<span class="co">#&gt; A2 0.1209 0.16722 0.04893 0.01683</span>
-<span class="co">#&gt; A3 0.0000 0.07803 0.11047 0.02795</span>
-<span class="co">#&gt; A4 0.0000 0.04336 0.03274 0.06818</span>
+<span class="co">#&gt;           A1         A2         A3         A4</span>
+<span class="co">#&gt; A1 0.1645633 0.06524073 0.02430742 0.03131899</span>
+<span class="co">#&gt; A2 0.1208670 0.16721815 0.04892799 0.01682975</span>
+<span class="co">#&gt; A3 0.0000000 0.07802598 0.11046990 0.02794895</span>
+<span class="co">#&gt; A4 0.0000000 0.04335804 0.03273956 0.06818449</span>
 
 <span class="co">#Rage::matrixElementPerturbation(matU = matU(Compadre)[[1]],    This function used to be able to accommodate partioning</span>
 <span class="co">#                                matF = matF(Compadre)[[1]],    into U F and C so we coudl partition this... but it's now gone</span>
@@ -184,13 +184,13 @@
 <p>Let’s take a look at this output:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span>
-<span class="co">#&gt;        S         G        R    lam</span>
-<span class="co">#&gt; 1 1.0000  0.077204 0.137697 1.0580</span>
-<span class="co">#&gt; 2 0.9999  0.192840 0.154347 1.4118</span>
-<span class="co">#&gt; 3 1.0000  0.001738 0.007431 0.9962</span>
-<span class="co">#&gt; 4 1.0000  0.194813 0.284477 1.1242</span>
-<span class="co">#&gt; 5 1.0000 -0.000474 0.003098 0.9659</span>
-<span class="co">#&gt; 6 1.0000 -0.351430 0.000000 0.9155</span></code></pre></div>
+<span class="co">#&gt;           S            G           R       lam</span>
+<span class="co">#&gt; 1 1.0000003  0.077203676 0.137696890 1.0580286</span>
+<span class="co">#&gt; 2 0.9999160  0.192840443 0.154347265 1.4118127</span>
+<span class="co">#&gt; 3 1.0000008  0.001738428 0.007431082 0.9962044</span>
+<span class="co">#&gt; 4 0.9999998  0.194812694 0.284476663 1.1241625</span>
+<span class="co">#&gt; 5 1.0000001 -0.000474047 0.003098288 0.9659322</span>
+<span class="co">#&gt; 6 0.9999999 -0.351429957 0.000000000 0.9154951</span></code></pre></div>
 <p>Now we have elasticities for our three demographic processes we can place these onto a ternary plot. However, we should first scale the elasticities so that they sum to 1 - this is necessary because of possible rounding issues:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">output</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -220,19 +220,19 @@
            <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,
            type <span class="op">=</span> <span class="st">"elasticity"</span><span class="op">)</span>
 <span class="co">#&gt; $survival</span>
-<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 0.9999983</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $growth</span>
-<span class="co">#&gt; [1] 0.3844</span>
+<span class="co">#&gt; [1] 0.3843816</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $shrinkage</span>
-<span class="co">#&gt; [1] -0.02546</span>
+<span class="co">#&gt; [1] -0.02546099</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $fecundity</span>
-<span class="co">#&gt; [1] 0.2228</span>
+<span class="co">#&gt; [1] 0.2227753</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $clonality</span>
-<span class="co">#&gt; [1] 0.2228</span></code></pre></div>
+<span class="co">#&gt; [1] 0.2227753</span></code></pre></div>
 <p>We can use a <code>for</code> loop to run through each set of matrices in turn to calculate the summed elasticity for (i) survival (<span class="math inline">\(\sigma), (ii) growth (\)</span>) and shrinkage (<span class="math inline">\(\rho), and (iii) sexual (\)</span>) and clonal reproduction ($) like this:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Amats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">matA</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span>
@@ -276,13 +276,13 @@
 <p>Let’s take a look at this output:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span>
-<span class="co">#&gt;   survival growthShrinkage reproduction    lam</span>
-<span class="co">#&gt; 1   1.0000        0.077204     0.137697 1.0580</span>
-<span class="co">#&gt; 2   0.9999        0.192840     0.154347 1.4118</span>
-<span class="co">#&gt; 3   1.0000        0.001738     0.007431 0.9962</span>
-<span class="co">#&gt; 4   1.0000        0.194813     0.284477 1.1242</span>
-<span class="co">#&gt; 5   1.0000       -0.000474     0.003098 0.9659</span>
-<span class="co">#&gt; 6   1.0000       -0.351430     0.000000 0.9155</span></code></pre></div>
+<span class="co">#&gt;    survival growthShrinkage reproduction       lam</span>
+<span class="co">#&gt; 1 1.0000003     0.077203676  0.137696890 1.0580286</span>
+<span class="co">#&gt; 2 0.9999160     0.192840443  0.154347265 1.4118127</span>
+<span class="co">#&gt; 3 1.0000008     0.001738428  0.007431082 0.9962044</span>
+<span class="co">#&gt; 4 0.9999998     0.194812694  0.284476663 1.1241625</span>
+<span class="co">#&gt; 5 1.0000001    -0.000474047  0.003098288 0.9659322</span>
+<span class="co">#&gt; 6 0.9999999    -0.351429957  0.000000000 0.9154951</span></code></pre></div>
 <p>Now we have elasticities for our three collapsed vital rate processes we can place these onto a ternary plot. However, we should first scale the elasticities so that they sum to 1 - this is necessary because of possible rounding issues:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">output</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>

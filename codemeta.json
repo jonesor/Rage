@@ -5,11 +5,11 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "Rage",
-  "description": "Functions for calculating life history metrics using matrix population models ('MPMs').",
-  "name": "Rage: Functions for Calculating Life History Metrics from Matrix Population Models",
+  "description": "Functions for calculating life history metrics using matrix population models ('MPMs'). Described in Jones et al. (2021) <doi:10.1101/2021.04.26.441330>.",
+  "name": "Rage: Life History Metrics from Matrix Population Models",
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
-  "license": "https://spdx.org/licenses/GPL-2.0",
+  "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "1.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
@@ -306,8 +306,94 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85086.624KB",
+  "fileSize": "85074.205KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md"
+  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2021",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": ["Owen", "R."],
+          "familyName": "Jones"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Patrick",
+          "familyName": "Barks"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Iain", "M"],
+          "familyName": "Stott"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Tamora", "D"],
+          "familyName": "James"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Sam", "C"],
+          "familyName": "Levin"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["William", "K"],
+          "familyName": "Petry"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Pol",
+          "familyName": "Capdevila"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Judy",
+          "familyName": "Che-Castaldo"
+        },
+        {
+          "@type": "Person",
+          "givenName": "John",
+          "familyName": "Jackson"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Gesa",
+          "familyName": "Römer"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Caroline",
+          "familyName": "Schuette"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Chelsea", "C"],
+          "familyName": "Thomas"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Roberto",
+          "familyName": "Salguero-Gómez"
+        }
+      ],
+      "name": "Rcompadre and Rage - two {R} packages to facilitate the use of\n              the {COMPADRE} and {COMADRE} databases and calculation of life\n              history traits from matrix population models",
+      "identifier": "10.1101/2021.04.26.441330v1",
+      "pagination": "2021.04.26.441330",
+      "@id": "https://doi.org/10.1101/2021.04.26.441330v1",
+      "sameAs": "https://doi.org/10.1101/2021.04.26.441330v1",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2021",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "bioRxiv"
+        }
+      }
+    }
+  ]
 }
