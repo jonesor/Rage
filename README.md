@@ -6,24 +6,24 @@
 <!--- Continuous integration badges --->
 
 | Project                                                                                                                                                                                                | Main branch                                                                                                                                                                  | Devel branch                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)                                                                | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml/badge.svg?branch=main)](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml/badge.svg)](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml) |
 | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=main)](https://travis-ci.org/jonesor/Rage)                                                                    | [![Build Status](https://travis-ci.org/jonesor/Rage.svg?branch=devel)](https://travis-ci.org/jonesor/Rage)                                                                     |
 |                                                                                                                                                                                                        | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=main&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)               | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)                |
 |                                                                                                                                                                                                        | [![Coverage status](https://codecov.io/gh/jonesor/Rage/branch/devel/graph/badge.svg)](https://codecov.io/github/jonesor/Rage?branch=main)                                    |                                                                                                                                                                                |
 
------
+------------------------------------------------------------------------
 
 Functions for calculating life history metrics from matrix population
 models (MPMs).
 
 Includes functions for:
 
-  - deriving life history traits
-  - deriving life tables or life table components
-  - deriving vital rates
-  - perturbation analyses
-  - manipulating and transforming MPMs
+-   deriving life history traits
+-   deriving life tables or life table components
+-   deriving vital rates
+-   perturbation analyses
+-   manipulating and transforming MPMs
 
 ## Installation
 
@@ -341,10 +341,12 @@ See the Changelog for more details.
 
 ## Citation
 
-Jones, O. R. et al. (2021) ‘Rcompadre and Rage - two R packages to
-facilitate the use of the COMPADRE and COMADRE databases and calculation
-of life history traits from matrix population models’, *bioRxiv*.
-<doi:10.1101/2021.04.26.441330>.
+Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C.
+Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage
+– Two R Packages to Facilitate the Use of the COMPADRE and COMADRE
+Databases and Calculation of Life History Traits from Matrix Population
+Models.” *bioRxiv*. doi:
+[10.1101/2021.04.26.441330](https://doi.org/10.1101/2021.04.26.441330).
 
 ## Contributions
 
