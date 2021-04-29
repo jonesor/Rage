@@ -34,6 +34,13 @@
     },
     {
       "@type": "Person",
+      "givenName": "Hal",
+      "familyName": "Caswell",
+      "email": "h.caswell@uva.nl",
+      "@id": "https://orcid.org/0000-0003-4394-6894"
+    },
+    {
+      "@type": "Person",
       "givenName": ["Judy", "P."],
       "familyName": "Che-Castaldo",
       "email": "jchecastaldo@lpzoo.org",
@@ -306,7 +313,7 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85079.595KB",
+  "fileSize": "85084.407KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
@@ -395,6 +402,5 @@
         }
       }
     }
-  ],
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
+  ]
 }

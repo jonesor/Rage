@@ -156,14 +156,14 @@ area under a cumulative function describing constant reproduction.</p>
     <tr>
       <th>rep</th>
       <td><p>Either 1) a numeric vector describing reproduction over age (mx),
-or 2) a <code>data.frame</code> / <code>list</code> with one column / element titled
-'mx' describing a reproduction over age, optionally a column / element 'x'
-containing age classes (each element a number representing the age at the
-start of the class).</p>
+  or 2) a <code>data.frame</code> / <code>list</code> with one column / element titled
+  'mx' describing a reproduction over age, optionally a column / element 'x'
+  containing age classes (each element a number representing the age at the
+  start of the class).</p>
 <p>If x is not supplied, the function will assume age classes starting at 0
-with time steps of unit. If x ends at maximum longevity,
-<code>mx[which.max(x)]</code> should equal 0; however it is possible to supply
-partial reproduction schedules.</p></td>
+  with time steps of unit. If x ends at maximum longevity,
+  <code>mx[which.max(x)]</code> should equal 0; however it is possible to supply
+  partial reproduction schedules.</p></td>
     </tr>
     <tr>
       <th>xmin, xmax</th>
@@ -185,6 +185,9 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
   A value of +0.5 indicates that (hypothetically) all individuals are born to
   individuals of age 0; a value of -0.5 indicates that all individuals are
   born at the age of maximum longevity.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. &lt;https://doi.org/10.1111/2041-210X.13289&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other life history traits: 
@@ -194,6 +197,7 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
 <code><a href='life_expect_mean.html'>life_expect_mean</a>()</code>,
 <code><a href='longevity.html'>longevity</a>()</code>,
 <code><a href='net_repro_rate.html'>net_repro_rate</a>()</code>,
+<code><a href='repro_maturity.html'>repro_maturity</a></code>,
 <code><a href='shape_surv.html'>shape_surv</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
@@ -211,8 +215,7 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
 <span class='co'># constant mx yields shape = 0</span>
 <span class='va'>mx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'>shape_rep</span><span class='op'>(</span><span class='va'>mx</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
-</div></pre>
+</div><div class='output co'>#&gt; [1] 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +227,7 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
 
       <footer>
       <div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">
