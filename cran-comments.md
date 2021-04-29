@@ -10,7 +10,7 @@
 
 ## R CMD check results
 
-There were no ERRORs,  WARNINGs or NOTES on local OSX (R 4.0.4).
+There were no ERRORs, WARNINGs or NOTES on local OSX (R 4.0.4).
 
 This is the first submission to CRAN.
 

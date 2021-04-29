@@ -40,8 +40,8 @@ entropy_d(lx, mx)
 
 }
 \references{
-Demetrius, L. 1978 Adaptive value, entropy and survivorship
-  curves. Nature, 275, 213-214. <doi:10.1038/275213a0>
+Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
+  the entropic principle of natural selection. Entropy 16: 5428-5522.
 }
 \seealso{
 Other {life history traits}: 
