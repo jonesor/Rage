@@ -306,7 +306,7 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85074.205KB",
+  "fileSize": "85076.676KB",
   "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
@@ -382,10 +382,10 @@
         }
       ],
       "name": "Rcompadre and Rage - two {R} packages to facilitate the use of\n              the {COMPADRE} and {COMADRE} databases and calculation of life\n              history traits from matrix population models",
-      "identifier": "10.1101/2021.04.26.441330v1",
+      "identifier": "10.1101/2021.04.26.441330",
       "pagination": "2021.04.26.441330",
-      "@id": "https://doi.org/10.1101/2021.04.26.441330v1",
-      "sameAs": "https://doi.org/10.1101/2021.04.26.441330v1",
+      "@id": "https://doi.org/10.1101/2021.04.26.441330",
+      "sameAs": "https://doi.org/10.1101/2021.04.26.441330",
       "isPartOf": {
         "@type": "PublicationIssue",
         "datePublished": "2021",
@@ -395,5 +395,6 @@
         }
       }
     }
-  ]
+  ],
+  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
 }
