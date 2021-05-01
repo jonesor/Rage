@@ -27,6 +27,12 @@ Includes functions for:
 
 ## Installation
 
+Install the stable release package from CRAN with:
+
+``` r
+install.packages("Rage")
+```
+
 Install from GitHub with:
 
 ``` r
@@ -154,7 +160,7 @@ plot(qx ~ x, data = lt, type = "l", ylim = c(0, 0.65))
 abline(v = q, lty = 2)
 ```
 
-![](man/figures/unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/unnamed-chunk-9-1.png)<!-- -->
 
 From the life table derived from `mpm1`, we can see a plateau in the
 mortality rate (qx) beginning around age 5. However, this plateau

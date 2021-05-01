@@ -102,7 +102,7 @@
 <colgroup>
 <col width="36%">
 <col width="31%">
-<col width="31%">
+<col width="32%">
 </colgroup>
 <thead><tr class="header">
 <th>Project</th>
@@ -145,21 +145,24 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install from GitHub with:</p>
+<p>Install the stable release package from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"Rage"</span><span class="op">)</span></code></pre></div>
+<p>Install from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span></code></pre></div>
 <div id="usage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="loading-an-example-mpm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#loading-an-example-mpm" class="anchor"></a>Loading an example MPM</h3>
 <p>The functions in Rage work on MPMs (or components of MPMs), so we’ll start by loading one of the example MPMs included in the Rage package (<code>mpm1</code>).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span>     <span class="co"># load data object 'mpm1'</span>
 
@@ -185,7 +188,7 @@
 <h3 class="hasAnchor">
 <a href="#deriving-life-history-traits-from-an-mpm" class="anchor"></a>Deriving life history traits from an MPM</h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>               <span class="co"># life expectancy</span>
 <span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
 <span class="co">#&gt; Use 'life_expect_mean' instead.</span>
@@ -200,13 +203,13 @@
 <span class="fu"><a href="reference/repro_maturity.html">mature_prob</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>    <span class="co"># prob survival to first repro</span>
 <span class="co">#&gt; [1] 0.4318182</span></code></pre></div>
 <p>Some life history traits are independent of the starting stage class, in which case we don’t need to specify <code>start</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    <span class="co"># net reproductive rate</span>
 <span class="co">#&gt; [1] 1.852091</span>
 <span class="fu"><a href="reference/gen_time.html">gen_time</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>          <span class="co"># generation time</span>
 <span class="co">#&gt; [1] 5.394253</span></code></pre></div>
 <p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># first derive age-trajectories of survivorship (lx) and fecundity (mx)</span>
 <span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -225,7 +228,7 @@
 <h3 class="hasAnchor">
 <a href="#life-tables-and-the-quasi-stationary-distribution" class="anchor"></a>Life tables and the quasi-stationary distribution</h3>
 <p>Some MPMs are parameterized with a stasis loop at the maximum stage class, which can lead to apparent plateaus in mortality or fertility trajectories derived using age-from-stage methods. The function <code><a href="reference/qsd_converge.html">qsd_converge()</a></code> can be used to identify the time it takes for a cohort to reach the quasi-stationary distribution (QSD). This quantity can then be used to subset age trajectories of mortality or fertility to periods earlier than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive life table from MPM</span>
 <span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
@@ -237,10 +240,10 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.65</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-8-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-9-1.png"><!-- --></p>
 <p>From the life table derived from <code>mpm1</code>, we can see a plateau in the mortality rate (qx) beginning around age 5. However, this plateau corresponds to the QSD and is therefore probably an artefact of the stasis loop rather than a biological reality for the population represented by <code>mpm1</code>.</p>
 <p>One approach to accounting for this artefactual plateau in subsequent life history calculations is to limit our life table to the period prior to the QSD.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate the shape of the survival/mortality trajectory</span>
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># based on full lx trajectory</span>
 <span class="co">#&gt; [1] -0.02687175</span>
@@ -255,7 +258,7 @@
 <h5 class="hasAnchor">
 <a href="#stage-specific-vital-rates-vector" class="anchor"></a>Stage-specific vital rates (vector)</h5>
 <p>To summarize vital rates <em>within</em> stage classes, we can use the <code>vr_vec_</code> group of functions. We’ll use the <code>exclude</code> argument here to exclude certain stage classes (‘seed’ and ‘dormant’) from the calculation of certain vital rates (e.g. we don’t consider the large-to-dormant transition to actually represent ‘growth’).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;    0.15    0.50    0.66    0.86    0.39</span>
@@ -282,7 +285,7 @@
 <h5 class="hasAnchor">
 <a href="#mpm-specific-vital-rates-scalar" class="anchor"></a>MPM-specific vital rates (scalar)</h5>
 <p>To summarize vital rates <em>across</em> stage classes, we can use the <code>vr_</code> group of functions. By default these functions take a simple average of the stage-specific vital rates produced by the corresponding <code>vr_vec_</code> function. However, here we’ll demonstrate how to specify a <em>weighted</em> average across stages, based on the stable stage distribution at equilibrium (<em>w</em>).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive full MPM (matA)</span>
 <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>
 
@@ -312,7 +315,7 @@
 <h3 class="hasAnchor">
 <a href="#perturbation-analyses" class="anchor"></a>Perturbation analyses</h3>
 <p>The <code><a href="reference/perturb_matrix.html">perturb_matrix()</a></code> function measures the response of a demographic statistic to perturbation of individual matrix elements (i.e. sensitivities and elasticities). The <code><a href="reference/perturb_vr.html">perturb_vr()</a></code> and <code><a href="reference/perturb_trans.html">perturb_trans()</a></code> functions implement perturbation analyses by vital rate type (survival, growth, etc.) and transition type (stasis, retrogression, etc.), respectively.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># matrix element perturbation</span>
 <span class="fu"><a href="reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span>
 <span class="co">#&gt;               seed      small      medium       large     dormant</span>
@@ -337,7 +340,7 @@
 <h3 class="hasAnchor">
 <a href="#transforming-mpms" class="anchor"></a>Transforming MPMs</h3>
 <p>Rage includes a variety of functions that can be used to manipulate or transform MPMs. For example, we can collapse an MPM to a smaller number of stage classes using <code><a href="reference/mpm_collapse.html">mpm_collapse()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># collapse 'small', 'medium', and 'large' stages into single stage class</span>
 <span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">col1</span><span class="op">$</span><span class="va">matA</span>
@@ -346,7 +349,7 @@
 <span class="co">#&gt; [2,] 0.05  0.53908409 0.22</span>
 <span class="co">#&gt; [3,] 0.00  0.05728085 0.17</span></code></pre></div>
 <p>The transition rates in the collapsed matrix are a weighted average of the transition rates from the relevant stages of the original matrix, weighted by the stable distribution at equilibrium. This process guarantees that the collapsed MPM will retain the same population growth rate as the original. However, other demographic and life history characteristics will not necessarily be preserved.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare population growth rate of original and collapsed MPM (preserved)</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.121037</span>
@@ -366,7 +369,7 @@
 <a href="#previous-releases" class="anchor"></a>Previous releases</h2>
 <p>Specific earlier releases of this package can be installed using the appropriate <code><a href="https://rdrr.io/r/base/slotOp.html">@</a></code> tag.</p>
 <p>For example to install version 0.1.0:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage@v0.1.0"</span><span class="op">)</span></code></pre></div>
 <p>See the Changelog for more details.</p>
 </div>

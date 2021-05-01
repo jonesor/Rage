@@ -97,7 +97,6 @@ Suggests:
     vcd,
     testthat,
     covr
-Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
 Language: en-GB
 Config/testthat/parallel: true

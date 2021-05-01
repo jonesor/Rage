@@ -38,6 +38,12 @@ Includes functions for:
 
 ## Installation
 
+Install the stable release package from CRAN with:
+
+```{r, eval=FALSE}
+install.packages("Rage")
+```
+
 Install from GitHub with:
 
 ```{r, eval=FALSE}
