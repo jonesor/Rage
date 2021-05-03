@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@
                         <h4 class="author">Patrick Barks</h4>
                         <h4 class="author">William K. Petry</h4>
             
-            <h4 class="date">2021-04-23</h4>
+            <h4 class="date">2021-05-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a01_GettingStarted.Rmd"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
@@ -121,8 +121,8 @@
 <h2 class="hasAnchor">
 <a href="#r-1--basic-anatomy-of-life-cycles-and-mpms" class="anchor"></a>R.1. Basic anatomy of life cycles and MPMs</h2>
 <p>Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different ‘types’ of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: <strong>seedlings</strong> that have newly recruited into the population from seeds, non-reproductive <strong>rosettes</strong>, and <strong>flowering</strong> adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically (Fig. 1) where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.</p>
-<div id="htmlwidget-f55705a1291753484562" style="width:576px;height:192px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f55705a1291753484562">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
+<div id="htmlwidget-e49a4c52e1182a048228" style="width:576px;height:192px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e49a4c52e1182a048228">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
 <p>The <strong>transition</strong> or <strong>projection matrix</strong> (Fig. 2; called <strong>A</strong> in matrix notation) for this life cycle is a square matrix where the rows and columns correspond to the life stages (nodes) and the elements correspond to transition probabilities (arrows). By convention, the columns reflect the current life stage (i.e., the arrow’s start) and the rows reflect the arrow’s end.</p>
 <p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;"><strong>Figure 2.</strong> Transition (projection) matrix corresponding to the life cycle in Fig. 1.</p>
 <p>For basic MPM projection and equilibrium analyses, this single matrix is all that is needed. However, more advanced analyses like many of those in <code>Rage</code> use decompositions of the <strong>A</strong> matrix into its components of growth and survival (<strong>U</strong>) and reproduction (<strong>R</strong>). Reproduction can be further decomposed into offspring produced sexually (<strong>F</strong>) and asexually/clonally (<strong>C</strong>; Fig. 3). The submatrices combine additively to create the transition matrix,</p>
@@ -184,15 +184,15 @@
 
 <span class="co"># lambda: equilibrium per-capita population growth rate</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.513</span>
+<span class="co">#&gt; [1] 1.51273</span>
 <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, what <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.513</span>
+<span class="co">#&gt; [1] 1.51273</span>
 
 <span class="co"># w: stable stage distribution (relative frequencies)</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/stable.stage.html">stable.stage</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.4552 0.3296 0.2152</span>
+<span class="co">#&gt; [1] 0.4551941 0.3296228 0.2151831</span>
 <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.4552 0.3296 0.2152</span></code></pre></div>
+<span class="co">#&gt; [1] 0.4551941 0.3296228 0.2151831</span></code></pre></div>
 <p>From <span class="math inline">\(\lambda\)</span>, we infer that the population would eventually grow at an equilibrium rate of 51% per time step. Likewise, from <span class="math inline">\(\mathbf{w}\)</span> we infer that nearly half of individuals will be seedlings, about a third will be rosettes and a fifth will be flowering at equilibrium.</p>
 <p>Finally, we are reminded that MPM <em>projections</em> rely on consistency of the demographic vital rates (i.e., transition matrix elements) over time. Projections tell us what would happen if this strong assumption were to be met. Projections differ radically from <em>forecasts</em>, which are designed to predict what will happen. Forecasting models may use MPMs to drive population change, but will also typically require a component that predicts changes in the underlying demographic vital rates. <a href="#references">Keyfitz (1972)</a> unpacks these differences further, with special emphasis on the value of projection as a window into the fundamental processes that drive the behaviour of populations. Much of the functionality of <code>Rage</code> rests on this ethos.</p>
 </div>
@@ -284,8 +284,8 @@
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;    0.15    0.50    0.66    0.86    0.39</span>
 <span class="fu"><a href="../reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;  0.6667  0.2400  0.1818  0.6047  0.4359</span></code></pre></div>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt; 0.6666667 0.2400000 0.1818182 0.6046512 0.4358974</span></code></pre></div>
 <p>Multiplying these two together yields the probability of stasis conditional on survival, in other words the diagonal of our example <strong>U</strong> matrix.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># product of Pr(survival) and Pr(stasis) yields Pr(stasis|survived)</span>
@@ -310,39 +310,62 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>  <span class="co"># full life table</span>
 <span class="va">lt</span>
-<span class="co">#&gt;     x        lx        dx     qx        Lx        Tx     ex     mx     lxmx</span>
-<span class="co">#&gt; 1   0 1.000e+00 8.500e-01 0.8500 0.5750000 0.7502537 0.7503  0.000 0.000000</span>
-<span class="co">#&gt; 2   1 1.500e-01 1.100e-01 0.7333 0.0950000 0.1752537 1.1684  0.000 0.000000</span>
-<span class="co">#&gt; 3   2 4.000e-02 2.016e-02 0.5040 0.0299200 0.0802537 2.0063  9.541 0.381650</span>
-<span class="co">#&gt; 4   3 1.984e-02 7.425e-03 0.3743 0.0161273 0.0503337 2.5370 19.493 0.386736</span>
-<span class="co">#&gt; 5   4 1.241e-02 3.977e-03 0.3204 0.0104259 0.0342064 2.7553 24.833 0.308288</span>
-<span class="co">#&gt; 6   5 8.437e-03 2.564e-03 0.3039 0.0071550 0.0237805 2.8185 26.800 0.226114</span>
-<span class="co">#&gt; 7   6 5.873e-03 1.751e-03 0.2981 0.0049975 0.0166255 2.8309 27.506 0.161543</span>
-<span class="co">#&gt; 8   7 4.122e-03 1.221e-03 0.2962 0.0035115 0.0116280 2.8209 27.741 0.114353</span>
-<span class="co">#&gt; 9   8 2.901e-03 8.576e-04 0.2956 0.0024722 0.0081164 2.7978 27.820 0.080704</span>
-<span class="co">#&gt; 10  9 2.043e-03 6.036e-04 0.2954 0.0017416 0.0056442 2.7622 27.845 0.056899</span>
-<span class="co">#&gt; 11 10 1.440e-03 4.252e-04 0.2953 0.0012272 0.0039027 2.7106 27.854 0.040103</span>
-<span class="co">#&gt; 12 11 1.015e-03 2.996e-04 0.2953 0.0008647 0.0026755 2.6372 27.856 0.028261</span>
-<span class="co">#&gt; 13 12 7.149e-04 2.111e-04 0.2953 0.0006094 0.0018108 2.5328 27.857 0.019916</span>
-<span class="co">#&gt; 14 13 5.038e-04 1.488e-04 0.2953 0.0004294 0.0012014 2.3847 27.857 0.014035</span>
-<span class="co">#&gt; 15 14 3.550e-04 1.048e-04 0.2953 0.0003026 0.0007720 2.1745 27.858 0.009890</span>
-<span class="co">#&gt; 16 15 2.502e-04 7.388e-05 0.2953 0.0002132 0.0004694 1.8762 27.858 0.006969</span>
-<span class="co">#&gt; 17 16 1.763e-04 5.206e-05 0.2953 0.0001503 0.0002562 1.4530 27.858 0.004911</span>
-<span class="co">#&gt; 18 17 1.242e-04 3.669e-05 0.2953 0.0001059 0.0001059 0.8523 27.858 0.003461</span>
-<span class="co">#&gt; 19 18 8.755e-05        NA     NA        NA        NA     NA 27.858 0.002439</span>
+<span class="co">#&gt;     x           lx           dx        qx           Lx           Tx        ex</span>
+<span class="co">#&gt; 1   0 1.000000e+00 8.500000e-01 0.8500000 0.5750000000 0.7502537345 0.7502537</span>
+<span class="co">#&gt; 2   1 1.500000e-01 1.100000e-01 0.7333333 0.0950000000 0.1752537345 1.1683582</span>
+<span class="co">#&gt; 3   2 4.000000e-02 2.016000e-02 0.5040000 0.0299200000 0.0802537345 2.0063434</span>
+<span class="co">#&gt; 4   3 1.984000e-02 7.425350e-03 0.3742616 0.0161273250 0.0503337345 2.5369826</span>
+<span class="co">#&gt; 5   4 1.241465e-02 3.977500e-03 0.3203876 0.0104259002 0.0342064095 2.7553261</span>
+<span class="co">#&gt; 6   5 8.437150e-03 2.564246e-03 0.3039232 0.0071550276 0.0237805093 2.8185475</span>
+<span class="co">#&gt; 7   6 5.872905e-03 1.750779e-03 0.2981113 0.0049975150 0.0166254817 2.8308789</span>
+<span class="co">#&gt; 8   7 4.122125e-03 1.221159e-03 0.2962449 0.0035115461 0.0116279667 2.8208667</span>
+<span class="co">#&gt; 9   8 2.900967e-03 8.575655e-04 0.2956137 0.0024721840 0.0081164206 2.7978331</span>
+<span class="co">#&gt; 10  9 2.043401e-03 6.036396e-04 0.2954092 0.0017415814 0.0056442366 2.7621774</span>
+<span class="co">#&gt; 11 10 1.439762e-03 4.252221e-04 0.2953420 0.0012271506 0.0039026552 2.7106259</span>
+<span class="co">#&gt; 12 11 1.014540e-03 2.996141e-04 0.2953203 0.0008647325 0.0026755046 2.6371614</span>
+<span class="co">#&gt; 13 12 7.149255e-04 2.111269e-04 0.2953132 0.0006093620 0.0018107721 2.5328124</span>
+<span class="co">#&gt; 14 13 5.037985e-04 1.487772e-04 0.2953110 0.0004294099 0.0012014101 2.3847035</span>
+<span class="co">#&gt; 15 14 3.550213e-04 1.048414e-04 0.2953102 0.0003026006 0.0007720002 2.1745180</span>
+<span class="co">#&gt; 16 15 2.501799e-04 7.388062e-05 0.2953100 0.0002132396 0.0004693996 1.8762484</span>
+<span class="co">#&gt; 17 16 1.762993e-04 5.206292e-05 0.2953099 0.0001502678 0.0002561600 1.4529842</span>
+<span class="co">#&gt; 18 17 1.242363e-04 3.668822e-05 0.2953099 0.0001058922 0.0001058922 0.8523451</span>
+<span class="co">#&gt; 19 18 8.754812e-05           NA        NA           NA           NA        NA</span>
+<span class="co">#&gt;          mx        lxmx</span>
+<span class="co">#&gt; 1   0.00000 0.000000000</span>
+<span class="co">#&gt; 2   0.00000 0.000000000</span>
+<span class="co">#&gt; 3   9.54125 0.381650000</span>
+<span class="co">#&gt; 4  19.49277 0.386736500</span>
+<span class="co">#&gt; 5  24.83256 0.308287540</span>
+<span class="co">#&gt; 6  26.79977 0.226113683</span>
+<span class="co">#&gt; 7  27.50641 0.161542525</span>
+<span class="co">#&gt; 8  27.74123 0.114352837</span>
+<span class="co">#&gt; 9  27.81971 0.080704042</span>
+<span class="co">#&gt; 10 27.84525 0.056899028</span>
+<span class="co">#&gt; 11 27.85359 0.040102535</span>
+<span class="co">#&gt; 12 27.85629 0.028261306</span>
+<span class="co">#&gt; 13 27.85716 0.019915792</span>
+<span class="co">#&gt; 14 27.85744 0.014034537</span>
+<span class="co">#&gt; 15 27.85753 0.009890016</span>
+<span class="co">#&gt; 16 27.85756 0.006969401</span>
+<span class="co">#&gt; 17 27.85757 0.004911269</span>
+<span class="co">#&gt; 18 27.85757 0.003460923</span>
+<span class="co">#&gt; 19 27.85757 0.002438878</span>
 <span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>  <span class="co"># survivorship to start of each age class</span>
 <span class="va">lx</span>
-<span class="co">#&gt;  [1] 1.000e+00 1.500e-01 4.000e-02 1.984e-02 1.241e-02 8.437e-03 5.873e-03</span>
-<span class="co">#&gt;  [8] 4.122e-03 2.901e-03 2.043e-03 1.440e-03 1.015e-03 7.149e-04 5.038e-04</span>
-<span class="co">#&gt; [15] 3.550e-04 2.502e-04 1.763e-04 1.242e-04 8.755e-05</span></code></pre></div>
+<span class="co">#&gt;  [1] 1.000000e+00 1.500000e-01 4.000000e-02 1.984000e-02 1.241465e-02</span>
+<span class="co">#&gt;  [6] 8.437150e-03 5.872905e-03 4.122125e-03 2.900967e-03 2.043401e-03</span>
+<span class="co">#&gt; [11] 1.439762e-03 1.014540e-03 7.149255e-04 5.037985e-04 3.550213e-04</span>
+<span class="co">#&gt; [16] 2.501799e-04 1.762993e-04 1.242363e-04 8.754812e-05</span></code></pre></div>
 <p><code>Rage</code> also supports translation between the different ways of expressing age-specific mortality/survival, whether proportional survivorship (<code>lx</code>), survival probability (<code>px</code>) or mortality hazard (<code>hx</code>), following an <code>x_to_y</code> function name pattern.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/lifetable_convert.html">lx_to_px</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span>  <span class="co"># survivorship to survival probability</span>
-<span class="co">#&gt;  [1] 0.1500 0.2667 0.4960 0.6257 0.6796 0.6961 0.7019 0.7038 0.7044 0.7046</span>
-<span class="co">#&gt; [11] 0.7047 0.7047 0.7047 0.7047 0.7047 0.7047 0.7047 0.7047     NA</span>
+<span class="co">#&gt;  [1] 0.1500000 0.2666667 0.4960000 0.6257384 0.6796124 0.6960768 0.7018887</span>
+<span class="co">#&gt;  [8] 0.7037551 0.7043863 0.7045908 0.7046580 0.7046797 0.7046868 0.7046890</span>
+<span class="co">#&gt; [15] 0.7046898 0.7046900 0.7046901 0.7046901        NA</span>
 <span class="fu"><a href="../reference/lifetable_convert.html">lx_to_hx</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span>  <span class="co"># survivorship to mortality hazard</span>
-<span class="co">#&gt;  [1] 1.8971 1.3218 0.7012 0.4688 0.3862 0.3623 0.3540 0.3513 0.3504 0.3501</span>
-<span class="co">#&gt; [11] 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500 0.3500     NA</span></code></pre></div>
+<span class="co">#&gt;  [1] 1.8971200 1.3217558 0.7011794 0.4688229 0.3862326 0.3622953 0.3539804</span>
+<span class="co">#&gt;  [8] 0.3513249 0.3504283 0.3501381 0.3500427 0.3500119 0.3500019 0.3499987</span>
+<span class="co">#&gt; [15] 0.3499976 0.3499973 0.3499972 0.3499971        NA</span></code></pre></div>
 <p>When individuals can remain in the last life stage class, age-specific trajectories of mortality and fertility can appear to plateau as a cohort asymptotically approaches its stable stage distribution (SSD). For these MPMs, we can choose a quasi-stationary distribution (QSD) of stages that is within an arbitrarily close threshold of the SSD. Subsetting age-specific demographic trajectories to time points before a cohort reaches the QSD will minimise these plateau artefacts. In the example MPM, <code>mpm1</code>, a cohort of germinated individuals quickly converges towards the SSD:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># project a germinated cohort through the U matrix</span>
@@ -381,26 +404,26 @@
 <span class="co"># ...matrix element perturbations</span>
 <span class="fu"><a href="../reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span>matA <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>,
                type <span class="op">=</span> <span class="st">"sensitivity"</span>, demog_stat <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
-<span class="co">#&gt;            seed   small   medium    large  dormant</span>
-<span class="co">#&gt; seed     0.2173 0.01133 0.004786 0.002987 0.001151</span>
-<span class="co">#&gt; small    4.4375 0.23141 0.097740 0.060993 0.023498</span>
-<span class="co">#&gt; medium  10.8655 0.56662 0.239323 0.149347 0.057537</span>
-<span class="co">#&gt; large   21.3053 1.11104 0.469271 0.292843 0.112820</span>
-<span class="co">#&gt; dormant  3.6112 0.18832 0.079540 0.049636 0.019123</span>
+<span class="co">#&gt;               seed      small      medium       large     dormant</span>
+<span class="co">#&gt; seed     0.2173031 0.01133203 0.004786307 0.002986834 0.001150702</span>
+<span class="co">#&gt; small    4.4374613 0.23140857 0.097739871 0.060993321 0.023498190</span>
+<span class="co">#&gt; medium  10.8654599 0.56661979 0.239323187 0.149346517 0.057537004</span>
+<span class="co">#&gt; large   21.3053309 1.11104269 0.469270739 0.292842888 0.112820081</span>
+<span class="co">#&gt; dormant  3.6111989 0.18831948 0.079540420 0.049636196 0.019122780</span>
 <span class="co"># ...vital rate perturbations</span>
 <span class="fu"><a href="../reference/perturb_vr.html">perturb_vr</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,
            type <span class="op">=</span> <span class="st">"sensitivity"</span>, demog_stat <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
 <span class="co">#&gt; $survival</span>
-<span class="co">#&gt; [1] 2.986</span>
+<span class="co">#&gt; [1] 2.986054</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $growth</span>
-<span class="co">#&gt; [1] 1.078</span>
+<span class="co">#&gt; [1] 1.077597</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $shrinkage</span>
-<span class="co">#&gt; [1] -0.1653</span>
+<span class="co">#&gt; [1] -0.1653284</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $fecundity</span>
-<span class="co">#&gt; [1] 0.005728</span>
+<span class="co">#&gt; [1] 0.00572764</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $clonality</span>
 <span class="co">#&gt; [1] 0</span>
@@ -408,16 +431,16 @@
 <span class="fu"><a href="../reference/perturb_trans.html">perturb_trans</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,
               type <span class="op">=</span> <span class="st">"sensitivity"</span>, demog_stat <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
 <span class="co">#&gt; $stasis</span>
-<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 1.000001</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $retro</span>
-<span class="co">#&gt; [1] 0.4174</span>
+<span class="co">#&gt; [1] 0.4174435</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $progr</span>
-<span class="co">#&gt; [1] 6.714</span>
+<span class="co">#&gt; [1] 6.713571</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $fecundity</span>
-<span class="co">#&gt; [1] 0.007773</span>
+<span class="co">#&gt; [1] 0.007773141</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $clonality</span>
 <span class="co">#&gt; [1] NA</span></code></pre></div>
@@ -435,13 +458,13 @@
 <span class="co"># expected lifetime production of 'small' offspring by a 'small' individual</span>
 <span class="fu"><a href="../reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="st">"seed"</span>,
                method <span class="op">=</span> <span class="st">"start"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.852</span></code></pre></div>
+<span class="co">#&gt; [1] 1.852091</span></code></pre></div>
 <p>When calculating life table-based traits, MPMs can be transformed to the necessary age-based trajectory prior to analysis.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive post-germination survivorship trajectory from U matrix</span>
 <span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span>       <span class="co"># calculate Keyfitz' entropy</span>
-<span class="co">#&gt; [1] 0.9482</span></code></pre></div>
+<span class="co">#&gt; [1] 0.948235</span></code></pre></div>
 </div>
 <div id="maniptransform" class="section level2">
 <h2 class="hasAnchor">
@@ -452,30 +475,30 @@
 <span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,
                      collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">col1</span><span class="op">$</span><span class="va">matA</span>
-<span class="co">#&gt;      [,1]     [,2] [,3]</span>
-<span class="co">#&gt; [1,] 0.10 11.61332 0.00</span>
-<span class="co">#&gt; [2,] 0.05  0.53908 0.22</span>
-<span class="co">#&gt; [3,] 0.00  0.05728 0.17</span></code></pre></div>
+<span class="co">#&gt;      [,1]        [,2] [,3]</span>
+<span class="co">#&gt; [1,] 0.10 11.61331815 0.00</span>
+<span class="co">#&gt; [2,] 0.05  0.53908409 0.22</span>
+<span class="co">#&gt; [3,] 0.00  0.05728085 0.17</span></code></pre></div>
 <p>Notice that the stage names are lost during this operation. We can re-add new stage names using the function <code>name_stages</code>, electing to use generic or custom names.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">col1_auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/name_stages.html">name_stages</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="va">col1</span>, prefix <span class="op">=</span> <span class="st">"class_"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># automated stage naming</span>
 <span class="co">#&gt; $matA</span>
-<span class="co">#&gt;         class_1  class_2 class_3</span>
-<span class="co">#&gt; class_1    0.10 11.61332    0.00</span>
-<span class="co">#&gt; class_2    0.05  0.53908    0.22</span>
-<span class="co">#&gt; class_3    0.00  0.05728    0.17</span>
+<span class="co">#&gt;         class_1     class_2 class_3</span>
+<span class="co">#&gt; class_1    0.10 11.61331815    0.00</span>
+<span class="co">#&gt; class_2    0.05  0.53908409    0.22</span>
+<span class="co">#&gt; class_3    0.00  0.05728085    0.17</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matU</span>
-<span class="co">#&gt;         class_1 class_2 class_3</span>
-<span class="co">#&gt; class_1    0.10 0.00000    0.00</span>
-<span class="co">#&gt; class_2    0.05 0.53908    0.22</span>
-<span class="co">#&gt; class_3    0.00 0.05728    0.17</span>
+<span class="co">#&gt;         class_1    class_2 class_3</span>
+<span class="co">#&gt; class_1    0.10 0.00000000    0.00</span>
+<span class="co">#&gt; class_2    0.05 0.53908409    0.22</span>
+<span class="co">#&gt; class_3    0.00 0.05728085    0.17</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matF</span>
-<span class="co">#&gt;         class_1 class_2 class_3</span>
-<span class="co">#&gt; class_1       0   11.61       0</span>
-<span class="co">#&gt; class_2       0    0.00       0</span>
-<span class="co">#&gt; class_3       0    0.00       0</span>
+<span class="co">#&gt;         class_1  class_2 class_3</span>
+<span class="co">#&gt; class_1       0 11.61332       0</span>
+<span class="co">#&gt; class_2       0  0.00000       0</span>
+<span class="co">#&gt; class_3       0  0.00000       0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matC</span>
 <span class="co">#&gt;         class_1 class_2 class_3</span>
@@ -485,22 +508,22 @@
 <span class="op">(</span><span class="va">col1_cust</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/name_stages.html">name_stages</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="va">col1</span>, names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seed"</span>, <span class="st">"active"</span>, <span class="st">"dormant"</span><span class="op">)</span>,
                          prefix <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>  <span class="co"># overwrite with custom stages</span>
 <span class="co">#&gt; $matA</span>
-<span class="co">#&gt;         seed   active dormant</span>
-<span class="co">#&gt; seed    0.10 11.61332    0.00</span>
-<span class="co">#&gt; active  0.05  0.53908    0.22</span>
-<span class="co">#&gt; dormant 0.00  0.05728    0.17</span>
+<span class="co">#&gt;         seed      active dormant</span>
+<span class="co">#&gt; seed    0.10 11.61331815    0.00</span>
+<span class="co">#&gt; active  0.05  0.53908409    0.22</span>
+<span class="co">#&gt; dormant 0.00  0.05728085    0.17</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matU</span>
-<span class="co">#&gt;         seed  active dormant</span>
-<span class="co">#&gt; seed    0.10 0.00000    0.00</span>
-<span class="co">#&gt; active  0.05 0.53908    0.22</span>
-<span class="co">#&gt; dormant 0.00 0.05728    0.17</span>
+<span class="co">#&gt;         seed     active dormant</span>
+<span class="co">#&gt; seed    0.10 0.00000000    0.00</span>
+<span class="co">#&gt; active  0.05 0.53908409    0.22</span>
+<span class="co">#&gt; dormant 0.00 0.05728085    0.17</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matF</span>
-<span class="co">#&gt;         seed active dormant</span>
-<span class="co">#&gt; seed       0  11.61       0</span>
-<span class="co">#&gt; active     0   0.00       0</span>
-<span class="co">#&gt; dormant    0   0.00       0</span>
+<span class="co">#&gt;         seed   active dormant</span>
+<span class="co">#&gt; seed       0 11.61332       0</span>
+<span class="co">#&gt; active     0  0.00000       0</span>
+<span class="co">#&gt; dormant    0  0.00000       0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $matC</span>
 <span class="co">#&gt;         seed active dormant</span>
@@ -511,15 +534,15 @@
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare population growth rate of original and collapsed MPM (preserved)</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.121</span>
+<span class="co">#&gt; [1] 1.121037</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">col1_cust</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.121</span>
+<span class="co">#&gt; [1] 1.121037</span>
 
 <span class="co"># compare net reproductive rate of original and collapsed MPM (not preserved)</span>
 <span class="fu"><a href="../reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.852</span>
+<span class="co">#&gt; [1] 1.852091</span>
 <span class="fu"><a href="../reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">col1_cust</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">col1_cust</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.447</span></code></pre></div>
+<span class="co">#&gt; [1] 1.447468</span></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level1">
@@ -541,7 +564,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

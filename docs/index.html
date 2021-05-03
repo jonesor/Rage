@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Functions for Calculating Life History Metrics from Matrix Population Models • Rage</title>
+<title>Life History Metrics from Matrix Population Models • Rage</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Functions for Calculating Life History Metrics from Matrix Population Models">
-<meta property="og:description" content="Functions for calculating life history metrics using matrix population models (MPMs).">
+<script src="pkgdown.js"></script><meta property="og:title" content="Life History Metrics from Matrix Population Models">
+<meta property="og:description" content="Functions for calculating life history metrics using matrix population models (MPMs). Described in Jones et al. (2021) &lt;doi:10.1101/2021.04.26.441330&gt;.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -145,21 +145,24 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install from GitHub with:</p>
+<p>Install the stable release package from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"Rage"</span><span class="op">)</span></code></pre></div>
+<p>Install from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span></code></pre></div>
 <div id="usage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="loading-an-example-mpm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#loading-an-example-mpm" class="anchor"></a>Loading an example MPM</h3>
 <p>The functions in Rage work on MPMs (or components of MPMs), so we’ll start by loading one of the example MPMs included in the Rage package (<code>mpm1</code>).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span>     <span class="co"># load data object 'mpm1'</span>
 
@@ -185,47 +188,47 @@
 <h3 class="hasAnchor">
 <a href="#deriving-life-history-traits-from-an-mpm" class="anchor"></a>Deriving life history traits from an MPM</h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>               <span class="co"># life expectancy</span>
 <span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
 <span class="co">#&gt; Use 'life_expect_mean' instead.</span>
 <span class="co">#&gt; See help("Deprecated")</span>
-<span class="co">#&gt;    mean  var</span>
-<span class="co">#&gt; 1 2.509 14.5</span>
+<span class="co">#&gt;       mean     var</span>
+<span class="co">#&gt; 1 2.509116 14.5045</span>
 <span class="fu"><a href="reference/longevity.html">longevity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># longevity (age at lx = 0.05)</span>
 <span class="co">#&gt; [1] 7</span>
 <span class="fu"><a href="reference/repro_maturity.html">mature_age</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>     <span class="co"># mean age at first reproduction</span>
-<span class="co">#&gt; small </span>
-<span class="co">#&gt; 2.136</span>
+<span class="co">#&gt;    small </span>
+<span class="co">#&gt; 2.136364</span>
 <span class="fu"><a href="reference/repro_maturity.html">mature_prob</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>    <span class="co"># prob survival to first repro</span>
-<span class="co">#&gt; [1] 0.4318</span></code></pre></div>
+<span class="co">#&gt; [1] 0.4318182</span></code></pre></div>
 <p>Some life history traits are independent of the starting stage class, in which case we don’t need to specify <code>start</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    <span class="co"># net reproductive rate</span>
-<span class="co">#&gt; [1] 1.852</span>
-<span class="fu"><a href="reference/gen_time.html">gen_time</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>          <span class="co"># generation time</span>
-<span class="co">#&gt; [1] 5.394</span></code></pre></div>
-<p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>    <span class="co"># net reproductive rate</span>
+<span class="co">#&gt; [1] 1.852091</span>
+<span class="fu"><a href="reference/gen_time.html">gen_time</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>          <span class="co"># generation time</span>
+<span class="co">#&gt; [1] 5.394253</span></code></pre></div>
+<p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># first derive age-trajectories of survivorship (lx) and fecundity (mx)</span>
 <span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># then calculate life history traits</span>
 <span class="fu"><a href="reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
-<span class="co">#&gt; [1] 0.9482</span>
+<span class="co">#&gt; [1] 0.948235</span>
 <span class="fu"><a href="reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
-<span class="co">#&gt; [1] -1.358</span>
+<span class="co">#&gt; [1] -1.358418</span>
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
-<span class="co">#&gt; [1] -0.02687</span>
+<span class="co">#&gt; [1] -0.02687175</span>
 <span class="fu"><a href="reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
-<span class="co">#&gt; [1] 0.4029</span></code></pre></div>
+<span class="co">#&gt; [1] 0.4029063</span></code></pre></div>
 </div>
 <div id="life-tables-and-the-quasi-stationary-distribution" class="section level3">
 <h3 class="hasAnchor">
 <a href="#life-tables-and-the-quasi-stationary-distribution" class="anchor"></a>Life tables and the quasi-stationary distribution</h3>
 <p>Some MPMs are parameterized with a stasis loop at the maximum stage class, which can lead to apparent plateaus in mortality or fertility trajectories derived using age-from-stage methods. The function <code><a href="reference/qsd_converge.html">qsd_converge()</a></code> can be used to identify the time it takes for a cohort to reach the quasi-stationary distribution (QSD). This quantity can then be used to subset age trajectories of mortality or fertility to periods earlier than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive life table from MPM</span>
 <span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
@@ -237,15 +240,15 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.65</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-8-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-9-1.png"><!-- --></p>
 <p>From the life table derived from <code>mpm1</code>, we can see a plateau in the mortality rate (qx) beginning around age 5. However, this plateau corresponds to the QSD and is therefore probably an artefact of the stasis loop rather than a biological reality for the population represented by <code>mpm1</code>.</p>
 <p>One approach to accounting for this artefactual plateau in subsequent life history calculations is to limit our life table to the period prior to the QSD.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate the shape of the survival/mortality trajectory</span>
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># based on full lx trajectory</span>
-<span class="co">#&gt; [1] -0.02687</span>
+<span class="co">#&gt; [1] -0.02687175</span>
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">q</span><span class="op">]</span><span class="op">)</span>  <span class="co"># based on lx trajectory prior to the QSD</span>
-<span class="co">#&gt; [1] -0.06475</span></code></pre></div>
+<span class="co">#&gt; [1] -0.06475154</span></code></pre></div>
 </div>
 <div id="standardized-vital-rates" class="section level3">
 <h3 class="hasAnchor">
@@ -255,34 +258,34 @@
 <h5 class="hasAnchor">
 <a href="#stage-specific-vital-rates-vector" class="anchor"></a>Stage-specific vital rates (vector)</h5>
 <p>To summarize vital rates <em>within</em> stage classes, we can use the <code>vr_vec_</code> group of functions. We’ll use the <code>exclude</code> argument here to exclude certain stage classes (‘seed’ and ‘dormant’) from the calculation of certain vital rates (e.g. we don’t consider the large-to-dormant transition to actually represent ‘growth’).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;    0.15    0.50    0.66    0.86    0.39</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;      NA  0.7600  0.4242      NA      NA</span>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt;        NA 0.7600000 0.4242424        NA        NA</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;      NA      NA  0.1515  0.2674      NA</span>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt;        NA        NA 0.1515152 0.2674419        NA</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;  0.6667  0.2400  0.1818  0.6047  0.4359</span>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt; 0.6666667 0.2400000 0.1818182 0.6046512 0.4358974</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_dorm_enter</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;      NA      NA  0.2424  0.1279      NA</span>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt;        NA        NA 0.2424242 0.1279070        NA</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_dorm_exit</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;      NA      NA      NA      NA  0.5641</span>
+<span class="co">#&gt;      seed     small    medium     large   dormant </span>
+<span class="co">#&gt;        NA        NA        NA        NA 0.5641026</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_reproduction</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt;    seed   small  medium   large dormant </span>
-<span class="co">#&gt;      NA      NA   27.12   53.02      NA</span></code></pre></div>
+<span class="co">#&gt;     seed    small   medium    large  dormant </span>
+<span class="co">#&gt;       NA       NA 27.12121 53.02326       NA</span></code></pre></div>
 </div>
 <div id="mpm-specific-vital-rates-scalar" class="section level5">
 <h5 class="hasAnchor">
 <a href="#mpm-specific-vital-rates-scalar" class="anchor"></a>MPM-specific vital rates (scalar)</h5>
 <p>To summarize vital rates <em>across</em> stage classes, we can use the <code>vr_</code> group of functions. By default these functions take a simple average of the stage-specific vital rates produced by the corresponding <code>vr_vec_</code> function. However, here we’ll demonstrate how to specify a <em>weighted</em> average across stages, based on the stable stage distribution at equilibrium (<em>w</em>).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive full MPM (matA)</span>
 <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>
 
@@ -292,19 +295,19 @@
 
 <span class="co"># calculate MPM-specific vital rates</span>
 <span class="fu"><a href="reference/vr.html">vr_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.5964</span>
+<span class="co">#&gt; [1] 0.5963649</span>
 <span class="fu"><a href="reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.6603</span>
+<span class="co">#&gt; [1] 0.6602975</span>
 <span class="fu"><a href="reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1961</span>
+<span class="co">#&gt; [1] 0.1960601</span>
 <span class="fu"><a href="reference/vr.html">vr_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2824</span>
+<span class="co">#&gt; [1] 0.2824323</span>
 <span class="fu"><a href="reference/vr.html">vr_dorm_enter</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1984</span>
+<span class="co">#&gt; [1] 0.1984209</span>
 <span class="fu"><a href="reference/vr.html">vr_dorm_exit</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.5641</span>
+<span class="co">#&gt; [1] 0.5641026</span>
 <span class="fu"><a href="reference/vr.html">vr_fecundity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 37.07</span></code></pre></div>
+<span class="co">#&gt; [1] 37.07409</span></code></pre></div>
 <p>Note how we’ve chosen to exclude the ‘seed’ and ‘dormant’ stage classes from our vital rate summaries, because we consider these to be special classes (e.g. ‘growth’ from the ‘seed’ stage is really ‘germination’, which we may think of as separate from somatic growth from ‘small’ to ‘medium’, or ‘medium’ to ‘large’).</p>
 </div>
 </div>
@@ -312,52 +315,52 @@
 <h3 class="hasAnchor">
 <a href="#perturbation-analyses" class="anchor"></a>Perturbation analyses</h3>
 <p>The <code><a href="reference/perturb_matrix.html">perturb_matrix()</a></code> function measures the response of a demographic statistic to perturbation of individual matrix elements (i.e. sensitivities and elasticities). The <code><a href="reference/perturb_vr.html">perturb_vr()</a></code> and <code><a href="reference/perturb_trans.html">perturb_trans()</a></code> functions implement perturbation analyses by vital rate type (survival, growth, etc.) and transition type (stasis, retrogression, etc.), respectively.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># matrix element perturbation</span>
 <span class="fu"><a href="reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span>
-<span class="co">#&gt;            seed   small   medium    large  dormant</span>
-<span class="co">#&gt; seed     0.2173 0.01133 0.004786 0.002987 0.001151</span>
-<span class="co">#&gt; small    4.4375 0.23141 0.097740 0.060993 0.023498</span>
-<span class="co">#&gt; medium  10.8655 0.56662 0.239323 0.149347 0.057537</span>
-<span class="co">#&gt; large   21.3053 1.11104 0.469271 0.292843 0.112820</span>
-<span class="co">#&gt; dormant  3.6112 0.18832 0.079540 0.049636 0.019123</span>
+<span class="co">#&gt;               seed      small      medium       large     dormant</span>
+<span class="co">#&gt; seed     0.2173031 0.01133203 0.004786307 0.002986834 0.001150702</span>
+<span class="co">#&gt; small    4.4374613 0.23140857 0.097739871 0.060993321 0.023498190</span>
+<span class="co">#&gt; medium  10.8654599 0.56661979 0.239323187 0.149346517 0.057537004</span>
+<span class="co">#&gt; large   21.3053309 1.11104269 0.469270739 0.292842888 0.112820081</span>
+<span class="co">#&gt; dormant  3.6111989 0.18831948 0.079540420 0.049636196 0.019122780</span>
 
 <span class="co"># vital rate perturbation</span>
 <span class="co"># (we use as.data.frame here for prettier printing)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_vr.html">perturb_vr</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;   survival growth shrinkage fecundity clonality</span>
-<span class="co">#&gt; 1    2.986  1.078   -0.1653  0.005728         0</span>
+<span class="co">#&gt;   survival   growth  shrinkage  fecundity clonality</span>
+<span class="co">#&gt; 1 2.986054 1.077597 -0.1653284 0.00572764         0</span>
 
 <span class="co"># transition type perturbation</span>
 <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_trans.html">perturb_trans</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;   stasis  retro progr fecundity clonality</span>
-<span class="co">#&gt; 1      1 0.4174 6.714  0.007773        NA</span></code></pre></div>
+<span class="co">#&gt;     stasis     retro    progr   fecundity clonality</span>
+<span class="co">#&gt; 1 1.000001 0.4174435 6.713571 0.007773141        NA</span></code></pre></div>
 </div>
 <div id="transforming-mpms" class="section level3">
 <h3 class="hasAnchor">
 <a href="#transforming-mpms" class="anchor"></a>Transforming MPMs</h3>
 <p>Rage includes a variety of functions that can be used to manipulate or transform MPMs. For example, we can collapse an MPM to a smaller number of stage classes using <code><a href="reference/mpm_collapse.html">mpm_collapse()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># collapse 'small', 'medium', and 'large' stages into single stage class</span>
 <span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">col1</span><span class="op">$</span><span class="va">matA</span>
-<span class="co">#&gt;      [,1]     [,2] [,3]</span>
-<span class="co">#&gt; [1,] 0.10 11.61332 0.00</span>
-<span class="co">#&gt; [2,] 0.05  0.53908 0.22</span>
-<span class="co">#&gt; [3,] 0.00  0.05728 0.17</span></code></pre></div>
+<span class="co">#&gt;      [,1]        [,2] [,3]</span>
+<span class="co">#&gt; [1,] 0.10 11.61331815 0.00</span>
+<span class="co">#&gt; [2,] 0.05  0.53908409 0.22</span>
+<span class="co">#&gt; [3,] 0.00  0.05728085 0.17</span></code></pre></div>
 <p>The transition rates in the collapsed matrix are a weighted average of the transition rates from the relevant stages of the original matrix, weighted by the stable distribution at equilibrium. This process guarantees that the collapsed MPM will retain the same population growth rate as the original. However, other demographic and life history characteristics will not necessarily be preserved.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare population growth rate of original and collapsed MPM (preserved)</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.121</span>
+<span class="co">#&gt; [1] 1.121037</span>
 <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/lambda.html">lambda</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matA</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.121</span>
+<span class="co">#&gt; [1] 1.121037</span>
 
 <span class="co"># compare net reproductive rate of original and collapsed MPM (not preserved)</span>
 <span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.852</span>
+<span class="co">#&gt; [1] 1.852091</span>
 <span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">col1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.447</span></code></pre></div>
+<span class="co">#&gt; [1] 1.447468</span></code></pre></div>
 <p>For a complete list of functions see the package <a href="https://jonesor.github.io/Rage/reference/index.html">Reference</a> page.</p>
 </div>
 </div>
@@ -366,19 +369,19 @@
 <a href="#previous-releases" class="anchor"></a>Previous releases</h2>
 <p>Specific earlier releases of this package can be installed using the appropriate <code><a href="https://rdrr.io/r/base/slotOp.html">@</a></code> tag.</p>
 <p>For example to install version 0.1.0:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage@v0.1.0"</span><span class="op">)</span></code></pre></div>
 <p>See the Changelog for more details.</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<p>We are working on a manuscript to describe the package. In the meantime, please use <code><a href="https://rdrr.io/r/utils/citation.html">citation("Rage")</a></code>.</p>
+<p>Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage – Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” <em>bioRxiv</em>. doi: <a href="https://doi.org/10.1101/2021.04.26.441330">10.1101/2021.04.26.441330</a>.</p>
 </div>
 <div id="contributions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributions" class="anchor"></a>Contributions</h2>
-<p>All contributions are welcome. Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<p>All contributions are welcome. Please note that this project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 <p>There are numerous ways of contributing.</p>
 <ol>
 <li><p>You can submit bug reports, suggestions etc. by <a href="https://github.com/jonesor/Rage/issues">opening an issue</a>.</p></li>
@@ -403,15 +406,13 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a> | file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
-<div class="community">
-<h2>Community</h2>
+<div class="citation">
+<h2>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+<li><a href="authors.html">Citing Rage</a></li>
 </ul>
 </div>
 <div class="developers">
@@ -419,6 +420,7 @@
 <ul class="list-unstyled">
 <li>Patrick Barks <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5947-8151" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Pol Capdevila <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2842-4302" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Hal Caswell <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4394-6894" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Judy P. Che-Castaldo <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9118-9202" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>John Jackson <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4563-2840" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Tamora James <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1363-4742" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
@@ -437,7 +439,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

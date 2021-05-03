@@ -17,3 +17,4 @@
 ^tests/spelling\.Rout\.save$
 ^codemeta\.json$
 vignettes/ms-vignette.Rmd
+^cran-comments.md

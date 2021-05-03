@@ -127,7 +127,7 @@ P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
 the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
 }
 \seealso{
-Other {life tables}: 
+Other life tables: 
 \code{\link{age_from_stage}},
 \code{\link{lifetable_convert}},
 \code{\link{qsd_converge}()}
@@ -139,4 +139,4 @@ Hal Caswell <h.caswell@uva.nl>
 
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\concept{{life tables}}
+\concept{life tables}

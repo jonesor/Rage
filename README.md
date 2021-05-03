@@ -27,6 +27,12 @@ Includes functions for:
 
 ## Installation
 
+Install the stable release package from CRAN with:
+
+``` r
+install.packages("Rage")
+```
+
 Install from GitHub with:
 
 ``` r
@@ -88,15 +94,15 @@ life_expect(mpm1$matU, start = 2)               # life expectancy
 #> Warning: 'life_expect' is deprecated.
 #> Use 'life_expect_mean' instead.
 #> See help("Deprecated")
-#>    mean  var
-#> 1 2.509 14.5
+#>       mean     var
+#> 1 2.509116 14.5045
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
 mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
-#> small 
-#> 2.136
+#>    small 
+#> 2.136364
 mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
-#> [1] 0.4318
+#> [1] 0.4318182
 ```
 
 Some life history traits are independent of the starting stage class, in
@@ -104,9 +110,9 @@ which case we don’t need to specify `start`.
 
 ``` r
 net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
-#> [1] 1.852
+#> [1] 1.852091
 gen_time(mpm1$matU, mpm1$matF)          # generation time
-#> [1] 5.394
+#> [1] 5.394253
 ```
 
 Other life history traits are calculated from a life table rather than
@@ -120,13 +126,13 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
 entropy_k(lx)       # Keyfitz' entropy
-#> [1] 0.9482
+#> [1] 0.948235
 entropy_d(lx, mx)   # Demetrius' entropy
-#> [1] -1.358
+#> [1] -1.358418
 shape_surv(lx)      # shape of survival/mortality trajectory
-#> [1] -0.02687
+#> [1] -0.02687175
 shape_rep(lx)       # shape of fecundity trajectory
-#> [1] 0.4029
+#> [1] 0.4029063
 ```
 
 ### Life tables and the quasi-stationary distribution
@@ -154,7 +160,7 @@ plot(qx ~ x, data = lt, type = "l", ylim = c(0, 0.65))
 abline(v = q, lty = 2)
 ```
 
-![](man/figures/unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/unnamed-chunk-9-1.png)<!-- -->
 
 From the life table derived from `mpm1`, we can see a plateau in the
 mortality rate (qx) beginning around age 5. However, this plateau
@@ -169,9 +175,9 @@ to the QSD.
 ``` r
 # calculate the shape of the survival/mortality trajectory
 shape_surv(lt$lx)       # based on full lx trajectory
-#> [1] -0.02687
+#> [1] -0.02687175
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
-#> [1] -0.06475
+#> [1] -0.06475154
 ```
 
 ### Standardized vital rates
@@ -196,23 +202,23 @@ vr_vec_survival(mpm1$matU)
 #>    seed   small  medium   large dormant 
 #>    0.15    0.50    0.66    0.86    0.39
 vr_vec_growth(mpm1$matU, exclude = c(1, 5))
-#>    seed   small  medium   large dormant 
-#>      NA  0.7600  0.4242      NA      NA
+#>      seed     small    medium     large   dormant 
+#>        NA 0.7600000 0.4242424        NA        NA
 vr_vec_shrinkage(mpm1$matU, exclude = 5)
-#>    seed   small  medium   large dormant 
-#>      NA      NA  0.1515  0.2674      NA
+#>      seed     small    medium     large   dormant 
+#>        NA        NA 0.1515152 0.2674419        NA
 vr_vec_stasis(mpm1$matU)
-#>    seed   small  medium   large dormant 
-#>  0.6667  0.2400  0.1818  0.6047  0.4359
+#>      seed     small    medium     large   dormant 
+#> 0.6666667 0.2400000 0.1818182 0.6046512 0.4358974
 vr_vec_dorm_enter(mpm1$matU, dorm_stages = 5)
-#>    seed   small  medium   large dormant 
-#>      NA      NA  0.2424  0.1279      NA
+#>      seed     small    medium     large   dormant 
+#>        NA        NA 0.2424242 0.1279070        NA
 vr_vec_dorm_exit(mpm1$matU, dorm_stages = 5)
-#>    seed   small  medium   large dormant 
-#>      NA      NA      NA      NA  0.5641
+#>      seed     small    medium     large   dormant 
+#>        NA        NA        NA        NA 0.5641026
 vr_vec_reproduction(mpm1$matU, mpm1$matF)
-#>    seed   small  medium   large dormant 
-#>      NA      NA   27.12   53.02      NA
+#>     seed    small   medium    large  dormant 
+#>       NA       NA 27.12121 53.02326       NA
 ```
 
 ##### MPM-specific vital rates (scalar)
@@ -234,19 +240,19 @@ w <- popbio::stable.stage(mpm1$matA)
 
 # calculate MPM-specific vital rates
 vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
-#> [1] 0.5964
+#> [1] 0.5963649
 vr_growth(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.6603
+#> [1] 0.6602975
 vr_shrinkage(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.1961
+#> [1] 0.1960601
 vr_stasis(mpm1$matU, exclude = c(1, 5), weights_col = w)
-#> [1] 0.2824
+#> [1] 0.2824323
 vr_dorm_enter(mpm1$matU, dorm_stages = 5, weights_col = w)
-#> [1] 0.1984
+#> [1] 0.1984209
 vr_dorm_exit(mpm1$matU, dorm_stages = 5, weights_col = w)
-#> [1] 0.5641
+#> [1] 0.5641026
 vr_fecundity(mpm1$matU, mpm1$matF, weights_col = w)
-#> [1] 37.07
+#> [1] 37.07409
 ```
 
 Note how we’ve chosen to exclude the ‘seed’ and ‘dormant’ stage classes
@@ -267,23 +273,23 @@ retrogression, etc.), respectively.
 ``` r
 # matrix element perturbation
 perturb_matrix(mpm1$matA, type = "sensitivity")
-#>            seed   small   medium    large  dormant
-#> seed     0.2173 0.01133 0.004786 0.002987 0.001151
-#> small    4.4375 0.23141 0.097740 0.060993 0.023498
-#> medium  10.8655 0.56662 0.239323 0.149347 0.057537
-#> large   21.3053 1.11104 0.469271 0.292843 0.112820
-#> dormant  3.6112 0.18832 0.079540 0.049636 0.019123
+#>               seed      small      medium       large     dormant
+#> seed     0.2173031 0.01133203 0.004786307 0.002986834 0.001150702
+#> small    4.4374613 0.23140857 0.097739871 0.060993321 0.023498190
+#> medium  10.8654599 0.56661979 0.239323187 0.149346517 0.057537004
+#> large   21.3053309 1.11104269 0.469270739 0.292842888 0.112820081
+#> dormant  3.6111989 0.18831948 0.079540420 0.049636196 0.019122780
 
 # vital rate perturbation
 # (we use as.data.frame here for prettier printing)
 as.data.frame(perturb_vr(mpm1$matU, mpm1$matF, type = "sensitivity"))
-#>   survival growth shrinkage fecundity clonality
-#> 1    2.986  1.078   -0.1653  0.005728         0
+#>   survival   growth  shrinkage  fecundity clonality
+#> 1 2.986054 1.077597 -0.1653284 0.00572764         0
 
 # transition type perturbation
 as.data.frame(perturb_trans(mpm1$matU, mpm1$matF, type = "sensitivity"))
-#>   stasis  retro progr fecundity clonality
-#> 1      1 0.4174 6.714  0.007773        NA
+#>     stasis     retro    progr   fecundity clonality
+#> 1 1.000001 0.4174435 6.713571 0.007773141        NA
 ```
 
 ### Transforming MPMs
@@ -296,10 +302,10 @@ of stage classes using `mpm_collapse()`.
 # collapse 'small', 'medium', and 'large' stages into single stage class
 col1 <- mpm_collapse(mpm1$matU, mpm1$matF, collapse = list(1, 2:4, 5))
 col1$matA
-#>      [,1]     [,2] [,3]
-#> [1,] 0.10 11.61332 0.00
-#> [2,] 0.05  0.53908 0.22
-#> [3,] 0.00  0.05728 0.17
+#>      [,1]        [,2] [,3]
+#> [1,] 0.10 11.61331815 0.00
+#> [2,] 0.05  0.53908409 0.22
+#> [3,] 0.00  0.05728085 0.17
 ```
 
 The transition rates in the collapsed matrix are a weighted average of
@@ -312,15 +318,15 @@ characteristics will not necessarily be preserved.
 ``` r
 # compare population growth rate of original and collapsed MPM (preserved)
 popbio::lambda(mpm1$matA)
-#> [1] 1.121
+#> [1] 1.121037
 popbio::lambda(col1$matA)
-#> [1] 1.121
+#> [1] 1.121037
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)
 net_repro_rate(mpm1$matU, mpm1$matF)
-#> [1] 1.852
+#> [1] 1.852091
 net_repro_rate(col1$matU, col1$matF)
-#> [1] 1.447
+#> [1] 1.447468
 ```
 
 For a complete list of functions see the package
@@ -341,14 +347,19 @@ See the Changelog for more details.
 
 ## Citation
 
-We are working on a manuscript to describe the package. In the meantime,
-please use `citation("Rage")`.
+Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C.
+Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage
+– Two R Packages to Facilitate the Use of the COMPADRE and COMADRE
+Databases and Calculation of Life History Traits from Matrix Population
+Models.” *bioRxiv*. doi:
+[10.1101/2021.04.26.441330](https://doi.org/10.1101/2021.04.26.441330).
 
 ## Contributions
 
 All contributions are welcome. Please note that this project is released
-with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By
-participating in this project you agree to abide by its terms.
+with a [Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By participating in this project you agree to abide by its terms.
 
 There are numerous ways of contributing.
 

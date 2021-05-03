@@ -91,8 +91,9 @@ mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 
 }
 \seealso{
-Other {transformation}: 
+Other transformation: 
 \code{\link{mpm_collapse}()},
+\code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
 \code{\link{name_stages}()},
 \code{\link{repro_stages}()},
@@ -101,4 +102,4 @@ Other {transformation}:
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
-\concept{{transformation}}
+\concept{transformation}

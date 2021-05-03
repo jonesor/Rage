@@ -10,7 +10,6 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/"
 )
-options(digits = 4)
 ```
 
 # Rage  <img src="man/figures/logo_rage.png" height="160px" align="right" />
@@ -38,6 +37,12 @@ Includes functions for:
 - manipulating and transforming MPMs
 
 ## Installation
+
+Install the stable release package from CRAN with:
+
+```{r, eval=FALSE}
+install.packages("Rage")
+```
 
 Install from GitHub with:
 
@@ -269,12 +274,11 @@ See the Changelog for more details.
 
 ## Citation
 
-We are working on a manuscript to describe the package. 
-In the meantime, please use `citation("Rage")`.
+Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage -- Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” _bioRxiv_. doi: [10.1101/2021.04.26.441330](https://doi.org/10.1101/2021.04.26.441330).
 
 ## Contributions
 
-All contributions are welcome. Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+All contributions are welcome. Please note that this project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
 
 
 There are numerous ways of contributing. 

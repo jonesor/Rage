@@ -51,8 +51,9 @@ repro_stages(matR2, na_handling = "return.true")
 repro_stages(matR2, na_handling = "return.false")
 }
 \seealso{
-Other {transformation}: 
+Other transformation: 
 \code{\link{mpm_collapse}()},
+\code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
 \code{\link{name_stages}()},
@@ -63,4 +64,4 @@ Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{transformation}}
+\concept{transformation}

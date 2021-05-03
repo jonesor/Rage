@@ -20,7 +20,7 @@
 #' 
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
-#' @family {perturbation analysis}
+#' @family perturbation analysis
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

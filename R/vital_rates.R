@@ -38,7 +38,7 @@
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
-#' @family {vital rates}
+#' @family vital rates
 #' 
 #' @references Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

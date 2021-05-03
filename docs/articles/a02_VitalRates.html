@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Deriving vital rates from an MPM</h1>
                         <h4 class="author">Patrick Barks</h4>
             
-            <h4 class="date">2021-04-23</h4>
+            <h4 class="date">2021-05-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a02_VitalRates.Rmd"><code>vignettes/a02_VitalRates.Rmd</code></a></small>
       <div class="hidden name"><code>a02_VitalRates.Rmd</code></div>
@@ -263,12 +263,12 @@
 
 <span class="co"># calculate mean vital rate of growth weighted by the stable distribution</span>
 <span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2221</span>
+<span class="co">#&gt; [1] 0.2220831</span>
 
 <span class="co"># equivalent to</span>
 <span class="va">pos</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">)</span>                   <span class="co"># possible transitions</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span> <span class="op">*</span> <span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="co"># weighted average</span>
-<span class="co">#&gt; [1] 0.2221</span></code></pre></div>
+<span class="co">#&gt; [1] 0.2220831</span></code></pre></div>
 </div>
 </div>
 <div id="distinguishing-between-possible-and-impossible-transitions" class="section level2">
@@ -316,7 +316,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

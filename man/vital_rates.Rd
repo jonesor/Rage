@@ -90,7 +90,7 @@ Caswell, H. 2001. Matrix Population Models: Construction,
   978-0878930968
 }
 \seealso{
-Other {vital rates}: 
+Other vital rates: 
 \code{\link{vr_mat}},
 \code{\link{vr_vec}},
 \code{\link{vr}}
@@ -98,4 +98,4 @@ Other {vital rates}:
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
-\concept{{vital rates}}
+\concept{vital rates}

@@ -64,6 +64,14 @@ mpm_rearrange(matU, matF, repro_stages = repro_stages,
 }
 \seealso{
 \code{\link{mpm_standardize}}
+
+Other transformation: 
+\code{\link{mpm_collapse}()},
+\code{\link{mpm_split}()},
+\code{\link{mpm_standardize}()},
+\code{\link{name_stages}()},
+\code{\link{repro_stages}()},
+\code{\link{standard_stages}()}
 }
 \author{
 Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>

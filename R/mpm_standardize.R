@@ -45,7 +45,7 @@
 #'   
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' 
-#' @family {transformation}
+#' @family transformation
 #' 
 #' @examples
 #' matU <- rbind(c(0.1,   0,   0,   0,   0),

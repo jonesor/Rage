@@ -31,8 +31,9 @@ mpm_split(matA)
 
 }
 \seealso{
-Other {transformation}: 
+Other transformation: 
 \code{\link{mpm_collapse}()},
+\code{\link{mpm_rearrange}()},
 \code{\link{mpm_standardize}()},
 \code{\link{name_stages}()},
 \code{\link{repro_stages}()},
@@ -41,4 +42,4 @@ Other {transformation}:
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
 }
-\concept{{transformation}}
+\concept{transformation}

@@ -66,7 +66,7 @@ Ergon, T., Borgan, Ø., Nater, C. R., & Vindenes, Y. 2018. The
   Ecology and Evolution, 9, 2046-2056. <doi:10.1111/2041-210X.13059>
 }
 \seealso{
-Other {life tables}: 
+Other life tables: 
 \code{\link{age_from_stage}},
 \code{\link{mpm_to_table}()},
 \code{\link{qsd_converge}()}
@@ -74,4 +74,4 @@ Other {life tables}:
 \author{
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{life tables}}
+\concept{life tables}

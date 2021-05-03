@@ -112,7 +112,7 @@ Caswell, H. 2001. Matrix Population Models: Construction,
 \code{\link{mature_distrib}} for calculating the proportion of
 individuals achieving reproductive maturity in each stage class.
 
-Other {life tables}: 
+Other life tables: 
 \code{\link{age_from_stage}},
 \code{\link{lifetable_convert}},
 \code{\link{mpm_to_table}()}
@@ -126,4 +126,4 @@ Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
-\concept{{life tables}}
+\concept{life tables}

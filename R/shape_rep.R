@@ -9,7 +9,7 @@
 #'   'mx' describing a reproduction over age, optionally a column / element 'x'
 #'   containing age classes (each element a number representing the age at the
 #'   start of the class).
-#'   
+#'
 #'   If x is not supplied, the function will assume age classes starting at 0
 #'   with time steps of unit. If x ends at maximum longevity,
 #'   \code{mx[which.max(x)]} should equal 0; however it is possible to supply
@@ -28,46 +28,47 @@
 #'   A value of +0.5 indicates that (hypothetically) all individuals are born to
 #'   individuals of age 0; a value of -0.5 indicates that all individuals are
 #'   born at the age of maximum longevity.
-#' 
+#'
 #' @author Iain Stott <iainmstott@@gmail.com>
-#' 
-#' @family {life history traits}
-#' 
+#'
+#' @references Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <https://doi.org/10.1111/2041-210X.13289>
+#'
+#' @family life history traits
+#'
 #' @examples
 #' # increasing mx yields negative shape
 #' mx <- c(0, 0, 0.3, 0.4, 0.5, 0.6)
 #' shape_rep(mx)
-#' 
+#'
 #' # decreasing mx yields positive shape
 #' mx <- c(1.1, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4)
 #' shape_rep(mx)
-#' 
+#'
 #' # constant mx yields shape = 0
 #' mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #' shape_rep(mx)
-#'
 #' @export shape_rep
 shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
-  if(class(rep) %in% "numeric") {
+  if (class(rep) %in% "numeric") {
     mx <- rep
     x <- seq_along(mx) - 1
   }
-  if(class(rep) %in% c("list", "data.frame")) {
-    if(!all(c("x", "mx") %in% names(rep))) {
+  if (class(rep) %in% c("list", "data.frame")) {
+    if (!all(c("x", "mx") %in% names(rep))) {
       stop("'rep' doesn't contain both x and mx")
     }
     x <- rep$x
     mx <- rep$mx
-    if(length(x) != length(mx)) {
+    if (length(x) != length(mx)) {
       stop("x and mx must be the same length")
     }
   }
-  if(is.null(xmin)) xmin <- x[min(which(mx > 0))]
-  if(is.null(xmax)) xmax <- max(x)
-  if(any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending")
-  if(any(mx < 0)) stop("You appear to have minus-babies (check mx)")
+  if (is.null(xmin)) xmin <- x[min(which(mx > 0))]
+  if (is.null(xmax)) xmax <- max(x)
+  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending")
+  if (any(mx < 0)) stop("You appear to have minus-babies (check mx)")
   x_sub <- x[x >= xmin & x <= xmax]
-  if(length(x_sub) <= 2) {
+  if (length(x_sub) <= 2) {
     stop("must have > 2 nonzero values of mx to calculate shape")
   }
   ltdim <- length(x)

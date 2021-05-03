@@ -64,7 +64,7 @@ Caswell, H. 2001. Matrix Population Models: Construction,
   978-0878930968
 }
 \seealso{
-Other {perturbation analysis}: 
+Other perturbation analysis: 
 \code{\link{perturb_stochastic}()},
 \code{\link{perturb_trans}()},
 \code{\link{perturb_vr}()},
@@ -73,4 +73,4 @@ Other {perturbation analysis}:
 \author{
 Rob Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 }
-\concept{{perturbation analysis}}
+\concept{perturbation analysis}

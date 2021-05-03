@@ -1,7 +1,7 @@
 Package: Rage
 Type: Package
-Title: Functions for Calculating Life History Metrics from Matrix Population Models
-Version: 0.1.0
+Title: Life History Metrics from Matrix Population Models
+Version: 1.0.0
 Authors@R: c(
     person(given = "Patrick", 
            family = "Barks",
@@ -17,6 +17,11 @@ Authors@R: c(
            email = "pcapdevila.pc@gmail.com",
            role = "aut",
            comment = c(ORCID = "0000-0002-2842-4302")),
+    person(given = "Hal",
+           family = "Caswell",
+           email = "h.caswell@uva.nl",
+           role = "aut",
+           comment = c(ORCID = "0000-0003-4394-6894")),
     person(given = c("Judy", "P."),
            family = "Che-Castaldo",
            email = "jchecastaldo@lpzoo.org",
@@ -67,10 +72,10 @@ Authors@R: c(
            email = "esochels@gmail.com",
            role = "aut",
            comment = c(ORCID = "0000-0002-8155-9353")))
-Description: Functions for calculating life history metrics using matrix population models (MPMs).
+Description: Functions for calculating life history metrics using matrix population models ('MPMs'). Described in Jones et al. (2021) <doi:10.1101/2021.04.26.441330>.
 URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
-License: GPL-2 | file LICENSE
+License: GPL-3
 Imports:
     popbio,
     popdemo,
@@ -92,7 +97,6 @@ Suggests:
     vcd,
     testthat,
     covr
-Remotes: jonesor/Rcompadre
 VignetteBuilder: knitr
 Language: en-GB
 Config/testthat/parallel: true

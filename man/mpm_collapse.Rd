@@ -88,7 +88,8 @@ Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 \seealso{
 \code{\link{mpm_standardize}}
 
-Other {transformation}: 
+Other transformation: 
+\code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},
 \code{\link{name_stages}()},
@@ -100,4 +101,4 @@ Rob Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 
 William K. Petry <wpetry@ncsu.edu>
 }
-\concept{{transformation}}
+\concept{transformation}

@@ -45,7 +45,7 @@
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author William K. Petry <wpetry@@ncsu.edu>
 #' 
-#' @family {transformation}
+#' @family transformation
 #'
 #' @references Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 #'   demographic inferences: implications for comparative plant demography. The
