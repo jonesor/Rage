@@ -1,8 +1,14 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* Replaced file URIs in `inst/doc/a01_GettingStarted.html` with fully specified URIs.
+
 ## Test environments
 
 ### local
 
-- R version 4.0.4 (2021-02-15)
+- R version 4.0.5 (2021-03-31)
 - Platform: x86_64-apple-darwin17.0 (64-bit)
 - Running under: macOS Catalina 10.15.7
 

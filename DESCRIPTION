@@ -1,7 +1,7 @@
 Package: Rage
 Type: Package
 Title: Life History Metrics from Matrix Population Models
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person(given = "Patrick", 
            family = "Barks",
