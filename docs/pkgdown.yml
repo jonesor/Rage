@@ -1,4 +1,4 @@
-pandoc: 2.11.2
+pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
@@ -7,5 +7,5 @@ articles:
   a03_LifeHistoryTraits: a03_LifeHistoryTraits.html
   a04_AgeFromStage: a04_AgeFromStage.html
   a05_TernaryPlots: a05_TernaryPlots.html
-last_built: 2021-05-05T20:23Z
+last_built: 2021-05-05T20:59Z
 
