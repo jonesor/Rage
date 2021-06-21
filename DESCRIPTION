@@ -89,12 +89,8 @@ RoxygenNote: 7.1.1
 Suggests:
     spelling,
     ggplot2,
-    ggtern,
     knitr,
     rmarkdown,
-    fields,
-    scales,
-    vcd,
     testthat,
     covr
 VignetteBuilder: knitr
