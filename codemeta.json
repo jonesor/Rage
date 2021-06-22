@@ -16,7 +16,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.5 (2021-03-31)",
+  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
   "author": [
     {
       "@type": "Person",
@@ -156,18 +156,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "ggtern",
-      "name": "ggtern",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=ggtern"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
       "provider": {
@@ -189,42 +177,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "fields",
-      "name": "fields",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=fields"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "scales",
-      "name": "scales",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=scales"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "vcd",
-      "name": "vcd",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=vcd"
     },
     {
       "@type": "SoftwareApplication",
@@ -319,8 +271,8 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "85124.53KB",
-  "contIntegration": ["https://travis-ci.org/jonesor/Rage", "https://travis-ci.org/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
+  "fileSize": "80053.402KB",
+  "contIntegration": ["https://travis-ci.com/jonesor/Rage", "https://travis-ci.com/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/github/jonesor/Rage?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
   "citation": [
