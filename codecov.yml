@@ -12,5 +12,4 @@ coverage:
         threshold: 1%
 
 codecov:
-  main
-  
+  branch: main
