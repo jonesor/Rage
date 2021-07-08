@@ -63,6 +63,12 @@ There was 1 NOTE:
 Maintainer: ‘Owen Jones <jones@biology.sdu.dk>’
 New submission
 
+Package was archived on CRAN
+
+CRAN repository db overrides:
+  X-CRAN-Comment: Archived on 2021-07-04 as check isssues were not
+    corrected in time.
+
 ## Downstream dependencies
 
 There are no current downstream dependencies.
