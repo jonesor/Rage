@@ -8,13 +8,11 @@ language: r
 # See below for more details on the development branch
 # http://r.789695.n4.nabble.com/R-CMD-build-then-check-fails-on-R-devel-due-to-serialization-version-td4747582.html
 
-language: r
 warnings_are_errors: true
-sudo: false
 cache: packages
 
 # Operating systems to build on ------
-matrix:
+jobs:
   include:
     - os: linux
       dist: xenial
@@ -37,7 +35,7 @@ branches:
 
 r_packages:
   - covr
-  
+
 after_success:
   - Rscript -e 'library(covr); codecov()'
 
