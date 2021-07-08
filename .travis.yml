@@ -33,8 +33,11 @@ branches:
   - main
   - devel
 
+r_packages:
+  - covr
+
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'library(covr); codecov()'
 
 # If anyone else would like to be added to notifications,
 # just add your email below!
