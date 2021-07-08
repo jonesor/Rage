@@ -1,8 +1,11 @@
 ## Resubmission
 
-This is a resubmission. In this version I have:
+This is a resubmission. 
+The previous version was Archived on 2021-07-04 as check issues were not corrected in time.
 
-* Replaced file URIs in `inst/doc/a01_GettingStarted.html` with fully specified URIs.
+In this version I have made the corrections. Specifically I have:
+
+* Removed a vignette that required a package (`ggtern`) that was not available for some builds. I have also removed `ggtern` from `Suggests` in the `DESCRIPTION`
 
 ## Test environments
 
@@ -18,13 +21,7 @@ This is a resubmission. In this version I have:
 
 __R latest release__
 
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-__R development version__
-
-- R Under development (unstable) (2021-04-26 r80229)
+- R version 4.1.0 (2021-05-18)
 - Platform: x86_64-w64-mingw32/x64 (64-bit)
 - Running under: Windows Server x64 (build 17763)
 
@@ -32,13 +29,13 @@ __R development version__
 
 __R latest release__
 
-- R version 4.0.5 (2021-03-31)
+- R version 4.1.0 (2021-05-18)
 - Platform: x86_64-apple-darwin17.0 (64-bit)
 - Running under: macOS Catalina 10.15.7
 
 __R development version__
 
-- R Under development (unstable) (2021-04-26 r80229)
+- R Under development (unstable) (2021-07-07 r80605)
 - Platform: x86_64-apple-darwin17.0 (64-bit)
 - Running under: macOS Catalina 10.15.7
 
@@ -46,13 +43,13 @@ __R development version__
 
 __R latest release__
 
-- R version 4.0.5 (2021-03-31)
+- R version 4.1.0 (2021-05-18)
 - Platform: x86_64-pc-linux-gnu (64-bit)
 - Running under: Ubuntu 20.04.2 LTS
 
 __R development version__
 
-- R Under development (unstable) (2021-04-25 r80223)
+- R Under development (unstable) (2021-07-07 r80605)
 - Platform: x86_64-pc-linux-gnu (64-bit)
 - Running under: Ubuntu 20.04.2 LTS
 
