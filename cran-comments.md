@@ -1,11 +1,11 @@
 ## Resubmission
 
 This is a resubmission. 
-The previous version was Archived on 2021-07-04 as check issues were not corrected in time.
+The previous version was Archived on 2021-07-04 as CRAN check issues were not corrected in time. The issue was that a package from `Suggests` was not used conditionally in a vignette.
 
-In this version I have made the corrections. Specifically I have:
+In this version I have made the necessary corrections. Specifically I have:
 
-* Removed a vignette that required a package (`ggtern`) that was not available for some builds. I have also removed `ggtern` from `Suggests` in the `DESCRIPTION`
+* Removed the vignette that required `ggtern`. I have also removed `ggtern` from `Suggests` in the `DESCRIPTION`
 
 ## Test environments
 
@@ -53,30 +53,6 @@ __R development version__
 - Platform: x86_64-pc-linux-gnu (64-bit)
 - Running under: Ubuntu 20.04.2 LTS
 
-
-### Travis-CI
-
-#### Linux (Ubuntu)
-
-__R latest release__
-
-- R version 4.0.2 (2020-06-22)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 16.04.6 LTS
-
-__R development version__
-
-- R Under development (unstable) (2021-04-25 r80223)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- 798Running under: Ubuntu 16.04.6 LTS
-
-#### Apple OSX
-
-__R latest release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
 
 ## R CMD check results
 
