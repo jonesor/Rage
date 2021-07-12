@@ -1,3 +1,7 @@
+# Rage (development version)
+
+No significant changes yet.
+
 # Rage 1.1.0
 
 * Removed the vignette that made heavy use of `ggtern` package. This package was not available for some builds of R and thus caused problems for CRAN.
