@@ -42,7 +42,8 @@
 <meta property="og:title" content="Generate a life table from a matrix population model — mpm_to_table" />
 <meta property="og:description" content="This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
-can be found in section 5.3 &quot;Age-specific traits from stage-specific models&quot; of Caswell (2001)." />
+can be found in section 5.3 &quot;Age-specific traits from stage-specific models&quot;
+of Caswell (2001)." />
 
 
 
@@ -74,7 +75,7 @@ can be found in section 5.3 &quot;Age-specific traits from stage-specific models
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -142,7 +143,8 @@ can be found in section 5.3 &quot;Age-specific traits from stage-specific models
     <div class="ref-description">
     <p>This function uses age-from-stage decomposition methods to generate a life
 table from a matrix population model. A detailed description of these methods
-can be found in section 5.3 "Age-specific traits from stage-specific models" of Caswell (2001).</p>
+can be found in section 5.3 "Age-specific traits from stage-specific models"
+of Caswell (2001).</p>
     </div>
 
     <pre class="usage"><span class='fu'>mpm_to_table</span><span class='op'>(</span>
@@ -151,7 +153,8 @@ can be found in section 5.3 "Age-specific traits from stage-specific models" of 
   matC <span class='op'>=</span> <span class='cn'>NULL</span>,
   start <span class='op'>=</span> <span class='fl'>1L</span>,
   xmax <span class='op'>=</span> <span class='fl'>1000</span>,
-  lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>
+  lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>,
+  radix <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -181,9 +184,10 @@ corresponding life stage names.</p></td>
     <tr>
       <th>start</th>
       <td><p>The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to 1. Alternately, a numeric vector
-giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
-must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+considers the beginning of life. Defaults to 1. Alternately, a numeric
+vector giving the starting population vector (in which case
+<code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match <code>ncol(matU))</code>. See section
+<em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>xmax</th>
@@ -196,34 +200,54 @@ model (see MatrixPeriodicity metadata variable COM(P)ADRE).</p></td>
       <td><p>Minimum value of lx to which age-specific traits will be
 calculated (defaults to <code>1e-4</code>).</p></td>
     </tr>
+    <tr>
+      <th>radix</th>
+      <td><p>The starting number of individuals in the synthetic life table
+(defaults to <code>1</code>). If <code>radix</code> is set to 1, a simplified life
+table is produced.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> containing 7-13 columns, depending on input variables.
-  Columns include:</p>
-<dt>x</dt><dd><p>age.</p></dd>
-  <dt>lx</dt><dd><p>survivorship to start of age class x.</p></dd>
-  <dt>dx</dt><dd><p>proportion of original cohort dying in interval [x, x+1).</p></dd>
-  <dt>qx</dt><dd><p>force of mortality at age x.</p></dd>
-  <dt>Lx</dt><dd><p>survivorship to middle of age class x.</p></dd>
-  <dt>Tx</dt><dd><p>proportion of original cohort alive at age x and beyond.</p></dd>
-  <dt>ex</dt><dd><p>remaining life expectancy at age x.</p></dd>
+    <p>A <code>data.frame</code> containing a variable number columns, depending
+  on input variables. Columns include:</p>  
+<p></p>
+<dt>x</dt><dd><p>age at the start of the age interval <code>[x, x+1)</code></p></dd>
+  <dt>Nx</dt><dd><p>The number of individuals alive at age x. The initial number is
+  set with <code>radix</code></p></dd>
+  <dt>Dx</dt><dd><p>proportion of original cohort dying during the age interval <code>[x, x+1)</code></p></dd>
+  <dt>lx</dt><dd><p>survivorship, defined as the proportion of initial cohort surviving to the start of
+  age interval <code>[x, x+1)</code></p></dd>
+  <dt>dx</dt><dd><p>proportion of original cohort dying in the age interval <code>[x, x+1)</code></p></dd>
+  <dt>ax</dt><dd><p>The average time survived within the interval by those that die
+  during the age interval <code>[x, x+1)</code>. Assumed to be 0.5</p></dd>
+  <dt>hx</dt><dd><p>force of mortality (hazard) during the age interval <code>[x, x+1)</code></p></dd>
+  <dt>qx</dt><dd><p>probability of death during the interval <code>[x, x+1)</code> for
+  those entering the interval</p></dd>
+  <dt>px</dt><dd><p>probability of survival for the interval <code>[x, x+1)</code> for
+  those entering the interval</p></dd>
+  <dt>Lx</dt><dd><p>total person-years lived during the interval <code>[x, x+1)</code></p></dd> 
+  <dt>Tx</dt><dd><p>total person years lived beyond age x</p></dd>
+  <dt>ex</dt><dd><p>remaining life expectancy at age x</p></dd>
 
 If matF is provided, also includes:
-  <dt>mx</dt><dd><p>per-capita rate of sexual reproduction at age x.</p></dd>
+  <dt>mx</dt><dd><p>per-capita rate of sexual reproduction during the interval
+   <code>[x, x+1)</code></p></dd>
   <dt>lxmx</dt><dd><p>expected number of sexual offspring per original
-  cohort member produced at age x.</p></dd>
-  
+  cohort member produced during the interval <code>[x, x+1)</code></p></dd>
+
 If matC is provided, also includes:
-  <dt>cx</dt><dd><p>per-capita rate of clonal reproduction at age x.</p></dd>
+  <dt>cx</dt><dd><p>per-capita rate of clonal reproduction  during the interval
+  <code>[x, x+1)</code></p></dd>
   <dt>lxcx</dt><dd><p>expected number of clonal offspring per original
-  cohort member produced at age x.</p></dd>
-  
+  cohort member produced during the interval <code>[x, x+1)</code></p></dd>
+
 If both matF and matC are provided, also includes:
-  <dt>mxcx</dt><dd><p>per-capita rate of total reproduction (sexual + clonal) at age x.</p></dd>
-  <dt>lxmxcx</dt><dd><p>expected number of total offspring (sexual + clonal) per original
-  cohort member produced at age x.</p></dd>
+  <dt>mxcx</dt><dd><p>per-capita rate of total reproduction (sexual + clonal) during
+  the interval <code>[x, x+1)</code></p></dd>
+  <dt>lxmxcx</dt><dd><p>expected number of total offspring (sexual + clonal) per
+  original cohort member produced during the interval <code>[x, x+1)</code></p></dd>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -232,16 +256,26 @@ If both matF and matC are provided, also includes:
   whichever comes first. To force calculation to <code>xmax</code>, set
   <code>lx_crit = 0</code>. Conversely, to force calculation to <code>lx_crit</code>, set
   <code>xmax = Inf</code>.</p>
+<p>The life table calculations assume that the final age interval is
+  closed and that all remaining individuals die in this interval. Therefore,
+  for this interval, the probability of death <code>qx</code> is 1, the probability
+  of survival <code>px</code> is 0 and, because we assume that deaths are evenly
+  distributed during the interval, the remaining life expectancy for
+  individuals at the start of the interval is 0.5.</p>  
+<p>If <code>lx_crit</code> is sufficiently small that only a very small proportion
+  of the cohort reach this age (i.e. &lt; 0.05), this should have minimal impact
+  on results. Nevertheless, for many analyses, the final row of the life
+  table should be treated with caution and perhaps removed from subsequent
+  analyses.</p>
     <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
 
-    
-
-<p>Rather than specifying argument <code>start</code> as a single stage class from
-which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if the user wants to start the
-calculation of age-specific traits from reproductive maturity (i.e. first
-reproduction), the user should account for the possibility that there may be
-multiple stage classes in which an individual could first reproduce.</p>
+    <p>Rather than specifying argument
+  <code>start</code> as a single stage class from which all individuals start life,
+  it may sometimes be desirable to allow for multiple starting stage classes.
+  For example, if the user wants to start the calculation of age-specific
+  traits from reproductive maturity (i.e. first reproduction), the user
+  should account for the possibility that there may be multiple stage classes
+  in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
 the desired starting population vector (<strong>n1</strong>), giving the proportion
 of individuals starting in each stage class (the length of <code>start</code>
@@ -252,15 +286,22 @@ individuals achieving reproductive maturity in each stage class.</p>
 
     <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968</p>
-<p>Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334
-in A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
+<p>Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334 in
+A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
 Meeting. Boson Books, Raleigh, North Caroline, USA</p>
 <p>Horvitz, C. &amp; Tuljapurkar, S. 2008. Stage dynamics, period survival, and
-mortality plateaus. The American Naturalist 172: 203-2015. &lt;doi:10.1086/589453&gt;</p>
-<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
-Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
-P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014. Diversity of ageing across
-the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
+mortality plateaus. The American Naturalist 172: 203-2015.
+&lt;doi:10.1086/589453&gt;</p>
+<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible,
+R., Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E.,
+Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014.
+Diversity of ageing across the tree of life. Nature 505, 169-173.
+&lt;doi:10.1038/nature12789&gt;</p>
+<p>Jones O. R. 2021. Life tables: Construction and interpretation In:
+Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &amp;
+Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609</p>
+<p>Preston, S., Heuveline, P., &amp; Guillot, M. 2000. Demography: Measuring and
+Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other life tables: 
@@ -269,115 +310,114 @@ the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
 <code><a href='qsd_converge.html'>qsd_converge</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
+<p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
 <p>Hal Caswell &lt;h.caswell@uva.nl&gt;</p>
-<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>)</span>
 
 <span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     x          lx          dx        qx          Lx          Tx       ex
-#&gt; 1   0 1.000000000 0.500000000 0.5000000 0.750000000 2.000382820 2.000383
-#&gt; 2   1 0.500000000 0.183200000 0.3664000 0.408400000 1.250382820 2.500766
-#&gt; 3   2 0.316800000 0.108187000 0.3414994 0.262706500 0.841982820 2.657774
-#&gt; 4   3 0.208613000 0.064699290 0.3101403 0.176263355 0.579276320 2.776799
-#&gt; 5   4 0.143913710 0.043329919 0.3010826 0.122248751 0.403012965 2.800379
-#&gt; 6   5 0.100583791 0.029887091 0.2971363 0.085640246 0.280764215 2.791347
-#&gt; 7   6 0.070696700 0.020921617 0.2959348 0.060235892 0.195123969 2.760015
-#&gt; 8   7 0.049775083 0.014708992 0.2955091 0.042420587 0.134888077 2.709952
-#&gt; 9   8 0.035066091 0.010357661 0.2953754 0.029887261 0.092467490 2.636949
-#&gt; 10  9 0.024708430 0.007297162 0.2953309 0.021059849 0.062580229 2.532748
-#&gt; 11 10 0.017411268 0.005141838 0.2953167 0.014840349 0.041520380 2.384684
-#&gt; 12 11 0.012269430 0.003623311 0.2953121 0.010457775 0.026680031 2.174513
-#&gt; 13 12 0.008646119 0.002553291 0.2953106 0.007369474 0.016222256 1.876247
-#&gt; 14 13 0.006092829 0.001799274 0.2953101 0.005193192 0.008852782 1.452984
-#&gt; 15 14 0.004293555 0.001267929 0.2953100 0.003659590 0.003659590 0.852345
-#&gt; 16 15 0.003025625          NA        NA          NA          NA       NA</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>  <span class='co'># equivalent using named life stages</span>
-</div><div class='output co'>#&gt;     x          lx          dx        qx          Lx          Tx       ex
-#&gt; 1   0 1.000000000 0.500000000 0.5000000 0.750000000 2.000382820 2.000383
-#&gt; 2   1 0.500000000 0.183200000 0.3664000 0.408400000 1.250382820 2.500766
-#&gt; 3   2 0.316800000 0.108187000 0.3414994 0.262706500 0.841982820 2.657774
-#&gt; 4   3 0.208613000 0.064699290 0.3101403 0.176263355 0.579276320 2.776799
-#&gt; 5   4 0.143913710 0.043329919 0.3010826 0.122248751 0.403012965 2.800379
-#&gt; 6   5 0.100583791 0.029887091 0.2971363 0.085640246 0.280764215 2.791347
-#&gt; 7   6 0.070696700 0.020921617 0.2959348 0.060235892 0.195123969 2.760015
-#&gt; 8   7 0.049775083 0.014708992 0.2955091 0.042420587 0.134888077 2.709952
-#&gt; 9   8 0.035066091 0.010357661 0.2953754 0.029887261 0.092467490 2.636949
-#&gt; 10  9 0.024708430 0.007297162 0.2953309 0.021059849 0.062580229 2.532748
-#&gt; 11 10 0.017411268 0.005141838 0.2953167 0.014840349 0.041520380 2.384684
-#&gt; 12 11 0.012269430 0.003623311 0.2953121 0.010457775 0.026680031 2.174513
-#&gt; 13 12 0.008646119 0.002553291 0.2953106 0.007369474 0.016222256 1.876247
-#&gt; 14 13 0.006092829 0.001799274 0.2953101 0.005193192 0.008852782 1.452984
-#&gt; 15 14 0.004293555 0.001267929 0.2953100 0.003659590 0.003659590 0.852345
-#&gt; 16 15 0.003025625          NA        NA          NA          NA       NA</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, matF <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span>, start <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     x          lx          dx        qx          Lx          Tx       ex
-#&gt; 1   0 1.000000000 0.500000000 0.5000000 0.750000000 2.000382820 2.000383
-#&gt; 2   1 0.500000000 0.183200000 0.3664000 0.408400000 1.250382820 2.500766
-#&gt; 3   2 0.316800000 0.108187000 0.3414994 0.262706500 0.841982820 2.657774
-#&gt; 4   3 0.208613000 0.064699290 0.3101403 0.176263355 0.579276320 2.776799
-#&gt; 5   4 0.143913710 0.043329919 0.3010826 0.122248751 0.403012965 2.800379
-#&gt; 6   5 0.100583791 0.029887091 0.2971363 0.085640246 0.280764215 2.791347
-#&gt; 7   6 0.070696700 0.020921617 0.2959348 0.060235892 0.195123969 2.760015
-#&gt; 8   7 0.049775083 0.014708992 0.2955091 0.042420587 0.134888077 2.709952
-#&gt; 9   8 0.035066091 0.010357661 0.2953754 0.029887261 0.092467490 2.636949
-#&gt; 10  9 0.024708430 0.007297162 0.2953309 0.021059849 0.062580229 2.532748
-#&gt; 11 10 0.017411268 0.005141838 0.2953167 0.014840349 0.041520380 2.384684
-#&gt; 12 11 0.012269430 0.003623311 0.2953121 0.010457775 0.026680031 2.174513
-#&gt; 13 12 0.008646119 0.002553291 0.2953106 0.007369474 0.016222256 1.876247
-#&gt; 14 13 0.006092829 0.001799274 0.2953101 0.005193192 0.008852782 1.452984
-#&gt; 15 14 0.004293555 0.001267929 0.2953100 0.003659590 0.003659590 0.852345
-#&gt; 16 15 0.003025625          NA        NA          NA          NA       NA
-#&gt;          mx       lxmx
-#&gt; 1   0.00000 0.00000000
-#&gt; 2  15.26600 7.63300000
-#&gt; 3  22.00578 6.97143000
-#&gt; 4  25.84823 5.39227780
-#&gt; 5  27.13917 3.90569858
-#&gt; 6  27.62496 2.77862313
-#&gt; 7  27.78025 1.96397169
-#&gt; 8  27.83270 1.38537517
-#&gt; 9  27.84948 0.97657248
-#&gt; 10 27.85497 0.68825265
-#&gt; 11 27.85673 0.48502105
-#&gt; 12 27.85730 0.34179324
-#&gt; 13 27.85749 0.24085915
-#&gt; 14 27.85755 0.16973126
-#&gt; 15 27.85756 0.11960798
-#&gt; 16 27.85757 0.08428657</div><div class='input'>
+</div><div class='output co'>#&gt;     x          lx          dx        hx        qx        px       ex
+#&gt; 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 2.001896
+#&gt; 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.503791
+#&gt; 3   2 0.316800000 0.108187000 0.4118170 0.3414994 0.6585006 2.662549
+#&gt; 4   3 0.208613000 0.064699290 0.3670604 0.3101403 0.6898597 2.784051
+#&gt; 5   4 0.143913710 0.043329919 0.3544406 0.3010826 0.6989174 2.810891
+#&gt; 6   5 0.100583791 0.029887091 0.3489842 0.2971363 0.7028637 2.806387
+#&gt; 7   6 0.070696700 0.020921617 0.3473281 0.2959348 0.7040652 2.781414
+#&gt; 8   7 0.049775083 0.014708992 0.3467418 0.2955091 0.7044909 2.740345
+#&gt; 9   8 0.035066091 0.010357661 0.3465577 0.2953754 0.7046246 2.680091
+#&gt; 10  9 0.024708430 0.007297162 0.3464964 0.2953309 0.7046691 2.593975
+#&gt; 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 2.471571
+#&gt; 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 2.297812
+#&gt; 13 12 0.008646119 0.002553291 0.3464685 0.2953106 0.7046894 2.051217
+#&gt; 14 13 0.006092829 0.001799274 0.3464678 0.2953101 0.7046899 1.701278
+#&gt; 15 14 0.004293555 0.001267929 0.3464676 0.2953100 0.7046900 1.204690
+#&gt; 16 15 0.003025625 0.003025625 2.0000000 1.0000000 0.0000000 0.500000</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='st'>"small"</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span> <span class='co'># equivalent using named life stages</span>
+</div><div class='output co'>#&gt;     x          lx          dx        hx        qx        px       ex
+#&gt; 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 2.001896
+#&gt; 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.503791
+#&gt; 3   2 0.316800000 0.108187000 0.4118170 0.3414994 0.6585006 2.662549
+#&gt; 4   3 0.208613000 0.064699290 0.3670604 0.3101403 0.6898597 2.784051
+#&gt; 5   4 0.143913710 0.043329919 0.3544406 0.3010826 0.6989174 2.810891
+#&gt; 6   5 0.100583791 0.029887091 0.3489842 0.2971363 0.7028637 2.806387
+#&gt; 7   6 0.070696700 0.020921617 0.3473281 0.2959348 0.7040652 2.781414
+#&gt; 8   7 0.049775083 0.014708992 0.3467418 0.2955091 0.7044909 2.740345
+#&gt; 9   8 0.035066091 0.010357661 0.3465577 0.2953754 0.7046246 2.680091
+#&gt; 10  9 0.024708430 0.007297162 0.3464964 0.2953309 0.7046691 2.593975
+#&gt; 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 2.471571
+#&gt; 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 2.297812
+#&gt; 13 12 0.008646119 0.002553291 0.3464685 0.2953106 0.7046894 2.051217
+#&gt; 14 13 0.006092829 0.001799274 0.3464678 0.2953101 0.7046899 1.701278
+#&gt; 15 14 0.004293555 0.001267929 0.3464676 0.2953100 0.7046900 1.204690
+#&gt; 16 15 0.003025625 0.003025625 2.0000000 1.0000000 0.0000000 0.500000</div><div class='input'><span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, matF <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span>, start <span class='op'>=</span> <span class='fl'>2</span>, xmax <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     x          lx          dx        hx        qx        px       ex       mx
+#&gt; 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 2.001896  0.00000
+#&gt; 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.503791 15.26600
+#&gt; 3   2 0.316800000 0.108187000 0.4118170 0.3414994 0.6585006 2.662549 22.00578
+#&gt; 4   3 0.208613000 0.064699290 0.3670604 0.3101403 0.6898597 2.784051 25.84823
+#&gt; 5   4 0.143913710 0.043329919 0.3544406 0.3010826 0.6989174 2.810891 27.13917
+#&gt; 6   5 0.100583791 0.029887091 0.3489842 0.2971363 0.7028637 2.806387 27.62496
+#&gt; 7   6 0.070696700 0.020921617 0.3473281 0.2959348 0.7040652 2.781414 27.78025
+#&gt; 8   7 0.049775083 0.014708992 0.3467418 0.2955091 0.7044909 2.740345 27.83270
+#&gt; 9   8 0.035066091 0.010357661 0.3465577 0.2953754 0.7046246 2.680091 27.84948
+#&gt; 10  9 0.024708430 0.007297162 0.3464964 0.2953309 0.7046691 2.593975 27.85497
+#&gt; 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 2.471571 27.85673
+#&gt; 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 2.297812 27.85730
+#&gt; 13 12 0.008646119 0.002553291 0.3464685 0.2953106 0.7046894 2.051217 27.85749
+#&gt; 14 13 0.006092829 0.001799274 0.3464678 0.2953101 0.7046899 1.701278 27.85755
+#&gt; 15 14 0.004293555 0.001267929 0.3464676 0.2953100 0.7046900 1.204690 27.85756
+#&gt; 16 15 0.003025625 0.003025625 2.0000000 1.0000000 0.0000000 0.500000 27.85757
+#&gt;          lxmx
+#&gt; 1  0.00000000
+#&gt; 2  7.63300000
+#&gt; 3  6.97143000
+#&gt; 4  5.39227780
+#&gt; 5  3.90569858
+#&gt; 6  2.77862313
+#&gt; 7  1.96397169
+#&gt; 8  1.38537517
+#&gt; 9  0.97657248
+#&gt; 10 0.68825265
+#&gt; 11 0.48502105
+#&gt; 12 0.34179324
+#&gt; 13 0.24085915
+#&gt; 14 0.16973126
+#&gt; 15 0.11960798
+#&gt; 16 0.08428657</div><div class='input'>
 <span class='co'>### starting from first reproduction</span>
 <span class='va'>repStages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
 <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>repStages</span><span class='op'>)</span>
 <span class='fu'>mpm_to_table</span><span class='op'>(</span>matU <span class='op'>=</span> <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     x           lx           dx        qx           Lx           Tx        ex
-#&gt; 1   0 1.000000e+00 3.242105e-01 0.3242105 0.8378947368 2.6787186124 2.6787186
-#&gt; 2   1 6.757895e-01 2.268500e-01 0.3356815 0.5623644737 1.8408238756 2.7239606
-#&gt; 3   2 4.489395e-01 1.360970e-01 0.3031522 0.3808909868 1.2784594019 2.8477322
-#&gt; 4   3 3.128425e-01 9.359475e-02 0.2991753 0.2660451262 0.8975684151 2.8690744
-#&gt; 5   4 2.192478e-01 6.496711e-02 0.2963182 0.1867641991 0.6315232889 2.8804094
-#&gt; 6   5 1.542806e-01 4.561886e-02 0.2956875 0.1314712165 0.4447590898 2.8827925
-#&gt; 7   6 1.086618e-01 3.210105e-02 0.2954217 0.0926112637 0.3132878733 2.8831467
-#&gt; 8   7 7.656074e-02 2.261206e-02 0.2953479 0.0652547114 0.2206766096 2.8823730
-#&gt; 9   8 5.394868e-02 1.593222e-02 0.2953217 0.0459825735 0.1554218982 2.8809211
-#&gt; 10  9 3.801646e-02 1.122679e-02 0.2953138 0.0324030715 0.1094393247 2.8787350
-#&gt; 11 10 2.678968e-02 7.911290e-03 0.2953111 0.0228340338 0.0770362532 2.8755945
-#&gt; 12 11 1.887839e-02 5.574982e-03 0.2953103 0.0160908977 0.0542022194 2.8711253
-#&gt; 13 12 1.330341e-02 3.928629e-03 0.2953100 0.0113390920 0.0381113217 2.8647791
-#&gt; 14 13 9.374777e-03 2.768465e-03 0.2953099 0.0079905451 0.0267722297 2.8557723
-#&gt; 15 14 6.606313e-03 1.950909e-03 0.2953099 0.0056308579 0.0187816846 2.8429906
-#&gt; 16 15 4.655403e-03 1.374787e-03 0.2953099 0.0039680099 0.0131508266 2.8248523
-#&gt; 17 16 3.280617e-03 9.687985e-04 0.2953099 0.0027962174 0.0091828167 2.7991130
-#&gt; 18 17 2.311818e-03 6.827027e-04 0.2953099 0.0019704668 0.0063865993 2.7625873
-#&gt; 19 18 1.629115e-03 4.810939e-04 0.2953099 0.0013885685 0.0044161326 2.7107549
-#&gt; 20 19 1.148022e-03 3.390221e-04 0.2953099 0.0009785105 0.0030275641 2.6372015
-#&gt; 21 20 8.089994e-04 2.389055e-04 0.2953099 0.0006895467 0.0020490536 2.5328246
-#&gt; 22 21 5.700939e-04 1.683544e-04 0.2953099 0.0004859167 0.0013595070 2.3847071
-#&gt; 23 22 4.017395e-04 1.186377e-04 0.2953099 0.0003424207 0.0008735903 2.1745190
-#&gt; 24 23 2.831019e-04 8.360278e-05 0.2953099 0.0002413005 0.0005311695 1.8762487
-#&gt; 25 24 1.994991e-04 5.891406e-05 0.2953099 0.0001700421 0.0002898690 1.4529842
-#&gt; 26 25 1.405850e-04 4.151615e-05 0.2953099 0.0001198270 0.0001198270 0.8523451
-#&gt; 27 26 9.906889e-05           NA        NA           NA           NA        NA</div><div class='input'>
-</div></pre>
+</div><div class='output co'>#&gt;     x           lx           dx        hx        qx        px       ex
+#&gt; 1   0 1.000000e+00 3.242105e-01 0.3869347 0.3242105 0.6757895 2.678768
+#&gt; 2   1 6.757895e-01 2.268500e-01 0.4033861 0.3356815 0.6643185 2.724034
+#&gt; 3   2 4.489395e-01 1.360970e-01 0.3573121 0.3031522 0.6968478 2.847843
+#&gt; 4   3 3.128425e-01 9.359475e-02 0.3518003 0.2991753 0.7008247 2.869233
+#&gt; 5   4 2.192478e-01 6.496711e-02 0.3478563 0.2963182 0.7036818 2.880635
+#&gt; 6   5 1.542806e-01 4.561886e-02 0.3469874 0.2956875 0.7043125 2.883114
+#&gt; 7   6 1.086618e-01 3.210105e-02 0.3466214 0.2954217 0.7045783 2.883603
+#&gt; 8   7 7.656074e-02 2.261206e-02 0.3465199 0.2953479 0.7046521 2.883020
+#&gt; 9   8 5.394868e-02 1.593222e-02 0.3464838 0.2953217 0.7046783 2.881839
+#&gt; 10  9 3.801646e-02 1.122679e-02 0.3464729 0.2953138 0.7046862 2.880038
+#&gt; 11 10 2.678968e-02 7.911290e-03 0.3464692 0.2953111 0.7046889 2.877444
+#&gt; 12 11 1.887839e-02 5.574982e-03 0.3464681 0.2953103 0.7046897 2.873749
+#&gt; 13 12 1.330341e-02 3.928629e-03 0.3464677 0.2953100 0.7046900 2.868503
+#&gt; 14 13 9.374777e-03 2.768465e-03 0.3464676 0.2953099 0.7046901 2.861056
+#&gt; 15 14 6.606313e-03 1.950909e-03 0.3464675 0.2953099 0.7046901 2.850489
+#&gt; 16 15 4.655403e-03 1.374787e-03 0.3464675 0.2953099 0.7046901 2.835493
+#&gt; 17 16 3.280617e-03 9.687985e-04 0.3464675 0.2953099 0.7046901 2.814212
+#&gt; 18 17 2.311818e-03 6.827027e-04 0.3464675 0.2953099 0.7046901 2.784014
+#&gt; 19 18 1.629115e-03 4.810939e-04 0.3464675 0.2953099 0.7046901 2.741161
+#&gt; 20 19 1.148022e-03 3.390221e-04 0.3464675 0.2953099 0.7046901 2.680349
+#&gt; 21 20 8.089994e-04 2.389055e-04 0.3464675 0.2953099 0.7046901 2.594054
+#&gt; 22 21 5.700939e-04 1.683544e-04 0.3464675 0.2953099 0.7046901 2.471595
+#&gt; 23 22 4.017395e-04 1.186377e-04 0.3464675 0.2953099 0.7046901 2.297819
+#&gt; 24 23 2.831019e-04 8.360278e-05 0.3464675 0.2953099 0.7046901 2.051219
+#&gt; 25 24 1.994991e-04 5.891406e-05 0.3464675 0.2953099 0.7046901 1.701278
+#&gt; 26 25 1.405850e-04 4.151615e-05 0.3464675 0.2953099 0.7046901 1.204690
+#&gt; 27 26 9.906889e-05 9.906889e-05 2.0000000 1.0000000 0.0000000 0.500000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
