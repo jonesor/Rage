@@ -33,28 +33,28 @@
 #'
 #' @return A \code{data.frame} containing a variable number columns, depending
 #'   on input variables. Columns include:
-#'   \item{x}{age at the start of the interval \code{[x, x+1)}}
-#'   \item{Nx}{The number of individuals alive at age x (the initial number is
-#'   set with \code{radix})}
-#'   \item{Dx}{proportion of original cohort dying in the interval \code{[x,
-#'   x+1)}}
-#'   \item{lx}{survivorship (proportion of initial cohort surviving) to start of
+#'   
+#'   \item{x}{age at the start of the age interval \code{[x, x+1)}}
+#'   \item{Nx}{The number of individuals alive at age x. The initial number is
+#'   set with \code{radix}}
+#'   \item{Dx}{proportion of original cohort dying during the age interval \code{[x, x+1)}}
+#'   \item{lx}{survivorship, defined as the proportion of initial cohort surviving to the start of
 #'   age interval \code{[x, x+1)}}
-#'   \item{dx}{proportion of original cohort dying in interval \code{[x, x+1)}}
+#'   \item{dx}{proportion of original cohort dying in the age interval \code{[x, x+1)}}
 #'   \item{ax}{The average time survived within the interval by those that die
-#'   in the interval, assumed to be 0.5}
-#'   \item{hx}{force of mortality (hazard) during the interval \code{[x, x+1)}}
+#'   during the age interval \code{[x, x+1)}. Assumed to be 0.5}
+#'   \item{hx}{force of mortality (hazard) during the age interval \code{[x, x+1)}}
 #'   \item{qx}{probability of death during the interval \code{[x, x+1)} for
 #'   those entering the interval}
 #'   \item{px}{probability of survival for the interval \code{[x, x+1)} for
 #'   those entering the interval}
-#'   \item{Lx}{person-years lived during the interval \code{[x, x+1)}
-#'   \item{Tx}{person years lived beyond age x}
+#'   \item{Lx}{total person-years lived during the interval \code{[x, x+1)}} 
+#'   \item{Tx}{total person years lived beyond age x}
 #'   \item{ex}{remaining life expectancy at age x}
 #'
 #' If \code{matF} is provided, also includes:
 #'   \item{mx}{per-capita rate of sexual reproduction during the interval
-#'   \code{[x, x+1)}}
+#'    \code{[x, x+1)} }
 #'   \item{lxmx}{expected number of sexual offspring per original
 #'   cohort member produced during the interval \code{[x, x+1)}}
 #'
@@ -70,13 +70,13 @@
 #'   \item{lxmxcx}{expected number of total offspring (sexual + clonal) per
 #'   original cohort member produced during the interval \code{[x, x+1)}}
 #'
-#' @section Starting from multiple stages:
-#' Rather than specifying argument \code{start} as a single stage class from
-#' which all individuals start life, it may sometimes be desirable to allow for
-#' multiple starting stage classes. For example, if the user wants to start the
-#' calculation of age-specific traits from reproductive maturity (i.e. first
-#' reproduction), the user should account for the possibility that there may be
-#' multiple stage classes in which an individual could first reproduce.
+#' @section Starting from multiple stages: Rather than specifying argument
+#'   \code{start} as a single stage class from which all individuals start life,
+#'   it may sometimes be desirable to allow for multiple starting stage classes.
+#'   For example, if the user wants to start the calculation of age-specific
+#'   traits from reproductive maturity (i.e. first reproduction), the user
+#'   should account for the possibility that there may be multiple stage classes
+#'   in which an individual could first reproduce.
 #'
 #' To specify multiple starting stage classes, specify argument \code{start} as
 #' the desired starting population vector (\strong{n1}), giving the proportion
@@ -94,13 +94,16 @@
 #'
 #' @note The life table calculations assume that the final age interval is
 #'   closed and that all remaining individuals die in this interval. Therefore,
-#'   for this interval, the probability of death \code{qx} is 1 and, because we
-#'   assume that deaths are evenly distributed during the interval, the
-#'   remaining life expectancy from the start of the interval is 0.5. If
-#'   \code{lx_crit} is sufficiently small that only a very small proportion of
-#'   the cohort reach this age (i.e. < 0.05), this should have minimal impact on
-#'   results. Nevertheless, for many analyses, the final row of the life table
-#'   should be treated with caution and perhaps removed from the analysis.
+#'   for this interval, the probability of death \code{qx} is 1, the probability
+#'   of survival \code{px} is 0 and, because we assume that deaths are evenly
+#'   distributed during the interval, the remaining life expectancy for
+#'   individuals at the start of the interval is 0.5.
+#'   
+#'   If \code{lx_crit} is sufficiently small that only a very small proportion
+#'   of the cohort reach this age (i.e. < 0.05), this should have minimal impact
+#'   on results. Nevertheless, for many analyses, the final row of the life
+#'   table should be treated with caution and perhaps removed from subsequent
+#'   analyses.
 #'
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
