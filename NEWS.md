@@ -1,6 +1,6 @@
 # Rage (development version)
 
-No significant changes yet.
+* Improved documentation of `mpm_to_table`.
 
 # Rage 1.1.0
 
