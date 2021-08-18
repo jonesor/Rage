@@ -107,8 +107,8 @@ jobs:
           install.packages("pkgdown", dependencies = TRUE)    
           pkgdown::build_site()
           install.packages("digest",dependencies = TRUE)
-          install.packages("codemetar", dependencies = TRUE)
-          codemetar::write_codemeta()
+#          install.packages("codemetar", dependencies = TRUE)
+#          codemetar::write_codemeta()
         shell: Rscript {0}
 
 #Commit changes to the codemeta, site and README.
