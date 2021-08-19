@@ -240,9 +240,9 @@
 <p>Keyfitz’ entropy describes the shape of the age-specific survivorship curve (Demetrius 1978). Values greater than 1 correspond to survival curves type I (high survival in early part of life and decreasing over time), a value of 1 to survival curve type II (constant survival), and values less than 1 to survival curve type III (low survival early and increasing over time) (Salguero-Gómez et al. 2016).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
-<span class="co">#&gt; [1] -1.381131</span>
+<span class="co">#&gt; [1] -1.426434</span>
 <span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
-<span class="co">#&gt; [1] 0.948235</span></code></pre></div>
+<span class="co">#&gt; [1] 0.9077186</span></code></pre></div>
 <p>It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius’ entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the “small” stage, and therefore it does not include the full life cycle.</p>
 <p>A more robust way to describe these trajectories is using the area under the curve method.</p>
 </div>
@@ -252,7 +252,7 @@
 <p>A life course can be described in terms of its pace (timing of events) and its shape (the distribution of events, either for an individual or for a population). There are several candidate metrics for the pace and shape of mortality, and of fertility. A good measure of the pace of mortality is life expectancy (the average age of death) and a good measure of the shape of mortality are the life-table entropy measures mentioned above, which describe both the survivorship curve and the mortality trajectory (see Baudisch 2011). Measures describing the pace and shape of fertility have also been developed (Baudisch &amp; Stott 2019). In addition to the entropy measures described above, the <code>shape_</code> functions are also useful metrics.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
-<span class="co">#&gt; [1] -0.02687175</span>
+<span class="co">#&gt; [1] -0.04681254</span>
 <span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
 <span class="co">#&gt; [1] -0.02999578</span></code></pre></div>
 <div id="references" class="section level2">

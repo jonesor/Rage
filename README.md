@@ -124,13 +124,13 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
 entropy_k(lx)       # Keyfitz' entropy
-#> [1] 0.948235
+#> [1] 0.9077186
 entropy_d(lx, mx)   # Demetrius' entropy
-#> [1] -1.381131
+#> [1] -1.426434
 shape_surv(lx)      # shape of survival/mortality trajectory
-#> [1] -0.02687175
+#> [1] -0.04681254
 shape_rep(lx)       # shape of fecundity trajectory
-#> [1] 0.4029063
+#> [1] 0.3097147
 ```
 
 ### Life tables and the quasi-stationary distribution
