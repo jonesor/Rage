@@ -10,7 +10,7 @@ mpm_to_table(
   matC = NULL,
   start = 1L,
   xmax = 1000,
-  lx_crit = 1e-04,
+  lx_crit = 0.01,
   radix = 1
 )
 }
@@ -41,7 +41,7 @@ to \code{1000}). Time steps are in the same units as the matrix population
 model (see MatrixPeriodicity metadata variable COM(P)ADRE).}
 
 \item{lx_crit}{Minimum value of lx to which age-specific traits will be
-calculated (defaults to \code{1e-4}).}
+calculated (defaults to \code{0.01}).}
 
 \item{radix}{The starting number of individuals in the synthetic life table
 (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
