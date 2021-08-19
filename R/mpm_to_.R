@@ -19,7 +19,7 @@
 #'   giving the starting population vector (in which case \code{length(start)}
 #'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which age-specific traits will be calculated
-#'   (defaults to \code{100000}).
+#'   (defaults to \code{1000}).
 #' @param lx_crit Minimum value of \code{lx} to which age-specific traits will be
 #'   calculated (defaults to \code{0.01}).
 #' @param tol To account for floating point errors that occasionally lead to
@@ -113,7 +113,7 @@ NULL
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 0.01,
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   
   # validate arguments (leave rest to mpm_to_lx)

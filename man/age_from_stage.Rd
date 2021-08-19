@@ -8,7 +8,7 @@
 \alias{mpm_to_hx}
 \title{Calculate age-specific traits from a matrix population model}
 \usage{
-mpm_to_mx(matU, matR, start = 1L, xmax = 1e+05, lx_crit = 0.01, tol = 1e-04)
+mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 
 mpm_to_lx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 
@@ -33,7 +33,7 @@ giving the starting population vector (in which case \code{length(start)}
 must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
 \item{xmax}{Maximum age to which age-specific traits will be calculated
-(defaults to \code{100000}).}
+(defaults to \code{1000}).}
 
 \item{lx_crit}{Minimum value of \code{lx} to which age-specific traits will be
 calculated (defaults to \code{0.01}).}
