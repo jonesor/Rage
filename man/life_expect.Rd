@@ -19,7 +19,7 @@ retrogression). Optionally with named rows and columns indicating the
 corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage of the life cycle
-which the user considers to be the beginning of life. Defaults to 1.
+which the user considers to be the beginning of life. Defaults to \code{1}.
 Alternately, a numeric vector giving the starting population vector (in which
  case \code{length(start)} must match \code{ncol(matU))}. See section
 \emph{Starting from multiple stages}.}

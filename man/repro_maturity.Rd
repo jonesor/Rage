@@ -47,7 +47,7 @@ reproductive maturity among stage class (\code{mature_distrib}).
 }
 \note{
 Note that the units of time in returned values are the same as the
-  projection interval (`ProjectionInterval`) of the MPM.
+  \code{ProjectionInterval} of the MPM.
 }
 \examples{
 data(mpm1)

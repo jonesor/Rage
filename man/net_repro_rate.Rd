@@ -19,7 +19,7 @@ the corresponding life stage names.}
 
 \item{start}{Index (or stage name) of the first stage at which the author
 considers the beginning of life. Only used if \code{method = "start"}.
-Defaults to 1.}
+Defaults to \code{1}.}
 
 \item{method}{The method used to calculate net reproductive value, either
 \code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
@@ -44,7 +44,7 @@ per-generation population growth rate (i.e., the dominant eigenvalue of
 
 If \code{method = "start"}, net reproductive value is calculated as the
 expected lifetime production of offspring that start life in stage
-\code{start}, by an individual also starting life in stage \code{start} (i.e.
+\code{start}, by an individual also starting life in stage \code{start} (i.e., 
 \code{(matR \%*\% N)[start,start]}).
 
 If offspring only arise in stage \code{start}, the two methods give the

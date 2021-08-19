@@ -27,10 +27,11 @@ A logical vector of length \code{ncol(matR)}, with values of
   \code{FALSE} if \code{na_handling == "return.false"}.
 }
 \description{
-Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
-indicating which stages are reproductive (i.e., exhibit any positive values for
-reproduction). This function is a preparatory step to collapsing the matrix
-model into a standardized set of stage classes using the function \code{\link{mpm_standardize}}.
+Takes a reproductive matrix and returns a vector of logical values
+(\code{TRUE}/\code{FALSE}) indicating which stages are reproductive (i.e.,
+exhibit any positive values for reproduction). This function is a preparatory
+step to collapsing the matrix model into a standardized set of stage classes
+using the function \code{\link{mpm_standardize}}.
 }
 \examples{
 matR1 <- rbind(c( 0, 0.2,   0, 0.5),

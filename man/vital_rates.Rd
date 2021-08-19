@@ -33,10 +33,10 @@ distribution of \code{matA}.}
 
 \item{splitStages}{What groups should vital rates be averaged over. Either:
 
-\code{"all"}: all stages grouped
+\code{"all"}: all stages grouped.
 
 \code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
-with sexual reproduction) and adult stages
+with sexual reproduction) and adult stages.
 
 \code{"matrixStages"}: group according to a standardized set of stage classes
 (propagule, active, and dormant). If \code{splitStages = "matrixStages"},

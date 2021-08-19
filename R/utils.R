@@ -31,15 +31,15 @@ checkValidMat <- function(M,
 checkMatchingStageNames <- function(M, N = NULL) {
   if (is.null(N)) {
     if (!identical(rownames(M), colnames(M))) {
-      stop("When naming lifestages, both rows and columns must be named ",
-           "and their names must be identical")
+      stop(strwrap(prefix = " ", initial = "","When naming lifestages, both rows and columns 
+                   must be named and their names must be identical"))
     }
   } else {
     if (!identical(rownames(M), colnames(M)) || !identical(rownames(N), colnames(N)) ||
         !identical(M * 0L, N * 0L)) {
-      stop("When naming lifestages, both rows and columns must be named ",
-           "their names must be identical, and they must be the same between ",
-           "both matrices passed to the function.")
+      stop(strwrap(prefix = " ", initial = "", "When naming lifestages, both rows and columns 
+                   must be named their names must be identical, and they must be the same between 
+                   both matrices passed to the function."))
     }
   }
 }
@@ -52,16 +52,16 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
     if ((length(s) > 1 & length(s) != ncol(M)) ||
         (is.numeric(s) && length(s) == 1 && !(s %in% seq_len(nrow(M)))) ||
         (is.character(s) && length(s) == 1 && !(s %in% unique(unlist(dimnames(M)))))) {
-      stop("Argument 'start' must be an integer within 1:nrow(matU), ",
-           "a character matching a stage class name in dimnames(matU), ",
-           "or an integer vector of starting abundances of length ncol(matU)",
+      stop(strwrap(prefix = " ", initial = "","Argument 'start' must be an integer within 1:nrow(matU), 
+                   a character matching a stage class name in dimnames(matU), or an integer vector of 
+                   starting abundances of length ncol(matU)"),
            call. = FALSE)
     }
   } else {
     # check that start is a single value, either an index or named life stage
     if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) && !(s %in% unique(unlist(dimnames(M))))) {
-      stop("Argument 'start' must be an integer within 1:nrow(matU), ",
-           "or a character matching a stage class name in dimnames(matU)",
+      stop(strwrap(prefix = " ", initial = "","Argument 'start' must be an integer within 1:nrow(matU), 
+                   or a character matching a stage class name in dimnames(matU)"),
            call. = FALSE)
     }
   }

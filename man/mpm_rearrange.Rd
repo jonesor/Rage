@@ -9,7 +9,7 @@ mpm_rearrange(matU, matF, matC = NULL, repro_stages, matrix_stages)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e., a
-square projection matrix reflecting survival-related transitions; e.g.
+square projection matrix reflecting survival-related transitions; e.g., 
 progression, stasis, and retrogression)}
 
 \item{matF}{The sexual component of a matrix population model (i.e., a square
@@ -17,7 +17,7 @@ projection matrix reflecting transitions due to sexual reproduction)}
 
 \item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 \code{matC} is a matrix of zeros).}
 
 \item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating 
@@ -39,7 +39,7 @@ Returns a list with 6 elements:
 \description{
 Rearrange stages of a matrix population model so that all inter-reproductive
 stages fall in the final rows/columns of the matrix. This is a preparatory
-step to collapsing the matrix model into a standardized set of stages (e.g.
+step to collapsing the matrix model into a standardized set of stages (e.g., 
 propagule, pre-reproductive, reproductive, and post-reproductive).
 }
 \examples{

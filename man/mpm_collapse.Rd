@@ -8,7 +8,7 @@ mpm_collapse(matU, matF, matC = NULL, collapse)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e., a
-square projection matrix reflecting survival-related transitions; e.g.
+square projection matrix reflecting survival-related transitions; e.g., 
 progression, stasis, and retrogression)}
 
 \item{matF}{The sexual component of a matrix population model (i.e., a square
@@ -16,7 +16,7 @@ projection matrix reflecting transitions due to sexual reproduction)}
 
 \item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 \code{matC} is a matrix of zeros).}
 
 \item{collapse}{A list giving the mapping between stages of the original
@@ -25,7 +25,6 @@ matrix and the desired stages of the collapsed matrix (e.g., \code{list(1,
 corresponding to stage index or name in \code{matU}, \code{matF} and 
 \code{matC}). Names given to the elements of \code{collapse} are used as 
 stage names in the new, collapsed matrix. 
-
 
 See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.}
 }

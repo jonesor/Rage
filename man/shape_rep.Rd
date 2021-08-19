@@ -53,7 +53,9 @@ mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 shape_rep(mx)
 }
 \references{
-Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <https://doi.org/10.1111/2041-210X.13289>
+Baudisch, A, Stott, I. 2019. A pace and shape perspective on
+  fertility. Methods Ecol Evol. 10: 1941– 1951.
+  <https://doi.org/10.1111/2041-210X.13289>
 }
 \seealso{
 Other life history traits: 

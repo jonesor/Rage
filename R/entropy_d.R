@@ -2,7 +2,7 @@
 #' and fecundity
 #'
 #' This function calculates Demetrius' entropy from vectors of age-specific
-#' survivorship (lx) and fecundity (mx).
+#' survivorship (\code{lx}) and fecundity (\code{mx}).
 #' 
 #' @section Warning: Note that this function may produce unexpected results if
 #'   used on partial survivorship and fecundity trajectories. In addition, it is

@@ -13,12 +13,12 @@
 #' corresponding population vectors, using the method described in Haridas et
 #' al. (2009).
 #' 
-#' @param A A list of MPMs (i.e. square population projection matrices).
+#' @param A A list of MPMs (i.e., square population projection matrices).
 #' @param start Method to derive the first population vector in the series.
-#'   Either `stable.stage` to use the stable stage distribution of the mean
-#'   matrix as the starting vector, `uniform` to use a uniform starting vector
-#'   (all elements equal), or `random` to use a randomly-generated starting
-#'   vector. Defaults to `stable.stage`.
+#'   Either \code{stable.stage} to use the stable stage distribution of the mean
+#'   matrix as the starting vector, \code{uniform} to use a uniform starting vector
+#'   (all elements equal), or \code{random} to use a randomly-generated starting
+#'   vector. Defaults to \code{stable.stage}.
 #' 
 #' @return A list of population vectors
 #' 

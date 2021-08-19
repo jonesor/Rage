@@ -8,15 +8,15 @@ cycle}
 standard_stages(matF, repro_stages, matrix_stages)
 }
 \arguments{
-\item{matF}{The sexual component of a matrix population model (i.e. a square
+\item{matF}{The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions only due to \emph{sexual} 
 reproduction). It assumes that it has been rearranged so that 
 non-reproductive stages are in the final rows/columns.}
 
 \item{repro_stages}{Logical vector identifying which stages are reproductive.}
 
-\item{matrix_stages}{(character) vector of stages, values are "prop"
-(propagule), "active", and "dorm" (dormant).}
+\item{matrix_stages}{(character) vector of stages, values are \code{prop}
+(propagule), \code{active}, and \code{dorm} (dormant).}
 }
 \value{
 A list with four elements:

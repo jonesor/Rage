@@ -45,8 +45,8 @@ order of increasing age, starting with age 0.
   called force of mortality) between age \code{x} and \code{x+1}.
 }
 \note{
-Note that the units of time for the returned vectors (i.e., `x`) are
-  the same as the projection interval (`ProjectionInterval`) of the MPM.
+Note that the units of time for the returned vectors (i.e., \code{x})
+  are the same as the (\code{ProjectionInterval}) of the MPM.
 }
 \examples{
 lx <- c(1, 0.8, 0.7, 0.5, 0.3, 0.1)

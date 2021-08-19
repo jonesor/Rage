@@ -13,31 +13,35 @@ describing a survival curve, optionally a column / element 'x' containing
 age classes (each element a number representing the age at the start of the
 class).
 
-If x is not supplied, the function will assume age classes starting at 0
-with time steps of 1 unit. If x begins at 0 then \code{lx[1]} should equal
-1. If x ends at maximum longevity, then \code{lx[which.max(x)]} should
-equal 0; however it is possible to supply partial survivorship curves.}
+If \code{x} is not supplied, the function will assume age classes starting
+at \code{0} with time steps of \code{1} unit of the
+\code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
+should equal \code{1}. If \code{x} ends at maximum longevity, then
+\code{lx[which.max(x)]} should equal \code{0}; however it is possible to
+supply partial survivorship curves.}
 
 \item{xmin, xmax}{The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to \code{min(x)} and
 \code{max(x)} respectively.}
 
-\item{trunc}{logical determining whether to truncate life tables or not 
-when any lx == 0. Usually this is the case only for the final value of lx.
-As the function calculates log(lx), these value(s) cannot be handled. 
-trunc == TRUE strips out the zero value(s). An alternative to this is to 
-transform the zeroes to something approximating zero (e.g., 1e-7).}
+\item{trunc}{logical determining whether to truncate life tables or not when
+any \code{lx == 0}. Usually this is the case only for the final value of
+\code{lx}. As the function calculates \code{log(lx)}, these value(s) cannot
+be handled. \code{trunc == TRUE} strips out the zero value(s). An
+alternative to this is to transform the zeroes to something approximating
+zero (e.g., 1e-7).}
 }
 \value{
 a shape value describing lifespan inequality by comparing the area
-  under a survival (lx) curve over age with the area under a constant (type
-  2) survival function. May take any real value between -0.5 and +0.5. A
-  value of 0 indicates negligible ageing (neither generally increasing nor
-  generally decreasing survival with age); negative values indicate negative
-  senescence (generally increasing survival with age); positive values
-  indicate senescence (generally decreasing survival with age). A value of
-  +0.5 indicates that all individuals die at age of maximum longevity; a
-  value of -0.5 indicates that (hypothetically) all individuals die at birth.
+  under a survival (\code{lx}) curve over age with the area under a constant
+  (Type II) survival function. The shape value may take any real value
+  between -0.5 and +0.5. A value of 0 indicates negligible ageing (neither
+  generally increasing nor generally decreasing survival with age); negative
+  values indicate negative senescence (generally increasing survival with
+  age); positive values indicate senescence (generally decreasing survival
+  with age). A value of +0.5 indicates that all individuals die at age of
+  maximum longevity; a value of -0.5 indicates that (hypothetically) all
+  individuals die at birth.
 }
 \description{
 Calculates a 'shape' value of survival lifespan inequality by comparing the 

@@ -5,13 +5,13 @@
 #' graphViz function in DiagrammeR. See
 #' \url{http://rich-iannone.github.io/DiagrammeR/}.
 #' 
-#' @param matA A matrix population model (i.e. a square projection matrix)
-#' @param stages Optional vector of stage class labels. If missing,  it first
+#' @param matA A matrix population model (i.e., a square projection matrix)
+#' @param stages Optional vector of stage class labels. If missing, it first
 #'   attempts to infer them from \code{dimnames(matA)}. If these are also 
 #'   \code{NULL}, then reverts to integers \code{1:ncol(A)}.
 #' @param title Optional title for the plot. Defaults to \code{NULL}.
 #' @param shape The shape to be used for the stages of the diagram. Any node
-#'   shape accepted by graphViz is acceptable.
+#'   shape accepted by \code{graphViz} is acceptable.
 #' @param fontsize Size of the font used in the diagram.
 #' @param nodefontsize Size of the font used in the node part of the diagram.
 #' @param edgecol Colour of the arrows in the diagram.
@@ -45,8 +45,8 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
     
     if(!identical(dimnames(matA)[[1]],
                   dimnames(matA)[[2]])) {
-      message("Dimension names of 'matA' are not identical for rows and columns.\n",
-              "Using row names.")
+      message(strwrap(prefix = " ", initial = "", "Dimension names of 'matA' are not identical 
+                for rows and columns. Using row names."))
     }
     
   } 

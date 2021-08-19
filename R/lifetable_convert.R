@@ -16,8 +16,8 @@
 #'   \code{x+1}, and \code{hx} gives the time-averaged mortality hazard (also
 #'   called force of mortality) between age \code{x} and \code{x+1}.
 #'   
-#' @note Note that the units of time for the returned vectors (i.e., `x`) are
-#'   the same as the projection interval (`ProjectionInterval`) of the MPM.
+#' @note Note that the units of time for the returned vectors (i.e., \code{x})
+#'   are the same as the (\code{ProjectionInterval}) of the MPM.
 #'   
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 

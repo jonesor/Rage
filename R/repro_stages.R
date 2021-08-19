@@ -1,9 +1,10 @@
 #' Identify which stages in a matrix population model are reproductive
 #' 
-#' Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
-#' indicating which stages are reproductive (i.e., exhibit any positive values for
-#' reproduction). This function is a preparatory step to collapsing the matrix
-#' model into a standardized set of stage classes using the function \code{\link{mpm_standardize}}.
+#' Takes a reproductive matrix and returns a vector of logical values
+#' (\code{TRUE}/\code{FALSE}) indicating which stages are reproductive (i.e.,
+#' exhibit any positive values for reproduction). This function is a preparatory
+#' step to collapsing the matrix model into a standardized set of stage classes
+#' using the function \code{\link{mpm_standardize}}.
 #'
 #' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix reflecting transitions due to reproduction; either
@@ -49,8 +50,8 @@ repro_stages <- function(matR, na_handling = "return.true") {
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na_handling %in% c("return.na", "return.true", "return.false")) {
-    stop("Argument na_handling must be either 'return.na', 'return.true', ",
-         "or 'return.false'", call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "", "Argument na_handling must be either 'return.na', 
+                 'return.true', or 'return.false'"), call. = FALSE)
   }
   
   if (!any(is.na(matR))) {

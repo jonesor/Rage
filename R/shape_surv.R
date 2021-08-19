@@ -10,28 +10,33 @@
 #'   age classes (each element a number representing the age at the start of the
 #'   class).
 #'   
-#'   If x is not supplied, the function will assume age classes starting at 0
-#'   with time steps of 1 unit. If x begins at 0 then \code{lx[1]} should equal
-#'   1. If x ends at maximum longevity, then \code{lx[which.max(x)]} should
-#'   equal 0; however it is possible to supply partial survivorship curves.
+#'   If \code{x} is not supplied, the function will assume age classes starting
+#'   at \code{0} with time steps of \code{1} unit of the
+#'   \code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
+#'   should equal \code{1}. If \code{x} ends at maximum longevity, then
+#'   \code{lx[which.max(x)]} should equal \code{0}; however it is possible to
+#'   supply partial survivorship curves.
+#'   
 #' @param xmin,xmax The minimum and maximum age respectively over which to
 #'   evaluate shape. If not given, these default to \code{min(x)} and
 #'   \code{max(x)} respectively.
-#' @param trunc logical determining whether to truncate life tables or not 
-#'   when any lx == 0. Usually this is the case only for the final value of lx.
-#'   As the function calculates log(lx), these value(s) cannot be handled. 
-#'   trunc == TRUE strips out the zero value(s). An alternative to this is to 
-#'   transform the zeroes to something approximating zero (e.g., 1e-7).
+#' @param trunc logical determining whether to truncate life tables or not when
+#'   any \code{lx == 0}. Usually this is the case only for the final value of
+#'   \code{lx}. As the function calculates \code{log(lx)}, these value(s) cannot
+#'   be handled. \code{trunc == TRUE} strips out the zero value(s). An
+#'   alternative to this is to transform the zeroes to something approximating
+#'   zero (e.g., 1e-7).
 #'
 #' @return a shape value describing lifespan inequality by comparing the area
-#'   under a survival (lx) curve over age with the area under a constant (type
-#'   2) survival function. May take any real value between -0.5 and +0.5. A
-#'   value of 0 indicates negligible ageing (neither generally increasing nor
-#'   generally decreasing survival with age); negative values indicate negative
-#'   senescence (generally increasing survival with age); positive values
-#'   indicate senescence (generally decreasing survival with age). A value of
-#'   +0.5 indicates that all individuals die at age of maximum longevity; a
-#'   value of -0.5 indicates that (hypothetically) all individuals die at birth.
+#'   under a survival (\code{lx}) curve over age with the area under a constant
+#'   (Type II) survival function. The shape value may take any real value
+#'   between -0.5 and +0.5. A value of 0 indicates negligible ageing (neither
+#'   generally increasing nor generally decreasing survival with age); negative
+#'   values indicate negative senescence (generally increasing survival with
+#'   age); positive values indicate senescence (generally decreasing survival
+#'   with age). A value of +0.5 indicates that all individuals die at age of
+#'   maximum longevity; a value of -0.5 indicates that (hypothetically) all
+#'   individuals die at birth.
 #' 
 #' @author Iain Stott <iainmstott@@gmail.com>
 #' 
@@ -48,27 +53,27 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
     lx <- surv
     x <- seq_along(lx) - 1
     if(lx[1] != 1) {
-      stop("if x isn't given, lx must start with 1 as x[1] is assumed to be 0")
+      stop("if `x` isn't given, `lx` must start with 1 as `x[1]` is assumed to be 0")
     }
   }
   if(class(surv) %in% c("list", "data.frame")) {
     if(!all(c("x", "lx") %in% names(surv))) {
-      stop("'surv' doesn't contain both x and lx")
+      stop("`surv` doesn't contain both `x` and `lx`")
     }
     x <- surv$x
     lx <- surv$lx
     if(length(x) != length(lx)) {
-      stop("x and lx must be the same length")
+      stop("`x` and `lx` must be the same length")
     }
     if((x[1] %in% 0) & !(lx[1] %in% 1)){
-      stop("lx must start with 1 where x[1] is 0")
+      stop("`lx` must start with `1` where `x[1]` is `0`")
     }
   }
   if(!trunc) {
     if(any(lx %in% 0)) {
-      stop(
-"lx cannot be zero (we calculate the log). Consider trunc = TRUE, \n
-or transforming zero values. See ?shape_surv for more details.\n")
+      stop(strwrap(prefix = " ", initial = "", "`lx` cannot be zero (we calculate the `log`). 
+                   Consider `trunc = TRUE`, or transforming zero values. See `?shape_surv` 
+                   for more details."))
     }
   }
   if(trunc) {

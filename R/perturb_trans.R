@@ -148,8 +148,8 @@ perturb_trans <- function(matU, matF, matC = NULL,
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demog_stat must be 'lambda' or the name of a function that ",
-           "returns a single numeric value", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name 
+                   of a function that returns a single numeric value"), call. = FALSE)
     }
   }
   

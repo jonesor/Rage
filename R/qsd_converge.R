@@ -4,20 +4,23 @@
 #' Calculates the time for a cohort projected with a matrix population
 #' model to reach a defined quasi-stationary stage distribution.
 #'
-#' @param mat A matrix population model, or component thereof (i.e. a square
+#' @param mat A matrix population model, or component thereof (i.e., a square
 #'   projection matrix). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
-#'   giving the starting population vector (in which case \code{length(start)}
-#'  must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a
+#'   numeric vector giving the starting population vector (in which case
+#'   \code{length(start)} must match \code{ncol(matU))}. See section
+#'   \emph{Starting from multiple stages}.
 #' @param conv Proportional distance threshold from the stationary stage
-#'   distribution indicating convergence. For example, this value should be 0.05 if the
-#'   user wants to obtain the time step when the stage distribution is within a
-#'   distance of 5\% of the stationary stage distribution.
+#'   distribution indicating convergence. For example, this value should be
+#'   \code{0.05} if the user wants to obtain the time step when the stage
+#'   distribution is within a distance of 5\% of the stationary stage
+#'   distribution.
 #' @param N Maximum number of time steps over which the population will be
 #'   projected. Time steps are in the same units as the matrix population model
-#'   (see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.
+#'   (see \code{AnnualPeriodicity} column in COM(P)ADRE metadata). Defaults to
+#'   \code{100,000}.
 #' 
 #' @details
 #' Some matrix population models are parameterised with a stasis loop at the
@@ -36,7 +39,7 @@
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
 #' multiple starting stage classes. For example, if we want to start our
-#' calculation of QSD from reproductive maturity (i.e. first reproduction), we
+#' calculation of QSD from reproductive maturity (i.e., first reproduction), we
 #' should account for the possibility that there may be multiple stage classes
 #' in which an individual could first reproduce.
 #' 
@@ -79,17 +82,18 @@
 #' 
 #' @family life tables
 #' 
-#' @references Caswell, H. 2001. Matrix Population Models: Construction,
-#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#'   978-0878930968
+#' @references 
+#' Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+#' Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
+#' 
+#' Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible,
+#' R., Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E.,
+#' Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014.
+#' Diversity of ageing across the tree of life. Nature 505, 169-173.
+#' <doi:10.1038/nature12789>
 #'
-#'   Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
-#'   Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
-#'   P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014. Diversity of ageing across
-#'   the tree of life. Nature 505, 169-173. <doi:10.1038/nature12789>
-#'
-#'   Salguero-Gomez R. 2018. Implications of clonality for ageing research.
-#'   Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
+#' Salguero-Gomez R. 2018. Implications of clonality for ageing research.
+#' Evolutionary Ecology, 32, 9-28. <doi:10.1007/s10682-017-9923-2>
 #' 
 #' @examples
 #' data(mpm1)
@@ -169,9 +173,10 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
       }
       
       if (dist > 0.001) {
-        warning("Matrix is still non-ergodic after removing stages not connected ",
-                "from stage 'start', and stable distribution does not match ",
-                "observed distribution after N iterations", call. = FALSE)
+        warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic after 
+                        removing stages not connected from stage 'start', and stable 
+                        distribution does not match observed distribution after N 
+                        iterations", call. = FALSE))
         return(NA_integer_)
       }
     }

@@ -1,16 +1,18 @@
 #' Add stage names to matrices
 #' 
-#' Adds user-supplied or automatically-generated stage names to an MPM.
+#' Adds user-supplied or automatically-generated stage names to a matrix
+#' population model (MPM).
 #'
 #' @param mat An MPM, either as a single matrix or list of matrices.
 #' @param names A character vector specifying the name of each life stage, in
-#'   order. If provided, `prefix` and `left_pad` arguments are ignored.
+#'   order. If provided, \code{prefix} and \code{left_pad} arguments are ignored.
 #' @param prefix A string to be pre-pended to the stage number when automatically
-#'   naming stages. Defaults to "stage_".
-#' @param left_pad Logical, whether to pre-pend 0 such that all stage numbers
-#'   have equal length, enabling lexicographic sorting. For example, stage '1'
-#'   becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
-#'   stages, and so on. Defaults to TRUE.
+#'   naming stages. Defaults to \code{stage_}.
+#' @param left_pad Logical, whether to pre-pend \code{0} to stage names such
+#'   that all stage numbers have equal length, enabling lexicographic sorting.
+#'   For example, stage \code{1} becomes \code{01} for matrices with 10-99
+#'   stages, \code{001} for matrices with 100-999 stages, and so on. Defaults to
+#'   \code{TRUE}.
 #'   
 #' @author William K. Petry <wpetry@@ncsu.edu>
 #' 

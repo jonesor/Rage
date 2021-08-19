@@ -34,7 +34,7 @@
 #' should match the number of columns in the relevant MPM).
 #' 
 #' @note Note that the units of time in returned values are the same as the
-#'   projection interval (`ProjectionInterval`) of the MPM. 
+#'   (\code{ProjectionInterval}) of the MPM.
 #'   
 #' @seealso 
 #' \code{\link{mature_distrib}} for calculating the proportion of

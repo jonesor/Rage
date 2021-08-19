@@ -22,10 +22,10 @@
 #'   distribution of \code{matA}.
 #' @param splitStages What groups should vital rates be averaged over. Either:
 #' 
-#' \code{"all"}: all stages grouped
+#' \code{"all"}: all stages grouped.
 #' 
 #' \code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
-#' with sexual reproduction) and adult stages
+#' with sexual reproduction) and adult stages.
 #' 
 #' \code{"matrixStages"}: group according to a standardized set of stage classes
 #' (propagule, active, and dormant). If \code{splitStages = "matrixStages"},
@@ -83,21 +83,21 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
   
   if (all(!is.null(weights), weights != "SSD",
         length(weights) != nrow(matU))) {
-    stop("If weights are provided, length(weights) should be of the same ",
-         "dimension as matU", call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "","If `weights` are provided, `length(weights)` should be 
+                 of the same dimension as `matU`"), call. = FALSE)
   }
   
   if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
-    stop("Argument splitStages must be one of 'all', 'ontogeny', or ",
-         "'matrixStages'", call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "","Argument `splitStages` must be one of `all`, `ontogeny`, 
+                 or `matrixStages`"), call. = FALSE)
   }
   if (splitStages == "matrixStages") {
     if (is.null(matrixStages)) {
-      stop("If splitStages = 'matrixStages', argument matrixStages must be ",
-           "provided", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "","If `splitStages` = `matrixStages`, argument `matrixStages` 
+                   must be provided"), call. = FALSE)
     }
     if (length(matrixStages) != nrow(matU)) {
-      stop("length(matrixStages) should be of the same dimension as matU",
+      stop("`length(matrixStages)` should be of the same dimension as `matU`",
            call. = FALSE)
     }
   }

@@ -34,7 +34,7 @@ critical proportion) from a matrix population model
 }
 \note{
 Note that the units of time in returned values are the same as the
-  projection interval (`ProjectionInterval`) of the MPM.
+  (\code{ProjectionInterval}) of the MPM.
 }
 \section{Starting from multiple stages}{
 

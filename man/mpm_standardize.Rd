@@ -19,7 +19,7 @@ projection matrix reflecting transitions due to sexual reproduction).}
 
 \item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 \code{matC} is a matrix of zeros).}
 
 \item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating 
@@ -52,10 +52,10 @@ This function is a wrapper for the functions
 }
 \note{
 The method used by this function to collapse a matrix population model
-  preserves the equilibrium population growth rate (\eqn{\lambda}) and relative
-  stable distribution, but is not expected to preserve other demographic characteristics
-  such as relative reproductive value, sensitivities, net reproductive rate, life
-  expectancy, etc.
+  preserves the equilibrium population growth rate (\eqn{\lambda}) and
+  relative stable distribution, but is not expected to preserve other
+  demographic characteristics such as relative reproductive value,
+  sensitivities, net reproductive rate, life expectancy, etc.
 }
 \section{Missing Stages}{
 

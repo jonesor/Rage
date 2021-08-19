@@ -1,6 +1,6 @@
 #' Calculate Keyfitz's entropy from a trajectory of age-specific survivorship
 #' 
-#' Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
+#' Calculate Keyfitz's entropy from a vector of age-specific survivorship (\code{lx}).
 #' 
 #' @section Warning:
 #' Note that this function may produce unexpected results if used on partial 

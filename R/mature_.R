@@ -28,7 +28,7 @@
 #'   scalar trait value.
 #' 
 #' @note Note that the units of time in returned values are the same as the
-#'   projection interval (`ProjectionInterval`) of the MPM.
+#'   \code{ProjectionInterval} of the MPM.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>

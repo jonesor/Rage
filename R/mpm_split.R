@@ -1,17 +1,17 @@
 #' @title Convert matrix population model into U, F and C matrices
 #'
 #' @description
-#' Splits a matrix population model into three constituent
-#' matrices, U (growth and survival processes), F (sexual reproduction) and C
-#' (clonal reproduction). \strong{Warning!} The functionality is very basic: it assumes
-#' that sexual reproduction is located in the top row of the matrix, and that
-#' everything else is growth or survival (i.e. the U matrix). Clonality is
-#' assumed to be non-existent.
+#' Splits a matrix population model into three constituent matrices, \bold{U}
+#' (growth and survival processes), \bold{F} (sexual reproduction) and \bold{C}
+#' (clonal reproduction). \strong{Warning!} The functionality is very basic: it
+#' assumes that sexual reproduction is located in the top row of the matrix, and
+#' that everything else is growth or survival (i.e. the \bold{U} matrix).
+#' Clonality is assumed to be non-existent.
 #'
-#' @param matA A matrix population model (i.e. a square projection matrix).
+#' @param matA A matrix population model (i.e., a square projection matrix).
 #' 
 #' @return A list of three matrices: \code{matU},\code{matF} and \code{matC}. 
-#' \code{matC} will always contain only 0s.
+#' \code{matC} will always contain only zeros.
 #' 
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' 
