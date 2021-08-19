@@ -21,7 +21,7 @@
 #' @param xmax Maximum age to which age-specific traits will be calculated
 #'   (defaults to \code{100000}).
 #' @param lx_crit Minimum value of \code{lx} to which age-specific traits will be
-#'   calculated (defaults to \code{0.0001}).
+#'   calculated (defaults to \code{0.01}).
 #' @param tol To account for floating point errors that occasionally lead to
 #'   values of \code{lx} slightly greater than 1, values of \code{lx} within the open interval
 #'   (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
@@ -113,7 +113,7 @@ NULL
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 0.01,
                       tol = 1e-4) {
   
   # validate arguments (leave rest to mpm_to_lx)

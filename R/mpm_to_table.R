@@ -26,7 +26,7 @@
 #'   to \code{1000}). Time steps are in the same units as the matrix population
 #'   model (see MatrixPeriodicity metadata variable COM(P)ADRE).
 #' @param lx_crit Minimum value of lx to which age-specific traits will be
-#'   calculated (defaults to \code{1e-4}).
+#'   calculated (defaults to \code{0.01}).
 #' @param radix The starting number of individuals in the synthetic life table
 #'   (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
 #'   table is produced.
@@ -153,7 +153,7 @@
 #' mpm_to_table(matU = mpm1$matU, start = n1)
 #' @export mpm_to_table
 mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
-                         xmax = 1000, lx_crit = 1e-4, radix = 1) {
+                         xmax = 1000, lx_crit = 0.01, radix = 1) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
