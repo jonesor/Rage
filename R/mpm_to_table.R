@@ -240,12 +240,12 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
   }
 
   if (!is.null(matF)) {
-    out$mx <- mpm_to_mx(matU, matF, start, N - 1)
+    out$mx <- mpm_to_mx(matU, matF, start, xmax = N - 1, lx_crit = lx_crit)
     out$lxmx <- out$lx * out$mx
   }
 
   if (!is.null(matC)) {
-    out$cx <- mpm_to_mx(matU, matC, start, N - 1)
+    out$cx <- mpm_to_mx(matU, matC, start, xmax = N - 1, lx_crit = lx_crit)
     out$lxcx <- out$lx * out$cx
   }
 

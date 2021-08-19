@@ -28,6 +28,5 @@ test_that("mpm_to_table warns and fails gracefully", {
   expect_error(mpm_to_table(mat_u_na, mat_f, xmax = xmax))
   expect_error(mpm_to_table(mat_u, mat_f_na, xmax = xmax))
   expect_error(mpm_to_table(mat_u, matC = mat_c_na, xmax = xmax))
-  #expect_error(mpm_to_table(mat_u_named, matF = mat_f, start = "sm", xmax = xmax)) DOES NOT THROW ERROR
   expect_error(mpm_to_table(mat_u, matF = mat_f_named, start = "sm", xmax = xmax))
 })

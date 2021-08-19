@@ -149,7 +149,7 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01,
 
 #' @rdname age_from_stage
 #' @export mpm_to_lx
-mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_lx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   
   # validate arguments
@@ -191,7 +191,7 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
 
 #' @rdname age_from_stage
 #' @export mpm_to_px
-mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_px <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   # leave argument validation to mpm_to_lx
   lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)
@@ -201,7 +201,7 @@ mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
 
 #' @rdname age_from_stage
 #' @export mpm_to_hx
-mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_hx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   # leave argument validation to mpm_to_lx
   lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)

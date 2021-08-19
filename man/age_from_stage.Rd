@@ -10,11 +10,11 @@
 \usage{
 mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 
-mpm_to_lx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
+mpm_to_lx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 
-mpm_to_px(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
+mpm_to_px(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 
-mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
+mpm_to_hx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 }
 \arguments{
 \item{matU}{The survival component of a MPM (i.e., a
