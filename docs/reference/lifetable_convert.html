@@ -140,8 +140,8 @@ order of increasing age, starting with age 0." />
     </div>
 
     <div class="ref-description">
-    <p>Convert between vectors of age-specific survivorship (lx), survival
-probability (px), or mortality hazard (hx). Input vectors must be arranged in
+    <p>Convert between vectors of age-specific survivorship (<code>lx</code>), survival
+probability (<code>px</code>), or mortality hazard (<code>hx</code>). Input vectors must be arranged in
 order of increasing age, starting with age 0.</p>
     </div>
 
@@ -184,11 +184,33 @@ order of increasing age, starting with age 0.</p>
   <code>px</code> gives the probability of survival between age <code>x</code> and
   <code>x+1</code>, and <code>hx</code> gives the time-averaged mortality hazard (also
   called force of mortality) between age <code>x</code> and <code>x+1</code>.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Note that the units of time for the returned vectors (i.e., <code>x</code>)
+  are the same as the (<code>ProjectionInterval</code>) of the MPM.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ergon, T., Borgan, Ø., Nater, C. R., &amp; Vindenes, Y. 2018. The
-  utility of mortality hazard rates in population analyses. Methods in
-  Ecology and Evolution, 9, 2046-2056. &lt;doi:10.1111/2041-210X.13059&gt;</p>
+    <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968</p>
+<p>Caswell, H. 2006. Applications of Markov chains in demography. pp. 319-334 in
+A.N. Langville and W.J. Stewart (editors) MAM2006: Markov Anniversary
+Meeting. Boson Books, Raleigh, North Caroline, USA</p>
+<p>Ergon, T., Borgan, Ø., Nater, C. R., &amp; Vindenes, Y. 2018. The utility of
+mortality hazard rates in population analyses. Methods in Ecology and
+Evolution, 9, 2046-2056. &lt;doi:10.1111/2041-210X.13059&gt;</p>
+<p>Horvitz, C. &amp; Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+mortality plateaus. The American Naturalist 172: 203-2015.
+&lt;doi:10.1086/589453&gt;</p>
+<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible,
+R., Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E.,
+Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014.
+Diversity of ageing across the tree of life. Nature 505, 169-173.
+&lt;doi:10.1038/nature12789&gt;</p>
+<p>Jones O. R. 2021. Life tables: Construction and interpretation In:
+Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &amp;
+Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609</p>
+<p>Preston, S., Heuveline, P., &amp; Guillot, M. 2000. Demography: Measuring and
+Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other life tables: 

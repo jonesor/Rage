@@ -43,7 +43,7 @@
 <meta property="og:description" content="Collapse a matrix population model to a smaller number of stages. For
 instance, to compare properties of multiple projection matrices with
 different numbers of stages, one might first collapse those matrices to a
-standardized set of stages (e.g. propagule, pre-reproductive, reproductive,
+standardized set of stages (e.g., propagule, pre-reproductive, reproductive,
 and post-reproductive). The transition rates in the collapsed matrix are a
 weighted average of the transition rates from the relevant stages of the
 original matrix, weighted by the relative proportion of each stage class
@@ -148,7 +148,7 @@ expected at the stable distribution." />
     <p>Collapse a matrix population model to a smaller number of stages. For
 instance, to compare properties of multiple projection matrices with
 different numbers of stages, one might first collapse those matrices to a
-standardized set of stages (e.g. propagule, pre-reproductive, reproductive,
+standardized set of stages (e.g., propagule, pre-reproductive, reproductive,
 and post-reproductive). The transition rates in the collapsed matrix are a
 weighted average of the transition rates from the relevant stages of the
 original matrix, weighted by the relative proportion of each stage class
@@ -162,31 +162,30 @@ expected at the stable distribution.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+      <td><p>The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g., 
 progression, stasis, and retrogression)</p></td>
     </tr>
     <tr>
       <th>matF</th>
-      <td><p>The sexual component of a matrix population model (i.e. a square
+      <td><p>The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction)</p></td>
     </tr>
     <tr>
       <th>matC</th>
-      <td><p>The clonal component of a matrix population model (i.e. a square
+      <td><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
+Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e., 
 <code>matC</code> is a matrix of zeros).</p></td>
     </tr>
     <tr>
       <th>collapse</th>
       <td><p>A list giving the mapping between stages of the original
-matrix and the desired stages of the collapsed matrix (e.g. <code><a href='https://rdrr.io/r/base/list.html'>list(1,
+matrix and the desired stages of the collapsed matrix (e.g., <code><a href='https://rdrr.io/r/base/list.html'>list(1,
 2:3, 4)</a></code>). Original stages may be passed as either indices or stage names
 corresponding to stage index or name in <code>matU</code>, <code>matF</code> and 
 <code>matC</code>). Names given to the elements of <code>collapse</code> are used as 
 stage names in the new, collapsed matrix.</p>
-
 <p>See <em>Missing Stages</em> for handling of <code>NA</code> within <code>collapse</code>.</p></td>
     </tr>
     </table>

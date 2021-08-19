@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Add stage names to matrices — name_stages" />
-<meta property="og:description" content="Adds user-supplied or automatically-generated stage names to an MPM." />
+<meta property="og:description" content="Adds user-supplied or automatically-generated stage names to a matrix
+population model (MPM)." />
 
 
 
@@ -138,7 +139,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Adds user-supplied or automatically-generated stage names to an MPM.</p>
+    <p>Adds user-supplied or automatically-generated stage names to a matrix
+population model (MPM).</p>
     </div>
 
     <pre class="usage"><span class='fu'>name_stages</span><span class='op'>(</span><span class='va'>mat</span>, names <span class='op'>=</span> <span class='cn'>NULL</span>, prefix <span class='op'>=</span> <span class='st'>"stage_"</span>, left_pad <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
@@ -153,19 +155,20 @@
     <tr>
       <th>names</th>
       <td><p>A character vector specifying the name of each life stage, in
-order. If provided, `prefix` and `left_pad` arguments are ignored.</p></td>
+order. If provided, <code>prefix</code> and <code>left_pad</code> arguments are ignored.</p></td>
     </tr>
     <tr>
       <th>prefix</th>
       <td><p>A string to be pre-pended to the stage number when automatically
-naming stages. Defaults to "stage_".</p></td>
+naming stages. Defaults to <code>stage_</code>.</p></td>
     </tr>
     <tr>
       <th>left_pad</th>
-      <td><p>Logical, whether to pre-pend 0 such that all stage numbers
-have equal length, enabling lexicographic sorting. For example, stage '1'
-becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
-stages, and so on. Defaults to TRUE.</p></td>
+      <td><p>Logical, whether to pre-pend <code>0</code> to stage names such
+that all stage numbers have equal length, enabling lexicographic sorting.
+For example, stage <code>1</code> becomes <code>01</code> for matrices with 10-99
+stages, <code>001</code> for matrices with 100-999 stages, and so on. Defaults to
+<code>TRUE</code>.</p></td>
     </tr>
     </table>
 

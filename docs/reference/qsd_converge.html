@@ -150,29 +150,32 @@ model to reach a defined quasi-stationary stage distribution.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mat</th>
-      <td><p>A matrix population model, or component thereof (i.e. a square
+      <td><p>A matrix population model, or component thereof (i.e., a square
 projection matrix). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>The index (or stage name) of the first stage at which the author
- considers the beginning of life. Defaults to 1. Alternately, a numeric vector
- giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
-must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
+considers the beginning of life. Defaults to <code>1</code>. Alternately, a
+numeric vector giving the starting population vector (in which case
+<code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match <code>ncol(matU))</code>. See section
+<em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>conv</th>
       <td><p>Proportional distance threshold from the stationary stage
-distribution indicating convergence. For example, this value should be 0.05 if the
-user wants to obtain the time step when the stage distribution is within a
-distance of 5% of the stationary stage distribution.</p></td>
+distribution indicating convergence. For example, this value should be
+<code>0.05</code> if the user wants to obtain the time step when the stage
+distribution is within a distance of 5% of the stationary stage
+distribution.</p></td>
     </tr>
     <tr>
       <th>N</th>
       <td><p>Maximum number of time steps over which the population will be
 projected. Time steps are in the same units as the matrix population model
-(see AnnualPeriodicity column in COM(P)ADRE). Defaults to 100,000.</p></td>
+(see <code>AnnualPeriodicity</code> column in COM(P)ADRE metadata). Defaults to
+<code>100,000</code>.</p></td>
     </tr>
     </table>
 
@@ -197,7 +200,7 @@ than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if we want to start our
-calculation of QSD from reproductive maturity (i.e. first reproduction), we
+calculation of QSD from reproductive maturity (i.e., first reproduction), we
 should account for the possibility that there may be multiple stage classes
 in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
@@ -224,15 +227,15 @@ should match the number of columns in the relevant MPM).</p>
   the function will return <code>NA</code> with a warning.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Caswell, H. 2001. Matrix Population Models: Construction,
-  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968</p>
-<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible, R.,
-  Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E., Quintana-Ascencio,
-  P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014. Diversity of ageing across
-  the tree of life. Nature 505, 169-173. &lt;doi:10.1038/nature12789&gt;</p>
+    <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968</p>
+<p>Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible,
+R., Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E.,
+Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. &amp; Vaupel, J. 2014.
+Diversity of ageing across the tree of life. Nature 505, 169-173.
+&lt;doi:10.1038/nature12789&gt;</p>
 <p>Salguero-Gomez R. 2018. Implications of clonality for ageing research.
-  Evolutionary Ecology, 32, 9-28. &lt;doi:10.1007/s10682-017-9923-2&gt;</p>
+Evolutionary Ecology, 32, 9-28. &lt;doi:10.1007/s10682-017-9923-2&gt;</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='repro_maturity.html'>mature_distrib</a></code> for calculating the proportion of

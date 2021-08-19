@@ -143,13 +143,13 @@ Caswell (2001)." />
 
     <div class="ref-description">
     <p>These functions use age-from-stage decomposition methods to calculate
-age-specific survivorship (lx), survival probability (px), mortality hazard
-(hx), or reproduction (mx) from a matrix population model (MPM). A detailed
+age-specific survivorship (<code>lx</code>), survival probability (<code>px</code>), mortality hazard
+(<code>hx</code>), or reproduction (<code>mx</code>) from a matrix population model (MPM). A detailed
 description of these methods can be found in sections 5.3.1 and 5.3.2 of
 Caswell (2001).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1000</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.01</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
 
 <span class='fu'>mpm_to_lx</span><span class='op'>(</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1e+05</span>, lx_crit <span class='op'>=</span> <span class='fl'>1e-04</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
 
@@ -162,14 +162,14 @@ Caswell (2001).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a MPM (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+      <td><p>The survival component of a MPM (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a MPM (i.e. a
+      <td><p>The reproductive component of a MPM (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both). Optionally with named rows and columns indicating
 the corresponding life stage names.</p></td>
@@ -184,17 +184,17 @@ must match <code>ncol(matU))</code>. See section <em>Starting from multiple stag
     <tr>
       <th>xmax</th>
       <td><p>Maximum age to which age-specific traits will be calculated
-(defaults to <code>100000</code>).</p></td>
+(defaults to <code>1000</code>).</p></td>
     </tr>
     <tr>
       <th>lx_crit</th>
-      <td><p>Minimum value of lx to which age-specific traits will be
-calculated (defaults to <code>0.0001</code>).</p></td>
+      <td><p>Minimum value of <code>lx</code> to which age-specific traits will be
+calculated (defaults to <code>0.01</code>).</p></td>
     </tr>
     <tr>
       <th>tol</th>
       <td><p>To account for floating point errors that occasionally lead to
-values of lx slightly greater than 1, values of lx within the open interval
+values of <code>lx</code> slightly greater than 1, values of <code>lx</code> within the open interval
 (<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults to <code>0.0001</code>. To
 prevent coercion, set <code>tol</code> to <code>0</code>.</p></td>
     </tr>
@@ -205,11 +205,15 @@ prevent coercion, set <code>tol</code> to <code>0</code>.</p></td>
     <p>A vector</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The output vector is calculated recursively until the age class (x)
-  reaches <code>xmax</code> or survivorship (lx) falls below <code>lx_crit</code>,
+    <p>Note that the units of time for the returned vectors (i.e., <code>x</code>) are
+  the same as the projection interval (<code>ProjectionInterval</code>) of the MPM.</p>
+<p>The output vector is calculated recursively until the age class (<code>x</code>)
+  reaches <code>xmax</code> or survivorship (<code>lx</code>) falls below <code>lx_crit</code>,
   whichever comes first. To force calculation to <code>xmax</code>, set
   <code>lx_crit</code> to <code>0</code>. Conversely, to force calculation to
   <code>lx_crit</code>, set <code>xmax</code> to <code>Inf</code>.</p>
+<p>Note that the units of time in returned values (i.e., <code>x</code>) are the
+  same as the projection interval (`ProjectionInterval`) of the MPM.</p>
     <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
 
     
@@ -217,7 +221,7 @@ prevent coercion, set <code>tol</code> to <code>0</code>.</p></td>
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if users want to start their
-calculation of age-specific traits from reproductive maturity (i.e. first
+calculation of age-specific traits from reproductive maturity (i.e., first
 reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, users should specify argument
@@ -228,9 +232,13 @@ the proportion of individuals starting in each stage class (the length of
 individuals achieving reproductive maturity in each stage class.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Caswell, H. 2001. Matrix Population Models: Construction,
-  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968</p>
+    <p>Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968</p>
+<p>Jones O. R. 2021. Life tables: Construction and interpretation In:
+Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &amp;
+Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609</p>
+<p>Preston, S., Heuveline, P., &amp; Guillot, M. 2000. Demography: Measuring and
+Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='lifetable_convert.html'>lifetable_convert</a></code></p>
@@ -281,9 +289,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 #&gt; [15] 0.3499976 0.3499973 0.3499972 0.3499971        NA</div><div class='input'>
 <span class='co'># age-specific fecundity</span>
 <span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  0.00000  0.00000  9.54125 19.49277 24.83256 26.79977 27.50641 27.74123
-#&gt;  [9] 27.81971 27.84525 27.85359 27.85629 27.85716 27.85744 27.85753 27.85756
-#&gt; [17] 27.85757 27.85757 27.85757</div><div class='input'>
+</div><div class='output co'>#&gt; [1]  0.00000  0.00000  9.54125 19.49277 24.83256 26.79977</div><div class='input'>
 
 <span class='co'>### starting from first reproduction</span>
 <span class='va'>repstages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_stages.html'>repro_stages</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span><span class='op'>)</span>
@@ -305,9 +311,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 #&gt; [15] 0.3499971 0.3499971 0.3499971 0.3499971 0.3499971 0.3499971 0.3499971
 #&gt; [22] 0.3499971 0.3499971 0.3499971 0.3499971 0.3499971        NA</div><div class='input'><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, <span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matF</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] 20.08684 23.58049 26.70449 27.41101 27.72566 27.81222 27.84348 27.85293
-#&gt;  [9] 27.85610 27.85709 27.85742 27.85752 27.85756 27.85757 27.85757 27.85757
-#&gt; [17] 27.85757 27.85757 27.85757 27.85757 27.85757 27.85757 27.85757 27.85757
-#&gt; [25] 27.85757 27.85757 27.85757</div><div class='input'>
+#&gt;  [9] 27.85610 27.85709 27.85742 27.85752 27.85756 27.85757</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

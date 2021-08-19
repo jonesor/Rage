@@ -150,27 +150,27 @@ critical proportion) from a matrix population model</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+      <td><p>The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+considers the beginning of life. Defaults to <code>1</code>. Alternately, a numeric vector
 giving the starting population vector (in which case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code>
 must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></td>
     </tr>
     <tr>
       <th>x_max</th>
       <td><p>The maximum age, in units of the MPM projection interval, to
-which survivorship will be calculated. Defaults to 1000.</p></td>
+which survivorship will be calculated. Defaults to <code>1000</code>.</p></td>
     </tr>
     <tr>
       <th>lx_crit</th>
       <td><p>Proportion of initial cohort remaining before all are considered
-dead (a value between 0 and 1). Defaults to 0.01.</p></td>
+dead (a value between 0 and 1). Defaults to <code>0.01</code>.</p></td>
     </tr>
     </table>
 
@@ -179,6 +179,10 @@ dead (a value between 0 and 1). Defaults to 0.01.</p></td>
     <p>Returns longevity, the integer age at which expected survivorship
   falls below <code>lx_crit</code>. If survivorship doesn't reach <code>lx_crit</code> by
   <code>x_max</code>, returns <code>NA</code> and prints a warning message.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Note that the units of time in returned values are the same as the
+  (<code>ProjectionInterval</code>) of the MPM.</p>
     <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
 
     
@@ -186,7 +190,7 @@ dead (a value between 0 and 1). Defaults to 0.01.</p></td>
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if we want to start our
-calculation of longevity from reproductive maturity (i.e. first
+calculation of longevity from reproductive maturity (i.e., first
 reproduction), we should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as

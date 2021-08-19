@@ -96,7 +96,7 @@
                         <h4 class="author">Patrick Barks</h4>
                         <h4 class="author">William K. Petry</h4>
             
-            <h4 class="date">2021-08-18</h4>
+            <h4 class="date">2021-08-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a01_GettingStarted.Rmd"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
@@ -118,8 +118,8 @@
 <h2 class="hasAnchor">
 <a href="#r-1--basic-anatomy-of-life-cycles-and-mpms" class="anchor"></a>R.1. Basic anatomy of life cycles and MPMs</h2>
 <p>Matrix population models are a mathematical tool that integrate population dynamics and population structure to model the dynamics of populations with different ‘types’ of individuals, whether due to age, life stage, sex, genotype or any other attribute that causes differences in demographic rates. Consider a plant species with three different types of individuals: <strong>seedlings</strong> that have newly recruited into the population from seeds, non-reproductive <strong>rosettes</strong>, and <strong>flowering</strong> adults that make seeds and also reproduce asexually by vegetative budding. We can represent the biology of this life cycle graphically (Fig. 1) where each life stage is a node and the life stages are connected with arrows showing the paths (and probabilities) that individuals move between stages.</p>
-<div id="htmlwidget-a53622516f1dde0ef24f" style="width:576px;height:192px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a53622516f1dde0ef24f">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
+<div id="htmlwidget-174f26bd983d5a54cd5e" style="width:576px;height:192px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-174f26bd983d5a54cd5e">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\"  \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical plant with three life stages (nodes). Arrows are coloured by conventional groupings of demographic processes: growth and survival (green), sexual reproduction via seeds (gold) and asexual reproduction via budding (purple). The numbers along each arrow indicate the transition probability–how many individuals will there be in the stage at the arrow’s end at the next time step for each individual at the arrow’s start?</p>
 <p>The <strong>transition</strong> or <strong>projection matrix</strong> (Fig. 2; called <strong>A</strong> in matrix notation) for this life cycle is a square matrix where the rows and columns correspond to the life stages (nodes) and the elements correspond to transition probabilities (arrows). By convention, the columns reflect the current life stage (i.e., the arrow’s start) and the rows reflect the arrow’s end.</p>
 <p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;"><strong>Figure 2.</strong> Transition (projection) matrix corresponding to the life cycle in Fig. 1.</p>
 <p>For basic MPM projection and equilibrium analyses, this single matrix is all that is needed. However, more advanced analyses like many of those in <code>Rage</code> use decompositions of the <strong>A</strong> matrix into its components of growth and survival (<strong>U</strong>) and reproduction (<strong>R</strong>). Reproduction can be further decomposed into offspring produced sexually (<strong>F</strong>) and asexually/clonally (<strong>C</strong>; Fig. 3). The submatrices combine additively to create the transition matrix,</p>
@@ -307,46 +307,20 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mpm_to_table.html">mpm_to_table</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>  <span class="co"># full life table</span>
 <span class="va">lt</span>
-<span class="co">#&gt;     x           lx           dx        hx        qx        px        ex</span>
-<span class="co">#&gt; 1   0 1.000000e+00 8.500000e-01 1.4782609 0.8500000 0.1500000 0.7502975</span>
-<span class="co">#&gt; 2   1 1.500000e-01 1.100000e-01 1.1578947 0.7333333 0.2666667 1.1686501</span>
-<span class="co">#&gt; 3   2 4.000000e-02 2.016000e-02 0.6737968 0.5040000 0.4960000 2.0074377</span>
-<span class="co">#&gt; 4   3 1.984000e-02 7.425350e-03 0.4604204 0.3742616 0.6257384 2.5391889</span>
-<span class="co">#&gt; 5   4 1.241465e-02 3.977500e-03 0.3815018 0.3203876 0.6796124 2.7588521</span>
-<span class="co">#&gt; 6   5 8.437150e-03 2.564246e-03 0.3583838 0.3039232 0.6960768 2.8237357</span>
-<span class="co">#&gt; 7   6 5.872905e-03 1.750779e-03 0.3503299 0.2981113 0.7018887 2.8383325</span>
-<span class="co">#&gt; 8   7 4.122125e-03 1.221159e-03 0.3477553 0.2962449 0.7037551 2.8314860</span>
-<span class="co">#&gt; 9   8 2.900967e-03 8.575655e-04 0.3468858 0.2956137 0.7043863 2.8129225</span>
-<span class="co">#&gt; 10  9 2.043401e-03 6.036396e-04 0.3466043 0.2954092 0.7045908 2.7835995</span>
-<span class="co">#&gt; 11 10 1.439762e-03 4.252221e-04 0.3465117 0.2953420 0.7046580 2.7410296</span>
-<span class="co">#&gt; 12 11 1.014540e-03 2.996141e-04 0.3464818 0.2953203 0.7046797 2.6803081</span>
-<span class="co">#&gt; 13 12 7.149255e-04 2.111269e-04 0.3464721 0.2953132 0.7046868 2.5940412</span>
-<span class="co">#&gt; 14 13 5.037985e-04 1.487772e-04 0.3464690 0.2953110 0.7046890 2.4715915</span>
-<span class="co">#&gt; 15 14 3.550213e-04 1.048414e-04 0.3464680 0.2953102 0.7046898 2.2978178</span>
-<span class="co">#&gt; 16 15 2.501799e-04 7.388062e-05 0.3464677 0.2953100 0.7046900 2.0512188</span>
-<span class="co">#&gt; 17 16 1.762993e-04 5.206292e-05 0.3464676 0.2953099 0.7046901 1.7012782</span>
-<span class="co">#&gt; 18 17 1.242363e-04 3.668822e-05 0.3464675 0.2953099 0.7046901 1.2046901</span>
-<span class="co">#&gt; 19 18 8.754812e-05 8.754812e-05 2.0000000 1.0000000 0.0000000 0.5000000</span>
-<span class="co">#&gt;          mx        lxmx</span>
-<span class="co">#&gt; 1   0.00000 0.000000000</span>
-<span class="co">#&gt; 2   0.00000 0.000000000</span>
-<span class="co">#&gt; 3   9.54125 0.381650000</span>
-<span class="co">#&gt; 4  19.49277 0.386736500</span>
-<span class="co">#&gt; 5  24.83256 0.308287540</span>
-<span class="co">#&gt; 6  26.79977 0.226113683</span>
-<span class="co">#&gt; 7  27.50641 0.161542525</span>
-<span class="co">#&gt; 8  27.74123 0.114352837</span>
-<span class="co">#&gt; 9  27.81971 0.080704042</span>
-<span class="co">#&gt; 10 27.84525 0.056899028</span>
-<span class="co">#&gt; 11 27.85359 0.040102535</span>
-<span class="co">#&gt; 12 27.85629 0.028261306</span>
-<span class="co">#&gt; 13 27.85716 0.019915792</span>
-<span class="co">#&gt; 14 27.85744 0.014034537</span>
-<span class="co">#&gt; 15 27.85753 0.009890016</span>
-<span class="co">#&gt; 16 27.85756 0.006969401</span>
-<span class="co">#&gt; 17 27.85757 0.004911269</span>
-<span class="co">#&gt; 18 27.85757 0.003460923</span>
-<span class="co">#&gt; 19 27.85757 0.002438878</span>
+<span class="co">#&gt;   x         lx         dx        hx        qx        px        ex       mx</span>
+<span class="co">#&gt; 1 0 1.00000000 0.85000000 1.4782609 0.8500000 0.1500000 0.7306918  0.00000</span>
+<span class="co">#&gt; 2 1 0.15000000 0.11000000 1.1578947 0.7333333 0.2666667 1.0379453  0.00000</span>
+<span class="co">#&gt; 3 2 0.04000000 0.02016000 0.6737968 0.5040000 0.4960000 1.5172950  9.54125</span>
+<span class="co">#&gt; 4 3 0.01984000 0.00742535 0.4604204 0.3742616 0.6257384 1.5509980 19.49277</span>
+<span class="co">#&gt; 5 4 0.01241465 0.00397750 0.3815018 0.3203876 0.6796124 1.1796124 24.83256</span>
+<span class="co">#&gt; 6 5 0.00843715 0.00843715 2.0000000 1.0000000 0.0000000 0.5000000 26.79977</span>
+<span class="co">#&gt;        lxmx</span>
+<span class="co">#&gt; 1 0.0000000</span>
+<span class="co">#&gt; 2 0.0000000</span>
+<span class="co">#&gt; 3 0.3816500</span>
+<span class="co">#&gt; 4 0.3867365</span>
+<span class="co">#&gt; 5 0.3082875</span>
+<span class="co">#&gt; 6 0.2261137</span>
 <span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>  <span class="co"># survivorship to start of each age class</span>
 <span class="va">lx</span>
 <span class="co">#&gt;  [1] 1.000000e+00 1.500000e-01 4.000000e-02 1.984000e-02 1.241465e-02</span>

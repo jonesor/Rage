@@ -97,7 +97,7 @@
                         <h4 class="author">Rob Salguero-Gomez</h4>
                         <h4 class="author">Others</h4>
             
-            <h4 class="date">2021-08-18</h4>
+            <h4 class="date">2021-08-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a03_LifeHistoryTraits.Rmd"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -240,7 +240,7 @@
 <p>Keyfitz’ entropy describes the shape of the age-specific survivorship curve (Demetrius 1978). Values greater than 1 correspond to survival curves type I (high survival in early part of life and decreasing over time), a value of 1 to survival curve type II (constant survival), and values less than 1 to survival curve type III (low survival early and increasing over time) (Salguero-Gómez et al. 2016).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
-<span class="co">#&gt; [1] -1.358418</span>
+<span class="co">#&gt; [1] -1.381131</span>
 <span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
 <span class="co">#&gt; [1] 0.948235</span></code></pre></div>
 <p>It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius’ entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the “small” stage, and therefore it does not include the full life cycle.</p>
@@ -254,7 +254,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
 <span class="co">#&gt; [1] -0.02687175</span>
 <span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
-<span class="co">#&gt; [1] -0.01505996</span></code></pre></div>
+<span class="co">#&gt; [1] -0.02999578</span></code></pre></div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
