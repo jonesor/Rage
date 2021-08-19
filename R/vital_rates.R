@@ -7,12 +7,12 @@
 #' reproduction, with various options for weighting and grouping stages of the
 #' life cycle.
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression).
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction)
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
@@ -34,6 +34,7 @@
 #' @param matrixStages Vector of stage-specific standardized matrix classes
 #'   ("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
 #'   \code{splitStages = "matrixClass"}.
+#'   
 #' @return A list of averaged vital rates.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>

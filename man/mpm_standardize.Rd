@@ -10,14 +10,14 @@ mpm_standardize(matU, matF, matC = NULL, repro_stages, matrix_stages)
 mpm_standardise(matU, matF, matC = NULL, repro_stages, matrix_stages)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
+\item{matU}{The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression).}
 
-\item{matF}{The sexual component of a matrix population model (i.e. a square
+\item{matF}{The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction).}
 
-\item{matC}{The clonal component of a matrix population model (i.e. a square
+\item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 \code{matC} is a matrix of zeros).}
@@ -26,7 +26,7 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 which stages are reproductive. Alternatively, a vector of stage indices or 
 stage names of the reproductive classes.}
 
-\item{matrix_stages}{Character vector of matrix stage types (e.g. "propagule",
+\item{matrix_stages}{Character vector of matrix stage types (e.g., "propagule",
 "active", or "dormant").}
 }
 \value{
@@ -39,7 +39,7 @@ A list with four elements reflecting the standardized matrix and
 }
 \description{
 Transform a matrix population model to a standardized set of stage classes
-(e.g. propagule, pre-reproductive, reproductive, and post-reproductive). The
+(e.g., propagule, pre-reproductive, reproductive, and post-reproductive). The
 transition rates in the standardized matrix are a weighted mean of the
 transition rates and per-capita reproductive values from the relevant stages
 of the original matrix, weighted by the relative proportion of each stage

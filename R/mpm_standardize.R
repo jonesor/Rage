@@ -1,25 +1,25 @@
 #' Transform a matrix population model to a standardized form
 #'
 #' Transform a matrix population model to a standardized set of stage classes
-#' (e.g. propagule, pre-reproductive, reproductive, and post-reproductive). The
+#' (e.g., propagule, pre-reproductive, reproductive, and post-reproductive). The
 #' transition rates in the standardized matrix are a weighted mean of the
 #' transition rates and per-capita reproductive values from the relevant stages
 #' of the original matrix, weighted by the relative proportion of each stage
 #' class expected at the stable distribution.
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression).
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
 #' @param repro_stages Logical vector of length \code{ncol(matU)} indicating 
 #'   which stages are reproductive. Alternatively, a vector of stage indices or 
 #'   stage names of the reproductive classes.
-#' @param matrix_stages Character vector of matrix stage types (e.g. "propagule",
+#' @param matrix_stages Character vector of matrix stage types (e.g., "propagule",
 #'   "active", or "dormant").
 #' @return A list with four elements reflecting the standardized matrix and
 #'   its components:

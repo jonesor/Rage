@@ -1,20 +1,20 @@
 #' Identify which stages in a matrix population model are reproductive
 #' 
 #' Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
-#' indicating which stages are reproductive (i.e. exhibit any positive values for
+#' indicating which stages are reproductive (i.e., exhibit any positive values for
 #' reproduction). This function is a preparatory step to collapsing the matrix
 #' model into a standardized set of stage classes using the function \code{\link{mpm_standardize}}.
 #'
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual (e.g. \code{matF}), clonal (e.g. \code{matC}), or both).
+#'   sexual (e.g., \code{matF}), clonal (e.g., \code{matC}), or both).
 #' @param na_handling One of \code{"return.na"}, \code{"return.true"}, or
 #'   \code{"return.false"}. Determines how values of \code{NA} within
 #'   \code{matR} should be handled. See Value for more details.
 #' @return A logical vector of length \code{ncol(matR)}, with values of
 #'   \code{FALSE} corresponding to non-reproductive stages and values of
 #'   \code{TRUE} corresponding to reproductive stages.\cr\cr For a given matrix
-#'   stage (i.e. column of \code{matR}), if there are any positive values of
+#'   stage (i.e., column of \code{matR}), if there are any positive values of
 #'   reproduction, the function will return \code{TRUE}. However, for a given
 #'   stage, if there are no positive values of reproduction and one or more values
 #'   of \code{NA}, the function will return \code{NA} if \code{na_handling ==

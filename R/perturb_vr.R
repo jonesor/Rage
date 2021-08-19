@@ -10,15 +10,15 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis,
 #' dormancy, or reproduction). Reproductive vital rates that are not conditional
-#' on survival (i.e. within a stage class from which there is no survival) are
+#' on survival (i.e., within a stage class from which there is no survival) are
 #' also allowed.
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression).
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).

@@ -6,12 +6,12 @@
 #' step to collapsing the matrix model into a standardized set of stages (e.g.
 #' propagule, pre-reproductive, reproductive, and post-reproductive).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression)
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction)
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).

@@ -5,11 +5,11 @@
 #' reproduction value (R0) is the mean number of recruits produced during the 
 #' mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both). Optionally with named rows and columns indicating
 #'   the corresponding life stage names.
@@ -24,7 +24,7 @@
 #' The \code{method} argument controls how net reproductive rate is calculated.
 #' 
 #' If \code{method = "generation"}, net reproductive value is calculated as the
-#' per-generation population growth rate (i.e. the dominant eigenvalue of
+#' per-generation population growth rate (i.e., the dominant eigenvalue of
 #' \code{matR \%*\% N}, where \code{N} is the fundamental matrix). See Caswell
 #' (2001) Section 5.3.4.
 #' 

@@ -17,12 +17,12 @@ mpm_to_px(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 mpm_to_hx(matU, start = 1L, xmax = 1e+05, lx_crit = 1e-04, tol = 1e-04)
 }
 \arguments{
-\item{matU}{The survival component of a MPM (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+\item{matU}{The survival component of a MPM (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
-\item{matR}{The reproductive component of a MPM (i.e. a
+\item{matR}{The reproductive component of a MPM (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both). Optionally with named rows and columns indicating
 the corresponding life stage names.}
@@ -35,11 +35,11 @@ must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 \item{xmax}{Maximum age to which age-specific traits will be calculated
 (defaults to \code{100000}).}
 
-\item{lx_crit}{Minimum value of lx to which age-specific traits will be
+\item{lx_crit}{Minimum value of \code{lx} to which age-specific traits will be
 calculated (defaults to \code{0.0001}).}
 
 \item{tol}{To account for floating point errors that occasionally lead to
-values of lx slightly greater than 1, values of lx within the open interval
+values of \code{lx} slightly greater than 1, values of \code{lx} within the open interval
 (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
 prevent coercion, set \code{tol} to \code{0}.}
 }
@@ -48,24 +48,30 @@ A vector
 }
 \description{
 These functions use age-from-stage decomposition methods to calculate
-age-specific survivorship (lx), survival probability (px), mortality hazard
-(hx), or reproduction (mx) from a matrix population model (MPM). A detailed
+age-specific survivorship (\code{lx}), survival probability (\code{px}), mortality hazard
+(\code{hx}), or reproduction (\code{mx}) from a matrix population model (MPM). A detailed
 description of these methods can be found in sections 5.3.1 and 5.3.2 of
 Caswell (2001).
 }
 \note{
-The output vector is calculated recursively until the age class (x)
-  reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit},
+Note that the units of time for the returned vectors (i.e., \code{x}) are
+  the same as the projection interval (\code{ProjectionInterval}) of the MPM.
+
+The output vector is calculated recursively until the age class (\code{x})
+  reaches \code{xmax} or survivorship (\code{lx}) falls below \code{lx_crit},
   whichever comes first. To force calculation to \code{xmax}, set
   \code{lx_crit} to \code{0}. Conversely, to force calculation to
   \code{lx_crit}, set \code{xmax} to \code{Inf}.
+
+Note that the units of time in returned values (i.e., \code{x}) are the
+  same as the projection interval (`ProjectionInterval`) of the MPM.
 }
 \section{Starting from multiple stages}{
 
 Rather than specifying argument \code{start} as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if users want to start their
-calculation of age-specific traits from reproductive maturity (i.e. first
+calculation of age-specific traits from reproductive maturity (i.e., first
 reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.
 
@@ -109,9 +115,15 @@ mpm_to_mx(mpm1$matU, mpm1$matF, start = n1)
 
 }
 \references{
-Caswell, H. 2001. Matrix Population Models: Construction,
-  Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968
+Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
+
+Jones O. R. 2021. Life tables: Construction and interpretation In:
+Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &
+Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609
+
+Preston, S., Heuveline, P., & Guillot, M. 2000. Demography: Measuring and
+Modeling Population Processes. Wiley. ISBN: 9781557864512
 }
 \seealso{
 \code{\link{lifetable_convert}}

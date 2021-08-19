@@ -9,12 +9,12 @@
 #' equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other
 #' demographic statistic.
 #'
-#' @param matU The survival component submatrix of a MPM (i.e. a square projection matrix
-#'   reflecting survival-related transitions; e.g. progression, stasis, and
+#' @param matU The survival component submatrix of a MPM (i.e., a square projection matrix
+#'   reflecting survival-related transitions; e.g., progression, stasis, and
 #'   retrogression).
-#' @param matF The sexual component submatrix of a MPM (i.e. a square projection matrix
+#' @param matF The sexual component submatrix of a MPM (i.e., a square projection matrix
 #'   reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component submatrix of a MPM (i.e. a square projection matrix
+#' @param matC The clonal component submatrix of a MPM (i.e., a square projection matrix
 #'   reflecting transitions due to clonal reproduction). Defaults to
 #'   \code{NULL}, indicating no clonal reproduction possible.
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
@@ -51,12 +51,12 @@
 #' 
 #' @details A transition rate of \code{0} within a matrix population model can
 #' either indicate that the transition is not possible in the given life cycle
-#' (e.g. tadpoles never revert to eggs), or that the transition is possible but
+#' (e.g., tadpoles never revert to eggs), or that the transition is possible but
 #' was estimated to be \code{0} in the relevant population and time period.
 #' Because transition rates of zero \emph{do} generally yield non-zero
 #' sensitivities, it is important to distinguish between structural (i.e.
 #' impossible) zeros and sampled zeros when summing multiple sensitivities for a
-#' given process (e.g. progression/growth).
+#' given process (e.g., progression/growth).
 #'
 #' By default, the \code{perturb_} functions assume that a transition rate of
 #' \code{0} indicates an impossible transition, in which case the sensitivity
@@ -66,7 +66,7 @@
 #' but estimated to be \code{0}, users should specify the \code{posX}
 #' argument(s) manually.
 #'
-#' If there are no possible transitions for a given process (e.g. clonality, in many species),
+#' If there are no possible transitions for a given process (e.g., clonality, in many species),
 #' the value of sensitivity or elasticity returned for that process will be
 #' \code{NA}.
 #'

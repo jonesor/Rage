@@ -5,20 +5,20 @@
 #' can be found in section 5.3 "Age-specific traits from stage-specific models"
 #' of Caswell (2001).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and/or retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
 #' @param matF (Optional) The sexual component of a matrix population model
-#'   (i.e. a square projection matrix reflecting transitions due to sexual
+#'   (i.e., a square projection matrix reflecting transitions due to sexual
 #'   reproduction). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param matC (Optional) The clonal component of a matrix population model
-#'   (i.e. a square projection matrix reflecting transitions due to clonal
+#'   (i.e., a square projection matrix reflecting transitions due to clonal
 #'   reproduction). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1. Alternately, a numeric
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric
 #'   vector giving the starting population vector (in which case
 #'   \code{length(start)} must match \code{ncol(matU))}. See section
 #'   \emph{Starting from multiple stages}.
@@ -74,7 +74,7 @@
 #'   \code{start} as a single stage class from which all individuals start life,
 #'   it may sometimes be desirable to allow for multiple starting stage classes.
 #'   For example, if the user wants to start the calculation of age-specific
-#'   traits from reproductive maturity (i.e. first reproduction), the user
+#'   traits from reproductive maturity (i.e., first reproduction), the user
 #'   should account for the possibility that there may be multiple stage classes
 #'   in which an individual could first reproduce.
 #'
@@ -100,11 +100,15 @@
 #'   individuals at the start of the interval is 0.5.
 #'   
 #'   If \code{lx_crit} is sufficiently small that only a very small proportion
-#'   of the cohort reach this age (i.e. < 0.05), this should have minimal impact
+#'   of the cohort reach this age (i.e., < 0.05), this should have minimal impact
 #'   on results. Nevertheless, for many analyses, the final row of the life
 #'   table should be treated with caution and perhaps removed from subsequent
 #'   analyses.
-#'
+#'   
+#' @note Note that the units of time (e.g.. `x` and `ex`) in the returned life
+#'   table are the same as the projection interval (`ProjectionInterval`) of the
+#'   MPM.
+#'   
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>

@@ -26,7 +26,7 @@ evaluate shape. If not given, these default to \code{min(x)} and
 when any lx == 0. Usually this is the case only for the final value of lx.
 As the function calculates log(lx), these value(s) cannot be handled. 
 trunc == TRUE strips out the zero value(s). An alternative to this is to 
-transform the zeroes to something approximating zero (e.g. 1e-7).}
+transform the zeroes to something approximating zero (e.g., 1e-7).}
 }
 \value{
 a shape value describing lifespan inequality by comparing the area

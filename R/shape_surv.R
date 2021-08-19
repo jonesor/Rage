@@ -21,7 +21,7 @@
 #'   when any lx == 0. Usually this is the case only for the final value of lx.
 #'   As the function calculates log(lx), these value(s) cannot be handled. 
 #'   trunc == TRUE strips out the zero value(s). An alternative to this is to 
-#'   transform the zeroes to something approximating zero (e.g. 1e-7).
+#'   transform the zeroes to something approximating zero (e.g., 1e-7).
 #'
 #' @return a shape value describing lifespan inequality by comparing the area
 #'   under a survival (lx) curve over age with the area under a constant (type

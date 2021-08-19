@@ -3,18 +3,18 @@
 #' Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some 
 #' critical proportion) from a matrix population model
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
 #'   giving the starting population vector (in which case \code{length(start)}
 #'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param x_max The maximum age, in units of the MPM projection interval, to
-#'   which survivorship will be calculated. Defaults to 1000.
+#'   which survivorship will be calculated. Defaults to \code{1000}.
 #' @param lx_crit Proportion of initial cohort remaining before all are considered
-#' dead (a value between 0 and 1). Defaults to 0.01.
+#' dead (a value between 0 and 1). Defaults to \code{0.01}.
 #' 
 #' @return Returns longevity, the integer age at which expected survivorship
 #'   falls below \code{lx_crit}. If survivorship doesn't reach \code{lx_crit} by
@@ -24,7 +24,7 @@
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
 #' multiple starting stage classes. For example, if we want to start our
-#' calculation of longevity from reproductive maturity (i.e. first
+#' calculation of longevity from reproductive maturity (i.e., first
 #' reproduction), we should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
@@ -33,6 +33,9 @@
 #' of individuals starting in each stage class (the length of \code{start}
 #' should match the number of columns in the relevant MPM).
 #' 
+#' @note Note that the units of time in returned values are the same as the
+#'   projection interval (`ProjectionInterval`) of the MPM. 
+#'   
 #' @seealso 
 #' \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.

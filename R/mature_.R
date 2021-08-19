@@ -8,23 +8,27 @@
 #' (\code{mature_age}), and distribution of individuals first achieving
 #' reproductive maturity among stage class (\code{mature_distrib}).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both). Optionally with named rows and columns indicating
-#'    the corresponding life stage names.
+#'   the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1.
-#' @param repro_stages A vector of stage names or indices indicating which stages
-#'   are reproductive. Alternatively, a logical vector of length \code{ncol(matU)} 
-#'   indicating whether each stage is reproductive (TRUE) or not (FALSE).
+#'   considers the beginning of life. Defaults to \code{1}.
+#' @param repro_stages A vector of stage names or indices indicating which
+#'   stages are reproductive. Alternatively, a logical vector of length
+#'   \code{ncol(matU)} indicating whether each stage is reproductive
+#'   (\code{TRUE}) or not (\code{FALSE}).
 #'   
 #' @return For \code{mature_distrib}, a vector giving the proportion of
 #'   individuals that first reproduce within each stage class. For all others, a
 #'   scalar trait value.
+#' 
+#' @note Note that the units of time in returned values are the same as the
+#'   projection interval (`ProjectionInterval`) of the MPM.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
