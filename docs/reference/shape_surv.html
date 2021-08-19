@@ -157,10 +157,12 @@ survival function.</p>
 describing a survival curve, optionally a column / element 'x' containing
 age classes (each element a number representing the age at the start of the
 class).</p>
-<p>If x is not supplied, the function will assume age classes starting at 0
-with time steps of 1 unit. If x begins at 0 then <code>lx[1]</code> should equal
-1. If x ends at maximum longevity, then <code>lx[which.max(x)]</code> should
-equal 0; however it is possible to supply partial survivorship curves.</p></td>
+<p>If <code>x</code> is not supplied, the function will assume age classes starting
+at <code>0</code> with time steps of <code>1</code> unit of the
+<code>ProjectionInterval</code>. If <code>x</code> begins at <code>0</code> then <code>lx[1]</code>
+should equal <code>1</code>. If <code>x</code> ends at maximum longevity, then
+<code>lx[which.max(x)]</code> should equal <code>0</code>; however it is possible to
+supply partial survivorship curves.</p></td>
     </tr>
     <tr>
       <th>xmin, xmax</th>
@@ -170,25 +172,27 @@ evaluate shape. If not given, these default to <code><a href='https://rdrr.io/r/
     </tr>
     <tr>
       <th>trunc</th>
-      <td><p>logical determining whether to truncate life tables or not 
-when any lx == 0. Usually this is the case only for the final value of lx.
-As the function calculates log(lx), these value(s) cannot be handled. 
-trunc == TRUE strips out the zero value(s). An alternative to this is to 
-transform the zeroes to something approximating zero (e.g. 1e-7).</p></td>
+      <td><p>logical determining whether to truncate life tables or not when
+any <code>lx == 0</code>. Usually this is the case only for the final value of
+<code>lx</code>. As the function calculates <code><a href='https://rdrr.io/r/base/Log.html'>log(lx)</a></code>, these value(s) cannot
+be handled. <code>trunc == TRUE</code> strips out the zero value(s). An
+alternative to this is to transform the zeroes to something approximating
+zero (e.g., 1e-7).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a shape value describing lifespan inequality by comparing the area
-  under a survival (lx) curve over age with the area under a constant (type
-  2) survival function. May take any real value between -0.5 and +0.5. A
-  value of 0 indicates negligible ageing (neither generally increasing nor
-  generally decreasing survival with age); negative values indicate negative
-  senescence (generally increasing survival with age); positive values
-  indicate senescence (generally decreasing survival with age). A value of
-  +0.5 indicates that all individuals die at age of maximum longevity; a
-  value of -0.5 indicates that (hypothetically) all individuals die at birth.</p>
+  under a survival (<code>lx</code>) curve over age with the area under a constant
+  (Type II) survival function. The shape value may take any real value
+  between -0.5 and +0.5. A value of 0 indicates negligible ageing (neither
+  generally increasing nor generally decreasing survival with age); negative
+  values indicate negative senescence (generally increasing survival with
+  age); positive values indicate senescence (generally decreasing survival
+  with age). A value of +0.5 indicates that all individuals die at age of
+  maximum longevity; a value of -0.5 indicates that (hypothetically) all
+  individuals die at birth.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other life history traits: 

@@ -50,7 +50,7 @@ These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of matU) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis, or
 reproduction). Reproductive vital rates that are not conditional on survival
-(i.e. within a stage class from which there is no survival) are also allowed." />
+(i.e., within a stage class from which there is no survival) are also allowed." />
 
 
 
@@ -157,7 +157,7 @@ biologically impossible transitions are coerced to <code>NA</code>.</p>
 stage-specific survival term (column sums of <code>matU</code>) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis, or
 reproduction). Reproductive vital rates that are not conditional on survival
-(i.e. within a stage class from which there is no survival) are also allowed.</p>
+(i.e., within a stage class from which there is no survival) are also allowed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>vr_mat_U</span><span class='op'>(</span><span class='va'>matU</span>, posU <span class='op'>=</span> <span class='va'>matU</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, surv_only_na <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -169,7 +169,7 @@ reproduction). Reproductive vital rates that are not conditional on survival
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
+      <td><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)</p></td>
     </tr>
@@ -191,7 +191,7 @@ value of <code>1</code>. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
+      <td><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)</p></td>
     </tr>
@@ -211,7 +211,7 @@ Details).</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A transition rate of <code>0</code> within a matrix population model may indicate
-that the transition is not possible in the given life cycle (e.g. tadpoles
+that the transition is not possible in the given life cycle (e.g., tadpoles
 never revert to eggs), or that the transition is possible but was estimated
 to be <code>0</code> in the relevant population and time period. If vital rates are
 to be averaged across multiple stage classes, or compared across populations,

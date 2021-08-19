@@ -126,7 +126,7 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 entropy_k(lx)       # Keyfitz' entropy
 #> [1] 0.948235
 entropy_d(lx, mx)   # Demetrius' entropy
-#> [1] -1.358418
+#> [1] -1.381131
 shape_surv(lx)      # shape of survival/mortality trajectory
 #> [1] -0.02687175
 shape_rep(lx)       # shape of fecundity trajectory
@@ -173,7 +173,7 @@ to the QSD.
 ``` r
 # calculate the shape of the survival/mortality trajectory
 shape_surv(lt$lx)       # based on full lx trajectory
-#> [1] -0.02687175
+#> [1] -0.04681254
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
 #> [1] -0.06475154
 ```

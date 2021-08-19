@@ -42,7 +42,7 @@
 <meta property="og:title" content="Calculate generation time from a matrix population model — gen_time" />
 <meta property="og:description" content="Calculate generation time from a matrix population model. Generation time
 is defined here as the time required for a population to increase by a factor
-of R0 (the net reproductive rate, see ). For more details please refer to 
+of R0 (the net reproductive rate). For more details refer to 
 section 5.3.5 of Caswell (2001)." />
 
 
@@ -143,7 +143,7 @@ section 5.3.5 of Caswell (2001)." />
     <div class="ref-description">
     <p>Calculate generation time from a matrix population model. Generation time
 is defined here as the time required for a population to increase by a factor
-of R0 (the net reproductive rate, see ). For more details please refer to 
+of R0 (the net reproductive rate). For more details refer to 
 section 5.3.5 of Caswell (2001).</p>
     </div>
 
@@ -154,13 +154,13 @@ section 5.3.5 of Caswell (2001).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+      <td><p>The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
+      <td><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction; either
 sexual, clonal, or both).</p></td>
     </tr>
@@ -177,6 +177,10 @@ sexual, clonal, or both).</p></td>
 per-generation population growth rate; Caswell 2001, Sec. 5.3.4), and
 <code>lambda</code> is the population growth rate per unit time (the dominant
 eigenvalue of <code>matU + matR</code>).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Note that the units of time in returned values are the same as the
+  projection interval (`ProjectionInterval`) of the MPM.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Caswell, H. 2001. Matrix Population Models: Construction,

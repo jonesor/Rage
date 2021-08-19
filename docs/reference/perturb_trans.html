@@ -173,18 +173,18 @@ demographic statistic.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component submatrix of a MPM (i.e. a square projection matrix
-reflecting survival-related transitions; e.g. progression, stasis, and
+      <td><p>The survival component submatrix of a MPM (i.e., a square projection matrix
+reflecting survival-related transitions; e.g., progression, stasis, and
 retrogression).</p></td>
     </tr>
     <tr>
       <th>matF</th>
-      <td><p>The sexual component submatrix of a MPM (i.e. a square projection matrix
+      <td><p>The sexual component submatrix of a MPM (i.e., a square projection matrix
 reflecting transitions due to sexual reproduction).</p></td>
     </tr>
     <tr>
       <th>matC</th>
-      <td><p>The clonal component submatrix of a MPM (i.e. a square projection matrix
+      <td><p>The clonal component submatrix of a MPM (i.e., a square projection matrix
 reflecting transitions due to clonal reproduction). Defaults to
 <code>NULL</code>, indicating no clonal reproduction possible.</p></td>
     </tr>
@@ -263,12 +263,12 @@ performs a calculation on a MPM and returns a single numeric value.</p></td>
 
     <p>A transition rate of <code>0</code> within a matrix population model can
 either indicate that the transition is not possible in the given life cycle
-(e.g. tadpoles never revert to eggs), or that the transition is possible but
+(e.g., tadpoles never revert to eggs), or that the transition is possible but
 was estimated to be <code>0</code> in the relevant population and time period.
 Because transition rates of zero <em>do</em> generally yield non-zero
 sensitivities, it is important to distinguish between structural (i.e.
 impossible) zeros and sampled zeros when summing multiple sensitivities for a
-given process (e.g. progression/growth).</p>
+given process (e.g., progression/growth).</p>
 <p>By default, the <code>perturb_</code> functions assume that a transition rate of
 <code>0</code> indicates an impossible transition, in which case the sensitivity
 for that transition will not be included in any calculation. Specifically,
@@ -276,7 +276,7 @@ the arguments <code>posX</code> are specified by the logical expression <code>(m
 &gt; 0)</code>. If the matrix population model includes transitions that are possible
 but estimated to be <code>0</code>, users should specify the <code>posX</code>
 argument(s) manually.</p>
-<p>If there are no possible transitions for a given process (e.g. clonality, in many species),
+<p>If there are no possible transitions for a given process (e.g., clonality, in many species),
 the value of sensitivity or elasticity returned for that process will be
 <code>NA</code>.</p>
     <h2 class="hasAnchor" id="excluding-stages"><a class="anchor" href="#excluding-stages"></a>Excluding stages</h2>
