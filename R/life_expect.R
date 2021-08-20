@@ -56,9 +56,8 @@
 #' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
 #' life_expect_mean(mpm1$matU, start = n1)
 #'
-#'# variance of life expectancy from stage class 2
-#'life_expect_var(mpm1$matU, start = 1)
-#'
+#'# variance of life expectancy from stage class 1
+#' life_expect_var(mpm1$matU, start = 1)
 #'
 #' @rdname life_expect
 #' @export life_expect_mean
@@ -88,8 +87,7 @@ life_expect_mean <- function(matU, start = 1L) {
   if(inherits(N, "try-error")) {
     mean <- NA_real_
   } else {
-    
-    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
+
     mean <- sum(colSums(N) * start_vec)
   }
   
