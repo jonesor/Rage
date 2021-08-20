@@ -66,9 +66,8 @@ rep_stages <- repro_stages(mpm1$matF)
 n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
 life_expect_mean(mpm1$matU, start = n1)
 
-# variance of life expectancy from stage class 2
+# variance of life expectancy from stage class 1
 life_expect_var(mpm1$matU, start = 1)
-
 
 }
 \references{
