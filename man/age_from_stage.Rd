@@ -28,7 +28,7 @@ sexual, clonal, or both). Optionally with named rows and columns indicating
 the corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
 giving the starting population vector (in which case \code{length(start)}
 must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
 
