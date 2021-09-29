@@ -165,7 +165,7 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
   lx <- mpm_to_lx(matU, start, xmax, lx_crit)
   if (lx[length(lx)] > 0.05) {
     warning(strwrap(prefix = " ", initial = "", "There are still a large proportion of the synthetic
-  cohort remaining alive in the final row of the life table. Consider changing values for `lx_crit` or `xmax`"))
+  cohort remaining alive in the final row of the life table. Consider changing values for `lx_crit` or `xmax`.\n"))
   }
   # Number left alive at age x
   Nx <- lx * radix

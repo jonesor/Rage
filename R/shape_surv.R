@@ -53,12 +53,12 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
     lx <- surv
     x <- seq_along(lx) - 1
     if(lx[1] != 1) {
-      stop("if `x` isn't given, `lx` must start with 1 as `x[1]` is assumed to be 0")
+      stop("if `x` isn't given, `lx` must start with 1 as `x[1]` is assumed to be 0.\n")
     }
   }
   if(class(surv) %in% c("list", "data.frame")) {
     if(!all(c("x", "lx") %in% names(surv))) {
-      stop("`surv` doesn't contain both `x` and `lx`")
+      stop("`surv` doesn't contain both `x` and `lx`.\n")
     }
     x <- surv$x
     lx <- surv$lx
@@ -66,14 +66,14 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
       stop("`x` and `lx` must be the same length")
     }
     if((x[1] %in% 0) & !(lx[1] %in% 1)){
-      stop("`lx` must start with `1` where `x[1]` is `0`")
+      stop("`lx` must start with `1` where `x[1]` is `0`.\n")
     }
   }
   if(!trunc) {
     if(any(lx %in% 0)) {
       stop(strwrap(prefix = " ", initial = "", "`lx` cannot be zero (we calculate the `log`). 
                    Consider `trunc = TRUE`, or transforming zero values. See `?shape_surv` 
-                   for more details."))
+                   for more details.\n"))
     }
   }
   if(trunc) {
@@ -82,11 +82,11 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE) {
   }
   if(is.null(xmin)) xmin <- min(x)
   if(is.null(xmax)) xmax <- max(x)
-  if(any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending")
-  if(any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx)")
+  if(any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending.\n")
+  if(any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx).\n")
   x_sub <- x[x >= xmin & x <= xmax]
   if(length(x_sub) <= 2) {
-    stop("must have > 2 nonzero values of lx to calculate shape")
+    stop("must have > 2 nonzero values of lx to calculate shape.\n")
   }
   lx_sub <- lx[x >= xmin & x <= xmax]
   lx_log <- log(lx_sub)

@@ -51,7 +51,7 @@ repro_stages <- function(matR, na_handling = "return.true") {
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na_handling %in% c("return.na", "return.true", "return.false")) {
     stop(strwrap(prefix = " ", initial = "", "Argument na_handling must be either 'return.na', 
-                 'return.true', or 'return.false'"), call. = FALSE)
+                 'return.true', or 'return.false'.\n"), call. = FALSE)
   }
   
   if (!any(is.na(matR))) {

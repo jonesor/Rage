@@ -9,20 +9,20 @@ checkValidMat <- function(M,
   mn <- deparse(substitute(M)) # name of object passed to M
   
   if (!is.matrix(M) || !is.numeric(M) || (nrow(M) != ncol(M))) {
-    stop("Argument ", mn, " must be a square numeric matrix", call. = FALSE)
+    stop("Argument ", mn, " must be a square numeric matrix.\n", call. = FALSE)
   }
   if (fail_all_na && all(is.na(M))) {
-    stop("Argument ", mn, " contains only missing values (i.e. all <NA>)",
+    stop("Argument ", mn, " contains only missing values (i.e. all <NA>).\n",
          call. = FALSE)
   }
   if (fail_any_na && any(is.na(M))) {
-    stop("Argument ", mn, " contains missing values (i.e. <NA>)", call. = FALSE)
+    stop("Argument ", mn, " contains missing values (i.e. <NA>).\n", call. = FALSE)
   }
   if (warn_all_zero && all(M == 0)) {
-    warning("All elements of ", mn, " are zero", call. = FALSE)
+    warning("All elements of ", mn, " are zero.\n", call. = FALSE)
   }
   if (warn_surv_issue && any(colSums(M) > 1)) {
-    warning("Argument ", mn, " has at least one stage-specific survival",
+    warning("Argument ", mn, " has at least one stage-specific survival.\n",
             " probability > 1", call. = FALSE)
   }
 }
@@ -32,14 +32,14 @@ checkMatchingStageNames <- function(M, N = NULL) {
   if (is.null(N)) {
     if (!identical(rownames(M), colnames(M))) {
       stop(strwrap(prefix = " ", initial = "","When naming lifestages, both rows and columns 
-                   must be named and their names must be identical"))
+                   must be named and their names must be identical.\n"))
     }
   } else {
     if (!identical(rownames(M), colnames(M)) || !identical(rownames(N), colnames(N)) ||
         !identical(M * 0L, N * 0L)) {
       stop(strwrap(prefix = " ", initial = "", "When naming lifestages, both rows and columns 
                    must be named their names must be identical, and they must be the same between 
-                   both matrices passed to the function."))
+                   both matrices passed to the function.\n"))
     }
   }
 }
@@ -54,14 +54,14 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
         (is.character(s) && length(s) == 1 && !(s %in% unique(unlist(dimnames(M)))))) {
       stop(strwrap(prefix = " ", initial = "","Argument 'start' must be an integer within 1:nrow(matU), 
                    a character matching a stage class name in dimnames(matU), or an integer vector of 
-                   starting abundances of length ncol(matU)"),
+                   starting abundances of length ncol(matU).\n"),
            call. = FALSE)
     }
   } else {
     # check that start is a single value, either an index or named life stage
     if ( length(s) != 1 || !(s %in% seq_len(nrow(M))) && !(s %in% unique(unlist(dimnames(M))))) {
       stop(strwrap(prefix = " ", initial = "","Argument 'start' must be an integer within 1:nrow(matU), 
-                   or a character matching a stage class name in dimnames(matU)"),
+                   or a character matching a stage class name in dimnames(matU).\n"),
            call. = FALSE)
     }
   }
@@ -73,7 +73,7 @@ checkValidStages <- function(M, stages) {
   arg <- deparse(substitute(stages))
   if (is.logical(stages) && length(stages) != ncol(M)) {
     stop("Length of `", arg, "` (logical vector) must equal the dimension of ",
-         "the matrix (", ncol(M), ")", call. = FALSE)
+         "the matrix (", ncol(M), ").\n", call. = FALSE)
   } else if (is.numeric(stages) && !all(stages[!is.na(stages)] %in% 1:ncol(M))) {
     stop("Some stage indices ",
          ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
@@ -121,7 +121,7 @@ meanMat <- function(x, na.rm = FALSE) {
   n_row <- vapply(x, nrow, numeric(1))
   n_col <- vapply(x, ncol, numeric(1))
   if (length(unique(n_row)) != 1 | length(unique(n_col)) != 1) {
-    stop("All matrices in list must be of same dimension")
+    stop("All matrices in list must be of same dimension.\n")
   }
   if (na.rm) x <- lapply(x, zero_NA)
   n <- length(x)
@@ -139,7 +139,7 @@ zero_NA <- function(m) {
 #' @noRd
 area_under_curve <- function(x, y) {
   delta_x <- diff(x)
-  if (any(delta_x <= 0)) stop("area_under_curve: x should be ascending")
+  if (any(delta_x <= 0)) stop("area_under_curve: x should be ascending.\n")
   rect_heights <- (y[-1] + y[-length(y)]) / 2
   return(sum(delta_x * rect_heights))
 }

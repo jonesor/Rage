@@ -93,7 +93,7 @@ perturb_vr <- function(matU, matF, matC = NULL,
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
       stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name 
-                   of a function that returns a single numeric value"), call. = FALSE)
+                   of a function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
   

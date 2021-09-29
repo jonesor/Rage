@@ -72,7 +72,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)
   if (lx_crit < 0 | lx_crit > 1) {
-    stop("lx_crit must be a proportion between 0 and 1", call. = FALSE)
+    stop("lx_crit must be a proportion between 0 and 1.\n", call. = FALSE)
   }
   
   if (length(start) == 1) {
@@ -99,7 +99,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
     longevity <- t
   } else {
     longevity <- NA_integer_
-    warning("survivorship did not reach 'lx_crit' by 'x_max': returning NA")
+    warning("survivorship did not reach 'lx_crit' by 'x_max': returning NA.\n")
   }
   
   return(longevity)

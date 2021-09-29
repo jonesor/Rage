@@ -43,10 +43,10 @@ entropy_k <- function(lx, trapeze = FALSE) {
 
   # validate arguments
   if (any(lx < 0 | lx > 1)) {
-    stop("All values of lx must be within the interval [0, 1]")
+    stop("All values of lx must be within the interval [0, 1].\n")
   }
   if (any(diff(lx) > 1e-7)) {
-    stop("Values of lx must be monotonically declining")
+    stop("Values of lx must be monotonically declining.\n")
   }
   
   # remove ages at/beyond which lx is 0 or NA

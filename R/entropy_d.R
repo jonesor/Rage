@@ -39,13 +39,13 @@ entropy_d <- function(lx, mx) {
   
   # validate arguments
   if (any(lx < 0 | lx > 1)) {
-    stop("All values of lx must be within the interval [0, 1]")
+    stop("All values of lx must be within the interval [0, 1].\n")
   }
   if (any(diff(lx) > 1e-7)) {
-    stop("Values of lx must be monotonically declining")
+    stop("Values of lx must be monotonically declining.\n")
   }
   if (any(mx < 0)) {
-    stop("All values of mx must be >= 0")
+    stop("All values of mx must be >= 0.\n")
   }
   
   # calculate Demetrius' entropy

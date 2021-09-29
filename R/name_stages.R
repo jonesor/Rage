@@ -37,26 +37,26 @@
 name_stages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
   # check argument inputs
   if (!is.matrix(mat) && !is.list(mat)) {
-    stop("Argument `mat` must be either a matrix or list of matrices.")
+    stop("Argument `mat` must be either a matrix or list of matrices.\n")
   }
   if (is.matrix(mat)) {
     if (length(unique(dim(mat))) != 1L) {
-      stop("When `mat` is supplied as a matrix, it must be square.")
+      stop("When `mat` is supplied as a matrix, it must be square.\n")
     } else {
       mdim <- nrow(mat)
     }
   } else {
     if (length(unique(unlist(lapply(mat, dim), use.names = FALSE))) != 1L) {
-      stop("Each matrix in `mat` must be square with the same dimensions.")
+      stop("Each matrix in `mat` must be square with the same dimensions.\n")
     } else {
       mdim <- nrow(mat[[1]])
     }
   }
   if (is.null(names) && !is.character(prefix)) {
-    stop("Either stage `names` or a naming `prefix` must be supplied.")
+    stop("Either stage `names` or a naming `prefix` must be supplied.\n")
   }
   if (!is.null(names) && is.character(prefix)){
-    warning("Naming `prefix` ignored, using stage `names` instead.")
+    warning("Naming `prefix` ignored, using stage `names` instead.\n")
   }
   # construct stage names
   if (is.null(names)) {
@@ -66,17 +66,17 @@ name_stages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
     } else if (isFALSE(left_pad)) {
       names <- 1:mdim
     } else {
-      stop("Argument `left_pad` must be of type logical (TRUE/FALSE).")
+      stop("Argument `left_pad` must be of type logical (TRUE/FALSE).\n")
     }
   }
   if (mdim != length(names)) {
     stop("Incorrect number of stage names supplied: ", length(names),
-         " names supplied for ", mdim, " life stages.")
+         " names supplied for ", mdim, " life stages.\n")
   }
   # warn if overwriting existing stage names
   if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames), use.names = FALSE)) |
       is.matrix(mat) && !is.null(unlist(dimnames(mat), use.names = FALSE))) {
-    warning("Existing stage names have been overwritten!")
+    warning("Existing stage names have been overwritten!\n")
   }
   # add stage names to matrix/matrices
   if (is.matrix(mat)) {

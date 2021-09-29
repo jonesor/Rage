@@ -117,10 +117,10 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   checkValidStartLife(start, matU)
   if (length(repro_stages) > ncol(matU)) {
     stop("More repro_stages were supplied, (", length(repro_stages),
-         ") than there are life stages (", ncol(matU), ").", call. = FALSE)
+         ") than there are life stages (", ncol(matU), ").\n", call. = FALSE)
   }
   if (is.logical(repro_stages) && ncol(matU) != length(repro_stages)) {
-    stop("length(repro_stages) must equal ncol(matU)", call. = FALSE)
+    stop("length(repro_stages) must equal ncol(matU).\n", call. = FALSE)
   }
   if (!is.numeric(start)){
     checkMatchingStageNames(M = matU)

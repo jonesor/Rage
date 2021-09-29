@@ -61,7 +61,7 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
       stop(strwrap(prefix = " ", initial = "", "demog_stat must be 'lambda' or the name of a 
-                   function that returns a single numeric value"), call. = FALSE)
+                   function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
 

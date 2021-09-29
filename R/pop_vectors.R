@@ -56,7 +56,7 @@ pop_vectors <- function(A, start = "stable.stage") {
     w[[1]] <- runif(s)
     w[[1]] <- w[[1]] / sum(w[[1]])
   } else {
-    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'",
+    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'.\n",
          .call = FALSE)
   }
   

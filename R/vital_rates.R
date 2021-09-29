@@ -84,27 +84,27 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
   if (all(!is.null(weights), weights != "SSD",
         length(weights) != nrow(matU))) {
     stop(strwrap(prefix = " ", initial = "","If `weights` are provided, `length(weights)` should be 
-                 of the same dimension as `matU`"), call. = FALSE)
+                 of the same dimension as `matU`.\n"), call. = FALSE)
   }
   
   if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
     stop(strwrap(prefix = " ", initial = "","Argument `splitStages` must be one of `all`, `ontogeny`, 
-                 or `matrixStages`"), call. = FALSE)
+                 or `matrixStages`.\n"), call. = FALSE)
   }
   if (splitStages == "matrixStages") {
     if (is.null(matrixStages)) {
       stop(strwrap(prefix = " ", initial = "","If `splitStages` = `matrixStages`, argument `matrixStages` 
-                   must be provided"), call. = FALSE)
+                   must be provided.\n"), call. = FALSE)
     }
     if (length(matrixStages) != nrow(matU)) {
-      stop("`length(matrixStages)` should be of the same dimension as `matU`",
+      stop("`length(matrixStages)` should be of the same dimension as `matU`.\n",
            call. = FALSE)
     }
   }
   
   if(!is.null(matrixStages)){
     if(!all(matrixStages %in% c("prop", "active", "dorm"))){
-      stop("matrixStage names must be 'prop','active' or 'dorm'", call. = FALSE)
+      stop("matrixStage names must be 'prop','active' or 'dorm'.\n", call. = FALSE)
     }
   }
   

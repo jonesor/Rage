@@ -72,7 +72,7 @@ mpm_rearrange <- function(matU, matF, matC = NULL, repro_stages,
   if (ncol(matU) != ncol(matF) ||
         ncol(matU) != length(repro_stages) ||
           length(repro_stages) != length(matrix_stages)) {
-    stop("Arguments do not correspond to MPM of single dimension",
+    stop("Arguments do not correspond to MPM of single dimension.\n",
          call. = FALSE)
   }
   checkMatchingStageNames(matU, matF)

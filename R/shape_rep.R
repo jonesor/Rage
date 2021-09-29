@@ -57,7 +57,7 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   }
   if (class(rep) %in% c("list", "data.frame")) {
     if (!all(c("x", "mx") %in% names(rep))) {
-      stop("`rep` doesn't contain both `x` and `mx`")
+      stop("`rep` doesn't contain both `x` and `mx`.\n")
     }
     x <- rep$x
     mx <- rep$mx
@@ -67,11 +67,11 @@ shape_rep <- function(rep, xmin = NULL, xmax = NULL) {
   }
   if (is.null(xmin)) xmin <- x[min(which(mx > 0))]
   if (is.null(xmax)) xmax <- max(x)
-  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, `x` must all be ascending")
-  if (any(mx < 0)) stop("You appear to have minus-babies (check `mx` for negative values)")
+  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, `x` must all be ascending.\n")
+  if (any(mx < 0)) stop("You appear to have minus-babies (check `mx` for negative values).\n")
   x_sub <- x[x >= xmin & x <= xmax]
   if (length(x_sub) <= 2) {
-    stop("must have > 2 nonzero values of `mx` to calculate shape")
+    stop("must have > 2 nonzero values of `mx` to calculate shape.\n")
   }
   ltdim <- length(x)
   Bx <- c(0, cumsum(mx[1:(ltdim - 1)]))
