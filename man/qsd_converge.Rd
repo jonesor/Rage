@@ -4,7 +4,7 @@
 \alias{qsd_converge}
 \title{Calculate time to reach quasi-stationary stage distribution}
 \usage{
-qsd_converge(mat, start = 1L, conv = 0.05, N = 100000L)
+qsd_converge(mat, start = 1L, conv = 0.01, N = 100000L)
 }
 \arguments{
 \item{mat}{A matrix population model, or component thereof (i.e., a square
@@ -19,8 +19,8 @@ numeric vector giving the starting population vector (in which case
 
 \item{conv}{Proportional distance threshold from the stationary stage
 distribution indicating convergence. For example, this value should be
-\code{0.05} if the user wants to obtain the time step when the stage
-distribution is within a distance of 5\% of the stationary stage
+\code{0.01} if the user wants to obtain the time step when the stage
+distribution is within a distance of 1\% of the stationary stage
 distribution.}
 
 \item{N}{Maximum number of time steps over which the population will be

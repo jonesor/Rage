@@ -14,8 +14,8 @@
 #'   \emph{Starting from multiple stages}.
 #' @param conv Proportional distance threshold from the stationary stage
 #'   distribution indicating convergence. For example, this value should be
-#'   \code{0.05} if the user wants to obtain the time step when the stage
-#'   distribution is within a distance of 5\% of the stationary stage
+#'   \code{0.01} if the user wants to obtain the time step when the stage
+#'   distribution is within a distance of 1\% of the stationary stage
 #'   distribution.
 #' @param N Maximum number of time steps over which the population will be
 #'   projected. Time steps are in the same units as the matrix population model
@@ -113,7 +113,7 @@
 #' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic project
 #' @export qsd_converge
-qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
+qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
   
   # validate arguments
   checkValidMat(mat)
@@ -176,7 +176,8 @@ qsd_converge <- function(mat, start = 1L, conv = 0.05, N = 1e5L) {
         warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic after 
                         removing stages not connected from stage 'start', and stable 
                         distribution does not match observed distribution after N 
-                        iterations"), call. = FALSE)
+                        iterations."), call. = FALSE)
+        cat("\n")
         return(NA_integer_)
       }
     }
