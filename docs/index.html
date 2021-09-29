@@ -230,7 +230,7 @@
 
 <span class="co"># calculate time to QSD</span>
 <span class="op">(</span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/qsd_converge.html">qsd_converge</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5</span>
+<span class="co">#&gt; [1] 6</span>
 
 <span class="co"># plot mortality trajectory w/ vertical line at time to QSD</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -244,7 +244,7 @@
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># based on full lx trajectory</span>
 <span class="co">#&gt; [1] -0.04681254</span>
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">q</span><span class="op">]</span><span class="op">)</span>  <span class="co"># based on lx trajectory prior to the QSD</span>
-<span class="co">#&gt; [1] -0.06475154</span></code></pre></div>
+<span class="co">#&gt; [1] -0.06573764</span></code></pre></div>
 </div>
 <div id="standardized-vital-rates" class="section level3">
 <h3 class="hasAnchor">

@@ -150,7 +150,7 @@ lt <- mpm_to_table(mpm1$matU, start = 2)
 
 # calculate time to QSD
 (q <- qsd_converge(mpm1$matU, start = 2))
-#> [1] 5
+#> [1] 6
 
 # plot mortality trajectory w/ vertical line at time to QSD
 par(mar = c(4.5, 4.5, 1, 1))
@@ -175,7 +175,7 @@ to the QSD.
 shape_surv(lt$lx)       # based on full lx trajectory
 #> [1] -0.04681254
 shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
-#> [1] -0.06475154
+#> [1] -0.06573764
 ```
 
 ### Standardized vital rates
