@@ -154,3 +154,15 @@ area_under_curve <- function(x, y) {
   }
   return(mat_inv)
 }
+
+
+#' @noRd
+lambda <- function(x) {
+  return(popdemo::eigs(x,what = "lambda"))
+}
+
+
+#' @noRd
+stable.stage <- function(x) {
+  return(popdemo::eigs(x,what = "ss"))
+}
