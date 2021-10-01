@@ -74,7 +74,6 @@
 #' 
 #' perturb_vr(matU, matF, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_vr
 perturb_vr <- function(matU, matF, matC = NULL,
                        pert = 1e-6, type = "sensitivity",
@@ -88,7 +87,7 @@ perturb_vr <- function(matU, matF, matC = NULL,
   
   # get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {

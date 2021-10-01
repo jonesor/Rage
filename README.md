@@ -51,8 +51,8 @@ start by loading one of the example MPMs included in the Rage package
 (`mpm1`).
 
 ``` r
-library(Rage)  # load Rage
-data(mpm1)     # load data object 'mpm1'
+library(Rage) # load Rage
+data(mpm1) # load data object 'mpm1'
 
 mpm1
 #> $matU
@@ -88,7 +88,7 @@ functionally-distinct from the ‘above-ground’ stages, we’ll specify
 stage.
 
 ``` r
-life_expect(mpm1$matU, start = 2)               # life expectancy
+life_expect(mpm1$matU, start = 2) # life expectancy
 #> Warning: 'life_expect' is deprecated.
 #> Use 'life_expect_mean' instead.
 #> See help("Deprecated")
@@ -96,10 +96,10 @@ life_expect(mpm1$matU, start = 2)               # life expectancy
 #> 1 2.509116 14.5045
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
-mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
+mature_age(mpm1$matU, mpm1$matF, start = 2) # mean age at first reproduction
 #>    small 
 #> 2.136364
-mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
+mature_prob(mpm1$matU, mpm1$matF, start = 2) # prob survival to first repro
 #> [1] 0.4318182
 ```
 
@@ -107,9 +107,9 @@ Some life history traits are independent of the starting stage class, in
 which case we don’t need to specify `start`.
 
 ``` r
-net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
+net_repro_rate(mpm1$matU, mpm1$matF) # net reproductive rate
 #> [1] 1.852091
-gen_time(mpm1$matU, mpm1$matF)          # generation time
+gen_time(mpm1$matU, mpm1$matF) # generation time
 #> [1] 5.394253
 ```
 
@@ -123,13 +123,13 @@ lx <- mpm_to_lx(mpm1$matU, start = 2)
 mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
-entropy_k(lx)       # Keyfitz' entropy
+entropy_k(lx) # Keyfitz' entropy
 #> [1] 0.9077186
-entropy_d(lx, mx)   # Demetrius' entropy
+entropy_d(lx, mx) # Demetrius' entropy
 #> [1] -1.426434
-shape_surv(lx)      # shape of survival/mortality trajectory
+shape_surv(lx) # shape of survival/mortality trajectory
 #> [1] -0.04681254
-shape_rep(lx)       # shape of fecundity trajectory
+shape_rep(lx) # shape of fecundity trajectory
 #> [1] 0.3097147
 ```
 
@@ -172,9 +172,9 @@ to the QSD.
 
 ``` r
 # calculate the shape of the survival/mortality trajectory
-shape_surv(lt$lx)       # based on full lx trajectory
+shape_surv(lt$lx) # based on full lx trajectory
 #> [1] -0.04681254
-shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
+shape_surv(lt$lx[1:q]) # based on lx trajectory prior to the QSD
 #> [1] -0.06573764
 ```
 
@@ -232,9 +232,13 @@ equilibrium (*w*).
 # derive full MPM (matA)
 mpm1$matA <- mpm1$matU + mpm1$matF
 
-# calculate stable stage distribution at equilibrium using popbio::stable.stage
-library(popbio)
-w <- popbio::stable.stage(mpm1$matA)
+# calculate stable stage distribution at equilibrium using popdemo::eigs
+library(popdemo)
+#> Welcome to popdemo! This is version 1.3-0
+#> Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes
+#> Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x
+#> Development and legacy versions are here: github.com/iainmstott/popdemo
+w <- popdemo::eigs(mpm1$matA, what = "ss")
 
 # calculate MPM-specific vital rates
 vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
@@ -315,9 +319,9 @@ characteristics will not necessarily be preserved.
 
 ``` r
 # compare population growth rate of original and collapsed MPM (preserved)
-popbio::lambda(mpm1$matA)
+popdemo::eigs(mpm1$matA, what = "lambda")
 #> [1] 1.121037
-popbio::lambda(col1$matA)
+popdemo::eigs(col1$matA, what = "lambda")
 #> [1] 1.121037
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)

@@ -77,7 +77,6 @@ URL: https://github.com/jonesor/Rage
 BugReports: https://github.com/jonesor/Rage/issues
 License: GPL-3
 Imports:
-    popbio,
     popdemo,
     MASS,
     DiagrammeR,

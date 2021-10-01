@@ -57,7 +57,6 @@
 #' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
 #' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "small")
 #' 
-#' @importFrom popbio lambda
 #' @export net_repro_rate
 net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
   
@@ -84,7 +83,7 @@ net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
     R <- matR %*% N
     
     R0 <- switch(method,
-                 "generation" = popbio::lambda(R),
+                 "generation" = lambda(R),
                  "start" = R[start, start])
   }
   

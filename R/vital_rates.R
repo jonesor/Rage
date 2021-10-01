@@ -72,7 +72,6 @@
 #' # Vital rate outputs weighted by the stable stage distribution of 'matA'
 #' vital_rates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 #' 
-#' @importFrom popbio stable.stage
 #' @export vital_rates
 vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
                        splitStages = "all", matrixStages = NULL) {
@@ -141,7 +140,7 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
   if (is.null(weights)) {
     weights <- rep(1.0, matDim)
   } else if (weights[1] == "SSD") {
-    weights <- popbio::stable.stage(matA)
+    weights <- stable.stage(matA)
   }
   
   weights <- weights / sum(weights)

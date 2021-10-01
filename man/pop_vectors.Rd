@@ -14,7 +14,7 @@ pop_vectors(A, start = "stable.stage")
 Either \code{stable.stage} to use the stable stage distribution of the mean
 matrix as the starting vector, \code{uniform} to use a uniform starting vector
 (all elements equal), or \code{random} to use a randomly-generated starting
-vector. Defaults to \code{stable.stage}.}
+vector. Defaults to the stable stage distribution.}
 }
 \value{
 A list of population vectors

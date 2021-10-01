@@ -46,7 +46,6 @@
 #' 
 #' perturb_matrix(matA, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_matrix
 perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
                            demog_stat = "lambda", ...) {
@@ -56,7 +55,7 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
   
   # get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {

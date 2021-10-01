@@ -60,8 +60,8 @@ The functions in Rage work on MPMs (or components of MPMs), so we'll start by
 loading one of the example MPMs included in the Rage package (`mpm1`).
 
 ```{r}
-library(Rage)  # load Rage
-data(mpm1)     # load data object 'mpm1'
+library(Rage) # load Rage
+data(mpm1) # load data object 'mpm1'
 
 mpm1
 ```
@@ -81,18 +81,18 @@ stages, we'll specify `start = 2` to set our starting stage class of interest to
 the 'small' stage.
 
 ```{r}
-life_expect(mpm1$matU, start = 2)               # life expectancy
+life_expect(mpm1$matU, start = 2) # life expectancy
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
-mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
-mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
+mature_age(mpm1$matU, mpm1$matF, start = 2) # mean age at first reproduction
+mature_prob(mpm1$matU, mpm1$matF, start = 2) # prob survival to first repro
 ```
 
 Some life history traits are independent of the starting stage class, in which
 case we don't need to specify `start`.
 
 ```{r}
-net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
-gen_time(mpm1$matU, mpm1$matF)          # generation time
+net_repro_rate(mpm1$matU, mpm1$matF) # net reproductive rate
+gen_time(mpm1$matU, mpm1$matF) # generation time
 ```
 
 Other life history traits are calculated from a life table rather than an MPM,
@@ -105,10 +105,10 @@ lx <- mpm_to_lx(mpm1$matU, start = 2)
 mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
-entropy_k(lx)       # Keyfitz' entropy
-entropy_d(lx, mx)   # Demetrius' entropy
-shape_surv(lx)      # shape of survival/mortality trajectory
-shape_rep(lx)       # shape of fecundity trajectory
+entropy_k(lx) # Keyfitz' entropy
+entropy_d(lx, mx) # Demetrius' entropy
+shape_surv(lx) # shape of survival/mortality trajectory
+shape_rep(lx) # shape of fecundity trajectory
 ```
 
 ### Life tables and the quasi-stationary distribution
@@ -144,8 +144,8 @@ history calculations is to limit our life table to the period prior to the QSD.
 
 ```{r}
 # calculate the shape of the survival/mortality trajectory
-shape_surv(lt$lx)       # based on full lx trajectory
-shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
+shape_surv(lt$lx) # based on full lx trajectory
+shape_surv(lt$lx[1:q]) # based on lx trajectory prior to the QSD
 ```
 
 ### Standardized vital rates
@@ -187,9 +187,9 @@ stages, based on the stable stage distribution at equilibrium (_w_).
 # derive full MPM (matA)
 mpm1$matA <- mpm1$matU + mpm1$matF
 
-# calculate stable stage distribution at equilibrium using popbio::stable.stage
-library(popbio)
-w <- popbio::stable.stage(mpm1$matA)
+# calculate stable stage distribution at equilibrium using popdemo::eigs
+library(popdemo)
+w <- popdemo::eigs(mpm1$matA, what = "ss")
 
 # calculate MPM-specific vital rates
 vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
@@ -247,8 +247,8 @@ be preserved.
 
 ```{r}
 # compare population growth rate of original and collapsed MPM (preserved)
-popbio::lambda(mpm1$matA)
-popbio::lambda(col1$matA)
+popdemo::eigs(mpm1$matA, what = "lambda")
+popdemo::eigs(col1$matA, what = "lambda")
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)
 net_repro_rate(mpm1$matU, mpm1$matF)

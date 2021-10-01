@@ -122,7 +122,6 @@
 #' # Second, run the perturbation analysis using demog_stat = "damping".
 #' perturb_trans(matU, matF, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_trans
 perturb_trans <- function(matU, matF, matC = NULL,
                           posU = matU > 0, posF = matF > 0, posC = matC > 0,
@@ -144,7 +143,7 @@ perturb_trans <- function(matU, matF, matC = NULL,
   
   # Get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {

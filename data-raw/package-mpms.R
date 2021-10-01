@@ -16,7 +16,7 @@ matF <- rbind(c(   0,   0, 17.9, 45.6,   0),
 
 matA <- matU + matF
 
-popbio::lambda(matA)
+popdemo::eigs(matA, what = "lambda")
 
 stages <- c("seed", "small", "medium", "large", "dormant")
 

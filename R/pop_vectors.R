@@ -18,7 +18,7 @@
 #'   Either \code{stable.stage} to use the stable stage distribution of the mean
 #'   matrix as the starting vector, \code{uniform} to use a uniform starting vector
 #'   (all elements equal), or \code{random} to use a randomly-generated starting
-#'   vector. Defaults to \code{stable.stage}.
+#'   vector. Defaults to the stable stage distribution.
 #' 
 #' @return A list of population vectors
 #' 
@@ -39,7 +39,6 @@
 #' pop_vectors(matA_l, start = "uniform")
 #' pop_vectors(matA_l, start = "random")
 #' 
-#' @importFrom popbio stable.stage
 #' @importFrom stats runif
 #' @export pop_vectors
 pop_vectors <- function(A, start = "stable.stage") {

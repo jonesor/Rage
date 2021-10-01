@@ -110,7 +110,6 @@
 #' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = repstages)
 #' qsd_converge(mpm1$matU, start = n1)
 #' 
-#' @importFrom popbio stable.stage
 #' @importFrom popdemo isErgodic project
 #' @export qsd_converge
 qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
@@ -159,7 +158,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
       w <- rep(0, nrow(mat))
     } else {
       
-      w <- popbio::stable.stage(mat)
+      w <- popdemo::eigs(mat, what = "ss")
       
       n <- start_vec
       dist <- 1
@@ -182,7 +181,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
       }
     }
   } else {
-    w <- popbio::stable.stage(mat)
+    w <- stable.stage(mat)
   }
   
   # set up a cohort with 1 individ in first stage class, and 0 in all others

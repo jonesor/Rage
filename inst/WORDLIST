@@ -3,7 +3,6 @@ ADRE
 AgeFromStage
 Altwegg
 AnnualPeriodicity
-AppVeyor
 Appveyor
 Ascencio
 Baudisch
@@ -19,6 +18,7 @@ Clonality
 clonality
 clonally
 CMD
+codecov
 codemeta
 Colchero
 COM
@@ -43,6 +43,7 @@ Espino
 etc
 Evol
 Farack
+Gamelon
 García
 germination’
 Github
@@ -50,10 +51,12 @@ Gottschalk
 graphViz
 ground’
 growth’
+Guillot
 Gundlach
 Haridas
 Hartmann
 hcaswell
+Heuveline
 Hoppe
 Horvitz
 hx
@@ -76,6 +79,7 @@ Mbeau
 medium’
 Menges
 Metcalf
+Modeling
 models'
 MPM
 MPMs
@@ -92,6 +96,7 @@ pend
 pended
 Phyllanthus
 Plotkin
+ProjectionInterval
 px
 QSD
 Quintana

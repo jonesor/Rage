@@ -244,10 +244,10 @@ equilibrium. Here's an example of how to do that using the `weights_col`
 argument.
 
 ```{r}
-# calculate the stable distribution using popbio::stable.stage
-library(popbio)
+# calculate the stable distribution using popdemo::eigs
+library(popdemo)
 matA <- matU + matF
-w <- popbio::stable.stage(matA)
+w <- popdemo::eigs(matA, what = "ss")
 
 # calculate mean vital rate of growth weighted by the stable distribution
 vr_growth(matU, exclude_row = 4, weights_col = w)

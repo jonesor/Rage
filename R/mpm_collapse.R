@@ -72,7 +72,6 @@
 #'                              flowering = c("medium", "large"),
 #'                              dormant = "dormant"))
 #' 
-#' @importFrom popbio stable.stage
 #' @export mpm_collapse
 mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   
@@ -120,7 +119,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
   
   Q <- t(P)
-  w <- popbio::stable.stage(matA)
+  w <- stable.stage(matA)
   
   columns <- which(colSums(Q) > 1)
   

@@ -40,13 +40,12 @@
 #' # calculate generation time
 #' gen_time(matU = mpm1$matU, matR = mpm1$matF)
 #' 
-#' @importFrom popbio lambda
 #' @export gen_time
 gen_time <- function(matU, matR) {
   
   # leave arg validation to net_repro_rate
   R0 <- net_repro_rate(matU, matR)
-  lam <- popbio::lambda(matU + matR)
+  lam <- lambda(matU + matR)
   
   return(log(R0) / log(lam))
 }
