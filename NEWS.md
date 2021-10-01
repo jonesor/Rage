@@ -1,7 +1,7 @@
 # Rage (development version)
 
 * Improved documentation of `mpm_to_table` and related functions.
-* Standardised the `lx_crit` and `xmax` argument values across age-from-stage functions.
+* Standardised the `lx_crit`, `conv` and `xmax` argument values across age-from-stage functions.
 * Minor edits to documentation for stylistic consistency.
 
 
