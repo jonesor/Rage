@@ -88,13 +88,13 @@
 
       
 
-      </header><script src="a04_AgeFromStage_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="a04_AgeFromStage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Age-from-stage analyses</h1>
                         <h4 class="author">Patrick Barks</h4>
             
-            <h4 class="date">2021-10-02</h4>
+            <h4 class="date">2021-10-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a04_AgeFromStage.Rmd"><code>vignettes/a04_AgeFromStage.Rmd</code></a></small>
       <div class="hidden name"><code>a04_AgeFromStage.Rmd</code></div>
@@ -186,16 +186,16 @@
 <p>Let’s take a look at the species/populations that made the cut.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html">CompadreData</a></span><span class="op">(</span><span class="va">comp_use</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 7 x 3</span>
-<span class="co">#&gt;   SpeciesAccepted      MatrixPopulation                MatrixTreatment          </span>
-<span class="co">#&gt;   &lt;chr&gt;                &lt;chr&gt;                           &lt;chr&gt;                    </span>
-<span class="co">#&gt; 1 Phyllanthus indofis… Biligiri Rangaswamy Temple Wil… Fruit harvesting and no …</span>
-<span class="co">#&gt; 2 Phyllanthus indofis… Biligiri Rangaswamy Temple Wil… Fruit harvesting and Mis…</span>
-<span class="co">#&gt; 3 Castanea dentata     Leelanau                        Unmanipulated            </span>
-<span class="co">#&gt; 4 Phyllanthus emblica  Biligiri Rangaswamy Temple Wil… Time since last fire: 3 …</span>
-<span class="co">#&gt; 5 Phyllanthus indofis… Biligiri Rangaswamy Temple Wil… Unmanipulated            </span>
-<span class="co">#&gt; 6 Manilkara zapota     Central Veracruz state          Unmanipulated            </span>
-<span class="co">#&gt; 7 Rhododendron pontic… Ockham Common Nature Reserve    Unmanipulated</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 7 × 3</span>
+<span class="co">#&gt;   SpeciesAccepted          MatrixPopulation              MatrixTreatment        </span>
+<span class="co">#&gt;   &lt;chr&gt;                    &lt;chr&gt;                         &lt;chr&gt;                  </span>
+<span class="co">#&gt; 1 Phyllanthus indofischeri Biligiri Rangaswamy Temple W… Fruit harvesting and n…</span>
+<span class="co">#&gt; 2 Phyllanthus indofischeri Biligiri Rangaswamy Temple W… Fruit harvesting and M…</span>
+<span class="co">#&gt; 3 Castanea dentata         Leelanau                      Unmanipulated          </span>
+<span class="co">#&gt; 4 Phyllanthus emblica      Biligiri Rangaswamy Temple W… Time since last fire: …</span>
+<span class="co">#&gt; 5 Phyllanthus indofischeri Biligiri Rangaswamy Temple W… Unmanipulated          </span>
+<span class="co">#&gt; 6 Manilkara zapota         Central Veracruz state        Unmanipulated          </span>
+<span class="co">#&gt; 7 Rhododendron ponticum    Ockham Common Nature Reserve  Unmanipulated</span></code></pre></div>
 <p>Notice that there are 3 matrices for the species <em>Phyllanthus indofischeri</em>, reflecting different treatment groups. Let’s collapse these replicates down to a single matrix per species, by averaging the relevant MPMs using <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_collapse.html">cdb_collapse()</a></code>. We’ll also use the function <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_id_stages.html">cdb_id_stages()</a></code>, to make sure we’re only collapsing matrices that have the same stage class definitions.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># add column ID-ing matrices with same MatrixClassAuthor vector</span>
@@ -206,14 +206,14 @@
 
 <span class="co"># check species/populations again</span>
 <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html">CompadreData</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   SpeciesAccepted    MatrixPopulation          MatrixTreatment                  </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;                     &lt;chr&gt;                            </span>
-<span class="co">#&gt; 1 Phyllanthus indof… Biligiri Rangaswamy Temp… Fruit harvesting and no cover; F…</span>
-<span class="co">#&gt; 2 Castanea dentata   Leelanau                  Unmanipulated                    </span>
-<span class="co">#&gt; 3 Phyllanthus embli… Biligiri Rangaswamy Temp… Time since last fire: 3 years    </span>
-<span class="co">#&gt; 4 Manilkara zapota   Central Veracruz state    Unmanipulated                    </span>
-<span class="co">#&gt; 5 Rhododendron pont… Ockham Common Nature Res… Unmanipulated</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 5 × 3</span>
+<span class="co">#&gt;   SpeciesAccepted          MatrixPopulation        MatrixTreatment              </span>
+<span class="co">#&gt;   &lt;chr&gt;                    &lt;chr&gt;                   &lt;chr&gt;                        </span>
+<span class="co">#&gt; 1 Phyllanthus indofischeri Biligiri Rangaswamy Te… Fruit harvesting and no cove…</span>
+<span class="co">#&gt; 2 Castanea dentata         Leelanau                Unmanipulated                </span>
+<span class="co">#&gt; 3 Phyllanthus emblica      Biligiri Rangaswamy Te… Time since last fire: 3 years</span>
+<span class="co">#&gt; 4 Manilkara zapota         Central Veracruz state  Unmanipulated                </span>
+<span class="co">#&gt; 5 Rhododendron ponticum    Ockham Common Nature R… Unmanipulated</span></code></pre></div>
 <p>Next, let’s look at the organized stage classes for each MPM. If any of our MPMs include propagule or dormant stage classes, we may want to account for them when calculating lx.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html">MatrixClassOrganized</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span>
