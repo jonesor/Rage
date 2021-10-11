@@ -4,6 +4,7 @@
 * Standardised the `lx_crit`, `conv` and `xmax` argument values across age-from-stage functions.
 * Minor edits to documentation for stylistic consistency.
 * Removed dependency on the package `popbio`.
+* Added vignette with suggested quality control.
 
 
 # Rage 1.1.0
