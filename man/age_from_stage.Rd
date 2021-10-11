@@ -48,10 +48,12 @@ A vector
 }
 \description{
 These functions use age-from-stage decomposition methods to calculate
-age-specific survivorship (\code{lx}), survival probability (\code{px}), mortality hazard
-(\code{hx}), or reproduction (\code{mx}) from a matrix population model (MPM). A detailed
-description of these methods can be found in sections 5.3.1 and 5.3.2 of
-Caswell (2001).
+age-specific survivorship (\code{lx}), survival probability (\code{px}),
+mortality hazard (\code{hx}), or reproduction (\code{mx}) from a matrix
+population model (MPM). A detailed description of these methods can be found
+in sections 5.3.1 and 5.3.2 of Caswell (2001). A separate function
+\code{\link{mpm_to_table}} uses the same methods to calculate a full life
+table.
 }
 \note{
 Note that the units of time for the returned vectors (i.e., \code{x}) are
@@ -134,11 +136,11 @@ Other life tables:
 \code{\link{qsd_converge}()}
 }
 \author{
+Owen R. Jones <jones@biology.sdu.dk>
+
 Roberto Salguero-Gómez <rob.salguero@zoo.ox.ac.uk>
 
 Hal Caswell <h.caswell@uva.nl>
-
-Owen R. Jones <jones@biology.sdu.dk>
 
 Patrick Barks <patrick.barks@gmail.com>
 }
