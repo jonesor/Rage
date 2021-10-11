@@ -33,7 +33,7 @@ The aim of this vignette is to provide further details on the functions in `Rage
 
 
 
-# Loading MPMs and basic anatomy
+## Loading MPMs and basic anatomy
 
 We will start by loading the `Rage` package and an example MPM included in the package called `mpm1`, which we'll be using throughout this vignette.
 
@@ -47,7 +47,7 @@ Although we demonstrate these trait calculations using a single MPM, each functi
 
 
 
-# Survival and lifespan traits
+## Survival and lifespan traits
 
 Two life history traits pertaining to survival that can be estimated using functions in `Rage` are mean life expectancy and longevity. Assuming that there is no trade-off between survival and reprdouction, these functions do not require information about reproduction. Instead, they only require a __U__ matrix (supplied to the functions' `matU` argument).
 
@@ -95,7 +95,7 @@ longval
 
 
 
-# Reproduction and maturation traits
+## Reproduction and maturation traits
 
 In addition how long individuals can be expected to live, species and populations also differ in how quickly and often they reproduce, and how many offspring are produced and recruited into the population. Several related traits measure these various aspects of reproduction, and they require information contained in the __F__ submatrix as well as the __U__ submatrix.
 
@@ -149,7 +149,7 @@ In doing so, mean life expectancy from maturity is 0.67 years longer than that a
 
 
 
-# Life table component traits
+## Life table component traits
 
 Other life history traits are calculated from a life table rather than an MPM, in which case one can first use the `mpm_to_` group of functions to derive the necessary life table components: age-specific survivorship (*lx*), survival probability (*px*), mortality hazard (*hx*), and reproduction (*mx*). As above, start stage can too be specified as a specific stage (by number or by name), as well as a vector of proportions in each stage. One can calculate the age-specific rates for post-germination individuals using the example MPM:
 
@@ -193,7 +193,7 @@ It is important to note that both of these entropy measures may produce unexpect
 
 A more robust way to describe these trajectories is using the area under the curve method. 
 
-# Shape of mortality and fecundity
+## Shape of mortality and fecundity
 
 A life course can be described in terms of its pace (timing of events) and its shape (the distribution of events, either for an individual or for a population). There are several candidate metrics for the pace and shape of mortality, and of fertility. A good measure of the pace of mortality is life expectancy (the average age of death) and a good measure of the shape of mortality are the life-table entropy measures mentioned above, which describe both the survivorship curve and the mortality trajectory (see Baudisch 2011). Measures describing the pace and shape of fertility have also been developed (Baudisch & Stott 2019). In addition to the entropy measures described above, the `shape_` functions are also useful metrics. 
 
