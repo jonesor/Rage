@@ -132,10 +132,10 @@ perturb_trans <- function(matU, matF, matC = NULL,
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  checkMatchingStageNames(matU, matF)
+  #checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    checkMatchingStageNames(matU, matC)
+   #checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, exclude_row)
   checkValidStages(matU, exclude_col)
