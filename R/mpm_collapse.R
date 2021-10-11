@@ -78,10 +78,10 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  checkMatchingStageNames(matU, matF)
+  #checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    checkMatchingStageNames(matU, matC)
+    #checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, stages = collapse)
   
