@@ -65,6 +65,9 @@
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -88,7 +91,7 @@
 
       
 
-      </header><script src="a03_LifeHistoryTraits_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="a03_LifeHistoryTraits_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Deriving life history traits from an MPM</h1>
@@ -97,7 +100,7 @@
                         <h4 class="author">Rob Salguero-Gomez</h4>
                         <h4 class="author">Others</h4>
             
-            <h4 class="date">2021-10-01</h4>
+            <h4 class="date">2021-10-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a03_LifeHistoryTraits.Rmd"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -111,9 +114,9 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>The aim of this vignette is to provide further details on the functions in <code>Rage</code> for estimating life history traits and on the traits themselves. Life history describes the sequence and pattern of the key events in an organism’s life cycle, pertaining to the schedule of survival, development, and reproduction. By aggregating individual-level demographic rates into an MPM, we can calculate a set of life history traits to describe the expected patterns for individuals within the population. These calculations follow methods from Caswell (2001) and Morris &amp; Doak (2003).</p>
 </div>
-<div id="loading-mpms-and-basic-anatomy" class="section level1">
-<h1 class="hasAnchor">
-<a href="#loading-mpms-and-basic-anatomy" class="anchor"></a>Loading MPMs and basic anatomy</h1>
+<div id="loading-mpms-and-basic-anatomy" class="section level2">
+<h2 class="hasAnchor">
+<a href="#loading-mpms-and-basic-anatomy" class="anchor"></a>Loading MPMs and basic anatomy</h2>
 <p>We will start by loading the <code>Rage</code> package and an example MPM included in the package called <code>mpm1</code>, which we’ll be using throughout this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span>  <span class="co"># load Rage</span>
@@ -136,9 +139,9 @@
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
 <p>Although we demonstrate these trait calculations using a single MPM, each function can be applied to a set of MPMs for comparative analysis of life histories across species and populations. See the vignette “The functionality of RCompadre and Rage” for an example looking at longevity in mammal species across different ecoregions and taxonomic orders.</p>
 </div>
-<div id="survival-and-lifespan-traits" class="section level1">
-<h1 class="hasAnchor">
-<a href="#survival-and-lifespan-traits" class="anchor"></a>Survival and lifespan traits</h1>
+<div id="survival-and-lifespan-traits" class="section level2">
+<h2 class="hasAnchor">
+<a href="#survival-and-lifespan-traits" class="anchor"></a>Survival and lifespan traits</h2>
 <p>Two life history traits pertaining to survival that can be estimated using functions in <code>Rage</code> are mean life expectancy and longevity. Assuming that there is no trade-off between survival and reprdouction, these functions do not require information about reproduction. Instead, they only require a <strong>U</strong> matrix (supplied to the functions’ <code>matU</code> argument).</p>
 <p>The function <code><a href="../reference/life_expect_mean.html">life_expect_mean()</a></code> estimates mean life expectancy, or the mean time to death, and the variance in time to death can be obtained using <code><a href="../reference/life_expect_mean.html">life_expect_var()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -173,9 +176,9 @@
 <code class="sourceCode R"><span class="va">longval</span>
 <span class="co">#&gt; [1]  2  7  9 10  7</span></code></pre></div>
 </div>
-<div id="reproduction-and-maturation-traits" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reproduction-and-maturation-traits" class="anchor"></a>Reproduction and maturation traits</h1>
+<div id="reproduction-and-maturation-traits" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reproduction-and-maturation-traits" class="anchor"></a>Reproduction and maturation traits</h2>
 <p>In addition how long individuals can be expected to live, species and populations also differ in how quickly and often they reproduce, and how many offspring are produced and recruited into the population. Several related traits measure these various aspects of reproduction, and they require information contained in the <strong>F</strong> submatrix as well as the <strong>U</strong> submatrix.</p>
 <p>The net reproductive rate, <em>R<sub>0</sub></em> is the cumulative number of offspring that a newborn individual will produce over its lifetime.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -216,9 +219,9 @@
 <span class="co">#&gt; [1] 2.509116</span></code></pre></div>
 <p>In doing so, mean life expectancy from maturity is 0.67 years longer than that after germination (from “small” stage). In this case, this difference is due to the higher average survival once an individual reaches reproductive maturity.</p>
 </div>
-<div id="life-table-component-traits" class="section level1">
-<h1 class="hasAnchor">
-<a href="#life-table-component-traits" class="anchor"></a>Life table component traits</h1>
+<div id="life-table-component-traits" class="section level2">
+<h2 class="hasAnchor">
+<a href="#life-table-component-traits" class="anchor"></a>Life table component traits</h2>
 <p>Other life history traits are calculated from a life table rather than an MPM, in which case one can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components: age-specific survivorship (<em>lx</em>), survival probability (<em>px</em>), mortality hazard (<em>hx</em>), and reproduction (<em>mx</em>). As above, start stage can too be specified as a specific stage (by number or by name), as well as a vector of proportions in each stage. One can calculate the age-specific rates for post-germination individuals using the example MPM:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>
@@ -246,15 +249,16 @@
 <p>It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius’ entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the “small” stage, and therefore it does not include the full life cycle.</p>
 <p>A more robust way to describe these trajectories is using the area under the curve method.</p>
 </div>
-<div id="shape-of-mortality-and-fecundity" class="section level1">
-<h1 class="hasAnchor">
-<a href="#shape-of-mortality-and-fecundity" class="anchor"></a>Shape of mortality and fecundity</h1>
+<div id="shape-of-mortality-and-fecundity" class="section level2">
+<h2 class="hasAnchor">
+<a href="#shape-of-mortality-and-fecundity" class="anchor"></a>Shape of mortality and fecundity</h2>
 <p>A life course can be described in terms of its pace (timing of events) and its shape (the distribution of events, either for an individual or for a population). There are several candidate metrics for the pace and shape of mortality, and of fertility. A good measure of the pace of mortality is life expectancy (the average age of death) and a good measure of the shape of mortality are the life-table entropy measures mentioned above, which describe both the survivorship curve and the mortality trajectory (see Baudisch 2011). Measures describing the pace and shape of fertility have also been developed (Baudisch &amp; Stott 2019). In addition to the entropy measures described above, the <code>shape_</code> functions are also useful metrics.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>      <span class="co"># shape of survival/mortality trajectory</span>
 <span class="co">#&gt; [1] -0.04681254</span>
 <span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span>       <span class="co"># shape of fecundity trajectory</span>
 <span class="co">#&gt; [1] -0.02999578</span></code></pre></div>
+</div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
@@ -265,7 +269,6 @@
 <p>Demetrius, L., &amp; Gundlach, V. M. 2014. Directionality theory and the entropic principle of natural selection. Entropy 16: 5428-5522.</p>
 <p>Morris, W. F. &amp; Doak, D. F. 2003. Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460</p>
 <p>Salguero-Gómez, R., Jones, O. R., Jongejans, E., Blomberg, S. P., Hodgson, D. J., Mbeau-Ache, C., Zuidema, P. A., de Kroon, H., &amp; Buckley, Y. M. 2016. Fast–Slow continuum and reproductive strategies structure plant life-history variation worldwide. Proceedings of the National Academy of Sciences 113 (1): 230–35</p>
-</div>
 </div>
   </div>
 

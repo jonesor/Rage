@@ -41,10 +41,12 @@
 
 <meta property="og:title" content="Calculate age-specific traits from a matrix population model — age_from_stage" />
 <meta property="og:description" content="These functions use age-from-stage decomposition methods to calculate
-age-specific survivorship (lx), survival probability (px), mortality hazard
-(hx), or reproduction (mx) from a matrix population model (MPM). A detailed
-description of these methods can be found in sections 5.3.1 and 5.3.2 of
-Caswell (2001)." />
+age-specific survivorship (lx), survival probability (px),
+mortality hazard (hx), or reproduction (mx) from a matrix
+population model (MPM). A detailed description of these methods can be found
+in sections 5.3.1 and 5.3.2 of Caswell (2001). A separate function
+mpm_to_table uses the same methods to calculate a full life
+table." />
 
 
 
@@ -110,6 +112,9 @@ Caswell (2001)." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -143,10 +148,12 @@ Caswell (2001)." />
 
     <div class="ref-description">
     <p>These functions use age-from-stage decomposition methods to calculate
-age-specific survivorship (<code>lx</code>), survival probability (<code>px</code>), mortality hazard
-(<code>hx</code>), or reproduction (<code>mx</code>) from a matrix population model (MPM). A detailed
-description of these methods can be found in sections 5.3.1 and 5.3.2 of
-Caswell (2001).</p>
+age-specific survivorship (<code>lx</code>), survival probability (<code>px</code>),
+mortality hazard (<code>hx</code>), or reproduction (<code>mx</code>) from a matrix
+population model (MPM). A detailed description of these methods can be found
+in sections 5.3.1 and 5.3.2 of Caswell (2001). A separate function
+<code><a href='mpm_to_table.html'>mpm_to_table</a></code> uses the same methods to calculate a full life
+table.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mpm_to_mx</span><span class='op'>(</span><span class='va'>matU</span>, <span class='va'>matR</span>, start <span class='op'>=</span> <span class='fl'>1L</span>, xmax <span class='op'>=</span> <span class='fl'>1000</span>, lx_crit <span class='op'>=</span> <span class='fl'>0.01</span>, tol <span class='op'>=</span> <span class='fl'>1e-04</span><span class='op'>)</span>
@@ -248,9 +255,9 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <code><a href='qsd_converge.html'>qsd_converge</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
+    <p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
+<p>Roberto Salguero-Gómez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
 <p>Hal Caswell &lt;h.caswell@uva.nl&gt;</p>
-<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
 <p>Patrick Barks &lt;patrick.barks@gmail.com&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
