@@ -86,7 +86,7 @@
 vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
   
   checkValidMat(matU)
-  checkMatchingStageNames(matU)
+  #checkMatchingStageNames(matU)
   sigma <- colSums(matU, na.rm = TRUE)
   sigma[sigma == 0] <- NA_real_ # can't calculate lower-vr if no survival
   
@@ -107,7 +107,7 @@ vr_mat_R <- function(matU, matR, posR = matR > 0) {
   
   checkValidMat(matU)
   checkValidMat(matR)
-  checkMatchingStageNames(matU, matR)
+  #checkMatchingStageNames(matU, matR)
   sigma <- colSums(matU)
   
   sigma[sigma == 0] <- 1 # avoid NaN if no survival
