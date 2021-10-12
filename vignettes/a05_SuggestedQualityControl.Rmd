@@ -49,15 +49,13 @@ Similarly, there may be some matrices where the column sums of the **U** matrix 
 In a biologically reasonable MPM, the set of survival and growth transitions (i.e. in **matU**) from a stage should not exceed 1. We can examine this by looking at the column sums of the **U** matrix. However, in some cases, errors in the original matrices (which may be rounding errors) cause this to occur. This is flagged using the column `check_surv_gte_1`. An additional column `SurvivalIssue` gives the maximum value of the column sums.
 
 
-## Reducibility and ergodicity
+## Irreducibility, ergodicity and primitivity
 
-Additional requirements include that the MPM (**A**) be irreducible and ergodic. Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a *single* asymptotic stable state that does not depend on initial stage structure. Conversely, nonergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause most analytical methods in `Rage` to fail. These issues are flagged with `check_irreducible` and `check_ergodic`.
-
-The related issue of primitivity is flagged with `check_primitive`
+Additional requirements include that the MPM (**A**) be irreducible and ergodic. Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a *single* asymptotic stable state that does not depend on initial stage structure. Conversely, nonergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause most analytical methods in `Rage` to fail. Irreducibility is necessary but not sufficient for ergodicity. Primitivity is a related issue:  MPMs are primitive if all of their elements become positive when raised to sufficiently high powers. These issues are flagged with `check_irreducible`, `check_ergodic` and `check_primitive`.
 
 ## Singularity of the U matrix
 
-Singular matrices cannot be inverted, and because inversion is required for many matrix calculations this can cause problems. This issue is flagged with `check_singular_U`.
+Matrices are said to be singular if they cannot be inverted. Inversion is required for many matrix calculations and, therefore, singular Tity can cause these calculations to fail. This issue is flagged with `check_singular_U`.
 
 ## Matrix split errors
 
@@ -66,26 +64,38 @@ A complete MPM (**A**) can be split into its component submatrices (i.e. **U**, 
 
 # Function requirement summaries
 
+## Age-from-stage
+
 `age_from_stage` is a set of functions (`mpm_to_hx`, `mpm_to_lx`, `mpm_to_mx`, `mpm_to_px`) which, together with the function `mpm_to_table`, use age-from-stage decomposition methods to generate life tables, or specific life table columns (`hx`, `lx`, `mx` or `px`). At the least, functions require complete `matU` with no missing (`NA`) values and where none of the `matU` columns sum to zero, and (optionally) a complete `matF`.  
+`longevity` requires a U matrix (`matU`) with no missing (`NA`) values and where none of the `matU` columns sum to zero. Users should be aware of the issue of convergence to quasi-stationary distribution (see \code{\link{qsd_converge}}).
+
+`qsd_converge`
+
+
+
+## Quantities calculated directly from matrices
 
 `gen_time` requires a U matrix `matU` and a matrix representing reproduction which can be \code{\link{matF}}, \code{\link{matC}}, or the sum of both of these. The `matU` matrix must complete `matU` with no missing (`NA`) values and where none of the `matU` columns sum to zero. The reproduction matrix must be complete with no `NA` values. It is also recommended that the complete `matA` from which the submatrices are derived be ergodic and irreducible.
 
 `life_expect_mean` and `life_expect_var` require a U matrix (`matU`) with no missing (`NA`) values. In addition, none of the `matU` columns should sum to zero.
 
-`longevity` requires a U matrix (`matU`) with no missing (`NA`) values and where none of the `matU` columns sum to zero. Users should be aware of the issue of convergence to quasi-stationary distribution (see \code{\link{qsd_converge}}).
 
 `mature_age`,`mature_distrib` and `mature_prob`
 
-`qsd_converge`
-
 `net_repro_rate` requires a `matU` and `matR` (which can be a `matF`, `matC` or the sum of both). The matrices must be complete with no `NA` values.
 `mpm_collapse`  requires a `matU` and `matR` (which can be a `matF`, `matC` or the sum of both).
+
+
+## Matrix manipulations
 
 `mpm_rearrange` requires a `matU` and `matF` (and optionally `matC`). 
 
 `mpm_split` requires a `matA` matrix.
 
 `mpm_standardise` (`mpm_standardize`)  requires a `matU` and `matF` (and optionally `matC`).  
+
+
+## Perturbation
 
 `perturb_matrix` requires `matA`
 
@@ -95,7 +105,12 @@ A complete MPM (**A**) can be split into its component submatrices (i.e. **U**, 
 
 `perturb_vr` requires `matU` and `matF` (and optionally `matC`).
 
+
+## Plotting 
+
 `plot_life_cycle` requires a full matrix population model (`matA`) with no missing (`NA`) values.
+
+## Vital rates
 
 `vr_mat` functions (`vr_mat_U` and `vr_mat_R`). Require a complete `matU`, and both `matU` and `matR` respectively.
 
@@ -105,15 +120,11 @@ A complete MPM (**A**) can be split into its component submatrices (i.e. **U**, 
 
 The `vr_vec...` functions (`vr_vec_dorm_enter`, `vr_vec_dorm_exit`, `vr_vec_growth`, `vr_vec_shrinkage`, `vr_vec_stasis`, `vr_vec_survival` and `vr_vec_reproduction`) require at least `matU`. The function `vr_vec_reproduction` also requires `matR`, which can be a `matF` matrix, `matC` matrix, or the sum of both.
 
-
 # Functions that do not require matrices
 
-Several functions in `Rage` do not directly require matrices as inputs, but rather require `lx`, `mx` etc. However, several of the issues above should be considered if these trajectories are derived from matrices. (see the `age_from_stage` section above)
+Several functions in `Rage` do not directly require matrices as input arguments, but rather require the life table columns of `lx`, `mx` etc. However, several of the issues above should be considered if these quantities are themselves derived from matrices using the `mpm_to_table`, or `mpm_to_lx` functions. Users should be aware of the issue of convergence to quasi-stationary distribution (see \code{\link{qsd_converge}}) (see the `age_from_stage` section above).
 
-
-`shape_rep` and `shape_surv` require `mx` reproduction and `lx` schedules over age respectively.
+The functions `shape_rep`, `shape_surv`, `entropy_d` and `entropy_d` require survivorship (`lx`) and reproduction (`mx`) schedules.
 
 The functions `hx_to_lx`, `hx_to_px`, `lx_to_hx`,
-`lx_to_px`, `px_to_hx`, `px_to_lx` allow conversion among `hx`, `lx` and `px` trajectories using standard life table calculations. 
-
-`entropy_d` and `entropy_d` require `lx` trajectories that are generated from a matrix model using the `mpm_to_table`, or `mpm_to_lx` functions. Users should be aware of the issue of convergence to quasi-stationary distribution (see \code{\link{qsd_converge}}).
+`lx_to_px`, `px_to_hx`, `px_to_lx`, which allow conversion among `hx`, `lx` and `px` trajectories also require these life table columns. 
