@@ -4,24 +4,24 @@
 # Rage <img src="man/figures/logo_rage.png" height="160px" align="right" />
 
 | Project                                                                                                                                                                                                | Main branch                                                                                                                                                                  | Devel branch                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)                                                                                | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml/badge.svg?branch=main)](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml/badge.svg)](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml) |
-| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://codecov.io/gh/jonesor/Rage)                                          |                                                                                                                                                                                |
+| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://app.codecov.io/gh/jonesor/Rage)                                      |                                                                                                                                                                                |
 | ![](http://cranlogs.r-pkg.org/badges/grand-total/Rage)                                                                                                                                                 |                                                                                                                                                                              |                                                                                                                                                                                |
 | ![](http://cranlogs.r-pkg.org/badges/Rage)                                                                                                                                                             |                                                                                                                                                                              |                                                                                                                                                                                |
 
------
+------------------------------------------------------------------------
 
 Functions for calculating life history metrics from matrix population
 models (MPMs).
 
 Includes functions for:
 
-  - deriving life history traits
-  - deriving life tables or life table components
-  - deriving vital rates
-  - perturbation analyses
-  - manipulating and transforming MPMs
+-   deriving life history traits
+-   deriving life tables or life table components
+-   deriving vital rates
+-   perturbation analyses
+-   manipulating and transforming MPMs
 
 ## Installation
 
