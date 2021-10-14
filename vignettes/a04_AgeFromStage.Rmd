@@ -88,7 +88,7 @@ comp_flag <- cdb_flag(Compadre, "check_NA_U")
 
 comp_use <- subset(comp_flag, OrganismType == "Tree" &
                      check_NA_U == FALSE &
-                     AnnualPeriodicity == 1)
+                     ProjectionInterval == 1)
 ```
 
 Let's take a look at the species/populations that made the cut.
