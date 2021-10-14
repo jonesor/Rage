@@ -1,39 +1,45 @@
 #' Calculate age-specific traits from a matrix population model
 #'
 #' These functions use age-from-stage decomposition methods to calculate
-#' age-specific survivorship (lx), survival probability (px), mortality hazard
-#' (hx), or reproduction (mx) from a matrix population model (MPM). A detailed
-#' description of these methods can be found in sections 5.3.1 and 5.3.2 of
-#' Caswell (2001).
+#' age-specific survivorship (\code{lx}), survival probability (\code{px}),
+#' mortality hazard (\code{hx}), or reproduction (\code{mx}) from a matrix
+#' population model (MPM). A detailed description of these methods can be found
+#' in sections 5.3.1 and 5.3.2 of Caswell (2001). A separate function
+#' \code{\link{mpm_to_table}} uses the same methods to calculate a full life
+#' table.
 #' 
-#' @param matU The survival component of a MPM (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a MPM (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
-#' @param matR The reproductive component of a MPM (i.e. a
+#' @param matR The reproductive component of a MPM (i.e., a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both). Optionally with named rows and columns indicating
 #'   the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1. Alternately, a numeric vector
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
 #'   giving the starting population vector (in which case \code{length(start)}
 #'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which age-specific traits will be calculated
-#'   (defaults to \code{100000}).
-#' @param lx_crit Minimum value of lx to which age-specific traits will be
-#'   calculated (defaults to \code{0.0001}).
+#'   (defaults to \code{1000}).
+#' @param lx_crit Minimum value of \code{lx} to which age-specific traits will be
+#'   calculated (defaults to \code{0.01}).
 #' @param tol To account for floating point errors that occasionally lead to
-#'   values of lx slightly greater than 1, values of lx within the open interval
+#'   values of \code{lx} slightly greater than 1, values of \code{lx} within the open interval
 #'   (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
 #'   prevent coercion, set \code{tol} to \code{0}.
 #' 
 #' @return A vector
 #' 
+#' @note Note that the units of time for the returned vectors (i.e., \code{x}) are
+#'   the same as the projection interval (\code{ProjectionInterval}) of the MPM.
+#' 
+#' 
 #' @section Starting from multiple stages:
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
 #' multiple starting stage classes. For example, if users want to start their
-#' calculation of age-specific traits from reproductive maturity (i.e. first
+#' calculation of age-specific traits from reproductive maturity (i.e., first
 #' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
@@ -45,24 +51,34 @@
 #' See function \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.
 #' 
-#' @note The output vector is calculated recursively until the age class (x)
-#'   reaches \code{xmax} or survivorship (lx) falls below \code{lx_crit},
+#' @note The output vector is calculated recursively until the age class (\code{x})
+#'   reaches \code{xmax} or survivorship (\code{lx}) falls below \code{lx_crit},
 #'   whichever comes first. To force calculation to \code{xmax}, set
 #'   \code{lx_crit} to \code{0}. Conversely, to force calculation to
 #'   \code{lx_crit}, set \code{xmax} to \code{Inf}.
+#'
+#' @note Note that the units of time in returned values (i.e., \code{x}) are the
+#'   same as the projection interval (`ProjectionInterval`) of the MPM.
 #'   
+#' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
-#' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
 #' @family life tables
 #' 
 #' @seealso \code{\link{lifetable_convert}}
 #' 
-#' @references Caswell, H. 2001. Matrix Population Models: Construction,
-#'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-#'   978-0878930968
+#' @references 
+#' Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+#' Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
+#' 
+#' Jones O. R. 2021. Life tables: Construction and interpretation In:
+#' Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &
+#' Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609
+#' 
+#' Preston, S., Heuveline, P., & Guillot, M. 2000. Demography: Measuring and
+#' Modeling Population Processes. Wiley. ISBN: 9781557864512
 #' 
 #' @examples
 #' data(mpm1)
@@ -99,7 +115,7 @@ NULL
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   
   # validate arguments (leave rest to mpm_to_lx)
@@ -135,7 +151,7 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1e5, lx_crit = 1e-4,
 
 #' @rdname age_from_stage
 #' @export mpm_to_lx
-mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_lx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   
   # validate arguments
@@ -177,7 +193,7 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
 
 #' @rdname age_from_stage
 #' @export mpm_to_px
-mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_px <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   # leave argument validation to mpm_to_lx
   lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)
@@ -187,7 +203,7 @@ mpm_to_px <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
 
 #' @rdname age_from_stage
 #' @export mpm_to_hx
-mpm_to_hx <- function(matU, start = 1L, xmax = 1e5, lx_crit = 1e-4,
+mpm_to_hx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
   # leave argument validation to mpm_to_lx
   lx <- mpm_to_lx(matU, start, xmax, lx_crit, tol)

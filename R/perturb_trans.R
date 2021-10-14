@@ -9,12 +9,12 @@
 #' equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other
 #' demographic statistic.
 #'
-#' @param matU The survival component submatrix of a MPM (i.e. a square projection matrix
-#'   reflecting survival-related transitions; e.g. progression, stasis, and
+#' @param matU The survival component submatrix of a MPM (i.e., a square projection matrix
+#'   reflecting survival-related transitions; e.g., progression, stasis, and
 #'   retrogression).
-#' @param matF The sexual component submatrix of a MPM (i.e. a square projection matrix
+#' @param matF The sexual component submatrix of a MPM (i.e., a square projection matrix
 #'   reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component submatrix of a MPM (i.e. a square projection matrix
+#' @param matC The clonal component submatrix of a MPM (i.e., a square projection matrix
 #'   reflecting transitions due to clonal reproduction). Defaults to
 #'   \code{NULL}, indicating no clonal reproduction possible.
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
@@ -51,12 +51,12 @@
 #' 
 #' @details A transition rate of \code{0} within a matrix population model can
 #' either indicate that the transition is not possible in the given life cycle
-#' (e.g. tadpoles never revert to eggs), or that the transition is possible but
+#' (e.g., tadpoles never revert to eggs), or that the transition is possible but
 #' was estimated to be \code{0} in the relevant population and time period.
 #' Because transition rates of zero \emph{do} generally yield non-zero
 #' sensitivities, it is important to distinguish between structural (i.e.
 #' impossible) zeros and sampled zeros when summing multiple sensitivities for a
-#' given process (e.g. progression/growth).
+#' given process (e.g., progression/growth).
 #'
 #' By default, the \code{perturb_} functions assume that a transition rate of
 #' \code{0} indicates an impossible transition, in which case the sensitivity
@@ -66,7 +66,7 @@
 #' but estimated to be \code{0}, users should specify the \code{posX}
 #' argument(s) manually.
 #'
-#' If there are no possible transitions for a given process (e.g. clonality, in many species),
+#' If there are no possible transitions for a given process (e.g., clonality, in many species),
 #' the value of sensitivity or elasticity returned for that process will be
 #' \code{NA}.
 #'
@@ -122,7 +122,6 @@
 #' # Second, run the perturbation analysis using demog_stat = "damping".
 #' perturb_trans(matU, matF, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_trans
 perturb_trans <- function(matU, matF, matC = NULL,
                           posU = matU > 0, posF = matF > 0, posC = matC > 0,
@@ -133,10 +132,10 @@ perturb_trans <- function(matU, matF, matC = NULL,
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  checkMatchingStageNames(matU, matF)
+  #checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    checkMatchingStageNames(matU, matC)
+   #checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, exclude_row)
   checkValidStages(matU, exclude_col)
@@ -144,12 +143,12 @@ perturb_trans <- function(matU, matF, matC = NULL,
   
   # Get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demog_stat must be 'lambda' or the name of a function that ",
-           "returns a single numeric value", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name 
+                   of a function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
   

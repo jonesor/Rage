@@ -111,6 +111,9 @@ reproductive maturity among stage class (mature_distrib)." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -162,28 +165,29 @@ reproductive maturity among stage class (<code>mature_distrib</code>).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
+      <td><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
+      <td><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both). Optionally with named rows and columns indicating
- the corresponding life stage names.</p></td>
+the corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to 1.</p></td>
+considers the beginning of life. Defaults to <code>1</code>.</p></td>
     </tr>
     <tr>
       <th>repro_stages</th>
-      <td><p>A vector of stage names or indices indicating which stages
-are reproductive. Alternatively, a logical vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a></code> 
-indicating whether each stage is reproductive (TRUE) or not (FALSE).</p></td>
+      <td><p>A vector of stage names or indices indicating which
+stages are reproductive. Alternatively, a logical vector of length
+<code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matU)</a></code> indicating whether each stage is reproductive
+(<code>TRUE</code>) or not (<code>FALSE</code>).</p></td>
     </tr>
     </table>
 
@@ -192,6 +196,10 @@ indicating whether each stage is reproductive (TRUE) or not (FALSE).</p></td>
     <p>For <code>mature_distrib</code>, a vector giving the proportion of
   individuals that first reproduce within each stage class. For all others, a
   scalar trait value.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Note that the units of time in returned values are the same as the
+  <code>ProjectionInterval</code> of the MPM.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Caswell, H. 2001. Matrix Population Models: Construction,

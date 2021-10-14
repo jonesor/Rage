@@ -65,6 +65,9 @@
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -94,7 +97,7 @@
       <h1 data-toc-skip>Deriving vital rates from an MPM</h1>
                         <h4 class="author">Patrick Barks</h4>
             
-            <h4 class="date">2021-08-18</h4>
+            <h4 class="date">2021-10-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a02_VitalRates.Rmd"><code>vignettes/a02_VitalRates.Rmd</code></a></small>
       <div class="hidden name"><code>a02_VitalRates.Rmd</code></div>
@@ -192,7 +195,7 @@
 <div id="growth-shrinkage-stasis-and-dormancy" class="section level4">
 <h4 class="hasAnchor">
 <a href="#growth-shrinkage-stasis-and-dormancy" class="anchor"></a>Growth, shrinkage, stasis, and dormancy</h4>
-<p>We’ll start by examining vital rates of growth, which will be found in the bottom-left triangle of the <strong>U</strong> matrix. Given the results from <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code> above, our baseline expectation for the stage-specific vital rates of growth would be 0.20 (0.15 + 0.05), 0.55 (0.45 + 0.10), 0.22, and NA.</p>
+<p>We’ll start by examining vital rates of growth, which will be found in the bottom-left triangle of the <strong>U</strong> matrix. Given the results from <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code> above, our baseline expectation for the stage-specific vital rates of growth would be 0.20 (0.15 + 0.05), 0.55 (0.45 + 0.10), 0.22, and <code>NA</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.20 0.55 0.22   NA</span></code></pre></div>
@@ -200,7 +203,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.20 0.45   NA   NA</span></code></pre></div>
-<p>Next let’s examine vital rates of shrinkage, which will occur in the top-right triangle of <code>matU</code>. Based again on the results from <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code>, our naive expectation for vital rates of shrinkage would be NA, NA, NA, 0.5.</p>
+<p>Next let’s examine vital rates of shrinkage, which will occur in the top-right triangle of <code>matU</code>. Based again on the results from <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code>, our naive expectation for vital rates of shrinkage would be <code>NA</code>, <code>NA</code>, <code>NA</code>, 0.5.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt; [1]  NA  NA  NA 0.5</span></code></pre></div>
@@ -253,10 +256,14 @@
 <a href="#weighted-average-across-stage-classes" class="anchor"></a>Weighted average across stage classes</h4>
 <p>Rather than taking a simple average of the given vital rate across stage classes, we may wish to take a <em>weighted</em> average across stage classes. For instance, we may wish to weight stage classes based on the stable distribution at equilibrium. Here’s an example of how to do that using the <code>weights_col</code> argument.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate the stable distribution using popbio::stable.stage</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popbio</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># calculate the stable distribution using popdemo::eigs</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
+<span class="co">#&gt; Welcome to popdemo! This is version 1.3-0</span>
+<span class="co">#&gt; Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes</span>
+<span class="co">#&gt; Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x</span>
+<span class="co">#&gt; Development and legacy versions are here: github.com/iainmstott/popdemo</span>
 <span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">matU</span> <span class="op">+</span> <span class="va">matF</span>
-<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popbio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popbio/man/stable.stage.html">stable.stage</a></span><span class="op">(</span><span class="va">matA</span><span class="op">)</span>
+<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
 
 <span class="co"># calculate mean vital rate of growth weighted by the stable distribution</span>
 <span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>

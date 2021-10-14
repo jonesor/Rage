@@ -10,21 +10,21 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis,
 #' dormancy, or reproduction). Reproductive vital rates that are not conditional
-#' on survival (i.e. within a stage class from which there is no survival) are
+#' on survival (i.e., within a stage class from which there is no survival) are
 #' also allowed.
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g., 
 #'   progression, stasis, and retrogression).
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
-#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 #'   \code{matC} is a matrix of zeros).
 #' @param pert Magnitude of the perturbation. Defaults to \code{1e-6}.
-#' @param type Whether to return "sensitivity" or "elasticity" values. Defaults
-#'   to "sensitivity".
+#' @param type Whether to return \code{sensitivity} or \code{elasticity} values. Defaults
+#'   to \code{sensitivity}.
 #' @param demog_stat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 #'   Defaults to the per-capita population growth rate at equilibrium
@@ -74,7 +74,6 @@
 #' 
 #' perturb_vr(matU, matF, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_vr
 perturb_vr <- function(matU, matF, matC = NULL,
                        pert = 1e-6, type = "sensitivity",
@@ -88,12 +87,12 @@ perturb_vr <- function(matU, matF, matC = NULL,
   
   # get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demog_stat must be 'lambda' or the name of a function that ",
-           "returns a single numeric value", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name 
+                   of a function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
   

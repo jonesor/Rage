@@ -5,20 +5,20 @@
 #' can be found in section 5.3 "Age-specific traits from stage-specific models"
 #' of Caswell (2001).
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and/or retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
 #' @param matF (Optional) The sexual component of a matrix population model
-#'   (i.e. a square projection matrix reflecting transitions due to sexual
+#'   (i.e., a square projection matrix reflecting transitions due to sexual
 #'   reproduction). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param matC (Optional) The clonal component of a matrix population model
-#'   (i.e. a square projection matrix reflecting transitions due to clonal
+#'   (i.e., a square projection matrix reflecting transitions due to clonal
 #'   reproduction). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to 1. Alternately, a numeric
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric
 #'   vector giving the starting population vector (in which case
 #'   \code{length(start)} must match \code{ncol(matU))}. See section
 #'   \emph{Starting from multiple stages}.
@@ -26,7 +26,7 @@
 #'   to \code{1000}). Time steps are in the same units as the matrix population
 #'   model (see MatrixPeriodicity metadata variable COM(P)ADRE).
 #' @param lx_crit Minimum value of lx to which age-specific traits will be
-#'   calculated (defaults to \code{1e-4}).
+#'   calculated (defaults to \code{0.01}).
 #' @param radix The starting number of individuals in the synthetic life table
 #'   (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
 #'   table is produced.
@@ -74,7 +74,7 @@
 #'   \code{start} as a single stage class from which all individuals start life,
 #'   it may sometimes be desirable to allow for multiple starting stage classes.
 #'   For example, if the user wants to start the calculation of age-specific
-#'   traits from reproductive maturity (i.e. first reproduction), the user
+#'   traits from reproductive maturity (i.e., first reproduction), the user
 #'   should account for the possibility that there may be multiple stage classes
 #'   in which an individual could first reproduce.
 #'
@@ -100,11 +100,15 @@
 #'   individuals at the start of the interval is 0.5.
 #'   
 #'   If \code{lx_crit} is sufficiently small that only a very small proportion
-#'   of the cohort reach this age (i.e. < 0.05), this should have minimal impact
+#'   of the cohort reach this age (i.e., < 0.05), this should have minimal impact
 #'   on results. Nevertheless, for many analyses, the final row of the life
 #'   table should be treated with caution and perhaps removed from subsequent
 #'   analyses.
-#'
+#'   
+#' @note Note that the units of time (e.g.. `x` and `ex`) in the returned life
+#'   table are the same as the projection interval (`ProjectionInterval`) of the
+#'   MPM.
+#'   
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
@@ -149,7 +153,7 @@
 #' mpm_to_table(matU = mpm1$matU, start = n1)
 #' @export mpm_to_table
 mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
-                         xmax = 1000, lx_crit = 1e-4, radix = 1) {
+                         xmax = 1000, lx_crit = 0.01, radix = 1) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
@@ -161,7 +165,7 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
   lx <- mpm_to_lx(matU, start, xmax, lx_crit)
   if (lx[length(lx)] > 0.05) {
     warning(strwrap(prefix = " ", initial = "", "There are still a large proportion of the synthetic
-  cohort remaining alive in the final row of the life table. Consider changing values for `lx_crit` or `xmax`"))
+  cohort remaining alive in the final row of the life table. Consider changing values for `lx_crit` or `xmax`.\n"))
   }
   # Number left alive at age x
   Nx <- lx * radix
@@ -236,12 +240,12 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
   }
 
   if (!is.null(matF)) {
-    out$mx <- mpm_to_mx(matU, matF, start, N - 1)
+    out$mx <- mpm_to_mx(matU, matF, start, xmax = N - 1, lx_crit = lx_crit)
     out$lxmx <- out$lx * out$mx
   }
 
   if (!is.null(matC)) {
-    out$cx <- mpm_to_mx(matU, matC, start, N - 1)
+    out$cx <- mpm_to_mx(matU, matC, start, xmax = N - 1, lx_crit = lx_crit)
     out$lxcx <- out$lx * out$cx
   }
 

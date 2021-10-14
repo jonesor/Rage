@@ -10,21 +10,23 @@ name_stages(mat, names = NULL, prefix = "stage_", left_pad = TRUE)
 \item{mat}{An MPM, either as a single matrix or list of matrices.}
 
 \item{names}{A character vector specifying the name of each life stage, in
-order. If provided, `prefix` and `left_pad` arguments are ignored.}
+order. If provided, \code{prefix} and \code{left_pad} arguments are ignored.}
 
 \item{prefix}{A string to be pre-pended to the stage number when automatically
-naming stages. Defaults to "stage_".}
+naming stages. Defaults to \code{stage_}.}
 
-\item{left_pad}{Logical, whether to pre-pend 0 such that all stage numbers
-have equal length, enabling lexicographic sorting. For example, stage '1'
-becomes '01' for matrices with 10-99 stages, '001' for matrices with 100-999
-stages, and so on. Defaults to TRUE.}
+\item{left_pad}{Logical, whether to pre-pend \code{0} to stage names such
+that all stage numbers have equal length, enabling lexicographic sorting.
+For example, stage \code{1} becomes \code{01} for matrices with 10-99
+stages, \code{001} for matrices with 100-999 stages, and so on. Defaults to
+\code{TRUE}.}
 }
 \value{
 The input matrix or matrices with named rows and columns.
 }
 \description{
-Adds user-supplied or automatically-generated stage names to an MPM.
+Adds user-supplied or automatically-generated stage names to a matrix
+population model (MPM).
 }
 \examples{
 matU <- rbind(c(0.0, 0.0, 0.0),

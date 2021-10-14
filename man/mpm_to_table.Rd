@@ -10,28 +10,28 @@ mpm_to_table(
   matC = NULL,
   start = 1L,
   xmax = 1000,
-  lx_crit = 1e-04,
+  lx_crit = 0.01,
   radix = 1
 )
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+\item{matU}{The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and/or retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
 \item{matF}{(Optional) The sexual component of a matrix population model
-(i.e. a square projection matrix reflecting transitions due to sexual
+(i.e., a square projection matrix reflecting transitions due to sexual
 reproduction). Optionally with named rows and columns indicating the
 corresponding life stage names.}
 
 \item{matC}{(Optional) The clonal component of a matrix population model
-(i.e. a square projection matrix reflecting transitions due to clonal
+(i.e., a square projection matrix reflecting transitions due to clonal
 reproduction). Optionally with named rows and columns indicating the
 corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to 1. Alternately, a numeric
+considers the beginning of life. Defaults to \code{1}. Alternately, a numeric
 vector giving the starting population vector (in which case
 \code{length(start)} must match \code{ncol(matU))}. See section
 \emph{Starting from multiple stages}.}
@@ -41,7 +41,7 @@ to \code{1000}). Time steps are in the same units as the matrix population
 model (see MatrixPeriodicity metadata variable COM(P)ADRE).}
 
 \item{lx_crit}{Minimum value of lx to which age-specific traits will be
-calculated (defaults to \code{1e-4}).}
+calculated (defaults to \code{0.01}).}
 
 \item{radix}{The starting number of individuals in the synthetic life table
 (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
@@ -108,17 +108,21 @@ The life table calculations assume that the final age interval is
   individuals at the start of the interval is 0.5.
   
   If \code{lx_crit} is sufficiently small that only a very small proportion
-  of the cohort reach this age (i.e. < 0.05), this should have minimal impact
+  of the cohort reach this age (i.e., < 0.05), this should have minimal impact
   on results. Nevertheless, for many analyses, the final row of the life
   table should be treated with caution and perhaps removed from subsequent
   analyses.
+
+Note that the units of time (e.g.. `x` and `ex`) in the returned life
+  table are the same as the projection interval (`ProjectionInterval`) of the
+  MPM.
 }
 \section{Starting from multiple stages}{
  Rather than specifying argument
   \code{start} as a single stage class from which all individuals start life,
   it may sometimes be desirable to allow for multiple starting stage classes.
   For example, if the user wants to start the calculation of age-specific
-  traits from reproductive maturity (i.e. first reproduction), the user
+  traits from reproductive maturity (i.e., first reproduction), the user
   should account for the possibility that there may be multiple stage classes
   in which an individual could first reproduce.
 

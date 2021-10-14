@@ -6,9 +6,9 @@
 | Project                                                                                                                                                                                                | Main branch                                                                                                                                                                  | Devel branch                                                                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)                                                                                | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml/badge.svg?branch=main)](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml/badge.svg)](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml) |
-| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Build Status](https://travis-ci.com/jonesor/Rage.svg?branch=main)](https://travis-ci.com/jonesor/Rage)                                                                    | [![Build Status](https://travis-ci.com/jonesor/Rage.svg?branch=devel)](https://travis-ci.com/jonesor/Rage)                                                                     |
-| ![](http://cranlogs.r-pkg.org/badges/grand-total/Rage)                                                                                                                                                 | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=main&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)               | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jonesor/Rage?branch=devel&svg=true)](https://ci.appveyor.com/project/jonesor/Rage)                |
-| ![](http://cranlogs.r-pkg.org/badges/Rage)                                                                                                                                                             | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://codecov.io/gh/jonesor/Rage)                                          |                                                                                                                                                                                |
+| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://codecov.io/gh/jonesor/Rage)                                          |                                                                                                                                                                                |
+| ![](http://cranlogs.r-pkg.org/badges/grand-total/Rage)                                                                                                                                                 |                                                                                                                                                                              |                                                                                                                                                                                |
+| ![](http://cranlogs.r-pkg.org/badges/Rage)                                                                                                                                                             |                                                                                                                                                                              |                                                                                                                                                                                |
 
 -----
 
@@ -51,8 +51,8 @@ start by loading one of the example MPMs included in the Rage package
 (`mpm1`).
 
 ``` r
-library(Rage)  # load Rage
-data(mpm1)     # load data object 'mpm1'
+library(Rage) # load Rage
+data(mpm1) # load data object 'mpm1'
 
 mpm1
 #> $matU
@@ -88,7 +88,7 @@ functionally-distinct from the ‘above-ground’ stages, we’ll specify
 stage.
 
 ``` r
-life_expect(mpm1$matU, start = 2)               # life expectancy
+life_expect(mpm1$matU, start = 2) # life expectancy
 #> Warning: 'life_expect' is deprecated.
 #> Use 'life_expect_mean' instead.
 #> See help("Deprecated")
@@ -96,10 +96,10 @@ life_expect(mpm1$matU, start = 2)               # life expectancy
 #> 1 2.509116 14.5045
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
-mature_age(mpm1$matU, mpm1$matF, start = 2)     # mean age at first reproduction
+mature_age(mpm1$matU, mpm1$matF, start = 2) # mean age at first reproduction
 #>    small 
 #> 2.136364
-mature_prob(mpm1$matU, mpm1$matF, start = 2)    # prob survival to first repro
+mature_prob(mpm1$matU, mpm1$matF, start = 2) # prob survival to first repro
 #> [1] 0.4318182
 ```
 
@@ -107,9 +107,9 @@ Some life history traits are independent of the starting stage class, in
 which case we don’t need to specify `start`.
 
 ``` r
-net_repro_rate(mpm1$matU, mpm1$matF)    # net reproductive rate
+net_repro_rate(mpm1$matU, mpm1$matF) # net reproductive rate
 #> [1] 1.852091
-gen_time(mpm1$matU, mpm1$matF)          # generation time
+gen_time(mpm1$matU, mpm1$matF) # generation time
 #> [1] 5.394253
 ```
 
@@ -123,14 +123,14 @@ lx <- mpm_to_lx(mpm1$matU, start = 2)
 mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # then calculate life history traits
-entropy_k(lx)       # Keyfitz' entropy
-#> [1] 0.948235
-entropy_d(lx, mx)   # Demetrius' entropy
-#> [1] -1.358418
-shape_surv(lx)      # shape of survival/mortality trajectory
-#> [1] -0.02687175
-shape_rep(lx)       # shape of fecundity trajectory
-#> [1] 0.4029063
+entropy_k(lx) # Keyfitz' entropy
+#> [1] 0.9077186
+entropy_d(lx, mx) # Demetrius' entropy
+#> [1] -1.426434
+shape_surv(lx) # shape of survival/mortality trajectory
+#> [1] -0.04681254
+shape_rep(lx) # shape of fecundity trajectory
+#> [1] 0.3097147
 ```
 
 ### Life tables and the quasi-stationary distribution
@@ -150,7 +150,7 @@ lt <- mpm_to_table(mpm1$matU, start = 2)
 
 # calculate time to QSD
 (q <- qsd_converge(mpm1$matU, start = 2))
-#> [1] 5
+#> [1] 6
 
 # plot mortality trajectory w/ vertical line at time to QSD
 par(mar = c(4.5, 4.5, 1, 1))
@@ -172,10 +172,10 @@ to the QSD.
 
 ``` r
 # calculate the shape of the survival/mortality trajectory
-shape_surv(lt$lx)       # based on full lx trajectory
-#> [1] -0.02687175
-shape_surv(lt$lx[1:q])  # based on lx trajectory prior to the QSD
-#> [1] -0.06475154
+shape_surv(lt$lx) # based on full lx trajectory
+#> [1] -0.04681254
+shape_surv(lt$lx[1:q]) # based on lx trajectory prior to the QSD
+#> [1] -0.06573764
 ```
 
 ### Standardized vital rates
@@ -232,9 +232,13 @@ equilibrium (*w*).
 # derive full MPM (matA)
 mpm1$matA <- mpm1$matU + mpm1$matF
 
-# calculate stable stage distribution at equilibrium using popbio::stable.stage
-library(popbio)
-w <- popbio::stable.stage(mpm1$matA)
+# calculate stable stage distribution at equilibrium using popdemo::eigs
+library(popdemo)
+#> Welcome to popdemo! This is version 1.3-0
+#> Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes
+#> Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x
+#> Development and legacy versions are here: github.com/iainmstott/popdemo
+w <- popdemo::eigs(mpm1$matA, what = "ss")
 
 # calculate MPM-specific vital rates
 vr_survival(mpm1$matU, exclude_col = c(1, 5), weights_col = w)
@@ -315,9 +319,9 @@ characteristics will not necessarily be preserved.
 
 ``` r
 # compare population growth rate of original and collapsed MPM (preserved)
-popbio::lambda(mpm1$matA)
+popdemo::eigs(mpm1$matA, what = "lambda")
 #> [1] 1.121037
-popbio::lambda(col1$matA)
+popdemo::eigs(col1$matA, what = "lambda")
 #> [1] 1.121037
 
 # compare net reproductive rate of original and collapsed MPM (not preserved)

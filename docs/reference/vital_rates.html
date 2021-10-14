@@ -110,6 +110,9 @@ life cycle." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -163,18 +166,18 @@ life cycle.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a matrix population model (i.e. a
+      <td><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression).</p></td>
     </tr>
     <tr>
       <th>matF</th>
-      <td><p>The sexual component of a matrix population model (i.e. a square
+      <td><p>The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction)</p></td>
     </tr>
     <tr>
       <th>matC</th>
-      <td><p>The clonal component of a matrix population model (i.e. a square
+      <td><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
 <code>matC</code> is a matrix of zeros).</p></td>
@@ -189,9 +192,9 @@ distribution of <code>matA</code>.</p></td>
     <tr>
       <th>splitStages</th>
       <td><p>What groups should vital rates be averaged over. Either:</p>
-<p><code>"all"</code>: all stages grouped</p>
+<p><code>"all"</code>: all stages grouped.</p>
 <p><code>"ontogeny"</code>: group juvenile stages (all stages prior to the first stage
-with sexual reproduction) and adult stages</p>
+with sexual reproduction) and adult stages.</p>
 <p><code>"matrixStages"</code>: group according to a standardized set of stage classes
 (propagule, active, and dormant). If <code>splitStages = "matrixStages"</code>,
 must also specify separate argument <code>matrixStages</code>.</p></td>

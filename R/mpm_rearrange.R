@@ -3,17 +3,17 @@
 #' 
 #' Rearrange stages of a matrix population model so that all inter-reproductive
 #' stages fall in the final rows/columns of the matrix. This is a preparatory
-#' step to collapsing the matrix model into a standardized set of stages (e.g.
+#' step to collapsing the matrix model into a standardized set of stages (e.g., 
 #' propagule, pre-reproductive, reproductive, and post-reproductive).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g., 
 #'   progression, stasis, and retrogression)
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction)
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
-#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+#'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 #'   \code{matC} is a matrix of zeros).
 #' @param repro_stages Logical vector of length \code{ncol(matU)} indicating 
 #'   which stages are reproductive. Alternatively, a vector of stage indices or 
@@ -72,7 +72,7 @@ mpm_rearrange <- function(matU, matF, matC = NULL, repro_stages,
   if (ncol(matU) != ncol(matF) ||
         ncol(matU) != length(repro_stages) ||
           length(repro_stages) != length(matrix_stages)) {
-    stop("Arguments do not correspond to MPM of single dimension",
+    stop("Arguments do not correspond to MPM of single dimension.\n",
          call. = FALSE)
   }
   checkMatchingStageNames(matU, matF)

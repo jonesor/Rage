@@ -7,12 +7,12 @@
 #' reproduction, with various options for weighting and grouping stages of the
 #' life cycle.
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression).
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to sexual reproduction)
-#' @param matC The clonal component of a matrix population model (i.e. a square
+#' @param matC The clonal component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions due to clonal reproduction).
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
 #'   \code{matC} is a matrix of zeros).
@@ -22,10 +22,10 @@
 #'   distribution of \code{matA}.
 #' @param splitStages What groups should vital rates be averaged over. Either:
 #' 
-#' \code{"all"}: all stages grouped
+#' \code{"all"}: all stages grouped.
 #' 
 #' \code{"ontogeny"}: group juvenile stages (all stages prior to the first stage
-#' with sexual reproduction) and adult stages
+#' with sexual reproduction) and adult stages.
 #' 
 #' \code{"matrixStages"}: group according to a standardized set of stage classes
 #' (propagule, active, and dormant). If \code{splitStages = "matrixStages"},
@@ -34,6 +34,7 @@
 #' @param matrixStages Vector of stage-specific standardized matrix classes
 #'   ("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
 #'   \code{splitStages = "matrixClass"}.
+#'   
 #' @return A list of averaged vital rates.
 #' 
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
@@ -71,7 +72,6 @@
 #' # Vital rate outputs weighted by the stable stage distribution of 'matA'
 #' vital_rates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
 #' 
-#' @importFrom popbio stable.stage
 #' @export vital_rates
 vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
                        splitStages = "all", matrixStages = NULL) {
@@ -82,28 +82,28 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
   
   if (all(!is.null(weights), weights != "SSD",
         length(weights) != nrow(matU))) {
-    stop("If weights are provided, length(weights) should be of the same ",
-         "dimension as matU", call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "","If `weights` are provided, `length(weights)` should be 
+                 of the same dimension as `matU`.\n"), call. = FALSE)
   }
   
   if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
-    stop("Argument splitStages must be one of 'all', 'ontogeny', or ",
-         "'matrixStages'", call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "","Argument `splitStages` must be one of `all`, `ontogeny`, 
+                 or `matrixStages`.\n"), call. = FALSE)
   }
   if (splitStages == "matrixStages") {
     if (is.null(matrixStages)) {
-      stop("If splitStages = 'matrixStages', argument matrixStages must be ",
-           "provided", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "","If `splitStages` = `matrixStages`, argument `matrixStages` 
+                   must be provided.\n"), call. = FALSE)
     }
     if (length(matrixStages) != nrow(matU)) {
-      stop("length(matrixStages) should be of the same dimension as matU",
+      stop("`length(matrixStages)` should be of the same dimension as `matU`.\n",
            call. = FALSE)
     }
   }
   
   if(!is.null(matrixStages)){
     if(!all(matrixStages %in% c("prop", "active", "dorm"))){
-      stop("matrixStage names must be 'prop','active' or 'dorm'", call. = FALSE)
+      stop("matrixStage names must be 'prop','active' or 'dorm'.\n", call. = FALSE)
     }
   }
   
@@ -140,7 +140,7 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
   if (is.null(weights)) {
     weights <- rep(1.0, matDim)
   } else if (weights[1] == "SSD") {
-    weights <- popbio::stable.stage(matA)
+    weights <- stable.stage(matA)
   }
   
   weights <- weights / sum(weights)

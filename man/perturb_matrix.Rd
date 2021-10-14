@@ -13,11 +13,11 @@ perturb_matrix(
 )
 }
 \arguments{
-\item{matA}{A matrix population model (i.e. a square projection matrix).}
+\item{matA}{A matrix population model (i.e., a square projection matrix).}
 
 \item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
 
-\item{type}{Whether to return "sensitivity" or "elasticity" values.}
+\item{type}{Whether to return \code{sensitivity} or \code{elasticity} values.}
 
 \item{demog_stat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of \code{demog_stat} to matrix element 

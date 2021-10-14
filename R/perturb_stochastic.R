@@ -43,13 +43,13 @@
 perturb_stochastic <- function(X_t, u_t) {
   
   if (length(X_t) != length(u_t)) {
-    stop("Arguments X_t and u_t must be of same length", call. = FALSE)
+    stop("Arguments X_t and u_t must be of same length.\n", call. = FALSE)
   }
   if (length(unique(vapply(X_t, nrow, 1))) != 1) {
-    stop("All elements of X_t must be of same dimension", call. = FALSE)
+    stop("All elements of X_t must be of same dimension.\n", call. = FALSE)
   }
   if (length(unique(vapply(u_t, length, 1))) != 1) {
-    stop("All elements of u_t must be of same length", call. = FALSE)
+    stop("All elements of u_t must be of same length.\n", call. = FALSE)
   }
   checks <- lapply(X_t, checkValidMat)
   

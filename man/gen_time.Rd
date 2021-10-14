@@ -7,11 +7,11 @@
 gen_time(matU, matR)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+\item{matU}{The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression).}
 
-\item{matR}{The reproductive component of a matrix population model (i.e. a
+\item{matR}{The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction; either
 sexual, clonal, or both).}
 }
@@ -22,7 +22,7 @@ Returns generation time. If \code{matU} is singular (often indicating
 \description{
 Calculate generation time from a matrix population model. Generation time
 is defined here as the time required for a population to increase by a factor
-of R0 (the net reproductive rate, see ). For more details please refer to 
+of R0 (the net reproductive rate). For more details refer to 
 section 5.3.5 of Caswell (2001).
 }
 \details{
@@ -31,6 +31,10 @@ There are multiple definitions of generation time. Here we use \code{log(R0)
 per-generation population growth rate; Caswell 2001, Sec. 5.3.4), and
 \code{lambda} is the population growth rate per unit time (the dominant
 eigenvalue of \code{matU + matR}).
+}
+\note{
+Note that the units of time in returned values are the same as the
+  projection interval (`ProjectionInterval`) of the MPM.
 }
 \examples{
 data(mpm1)

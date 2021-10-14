@@ -11,12 +11,12 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis, or
 #' reproduction). Reproductive vital rates that are not conditional on survival
-#' (i.e. within a stage class from which there is no survival) are also allowed.
+#' (i.e., within a stage class from which there is no survival) are also allowed.
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression)
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both)
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
@@ -36,7 +36,7 @@
 #' 
 #' @details 
 #' A transition rate of \code{0} within a matrix population model may indicate
-#' that the transition is not possible in the given life cycle (e.g. tadpoles
+#' that the transition is not possible in the given life cycle (e.g., tadpoles
 #' never revert to eggs), or that the transition is possible but was estimated
 #' to be \code{0} in the relevant population and time period. If vital rates are
 #' to be averaged across multiple stage classes, or compared across populations,
@@ -86,7 +86,7 @@
 vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
   
   checkValidMat(matU)
-  checkMatchingStageNames(matU)
+  #checkMatchingStageNames(matU)
   sigma <- colSums(matU, na.rm = TRUE)
   sigma[sigma == 0] <- NA_real_ # can't calculate lower-vr if no survival
   
@@ -107,7 +107,7 @@ vr_mat_R <- function(matU, matR, posR = matR > 0) {
   
   checkValidMat(matU)
   checkValidMat(matR)
-  checkMatchingStageNames(matU, matR)
+  #checkMatchingStageNames(matU, matR)
   sigma <- colSums(matU)
   
   sigma[sigma == 0] <- 1 # avoid NaN if no survival

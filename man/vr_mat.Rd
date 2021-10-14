@@ -12,7 +12,7 @@ vr_mat_U(matU, posU = matU > 0, surv_only_na = TRUE)
 vr_mat_R(matU, matR, posR = matR > 0)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
+\item{matU}{The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression)}
 
@@ -28,7 +28,7 @@ will be coerced to \code{NA}. If \code{FALSE}, dividing the single
 transition by the stage-specific survival probability will always yield a
 value of \code{1}. Defaults to \code{TRUE}.}
 
-\item{matR}{The reproductive component of a matrix population model (i.e. a
+\item{matR}{The reproductive component of a matrix population model (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both)}
 
@@ -51,11 +51,11 @@ These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis, or
 reproduction). Reproductive vital rates that are not conditional on survival
-(i.e. within a stage class from which there is no survival) are also allowed.
+(i.e., within a stage class from which there is no survival) are also allowed.
 }
 \details{
 A transition rate of \code{0} within a matrix population model may indicate
-that the transition is not possible in the given life cycle (e.g. tadpoles
+that the transition is not possible in the given life cycle (e.g., tadpoles
 never revert to eggs), or that the transition is possible but was estimated
 to be \code{0} in the relevant population and time period. If vital rates are
 to be averaged across multiple stage classes, or compared across populations,

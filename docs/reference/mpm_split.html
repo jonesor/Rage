@@ -40,12 +40,12 @@
 
 
 <meta property="og:title" content="Convert matrix population model into U, F and C matrices — mpm_split" />
-<meta property="og:description" content="Splits a matrix population model into three constituent
-matrices, U (growth and survival processes), F (sexual reproduction) and C
-(clonal reproduction). Warning! The functionality is very basic: it assumes
-that sexual reproduction is located in the top row of the matrix, and that
-everything else is growth or survival (i.e. the U matrix). Clonality is
-assumed to be non-existent." />
+<meta property="og:description" content="Splits a matrix population model into three constituent matrices, U
+(growth and survival processes), F (sexual reproduction) and C
+(clonal reproduction). Warning! The functionality is very basic: it
+assumes that sexual reproduction is located in the top row of the matrix, and
+that everything else is growth or survival (i.e. the U matrix).
+Clonality is assumed to be non-existent." />
 
 
 
@@ -111,6 +111,9 @@ assumed to be non-existent." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -143,12 +146,12 @@ assumed to be non-existent." />
     </div>
 
     <div class="ref-description">
-    <p>Splits a matrix population model into three constituent
-matrices, U (growth and survival processes), F (sexual reproduction) and C
-(clonal reproduction). <strong>Warning!</strong> The functionality is very basic: it assumes
-that sexual reproduction is located in the top row of the matrix, and that
-everything else is growth or survival (i.e. the U matrix). Clonality is
-assumed to be non-existent.</p>
+    <p>Splits a matrix population model into three constituent matrices, <b>U</b>
+(growth and survival processes), <b>F</b> (sexual reproduction) and <b>C</b>
+(clonal reproduction). <strong>Warning!</strong> The functionality is very basic: it
+assumes that sexual reproduction is located in the top row of the matrix, and
+that everything else is growth or survival (i.e. the <b>U</b> matrix).
+Clonality is assumed to be non-existent.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mpm_split</span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span></pre>
@@ -158,14 +161,14 @@ assumed to be non-existent.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matA</th>
-      <td><p>A matrix population model (i.e. a square projection matrix).</p></td>
+      <td><p>A matrix population model (i.e., a square projection matrix).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of three matrices: <code>matU</code>,<code>matF</code> and <code>matC</code>. 
-<code>matC</code> will always contain only 0s.</p>
+<code>matC</code> will always contain only zeros.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other transformation: 

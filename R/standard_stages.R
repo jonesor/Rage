@@ -11,13 +11,13 @@
 #' rearranged so that non-reproductive stages are in the final rows/columns.
 #' Output indicates groupings to be used when collapsing the matrix model.
 #'
-#' @param matF The sexual component of a matrix population model (i.e. a square
+#' @param matF The sexual component of a matrix population model (i.e., a square
 #'   projection matrix reflecting transitions only due to \emph{sexual} 
 #'   reproduction). It assumes that it has been rearranged so that 
 #'   non-reproductive stages are in the final rows/columns.
 #' @param repro_stages Logical vector identifying which stages are reproductive.
-#' @param matrix_stages (character) vector of stages, values are "prop"
-#' (propagule), "active", and "dorm" (dormant).
+#' @param matrix_stages (character) vector of stages, values are \code{prop}
+#' (propagule), \code{active}, and \code{dorm} (dormant).
 #' 
 #' @return A list with four elements:
 #'   \item{propStages}{Position of the propagule stages}
@@ -61,12 +61,12 @@ standard_stages <- function(matF, repro_stages, matrix_stages) {
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(repro_stages) ||
       length(repro_stages) != length(matrix_stages)) {
-    stop("Arguments do not correspond to MPM of the same dimension",
+    stop("Arguments do not correspond to MPM of the same dimension.\n",
          call. = FALSE)
   }
   if (!any(repro_stages == TRUE)) {
-    stop("Cannot identify standardised stages because no stages are ",
-         "reproductive (i.e. at least one element of repro_stages must be TRUE)",
+    stop(strwrap(prefix = " ", initial = "", "Cannot identify standardised stages because 
+                 no stages are reproductive (i.e., at least one element of repro_stages must be TRUE).\n"),
          call. = FALSE)
   }
   

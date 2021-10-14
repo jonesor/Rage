@@ -11,13 +11,13 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis,
 #' dormancy, or reproduction). Reproductive vital rates that are not conditional
-#' on survival (i.e. within a stage class from which there is no survival) are
+#' on survival (i.e., within a stage class from which there is no survival) are
 #' also allowed.
 #' 
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix only containing survival-related transitions; 
 #'   progression, stasis, and retrogression).
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both).
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
@@ -43,7 +43,7 @@
 #' @param dorm_stages Integer or character vector indicating dormant stage 
 #'   classes.
 #' @param weights_row Vector of stage-specific weights to apply while summing
-#'   vital rates across rows within columns (e.g. reproductive value vector).
+#'   vital rates across rows within columns (e.g., reproductive value vector).
 #' @param surv_only_na If there is only one possible \code{matU} transition in a
 #'   given column, should that transition be attributed exclusively to survival?
 #'   If \code{TRUE}, the vital rate of growth/stasis/shrinkage in that column
@@ -56,7 +56,7 @@
 #' 
 #' @section Possible transitions:
 #' A transition rate of \code{0} within a matrix population model may indicate
-#' that the transition is not possible in the given life cycle (e.g. tadpoles
+#' that the transition is not possible in the given life cycle (e.g., tadpoles
 #' never revert to eggs), or that the transition rate is possible but was
 #' estimated to be \code{0} in the relevant population and time period. If vital
 #' rates are to be averaged across multiple stage classes, or compared across

@@ -7,25 +7,24 @@
 mpm_collapse(matU, matF, matC = NULL, collapse)
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+\item{matU}{The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g., 
 progression, stasis, and retrogression)}
 
-\item{matF}{The sexual component of a matrix population model (i.e. a square
+\item{matF}{The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction)}
 
-\item{matC}{The clonal component of a matrix population model (i.e. a square
+\item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 \code{matC} is a matrix of zeros).}
 
 \item{collapse}{A list giving the mapping between stages of the original
-matrix and the desired stages of the collapsed matrix (e.g. \code{list(1,
+matrix and the desired stages of the collapsed matrix (e.g., \code{list(1,
 2:3, 4)}). Original stages may be passed as either indices or stage names
 corresponding to stage index or name in \code{matU}, \code{matF} and 
 \code{matC}). Names given to the elements of \code{collapse} are used as 
 stage names in the new, collapsed matrix. 
-
 
 See \emph{Missing Stages} for handling of \code{NA} within \code{collapse}.}
 }
@@ -42,7 +41,7 @@ A list with four elements:
 Collapse a matrix population model to a smaller number of stages. For
 instance, to compare properties of multiple projection matrices with
 different numbers of stages, one might first collapse those matrices to a
-standardized set of stages (e.g. propagule, pre-reproductive, reproductive,
+standardized set of stages (e.g., propagule, pre-reproductive, reproductive,
 and post-reproductive). The transition rates in the collapsed matrix are a
 weighted average of the transition rates from the relevant stages of the
 original matrix, weighted by the relative proportion of each stage class

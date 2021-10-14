@@ -107,6 +107,9 @@ expectancy from a matrix population model (MPM)." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -154,15 +157,15 @@ expectancy from a matrix population model (MPM).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matU</th>
-      <td><p>The survival component of a MPM (i.e. a square projection matrix
-reflecting survival-related transitions; e.g. progression, stasis, and
+      <td><p>The survival component of a MPM (i.e., a square projection matrix
+reflecting survival-related transitions; e.g., progression, stasis, and
 retrogression). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></td>
     </tr>
     <tr>
       <th>start</th>
       <td><p>The index (or stage name) of the first stage of the life cycle
-which the user considers to be the beginning of life. Defaults to 1.
+which the user considers to be the beginning of life. Defaults to <code>1</code>.
 Alternately, a numeric vector giving the starting population vector (in which
  case <code><a href='https://rdrr.io/r/base/length.html'>length(start)</a></code> must match <code>ncol(matU))</code>. See section
 <em>Starting from multiple stages</em>.</p></td>
@@ -173,6 +176,10 @@ Alternately, a numeric vector giving the starting population vector (in which
 
     <p>Returns life expectancy. If <code>matU</code> is singular (often indicating
   infinite life expectancy), returns <code>NA</code>.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Note that the units of time in returned values are the same as the
+  projection interval (`ProjectionInterval`) of the MPM.</p>
     <h2 class="hasAnchor" id="starting-from-multiple-stages"><a class="anchor" href="#starting-from-multiple-stages"></a>Starting from multiple stages</h2>
 
     
@@ -180,7 +187,7 @@ Alternately, a numeric vector giving the starting population vector (in which
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
 multiple starting stage classes. For example, if the user wants to start their
-calculation of life expectancy from reproductive maturity (i.e. first
+calculation of life expectancy from reproductive maturity (i.e., first
 reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
@@ -222,10 +229,9 @@ individuals achieving reproductive maturity in each stage class.</p>
 <span class='va'>n1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='repro_maturity.html'>mature_distrib</a></span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>2</span>, repro_stages <span class='op'>=</span> <span class='va'>rep_stages</span><span class='op'>)</span>
 <span class='fu'>life_expect_mean</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='va'>n1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 3.179005</div><div class='input'>
-<span class='co'># variance of life expectancy from stage class 2</span>
+<span class='co'># variance of life expectancy from stage class 1</span>
 <span class='fu'>life_expect_var</span><span class='op'>(</span><span class='va'>mpm1</span><span class='op'>$</span><span class='va'>matU</span>, start <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 19.23639</div><div class='input'>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

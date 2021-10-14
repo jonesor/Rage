@@ -17,7 +17,7 @@ approximation should be used for approximating the definite integral.}
 Keyfitz's life table entropy.
 }
 \description{
-Calculate Keyfitz's entropy from a vector of age-specific survivorship (lx).
+Calculate Keyfitz's entropy from a vector of age-specific survivorship (\code{lx}).
 }
 \section{Warning}{
 

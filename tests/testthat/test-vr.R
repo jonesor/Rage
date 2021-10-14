@@ -1,8 +1,6 @@
 
 test_that("vr functions work correctly", {
   
-  library(popbio)
-  
   ### test vr_U
   U1 <- rbind(c(  0,   0,   0,   0),
               c(0.5, 0.2, 0.1,   0),
@@ -56,7 +54,7 @@ test_that("vr functions work correctly", {
   expect_length(fecu1, 1)
   
   # weighting
-  v <- reproductive.value(U1 + R1)
+  v <- popdemo::eigs(U1 + R1, what = "rv") #reproductive value
   fecu2 <- vr_fecundity(U1, R1, weights_row = v)
   expect_true(fecu2 != fecu1)
   

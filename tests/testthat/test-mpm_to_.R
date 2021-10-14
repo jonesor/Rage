@@ -20,15 +20,15 @@ test_that("mpm_to_ functions work correctly", {
   expect_equal(lx_a, lx_b)
   
   # mpm_to_px
-  px <- mpm_to_px(mat_u, start = 1, xmax = xmax)
+  px <- mpm_to_px(mat_u, start = 1, xmax = xmax, lx_crit = 0)
   expect_length(px, length(lx))
   
   # mpm_to_hx
-  hx <- mpm_to_hx(mat_u, start = 1, xmax = xmax)
+  hx <- mpm_to_hx(mat_u, start = 1, xmax = xmax, lx_crit = 0)
   expect_length(hx, length(lx))
   
   # mpm_to_mx
-  mx <- mpm_to_mx(mat_u, mat_f, start = 1, xmax = xmax)
+  mx <- mpm_to_mx(mat_u, mat_f, start = 1, xmax = xmax,lx_crit = 0)
   expect_length(mx, length(lx))
   expect_true(all(mx >= 0))
   
@@ -38,9 +38,9 @@ test_that("mpm_to_ functions work correctly", {
   
   # using named life stages
   lx_named <- mpm_to_lx(mat_u_named, start = "sm", xmax = xmax, lx_crit = 0)
-  px_named <- mpm_to_px(mat_u_named, start = 1, xmax = xmax)
-  hx_named <- mpm_to_hx(mat_u_named, start = 1, xmax = xmax)
-  mx_named <- mpm_to_mx(mat_u_named, mat_f_named, start = 1, xmax = xmax)
+  px_named <- mpm_to_px(mat_u_named, start = 1, xmax = xmax, lx_crit = 0)
+  hx_named <- mpm_to_hx(mat_u_named, start = 1, xmax = xmax,lx_crit = 0)
+  mx_named <- mpm_to_mx(mat_u_named, mat_f_named, start = 1, xmax = xmax, lx_crit = 0)
   expect_equal(lx, lx_named)
   expect_equal(px, px_named)
   expect_equal(hx, hx_named)

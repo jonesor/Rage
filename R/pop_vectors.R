@@ -13,12 +13,12 @@
 #' corresponding population vectors, using the method described in Haridas et
 #' al. (2009).
 #' 
-#' @param A A list of MPMs (i.e. square population projection matrices).
+#' @param A A list of MPMs (i.e., square population projection matrices).
 #' @param start Method to derive the first population vector in the series.
-#'   Either `stable.stage` to use the stable stage distribution of the mean
-#'   matrix as the starting vector, `uniform` to use a uniform starting vector
-#'   (all elements equal), or `random` to use a randomly-generated starting
-#'   vector. Defaults to `stable.stage`.
+#'   Either \code{stable.stage} to use the stable stage distribution of the mean
+#'   matrix as the starting vector, \code{uniform} to use a uniform starting vector
+#'   (all elements equal), or \code{random} to use a randomly-generated starting
+#'   vector. Defaults to the stable stage distribution.
 #' 
 #' @return A list of population vectors
 #' 
@@ -39,7 +39,6 @@
 #' pop_vectors(matA_l, start = "uniform")
 #' pop_vectors(matA_l, start = "random")
 #' 
-#' @importFrom popbio stable.stage
 #' @importFrom stats runif
 #' @export pop_vectors
 pop_vectors <- function(A, start = "stable.stage") {
@@ -56,7 +55,7 @@ pop_vectors <- function(A, start = "stable.stage") {
     w[[1]] <- runif(s)
     w[[1]] <- w[[1]] / sum(w[[1]])
   } else {
-    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'",
+    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'.\n",
          .call = FALSE)
   }
   

@@ -5,17 +5,17 @@
 #' reproduction value (R0) is the mean number of recruits produced during the 
 #' mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
+#' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both). Optionally with named rows and columns indicating
 #'   the corresponding life stage names.
 #' @param start Index (or stage name) of the first stage at which the author
 #'   considers the beginning of life. Only used if \code{method = "start"}.
-#'   Defaults to 1.
+#'   Defaults to \code{1}.
 #' @param method The method used to calculate net reproductive value, either
 #'   \code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
 #'   See Details.
@@ -24,13 +24,13 @@
 #' The \code{method} argument controls how net reproductive rate is calculated.
 #' 
 #' If \code{method = "generation"}, net reproductive value is calculated as the
-#' per-generation population growth rate (i.e. the dominant eigenvalue of
+#' per-generation population growth rate (i.e., the dominant eigenvalue of
 #' \code{matR \%*\% N}, where \code{N} is the fundamental matrix). See Caswell
 #' (2001) Section 5.3.4.
 #' 
 #' If \code{method = "start"}, net reproductive value is calculated as the
 #' expected lifetime production of offspring that start life in stage
-#' \code{start}, by an individual also starting life in stage \code{start} (i.e.
+#' \code{start}, by an individual also starting life in stage \code{start} (i.e., 
 #' \code{(matR \%*\% N)[start,start]}).
 #' 
 #' If offspring only arise in stage \code{start}, the two methods give the
@@ -57,7 +57,6 @@
 #' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
 #' net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "small")
 #' 
-#' @importFrom popbio lambda
 #' @export net_repro_rate
 net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
   
@@ -84,7 +83,7 @@ net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
     R <- matR %*% N
     
     R0 <- switch(method,
-                 "generation" = popbio::lambda(R),
+                 "generation" = lambda(R),
                  "start" = R[start, start])
   }
   

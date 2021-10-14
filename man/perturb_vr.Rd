@@ -15,22 +15,22 @@ perturb_vr(
 )
 }
 \arguments{
-\item{matU}{The survival component of a matrix population model (i.e. a
-square projection matrix reflecting survival-related transitions; e.g.
+\item{matU}{The survival component of a matrix population model (i.e., a
+square projection matrix reflecting survival-related transitions; e.g., 
 progression, stasis, and retrogression).}
 
-\item{matF}{The sexual component of a matrix population model (i.e. a square
+\item{matF}{The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction).}
 
-\item{matC}{The clonal component of a matrix population model (i.e. a square
+\item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e.
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
 \code{matC} is a matrix of zeros).}
 
 \item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
 
-\item{type}{Whether to return "sensitivity" or "elasticity" values. Defaults
-to "sensitivity".}
+\item{type}{Whether to return \code{sensitivity} or \code{elasticity} values. Defaults
+to \code{sensitivity}.}
 
 \item{demog_stat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
@@ -59,7 +59,7 @@ These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis,
 dormancy, or reproduction). Reproductive vital rates that are not conditional
-on survival (i.e. within a stage class from which there is no survival) are
+on survival (i.e., within a stage class from which there is no survival) are
 also allowed.
 }
 \examples{

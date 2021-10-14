@@ -40,10 +40,11 @@
 
 
 <meta property="og:title" content="Identify which stages in a matrix population model are reproductive — repro_stages" />
-<meta property="og:description" content="Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
-indicating which stages are reproductive (i.e. exhibit any positive values for
-reproduction). This function is a preparatory step to collapsing the matrix
-model into a standardized set of stage classes using the function mpm_standardize." />
+<meta property="og:description" content="Takes a reproductive matrix and returns a vector of logical values
+(TRUE/FALSE) indicating which stages are reproductive (i.e.,
+exhibit any positive values for reproduction). This function is a preparatory
+step to collapsing the matrix model into a standardized set of stage classes
+using the function mpm_standardize." />
 
 
 
@@ -109,6 +110,9 @@ model into a standardized set of stage classes using the function mpm_standardiz
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -141,10 +145,11 @@ model into a standardized set of stage classes using the function mpm_standardiz
     </div>
 
     <div class="ref-description">
-    <p>Takes a reproductive matrix and returns a vector of logical values (TRUE/FALSE)
-indicating which stages are reproductive (i.e. exhibit any positive values for
-reproduction). This function is a preparatory step to collapsing the matrix
-model into a standardized set of stage classes using the function <code><a href='mpm_standardize.html'>mpm_standardize</a></code>.</p>
+    <p>Takes a reproductive matrix and returns a vector of logical values
+(<code>TRUE</code>/<code>FALSE</code>) indicating which stages are reproductive (i.e.,
+exhibit any positive values for reproduction). This function is a preparatory
+step to collapsing the matrix model into a standardized set of stage classes
+using the function <code><a href='mpm_standardize.html'>mpm_standardize</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>repro_stages</span><span class='op'>(</span><span class='va'>matR</span>, na_handling <span class='op'>=</span> <span class='st'>"return.true"</span><span class='op'>)</span></pre>
@@ -154,9 +159,9 @@ model into a standardized set of stage classes using the function <code><a href=
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matR</th>
-      <td><p>The reproductive component of a matrix population model (i.e. a
+      <td><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
-sexual (e.g. <code>matF</code>), clonal (e.g. <code>matC</code>), or both).</p></td>
+sexual (e.g., <code>matF</code>), clonal (e.g., <code>matC</code>), or both).</p></td>
     </tr>
     <tr>
       <th>na_handling</th>
@@ -171,7 +176,7 @@ sexual (e.g. <code>matF</code>), clonal (e.g. <code>matC</code>), or both).</p><
     <p>A logical vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(matR)</a></code>, with values of
   <code>FALSE</code> corresponding to non-reproductive stages and values of
   <code>TRUE</code> corresponding to reproductive stages.<br /><br /> For a given matrix
-  stage (i.e. column of <code>matR</code>), if there are any positive values of
+  stage (i.e., column of <code>matR</code>), if there are any positive values of
   reproduction, the function will return <code>TRUE</code>. However, for a given
   stage, if there are no positive values of reproduction and one or more values
   of <code>NA</code>, the function will return <code>NA</code> if <code>na_handling ==

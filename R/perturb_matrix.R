@@ -5,9 +5,9 @@
 #' equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other 
 #' demographic statistic.
 #'
-#' @param matA A matrix population model (i.e. a square projection matrix).
+#' @param matA A matrix population model (i.e., a square projection matrix).
 #' @param pert Magnitude of the perturbation. Defaults to \code{1e-6}.
-#' @param type Whether to return "sensitivity" or "elasticity" values.
+#' @param type Whether to return \code{sensitivity} or \code{elasticity} values.
 #' @param demog_stat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of \code{demog_stat} to matrix element 
 #'   perturbations." Defaults to the per-capita population growth rate at 
@@ -46,7 +46,6 @@
 #' 
 #' perturb_matrix(matA, demog_stat = "damping")
 #' 
-#' @importFrom popbio lambda
 #' @export perturb_matrix
 perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
                            demog_stat = "lambda", ...) {
@@ -56,12 +55,12 @@ perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
   
   # get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
-    statfun <- popbio::lambda
+    statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (class(statfun) == "try-error") {
-      stop("demog_stat must be 'lambda' or the name of a function that ",
-           "returns a single numeric value", call. = FALSE)
+      stop(strwrap(prefix = " ", initial = "", "demog_stat must be 'lambda' or the name of a 
+                   function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
 

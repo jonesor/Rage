@@ -3,13 +3,13 @@
 #' @description 
 #' Calculate generation time from a matrix population model. Generation time
 #' is defined here as the time required for a population to increase by a factor
-#' of R0 (the net reproductive rate, see ). For more details please refer to 
+#' of R0 (the net reproductive rate). For more details refer to 
 #' section 5.3.5 of Caswell (2001).
 #'
-#' @param matU The survival component of a matrix population model (i.e. a
-#'   square projection matrix reflecting survival-related transitions; e.g.
+#' @param matU The survival component of a matrix population model (i.e., a
+#'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and retrogression).
-#' @param matR The reproductive component of a matrix population model (i.e. a
+#' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both).
 #' 
@@ -22,6 +22,9 @@
 #' 
 #' @return Returns generation time. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
+#'   
+#' @note Note that the units of time in returned values are the same as the
+#'   projection interval (`ProjectionInterval`) of the MPM.
 #' 
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #' 
@@ -37,13 +40,12 @@
 #' # calculate generation time
 #' gen_time(matU = mpm1$matU, matR = mpm1$matF)
 #' 
-#' @importFrom popbio lambda
 #' @export gen_time
 gen_time <- function(matU, matR) {
   
   # leave arg validation to net_repro_rate
   R0 <- net_repro_rate(matU, matR)
-  lam <- popbio::lambda(matU + matR)
+  lam <- lambda(matU + matR)
   
   return(log(R0) / log(lam))
 }

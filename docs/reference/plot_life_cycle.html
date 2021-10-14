@@ -109,6 +109,9 @@ http://rich-iannone.github.io/DiagrammeR/." />
     <li>
       <a href="../articles/a04_AgeFromStage.html">Age-from-stage analyses</a>
     </li>
+    <li>
+      <a href="../articles/a05_SuggestedQualityControl.html">Suggested Quality Control</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -162,11 +165,11 @@ graphViz function in DiagrammeR. See
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matA</th>
-      <td><p>A matrix population model (i.e. a square projection matrix)</p></td>
+      <td><p>A matrix population model (i.e., a square projection matrix)</p></td>
     </tr>
     <tr>
       <th>stages</th>
-      <td><p>Optional vector of stage class labels. If missing,  it first
+      <td><p>Optional vector of stage class labels. If missing, it first
 attempts to infer them from <code><a href='https://rdrr.io/r/base/dimnames.html'>dimnames(matA)</a></code>. If these are also 
 <code>NULL</code>, then reverts to integers <code>1:ncol(A)</code>.</p></td>
     </tr>
@@ -177,7 +180,7 @@ attempts to infer them from <code><a href='https://rdrr.io/r/base/dimnames.html'
     <tr>
       <th>shape</th>
       <td><p>The shape to be used for the stages of the diagram. Any node
-shape accepted by graphViz is acceptable.</p></td>
+shape accepted by <code>graphViz</code> is acceptable.</p></td>
     </tr>
     <tr>
       <th>fontsize</th>

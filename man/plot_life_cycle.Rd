@@ -15,16 +15,16 @@ plot_life_cycle(
 )
 }
 \arguments{
-\item{matA}{A matrix population model (i.e. a square projection matrix)}
+\item{matA}{A matrix population model (i.e., a square projection matrix)}
 
-\item{stages}{Optional vector of stage class labels. If missing,  it first
+\item{stages}{Optional vector of stage class labels. If missing, it first
 attempts to infer them from \code{dimnames(matA)}. If these are also 
 \code{NULL}, then reverts to integers \code{1:ncol(A)}.}
 
 \item{title}{Optional title for the plot. Defaults to \code{NULL}.}
 
 \item{shape}{The shape to be used for the stages of the diagram. Any node
-shape accepted by graphViz is acceptable.}
+shape accepted by \code{graphViz} is acceptable.}
 
 \item{fontsize}{Size of the font used in the diagram.}
 

@@ -3,18 +3,21 @@
 #' Applies Markov chain approaches to obtain mean and variance of life
 #' expectancy from a matrix population model (MPM).
 #'
-#' @param matU The survival component of a MPM (i.e. a square projection matrix
-#'   reflecting survival-related transitions; e.g. progression, stasis, and
+#' @param matU The survival component of a MPM (i.e., a square projection matrix
+#'   reflecting survival-related transitions; e.g., progression, stasis, and
 #'   retrogression). Optionally with named rows and columns indicating the
 #'   corresponding life stage names.
 #' @param start The index (or stage name) of the first stage of the life cycle
-#'   which the user considers to be the beginning of life. Defaults to 1.
+#'   which the user considers to be the beginning of life. Defaults to \code{1}.
 #'   Alternately, a numeric vector giving the starting population vector (in which
 #'    case \code{length(start)} must match \code{ncol(matU))}. See section
 #'   \emph{Starting from multiple stages}.
 #' 
 #' @return Returns life expectancy. If \code{matU} is singular (often indicating
 #'   infinite life expectancy), returns \code{NA}.
+#'   
+#' @note Note that the units of time in returned values are the same as the
+#'   projection interval (`ProjectionInterval`) of the MPM.
 #'   
 #' @author Roberto Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <hcaswell@@whoi.edu>
@@ -29,7 +32,7 @@
 #' Rather than specifying argument \code{start} as a single stage class from
 #' which all individuals start life, it may sometimes be desirable to allow for
 #' multiple starting stage classes. For example, if the user wants to start their
-#' calculation of life expectancy from reproductive maturity (i.e. first
+#' calculation of life expectancy from reproductive maturity (i.e., first
 #' reproduction), they should account for the possibility that there may be
 #' multiple stage classes in which an individual could first reproduce.
 #' 
@@ -53,9 +56,8 @@
 #' n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
 #' life_expect_mean(mpm1$matU, start = n1)
 #'
-#'# variance of life expectancy from stage class 2
-#'life_expect_var(mpm1$matU, start = 1)
-#'
+#'# variance of life expectancy from stage class 1
+#' life_expect_var(mpm1$matU, start = 1)
 #'
 #' @rdname life_expect
 #' @export life_expect_mean
@@ -85,8 +87,7 @@ life_expect_mean <- function(matU, start = 1L) {
   if(inherits(N, "try-error")) {
     mean <- NA_real_
   } else {
-    
-    Nvar <- try(sum(2*N^2-N)-colSums(N)*colSums(N))
+
     mean <- sum(colSums(N) * start_vec)
   }
   
