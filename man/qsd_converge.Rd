@@ -102,6 +102,9 @@ qsd_converge(mpm1$matU, start = n1)
 Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
 Interpretation. Sinauer Associates; 2nd edition. ISBN: 978-0878930968
 
+Horvitz, C. C., & Tuljapurkar, S. 2008. Stage dynamics, period survival, and
+mortality plateaus. The American Naturalist, 172(2), 203–215.
+
 Jones, O. R., Scheuerlein, A., Salguero-Gomez, R., Camarda, C. G., Schaible,
 R., Casper, B. B., Dahlgren, J. P., Ehrlén, J., García, M. B., Menges, E.,
 Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014.

@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="a05_SuggestedQualityControl_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="a05_SuggestedQualityControl_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Suggested Quality Control</h1>
@@ -162,12 +162,12 @@ This issue is flagged using the column <code>check_surv_gte_1</code>. An additio
 <h1 class="hasAnchor">
 <a href="#other-issues" class="anchor"></a>Other issues</h1>
 <p>When using age-from-stage methods, users should be aware of the issue of convergence to quasi-stationary distribution (see ). Briefly, All age-from-stage calculations produce age-trajectories that inevitably asymptote as a mathematical consequence of describing the vital rates as functions of discrete stages (Horvitz &amp; Tuljapurkar, 2008). This mathematical artefact can introduce bias into measures obtained using age-from-stage methods. <code>Rage</code> provides a convenient and principled way of correcting for this artefact by imposing a lower probability threshold defined by the degree of convergence to the quasi-stationary distribution (see ). We suggest that users filter out from their analyses matrices that do not pass this threshold criterion.</p>
-<p>Users should also be aware of the issue of census type. For populations that reproduce in a pulse once per year. The demographic census may be carried out before or after the reproduction event. There are thus two types of census: Pre- and post-reproductive census. This distinction has potentially important implications for demographic measures because of its effects on measured population structure. For example, the fraction of individuals in the first age class will tend to be larger larger in a post-reproductive census than a pre-reproductive census. There is a column in the com(p)adre metadata (<code>CensusType</code>) that is indended to records this information but, because authors of source publications have rarely clearly stated this information, it is very incomplete. For serious analyses we therefore recommend that users carefully collect this information themselves from the source papers.</p>
+<p>Users should also be aware of the issue of census type. For populations that reproduce in a pulse once per year. The demographic census may be carried out before or after the reproduction event. There are thus two types of census: Pre- and post-reproductive census. This distinction has potentially important implications for demographic measures because of its effects on measured population structure. For example, the fraction of individuals in the first age class will tend to be larger larger in a post-reproductive census than a pre-reproductive census. There is a column in the com(p)adre metadata (<code>CensusType</code>) that is intended to record this information but, because authors of source publications have rarely clearly stated this information, it is very incomplete. For serious analyses we therefore recommend that users carefully collect this information themselves from the source papers.</p>
 </div>
 <div id="finally" class="section level1">
 <h1 class="hasAnchor">
 <a href="#finally" class="anchor"></a>Finally…</h1>
-<p>Although we highlight here a range of issues that could cause problems for MPM analyses we have likely inadvertantly omitted some issues. We therefore urge users to carefully consider issues that may pertain to their particular analyses.</p>
+<p>Although we highlight here a range of issues that could cause problems for MPM analyses we have likely inadvertently omitted some issues. We therefore urge users to carefully consider issues that may pertain to their particular analyses.</p>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
