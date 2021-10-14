@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Suggested Quality Control</h1>
                         <h4 class="author">Owen Jones</h4>
             
-            <h4 class="date">2021-10-11</h4>
+            <h4 class="date">2021-10-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/master/vignettes/a05_SuggestedQualityControl.Rmd"><code>vignettes/a05_SuggestedQualityControl.Rmd</code></a></small>
       <div class="hidden name"><code>a05_SuggestedQualityControl.Rmd</code></div>
@@ -109,7 +109,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The specific requirements and assumptions for each function in <code>Rage</code> varies. Here we provide notes that give an overview of these factors, which can be conveniently identified using the function <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html">Rcompadre::cdb_flag</a></code> (note that this function is automatically run by <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_fetch.html">Rcompadre::cdb_fetch</a></code> if it is run with argument <code>flag = TRUE</code>).</p>
+<p>The specific requirements and assumptions for each function in <code>Rage</code> varies. Here we provide notes giving an overview of these requirements and make some suggestions of how users should filter their dataset before analysis. To assist with this, the function <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html">Rcompadre::cdb_flag</a></code> conducts a series of checks on the matrices in a <code>compadreDB</code> object and adds “flags” to facilitate the filtering out of problematic matrices. This function (<code>cdb_flag</code>) can automatically be run by <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_fetch.html">Rcompadre::cdb_fetch</a></code> using the argument <code>flag = TRUE</code>.</p>
 </div>
 <div id="types-of-issue" class="section level1">
 <h1 class="hasAnchor">
@@ -117,70 +117,63 @@
 <div id="missing-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#missing-data" class="anchor"></a>Missing data</h2>
-<p>The most obvious requirement for most of the <code>Rage</code> methods is that missing (<code>NA</code>) values in matrices prevent calculations using those matrices. Sometimes these <code>NA</code> values are in one of the submatrices (i.e., <strong>U</strong>, <strong>F</strong> or <strong>C</strong>) of the matrix model, but other submatrices are complete. For example, there may be <code>NA</code> entries in the <strong>F</strong> submatrix, but the <strong>U</strong> matrix remains complete. These are flagged with the columns <code>check_NA_A</code>, <code>check_NA_U</code>, <code>check_NA_F</code> and <code>check_NA_C</code>.</p>
+<p>The most obvious requirement for most of the <code>Rage</code> methods is that missing (<code>NA</code>) values in matrices prevent calculations using those matrices. Sometimes these <code>NA</code> values are in one of the submatrices (i.e., <strong>U</strong>, <strong>F</strong> or <strong>C</strong>) of the matrix model, but other submatrices are complete. For example, there may be <code>NA</code> entries in the <strong>F</strong> submatrix, while the <strong>U</strong> matrix remains complete. These issues are flagged with the columns <code>check_NA_A</code>, <code>check_NA_U</code>, <code>check_NA_F</code> and <code>check_NA_C</code>.</p>
 </div>
 <div id="excessive-zeros" class="section level2">
 <h2 class="hasAnchor">
 <a href="#excessive-zeros" class="anchor"></a>Excessive zeros</h2>
-<p>A related issue occurs when an submatrix is entirely composed of zero values. There may be good reasons for this: For example, species that do not reproduce clonally will have zero-value <strong>C</strong> matrices; or in the particular focal population in the particular focal year, there was no sexual reproduction recorded, so the <strong>F</strong> matrix was composed entirely of zeros). Nevertheless, zero-value submatrices can cause some calculations to fail and it may be necessary to exclude them. These issues are flagged with the columns <code>check_zero_F</code>, <code>check_zero_C</code>, <code>check_zero_U</code>.</p>
-</div>
-<div id="excessive-mortality" class="section level2">
-<h2 class="hasAnchor">
-<a href="#excessive-mortality" class="anchor"></a>Excessive mortality</h2>
-<p>Similarly, there may be some matrices where the column sums of the <strong>U</strong> matrix are zero, implying that there is no survival from that particular stage. This may be a perfectly valid parameterisation for a particular year/place but is biologically unreasonable in the longer term. This is indicated with the column <code>check_zero_U_colsum</code>.</p>
+<p>Submatrices composed entirely of zero values can also be problematic. There may be good biological reasons for this phenomenon. Species that do not reproduce clonally will have zero-value <strong>C</strong> matrices. Another biologically reasonable explanation could be that in the particular focal population in the particular focal year, there was no sexual reproduction recorded, so the <strong>F</strong> matrix was composed entirely of zeros. Nevertheless, zero-value submatrices can cause some calculations to fail and it may be necessary to exclude them. These issues are flagged with the columns <code>check_zero_F</code>, <code>check_zero_C</code>, <code>check_zero_U</code>.</p>
 </div>
 <div id="excessive-survival" class="section level2">
 <h2 class="hasAnchor">
 <a href="#excessive-survival" class="anchor"></a>Excessive survival</h2>
-<p>In a biologically reasonable MPM, the set of survival and growth transitions (i.e. in <strong>matU</strong>) from a stage should not exceed 1. We can examine this by looking at the column sums of the <strong>U</strong> matrix. However, in some cases, errors in the original matrices (which may be rounding errors) cause this to occur. This is flagged using the column <code>check_surv_gte_1</code>. An additional column <code>SurvivalIssue</code> gives the maximum value of the column sums.</p>
+<p>In a biologically reasonable matrix population model, the set of survival and growth transitions (i.e. in <strong>matU</strong>) from a particular stage cannot exceed 1. However, in some cases, errors in the original matrices (including data entry and rounding errors) cause this situation to occur and may persist in the data set. We can check for this error using column sums of the <strong>U</strong> matrix, and may wish to exclude matrices with any column sum greater than 1.<br>
+This issue is flagged using the column <code>check_surv_gte_1</code>. An additional column <code>SurvivalIssue</code> gives the maximum value of the column sums for a finer-grained examination.</p>
 </div>
-<div id="reducibility-and-ergodicity" class="section level2">
+<div id="excessive-mortality" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reducibility-and-ergodicity" class="anchor"></a>Reducibility and ergodicity</h2>
-<p>Additional requirements include that the MPM (<strong>A</strong>) be irreducible and ergodic. Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a <em>single</em> asymptotic stable state that does not depend on initial stage structure. Conversely, nonergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause most analytical methods in <code>Rage</code> to fail. These issues are flagged with <code>check_irreducible</code> and <code>check_ergodic</code>.</p>
-<p>The related issue of primitivity is flagged with <code>check_primitive</code></p>
+<a href="#excessive-mortality" class="anchor"></a>Excessive mortality</h2>
+<p>At the opposite end of the survival spectrum, there may be some matrices where some of the column sums of the <strong>U</strong> matrix are zero, implying that there is no survival from that particular stage. This may be a perfectly valid parameterisation for a particular year/place but is biologically unreasonable in the longer term and users may wish to exclude problematic matrices from their analysis. This issue is indicated by the column <code>check_zero_U_colsum</code>.</p>
+</div>
+<div id="irreducibility-and-ergodicity" class="section level2">
+<h2 class="hasAnchor">
+<a href="#irreducibility-and-ergodicity" class="anchor"></a>Irreducibility and ergodicity</h2>
+<p>Several matrix manipulations or calculations require include that the MPM (<code>matA</code>) be irreducible and ergodic (Stott et al. 2018). Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a <em>single</em> asymptotic stable state that does not depend on initial stage structure. Conversely, non-ergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause most analytical methods in <code>Rage</code> to fail. Irreducibility is necessary but not sufficient for ergodicity. These issues are flagged with <code>check_irreducible</code> and <code>check_ergodic</code>. Even if <code>Rage</code> functions do not fail due to these issues, the fact that they can indicate biologically unreasonable life cycles may mean that users nevertheless wish to exclude reducible, non-ergodic matrices from their analyses.</p>
 </div>
 <div id="singularity-of-the-u-matrix" class="section level2">
 <h2 class="hasAnchor">
 <a href="#singularity-of-the-u-matrix" class="anchor"></a>Singularity of the U matrix</h2>
-<p>Singular matrices cannot be inverted, and because inversion is required for many matrix calculations this can cause problems. This issue is flagged with <code>check_singular_U</code>.</p>
+<p>Matrices are said to be singular if they cannot be inverted. Inversion is required for many matrix calculations and, therefore, singularity can cause some calculations to fail. This issue is flagged with <code>check_singular_U</code>. Calculations for <code>longevity</code>, <code>life_expect_mean</code>, <code>life_expect_var</code> and <code>net_repro_rate</code> fail with singular matrices, so users may wish to exclude singular matrices when conducting analyses using these functions.</p>
 </div>
 <div id="matrix-split-errors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#matrix-split-errors" class="anchor"></a>Matrix split errors</h2>
-<p>A complete MPM (<strong>A</strong>) can be split into its component submatrices (i.e. <strong>U</strong>, <strong>F</strong> and <strong>C</strong>). The sum of these submatrices should equal the complete MPM (i.e. <strong>A</strong> = <strong>U</strong> + <strong>F</strong> + <strong>C</strong>). Sometimes, however, errors occur so that the submatrices do NOT sum to <strong>A</strong>. Normally, this is caused by rounding errors, but more significant errors are possible. This problem is flagged with <code>check_component_sum</code> (only for divided (split) matrices).</p>
+<p>A complete MPM (<strong>A</strong>) can be split into its component submatrices (i.e. <strong>U</strong>, <strong>F</strong> and <strong>C</strong>). The sum of these submatrices should equal the complete MPM (i.e. <strong>A</strong> = <strong>U</strong> + <strong>F</strong> + <strong>C</strong>). Sometimes, however, errors occur so that the submatrices do NOT sum to <strong>A</strong>. Normally, this is caused by rounding errors, but more significant errors are possible. This problem is flagged with <code>check_component_sum</code> (only relevant for divided (split) matrices). We recommend that users carefully check their matrices for these errors and correct or exclude them as appropriate.</p>
 </div>
 </div>
 <div id="function-requirement-summaries" class="section level1">
 <h1 class="hasAnchor">
 <a href="#function-requirement-summaries" class="anchor"></a>Function requirement summaries</h1>
-<p><code>age_from_stage</code> is a set of functions (<code>mpm_to_hx</code>, <code>mpm_to_lx</code>, <code>mpm_to_mx</code>, <code>mpm_to_px</code>) which, together with the function <code>mpm_to_table</code>, use age-from-stage decomposition methods to generate life tables, or specific life table columns (<code>hx</code>, <code>lx</code>, <code>mx</code> or <code>px</code>). At the least, functions require complete <code>matU</code> with no missing (<code>NA</code>) values and where none of the <code>matU</code> columns sum to zero, and (optionally) a complete <code>matF</code>.</p>
-<p><code>gen_time</code> requires a U matrix <code>matU</code> and a matrix representing reproduction which can be , , or the sum of both of these. The <code>matU</code> matrix must complete <code>matU</code> with no missing (<code>NA</code>) values and where none of the <code>matU</code> columns sum to zero. The reproduction matrix must be complete with no <code>NA</code> values. It is also recommended that the complete <code>matA</code> from which the submatrices are derived be ergodic and irreducible.</p>
-<p><code>life_expect_mean</code> and <code>life_expect_var</code> require a U matrix (<code>matU</code>) with no missing (<code>NA</code>) values. In addition, none of the <code>matU</code> columns should sum to zero.</p>
-<p><code>longevity</code> requires a U matrix (<code>matU</code>) with no missing (<code>NA</code>) values and where none of the <code>matU</code> columns sum to zero. Users should be aware of the issue of convergence to quasi-stationary distribution (see ).</p>
-<p><code>mature_age</code>,<code>mature_distrib</code> and <code>mature_prob</code></p>
-<p><code>qsd_converge</code></p>
-<p><code>net_repro_rate</code> requires a <code>matU</code> and <code>matR</code> (which can be a <code>matF</code>, <code>matC</code> or the sum of both). The matrices must be complete with no <code>NA</code> values. <code>mpm_collapse</code> requires a <code>matU</code> and <code>matR</code> (which can be a <code>matF</code>, <code>matC</code> or the sum of both).</p>
-<p><code>mpm_rearrange</code> requires a <code>matU</code> and <code>matF</code> (and optionally <code>matC</code>).</p>
-<p><code>mpm_split</code> requires a <code>matA</code> matrix.</p>
-<p><code>mpm_standardise</code> (<code>mpm_standardize</code>) requires a <code>matU</code> and <code>matF</code> (and optionally <code>matC</code>).</p>
-<p><code>perturb_matrix</code> requires <code>matA</code></p>
-<p><code>perturb_stochastic</code> requires a <code>list</code> of matrix population models <code>matA</code>.</p>
-<p><code>perturb_trans</code> requires <code>matU</code> and <code>matF</code> (and optionally <code>matC</code>).</p>
-<p><code>perturb_vr</code> requires <code>matU</code> and <code>matF</code> (and optionally <code>matC</code>).</p>
-<p><code>plot_life_cycle</code> requires a full matrix population model (<code>matA</code>) with no missing (<code>NA</code>) values.</p>
-<p><code>vr_mat</code> functions (<code>vr_mat_U</code> and <code>vr_mat_R</code>). Require a complete <code>matU</code>, and both <code>matU</code> and <code>matR</code> respectively.</p>
-<p><code>vr</code> functions (<code>vr_survival</code>, <code>vr_growth</code>, <code>vr_shrinkage</code>, <code>vr_stasis</code>, <code>vr_dorm_enter</code>, <code>vr_dorm_exit</code>, <code>vr_fecundity</code>) require <code>matU</code> (and for <code>vr_fecundity</code> <code>matR</code>, which can be <code>matF</code>, <code>matC</code> or the sum of both)</p>
-<p><code>vital_rates</code> requires at least <code>matU</code> and <code>matF</code>. The inclusion of <code>matF</code> is optional. All matrices must be complete with no missing (<code>NA</code>) values.</p>
-<p>The <code>vr_vec...</code> functions (<code>vr_vec_dorm_enter</code>, <code>vr_vec_dorm_exit</code>, <code>vr_vec_growth</code>, <code>vr_vec_shrinkage</code>, <code>vr_vec_stasis</code>, <code>vr_vec_survival</code> and <code>vr_vec_reproduction</code>) require at least <code>matU</code>. The function <code>vr_vec_reproduction</code> also requires <code>matR</code>, which can be a <code>matF</code> matrix, <code>matC</code> matrix, or the sum of both.</p>
+<p>It is a general requirement for almost all <code>Rage</code> functions that the matrices used as arguments do not include <code>NA</code> values. With divided (split) matrices, <code>NA</code> values may be present in some submatrices but not others. For example, the <strong>U</strong> matrix may be complete, but the <strong>F</strong> matrix may have <code>NA</code> values. In this case, functions that require an <strong>F</strong> matrix will fail, while those that only require a <strong>U</strong> matrix will work. Users should filter the data to exclude entries with <code>NA</code> values in the matrices required for their analysis. The functions <code>mpm_split</code>, <code>mpm_rearrange</code> and <code>mpm_standardise</code> do not require complete <code>NA</code>-free matrices.</p>
+<p>For functions that use the <strong>U</strong> matrix, we further suggest filtering the data to exclude the biologically unreasonable entries where one or more of the <code>matU</code> columns sum to zero, or to greater than 1 (see <em>Excessive Survival</em>, above). Alternatively, users could examine the offending matrices and make sensible corrections (e.g. to correct rounding errors).</p>
+<p>For functions that use the <strong>F</strong> matrix, and where sexual reproduction is known to occur in the species, we suggest that users consider filtering the data to exclude entries where <strong>F</strong> is entirely zero. This is not always desirable because there are some situations where zero recorded reproduction is biologically reasonable. We suggest a similar approach for the <strong>C</strong> matrix.</p>
 </div>
-<div id="functions-that-do-not-require-matrices" class="section level1">
+<div id="other-issues" class="section level1">
 <h1 class="hasAnchor">
-<a href="#functions-that-do-not-require-matrices" class="anchor"></a>Functions that do not require matrices</h1>
-<p>Several functions in <code>Rage</code> do not directly require matrices as inputs, but rather require <code>lx</code>, <code>mx</code> etc. However, several of the issues above should be considered if these trajectories are derived from matrices. (see the <code>age_from_stage</code> section above)</p>
-<p><code>shape_rep</code> and <code>shape_surv</code> require <code>mx</code> reproduction and <code>lx</code> schedules over age respectively.</p>
-<p>The functions <code>hx_to_lx</code>, <code>hx_to_px</code>, <code>lx_to_hx</code>, <code>lx_to_px</code>, <code>px_to_hx</code>, <code>px_to_lx</code> allow conversion among <code>hx</code>, <code>lx</code> and <code>px</code> trajectories using standard life table calculations.</p>
-<p><code>entropy_d</code> and <code>entropy_d</code> require <code>lx</code> trajectories that are generated from a matrix model using the <code>mpm_to_table</code>, or <code>mpm_to_lx</code> functions. Users should be aware of the issue of convergence to quasi-stationary distribution (see ).</p>
+<a href="#other-issues" class="anchor"></a>Other issues</h1>
+<p>When using age-from-stage methods, users should be aware of the issue of convergence to quasi-stationary distribution (see ). Briefly, All age-from-stage calculations produce age-trajectories that inevitably asymptote as a mathematical consequence of describing the vital rates as functions of discrete stages (Horvitz &amp; Tuljapurkar, 2008). This mathematical artefact can introduce bias into measures obtained using age-from-stage methods. <code>Rage</code> provides a convenient and principled way of correcting for this artefact by imposing a lower probability threshold defined by the degree of convergence to the quasi-stationary distribution (see ). We suggest that users filter out from their analyses matrices that do not pass this threshold criterion.</p>
+<p>Users should also be aware of the issue of census type. For populations that reproduce in a pulse once per year. The demographic census may be carried out before or after the reproduction event. There are thus two types of census: Pre- and post-reproductive census. This distinction has potentially important implications for demographic measures because of its effects on measured population structure. For example, the fraction of individuals in the first age class will tend to be larger larger in a post-reproductive census than a pre-reproductive census. There is a column in the com(p)adre metadata (<code>CensusType</code>) that is indended to records this information but, because authors of source publications have rarely clearly stated this information, it is very incomplete. For serious analyses we therefore recommend that users carefully collect this information themselves from the source papers.</p>
+</div>
+<div id="finally" class="section level1">
+<h1 class="hasAnchor">
+<a href="#finally" class="anchor"></a>Finally…</h1>
+<p>Although we highlight here a range of issues that could cause problems for MPM analyses we have likely inadvertantly omitted some issues. We therefore urge users to carefully consider issues that may pertain to their particular analyses.</p>
+</div>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
+<p>Horvitz, C. C., &amp; Tuljapurkar, S. (2008). Stage dynamics, period survival, and mortality plateaus. The American Naturalist, 172(2), 203–215.</p>
+<p>Stott, I., Townley, S., &amp; Carslake, D. (2010). On reducibility and ergodicity of population projection matrix models. Methods in Ecology and Evolution. 1 (3), 242-252</p>
 </div>
   </div>
 
