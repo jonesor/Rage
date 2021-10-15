@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
-#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+# The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
 knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
@@ -33,9 +33,9 @@ Regardless of whether the stage classes of a matrix population model (MPM) are b
 We'll start by loading a few packages and a dataset that we'll be using throughout this vignette. 
 
 ```{r}
-library(Rage)  # load Rage
-data(mpm1)     # load data object 'mpm1'
-mpm1           # display the contents
+library(Rage) # load Rage
+data(mpm1) # load data object 'mpm1'
+mpm1 # display the contents
 ```
 
 ## Age-from-stage methods with a single matrix population model
@@ -80,21 +80,25 @@ Now we'll extend the basic approach above to many models. Specifically, we'll ex
 First, we'll subset `Compadre` to our group of interest (`OrganismType == "Tree"`). We'll also remove matrices with missing values, and limit our selection to matrices with a periodicity (i.e. transition interval) of 1 year.
 
 ```{r}
-
 library(Rcompadre)
 data(Compadre)
+
+# In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.
+if ("AnnualPeriodicity" %in% names(Compadre)) {
+  Compadre$ProjectionInterval <- Compadre$ProjectionInterval
+}
 
 comp_flag <- cdb_flag(Compadre, "check_NA_U")
 
 comp_use <- subset(comp_flag, OrganismType == "Tree" &
-                     check_NA_U == FALSE &
-                     ProjectionInterval == 1)
+  check_NA_U == FALSE &
+  ProjectionInterval == 1)
 ```
 
 Let's take a look at the species/populations that made the cut.
 
 ```{r}
-CompadreData(comp_use)[,c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+CompadreData(comp_use)[, c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
 ```
 
 Notice that there are 3 matrices for the species _Phyllanthus indofischeri_, reflecting different treatment groups. Let's collapse these replicates down to a single matrix per species, by averaging the relevant MPMs using `cdb_collapse()`. We'll also use the function `cdb_id_stages()`, to make sure we're only collapsing matrices that have the same stage class definitions.
@@ -107,7 +111,7 @@ comp_use$stage_id <- cdb_id_stages(comp_use)
 comp_collapse <- cdb_collapse(comp_use, "stage_id")
 
 # check species/populations again
-CompadreData(comp_collapse)[,c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+CompadreData(comp_collapse)[, c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
 ```
 
 Next, let's look at the organized stage classes for each MPM. If any of our MPMs include propagule or dormant stage classes, we may want to account for them when calculating lx.
@@ -127,24 +131,26 @@ Finally, we'll use `lapply()` to apply the function `mpm_to_lx` to each row of `
 ```{r, fig.width = 6, fig.height = 4}
 
 lx_list <- lapply(seq_len(nrow(comp_collapse)),
-                   function(x, comp_collapse) {
-                     
-                     U <- matU(comp_collapse$mat[[x]])
-                    
-                    rownames(U) <- colnames(U) #ensure row and col names are present
-                     
-                     mpm_to_lx(
-                       matU = U,
-                       start = comp_collapse$start_life[x],
-                       xmax = 40
-                     )
-                   },
-                   comp_collapse = comp_collapse)
+  function(x, comp_collapse) {
+    U <- matU(comp_collapse$mat[[x]])
+
+    rownames(U) <- colnames(U) # ensure row and col names are present
+
+    mpm_to_lx(
+      matU = U,
+      start = comp_collapse$start_life[x],
+      xmax = 40
+    )
+  },
+  comp_collapse = comp_collapse
+)
 
 lx_array <- do.call(cbind, lx_list)
 
-matplot(lx_array, type = "l", lty = 1, log = "y", ylim = c(0.0001, 1),
-        lwd = 1.5, xlab = "Age (years)", ylab = "lx")
+matplot(lx_array,
+  type = "l", lty = 1, log = "y", ylim = c(0.0001, 1),
+  lwd = 1.5, xlab = "Age (years)", ylab = "lx"
+)
 ```
 
 ## References
