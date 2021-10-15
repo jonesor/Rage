@@ -19,10 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
-# The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
-knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
-```
+
 
 ## Introduction
 
@@ -85,7 +82,7 @@ data(Compadre)
 
 # In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.
 if ("AnnualPeriodicity" %in% names(Compadre)) {
-  Compadre$ProjectionInterval <- Compadre$ProjectionInterval
+  Compadre$ProjectionInterval <- Compadre$AnnualPeriodicity
 }
 
 comp_flag <- cdb_flag(Compadre, "check_NA_U")
