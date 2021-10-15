@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 | Project   |      Main branch     |  Devel branch |
 |----------|:--------------|:------------------------|
 | [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html) |  [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml/badge.svg?branch=main)](https://github.com/jonesor/Rage/actions/workflows/main_check.yaml) | [![R-CMD-check](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml/badge.svg)](https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml) |
-| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://codecov.io/gh/jonesor/Rage)    |  |
-| ![](http://cranlogs.r-pkg.org/badges/grand-total/Rage) | |      |
+| [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![codecov](https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0)](https://app.codecov.io/gh/jonesor/Rage)    |  |
+| ![](http://cranlogs.r-pkg.org/badges/grand-total/Rage) |[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/Rage)](https://cran.r-project.org/package=Rage)|      |
 | ![](http://cranlogs.r-pkg.org/badges/Rage) |  |    |
     
 -------

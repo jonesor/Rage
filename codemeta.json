@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.1.0",
+  "version": "1.1.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "author": [
     {
       "@type": "Person",
@@ -206,18 +206,6 @@
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "popbio",
-      "name": "popbio",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=popbio"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "popdemo",
       "name": "popdemo",
       "provider": {
@@ -271,8 +259,8 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "80048.441KB",
-  "contIntegration": ["https://travis-ci.com/jonesor/Rage", "https://travis-ci.com/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://ci.appveyor.com/project/jonesor/Rage", "https://codecov.io/gh/jonesor/Rage"],
+  "fileSize": "500.571KB",
+  "contIntegration": ["https://github.com/jonesor/Rage/actions/workflows/main_check.yaml", "https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml", "https://app.codecov.io/gh/jonesor/Rage"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
   "citation": [
@@ -366,5 +354,7 @@
     "@type": "Organization",
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
-  }
+  },
+  "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
+  "relatedLink": "https://CRAN.R-project.org/package=Rage"
 }

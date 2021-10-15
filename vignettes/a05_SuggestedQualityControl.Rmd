@@ -1,5 +1,5 @@
 ---
-title: "Suggested Quality Control"
+title: "Suggested quality control"
 author: "Owen Jones"
 date: "`r Sys.Date()`"
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     depth: 2
 vignette: >
-  %\VignetteIndexEntry{Suggested Quality Control}
+  %\VignetteIndexEntry{Suggested quality control}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,13 +21,13 @@ knitr::opts_chunk$set(
 
 
 ```{r setupDarwin, include=FALSE, eval = Sys.info()[["sysname"]] == "Darwin"}
-#The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
+# The following line seems to be required by pkgdown::build_site() on my machine, but causes build to break with R-CMD-CHECK on GH
 knitr::opts_chunk$set(dev = "png", dev.args = list(type = "cairo-png"))
 ```
 
 # Introduction
 
-The specific requirements and assumptions for each function in `Rage` varies. Here we provide notes giving an overview of these requirements and make some suggestions of how users should filter their dataset before analysis. To assist with this, the function `Rcompadre::cdb_flag` conducts a series of checks on the matrices in a `compadreDB` object and adds "flags" to facilitate the filtering out of problematic matrices. This function (`cdb_flag`) can automatically be run by `Rcompadre::cdb_fetch` using the argument `flag = TRUE`.
+The specific requirements and assumptions for each function in `Rage` varies. Here we provide notes giving an overview of these requirements, which are also applicable to other functions/calculations in packages such as `popbio` and `popdemo`. We make some suggestions of how users should filter their dataset before analysis. To assist with this, the function `Rcompadre::cdb_flag` conducts a series of checks on the matrices in a `compadreDB` object and adds "flags" to facilitate the filtering out of problematic matrices. This function (`cdb_flag`) can automatically be run by `Rcompadre::cdb_fetch` using the argument `flag = TRUE`.
 
 # Types of issue
 
@@ -43,8 +43,8 @@ Submatrices composed entirely of zero values can also be problematic. There may 
 
 ## Excessive survival
 
-In a biologically reasonable matrix population model, the set of survival and growth transitions (i.e. in **matU**) from a particular stage cannot exceed 1. However, in some cases, errors in the original matrices (including data entry and rounding errors) cause this situation to occur and may persist in the data set. We can check for this error using column sums of the **U** matrix, and may wish to exclude matrices with any column sum greater than 1.  
-This issue is flagged using the column `check_surv_gte_1`. An additional column `SurvivalIssue` gives the maximum value of the column sums for a finer-grained examination.
+In a biologically reasonable matrix population model, the set of survival and growth transitions (i.e., in the **U** matrix) from a particular stage cannot exceed 1. However, in some cases, errors in the original matrices (including data entry and rounding errors) cause this situation to occur and may persist in the data set. We can check for this error using column sums of the **U** matrix, and may wish to exclude matrices with any column sum greater than 1.  
+This issue is examined using the column `SurvivalIssue` which gives the maximum value of the column sums for `matU` . An additional column `check_surv_gte_1` (produced with `cdb_flag`) reports whether any **single** value is greater than or equal to 1.
 
 ## Excessive mortality
 
@@ -53,7 +53,7 @@ At the opposite end of the survival spectrum, there may be some matrices where s
 
 ## Irreducibility and ergodicity 
 
-Several matrix manipulations or calculations require include that the MPM (`matA`) be irreducible and ergodic (Stott et al. 2018). Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a *single* asymptotic stable state that does not depend on initial stage structure. Conversely, non-ergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause most analytical methods in `Rage` to fail. Irreducibility is necessary but not sufficient for ergodicity.  These issues are flagged with `check_irreducible` and `check_ergodic`. Even if  `Rage` functions do not fail due to these issues, the fact that they can indicate biologically unreasonable life cycles may mean that users nevertheless wish to exclude reducible, non-ergodic matrices from their analyses.
+Several matrix manipulations or calculations require that the MPM (`matA`) be irreducible and ergodic (Stott et al. 2018). Irreducible MPMs are those where parameterised transition rates facilitate pathways from all stages to all other stages. Conversely, reducible MPMs depict incomplete life cycles where pathways from all stages to every other stage are not possible. Ergodic MPMs are those where there is a *single* asymptotic stable state that does not depend on initial stage structure. Conversely, non-ergodic MPMs are those where there are multiple asymptotic stable states, which depend on initial stage structure. MPMs that are reducible and/or non-ergodic are usually biologically unreasonable, both in terms of their life cycle description and their projected dynamics. They cause some calculations in `Rage` (and elsewhere) to fail. Irreducibility is necessary but not sufficient for ergodicity.  These issues are flagged with `check_irreducible` and `check_ergodic`. Even if  `Rage` functions do not fail due to these issues, the fact that they can indicate biologically unreasonable life cycles may mean that users nevertheless wish to exclude reducible, non-ergodic matrices from their analyses.
 
 ## Singularity of the U matrix
 
@@ -76,16 +76,14 @@ For functions that use the **F** matrix, and where sexual reproduction is known 
 
 When using age-from-stage methods, users should be aware of the issue of convergence to quasi-stationary distribution (see \code{\link{qsd_converge}}). Briefly, All age-from-stage calculations produce age-trajectories that inevitably asymptote as a mathematical consequence of describing the vital rates as functions of discrete stages (Horvitz & Tuljapurkar, 2008). This mathematical artefact can introduce bias into measures obtained using age-from-stage methods. `Rage` provides a convenient and principled way of correcting for this artefact by imposing a lower probability threshold defined by the degree of convergence to the quasi-stationary distribution (see \code{\link{qsd_converge}}). We suggest that users filter out from their analyses matrices that do not pass this threshold criterion.
 
-Users should also be aware of the issue of census type. For populations that reproduce in a pulse once per year. The demographic census may be carried out before or after the reproduction event. There are thus two types of census: Pre- and post-reproductive census. This distinction has potentially important implications for demographic measures because of its effects on measured population structure. For example, the fraction of individuals in the first age class will tend to be larger larger in a post-reproductive census than a pre-reproductive census. There is a column in the com(p)adre metadata (`CensusType`) that is indended to records this information but, because authors of source publications have rarely clearly stated this information, it is very incomplete. For serious analyses we therefore recommend that users carefully collect this information themselves from the source papers.
+Users should also be aware of the issue of census type. For populations that reproduce in a pulse once per year. The demographic census may be carried out before or after the reproduction event. There are thus two types of census: Pre- and post-reproductive census. This distinction has potentially important implications for demographic measures because of its effects on measured population structure. For example, the fraction of individuals in the first age class will tend to be larger larger in a post-reproductive census than a pre-reproductive census. There is a column in the com(p)adre metadata (`CensusType`) that is intended to record this information but, because authors of source publications have rarely clearly stated this information, it is very incomplete. For serious analyses we therefore recommend that users carefully collect this information themselves from the source papers.
 
 # Finally...
 
-Although we highlight here a range of issues that could cause problems for MPM analyses we have likely inadvertantly omitted some issues. We therefore urge users to carefully consider issues that may pertain to their particular analyses. 
+Although we highlight here a range of issues that could cause problems for MPM analyses we have likely inadvertently omitted some issues. We therefore urge users to carefully consider issues that may pertain to their particular analyses. 
 
 # References
 
 Horvitz, C. C., & Tuljapurkar, S. (2008). Stage dynamics, period survival, and mortality plateaus. The American Naturalist, 172(2), 203–215.
 
 Stott, I., Townley, S., & Carslake, D. (2010). On reducibility and ergodicity of population projection matrix models. Methods in Ecology and Evolution. 1 (3), 242-252
-
-
