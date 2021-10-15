@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@
 
 <span class="co"># In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.</span>
 <span class="kw">if</span> <span class="op">(</span><span class="st">"AnnualPeriodicity"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">Compadre</span><span class="op">$</span><span class="va">ProjectionInterval</span> <span class="op">&lt;-</span> <span class="va">Compadre</span><span class="op">$</span><span class="va">ProjectionInterval</span>
+  <span class="va">Compadre</span><span class="op">$</span><span class="va">ProjectionInterval</span> <span class="op">&lt;-</span> <span class="va">Compadre</span><span class="op">$</span><span class="va">AnnualPeriodicity</span>
 <span class="op">}</span>
 
 <span class="va">comp_flag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html">cdb_flag</a></span><span class="op">(</span><span class="va">Compadre</span>, <span class="st">"check_NA_U"</span><span class="op">)</span>
