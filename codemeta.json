@@ -259,7 +259,7 @@
       "version": ">= 3.5.0"
     }
   ],
-  "fileSize": "500.456KB",
+  "fileSize": "500.571KB",
   "contIntegration": ["https://github.com/jonesor/Rage/actions/workflows/main_check.yaml", "https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml", "https://app.codecov.io/gh/jonesor/Rage"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
@@ -355,5 +355,6 @@
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md"
+  "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
+  "relatedLink": "https://CRAN.R-project.org/package=Rage"
 }
