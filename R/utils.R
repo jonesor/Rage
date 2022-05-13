@@ -158,11 +158,17 @@ area_under_curve <- function(x, y) {
 
 #' @noRd
 lambda <- function(x) {
-  return(popdemo::eigs(x,what = "lambda"))
+  return(popdemo::eigs(x, what = "lambda"))
 }
 
 
 #' @noRd
 stable.stage <- function(x) {
-  return(popdemo::eigs(x,what = "ss"))
+  return(popdemo::eigs(x, what = "ss"))
+}
+
+
+#' @noRd
+reproductive.value <- function(x) {
+  return(popdemo::eigs(x, what = "rv"))
 }
