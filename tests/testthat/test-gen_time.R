@@ -11,8 +11,12 @@ test_that("gen_time works correctly", {
   expect_true(x_start > 0)
   expect_equal(x_singular, NA_real_)
   
-  x_po <- gen_time(mat_u, mat_f, method = "parent_offspring")
-  x_singular_po <- gen_time(mat_u_singular, mat_f, method = "parent_offspring")
+  x_r0 <- gen_time(mat_u, mat_f, method = "R0")
+  
+  expect_equal(x, x_r0)
+  
+  x_po <- gen_time(mat_u, mat_f, method = "age_diff")
+  x_singular_po <- gen_time(mat_u_singular, mat_f, method = "age_diff")
   expect_length(x_po, 1L)
   expect_true(x_po > 0)
   expect_equal(x_singular_po, NA_real_)
@@ -30,9 +34,9 @@ test_that("gen_time warns and fails gracefully", {
   expect_error(gen_time(mat_u_na, mat_f))
   expect_error(gen_time(mat_u, mat_f_na))
   
-  expect_warning(gen_time(mat_u_survissue, mat_f), method = "parent_offspring")
-  expect_error(gen_time(mat_u_na, mat_f), method = "parent_offspring")
-  expect_error(gen_time(mat_u, mat_f_na), method = "parent_offspring")
+  expect_warning(gen_time(mat_u_survissue, mat_f), method = "age_diff")
+  expect_error(gen_time(mat_u_na, mat_f), method = "age_diff")
+  expect_error(gen_time(mat_u, mat_f_na), method = "age_diff")
   
   expect_warning(gen_time(mat_u_survissue, mat_f), method = "cohort")
   expect_error(gen_time(mat_u_na, mat_f), method = "cohort")

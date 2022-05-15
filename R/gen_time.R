@@ -13,29 +13,29 @@
 #' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction; either
 #'   sexual, clonal, or both).
-#' @param method The method used to calculate generation time. Defaults to "renewal_time". 
+#' @param method The method used to calculate generation time. Defaults to "R0". 
 #'   See Details for explanation of calculations.
 #' @param ... Additional arguments passed to \code{net_repro_rate} when
-#'   \code{method = "renewal"} or \code{mpm_to_*} when \code{method = "cohort"}. Ignored
-#'   when \code{method = "parent_offspring"}
+#'   \code{method = "R0"} or \code{mpm_to_*} when \code{method = "cohort"}. Ignored
+#'   when \code{method = "age_diff"}
 #' 
 #' @details
 #' There are multiple definitions of generation time, three of which are implemented by this
 #' function:
 #' 
-#' 1. \code{"renewal"} (default): This is the number of time steps required for the 
+#' 1. \code{"R0"} (default): This is the number of time steps required for the 
 #' population to grow by a factor of its net reproductive rate, equal to
 #'  \code{log(R0) / log(lambda)}. Here, \code{R0} is the net reproductive rate (the
 #' per-generation population growth rate; Caswell 2001, Sec. 5.3.4), and
 #' \code{lambda} is the population growth rate per unit time (the dominant
 #' eigenvalue of \code{matU + matR}).
 #' 
-#' 2. \code{"parent_offspring"}: This is the average age difference between parents and
-#' offspring, equal to \code{(lambda \strong{v w}) / \strong{v matR w}} (Bienvenu & Legendre
+#' 2. \code{"age_diff"}: This is the average age difference between parents and
+#' offspring, equal to \code{(lambda v w) / (v matR w)} (Bienvenu & Legendre
 #' (2015)). Here, \code{lambda} is the population growth rate per unit time (the dominant 
-#' eigenvalue of \code{matU + matR}), \code{\strong{v}} is a row vector of stage-specific 
+#' eigenvalue of \code{matU + matR}), \code{v} is a row vector of stage-specific 
 #' reproductive values (the left eigenvector corresponding to \code{lambda}), and 
-#' \code{\strong{w}} is a column vector of the stable stage distribution (the right 
+#' \code{w} is a column vector of the stable stage distribution (the right 
 #' eigenvector corresponding to \code{lambda}).
 #' 
 #' 3. \code{"cohort"}: This is the age at which members of a cohort are expected to reproduce,
@@ -69,20 +69,20 @@
 #' data(mpm1)
 #' 
 #' # calculate generation time
-#' gen_time(matU = mpm1$matU, matR = mpm1$matF)  # defaults to "renewal" method
-#' gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "parent_offspring")
+#' gen_time(matU = mpm1$matU, matR = mpm1$matF)  # defaults to "R0" method
+#' gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "age_diff")
 #' gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "cohort", lx_crit = 0.001)
 #' 
 #' @export gen_time
-gen_time <- function(matU, matR, method = c("renewal", "parent_offspring", "cohort"), ...) {
+gen_time <- function(matU, matR, method = c("R0", "age_diff", "cohort"), ...) {
   method <- match.arg(method)
   # leave remaining arg validation to functions that depend on them
   
-  if (method == "renewal") {
+  if (method == "R0") {
     R0 <- net_repro_rate(matU, matR, ...)
     lam <- lambda(matU + matR)
     out <- log(R0) / log(lam)
-  } else if (method == "parent_offspring") {
+  } else if (method == "age_diff") {
     ignore <- list(...)
     # check for singularity
     matDim <- nrow(matU)
@@ -109,7 +109,7 @@ gen_time <- function(matU, matR, method = c("renewal", "parent_offspring", "coho
       out <- sum(x * lx * mx) / sum(lx * mx)
     }
   } else {
-    stop("Unsupported method. Must be either 'renewal', 'parent_offspring', or 'cohort'.")
+    stop("Unsupported method. Must be either 'R0', 'age_diff', or 'cohort'.")
   }
   return(out)
 }
