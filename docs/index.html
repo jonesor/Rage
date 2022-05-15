@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jonesor/Rage/">
+  <a href="https://github.com/jonesor/Rage/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -93,9 +89,8 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rage-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rage-" class="anchor"></a>Rage <img src="reference/figures/logo_rage.png" height="160px" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="rage-">Rage <img src="reference/figures/logo_rage.png" height="160px" align="right"><a class="anchor" aria-label="anchor" href="#rage-"></a>
 </h1></div>
 <table class="table">
 <colgroup>
@@ -110,18 +105,18 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></td>
-<td align="left"><a href="https://github.com/jonesor/Rage/actions"><img src="https://github.com/jonesor/Rage/workflows/R-CMD-check-main/badge.svg" alt="R-CMD-check-main"></a></td>
-<td align="left"><a href="https://github.com/jonesor/Rage/actions"><img src="https://github.com/jonesor/Rage/workflows/R-CMD-check-devel/badge.svg" alt="R-CMD-check-devel"></a></td>
+<td><a href="https://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></td>
+<td align="left"><a href="https://github.com/jonesor/Rage/actions" class="external-link"><img src="https://github.com/jonesor/Rage/workflows/R-CMD-check-main/badge.svg" alt="R-CMD-check-main"></a></td>
+<td align="left"><a href="https://github.com/jonesor/Rage/actions" class="external-link"><img src="https://github.com/jonesor/Rage/workflows/R-CMD-check-devel/badge.svg" alt="R-CMD-check-devel"></a></td>
 </tr>
 <tr class="even">
-<td><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></td>
-<td align="left"><a href="https://app.codecov.io/gh/jonesor/Rage"><img src="https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0" alt="codecov"></a></td>
+<td><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></td>
+<td align="left"><a href="https://app.codecov.io/gh/jonesor/Rage" class="external-link"><img src="https://codecov.io/gh/jonesor/Rage/branch/master/graph/badge.svg?token=jGoxqT78T0" alt="codecov"></a></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
 <td><img src="http://cranlogs.r-pkg.org/badges/grand-total/Rage"></td>
-<td align="left"><a href="https://cran.r-project.org/package=Rage"><img src="https://www.r-pkg.org/badges/version/Rage" alt="CRAN_Status_Badge"></a></td>
+<td align="left"><a href="https://cran.r-project.org/package=Rage" class="external-link"><img src="https://www.r-pkg.org/badges/version/Rage" alt="CRAN_Status_Badge"></a></td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -141,29 +136,29 @@
 <li>perturbation analyses</li>
 <li>manipulating and transforming MPMs</li>
 </ul>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Install the stable release package from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"Rage"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"Rage"</span><span class="op">)</span></code></pre></div>
 <p>Install from GitHub with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span></code></pre></div>
-<div id="usage" class="section level3">
-<h3 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h3>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage"</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="loading-an-example-mpm" class="section level3">
-<h3 class="hasAnchor">
-<a href="#loading-an-example-mpm" class="anchor"></a>Loading an example MPM</h3>
+<div class="section level3">
+<h3 id="loading-an-example-mpm">Loading an example MPM<a class="anchor" aria-label="anchor" href="#loading-an-example-mpm"></a>
+</h3>
 <p>The functions in Rage work on MPMs (or components of MPMs), so we’ll start by loading one of the example MPMs included in the Rage package (<code>mpm1</code>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage">Rage</a></span><span class="op">)</span> <span class="co"># load Rage</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span> <span class="co"># load data object 'mpm1'</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span> <span class="co"># load Rage</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span> <span class="co"># load data object 'mpm1'</span>
 
 <span class="va">mpm1</span>
 <span class="co">#&gt; $matU</span>
@@ -183,12 +178,12 @@
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
 <p>The object <code>mpm1</code> is a list containing two elements: the growth/survival component of the MPM (the <strong>U</strong> matrix), and the sexual reproduction component (the <strong>F</strong> matrix). We can obtain the full MPM by adding the two components together (<strong>A</strong> = <strong>U</strong> + <strong>F</strong>).</p>
 </div>
-<div id="deriving-life-history-traits-from-an-mpm" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deriving-life-history-traits-from-an-mpm" class="anchor"></a>Deriving life history traits from an MPM</h3>
+<div class="section level3">
+<h3 id="deriving-life-history-traits-from-an-mpm">Deriving life history traits from an MPM<a class="anchor" aria-label="anchor" href="#deriving-life-history-traits-from-an-mpm"></a>
+</h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/life_expect_mean.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/life_expect.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span>
 <span class="co">#&gt; Warning: 'life_expect' is deprecated.</span>
 <span class="co">#&gt; Use 'life_expect_mean' instead.</span>
 <span class="co">#&gt; See help("Deprecated")</span>
@@ -223,9 +218,9 @@
 <span class="fu"><a href="reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># shape of fecundity trajectory</span>
 <span class="co">#&gt; [1] 0.3097147</span></code></pre></div>
 </div>
-<div id="life-tables-and-the-quasi-stationary-distribution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#life-tables-and-the-quasi-stationary-distribution" class="anchor"></a>Life tables and the quasi-stationary distribution</h3>
+<div class="section level3">
+<h3 id="life-tables-and-the-quasi-stationary-distribution">Life tables and the quasi-stationary distribution<a class="anchor" aria-label="anchor" href="#life-tables-and-the-quasi-stationary-distribution"></a>
+</h3>
 <p>Some MPMs are parameterized with a stasis loop at the maximum stage class, which can lead to apparent plateaus in mortality or fertility trajectories derived using age-from-stage methods. The function <code><a href="reference/qsd_converge.html">qsd_converge()</a></code> can be used to identify the time it takes for a cohort to reach the quasi-stationary distribution (QSD). This quantity can then be used to subset age trajectories of mortality or fertility to periods earlier than the QSD, so as to avoid artefactual plateaus in mortality or fertility.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive life table from MPM</span>
@@ -236,9 +231,9 @@
 <span class="co">#&gt; [1] 6</span>
 
 <span class="co"># plot mortality trajectory w/ vertical line at time to QSD</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.65</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4.5</span>, <span class="fl">4.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.65</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-9-1.png"><!-- --></p>
 <p>From the life table derived from <code>mpm1</code>, we can see a plateau in the mortality rate (qx) beginning around age 5. However, this plateau corresponds to the QSD and is therefore probably an artefact of the stasis loop rather than a biological reality for the population represented by <code>mpm1</code>.</p>
 <p>One approach to accounting for this artefactual plateau in subsequent life history calculations is to limit our life table to the period prior to the QSD.</p>
@@ -249,19 +244,19 @@
 <span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lt</span><span class="op">$</span><span class="va">lx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">q</span><span class="op">]</span><span class="op">)</span> <span class="co"># based on lx trajectory prior to the QSD</span>
 <span class="co">#&gt; [1] -0.06573764</span></code></pre></div>
 </div>
-<div id="standardized-vital-rates" class="section level3">
-<h3 class="hasAnchor">
-<a href="#standardized-vital-rates" class="anchor"></a>Standardized vital rates</h3>
+<div class="section level3">
+<h3 id="standardized-vital-rates">Standardized vital rates<a class="anchor" aria-label="anchor" href="#standardized-vital-rates"></a>
+</h3>
 <p>The transition rates that make up MPMs generally reflect products of two or more vital rates (sometimes called ‘lower-level vital rates’). Assuming a post-breeding census design, we can retroactively break apart each transition rate into at least two vital rate components: survival, and ‘something’ conditional on survival. That ‘something’ might be growth, shrinkage, stasis, dormancy, fecundity, or clonality.</p>
-<div id="stage-specific-vital-rates-vector" class="section level5">
-<h5 class="hasAnchor">
-<a href="#stage-specific-vital-rates-vector" class="anchor"></a>Stage-specific vital rates (vector)</h5>
+<div class="section level5">
+<h5 id="stage-specific-vital-rates-vector">Stage-specific vital rates (vector)<a class="anchor" aria-label="anchor" href="#stage-specific-vital-rates-vector"></a>
+</h5>
 <p>To summarize vital rates <em>within</em> stage classes, we can use the <code>vr_vec_</code> group of functions. We’ll use the <code>exclude</code> argument here to exclude certain stage classes (‘seed’ and ‘dormant’) from the calculation of certain vital rates (e.g. we don’t consider the large-to-dormant transition to actually represent ‘growth’).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
 <span class="co">#&gt;    seed   small  medium   large dormant </span>
 <span class="co">#&gt;    0.15    0.50    0.66    0.86    0.39</span>
-<span class="fu"><a href="reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      seed     small    medium     large   dormant </span>
 <span class="co">#&gt;        NA 0.7600000 0.4242424        NA        NA</span>
 <span class="fu"><a href="reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
@@ -280,30 +275,30 @@
 <span class="co">#&gt;     seed    small   medium    large  dormant </span>
 <span class="co">#&gt;       NA       NA 27.12121 53.02326       NA</span></code></pre></div>
 </div>
-<div id="mpm-specific-vital-rates-scalar" class="section level5">
-<h5 class="hasAnchor">
-<a href="#mpm-specific-vital-rates-scalar" class="anchor"></a>MPM-specific vital rates (scalar)</h5>
+<div class="section level5">
+<h5 id="mpm-specific-vital-rates-scalar">MPM-specific vital rates (scalar)<a class="anchor" aria-label="anchor" href="#mpm-specific-vital-rates-scalar"></a>
+</h5>
 <p>To summarize vital rates <em>across</em> stage classes, we can use the <code>vr_</code> group of functions. By default these functions take a simple average of the stage-specific vital rates produced by the corresponding <code>vr_vec_</code> function. However, here we’ll demonstrate how to specify a <em>weighted</em> average across stages, based on the stable stage distribution at equilibrium (<em>w</em>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># derive full MPM (matA)</span>
 <span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>
 
 <span class="co"># calculate stable stage distribution at equilibrium using popdemo::eigs</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
 <span class="co">#&gt; Welcome to popdemo! This is version 1.3-0</span>
 <span class="co">#&gt; Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes</span>
 <span class="co">#&gt; Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x</span>
 <span class="co">#&gt; Development and legacy versions are here: github.com/iainmstott/popdemo</span>
-<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
+<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
 
 <span class="co"># calculate MPM-specific vital rates</span>
-<span class="fu"><a href="reference/vr.html">vr_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="fu"><a href="reference/vr.html">vr_survival</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.5963649</span>
-<span class="fu"><a href="reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="fu"><a href="reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.6602975</span>
-<span class="fu"><a href="reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="fu"><a href="reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1960601</span>
-<span class="fu"><a href="reference/vr.html">vr_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
+<span class="fu"><a href="reference/vr.html">vr_stasis</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.2824323</span>
 <span class="fu"><a href="reference/vr.html">vr_dorm_enter</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">5</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1984209</span>
@@ -314,9 +309,9 @@
 <p>Note how we’ve chosen to exclude the ‘seed’ and ‘dormant’ stage classes from our vital rate summaries, because we consider these to be special classes (e.g. ‘growth’ from the ‘seed’ stage is really ‘germination’, which we may think of as separate from somatic growth from ‘small’ to ‘medium’, or ‘medium’ to ‘large’).</p>
 </div>
 </div>
-<div id="perturbation-analyses" class="section level3">
-<h3 class="hasAnchor">
-<a href="#perturbation-analyses" class="anchor"></a>Perturbation analyses</h3>
+<div class="section level3">
+<h3 id="perturbation-analyses">Perturbation analyses<a class="anchor" aria-label="anchor" href="#perturbation-analyses"></a>
+</h3>
 <p>The <code><a href="reference/perturb_matrix.html">perturb_matrix()</a></code> function measures the response of a demographic statistic to perturbation of individual matrix elements (i.e. sensitivities and elasticities). The <code><a href="reference/perturb_vr.html">perturb_vr()</a></code> and <code><a href="reference/perturb_trans.html">perturb_trans()</a></code> functions implement perturbation analyses by vital rate type (survival, growth, etc.) and transition type (stasis, retrogression, etc.), respectively.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># matrix element perturbation</span>
@@ -330,22 +325,22 @@
 
 <span class="co"># vital rate perturbation</span>
 <span class="co"># (we use as.data.frame here for prettier printing)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_vr.html">perturb_vr</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_vr.html">perturb_vr</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   survival   growth  shrinkage  fecundity clonality</span>
 <span class="co">#&gt; 1 2.986054 1.077597 -0.1653284 0.00572764         0</span>
 
 <span class="co"># transition type perturbation</span>
-<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_trans.html">perturb_trans</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="reference/perturb_trans.html">perturb_trans</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;     stasis     retro    progr   fecundity clonality</span>
 <span class="co">#&gt; 1 1.000001 0.4174435 6.713571 0.007773141        NA</span></code></pre></div>
 </div>
-<div id="transforming-mpms" class="section level3">
-<h3 class="hasAnchor">
-<a href="#transforming-mpms" class="anchor"></a>Transforming MPMs</h3>
+<div class="section level3">
+<h3 id="transforming-mpms">Transforming MPMs<a class="anchor" aria-label="anchor" href="#transforming-mpms"></a>
+</h3>
 <p>Rage includes a variety of functions that can be used to manipulate or transform MPMs. For example, we can collapse an MPM to a smaller number of stage classes using <code><a href="reference/mpm_collapse.html">mpm_collapse()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># collapse 'small', 'medium', and 'large' stages into single stage class</span>
-<span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="va">col1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mpm_collapse.html">mpm_collapse</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">col1</span><span class="op">$</span><span class="va">matA</span>
 <span class="co">#&gt;      [,1]        [,2] [,3]</span>
 <span class="co">#&gt; [1,] 0.10 11.61331815 0.00</span>
@@ -354,9 +349,9 @@
 <p>The transition rates in the collapsed matrix are a weighted average of the transition rates from the relevant stages of the original matrix, weighted by the stable distribution at equilibrium. This process guarantees that the collapsed MPM will retain the same population growth rate as the original. However, other demographic and life history characteristics will not necessarily be preserved.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare population growth rate of original and collapsed MPM (preserved)</span>
-<span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
+<span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.121037</span>
-<span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html">eigs</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
+<span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"lambda"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.121037</span>
 
 <span class="co"># compare net reproductive rate of original and collapsed MPM (not preserved)</span>
@@ -364,31 +359,31 @@
 <span class="co">#&gt; [1] 1.852091</span>
 <span class="fu"><a href="reference/net_repro_rate.html">net_repro_rate</a></span><span class="op">(</span><span class="va">col1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">col1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.447468</span></code></pre></div>
-<p>For a complete list of functions see the package <a href="https://jonesor.github.io/Rage/reference/index.html">Reference</a> page.</p>
+<p>For a complete list of functions see the package <a href="https://jonesor.github.io/Rage/reference/index.html" class="external-link">Reference</a> page.</p>
 </div>
 </div>
-<div id="previous-releases" class="section level2">
-<h2 class="hasAnchor">
-<a href="#previous-releases" class="anchor"></a>Previous releases</h2>
-<p>Specific earlier releases of this package can be installed using the appropriate <code><a href="https://rdrr.io/r/base/slotOp.html">@</a></code> tag.</p>
+<div class="section level2">
+<h2 id="previous-releases">Previous releases<a class="anchor" aria-label="anchor" href="#previous-releases"></a>
+</h2>
+<p>Specific earlier releases of this package can be installed using the appropriate <code>@</code> tag.</p>
 <p>For example to install version 0.1.0:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage@v0.1.0"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jonesor/Rage@v0.1.0"</span><span class="op">)</span></code></pre></div>
 <p>See the Changelog for more details.</p>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
-<p>Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage – Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” <em>bioRxiv</em>. doi: <a href="https://doi.org/10.1101/2021.04.26.441330">10.1101/2021.04.26.441330</a>.</p>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage – Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” <em>bioRxiv</em>. doi: <a href="https://doi.org/10.1101/2021.04.26.441330" class="external-link">10.1101/2021.04.26.441330</a>.</p>
 </div>
-<div id="contributions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributions" class="anchor"></a>Contributions</h2>
-<p>All contributions are welcome. Please note that this project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="contributions">Contributions<a class="anchor" aria-label="anchor" href="#contributions"></a>
+</h2>
+<p>All contributions are welcome. Please note that this project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 <p>There are numerous ways of contributing.</p>
-<ol>
-<li><p>You can submit bug reports, suggestions etc. by <a href="https://github.com/jonesor/Rage/issues">opening an issue</a>.</p></li>
-<li><p>You can copy or fork the repository, make your own code edits and then send us a pull request. <a href="https://jarv.is/notes/how-to-pull-request-fork-github/">Here’s how to do that</a>.</p></li>
+<ol style="list-style-type: decimal">
+<li><p>You can submit bug reports, suggestions etc. by <a href="https://github.com/jonesor/Rage/issues" class="external-link">opening an issue</a>.</p></li>
+<li><p>You can copy or fork the repository, make your own code edits and then send us a pull request. <a href="https://jarv.is/notes/how-to-pull-request-fork-github/" class="external-link">Here’s how to do that</a>.</p></li>
 <li><p>You can get to know us and join as a collaborator on the main repository.</p></li>
 <li><p>You are also welcome to email us.</p></li>
 </ol>
@@ -398,57 +393,62 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=Rage">https://​cloud.r-project.org/​package=Rage</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/jonesor/Rage/">https://​github.com/​jonesor/​Rage/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/jonesor/Rage/issues">https://​github.com/​jonesor/​Rage/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=Rage" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/jonesor/Rage/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/jonesor/Rage/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing Rage</a></li>
+<li><a href="authors.html#citation">Citing Rage</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Patrick Barks <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5947-8151" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Pol Capdevila <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2842-4302" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Hal Caswell <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4394-6894" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Judy P. Che-Castaldo <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9118-9202" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>John Jackson <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4563-2840" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Tamora James <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1363-4742" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Owen Jones <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5720-4686" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Sam Levin <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3289-9925" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>William K. Petry <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5230-5987" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Roberto Salguero-Gomez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6085-4433" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Iain Stott <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2724-7436" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Chelsea C. Thomas <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8155-9353" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Patrick Barks <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5947-8151" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Pol Capdevila <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2842-4302" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Hal Caswell <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4394-6894" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Judy P. Che-Castaldo <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9118-9202" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>John Jackson <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4563-2840" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Tamora James <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1363-4742" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Owen Jones <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5720-4686" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Sam Levin <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3289-9925" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>William K. Petry <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5230-5987" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Roberto Salguero-Gomez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6085-4433" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Iain Stott <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2724-7436" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Chelsea C. Thomas <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8155-9353" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -456,6 +456,8 @@
 
   
 
+
+  
 
   </body>
 </html>
