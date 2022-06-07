@@ -97,19 +97,20 @@ longval
 In addition how long individuals can be expected to live, species and populations also differ in how quickly and often they reproduce, and how many offspring are produced and recruited into the population. Several related traits measure these various aspects of reproduction, and they require information contained in the __F__ submatrix as well as the __U__ submatrix.
 
 
-The net reproductive rate, *R<sub>0</sub>* is the cumulative  number of offspring that a newborn individual will produce over its lifetime. 
+The net reproductive rate, *R<sub>0</sub>* is the cumulative number of offspring that a newborn individual will produce over its lifetime. 
 
 ```{r}
 net_repro_rate(matU = mpm1$matU, matR = mpm1$matF)            
 ```
 
 
-This life history trait is also called the the per-generation growth rate, because if an individual produces more than one offspring, it more than replaces itself and so the population will grow. Note that this growth rate is different than the population growth rate $\lambda because the units of *R<sub>0</sub>* are in generations rather than absolute time (i.e., the time step of the transition matrix, often 1 year). The length of time for one generation, or the generation time (*T*), can be obtained by:
+This life history trait is also called the the per-generation growth rate, because if an individual produces more than one offspring, it more than replaces itself and so the population will grow. Note that this growth rate is different than the population growth rate $\lambda because the units of *R<sub>0</sub>* are in generations rather than absolute time (i.e., the time step of the transition matrix, often 1 year). The generation time (*T*) can thus be defined as the amount of time it takes for a population to grow by a factor of *R<sub>0</sub>*, which can be obtained by:
 
 ```{r}
 gen_time(matU = mpm1$matU, matR = mpm1$matF)    
 ```
 
+Generations may be bounded using different criteria, leading to estimates of *T* that are identical only for organisms that reproduce once at a uniform age. Alternative methods for calculating the generation time can be selected using the `method` argument. Currently supported are (*i*) the average age difference between parents and offspring (`method = "age_diff"`) and (*ii*) the expected age at which members of a cohort reproduce (`method = "cohort"`).
 
 The age at reproductive maturity is the average amount of time an individual will take to enter a reproductive stage for the first time in the population. Similar to life expectancy, mean time to reproduction will depend on the starting stage, again specified using the `start` argument. In the case of the example MPM where the first stage is "seed", one may be more interested in estimating the time to reproduction for individuals that have already germinated (i.e., `start = 2`).
 

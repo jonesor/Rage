@@ -41,3 +41,5 @@ tests/testthat-problems.rds
 tests/spelling.Rout.save
 localCheck_Owen/
 inst/doc
+/doc/
+/Meta/
