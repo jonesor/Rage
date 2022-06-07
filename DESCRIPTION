@@ -1,7 +1,7 @@
 Package: Rage
 Type: Package
 Title: Life History Metrics from Matrix Population Models
-Version: 1.2.0
+Version: 1.2.0.9000
 Authors@R: c(
     person(given = "Patrick", 
            family = "Barks",
@@ -84,7 +84,7 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 3.5.0)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests:
     spelling,
     ggplot2,

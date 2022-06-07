@@ -8,7 +8,7 @@ name: R-CMD-check-main
 on:
   push:
     branches:
-      - devel
+      - main
 
 jobs:
   R-CMD-check:
