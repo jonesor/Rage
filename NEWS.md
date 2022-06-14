@@ -1,5 +1,7 @@
 # Rage (development version)
 
+* Added two methods to calculate generation time in `gen_time`: average parent-offspring age difference & expected age at first reproduction (#183).
+
 # Rage 1.2.0
 
 * Improved documentation of `mpm_to_table` and related functions.
