@@ -50,12 +50,12 @@ entropy_d <- function(lx, mx) {
   
   # calculate Demetrius' entropy
   lxmx <- lx * mx
-  # if lxmx == 0, log(lxmx) == -Inf; for entropy calc below, these -Inf can be
-  #  converted to 0, because lim(x * log(x)) as x->0 is 0
-  log_lxmx <- log(lxmx)
-  log_lxmx[lxmx == 0] <- 0
-  
-  H <- -sum(lxmx * log_lxmx) / sum(lxmx)
+  px <- lxmx / sum(lxmx)
+  log_px <- log(px)
+  # if px == 0, log(px) == -Inf; for entropy calc below, these -Inf can be
+  # converted to 0, because lim(x * log(x)) as x->0 is 0
+  log_px[px == 0] <- 0
+  H <- -sum(px * log_px)
   
   return(H)
 }
