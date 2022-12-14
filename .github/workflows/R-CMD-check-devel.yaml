@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - devel
+  workflow_dispatch:
 
 jobs:
   R-CMD-check:
