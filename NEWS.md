@@ -1,5 +1,7 @@
 # Rage (development version)
 
+* Fixed an error in the `entropy_d` function, which calculates Demetrius's entropy.
+
 * Added two methods to calculate generation time in `gen_time`: average parent-offspring age difference & expected age at first reproduction (#183).
 
 # Rage 1.2.0
