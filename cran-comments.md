@@ -1,77 +1,34 @@
-## Test environments
-
-### local
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Big Sur 11.3.1
-
-### GitHub Actions
-
-#### Microsoft Windows
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-__R development version__
-
-- R Under development (unstable) (2021-10-13 r81052)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-#### Apple OSX
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
-
-#### Linux (Ubuntu)
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
-
-__R development version__
-
-- R Under development (unstable) (2021-10-12 r81044)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
-
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+## Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
 
-There was 1 NOTE:
+## R CMD check results
+❯ On windows-x86_64-devel (r-devel), fedora-clang-devel (r-devel)
+  checking HTML version of manual ... NOTE
+  Skipping checking math rendering: package 'V8' unavailable
 
-    Maintainer: ‘Owen Jones <jones@biology.sdu.dk>’
+❯ On windows-x86_64-devel (r-devel)
+  checking for detritus in the temp directory ... NOTE
+  Found the following files/directories:
+    'lastMiKTeXException'
 
-## Downstream dependencies
+❯ On ubuntu-gcc-release (r-release)
+  checking CRAN incoming feasibility ... NOTE
+  Maintainer: ‘Owen Jones <jones@biology.sdu.dk>’
+  
+  Found the following (possibly) invalid URLs:
+    URL: https://doi.org/10.1111/2041-210X.13289
+      From: inst/doc/a03_LifeHistoryTraits.html
+      Status: 503
+      Message: Service Unavailable
+    URL: https://doi.org/10.1111/j.2041-210X.2010.00087.x
+      From: inst/doc/a03_LifeHistoryTraits.html
+      Status: 503
+      Message: Service Unavailable
 
-There are no current downstream dependencies.
+0 errors ✔ | 0 warnings ✔ | 3 notes ✖
 
+* This is a new release.
