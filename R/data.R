@@ -1,10 +1,10 @@
 #' Example matrix population model (MPM)
-#' 
+#'
 #' @description
 #' An example matrix population model (MPM) used for demonstration and testing
 #' purposes. The MPM consists of five stage classes: 'seed', 'small', 'medium',
 #' 'large', and 'dormant'.
-#' 
+#'
 #' @format
 #' A list with two elements:
 #' \describe{
