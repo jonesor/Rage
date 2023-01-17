@@ -1,4 +1,4 @@
-# Rage (development version)
+# Rage 1.3.0
 
 * Fixed an error in the `entropy_d` function, which calculates Demetrius's entropy.
 
