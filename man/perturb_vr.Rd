@@ -16,7 +16,7 @@ perturb_vr(
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e., a
-square projection matrix reflecting survival-related transitions; e.g., 
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression).}
 
 \item{matF}{The sexual component of a matrix population model (i.e., a square
@@ -24,7 +24,7 @@ projection matrix reflecting transitions due to sexual reproduction).}
 
 \item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e.,
 \code{matC} is a matrix of zeros).}
 
 \item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
@@ -51,8 +51,8 @@ fecundity}
 }
 \description{
 Perturbs lower-level vital rates within a matrix population model and
-measures the response (sensitivity or elasticity) of the per-capita 
-population growth rate at equilibrium (\eqn{\lambda}), or, with a 
+measures the response (sensitivity or elasticity) of the per-capita
+population growth rate at equilibrium (\eqn{\lambda}), or, with a
 user-supplied function, any other demographic statistic.
 
 These decompositions assume that all transition rates are products of a
@@ -63,15 +63,19 @@ on survival (i.e., within a stage class from which there is no survival) are
 also allowed.
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+matU <- rbind(
+  c(0.1, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0),
+  c(0, 0.3, 0.3, 0.1),
+  c(0, 0, 0.5, 0.6)
+)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+matF <- rbind(
+  c(0, 0, 1.1, 1.6),
+  c(0, 0, 0.8, 0.4),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
 perturb_vr(matU, matF)
 
@@ -83,7 +87,7 @@ perturb_vr(matU, matF, pert = 0.01)
 
 # calculate the sensitivity/elasticity of the damping ratio to vital rate
 #  perturbations
-damping <- function(matA) {  # define function for damping ratio
+damping <- function(matA) { # define function for damping ratio
   eig <- eigen(matA)$values
   dm <- rle(Mod(eig))$values
   return(dm[1] / dm[2])
