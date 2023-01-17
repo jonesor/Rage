@@ -71,15 +71,19 @@ to be \code{0}, one should specify the \code{posU} and/or \code{posR}
 arguments manually.
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+matU <- rbind(
+  c(0.1, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0),
+  c(0, 0.3, 0.3, 0.1),
+  c(0, 0, 0.5, 0.6)
+)
 
-matR <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+matR <- rbind(
+  c(0, 0, 1.1, 1.6),
+  c(0, 0, 0.8, 0.4),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
 # extract vital rates of survival from matU
 vr_mat_U(matU)

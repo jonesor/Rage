@@ -29,7 +29,7 @@ Returns longevity, the integer age at which expected survivorship
   \code{x_max}, returns \code{NA} and prints a warning message.
 }
 \description{
-Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some 
+Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some
 critical proportion) from a matrix population model
 }
 \note{
@@ -55,7 +55,7 @@ should match the number of columns in the relevant MPM).
 data(mpm1)
 
 longevity(mpm1$matU, start = 2)
-longevity(mpm1$matU, start = "small")  # equivalent using named life stages
+longevity(mpm1$matU, start = "small") # equivalent using named life stages
 longevity(mpm1$matU, start = 2, lx_crit = 0.05)
 
 # starting from first reproduction

@@ -9,8 +9,8 @@ standard_stages(matF, repro_stages, matrix_stages)
 }
 \arguments{
 \item{matF}{The sexual component of a matrix population model (i.e., a square
-projection matrix reflecting transitions only due to \emph{sexual} 
-reproduction). It assumes that it has been rearranged so that 
+projection matrix reflecting transitions only due to \emph{sexual}
+reproduction). It assumes that it has been rearranged so that
 non-reproductive stages are in the final rows/columns.}
 
 \item{repro_stages}{Logical vector identifying which stages are reproductive.}
@@ -33,7 +33,7 @@ are used to standardise matrices to allow comparisons across species with
 different life cycle structures, see \code{\link{mpm_standardize}}.
 }
 \details{
-Assumes that fecundity and mean fecundity matrices have been 
+Assumes that fecundity and mean fecundity matrices have been
 rearranged so that non-reproductive stages are in the final rows/columns.
 Output indicates groupings to be used when collapsing the matrix model.
 }
@@ -41,23 +41,29 @@ Output indicates groupings to be used when collapsing the matrix model.
 Dormant stages are not currently handled.
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0,   0),
-              c(  0, 0.3, 0.3, 0.1,   0),
-              c(  0,   0, 0.4, 0.4, 0.1),
-              c(  0,   0,   0, 0.1, 0.4))
+matU <- rbind(
+  c(0.1, 0, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0, 0),
+  c(0, 0.3, 0.3, 0.1, 0),
+  c(0, 0, 0.4, 0.4, 0.1),
+  c(0, 0, 0, 0.1, 0.4)
+)
 
-matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
-              c(  0, 0.8,   0, 0.4,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0))
+matF <- rbind(
+  c(0, 1.1, 0, 1.6, 0),
+  c(0, 0.8, 0, 0.4, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0)
+)
 
 repro_stages <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
+matrix_stages <- c("prop", "active", "active", "active", "active")
 
-r <- mpm_rearrange(matU, matF, repro_stages = repro_stages,
-                   matrix_stages = matrix_stages)
+r <- mpm_rearrange(matU, matF,
+  repro_stages = repro_stages,
+  matrix_stages = matrix_stages
+)
 
 standard_stages(r$matF, r$repro_stages, r$matrix_stages)
 

@@ -26,12 +26,12 @@ Haridas et al. (2009).
 }
 \examples{
 # generate list of random MPMs
-N <- 20     # number of years
-s <- 3      # matrix dimension
+N <- 20 # number of years
+s <- 3 # matrix dimension
 X <- list() # matrix population model at time t
 u <- list() # population vector at time t
 
-for(t in 1:N) {
+for (t in 1:N) {
   X[[t]] <- matrix(runif(s^2), nrow = s, ncol = s)
 }
 

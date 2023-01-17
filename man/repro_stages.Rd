@@ -34,15 +34,19 @@ step to collapsing the matrix model into a standardized set of stage classes
 using the function \code{\link{mpm_standardize}}.
 }
 \examples{
-matR1 <- rbind(c( 0, 0.2,   0, 0.5),
-               c( 0, 0.3,   0, 0.6),
-               c( 0,   0,   0,   0),
-               c( 0,   0,   0,   0))
+matR1 <- rbind(
+  c(0, 0.2, 0, 0.5),
+  c(0, 0.3, 0, 0.6),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
-matR2 <- rbind(c(NA,  NA,  NA, 1.1),
-               c( 0,   0, 0.3, 0.7),
-               c( 0,   0,   0,   0),
-               c( 0,   0,   0,   0))
+matR2 <- rbind(
+  c(NA, NA, NA, 1.1),
+  c(0, 0, 0.3, 0.7),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
 repro_stages(matR1)
 

@@ -91,10 +91,10 @@ data(mpm1)
 
 # age-specific survivorship
 mpm_to_lx(mpm1$matU)
-mpm_to_lx(mpm1$matU, start = 2)       # starting from stage 2
+mpm_to_lx(mpm1$matU, start = 2) # starting from stage 2
 mpm_to_lx(mpm1$matU, start = "small") # equivalent using named life stages
-mpm_to_lx(mpm1$matU, xmax = 10)       # to a maximum age of 10
-mpm_to_lx(mpm1$matU, lx_crit = 0.05)  # to a minimum lx of 0.05
+mpm_to_lx(mpm1$matU, xmax = 10) # to a maximum age of 10
+mpm_to_lx(mpm1$matU, lx_crit = 0.05) # to a minimum lx of 0.05
 
 # age-specific survival probability
 mpm_to_px(mpm1$matU)

@@ -18,7 +18,7 @@ plot_life_cycle(
 \item{matA}{A matrix population model (i.e., a square projection matrix)}
 
 \item{stages}{Optional vector of stage class labels. If missing, it first
-attempts to infer them from \code{dimnames(matA)}. If these are also 
+attempts to infer them from \code{dimnames(matA)}. If these are also
 \code{NULL}, then reverts to integers \code{1:ncol(A)}.}
 
 \item{title}{Optional title for the plot. Defaults to \code{NULL}.}
@@ -42,11 +42,13 @@ graphViz function in DiagrammeR. See
 \url{http://rich-iannone.github.io/DiagrammeR/}.
 }
 \examples{
-matA <- rbind(c(0.1,   0,   0,   0, 1.4),
-              c(0.5, 0.2,   0,   0,   0),
-              c(  0, 0.3, 0.3,   0,   0),
-              c(  0,   0, 0.4, 0.4, 0.1),
-              c(  0,   0,   0, 0.1, 0.4))
+matA <- rbind(
+  c(0.1, 0, 0, 0, 1.4),
+  c(0.5, 0.2, 0, 0, 0),
+  c(0, 0.3, 0.3, 0, 0),
+  c(0, 0, 0.4, 0.4, 0.1),
+  c(0, 0, 0, 0.1, 0.4)
+)
 
 plot_life_cycle(matA)
 

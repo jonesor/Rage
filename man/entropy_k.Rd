@@ -21,9 +21,9 @@ Calculate Keyfitz's entropy from a vector of age-specific survivorship (\code{lx
 }
 \section{Warning}{
 
-Note that this function may produce unexpected results if used on partial 
-survivorship trajectories. In addition, it is sensitive to the length of the 
-survivorship vector. We direct users to the function `\code{\link{shape_surv}}` 
+Note that this function may produce unexpected results if used on partial
+survivorship trajectories. In addition, it is sensitive to the length of the
+survivorship vector. We direct users to the function `\code{\link{shape_surv}}`
 which is relatively robust to these issues.
 }
 
@@ -43,7 +43,7 @@ entropy_k(lx, trapeze = TRUE)
 \references{
 Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   Wiley.
-  
+
   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
   the entropic principle of natural selection. Entropy 16: 5428-5522.
 }
