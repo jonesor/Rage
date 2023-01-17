@@ -1,5 +1,5 @@
 #' Perturbation analysis of transition types within a matrix population model
-#' 
+#'
 #' @description Calculates the summed sensitivities or elasticities for various
 #' transition types within a matrix population model (MPM), including stasis,
 #' retrogression, progression, fecundity, and clonality.
@@ -29,15 +29,15 @@
 #'   elements indicating whether a given \code{matC} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matC > 0} (see
 #'   Details).
-#' @param exclude_row A vector of row indices or stages names indicating stages 
+#' @param exclude_row A vector of row indices or stages names indicating stages
 #'   for which transitions \emph{to} the stage should be excluded from perturbation
-#'   analysis. Alternatively, a logical vector of length \code{nrow(matU)} 
-#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+#'   analysis. Alternatively, a logical vector of length \code{nrow(matU)}
+#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
 #'   the calculation. See section \emph{Excluding stages}.
-#' @param exclude_col A vector of column indices or stages names indicating stages 
+#' @param exclude_col A vector of column indices or stages names indicating stages
 #'   for which transitions \emph{to} the stage should be excluded from perturbation
-#'   analysis. Alternatively, a logical vector of length \code{ncol(matU)} 
-#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from 
+#'   analysis. Alternatively, a logical vector of length \code{ncol(matU)}
+#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
 #'   the calculation. See section \emph{Excluding stages}.
 #' @param pert The magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param type An argument defining whether to return `sensitivity` or
@@ -48,7 +48,7 @@
 #'   at equilibrium (\eqn{lambda}). Also accepts a user-supplied function that
 #'   performs a calculation on a MPM and returns a single numeric value.
 #' @param ... Additional arguments passed to the function \code{demog_stat}.
-#' 
+#'
 #' @details A transition rate of \code{0} within a matrix population model can
 #' either indicate that the transition is not possible in the given life cycle
 #' (e.g., tadpoles never revert to eggs), or that the transition is possible but
@@ -93,140 +93,145 @@
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'
 #' @family perturbation analysis
-#'   
+#'
 #' @examples
-#' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1,   0),
-#'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.6))
-#' 
-#' matF <- rbind(c(  0,   0, 1.1, 1.6),
-#'               c(  0,   0, 0.8, 0.4),
-#'               c(  0,   0,   0,   0),
-#'               c(  0,   0,   0,   0))
+#' matU <- rbind(
+#'   c(0.1, 0, 0, 0),
+#'   c(0.5, 0.2, 0.1, 0),
+#'   c(0, 0.3, 0.3, 0.1),
+#'   c(0, 0, 0.5, 0.6)
+#' )
+#'
+#' matF <- rbind(
+#'   c(0, 0, 1.1, 1.6),
+#'   c(0, 0, 0.8, 0.4),
+#'   c(0, 0, 0, 0),
+#'   c(0, 0, 0, 0)
+#' )
 #'
 #'
 #' perturb_trans(matU, matF)
-#' 
+#'
 #' # Use a larger perturbation than the default of 1e-6.
 #' perturb_trans(matU, matF, pert = 0.01)
-#' 
+#'
 #' # Calculate the sensitivity/elasticity of the damping ratio to perturbations.
 #' # First, define function for damping ratio:
-#' damping <- function(matA) {  
+#' damping <- function(matA) {
 #'   eig <- eigen(matA)$values
 #'   dm <- rle(Mod(eig))$values
 #'   return(dm[1] / dm[2])
 #' }
-#' 
+#'
 #' # Second, run the perturbation analysis using demog_stat = "damping".
 #' perturb_trans(matU, matF, demog_stat = "damping")
-#' 
+#'
 #' @export perturb_trans
 perturb_trans <- function(matU, matF, matC = NULL,
                           posU = matU > 0, posF = matF > 0, posC = matC > 0,
                           exclude_row = NULL, exclude_col = NULL,
                           pert = 1e-6, type = "sensitivity",
                           demog_stat = "lambda", ...) {
-  
+
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  #checkMatchingStageNames(matU, matF)
+  # checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-   #checkMatchingStageNames(matU, matC)
+    # checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, exclude_row)
   checkValidStages(matU, exclude_col)
   type <- match.arg(type, c("sensitivity", "elasticity"))
-  
+
   # Get statfun
   if (is.character(demog_stat) && demog_stat == "lambda") {
     statfun <- lambda
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
-    if (inherits(statfun,"try-error")) {
-      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name 
+    if (inherits(statfun, "try-error")) {
+      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name
                    of a function that returns a single numeric value.\n"), call. = FALSE)
     }
   }
-  
+
   # Matrix dimension
   m <- nrow(matU)
-  
+
   # If matC null, convert to zeros
   if (is.null(matC)) {
     matC <- matrix(0, m, m)
     posC <- matrix(FALSE, m, m)
-    
+
     if (!is.null(dimnames(matU))) {
       dimnames(posC) <- dimnames(matC) <- dimnames(matU)
     }
   }
-  
+
   # Excluded stage classes
-  posU[exclude_row,] <- FALSE
-  posU[,exclude_col] <- FALSE
-  posF[exclude_row,] <- FALSE
-  posF[,exclude_col] <- FALSE
-  posC[exclude_row,] <- FALSE
-  posC[,exclude_col] <- FALSE
-  
-  # Combine components into matA 
+  posU[exclude_row, ] <- FALSE
+  posU[, exclude_col] <- FALSE
+  posF[exclude_row, ] <- FALSE
+  posF[, exclude_col] <- FALSE
+  posC[exclude_row, ] <- FALSE
+  posC[, exclude_col] <- FALSE
+
+  # Combine components into matA
   matA <- matU + matF + matC
-  
+
   # Lower and upper triangles (reflecting growth and retrogression)
   lwr <- upr <- matrix(FALSE, nrow = m, ncol = m)
   lwr[lower.tri(lwr)] <- TRUE
   upr[upper.tri(upr)] <- TRUE
-  
+
   posStasi <- posU & diag(m)
   posRetro <- posU & upr
   posProgr <- posU & lwr
-  
+
   # Get sensitivity or elasticity
-  pertMat <- perturb_matrix(matA = matA, pert = pert, type = type,
-                            demog_stat = statfun, ...)
-  
+  pertMat <- perturb_matrix(
+    matA = matA, pert = pert, type = type,
+    demog_stat = statfun, ...
+  )
+
   if (type == "sensitivity") {
-    
     stasis <- ifelse(!any(posStasi), NA_real_, sum(pertMat[posStasi]))
-    retro  <- ifelse(!any(posRetro), NA_real_, sum(pertMat[posRetro]))
+    retro <- ifelse(!any(posRetro), NA_real_, sum(pertMat[posRetro]))
     progr <- ifelse(!any(posProgr), NA_real_, sum(pertMat[posProgr]))
     fecund <- ifelse(!any(posF), NA_real_, sum(pertMat[posF]))
     clonal <- ifelse(!any(posC), NA_real_, sum(pertMat[posC]))
-    
   } else {
-    
     propU <- matU / matA
     propU[!posU] <- NA_real_
     propU[matA == 0 & posU] <- 1
-    
+
     propProgr <- propRetro <- propU
     propProgr[upper.tri(propU, diag = TRUE)] <- NA
     propRetro[lower.tri(propU, diag = TRUE)] <- NA
-    
+
     propStasi <- matrix(NA_real_, nrow = m, ncol = m)
     diag(propStasi) <- diag(propU)
-    
+
     propF <- matF / matA
     propF[!posF] <- NA_real_
     propF[matA == 0 & posF] <- 1
-    
+
     propC <- matC / matA
     propC[!posC] <- NA_real_
     propC[matA == 0 & posC] <- 1
-    
+
     stasis <- sum_elast(pertMat, posStasi, propStasi)
-    retro  <- sum_elast(pertMat, posRetro, propRetro)
+    retro <- sum_elast(pertMat, posRetro, propRetro)
     progr <- sum_elast(pertMat, posProgr, propProgr)
     fecund <- sum_elast(pertMat, posF, propF)
     clonal <- sum_elast(pertMat, posC, propC)
   }
-  
-  return(list(stasis = stasis, retro = retro, progr = progr,
-              fecundity = fecund, clonality = clonal))
+
+  return(list(
+    stasis = stasis, retro = retro, progr = progr,
+    fecundity = fecund, clonality = clonal
+  ))
 }
 
 
@@ -237,4 +242,3 @@ perturb_trans <- function(matU, matF, matC = NULL,
 sum_elast <- function(pert_mat, pos_mat, prop_mat) {
   ifelse(!any(pos_mat), NA_real_, sum(pert_mat * prop_mat, na.rm = TRUE))
 }
-

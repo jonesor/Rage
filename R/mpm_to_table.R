@@ -4,7 +4,7 @@
 #' table from a matrix population model. A detailed description of these methods
 #' can be found in section 5.3 "Age-specific traits from stage-specific models"
 #' of Caswell (2001).
-#' 
+#'
 #' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and/or retrogression). Optionally with named rows and
@@ -33,7 +33,7 @@
 #'
 #' @return A \code{data.frame} containing a variable number columns, depending
 #'   on input variables. Columns include:
-#'   
+#'
 #'   \item{x}{age at the start of the age interval \code{[x, x+1)}}
 #'   \item{Nx}{The number of individuals alive at age x. The initial number is
 #'   set with \code{radix}}
@@ -48,7 +48,7 @@
 #'   those entering the interval}
 #'   \item{px}{probability of survival for the interval \code{[x, x+1)} for
 #'   those entering the interval}
-#'   \item{Lx}{total person-years lived during the interval \code{[x, x+1)}} 
+#'   \item{Lx}{total person-years lived during the interval \code{[x, x+1)}}
 #'   \item{Tx}{total person years lived beyond age x}
 #'   \item{ex}{remaining life expectancy at age x}
 #'
@@ -98,17 +98,17 @@
 #'   of survival \code{px} is 0 and, because we assume that deaths are evenly
 #'   distributed during the interval, the remaining life expectancy for
 #'   individuals at the start of the interval is 0.5.
-#'   
+#'
 #'   If \code{lx_crit} is sufficiently small that only a very small proportion
 #'   of the cohort reach this age (i.e., < 0.05), this should have minimal impact
 #'   on results. Nevertheless, for many analyses, the final row of the life
 #'   table should be treated with caution and perhaps removed from subsequent
 #'   analyses.
-#'   
+#'
 #' @note Note that the units of time (e.g.. `x` and `ex`) in the returned life
 #'   table are the same as the projection interval (`ProjectionInterval`) of the
 #'   MPM.
-#'   
+#'
 #' @author Owen R. Jones <jones@@biology.sdu.dk>
 #' @author Roberto Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Hal Caswell <h.caswell@@uva.nl>
@@ -132,11 +132,11 @@
 #' Quintana-Ascencio, P. F., Caswell, H., Baudisch, A. & Vaupel, J. 2014.
 #' Diversity of ageing across the tree of life. Nature 505, 169-173.
 #' <doi:10.1038/nature12789>
-#' 
+#'
 #' Jones O. R. 2021. Life tables: Construction and interpretation In:
 #' Demographic Methods Across the Tree of Life. Edited by Salguero-Gomez R &
 #' Gamelon M. Oxford University Press. Oxford, UK. ISBN: 9780198838609
-#' 
+#'
 #' Preston, S., Heuveline, P., & Guillot, M. 2000. Demography: Measuring and
 #' Modeling Population Processes. Wiley. ISBN: 9781557864512
 #'
@@ -192,7 +192,7 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
   # We use an ax value of 0.5, which means that we implicitly assume that deaths
   # are distributed uniformly across the interval. ax is defined as the average
   # number of years lived in the interval by those dying in the interval
-  
+
   ax <- 0.5
   Lx <- (px * lx) + (ax * dx)
 
