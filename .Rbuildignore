@@ -21,3 +21,4 @@ vignettes/ms-vignette.Rmd
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^revdep$
+^CRAN-SUBMISSION$
