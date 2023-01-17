@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2022-05-14</h4>
+            <h4 data-toc-skip class="date">2023-01-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -148,9 +148,7 @@ using throughout this vignette.</p>
 <span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
 <p>Although we demonstrate these trait calculations using a single MPM,
 each function can be applied to a set of MPMs for comparative analysis
-of life histories across species and populations. See the vignette “The
-functionality of RCompadre and Rage” for an example looking at longevity
-in mammal species across different ecoregions and taxonomic orders.</p>
+of life histories across species and populations.</p>
 </div>
 <div class="section level2">
 <h2 id="survival-and-lifespan-traits">Survival and lifespan traits<a class="anchor" aria-label="anchor" href="#survival-and-lifespan-traits"></a>
@@ -158,7 +156,7 @@ in mammal species across different ecoregions and taxonomic orders.</p>
 <p>Two life history traits pertaining to survival that can be estimated
 using functions in <code>Rage</code> are mean life expectancy and
 longevity. Assuming that there is no trade-off between survival and
-reprdouction, these functions do not require information about
+reproduction, these functions do not require information about
 reproduction. Instead, they only require a <strong>U</strong> matrix
 (supplied to the functions’ <code>matU</code> argument).</p>
 <p>The function <code><a href="../reference/life_expect.html">life_expect_mean()</a></code> estimates mean life
@@ -363,7 +361,7 @@ values less than 1 to survival curve type III (low survival early and
 increasing over time) (Salguero-Gómez et al. 2016).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span>   <span class="co"># Demetrius' entropy</span>
-<span class="co">#&gt; [1] -1.426434</span>
+<span class="co">#&gt; [1] 2.062862</span>
 <span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>       <span class="co"># Keyfitz' entropy</span>
 <span class="co">#&gt; [1] 0.9077186</span></code></pre></div>
 <p>It is important to note that both of these entropy measures may

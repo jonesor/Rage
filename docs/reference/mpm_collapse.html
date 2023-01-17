@@ -24,7 +24,7 @@ expected at the stable distribution."><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@ expected at the stable distribution.</p>
     <h2>Arguments</h2>
     <dl><dt>matU</dt>
 <dd><p>The survival component of a matrix population model (i.e., a
-square projection matrix reflecting survival-related transitions; e.g., 
+square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression)</p></dd>
 <dt>matF</dt>
 <dd><p>The sexual component of a matrix population model (i.e., a square
@@ -104,15 +104,15 @@ projection matrix reflecting transitions due to sexual reproduction)</p></dd>
 <dt>matC</dt>
 <dd><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e., 
+Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.,
 <code>matC</code> is a matrix of zeros).</p></dd>
 <dt>collapse</dt>
 <dd><p>A list giving the mapping between stages of the original
-matrix and the desired stages of the collapsed matrix (e.g., <code>list(1,
-2:3, 4)</code>). Original stages may be passed as either indices or stage names
-corresponding to stage index or name in <code>matU</code>, <code>matF</code> and 
-<code>matC</code>). Names given to the elements of <code>collapse</code> are used as 
-stage names in the new, collapsed matrix.</p>
+  matrix and the desired stages of the collapsed matrix (e.g., <code>list(1,
+  2:3, 4)</code>). Original stages may be passed as either indices or stage names
+  corresponding to stage index or name in <code>matU</code>, <code>matF</code> and
+  <code>matC</code>). Names given to the elements of <code>collapse</code> are used as
+  stage names in the new, collapsed matrix.</p>
 <p>See <em>Missing Stages</em> for handling of <code>NA</code> within <code>collapse</code>.</p></dd>
 </dl></div>
     <div id="value">
@@ -211,10 +211,14 @@ corresponding to a missing stage will be coerced to <code>NA</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># use stage names instead, and name stages in the collapsed matrix</span></span>
-<span class="r-in"><span class="fu">mpm_collapse</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,</span>
-<span class="r-in">             collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="st">"seed"</span>, vegetative <span class="op">=</span> <span class="st">"small"</span>,</span>
-<span class="r-in">                             flowering <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span>,</span>
-<span class="r-in">                             dormant <span class="op">=</span> <span class="st">"dormant"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">mpm_collapse</span><span class="op">(</span></span>
+<span class="r-in">  matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,</span>
+<span class="r-in">  collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">    seed <span class="op">=</span> <span class="st">"seed"</span>, vegetative <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span class="r-in">    flowering <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span>,</span>
+<span class="r-in">    dormant <span class="op">=</span> <span class="st">"dormant"</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            seed vegetative   flowering dormant</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> seed       0.10       0.00 28.54374157    0.00</span>

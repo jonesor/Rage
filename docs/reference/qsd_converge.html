@@ -18,7 +18,7 @@ model to reach a defined quasi-stationary stage distribution."><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@ should match the number of columns in the relevant MPM).</p>
   class), and so does not fundamentally require an ergodic matrix (where the
   long-term equilibrium traits are independent of the initial population
   vector). However, methods for efficiently calculating the stationary stage
-  distribution (SSD) generally do require ergodicity.</p>  
+  distribution (SSD) generally do require ergodicity.</p>
 <p>If the supplied matrix (<code>mat</code>) is non-ergodic, <code>qsd_converge</code>
   first checks for stage classes with no connection (of any degree) from the
   starting stage class specified by argument <code>start</code>, and strips such
@@ -191,7 +191,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 <span class="r-in"><span class="co"># starting stage = 2 (i.e., "small")</span></span>
 <span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>  <span class="co"># equivalent using named life stages</span></span>
+<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># convergence threshold = 0.001</span></span>

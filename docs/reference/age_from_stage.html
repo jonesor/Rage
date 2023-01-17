@@ -23,7 +23,7 @@ table."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-in"><span class="co"># age-specific survivorship</span></span>
 <span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00000000 0.15000000 0.04000000 0.01984000 0.01241465 0.00843715</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># starting from stage 2</span></span>
+<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># starting from stage 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.000000000 0.500000000 0.316800000 0.208613000 0.143913710 0.100583791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.070696700 0.049775083 0.035066091 0.024708430 0.017411268 0.012269430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.008646119</span>
@@ -199,9 +199,9 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.000000000 0.500000000 0.316800000 0.208613000 0.143913710 0.100583791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.070696700 0.049775083 0.035066091 0.024708430 0.017411268 0.012269430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.008646119</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, xmax <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>       <span class="co"># to a maximum age of 10</span></span>
+<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, xmax <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># to a maximum age of 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00000000 0.15000000 0.04000000 0.01984000 0.01241465 0.00843715</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>  <span class="co"># to a minimum lx of 0.05</span></span>
+<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># to a minimum lx of 0.05</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00 0.15 0.04</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># age-specific survival probability</span></span>
