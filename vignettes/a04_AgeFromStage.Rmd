@@ -117,7 +117,7 @@ Next, let's look at the organized stage classes for each MPM. If any of our MPMs
 MatrixClassOrganized(comp_collapse)
 ```
 
-Indeed, 1 MPM incudes a propagule stage. So let's use the function `mpm_first_active()` to determine the first 'active' stage class for each MPM, which we'll use to define the start of life.
+Indeed, 1 MPM includes a propagule stage. So let's use the function `mpm_first_active()` to determine the first 'active' stage class for each MPM, which we'll use to define the start of life.
 
 ```{r}
 comp_collapse$start_life <- mpm_first_active(comp_collapse)

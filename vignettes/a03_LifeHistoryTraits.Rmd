@@ -40,13 +40,13 @@ data(mpm1)     # load data object 'mpm1'
 mpm1           # display the contents
 ```
 
-Although we demonstrate these trait calculations using a single MPM, each function can be applied to a set of MPMs for comparative analysis of life histories across species and populations. See the vignette "The functionality of RCompadre and Rage" for an example looking at longevity in mammal species across different ecoregions and taxonomic orders.
+Although we demonstrate these trait calculations using a single MPM, each function can be applied to a set of MPMs for comparative analysis of life histories across species and populations. 
 
 
 
 ## Survival and lifespan traits
 
-Two life history traits pertaining to survival that can be estimated using functions in `Rage` are mean life expectancy and longevity. Assuming that there is no trade-off between survival and reprdouction, these functions do not require information about reproduction. Instead, they only require a __U__ matrix (supplied to the functions' `matU` argument).
+Two life history traits pertaining to survival that can be estimated using functions in `Rage` are mean life expectancy and longevity. Assuming that there is no trade-off between survival and reproduction, these functions do not require information about reproduction. Instead, they only require a __U__ matrix (supplied to the functions' `matU` argument).
 
 The function `life_expect_mean()` estimates mean life expectancy, or the mean time to death, and the variance in time to death can be obtained using `life_expect_var()`.
 
