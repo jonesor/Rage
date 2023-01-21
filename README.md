@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Rage <img src="man/figures/logo_rage.png" height="160px" align="right" />
+# Rage <img src="man/figures/logo_rage.png" align="right" height="160" style="float:right; height:160px;">
 
 | Project                                                                                                                                                                                                | Main branch                                                                                                                             | Devel branch                                                                                                                           |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
@@ -17,11 +17,11 @@ models (MPMs).
 
 Includes functions for:
 
--   deriving life history traits
--   deriving life tables or life table components
--   deriving vital rates
--   perturbation analyses
--   manipulating and transforming MPMs
+- deriving life history traits
+- deriving life tables or life table components
+- deriving vital rates
+- perturbation analyses
+- manipulating and transforming MPMs
 
 ## Installation
 

@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Rage  <img src="man/figures/logo_rage.png" height="160px" align="right" />
+# Rage  <img src="man/figures/logo_rage.png" align="right" height="160" style="float:right; height:160px;">
 
 | Project   |      Main branch     |  Devel branch |
 |----------|:--------------|:------------------------|
