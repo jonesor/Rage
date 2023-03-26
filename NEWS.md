@@ -1,6 +1,6 @@
 # Rage (development version)
 
-* `entropy_d` `entropy_k` `shape_rep` and `shape_surv` can now accept matrices directly. In previous versions, these functions required input of `lx` and/or `mx` trajectories, but now the functions can optionally use `mpm_to_...` functions to create these vectors internally.
+* `entropy_d` `entropy_k` `shape_rep` and `shape_surv` can now accept matrices directly. In previous versions, these functions required input of `lx` and/or `mx` trajectories, but now the functions can optionally use `mpm_to_...` functions to create these vectors internally (#174).
 
 # Rage 1.3.0
 
