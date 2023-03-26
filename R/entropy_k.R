@@ -1,6 +1,7 @@
 #' Calculate Keyfitz's entropy from a trajectory of age-specific survivorship
 #'
-#' Calculate Keyfitz's entropy from a vector of age-specific survivorship (\code{lx}).
+#' Calculate Keyfitz's entropy from a vector of age-specific survivorship
+#' (\code{lx}).
 #'
 #' @section Warning:
 #' Note that this function may produce unexpected results if used on partial
@@ -8,10 +9,13 @@
 #' survivorship vector. We direct users to the function `\code{\link{shape_surv}}`
 #' which is relatively robust to these issues.
 #'
-#' @param lx Survivorship trajectory (a vector of monotonically-declining values
-#'   in the interval [0,1]).
+#' @param lx Either a survivorship trajectory (a vector of
+#'   monotonically-declining values in the interval [0,1]), or submatrix U from
+#'   a matrix population model.
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
+#' @param ... Additional variables passed to `mpm_to_lx` if data are supplied as
+#'   a matrix
 #'
 #' @return Keyfitz's life table entropy.
 #'
@@ -37,18 +41,26 @@
 #'
 #' # use trapezoid approximation for definite integral
 #' entropy_k(lx, trapeze = TRUE)
+#' 
+#' # calculate directly from the matrix
+#' entropy_k(mpm1$matU)
 #'
 #' @export entropy_k
-entropy_k <- function(lx, trapeze = FALSE) {
+entropy_k <- function(lx, trapeze = FALSE, ...) {
 
+  if(inherits(lx, "numeric")){
   # validate arguments
   if (any(lx < 0 | lx > 1)) {
     stop("All values of lx must be within the interval [0, 1].\n")
   }
   if (any(diff(lx) > 1e-7)) {
     stop("Values of lx must be monotonically declining.\n")
-  }
+  }}
 
+  if(inherits(lx, "matrix")){
+   lx <- mpm_to_lx(lx, ...) 
+  }
+  
   # remove ages at/beyond which lx is 0 or NA
   lx <- lx[1:max(which(lx > 0))]
 
