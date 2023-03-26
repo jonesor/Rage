@@ -5,13 +5,18 @@
 \title{Calculate Demetrius' entropy from trajectories of age-specific survivorship
 and fecundity}
 \usage{
-entropy_d(lx, mx)
+entropy_d(lx, mx, ...)
 }
 \arguments{
-\item{lx}{Age-specific survivorship trajectory (a vector of
-monotonically-declining values in the interval [0,1]).}
+\item{lx}{Either a survivorship trajectory (a vector of
+monotonically-declining values in the interval [0,1]), or submatrix U from
+a matrix population model.}
 
-\item{mx}{Age-specific fecundity trajectory (a vector of non-negative values).}
+\item{mx}{Either an age-specific fecundity trajectory (a vector of
+non-negative values), or submatrix U from a matrix population model.}
+
+\item{...}{Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the
+data are supplied as matrices.}
 }
 \value{
 Demetrius' entropy.
@@ -37,6 +42,9 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
 # calculate Demetrius' entropy
 entropy_d(lx, mx)
+
+# calculate Demetrius' entropy directly from MPM
+entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = 2)
 
 }
 \references{

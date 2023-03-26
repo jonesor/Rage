@@ -10,9 +10,13 @@
 #'   functions `\code{\link{shape_surv}}` and `\code{\link{shape_rep}}` which
 #'   are relatively robust to these issues.
 #'
-#' @param lx Age-specific survivorship trajectory (a vector of
-#'   monotonically-declining values in the interval [0,1]).
-#' @param mx Age-specific fecundity trajectory (a vector of non-negative values).
+#' @param lx Either a survivorship trajectory (a vector of
+#'   monotonically-declining values in the interval [0,1]), or submatrix U from
+#'   a matrix population model.
+#' @param mx Either an age-specific fecundity trajectory (a vector of
+#'   non-negative values), or submatrix U from a matrix population model.
+#' @param ... Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the
+#'   data are supplied as matrices.
 #'
 #' @return Demetrius' entropy.
 #'
@@ -34,8 +38,19 @@
 #' # calculate Demetrius' entropy
 #' entropy_d(lx, mx)
 #'
+#' # calculate Demetrius' entropy directly from MPM
+#' entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = 2)
+#'
 #' @export entropy_d
-entropy_d <- function(lx, mx) {
+entropy_d <- function(lx, mx, ...) {
+
+  if (inherits(lx, "matrix") && inherits(mx, "matrix")) {
+    mx <- mpm_to_mx(lx, mx, ...)
+  }
+  
+  if (inherits(lx, "matrix")) {
+    lx <- mpm_to_lx(lx, ...)
+  }
 
   # validate arguments
   if (any(lx < 0 | lx > 1)) {
