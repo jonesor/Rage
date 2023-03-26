@@ -4,23 +4,34 @@
 \alias{shape_rep}
 \title{Calculate shape of reproduction over age}
 \usage{
-shape_rep(rep, xmin = NULL, xmax = NULL)
+shape_rep(rep, surv = NULL, xmin = NULL, xmax = NULL, ...)
 }
 \arguments{
 \item{rep}{Either 1) a numeric vector describing reproduction over age (mx),
-  or 2) a \code{data.frame} / \code{list} with one column / element titled
-  'mx' describing a reproduction over age, optionally a column / element 'x'
+  2) a \code{data.frame} / \code{list} with one column / element titled 'mx'
+  describing a reproduction over age, optionally a column / element 'x'
   containing age classes (each element a number representing the age at the
-  start of the class).
+  start of the class), or 3) a matrix, specifically the reproduction
+  submatrix (e.g. F matrix) of a matrix population model. If \code{rep} is
+  provided as a matrix, then \code{surv} must be provided as the U submatrix of
+  the matrix population model.
 
-  If x is not supplied, the function will assume age classes starting at 0
-  with time steps of unit. If x ends at maximum longevity,
+  In case (2), if x is not supplied, the function will assume age classes
+  starting at 0 with time steps of unit. If x ends at maximum longevity,
   \code{mx[which.max(x)]} should equal 0; however it is possible to supply
   partial reproduction schedules.}
+
+\item{surv}{An optional argument to be used if rep is provided as a matrix
+(the reproduction submatrix of the matrix population model.) If \code{rep}
+is provided as a matrix, then \code{surv} should also be provided as a the
+U submatrix of the matrix population model.}
 
 \item{xmin, xmax}{The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to \code{min(x)} and
 \code{max(x)} respectively.}
+
+\item{...}{Additional variables passed to `mpm_to_mx` when the data are
+provided as matrices.}
 }
 \value{
 a shape value describing symmetry of reproduction over age by
@@ -51,6 +62,15 @@ shape_rep(mx)
 # constant mx yields shape = 0
 mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 shape_rep(mx)
+
+# calculate mx trajectory first
+mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF)
+
+
+# providing the matrices directly
+data(mpm1)
+shape_rep(rep = mpm1$matF, surv = mpm1$matU)
+
 }
 \references{
 Baudisch, A, Stott, I. 2019. A pace and shape perspective on
