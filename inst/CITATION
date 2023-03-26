@@ -1,26 +1,35 @@
-citHeader("To cite Rage in publications use:")
+citHeader("To cite Rcompadre in publications use:")
 
-citEntry(
-  entry = "Article",
+bibentry(
+  bibtype = "Article",
   title = "Rcompadre and Rage - two {R} packages to facilitate the use of
               the {COMPADRE} and {COMADRE} databases and calculation of life
               history traits from matrix population models",
-  author = personList(
-    as.person("Owen R. Jones"), as.person("Patrick Barks"), as.person("Iain M Stott"), 
-    as.person("Tamora D James"), as.person("Sam C Levin"), as.person("William K Petry"), 
-    as.person("Pol Capdevila"), as.person("Judy Che-Castaldo"), as.person("John Jackson"), 
-    as.person("Gesa Römer"), as.person("Caroline Schuette"), as.person("Chelsea C Thomas"), 
-    as.person("Roberto Salguero-Gómez")
+  author = c(
+    person(c("Owen", "R."), "Jones"),
+    person("Patrick", "Barks"),
+    person(c("Iain", "M."), "Stott"),
+    person(c("Tamora", "D."), "James"),
+    person(c("Sam", "C."), "Levin"),
+    person(c("William", "K."), "Petry"),
+    person("Pol", "Capdevila"),
+    person("Judy", "Che-Castaldo"),
+    person("John", "Jackson"),
+    person("Gesa", "Römer"),
+    person("Caroline", "Schuette"),
+    person(c("Chelsea", "C"), "Thomas"),
+    person("Roberto", "Salguero-Gómez")
   ),
-  journal = "bioRxiv",
-  year = "2021",
-  pages = "2021.04.26.441330",
-  doi = "10.1101/2021.04.26.441330",
+  journal = "Methods in Ecology and Evolution",
+  year = "2022",
+  pages = "770-781",
+  volume = 13L,
+  doi = "10.1111/2041-210X.13792",
   textVersion =
     paste(
-      "Jones, OR et al. (2021).",
+      "Jones, OR et al. (2022).",
       "Rcompadre and Rage - two R packages to facilitate the use of the COMPADRE and COMADRE databases and calculation of life history traits from matrix population models.",
-      "bioRxiv, 2021.04.26.441330",
-      "URL https://www.biorxiv.org/content/10.1101/2021.04.26.441330v1."
+      "Methods in Ecology and Evolution", "13: 770-781.",
+      "URL https://doi.org/10.1111/2041-210X.13792"
     )
 )
