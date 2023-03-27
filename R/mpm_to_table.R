@@ -30,6 +30,11 @@
 #' @param radix The starting number of individuals in the synthetic life table
 #'   (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
 #'   table is produced.
+#' @param remove_final Life table calculations typically assume that the final
+#'   age class is closed and that all individuals die in that age class. This
+#'   can mean that mortality/hazard is artificially inflated for this age class.
+#'   Users can prevent this by setting `remove_final` to `TRUE` (the default is
+#'   `FALSE`).
 #'
 #' @return A \code{data.frame} containing a variable number columns, depending
 #'   on input variables. Columns include:
@@ -97,7 +102,8 @@
 #'   for this interval, the probability of death \code{qx} is 1, the probability
 #'   of survival \code{px} is 0 and, because we assume that deaths are evenly
 #'   distributed during the interval, the remaining life expectancy for
-#'   individuals at the start of the interval is 0.5.
+#'   individuals at the start of the interval is 0.5. Depending on analyses, it
+#'   may be a good idea to remove the final row of the table.
 #'
 #'   If \code{lx_crit} is sufficiently small that only a very small proportion
 #'   of the cohort reach this age (i.e., < 0.05), this should have minimal impact
@@ -153,13 +159,17 @@
 #' mpm_to_table(matU = mpm1$matU, start = n1)
 #' @export mpm_to_table
 mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
-                         xmax = 1000, lx_crit = 0.01, radix = 1) {
+                         xmax = 1000, lx_crit = 0.01, radix = 1, 
+                         remove_final = FALSE) {
 
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   if (!is.null(matF)) checkValidMat(matF)
   if (!is.null(matC)) checkValidMat(matC)
   checkValidStartLife(start, matU, start_vec = TRUE)
+  
+  #remove_final
+  if (!remove_final %in% c(TRUE,FALSE)){stop("remove_final must be either TRUE or FALSE")}
 
   # Age-specific survivorship (lx)
   lx <- mpm_to_lx(matU, start, xmax, lx_crit)
@@ -254,5 +264,6 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
     out$lxmxcx <- out$lx * out$mxcx
   }
 
-  return(out)
+  if(remove_final == TRUE){return(out[,-nrow(out)])}
+  if(remove_final == FALSE){return(out)}
 }

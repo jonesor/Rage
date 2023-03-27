@@ -1,6 +1,7 @@
 # Rage (development version)
 
 * `entropy_d` `entropy_k` `shape_rep` and `shape_surv` can now accept matrices directly. In previous versions, these functions required input of `lx` and/or `mx` trajectories, but now the functions can optionally use `mpm_to_...` functions to create these vectors internally (#174).
+* added `remove_final` argument to `mpm_to_table` function. This allows users to optionally remove the final row of the life table to prevent the artificial inflation of mortality/hazard caused by the fact that the final age-class is assumed to be closed (and hence all individuals must die).
 
 # Rage 1.3.0
 
