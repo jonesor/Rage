@@ -264,6 +264,6 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
     out$lxmxcx <- out$lx * out$mxcx
   }
 
-  if(remove_final == TRUE){return(out[,-nrow(out)])}
+  if(remove_final == TRUE){return(out[-nrow(out),])}
   if(remove_final == FALSE){return(out)}
 }
