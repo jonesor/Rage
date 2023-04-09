@@ -58,22 +58,24 @@
 #' # constant mx yields shape = 0
 #' mx <- c(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #' shape_rep(mx)
-#' 
+#'
 #' # calculate mx trajectory first
 #' mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF)
-#' 
-#' 
+#'
+#'
 #' # providing the matrices directly
 #' data(mpm1)
 #' shape_rep(rep = mpm1$matF, surv = mpm1$matU)
-#' 
+#'
 #' @export shape_rep
 shape_rep <- function(rep, surv = NULL, xmin = NULL, xmax = NULL, ...) {
   if (inherits(surv, "matrix")) {
-    if(is.null(surv)){stop("'surv' must be provided as the U submatrix of the model.")}
-    rep <- mpm_to_mx(matU = surv, matR = rep,...)
+    if (is.null(surv)) {
+      stop("'surv' must be provided as the U submatrix of the model.")
+    }
+    rep <- mpm_to_mx(matU = surv, matR = rep, ...)
   }
-  
+
   if (class(rep) %in% "numeric") {
     mx <- rep
     x <- seq_along(mx) - 1

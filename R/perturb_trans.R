@@ -132,7 +132,6 @@ perturb_trans <- function(matU, matF, matC = NULL,
                           exclude_row = NULL, exclude_col = NULL,
                           pert = 1e-6, type = "sensitivity",
                           demog_stat = "lambda", ...) {
-
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)

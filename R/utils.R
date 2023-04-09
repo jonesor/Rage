@@ -1,4 +1,3 @@
-
 #' @noRd
 checkValidMat <- function(M,
                           fail_all_na = TRUE,

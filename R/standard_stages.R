@@ -62,7 +62,6 @@
 #' @export standard_stages
 #'
 standard_stages <- function(matF, repro_stages, matrix_stages) {
-
   # validate arguments
   checkValidMat(matF, warn_all_zero = FALSE)
   if (ncol(matF) != length(repro_stages) ||

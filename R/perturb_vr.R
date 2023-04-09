@@ -82,7 +82,6 @@
 perturb_vr <- function(matU, matF, matC = NULL,
                        pert = 1e-6, type = "sensitivity",
                        demog_stat = "lambda", ...) {
-
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
@@ -181,7 +180,6 @@ perturb_vr <- function(matU, matF, matC = NULL,
       clonality = sum(matSensClo, na.rm = TRUE)
     )
   } else {
-
     # elasticity of survival
     elasSurv <- sigma * sensSurv / stat
 

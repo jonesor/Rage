@@ -48,19 +48,19 @@
 #' # exponential decline in lx yields shape = 0
 #' lx <- 0.7^(0:20)
 #' shape_surv(lx)
-#' 
+#'
 #' data(mpm1)
 #' shape_surv(mpm1$matU)
 #'
 #' lx <- mpm_to_lx(mpm1$matU, start = 1)
 #' shape_surv(lx)
-#' 
+#'
 #' @export shape_surv
 shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
   if (inherits(surv, "matrix")) {
     surv <- mpm_to_lx(surv, ...)
   }
-  
+
   if (class(surv) %in% "numeric") {
     lx <- surv
     x <- seq_along(lx) - 1

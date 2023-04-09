@@ -37,7 +37,6 @@
 #' @export plot_life_cycle
 plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
                             fontsize = 10, nodefontsize = 12, edgecol = "grey") {
-
   # Identify stages
   if (missing(stages) && is.null(dimnames(matA))) {
     stages <- seq_len(ncol(matA))

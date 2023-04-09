@@ -50,7 +50,6 @@
 #' repro_stages(matR2, na_handling = "return.false")
 #' @export repro_stages
 repro_stages <- function(matR, na_handling = "return.true") {
-
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na_handling %in% c("return.na", "return.true", "return.false")) {
