@@ -58,7 +58,6 @@ NULL
 #' @rdname repro_maturity
 #' @export mature_prob
 mature_prob <- function(matU, matR, start = 1L) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
@@ -77,7 +76,6 @@ mature_prob <- function(matU, matR, start = 1L) {
 #' @rdname repro_maturity
 #' @export mature_age
 mature_age <- function(matU, matR, start = 1L) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
@@ -111,7 +109,6 @@ mature_age <- function(matU, matR, start = 1L) {
 #' @rdname repro_maturity
 #' @export mature_distrib
 mature_distrib <- function(matU, start = 1L, repro_stages) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU)

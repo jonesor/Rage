@@ -41,26 +41,26 @@
 #'
 #' # use trapezoid approximation for definite integral
 #' entropy_k(lx, trapeze = TRUE)
-#' 
+#'
 #' # calculate directly from the matrix
 #' entropy_k(mpm1$matU)
 #'
 #' @export entropy_k
 entropy_k <- function(lx, trapeze = FALSE, ...) {
-
-  if(inherits(lx, "numeric")){
-  # validate arguments
-  if (any(lx < 0 | lx > 1)) {
-    stop("All values of lx must be within the interval [0, 1].\n")
+  if (inherits(lx, "numeric")) {
+    # validate arguments
+    if (any(lx < 0 | lx > 1)) {
+      stop("All values of lx must be within the interval [0, 1].\n")
+    }
+    if (any(diff(lx) > 1e-7)) {
+      stop("Values of lx must be monotonically declining.\n")
+    }
   }
-  if (any(diff(lx) > 1e-7)) {
-    stop("Values of lx must be monotonically declining.\n")
-  }}
 
-  if(inherits(lx, "matrix")){
-   lx <- mpm_to_lx(lx, ...) 
+  if (inherits(lx, "matrix")) {
+    lx <- mpm_to_lx(lx, ...)
   }
-  
+
   # remove ages at/beyond which lx is 0 or NA
   lx <- lx[1:max(which(lx > 0))]
 

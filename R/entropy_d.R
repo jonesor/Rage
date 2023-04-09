@@ -43,11 +43,10 @@
 #'
 #' @export entropy_d
 entropy_d <- function(lx, mx, ...) {
-
   if (inherits(lx, "matrix") && inherits(mx, "matrix")) {
     mx <- mpm_to_mx(lx, mx, ...)
   }
-  
+
   if (inherits(lx, "matrix")) {
     lx <- mpm_to_lx(lx, ...)
   }

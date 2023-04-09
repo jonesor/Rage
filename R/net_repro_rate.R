@@ -59,7 +59,6 @@
 #'
 #' @export net_repro_rate
 net_repro_rate <- function(matU, matR, start = 1, method = "generation") {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)

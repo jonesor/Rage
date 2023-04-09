@@ -117,7 +117,6 @@ NULL
 #' @export mpm_to_mx
 mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
-
   # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
 
@@ -153,7 +152,6 @@ mpm_to_mx <- function(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01,
 #' @export mpm_to_lx
 mpm_to_lx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)

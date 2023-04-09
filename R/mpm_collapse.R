@@ -78,7 +78,6 @@
 #'
 #' @export mpm_collapse
 mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
-
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)

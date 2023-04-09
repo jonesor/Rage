@@ -159,17 +159,18 @@
 #' mpm_to_table(matU = mpm1$matU, start = n1)
 #' @export mpm_to_table
 mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
-                         xmax = 1000, lx_crit = 0.01, radix = 1, 
+                         xmax = 1000, lx_crit = 0.01, radix = 1,
                          remove_final = FALSE) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   if (!is.null(matF)) checkValidMat(matF)
   if (!is.null(matC)) checkValidMat(matC)
   checkValidStartLife(start, matU, start_vec = TRUE)
-  
-  #remove_final
-  if (!remove_final %in% c(TRUE,FALSE)){stop("remove_final must be either TRUE or FALSE")}
+
+  # remove_final
+  if (!remove_final %in% c(TRUE, FALSE)) {
+    stop("remove_final must be either TRUE or FALSE")
+  }
 
   # Age-specific survivorship (lx)
   lx <- mpm_to_lx(matU, start, xmax, lx_crit)
@@ -264,6 +265,10 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
     out$lxmxcx <- out$lx * out$mxcx
   }
 
-  if(remove_final == TRUE){return(out[-nrow(out),])}
-  if(remove_final == FALSE){return(out)}
+  if (remove_final == TRUE) {
+    return(out[-nrow(out), ])
+  }
+  if (remove_final == FALSE) {
+    return(out)
+  }
 }

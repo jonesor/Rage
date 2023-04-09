@@ -69,7 +69,6 @@ perturb_stochastic <- function(X_t, u_t) {
   # for each matrix element
   for (i in 1:s) {
     for (j in 1:s) {
-
       ## build perterbation mats for given matrix element [i, j]
       C <- lapply(X_t, build_pert_mats, i = i, j = j)
       C_mu <- lapply(X_mu, build_pert_mats, i = i, j = j)

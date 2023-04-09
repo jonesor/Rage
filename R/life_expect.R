@@ -62,7 +62,6 @@
 #' @rdname life_expect
 #' @export life_expect_mean
 life_expect_mean <- function(matU, start = 1L) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)
@@ -99,7 +98,6 @@ life_expect_mean <- function(matU, start = 1L) {
 #' @rdname life_expect
 #' @export life_expect_var
 life_expect_var <- function(matU, start = 1L) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)

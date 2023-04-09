@@ -126,7 +126,7 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 entropy_k(lx) # Keyfitz' entropy
 #> [1] 0.9077186
 entropy_d(lx, mx) # Demetrius' entropy
-#> [1] -1.426434
+#> [1] 2.062862
 shape_surv(lx) # shape of survival/mortality trajectory
 #> [1] -0.04681254
 shape_rep(lx) # shape of fecundity trajectory

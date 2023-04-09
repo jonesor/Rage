@@ -67,7 +67,6 @@
 #'
 #' @export longevity
 longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
-
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)

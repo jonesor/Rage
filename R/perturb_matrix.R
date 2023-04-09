@@ -51,7 +51,6 @@
 #' @export perturb_matrix
 perturb_matrix <- function(matA, pert = 1e-6, type = "sensitivity",
                            demog_stat = "lambda", ...) {
-
   # validate arguments
   checkValidMat(matA)
 
