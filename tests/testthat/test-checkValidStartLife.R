@@ -1,4 +1,3 @@
-
 test_that("checkValidStartLife works correctly", {
   M <- matrix(1:4, nrow = 2)
 

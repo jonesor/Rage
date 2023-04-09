@@ -1,4 +1,3 @@
-
 test_that("meanMat works correctly", {
   s <- 3 # matrix dimension
 

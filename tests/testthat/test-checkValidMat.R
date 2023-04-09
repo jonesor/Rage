@@ -1,4 +1,3 @@
-
 test_that("checkValidMat works correctly", {
   matU <- matrix(1:4, nrow = 2)
   expect_silent(checkValidMat(matU))

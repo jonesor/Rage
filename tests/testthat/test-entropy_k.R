@@ -1,4 +1,3 @@
-
 test_that("entropy_k works correctly", {
   lx <- 0.8^(0:20)
 

@@ -1,4 +1,3 @@
-
 test_that("gen_time works correctly", {
   x <- gen_time(mat_u, mat_f)
   x_start <- gen_time(mat_u, mat_f)

@@ -1,4 +1,3 @@
-
 test_that("mature_ functions work correctly", {
   x_prob1 <- mature_prob(mat_u, mat_f)
   expect_type(x_prob1, "double")

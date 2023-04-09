@@ -1,4 +1,3 @@
-
 test_that("mature_distrib works correctly", {
   repstages <- repro_stages(mat_f)
   x1 <- mature_distrib(mat_u, repro_stages = repstages)

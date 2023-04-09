@@ -1,6 +1,4 @@
-
 test_that("surv_conversion functions work correctly", {
-
   # convert from lx
   lx1 <- c(1, 0.8, 0.7, 0.5, 0.3, 0.1)
   px1 <- lx_to_px(lx1)

@@ -1,4 +1,3 @@
-
 test_that("longevity works correctly", {
   x <- longevity(mat_u)
   x_zero <- suppressWarnings(longevity(mat_u_zero))

@@ -1,4 +1,3 @@
-
 test_that("life_expect_mean works correctly", {
   l0 <- life_expect_mean(mat_u)
   l0_singular <- life_expect_mean(mat_u_singular)

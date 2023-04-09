@@ -1,4 +1,3 @@
-
 test_that("entropy_d works correctly", {
   lx <- 0.8^(0:8)
   mx <- c(0.00, 0.00, 1.10, 1.50, 1.60, 1.70, 1.50, 1.20, 0.70)
