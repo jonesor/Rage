@@ -1,5 +1,3 @@
-
-
 test_that("perturb_vr works correctly", {
   x <- perturb_vr(mat_u, mat_f)
   expect_type(x, "list")

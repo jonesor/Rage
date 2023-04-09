@@ -1,6 +1,4 @@
-
 test_that("mpm_standardize works correctly", {
-
   # mpm with inter-reproductive stage
   repro_stages <- apply(mat_f_inter, 2, function(x) any(x > 0))
   matrix_stages <- c("prop", "active", "active", "active", "active")

@@ -1,6 +1,4 @@
-
 test_that("vr_mat functions work correctly", {
-
   ### test vr_mat_U
   U1 <- rbind(
     c(0, 0, 0, 0),

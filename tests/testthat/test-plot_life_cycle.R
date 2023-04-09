@@ -1,4 +1,3 @@
-
 test_that("plot_life_cycle works correctly", {
   mat_a <- mat_u + mat_f
   stages <- letters[1:nrow(mat_a)]

@@ -1,6 +1,4 @@
-
 test_that("shape_surv works correctly", {
-
   # constant hazard
   lx1 <- 0.5^(0:20)
   s1a <- shape_surv(lx1, trunc = TRUE)
@@ -32,7 +30,6 @@ test_that("shape_surv works correctly", {
 
 
 test_that("shape_surv warns and fails gracefully", {
-
   # lx[1] != 1
   expect_error(shape_surv(c(0.8, 0.7, 0.6), trunc = TRUE))
 

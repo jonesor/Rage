@@ -1,6 +1,4 @@
-
 test_that("standard_stages works correctly", {
-
   ## mpm without inter-reproductive stage
   repro_stages <- apply(mat_f, 2, function(x) any(x > 0))
   matrix_stages <- c("active", "active", "active", "active")
@@ -55,7 +53,6 @@ test_that("standard_stages works correctly", {
 
 
 test_that("standard_stages warns and fails gracefully", {
-
   # arguments of different dimension
   repro_stages <- apply(mat_f, 2, function(x) any(x > 0))
   matrix_stages <- c("prop", "active", "active")

@@ -1,4 +1,3 @@
-
 test_that("mpm_split works correctly", {
   matA <- mat_u + mat_f
 

@@ -1,4 +1,3 @@
-
 test_that("perturb_stochastic works correctly", {
   s <- 3 # matrix dimension
   N <- 15 # length of time series

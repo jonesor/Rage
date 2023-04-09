@@ -1,6 +1,4 @@
-
 test_that("vr_vec functions work correctly", {
-
   ### test vr_vec_U
   U1 <- rbind(
     c(0, 0, 0, 0),

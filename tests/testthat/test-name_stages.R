@@ -1,4 +1,3 @@
-
 test_that("name_stages works correctly", {
   s <- 10 # matrix dimension
 

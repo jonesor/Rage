@@ -1,4 +1,3 @@
-
 test_that("net_repro_rate works correctly", {
   x <- net_repro_rate(mat_u, mat_f)
   x_start <- net_repro_rate(mat_u, mat_f, method = "start")

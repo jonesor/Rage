@@ -1,6 +1,4 @@
-
 test_that("vr functions work correctly", {
-
   ### test vr_U
   U1 <- rbind(
     c(0, 0, 0, 0),

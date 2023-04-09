@@ -1,4 +1,3 @@
-
 test_that("mpm_to_ functions work correctly", {
   xmax <- 20
 
@@ -49,7 +48,6 @@ test_that("mpm_to_ functions work correctly", {
 
 
 test_that("mpm_to_ functions warn and fail gracefully", {
-
   # mpm_to_lx
   expect_error(mpm_to_lx(mat_u, start = 10))
   expect_error(mpm_to_lx(mat_u_na))

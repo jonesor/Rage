@@ -1,4 +1,3 @@
-
 test_that("mpm_collapse works correctly", {
   c1 <- list(1:2, 3:4)
   c2 <- list(1, 2, 3, 4) # should yield same as original

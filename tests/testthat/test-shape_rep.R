@@ -1,6 +1,4 @@
-
 test_that("shape_rep works correctly", {
-
   # constant mx
   mx1 <- c(0, 1, 1, 1, 1, 1, 1, 1, 1)
   s1a <- shape_rep(mx1)
@@ -28,7 +26,6 @@ test_that("shape_rep works correctly", {
 
 
 test_that("shape_rep warns and fails gracefully", {
-
   # negative reproduction
   # You appear to have minus-babies (check mx)
   expect_error(shape_rep(c(0, 1, 1, 1, -0.1, 0)))

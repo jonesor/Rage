@@ -1,4 +1,3 @@
-
 test_that("mpm_to_table works correctly", {
   xmax <- 20
 

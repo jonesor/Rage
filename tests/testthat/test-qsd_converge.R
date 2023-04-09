@@ -1,4 +1,3 @@
-
 test_that("qsd_converge works correctly", {
   x1 <- qsd_converge(mat_u)
   expect_length(x1, 1L)

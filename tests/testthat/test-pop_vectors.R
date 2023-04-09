@@ -1,4 +1,3 @@
-
 test_that("pop_vectors works correctly", {
   s <- 3 # matrix dimension
   N <- 7 # length of time series
