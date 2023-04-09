@@ -19,11 +19,11 @@ projection matrix reflecting transitions due to sexual reproduction).}
 
 \item{matC}{The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to \code{NULL}, indicating no clonal reproduction (i.e., 
+Defaults to \code{NULL}, indicating no clonal reproduction (i.e.,
 \code{matC} is a matrix of zeros).}
 
-\item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating 
-which stages are reproductive. Alternatively, a vector of stage indices or 
+\item{repro_stages}{Logical vector of length \code{ncol(matU)} indicating
+which stages are reproductive. Alternatively, a vector of stage indices or
 stage names of the reproductive classes.}
 
 \item{matrix_stages}{Character vector of matrix stage types (e.g., "propagule",
@@ -66,26 +66,32 @@ row/column of the standardized matrix will be coerced to \code{NA}.
 }
 
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0,   0),
-              c(  0, 0.3, 0.3, 0.1,   0),
-              c(  0,   0, 0.4, 0.4, 0.1),
-              c(  0,   0,   0, 0.1, 0.4))
+matU <- rbind(
+  c(0.1, 0, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0, 0),
+  c(0, 0.3, 0.3, 0.1, 0),
+  c(0, 0, 0.4, 0.4, 0.1),
+  c(0, 0, 0, 0.1, 0.4)
+)
 
-matF <- rbind(c(  0, 1.1,   0, 1.6,   0),
-              c(  0, 0.8,   0, 0.4,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0))
+matF <- rbind(
+  c(0, 1.1, 0, 1.6, 0),
+  c(0, 0.8, 0, 0.4, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0)
+)
 
-matC <- rbind(c(  0, 0.6,   0, 0.5,   0),
-              c(  0, 0.1,   0, 0.3,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0),
-              c(  0,   0,   0,   0,   0))
+matC <- rbind(
+  c(0, 0.6, 0, 0.5, 0),
+  c(0, 0.1, 0, 0.3, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0),
+  c(0, 0, 0, 0, 0)
+)
 
 repro_stages <- c(2, 4)
-matrix_stages <- c('prop', 'active', 'active', 'active', 'active')
+matrix_stages <- c("prop", "active", "active", "active", "active")
 
 mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 
