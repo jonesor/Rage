@@ -26,7 +26,7 @@ also allowed."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -93,15 +93,15 @@ also allowed.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">perturb_vr</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  <span class="va">matF</span>,
-  matC <span class="op">=</span> <span class="cn">NULL</span>,
-  pert <span class="op">=</span> <span class="fl">1e-06</span>,
-  type <span class="op">=</span> <span class="st">"sensitivity"</span>,
-  demog_stat <span class="op">=</span> <span class="st">"lambda"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">perturb_vr</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  <span class="va">matF</span>,</span>
+<span>  matC <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pert <span class="op">=</span> <span class="fl">1e-06</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"sensitivity"</span>,</span>
+<span>  demog_stat <span class="op">=</span> <span class="st">"lambda"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -110,42 +110,62 @@ also allowed.</p>
 <dd><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression).</p></dd>
+
+
 <dt>matF</dt>
 <dd><p>The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction).</p></dd>
+
+
 <dt>matC</dt>
 <dd><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.,
 <code>matC</code> is a matrix of zeros).</p></dd>
+
+
 <dt>pert</dt>
 <dd><p>Magnitude of the perturbation. Defaults to <code>1e-6</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Whether to return <code>sensitivity</code> or <code>elasticity</code> values. Defaults
 to <code>sensitivity</code>.</p></dd>
+
+
 <dt>demog_stat</dt>
 <dd><p>The demographic statistic to be used, as in "the
 sensitivity/elasticity of <code>demog_stat</code> to vital rate perturbations."
 Defaults to the per-capita population growth rate at equilibrium
 (\(\lambda\)). Also accepts a user-supplied function that performs a
 calculation on a projection matrix and returns a single numeric value.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to the function <code>demog_stat</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with 5 elements:</p>
+    
+
+<p>A list with 5 elements:</p>
 <dl><dt>survival</dt>
 <dd><p>sensitivity or elasticity of <code>demog_stat</code> to survival</p></dd>
+
 <dt>growth</dt>
 <dd><p>sensitivity or elasticity of <code>demog_stat</code> to growth</p></dd>
+
 <dt>shrinkage</dt>
 <dd><p>sensitivity or elasticity of <code>demog_stat</code> to shrinkage</p></dd>
+
 <dt>fecundity</dt>
 <dd><p>sensitivity or elasticity of <code>demog_stat</code> to sexual
 fecundity</p></dd>
+
 <dt>clonality</dt>
 <dd><p>sensitivity or elasticity of <code>demog_stat</code> to clonality</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -163,21 +183,21 @@ fecundity</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1.1</span>, <span class="fl">1.6</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span>, <span class="fl">0.4</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1.1</span>, <span class="fl">1.6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span>, <span class="fl">0.4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survival</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.74464</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -193,9 +213,9 @@ fecundity</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clonality</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use elasticities rather than sensitivities</span></span>
-<span class="r-in"><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, type <span class="op">=</span> <span class="st">"elasticity"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use elasticities rather than sensitivities</span></span></span>
+<span class="r-in"><span><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, type <span class="op">=</span> <span class="st">"elasticity"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survival</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9999999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -211,9 +231,9 @@ fecundity</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clonality</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use a larger perturbation than the default</span></span>
-<span class="r-in"><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, pert <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use a larger perturbation than the default</span></span></span>
+<span class="r-in"><span><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, pert <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survival</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.741488</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -229,16 +249,16 @@ fecundity</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clonality</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate the sensitivity/elasticity of the damping ratio to vital rate</span></span>
-<span class="r-in"><span class="co">#  perturbations</span></span>
-<span class="r-in"><span class="va">damping</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">matA</span><span class="op">)</span> <span class="op">{</span> <span class="co"># define function for damping ratio</span></span>
-<span class="r-in">  <span class="va">eig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">matA</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span>
-<span class="r-in">  <span class="va">dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html" class="external-link">rle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/complex.html" class="external-link">Mod</a></span><span class="op">(</span><span class="va">eig</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span>
-<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">dm</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">/</span> <span class="va">dm</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, demog_stat <span class="op">=</span> <span class="st">"damping"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate the sensitivity/elasticity of the damping ratio to vital rate</span></span></span>
+<span class="r-in"><span><span class="co">#  perturbations</span></span></span>
+<span class="r-in"><span><span class="va">damping</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">matA</span><span class="op">)</span> <span class="op">{</span> <span class="co"># define function for damping ratio</span></span></span>
+<span class="r-in"><span>  <span class="va">eig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></span><span class="op">(</span><span class="va">matA</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span></span>
+<span class="r-in"><span>  <span class="va">dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html" class="external-link">rle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/complex.html" class="external-link">Mod</a></span><span class="op">(</span><span class="va">eig</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">values</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">dm</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">/</span> <span class="va">dm</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">perturb_vr</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, demog_stat <span class="op">=</span> <span class="st">"damping"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survival</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3015607</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -254,7 +274,7 @@ fecundity</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clonality</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -269,7 +289,7 @@ fecundity</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

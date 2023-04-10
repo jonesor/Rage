@@ -20,7 +20,7 @@ of Caswell (2001).'><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -81,15 +81,16 @@ of Caswell (2001).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mpm_to_table</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  matF <span class="op">=</span> <span class="cn">NULL</span>,
-  matC <span class="op">=</span> <span class="cn">NULL</span>,
-  start <span class="op">=</span> <span class="fl">1L</span>,
-  xmax <span class="op">=</span> <span class="fl">1000</span>,
-  lx_crit <span class="op">=</span> <span class="fl">0.01</span>,
-  radix <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mpm_to_table</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  matF <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  matC <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  xmax <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  lx_crit <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  radix <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  remove_final <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,88 +100,132 @@ of Caswell (2001).</p>
 square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and/or retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.</p></dd>
+
+
 <dt>matF</dt>
 <dd><p>(Optional) The sexual component of a matrix population model
 (i.e., a square projection matrix reflecting transitions due to sexual
 reproduction). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></dd>
+
+
 <dt>matC</dt>
 <dd><p>(Optional) The clonal component of a matrix population model
 (i.e., a square projection matrix reflecting transitions due to clonal
 reproduction). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></dd>
+
+
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to <code>1</code>. Alternately, a numeric
 vector giving the starting population vector (in which case
 <code>length(start)</code> must match <code>ncol(matU))</code>. See section
 <em>Starting from multiple stages</em>.</p></dd>
+
+
 <dt>xmax</dt>
 <dd><p>Maximum age to which the life table will be calculated (defaults
 to <code>1000</code>). Time steps are in the same units as the matrix population
 model (see MatrixPeriodicity metadata variable COM(P)ADRE).</p></dd>
+
+
 <dt>lx_crit</dt>
 <dd><p>Minimum value of lx to which age-specific traits will be
 calculated (defaults to <code>0.01</code>).</p></dd>
+
+
 <dt>radix</dt>
 <dd><p>The starting number of individuals in the synthetic life table
 (defaults to <code>1</code>). If <code>radix</code> is set to 1, a simplified life
 table is produced.</p></dd>
+
+
+<dt>remove_final</dt>
+<dd><p>Life table calculations typically assume that the final
+age class is closed and that all individuals die in that age class. This
+can mean that mortality/hazard is artificially inflated for this age class.
+Users can prevent this by setting `remove_final` to `TRUE` (the default is
+`FALSE`).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>data.frame</code> containing a variable number columns, depending
+    
+
+<p>A <code>data.frame</code> containing a variable number columns, depending
   on input variables. Columns include:</p>
 <dl><dt>x</dt>
 <dd><p>age at the start of the age interval <code>[x, x+1)</code></p></dd>
-<dt>Nx</dt>
+
+  <dt>Nx</dt>
 <dd><p>The number of individuals alive at age x. The initial number is
   set with <code>radix</code></p></dd>
-<dt>Dx</dt>
+
+  <dt>Dx</dt>
 <dd><p>proportion of original cohort dying during the age interval <code>[x, x+1)</code></p></dd>
-<dt>lx</dt>
+
+  <dt>lx</dt>
 <dd><p>survivorship, defined as the proportion of initial cohort surviving to the start of
   age interval <code>[x, x+1)</code></p></dd>
-<dt>dx</dt>
+
+  <dt>dx</dt>
 <dd><p>proportion of original cohort dying in the age interval <code>[x, x+1)</code></p></dd>
-<dt>ax</dt>
+
+  <dt>ax</dt>
 <dd><p>The average time survived within the interval by those that die
   during the age interval <code>[x, x+1)</code>. Assumed to be 0.5</p></dd>
-<dt>hx</dt>
+
+  <dt>hx</dt>
 <dd><p>force of mortality (hazard) during the age interval <code>[x, x+1)</code></p></dd>
-<dt>qx</dt>
+
+  <dt>qx</dt>
 <dd><p>probability of death during the interval <code>[x, x+1)</code> for
   those entering the interval</p></dd>
-<dt>px</dt>
+
+  <dt>px</dt>
 <dd><p>probability of survival for the interval <code>[x, x+1)</code> for
   those entering the interval</p></dd>
-<dt>Lx</dt>
+
+  <dt>Lx</dt>
 <dd><p>total person-years lived during the interval <code>[x, x+1)</code></p></dd>
-<dt>Tx</dt>
+
+  <dt>Tx</dt>
 <dd><p>total person years lived beyond age x</p></dd>
-<dt>ex</dt>
+
+  <dt>ex</dt>
 <dd><p>remaining life expectancy at age x</p></dd>
+
+
 </dl><p>If <code>matF</code> is provided, also includes:</p>
 <dl><dt>mx</dt>
 <dd><p>per-capita rate of sexual reproduction during the interval
    <code>[x, x+1)</code></p></dd>
-<dt>lxmx</dt>
+
+  <dt>lxmx</dt>
 <dd><p>expected number of sexual offspring per original
   cohort member produced during the interval <code>[x, x+1)</code></p></dd>
+
+
 </dl><p>If <code>matC</code> is provided, also includes:</p>
 <dl><dt>cx</dt>
 <dd><p>per-capita rate of clonal reproduction  during the interval
   <code>[x, x+1)</code></p></dd>
-<dt>lxcx</dt>
+
+  <dt>lxcx</dt>
 <dd><p>expected number of clonal offspring per original
   cohort member produced during the interval <code>[x, x+1)</code></p></dd>
+
+
 </dl><p>If both <code>matF</code> and <code>matC</code> are provided, also includes:</p>
 <dl><dt>mxcx</dt>
 <dd><p>per-capita rate of total reproduction (sexual + clonal) during
   the interval <code>[x, x+1)</code></p></dd>
-<dt>lxmxcx</dt>
+
+  <dt>lxmxcx</dt>
 <dd><p>expected number of total offspring (sexual + clonal) per
   original cohort member produced during the interval <code>[x, x+1)</code></p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -194,7 +239,8 @@ table is produced.</p></dd>
   for this interval, the probability of death <code>qx</code> is 1, the probability
   of survival <code>px</code> is 0 and, because we assume that deaths are evenly
   distributed during the interval, the remaining life expectancy for
-  individuals at the start of the interval is 0.5.</p>
+  individuals at the start of the interval is 0.5. Depending on analyses, it
+  may be a good idea to remove the final row of the table.</p>
 <p>If <code>lx_crit</code> is sufficiently small that only a very small proportion
   of the cohort reach this age (i.e., &lt; 0.05), this should have minimal impact
   on results. Nevertheless, for many analyses, the final row of the life
@@ -257,9 +303,9 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x          lx          dx        hx        qx        px       ex</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 1.988484</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.476967</span>
@@ -274,7 +320,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 1.701265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 1.204688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13 12 0.008646119 0.008646119 2.0000000 1.0000000 0.0000000 0.500000</span>
-<span class="r-in"><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x          lx          dx        hx        qx        px       ex</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 1.988484</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.476967</span>
@@ -289,7 +335,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 1.701265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 1.204688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13 12 0.008646119 0.008646119 2.0000000 1.0000000 0.0000000 0.500000</span>
-<span class="r-in"><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x          lx          dx        hx        qx        px       ex       mx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 1.988484  0.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.476967 15.26600</span>
@@ -318,11 +364,11 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.4850211</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3417932</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.2408592</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### starting from first reproduction</span></span>
-<span class="r-in"><span class="va">repStages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repStages</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### starting from first reproduction</span></span></span>
+<span class="r-in"><span><span class="va">repStages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repStages</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x          lx          dx        hx        qx        px       ex</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 1.000000000 0.324210526 0.3869347 0.3242105 0.6757895 2.656634</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.675789474 0.226850000 0.4033861 0.3356815 0.6643185 2.691281</span>
@@ -352,7 +398,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

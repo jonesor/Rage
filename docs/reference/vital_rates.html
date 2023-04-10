@@ -21,7 +21,7 @@ life cycle."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -83,14 +83,14 @@ life cycle.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vital_rates</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  <span class="va">matF</span>,
-  matC <span class="op">=</span> <span class="cn">NULL</span>,
-  weights <span class="op">=</span> <span class="cn">NULL</span>,
-  splitStages <span class="op">=</span> <span class="st">"all"</span>,
-  matrixStages <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vital_rates</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  <span class="va">matF</span>,</span>
+<span>  matC <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  splitStages <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  matrixStages <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,19 +99,27 @@ life cycle.</p>
 <dd><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression).</p></dd>
+
+
 <dt>matF</dt>
 <dd><p>The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction)</p></dd>
+
+
 <dt>matC</dt>
 <dd><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
 Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.
 <code>matC</code> is a matrix of zeros).</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>Vector of stage-specific weights to apply while averaging
 vital rates. Default is <code>NULL</code> reflecting equal weighting for all
 stages. May also be <code>"SSD"</code> to weight vital rates by the stable
 distribution of <code>matA</code>.</p></dd>
+
+
 <dt>splitStages</dt>
 <dd><p>What groups should vital rates be averaged over. Either:</p>
 <p><code>"all"</code>: all stages grouped.</p>
@@ -120,14 +128,19 @@ with sexual reproduction) and adult stages.</p>
 <p><code>"matrixStages"</code>: group according to a standardized set of stage classes
 (propagule, active, and dormant). If <code>splitStages = "matrixStages"</code>,
 must also specify separate argument <code>matrixStages</code>.</p></dd>
+
+
 <dt>matrixStages</dt>
 <dd><p>Vector of stage-specific standardized matrix classes
 ("prop" for propagule, "active", and/or "dorm" for dormant). Only used if
 <code>splitStages = "matrixClass"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of averaged vital rates.</p>
+    
+
+<p>A list of averaged vital rates.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -149,29 +162,29 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1.1</span>, <span class="fl">1.6</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span>, <span class="fl">0.4</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Vital rate outputs without weights</span></span>
-<span class="r-in"><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1.1</span>, <span class="fl">1.6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.8</span>, <span class="fl">0.4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Vital rate outputs without weights</span></span></span>
+<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $surv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.675</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -187,7 +200,7 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"ontogeny"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"ontogeny"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survJuv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -215,10 +228,10 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cloAdu</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Group vital rates according to specified matrixStages</span></span>
-<span class="r-in"><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prop"</span>, <span class="st">"active"</span>, <span class="st">"active"</span>, <span class="st">"active"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"matrixStages"</span>, matrixStages <span class="op">=</span> <span class="va">ms</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Group vital rates according to specified matrixStages</span></span></span>
+<span class="r-in"><span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prop"</span>, <span class="st">"active"</span>, <span class="st">"active"</span>, <span class="st">"active"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"matrixStages"</span>, matrixStages <span class="op">=</span> <span class="va">ms</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survProp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -249,9 +262,9 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $progDorm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Vital rate outputs weighted by the stable stage distribution of 'matA'</span></span>
-<span class="r-in"><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"all"</span>, weights <span class="op">=</span> <span class="st">"SSD"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Vital rate outputs weighted by the stable stage distribution of 'matA'</span></span></span>
+<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"all"</span>, weights <span class="op">=</span> <span class="st">"SSD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $surv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6123886</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -267,7 +280,7 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $clo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.656062</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -282,7 +295,7 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
                         <h4 data-toc-skip class="author">Patrick
 Barks</h4>
             
-            <h4 data-toc-skip class="date">2023-01-21</h4>
+            <h4 data-toc-skip class="date">2023-04-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a04_AgeFromStage.Rmd" class="external-link"><code>vignettes/a04_AgeFromStage.Rmd</code></a></small>
       <div class="hidden name"><code>a04_AgeFromStage.Rmd</code></div>
@@ -117,24 +117,24 @@ age-specific schedules of survivorship (lx) and reproduction (mx) using
 <p>We’ll start by loading a few packages and a dataset that we’ll be
 using throughout this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span> <span class="co"># load Rage</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span> <span class="co"># load data object 'mpm1'</span>
-<span class="va">mpm1</span> <span class="co"># display the contents</span>
-<span class="co">#&gt; $matU</span>
-<span class="co">#&gt;         seed small medium large dormant</span>
-<span class="co">#&gt; seed    0.10  0.00   0.00  0.00    0.00</span>
-<span class="co">#&gt; small   0.05  0.12   0.10  0.00    0.00</span>
-<span class="co">#&gt; medium  0.00  0.35   0.12  0.23    0.12</span>
-<span class="co">#&gt; large   0.00  0.03   0.28  0.52    0.10</span>
-<span class="co">#&gt; dormant 0.00  0.00   0.16  0.11    0.17</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $matF</span>
-<span class="co">#&gt;         seed small medium large dormant</span>
-<span class="co">#&gt; seed       0     0   17.9  45.6       0</span>
-<span class="co">#&gt; small      0     0    0.0   0.0       0</span>
-<span class="co">#&gt; medium     0     0    0.0   0.0       0</span>
-<span class="co">#&gt; large      0     0    0.0   0.0       0</span>
-<span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span> <span class="co"># load Rage</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span> <span class="co"># load data object 'mpm1'</span></span>
+<span><span class="va">mpm1</span> <span class="co"># display the contents</span></span>
+<span><span class="co">#&gt; $matU</span></span>
+<span><span class="co">#&gt;         seed small medium large dormant</span></span>
+<span><span class="co">#&gt; seed    0.10  0.00   0.00  0.00    0.00</span></span>
+<span><span class="co">#&gt; small   0.05  0.12   0.10  0.00    0.00</span></span>
+<span><span class="co">#&gt; medium  0.00  0.35   0.12  0.23    0.12</span></span>
+<span><span class="co">#&gt; large   0.00  0.03   0.28  0.52    0.10</span></span>
+<span><span class="co">#&gt; dormant 0.00  0.00   0.16  0.11    0.17</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $matF</span></span>
+<span><span class="co">#&gt;         seed small medium large dormant</span></span>
+<span><span class="co">#&gt; seed       0     0   17.9  45.6       0</span></span>
+<span><span class="co">#&gt; small      0     0    0.0   0.0       0</span></span>
+<span><span class="co">#&gt; medium     0     0    0.0   0.0       0</span></span>
+<span><span class="co">#&gt; large      0     0    0.0   0.0       0</span></span>
+<span><span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="age-from-stage-methods-with-a-single-matrix-population-model">Age-from-stage methods with a single matrix population model<a class="anchor" aria-label="anchor" href="#age-from-stage-methods-with-a-single-matrix-population-model"></a>
@@ -145,22 +145,22 @@ age. Nonetheless, we can estimate age-schedules of survivorship and
 reproduction using the functions <code><a href="../reference/age_from_stage.html">mpm_to_lx()</a></code> and
 <code><a href="../reference/age_from_stage.html">mpm_to_mx()</a></code> from <code>Rage</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "seed"    "small"   "medium"  "large"   "dormant"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "seed"    "small"   "medium"  "large"   "dormant"</span>
-
-<span class="co"># extract U and F matrices</span>
-<span class="va">mat_U</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>
-<span class="va">mat_F</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>
-
-<span class="co"># calculate lx</span>
-<span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mat_U</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
-
-<span class="co"># calculate mx</span>
-<span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mat_U</span>, <span class="va">mat_F</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "seed"    "small"   "medium"  "large"   "dormant"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] "seed"    "small"   "medium"  "large"   "dormant"</span></span>
+<span></span>
+<span><span class="co"># extract U and F matrices</span></span>
+<span><span class="va">mat_U</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span></span>
+<span><span class="va">mat_F</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span></span>
+<span></span>
+<span><span class="co"># calculate lx</span></span>
+<span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mat_U</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calculate mx</span></span>
+<span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mat_U</span>, <span class="va">mat_F</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
 <p>In addition to the relevant matrix components, the
 <code>mpm_to_*</code> functions require two extra arguments. The first,
 <code>start</code>, is an integer indicating which stage reflects the
@@ -171,17 +171,17 @@ start from the second stage, corresponding to <code>start = 2</code>.
 The second argument, <code>N</code> is the number of time steps to
 calculate over.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate lx</span>
-<span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mat_U</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
-
-<span class="co"># calculate mx</span>
-<span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mat_U</span>, <span class="va">mat_F</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># calculate lx</span></span>
+<span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mat_U</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calculate mx</span></span>
+<span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mat_U</span>, <span class="va">mat_F</span>, start <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s take a look at the trajectories.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lx</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lx</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a04_AgeFromStage_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mx</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mx</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Age"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a04_AgeFromStage_files/figure-html/unnamed-chunk-4-2.png" width="576"></p>
 </div>
 <div class="section level2">
@@ -199,32 +199,33 @@ can use to demonstrate computations on many models simultaneously.</p>
 missing values, and limit our selection to matrices with a periodicity
 (i.e. transition interval) of 1 year.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rcompadre" class="external-link">Rcompadre</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span>
-
-<span class="co"># In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.</span>
-<span class="kw">if</span> <span class="op">(</span><span class="st">"AnnualPeriodicity"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">Compadre</span><span class="op">$</span><span class="va">ProjectionInterval</span> <span class="op">&lt;-</span> <span class="va">Compadre</span><span class="op">$</span><span class="va">AnnualPeriodicity</span>
-<span class="op">}</span>
-
-<span class="va">comp_flag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html" class="external-link">cdb_flag</a></span><span class="op">(</span><span class="va">Compadre</span>, <span class="st">"check_NA_U"</span><span class="op">)</span>
-
-<span class="va">comp_use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">comp_flag</span>, <span class="va">OrganismType</span> <span class="op">==</span> <span class="st">"Tree"</span> <span class="op">&amp;</span>
-  <span class="va">check_NA_U</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span>
-  <span class="va">ProjectionInterval</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rcompadre" class="external-link">Rcompadre</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="st">"AnnualPeriodicity"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Compadre</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">Compadre</span><span class="op">$</span><span class="va">ProjectionInterval</span> <span class="op">&lt;-</span> <span class="va">Compadre</span><span class="op">$</span><span class="va">AnnualPeriodicity</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">comp_flag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_flag.html" class="external-link">cdb_flag</a></span><span class="op">(</span><span class="va">Compadre</span>, <span class="st">"check_NA_U"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">comp_use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">comp_flag</span>, <span class="va">OrganismType</span> <span class="op">==</span> <span class="st">"Tree"</span> <span class="op">&amp;</span></span>
+<span>  <span class="va">check_NA_U</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">&amp;</span></span>
+<span>  <span class="va">ProjectionInterval</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s take a look at the species/populations that made the cut.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html" class="external-link">CompadreData</a></span><span class="op">(</span><span class="va">comp_use</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 3</span></span>
-<span class="co">#&gt;   SpeciesAccepted          MatrixPopulation                      MatrixTreatment</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife … Fruit harvesti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife … Fruit harvesti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Castanea dentata         Leelanau                              Unmanipulated  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Phyllanthus emblica      Biligiri Rangaswamy Temple Wildlife … Time since las…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife … Unmanipulated  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Manilkara zapota         Central Veracruz state                Unmanipulated  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Rhododendron ponticum    Ockham Common Nature Reserve          Unmanipulated</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html" class="external-link">CompadreData</a></span><span class="op">(</span><span class="va">comp_use</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 3</span></span></span>
+<span><span class="co">#&gt;   SpeciesAccepted          MatrixPopulation                              Matri…¹</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife Sanctuary Fruit …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife Sanctuary Fruit …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Castanea dentata         Leelanau                                      Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Phyllanthus emblica      Biligiri Rangaswamy Temple Wildlife Sactuary  Time s…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife Sanctuary Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Manilkara zapota         Central Veracruz state                        Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Rhododendron ponticum    Ockham Common Nature Reserve                  Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​MatrixTreatment</span></span></span></code></pre></div>
 <p>Notice that there are 3 matrices for the species <em>Phyllanthus
 indofischeri</em>, reflecting different treatment groups. Let’s collapse
 these replicates down to a single matrix per species, by averaging the
@@ -232,47 +233,48 @@ relevant MPMs using <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_collaps
 function <code><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_id_stages.html" class="external-link">cdb_id_stages()</a></code>, to make sure we’re only
 collapsing matrices that have the same stage class definitions.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># add column ID-ing matrices with same MatrixClassAuthor vector</span>
-<span class="va">comp_use</span><span class="op">$</span><span class="va">stage_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_id_stages.html" class="external-link">cdb_id_stages</a></span><span class="op">(</span><span class="va">comp_use</span><span class="op">)</span>
-
-<span class="co"># collapse database to single matrix per species * MatrixClassAuthor</span>
-<span class="va">comp_collapse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_collapse.html" class="external-link">cdb_collapse</a></span><span class="op">(</span><span class="va">comp_use</span>, <span class="st">"stage_id"</span><span class="op">)</span>
-
-<span class="co"># check species/populations again</span>
-<span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html" class="external-link">CompadreData</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span>
-<span class="co">#&gt;   SpeciesAccepted          MatrixPopulation                      MatrixTreatment</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife … Fruit harvesti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Castanea dentata         Leelanau                              Unmanipulated  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Phyllanthus emblica      Biligiri Rangaswamy Temple Wildlife … Time since las…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Manilkara zapota         Central Veracruz state                Unmanipulated  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Rhododendron ponticum    Ockham Common Nature Reserve          Unmanipulated</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># add column ID-ing matrices with same MatrixClassAuthor vector</span></span>
+<span><span class="va">comp_use</span><span class="op">$</span><span class="va">stage_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_id_stages.html" class="external-link">cdb_id_stages</a></span><span class="op">(</span><span class="va">comp_use</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># collapse database to single matrix per species * MatrixClassAuthor</span></span>
+<span><span class="va">comp_collapse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/cdb_collapse.html" class="external-link">cdb_collapse</a></span><span class="op">(</span><span class="va">comp_use</span>, <span class="st">"stage_id"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># check species/populations again</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreDB.html" class="external-link">CompadreData</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SpeciesAccepted"</span>, <span class="st">"MatrixPopulation"</span>, <span class="st">"MatrixTreatment"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span></span>
+<span><span class="co">#&gt;   SpeciesAccepted          MatrixPopulation                              Matri…¹</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Phyllanthus indofischeri Biligiri Rangaswamy Temple Wildlife Sanctuary Fruit …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Castanea dentata         Leelanau                                      Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Phyllanthus emblica      Biligiri Rangaswamy Temple Wildlife Sactuary  Time s…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Manilkara zapota         Central Veracruz state                        Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Rhododendron ponticum    Ockham Common Nature Reserve                  Unmani…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​MatrixTreatment</span></span></span></code></pre></div>
 <p>Next, let’s look at the organized stage classes for each MPM. If any
 of our MPMs include propagule or dormant stage classes, we may want to
 account for them when calculating lx.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html" class="external-link">MatrixClassOrganized</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "prop"   "active" "active" "active" "active" "active" "active"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active" "active" "active"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active" "active" "active"</span>
-<span class="co">#&gt; [9] "active"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt; [1] "active" "active" "active" "active"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html" class="external-link">MatrixClassOrganized</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "prop"   "active" "active" "active" "active" "active" "active"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active" "active" "active"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] "active" "active" "active" "active" "active" "active" "active" "active"</span></span>
+<span><span class="co">#&gt; [9] "active"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[5]]</span></span>
+<span><span class="co">#&gt; [1] "active" "active" "active" "active"</span></span></code></pre></div>
 <p>Indeed, 1 MPM includes a propagule stage. So let’s use the function
 <code><a href="https://rdrr.io/pkg/Rcompadre/man/mpm_methods.html" class="external-link">mpm_first_active()</a></code> to determine the first ‘active’ stage
 class for each MPM, which we’ll use to define the start of life.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">comp_collapse</span><span class="op">$</span><span class="va">start_life</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/mpm_methods.html" class="external-link">mpm_first_active</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">comp_collapse</span><span class="op">$</span><span class="va">start_life</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/mpm_methods.html" class="external-link">mpm_first_active</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we’ll use <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> to apply the function
 <code>mpm_to_lx</code> to each row of <code>comp_collapse</code>. By
 default, <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> will return a vector for each row, and
@@ -282,30 +284,29 @@ an matrix, with columns representing each row from
 use the function <code><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot()</a></code> to plot age-trajectories of
 survivorship for each species.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">lx_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span><span class="op">)</span>,
-  <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">comp_collapse</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">U</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html" class="external-link">matU</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">$</span><span class="va">mat</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-
-    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">U</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">U</span><span class="op">)</span> <span class="co"># ensure row and col names are present</span>
-
-    <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>
-      matU <span class="op">=</span> <span class="va">U</span>,
-      start <span class="op">=</span> <span class="va">comp_collapse</span><span class="op">$</span><span class="va">start_life</span><span class="op">[</span><span class="va">x</span><span class="op">]</span>,
-      xmax <span class="op">=</span> <span class="fl">40</span>
-    <span class="op">)</span>
-  <span class="op">}</span>,
-  comp_collapse <span class="op">=</span> <span class="va">comp_collapse</span>
-<span class="op">)</span>
-
-<span class="va">lx_array</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">lx_list</span><span class="op">)</span>
-<span class="co">#&gt; Warning in (function (..., deparse.level = 1) : number of rows of result is not</span>
-<span class="co">#&gt; a multiple of vector length (arg 3)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">lx_array</span>,
-  type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, log <span class="op">=</span> <span class="st">"y"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0001</span>, <span class="fl">1</span><span class="op">)</span>,
-  lwd <span class="op">=</span> <span class="fl">1.5</span>, xlab <span class="op">=</span> <span class="st">"Age (years)"</span>, ylab <span class="op">=</span> <span class="st">"lx"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lx_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">comp_collapse</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">U</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Rcompadre/man/CompadreMatrixMethods.html" class="external-link">matU</a></span><span class="op">(</span><span class="va">comp_collapse</span><span class="op">$</span><span class="va">mat</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">U</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">U</span><span class="op">)</span> <span class="co"># ensure row and col names are present</span></span>
+<span></span>
+<span>    <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span></span>
+<span>      matU <span class="op">=</span> <span class="va">U</span>,</span>
+<span>      start <span class="op">=</span> <span class="va">comp_collapse</span><span class="op">$</span><span class="va">start_life</span><span class="op">[</span><span class="va">x</span><span class="op">]</span>,</span>
+<span>      xmax <span class="op">=</span> <span class="fl">40</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  comp_collapse <span class="op">=</span> <span class="va">comp_collapse</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lx_array</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">lx_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in (function (..., deparse.level = 1) : number of rows of result is not</span></span>
+<span><span class="co">#&gt; a multiple of vector length (arg 3)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">lx_array</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l"</span>, lty <span class="op">=</span> <span class="fl">1</span>, log <span class="op">=</span> <span class="st">"y"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0001</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">1.5</span>, xlab <span class="op">=</span> <span class="st">"Age (years)"</span>, ylab <span class="op">=</span> <span class="st">"lx"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="a04_AgeFromStage_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 </div>
 <div class="section level2">
@@ -334,7 +335,7 @@ ISBN-10: 0878930965</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

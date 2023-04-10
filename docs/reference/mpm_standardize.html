@@ -22,7 +22,7 @@ class expected at the stable distribution."><!-- mathjax --><script src="https:/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -85,9 +85,9 @@ class expected at the stable distribution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mpm_standardize</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, matC <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span>
-
-<span class="fu">mpm_standardise</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, matC <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mpm_standardize</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, matC <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mpm_standardise</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, matC <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,34 +96,49 @@ class expected at the stable distribution.</p>
 <dd><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression).</p></dd>
+
+
 <dt>matF</dt>
 <dd><p>The sexual component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to sexual reproduction).</p></dd>
+
+
 <dt>matC</dt>
 <dd><p>The clonal component of a matrix population model (i.e., a square
 projection matrix reflecting transitions due to clonal reproduction).
-Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e., 
+Defaults to <code>NULL</code>, indicating no clonal reproduction (i.e.,
 <code>matC</code> is a matrix of zeros).</p></dd>
+
+
 <dt>repro_stages</dt>
-<dd><p>Logical vector of length <code>ncol(matU)</code> indicating 
-which stages are reproductive. Alternatively, a vector of stage indices or 
+<dd><p>Logical vector of length <code>ncol(matU)</code> indicating
+which stages are reproductive. Alternatively, a vector of stage indices or
 stage names of the reproductive classes.</p></dd>
+
+
 <dt>matrix_stages</dt>
 <dd><p>Character vector of matrix stage types (e.g., "propagule",
 "active", or "dormant").</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with four elements reflecting the standardized matrix and
+    
+
+<p>A list with four elements reflecting the standardized matrix and
   its components:</p>
 <dl><dt>matA</dt>
 <dd><p>Standardized projection matrix</p></dd>
-<dt>matU</dt>
+
+  <dt>matU</dt>
 <dd><p>Survival component of the standardized projection matrix</p></dd>
-<dt>matF</dt>
+
+  <dt>matF</dt>
 <dd><p>Sexual reproduction component of the standardized projection matrix</p></dd>
-<dt>matC</dt>
+
+  <dt>matC</dt>
 <dd><p>Clonal reproduction component of the standardized projection matrix</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -165,28 +180,34 @@ row/column of the standardized matrix will be coerced to <code>NA</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">1.1</span>,   <span class="fl">0</span>, <span class="fl">1.6</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.8</span>,   <span class="fl">0</span>, <span class="fl">0.4</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.6</span>,   <span class="fl">0</span>, <span class="fl">0.5</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.1</span>,   <span class="fl">0</span>, <span class="fl">0.3</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">repro_stages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">matrix_stages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'prop'</span>, <span class="st">'active'</span>, <span class="st">'active'</span>, <span class="st">'active'</span>, <span class="st">'active'</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">mpm_standardize</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.1</span>, <span class="fl">0</span>, <span class="fl">1.6</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span>, <span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">repro_stages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">matrix_stages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prop"</span>, <span class="st">"active"</span>, <span class="st">"active"</span>, <span class="st">"active"</span>, <span class="st">"active"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">mpm_standardize</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, <span class="va">repro_stages</span>, <span class="va">matrix_stages</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               propStages preRepStages  repStages postRepStages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> propStages           0.1           NA 1.39996142      1.953150</span>
@@ -215,7 +236,7 @@ row/column of the standardized matrix will be coerced to <code>NA</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> repStages              0           NA 0.08235067     0.2790214</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> postRepStages          0           NA 0.00000000     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -230,7 +251,7 @@ row/column of the standardized matrix will be coerced to <code>NA</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
