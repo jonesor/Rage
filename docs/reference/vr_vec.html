@@ -27,7 +27,7 @@ also allowed."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -95,67 +95,77 @@ also allowed.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vr_vec_survival</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, exclude_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">vr_vec_growth</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>,
-  exclude <span class="op">=</span> <span class="cn">NULL</span>,
-  exclude_row <span class="op">=</span> <span class="cn">NULL</span>,
-  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,
-  surv_only_na <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">vr_vec_shrinkage</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>,
-  exclude <span class="op">=</span> <span class="cn">NULL</span>,
-  exclude_row <span class="op">=</span> <span class="cn">NULL</span>,
-  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,
-  surv_only_na <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">vr_vec_stasis</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, exclude <span class="op">=</span> <span class="cn">NULL</span>, surv_only_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">vr_vec_dorm_enter</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">dorm_stages</span><span class="op">)</span>
-
-<span class="fu">vr_vec_dorm_exit</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">dorm_stages</span><span class="op">)</span>
-
-<span class="fu">vr_vec_reproduction</span><span class="op">(</span>
-  <span class="va">matU</span>,
-  <span class="va">matR</span>,
-  posR <span class="op">=</span> <span class="va">matR</span> <span class="op">&gt;</span> <span class="fl">0</span>,
-  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,
-  weights_row <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vr_vec_survival</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, exclude_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_growth</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>,</span>
+<span>  exclude <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  exclude_row <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  surv_only_na <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_shrinkage</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>,</span>
+<span>  exclude <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  exclude_row <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  surv_only_na <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_stasis</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, exclude <span class="op">=</span> <span class="cn">NULL</span>, surv_only_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_dorm_enter</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">dorm_stages</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_dorm_exit</span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">dorm_stages</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vr_vec_reproduction</span><span class="op">(</span></span>
+<span>  <span class="va">matU</span>,</span>
+<span>  <span class="va">matR</span>,</span>
+<span>  posR <span class="op">=</span> <span class="va">matR</span> <span class="op">&gt;</span> <span class="fl">0</span>,</span>
+<span>  exclude_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weights_row <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>matU</dt>
 <dd><p>The survival component of a matrix population model (i.e., a
-square projection matrix only containing survival-related transitions; 
+square projection matrix only containing survival-related transitions;
 progression, stasis, and retrogression).</p></dd>
+
+
 <dt>posU</dt>
 <dd><p>A logical matrix of the same dimension as <code>matU</code>, with
 elements indicating whether a given <code>matU</code> transition is possible
 (<code>TRUE</code>) or not (<code>FALSE</code>). Defaults to <code>matU &gt; 0</code> (see
 Details).</p></dd>
+
+
 <dt>exclude_col</dt>
-<dd><p>Integer, character or logical vector indicating stages for 
-which transitions both <em>to</em> and <em>from</em> the stage should be 
-excluded from the calculation of vital rates. See section 
+<dd><p>Integer, character or logical vector indicating stages for
+which transitions both <em>to</em> and <em>from</em> the stage should be
+excluded from the calculation of vital rates. See section
 <em>Excluding stages</em>.</p></dd>
+
+
 <dt>exclude</dt>
-<dd><p>Integer, character or logical vector indicating stages for 
-which transitions both <em>to</em> and <em>from</em> the stage should be 
-excluded from the calculation of vital rates. See section 
+<dd><p>Integer, character or logical vector indicating stages for
+which transitions both <em>to</em> and <em>from</em> the stage should be
+excluded from the calculation of vital rates. See section
 <em>Excluding stages</em>.</p></dd>
+
+
 <dt>exclude_row</dt>
-<dd><p>Integer, character or logical vector indicating stages for 
-which transitions both <em>to</em> and <em>from</em> the stage should be 
-excluded from the calculation of vital rates. See section 
+<dd><p>Integer, character or logical vector indicating stages for
+which transitions both <em>to</em> and <em>from</em> the stage should be
+excluded from the calculation of vital rates. See section
 <em>Excluding stages</em>.</p></dd>
+
+
 <dt>surv_only_na</dt>
 <dd><p>If there is only one possible <code>matU</code> transition in a
 given column, should that transition be attributed exclusively to survival?
@@ -163,25 +173,36 @@ If <code>TRUE</code>, the vital rate of growth/stasis/shrinkage in that column
 will be coerced to <code>NA</code>. If <code>FALSE</code>, dividing the single
 transition by the stage-specific survival probability will always yield a
 value of <code>1</code>. Defaults to <code>TRUE</code>.</p></dd>
+
+
 <dt>dorm_stages</dt>
-<dd><p>Integer or character vector indicating dormant stage 
+<dd><p>Integer or character vector indicating dormant stage
 classes.</p></dd>
+
+
 <dt>matR</dt>
 <dd><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction; either
 sexual, clonal, or both).</p></dd>
+
+
 <dt>posR</dt>
 <dd><p>A logical matrix of the same dimension as <code>matR</code>, with
 elements indicating whether a given <code>matR</code> transition is possible
 (<code>TRUE</code>) or not (<code>FALSE</code>). Defaults to <code>matR &gt; 0</code> (see
 Details).</p></dd>
+
+
 <dt>weights_row</dt>
 <dd><p>Vector of stage-specific weights to apply while summing
 vital rates across rows within columns (e.g., reproductive value vector).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Vector of vital rates. Vital rates corresponding to impossible
+    
+
+<p>Vector of vital rates. Vital rates corresponding to impossible
   transitions are coerced to <code>NA</code> (see <em>Possible transitions</em>).</p>
     </div>
     <div id="possible-transitions">
@@ -209,8 +230,8 @@ arguments manually.</p>
     
 
 <p>It may be desirable to exclude one or more stages from the calculation of
-certain vital rates. For instance, a user might not believe that 'growth' to 
-a dormant stage class really reflects biological growth, in which case the user 
+certain vital rates. For instance, a user might not believe that 'growth' to
+a dormant stage class really reflects biological growth, in which case the user
 could exclude transitions <em>to</em> the dormant stage class using the argument
 <code>exclude_row</code>. The user may or may not want to ignore 'growth' transitions
 <em>from</em> the dormant stage class, which can be done using
@@ -233,44 +254,48 @@ given set of stages, use argument <code>exclude</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create example MPM (stage 4 is dormant)</span></span>
-<span class="r-in"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">matR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">vr_vec_survival</span><span class="op">(</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create example MPM (stage 4 is dormant)</span></span></span>
+<span class="r-in"><span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">matR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0.8</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">vr_vec_survival</span><span class="op">(</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6 0.5 0.9  NA</span>
-<span class="r-in"><span class="fu">vr_vec_growth</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">vr_vec_growth</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8333333 0.6000000        NA        NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># `exclude*` and `*_stages` arguments can accept stage names</span></span>
-<span class="r-in"><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">matR</span> <span class="op">&lt;-</span> <span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matR</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">vr_vec_shrinkage</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># `exclude*` and `*_stages` arguments can accept stage names</span></span></span>
+<span class="r-in"><span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">matR</span> <span class="op">&lt;-</span> <span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matR</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vr_vec_shrinkage</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stage_1   stage_2   stage_3   stage_4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA 0.1111111        NA </span>
-<span class="r-in"><span class="fu">vr_vec_stasis</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">vr_vec_stasis</span><span class="op">(</span><span class="va">matU</span>, exclude <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stage_1   stage_2   stage_3   stage_4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.4000000 0.3333333        NA </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">vr_vec_dorm_enter</span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">vr_vec_dorm_enter</span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stage_1   stage_2   stage_3   stage_4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA 0.5555556        NA </span>
-<span class="r-in"><span class="fu">vr_vec_dorm_exit</span><span class="op">(</span><span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>, dorm_stages <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">vr_vec_dorm_exit</span><span class="op">(</span><span class="fu"><a href="name_stages.html">name_stages</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>, dorm_stages <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Existing stage names have been overwritten!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stage_1   stage_2   stage_3   stage_4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        NA        NA        NA 0.3333333 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">vr_vec_reproduction</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, exclude_col <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">vr_vec_reproduction</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, exclude_col <span class="op">=</span> <span class="st">"stage_4"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  stage_1  stage_2  stage_3  stage_4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       NA 2.000000 2.111111       NA </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -285,7 +310,7 @@ given set of stages, use argument <code>exclude</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -70,7 +70,7 @@ The time required for a cohort to reach its QSD depends on the initial
   long-term equilibrium traits are independent of the initial population
   vector). However, methods for efficiently calculating the stationary stage
   distribution (SSD) generally do require ergodicity.
-  
+
   If the supplied matrix (\code{mat}) is non-ergodic, \code{qsd_converge}
   first checks for stage classes with no connection (of any degree) from the
   starting stage class specified by argument \code{start}, and strips such
@@ -87,7 +87,7 @@ data(mpm1)
 
 # starting stage = 2 (i.e., "small")
 qsd_converge(mpm1$matU, start = 2)
-qsd_converge(mpm1$matU, start = "small")  # equivalent using named life stages
+qsd_converge(mpm1$matU, start = "small") # equivalent using named life stages
 
 # convergence threshold = 0.001
 qsd_converge(mpm1$matU, start = 2, conv = 0.001)

@@ -1,5 +1,5 @@
 #' Identify which stages in a matrix population model are reproductive
-#' 
+#'
 #' Takes a reproductive matrix and returns a vector of logical values
 #' (\code{TRUE}/\code{FALSE}) indicating which stages are reproductive (i.e.,
 #' exhibit any positive values for reproduction). This function is a preparatory
@@ -21,39 +21,42 @@
 #'   of \code{NA}, the function will return \code{NA} if \code{na_handling ==
 #'   "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
 #'   \code{FALSE} if \code{na_handling == "return.false"}.
-#'   
+#'
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
-#' 
+#'
 #' @family transformation
-#' 
+#'
 #' @examples
-#' matR1 <- rbind(c( 0, 0.2,   0, 0.5),
-#'                c( 0, 0.3,   0, 0.6),
-#'                c( 0,   0,   0,   0),
-#'                c( 0,   0,   0,   0))
-#' 
-#' matR2 <- rbind(c(NA,  NA,  NA, 1.1),
-#'                c( 0,   0, 0.3, 0.7),
-#'                c( 0,   0,   0,   0),
-#'                c( 0,   0,   0,   0))
+#' matR1 <- rbind(
+#'   c(0, 0.2, 0, 0.5),
+#'   c(0, 0.3, 0, 0.6),
+#'   c(0, 0, 0, 0),
+#'   c(0, 0, 0, 0)
+#' )
+#'
+#' matR2 <- rbind(
+#'   c(NA, NA, NA, 1.1),
+#'   c(0, 0, 0.3, 0.7),
+#'   c(0, 0, 0, 0),
+#'   c(0, 0, 0, 0)
+#' )
 #'
 #' repro_stages(matR1)
-#' 
+#'
 #' # compare different methods for handling NA
 #' repro_stages(matR2, na_handling = "return.na")
 #' repro_stages(matR2, na_handling = "return.true")
 #' repro_stages(matR2, na_handling = "return.false")
 #' @export repro_stages
 repro_stages <- function(matR, na_handling = "return.true") {
-  
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na_handling %in% c("return.na", "return.true", "return.false")) {
-    stop(strwrap(prefix = " ", initial = "", "Argument na_handling must be either 'return.na', 
+    stop(strwrap(prefix = " ", initial = "", "Argument na_handling must be either 'return.na',
                  'return.true', or 'return.false'.\n"), call. = FALSE)
   }
-  
+
   if (!any(is.na(matR))) {
     reproStages <- apply(matR, 2, function(x) ifelse(any(x > 0), TRUE, FALSE))
   } else if (na_handling == "return.na") {
@@ -68,6 +71,6 @@ repro_stages <- function(matR, na_handling = "return.true") {
     matR[which(is.na(matR))] <- 0
     reproStages <- apply(matR, 2, function(x) ifelse(any(x > 0), TRUE, FALSE))
   }
-  
+
   return(reproStages)
 }

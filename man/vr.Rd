@@ -64,22 +64,22 @@ elements indicating whether a given \code{matU} transition is possible
 (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
 \emph{Possible transitions}).}
 
-\item{exclude_col}{Integer, character or logical vector indicating stages for 
-which transitions both \emph{to} and \emph{from} the stage should be 
-excluded from the calculation of vital rates. See section 
+\item{exclude_col}{Integer, character or logical vector indicating stages for
+which transitions both \emph{to} and \emph{from} the stage should be
+excluded from the calculation of vital rates. See section
 \emph{Excluding stages}.}
 
 \item{weights_col}{Vector of stage-specific weights to apply while averaging
 vital rates across columns. See section \emph{Weighting stages}.}
 
-\item{exclude}{Integer, character or logical vector indicating stages for 
-which transitions both \emph{to} and \emph{from} the stage should be 
-excluded from the calculation of vital rates. See section 
+\item{exclude}{Integer, character or logical vector indicating stages for
+which transitions both \emph{to} and \emph{from} the stage should be
+excluded from the calculation of vital rates. See section
 \emph{Excluding stages}.}
 
-\item{exclude_row}{Integer, character or logical vector indicating stages for 
-which transitions both \emph{to} and \emph{from} the stage should be 
-excluded from the calculation of vital rates. See section 
+\item{exclude_row}{Integer, character or logical vector indicating stages for
+which transitions both \emph{to} and \emph{from} the stage should be
+excluded from the calculation of vital rates. See section
 \emph{Excluding stages}.}
 
 \item{surv_only_na}{If there is only one possible \code{matU} transition in a
@@ -181,15 +181,19 @@ set of stages, use argument \code{exclude}.
 
 \examples{
 # create example MPM (stage 4 is dormant)
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1, 0.1),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.4))
+matU <- rbind(
+  c(0.1, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0.1),
+  c(0, 0.3, 0.3, 0.1),
+  c(0, 0, 0.5, 0.4)
+)
 
-matF <- rbind(c(  0,   0.7, 1.1, 0),
-              c(  0,   0.3, 0.8, 0),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+matF <- rbind(
+  c(0, 0.7, 1.1, 0),
+  c(0, 0.3, 0.8, 0),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
 vr_survival(matU, exclude_col = 4)
 vr_growth(matU, exclude = 4)

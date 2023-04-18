@@ -57,31 +57,37 @@ reproduction, with various options for weighting and grouping stages of the
 life cycle.
 }
 \examples{
-matU <- rbind(c(0.1,   0,   0,   0),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+matU <- rbind(
+  c(0.1, 0, 0, 0),
+  c(0.5, 0.2, 0.1, 0),
+  c(0, 0.3, 0.3, 0.1),
+  c(0, 0, 0.5, 0.6)
+)
 
-matF <- rbind(c(  0,   0, 1.1, 1.6),
-              c(  0,   0, 0.8, 0.4),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
-              
-matC <- rbind(c(  0,   0, 0.4, 0.5),
-              c(  0,   0, 0.3, 0.1),
-              c(  0,   0,   0,   0),
-              c(  0,   0,   0,   0))
+matF <- rbind(
+  c(0, 0, 1.1, 1.6),
+  c(0, 0, 0.8, 0.4),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
+
+matC <- rbind(
+  c(0, 0, 0.4, 0.5),
+  c(0, 0, 0.3, 0.1),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 
 # Vital rate outputs without weights
-vital_rates(matU, matF, matC, splitStages = 'all')
-vital_rates(matU, matF, matC, splitStages = 'ontogeny')
+vital_rates(matU, matF, matC, splitStages = "all")
+vital_rates(matU, matF, matC, splitStages = "ontogeny")
 
 # Group vital rates according to specified matrixStages
-ms <- c('prop', 'active', 'active', 'active')
-vital_rates(matU, matF, matC, splitStages = 'matrixStages', matrixStages = ms)
+ms <- c("prop", "active", "active", "active")
+vital_rates(matU, matF, matC, splitStages = "matrixStages", matrixStages = ms)
 
 # Vital rate outputs weighted by the stable stage distribution of 'matA'
-vital_rates(matU, matF, matC, splitStages = 'all', weights = 'SSD')
+vital_rates(matU, matF, matC, splitStages = "all", weights = "SSD")
 
 }
 \references{

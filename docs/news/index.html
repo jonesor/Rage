@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -70,8 +70,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="rage-development-version">Rage (development version)<a class="anchor" aria-label="anchor" href="#rage-development-version"></a></h2>
-</div>
+<h2 class="page-header" data-toc-text="1.4.0" id="rage-140">Rage 1.4.0<a class="anchor" aria-label="anchor" href="#rage-140"></a></h2>
+<ul><li>
+<code>entropy_d</code> <code>entropy_k</code> <code>shape_rep</code> and <code>shape_surv</code> can now accept matrices directly. In previous versions, these functions required input of <code>lx</code> and/or <code>mx</code> trajectories, but now the functions can optionally use <code>mpm_to_...</code> functions to create these vectors internally (<a href="https://github.com/jonesor/Rage/issues/174" class="external-link">#174</a>).</li>
+<li>added <code>remove_final</code> argument to <code>mpm_to_table</code> function. This allows users to optionally remove the final row of the life table to prevent the artificial inflation of mortality/hazard caused by the fact that the final age-class is assumed to be closed (and hence all individuals must die).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.3.0" id="rage-130">Rage 1.3.0<small>2023-01-17</small><a class="anchor" aria-label="anchor" href="#rage-130"></a></h2>
+<ul><li><p>Fixed an error in the <code>entropy_d</code> function, which calculates Demetrius’s entropy.</p></li>
+<li><p>Added two methods to calculate generation time in <code>gen_time</code>: average parent-offspring age difference &amp; expected age at first reproduction (<a href="https://github.com/jonesor/Rage/issues/183" class="external-link">#183</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.0" id="rage-120">Rage 1.2.0<small>2021-10-15</small><a class="anchor" aria-label="anchor" href="#rage-120"></a></h2>
 <ul><li>Improved documentation of <code>mpm_to_table</code> and related functions.</li>
@@ -129,7 +137,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

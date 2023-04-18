@@ -20,7 +20,7 @@ survivorship (lx) and fecundity (mx)."><!-- mathjax --><script src="https://cdnj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -80,20 +80,32 @@ survivorship (<code>lx</code>) and fecundity (<code>mx</code>).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">entropy_d</span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">entropy_d</span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>lx</dt>
-<dd><p>Age-specific survivorship trajectory (a vector of
-monotonically-declining values in the interval [0,1]).</p></dd>
+<dd><p>Either a survivorship trajectory (a vector of
+monotonically-declining values in the interval [0,1]), or submatrix U from
+a matrix population model.</p></dd>
+
+
 <dt>mx</dt>
-<dd><p>Age-specific fecundity trajectory (a vector of non-negative values).</p></dd>
+<dd><p>Either an age-specific fecundity trajectory (a vector of
+non-negative values), or submatrix U from a matrix population model.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the
+data are supplied as matrices.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Demetrius' entropy.</p>
+    
+
+<p>Demetrius' entropy.</p>
     </div>
     <div id="warning">
     <h2>Warning</h2>
@@ -128,16 +140,20 @@ monotonically-declining values in the interval [0,1]).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># derive trajectories of lx and mx, starting from stage 2</span></span>
-<span class="r-in"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate Demetrius' entropy</span></span>
-<span class="r-in"><span class="fu">entropy_d</span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.426434</span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># derive trajectories of lx and mx, starting from stage 2</span></span></span>
+<span class="r-in"><span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate Demetrius' entropy</span></span></span>
+<span class="r-in"><span><span class="fu">entropy_d</span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.062862</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate Demetrius' entropy directly from MPM</span></span></span>
+<span class="r-in"><span><span class="fu">entropy_d</span><span class="op">(</span>lx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.062862</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +168,7 @@ monotonically-declining values in the interval [0,1]).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

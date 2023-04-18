@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
                         <h4 data-toc-skip class="author">Patrick
 Barks</h4>
             
-            <h4 data-toc-skip class="date">2022-05-14</h4>
+            <h4 data-toc-skip class="date">2023-04-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a02_VitalRates.Rmd" class="external-link"><code>vignettes/a02_VitalRates.Rmd</code></a></small>
       <div class="hidden name"><code>a02_VitalRates.Rmd</code></div>
@@ -124,48 +124,52 @@ census design. The vital rates may be summarized across the entire MPM
 <h2 id="preliminaries-constructing-an-mpm-from-lower-level-vital-rates">Preliminaries: Constructing an MPM from lower-level vital rates<a class="anchor" aria-label="anchor" href="#preliminaries-constructing-an-mpm-from-lower-level-vital-rates"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonesor/Rage" class="external-link">Rage</a></span><span class="op">)</span></span></code></pre></div>
 <p>We’ll start by creating an MPM based on a set of underlying vital
 rates. Our MPM will be separated into a growth/survival component
 (<code>matU</code>) and a sexual reproduction component
 (<code>matF</code>), and consist of 4 stage classes: ‘seed’, ‘small’,
 ‘large’, and ‘dormant’. First we’ll specify the vital rates.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## survival probabilities</span>
-<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fl">0.20</span>  <span class="co"># seed</span>
-<span class="va">s2</span> <span class="op">&lt;-</span> <span class="fl">0.40</span>  <span class="co"># small</span>
-<span class="va">s3</span> <span class="op">&lt;-</span> <span class="fl">0.50</span>  <span class="co"># large</span>
-<span class="va">s4</span> <span class="op">&lt;-</span> <span class="fl">0.30</span>  <span class="co"># dormant</span>
-
-<span class="co">## matU vital rates conditional on survival (growth, shrinkage, stasis, etc.)</span>
-<span class="va">g12</span> <span class="op">&lt;-</span> <span class="fl">0.15</span>           <span class="co"># seed to small      (growth)</span>
-<span class="va">g13</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>           <span class="co"># seed to large      (growth)</span>
-<span class="va">g11</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g12</span> <span class="op">-</span> <span class="va">g13</span>  <span class="co"># seed to seed       (stasis)</span>
-<span class="va">g23</span> <span class="op">&lt;-</span> <span class="fl">0.45</span>           <span class="co"># small to large     (growth)</span>
-<span class="va">g24</span> <span class="op">&lt;-</span> <span class="fl">0.10</span>           <span class="co"># small to dormant   (enter dormancy)</span>
-<span class="va">g22</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g23</span> <span class="op">-</span> <span class="va">g24</span>  <span class="co"># small to small     (stasis)</span>
-<span class="va">g34</span> <span class="op">&lt;-</span> <span class="fl">0.22</span>           <span class="co"># large to dormant   (enter dormancy)</span>
-<span class="va">g33</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g34</span>        <span class="co"># large to large     (stasis)</span>
-<span class="va">g43</span> <span class="op">&lt;-</span> <span class="fl">0.50</span>           <span class="co"># dormant to large   (exit dormancy)</span>
-<span class="va">g44</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g43</span>        <span class="co"># dormant to dormant (stasis)</span>
-
-<span class="co">## matF vital rates conditional on survival (i.e. fecundity)</span>
-<span class="va">f2</span> <span class="op">&lt;-</span> <span class="fl">0.4</span>   <span class="co"># small</span>
-<span class="va">f3</span> <span class="op">&lt;-</span> <span class="fl">1.1</span>   <span class="co"># large</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## survival probabilities</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fl">0.20</span> <span class="co"># seed</span></span>
+<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fl">0.40</span> <span class="co"># small</span></span>
+<span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># large</span></span>
+<span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fl">0.30</span> <span class="co"># dormant</span></span>
+<span></span>
+<span><span class="co">## matU vital rates conditional on survival (growth, shrinkage, stasis, etc.)</span></span>
+<span><span class="va">g12</span> <span class="op">&lt;-</span> <span class="fl">0.15</span> <span class="co"># seed to small      (growth)</span></span>
+<span><span class="va">g13</span> <span class="op">&lt;-</span> <span class="fl">0.05</span> <span class="co"># seed to large      (growth)</span></span>
+<span><span class="va">g11</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g12</span> <span class="op">-</span> <span class="va">g13</span> <span class="co"># seed to seed       (stasis)</span></span>
+<span><span class="va">g23</span> <span class="op">&lt;-</span> <span class="fl">0.45</span> <span class="co"># small to large     (growth)</span></span>
+<span><span class="va">g24</span> <span class="op">&lt;-</span> <span class="fl">0.10</span> <span class="co"># small to dormant   (enter dormancy)</span></span>
+<span><span class="va">g22</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g23</span> <span class="op">-</span> <span class="va">g24</span> <span class="co"># small to small     (stasis)</span></span>
+<span><span class="va">g34</span> <span class="op">&lt;-</span> <span class="fl">0.22</span> <span class="co"># large to dormant   (enter dormancy)</span></span>
+<span><span class="va">g33</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g34</span> <span class="co"># large to large     (stasis)</span></span>
+<span><span class="va">g43</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="co"># dormant to large   (exit dormancy)</span></span>
+<span><span class="va">g44</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">g43</span> <span class="co"># dormant to dormant (stasis)</span></span>
+<span></span>
+<span><span class="co">## matF vital rates conditional on survival (i.e. fecundity)</span></span>
+<span><span class="va">f2</span> <span class="op">&lt;-</span> <span class="fl">0.4</span> <span class="co"># small</span></span>
+<span><span class="va">f3</span> <span class="op">&lt;-</span> <span class="fl">1.1</span> <span class="co"># large</span></span></code></pre></div>
 <p>Next we’ll use the vital rates to construct an MPM, based on a
 post-breeding census design.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># growth/survival component</span>
-<span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span><span class="op">*</span><span class="va">g11</span>,      <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span><span class="op">*</span><span class="va">g12</span>, <span class="va">s2</span><span class="op">*</span><span class="va">g22</span>,      <span class="fl">0</span>,      <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span><span class="op">*</span><span class="va">g13</span>, <span class="va">s2</span><span class="op">*</span><span class="va">g23</span>, <span class="va">s3</span><span class="op">*</span><span class="va">g33</span>, <span class="va">s4</span><span class="op">*</span><span class="va">g43</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>     <span class="fl">0</span>, <span class="va">s2</span><span class="op">*</span><span class="va">g24</span>, <span class="va">s3</span><span class="op">*</span><span class="va">g34</span>, <span class="va">s4</span><span class="op">*</span><span class="va">g44</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># sexual reproduction component</span>
-<span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>     <span class="fl">0</span>,  <span class="va">s2</span><span class="op">*</span><span class="va">f2</span>,  <span class="va">s3</span><span class="op">*</span><span class="va">f3</span>,      <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>     <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>     <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span><span class="op">)</span>,
-              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>     <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span>,      <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># growth/survival component</span></span>
+<span><span class="va">matU</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span> <span class="op">*</span> <span class="va">g11</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span> <span class="op">*</span> <span class="va">g12</span>, <span class="va">s2</span> <span class="op">*</span> <span class="va">g22</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s1</span> <span class="op">*</span> <span class="va">g13</span>, <span class="va">s2</span> <span class="op">*</span> <span class="va">g23</span>, <span class="va">s3</span> <span class="op">*</span> <span class="va">g33</span>, <span class="va">s4</span> <span class="op">*</span> <span class="va">g43</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">s2</span> <span class="op">*</span> <span class="va">g24</span>, <span class="va">s3</span> <span class="op">*</span> <span class="va">g34</span>, <span class="va">s4</span> <span class="op">*</span> <span class="va">g44</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># sexual reproduction component</span></span>
+<span><span class="va">matF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">s2</span> <span class="op">*</span> <span class="va">f2</span>, <span class="va">s3</span> <span class="op">*</span> <span class="va">f3</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="deriving-vital-rates-of-survival">Deriving vital rates of survival<a class="anchor" aria-label="anchor" href="#deriving-vital-rates-of-survival"></a>
@@ -179,11 +183,11 @@ can obtain a vector of stage-specific vital rates of survival using the
 <code><a href="../reference/vr_vec.html">vr_vec_survival()</a></code> function, which, for simple cases, is
 equivalent to <code><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2 0.4 0.5 0.3</span>
-<span class="co"># equivalent to...</span>
-<span class="op">(</span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2 0.4 0.5 0.3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vr_vec.html">vr_vec_survival</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2 0.4 0.5 0.3</span></span>
+<span><span class="co"># equivalent to...</span></span>
+<span><span class="op">(</span><span class="va">surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2 0.4 0.5 0.3</span></span></code></pre></div>
 <p>As expected, these values match the survival probabilities that we
 initially specified.</p>
 </div>
@@ -196,21 +200,21 @@ simply need to divide each column of <code>matU</code> or
 <code>matF</code> by the corresponding survival probability. This
 procedure is implemented by the <code>vr_mat_</code> functions.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># matU vital rates conditional on survival</span>
-<span class="fu"><a href="../reference/vr_mat.html">vr_mat_U</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,] 0.80   NA   NA   NA</span>
-<span class="co">#&gt; [2,] 0.15 0.45   NA   NA</span>
-<span class="co">#&gt; [3,] 0.05 0.45 0.78  0.5</span>
-<span class="co">#&gt; [4,]   NA 0.10 0.22  0.5</span>
-
-<span class="co"># matF vital rates conditional on survival</span>
-<span class="fu"><a href="../reference/vr_mat.html">vr_mat_R</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]   NA  0.4  1.1   NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA</span>
-<span class="co">#&gt; [3,]   NA   NA   NA   NA</span>
-<span class="co">#&gt; [4,]   NA   NA   NA   NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># matU vital rates conditional on survival</span></span>
+<span><span class="fu"><a href="../reference/vr_mat.html">vr_mat_U</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,] 0.80   NA   NA   NA</span></span>
+<span><span class="co">#&gt; [2,] 0.15 0.45   NA   NA</span></span>
+<span><span class="co">#&gt; [3,] 0.05 0.45 0.78  0.5</span></span>
+<span><span class="co">#&gt; [4,]   NA 0.10 0.22  0.5</span></span>
+<span></span>
+<span><span class="co"># matF vital rates conditional on survival</span></span>
+<span><span class="fu"><a href="../reference/vr_mat.html">vr_mat_R</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]   NA  0.4  1.1   NA</span></span>
+<span><span class="co">#&gt; [2,]   NA   NA   NA   NA</span></span>
+<span><span class="co">#&gt; [3,]   NA   NA   NA   NA</span></span>
+<span><span class="co">#&gt; [4,]   NA   NA   NA   NA</span></span></code></pre></div>
 <p>We’ve now recovered all the vital rates that we initially specified
 when we constructed our MPM.</p>
 </div>
@@ -231,8 +235,8 @@ results from <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code> abov
 the stage-specific vital rates of growth would be 0.20 (0.15 + 0.05),
 0.55 (0.45 + 0.10), 0.22, and <code>NA</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.20 0.55 0.22   NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.20 0.55 0.22   NA</span></span></code></pre></div>
 <p>However, the calculations above include transitions to the dormant
 stage class as a component of ‘growth’, because the dormant stage class
 is represented by the right-most column (and so transitions to the
@@ -242,16 +246,16 @@ of growth, we can set the <code>exclude_row</code> argument to
 <code>4</code>, so that any survival-independent transition <em>to</em>
 stage 4 is excluded from the calculation of growth.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.20 0.45   NA   NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.20 0.45   NA   NA</span></span></code></pre></div>
 <p>Next let’s examine vital rates of shrinkage, which will occur in the
 top-right triangle of <code>matU</code>. Based again on the results from
 <code><a href="../reference/vr_mat.html">vr_mat_U()</a></code>, our naive expectation for vital rates of
 shrinkage would be <code>NA</code>, <code>NA</code>, <code>NA</code>,
 0.5.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1]  NA  NA  NA 0.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  NA  NA  NA 0.5</span></span></code></pre></div>
 <p>However, in this case, the transition from the dormant stage to the
 large stage is being mistakenly considered as shrinkage, simply because
 it’s in the top-right triangle of <code>matU</code>. To exclude
@@ -261,24 +265,24 @@ that we use <code>exclude_row</code> to exclude transitions <em>to</em>
 a given stage, and <code>exclude_col</code> to exclude transitions
 <em>from</em> a given stage.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; [1] NA NA NA NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, exclude_col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] NA NA NA NA</span></span></code></pre></div>
 <p>Next let’s calculate vital rates of stasis, which occur along the
 diagonal of <code>matU</code>. Depending on our purpose, we may or may
 not consider the dormant to dormant transition as ‘stasis’. If not, we
 could exclude it using one of the <code>exclude_</code> arguments, as
 above. But we’ll leave it in for now.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.80 0.45 0.78 0.50</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_stasis</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.80 0.45 0.78 0.50</span></span></code></pre></div>
 <p>Finally, let’s calculate vital rates for entering and exiting
 dormancy. For these, we’ll need to explicitly specify which stage(s) are
 dormant using the <code>dorm_stages</code> argument.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_dorm_enter</a></span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; [1]   NA 0.10 0.22   NA</span>
-<span class="fu"><a href="../reference/vr_vec.html">vr_vec_dorm_exit</a></span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; [1]  NA  NA  NA 0.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_dorm_enter</a></span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]   NA 0.10 0.22   NA</span></span>
+<span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_dorm_exit</a></span><span class="op">(</span><span class="va">matU</span>, dorm_stages <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  NA  NA  NA 0.5</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="fecundity">Fecundity<a class="anchor" aria-label="anchor" href="#fecundity"></a>
@@ -287,8 +291,8 @@ dormant using the <code>dorm_stages</code> argument.</p>
 <code><a href="../reference/vr_mat.html">vr_mat_R()</a></code> are more straightforward to summarize, as they
 only reflect a single process (i.e. fecundity).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_reproduction</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span>
-<span class="co">#&gt; [1]  NA 0.4 1.1  NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_reproduction</a></span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  NA 0.4 1.1  NA</span></span></code></pre></div>
 <p>In the example MPM we’re using here, individuals produced by
 fecundity always begin life in the ‘seed’ stage. However, for some life
 cycles there are multiple stages in which an offspring could begin life.
@@ -311,14 +315,14 @@ This can be done using the <code>vr_</code> group of functions.</p>
 the stage-specific vital rates returned by the corresponding
 <code>vr_vec_</code> function. Here’s an example with growth.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.325</span>
-
-<span class="co"># equivalent to</span>
-<span class="op">(</span><span class="va">vec_growth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.20 0.45   NA   NA</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">vec_growth</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.325</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.325</span></span>
+<span></span>
+<span><span class="co"># equivalent to</span></span>
+<span><span class="op">(</span><span class="va">vec_growth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vr_vec.html">vr_vec_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.20 0.45   NA   NA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">vec_growth</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.325</span></span></code></pre></div>
 <p>Note that the two stage classes from which there are no growth
 transitions do not contribute to the MPM-average vital rate of growth.
 In practice, this is because the <code>vr_vec_</code> functions return
@@ -335,23 +339,23 @@ stage classes. For instance, we may wish to weight stage classes based
 on the stable distribution at equilibrium. Here’s an example of how to
 do that using the <code>weights_col</code> argument.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate the stable distribution using popdemo::eigs</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span>
-<span class="co">#&gt; Welcome to popdemo! This is version 1.3-0</span>
-<span class="co">#&gt; Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes</span>
-<span class="co">#&gt; Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x</span>
-<span class="co">#&gt; Development and legacy versions are here: github.com/iainmstott/popdemo</span>
-<span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">matU</span> <span class="op">+</span> <span class="va">matF</span>
-<span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span>
-
-<span class="co"># calculate mean vital rate of growth weighted by the stable distribution</span>
-<span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2220831</span>
-
-<span class="co"># equivalent to</span>
-<span class="va">pos</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">)</span>                   <span class="co"># possible transitions</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span> <span class="op">*</span> <span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="co"># weighted average</span>
-<span class="co">#&gt; [1] 0.2220831</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># calculate the stable distribution using popdemo::eigs</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">popdemo</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Welcome to popdemo! This is version 1.3-0</span></span>
+<span><span class="co">#&gt; Use ?popdemo for an intro, or browseVignettes('popdemo') for vignettes</span></span>
+<span><span class="co">#&gt; Citation for popdemo is here: doi.org/10.1111/j.2041-210X.2012.00222.x</span></span>
+<span><span class="co">#&gt; Development and legacy versions are here: github.com/iainmstott/popdemo</span></span>
+<span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">matU</span> <span class="op">+</span> <span class="va">matF</span></span>
+<span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">matA</span>, what <span class="op">=</span> <span class="st">"ss"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calculate mean vital rate of growth weighted by the stable distribution</span></span>
+<span><span class="fu"><a href="../reference/vr.html">vr_growth</a></span><span class="op">(</span><span class="va">matU</span>, exclude_row <span class="op">=</span> <span class="fl">4</span>, weights_col <span class="op">=</span> <span class="va">w</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.2220831</span></span>
+<span></span>
+<span><span class="co"># equivalent to</span></span>
+<span><span class="va">pos</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">)</span> <span class="co"># possible transitions</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">vec_growth</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span> <span class="op">*</span> <span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span><span class="op">)</span> <span class="co"># weighted average</span></span>
+<span><span class="co">#&gt; [1] 0.2220831</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -377,10 +381,10 @@ simply recover the single shrinkage vital rate from the large to medium
 transition (i.e. because the other stages, with no shrinkage, do not
 contribute to the average).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1]  NA  NA  NA 0.5</span>
-<span class="fu"><a href="../reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  NA  NA  NA 0.5</span></span>
+<span><span class="fu"><a href="../reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5</span></span></code></pre></div>
 <p>However, imagine now that the medium to small transition, which is 0
 within <code>matU</code>, is in fact a possible shrinkage transition in
 our life cycle of interest — its rate was simply estimated to be 0 in
@@ -388,18 +392,18 @@ the relevant sample and time period. In this case, we’ll need to
 manually specify the matrix of possible transitions using the
 <code>posU</code> argument.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># possible transitions based on matU</span>
-<span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]</span>
-<span class="co">#&gt; [1,]  TRUE FALSE FALSE FALSE</span>
-<span class="co">#&gt; [2,]  TRUE  TRUE FALSE FALSE</span>
-<span class="co">#&gt; [3,]  TRUE  TRUE  TRUE  TRUE</span>
-<span class="co">#&gt; [4,] FALSE  TRUE  TRUE  TRUE</span>
-<span class="va">pos</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>  <span class="co"># set medium-to-small shrinkage tr to possible</span>
-
-<span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">pos</span><span class="op">)</span>
-<span class="co">#&gt; [1]  NA  NA 0.0 0.5</span>
-<span class="fu"><a href="../reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">pos</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.25</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">matU</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># possible transitions based on matU</span></span>
+<span><span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]</span></span>
+<span><span class="co">#&gt; [1,]  TRUE FALSE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [2,]  TRUE  TRUE FALSE FALSE</span></span>
+<span><span class="co">#&gt; [3,]  TRUE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [4,] FALSE  TRUE  TRUE  TRUE</span></span>
+<span><span class="va">pos</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># set medium-to-small shrinkage tr to possible</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/vr_vec.html">vr_vec_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">pos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  NA  NA 0.0 0.5</span></span>
+<span><span class="fu"><a href="../reference/vr.html">vr_shrinkage</a></span><span class="op">(</span><span class="va">matU</span>, posU <span class="op">=</span> <span class="va">pos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.25</span></span></code></pre></div>
 <p>Now, instead of returning <code>NA</code> for the vital rate of
 shrinkage from the medium stage class, <code><a href="../reference/vr_vec.html">vr_vec_shrinkage()</a></code>
 returns a value of 0. Correspondingly, <code><a href="../reference/vr.html">vr_shrinkage()</a></code>
@@ -433,7 +437,7 @@ ISBN-10: 0878930965</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

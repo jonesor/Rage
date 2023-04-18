@@ -11,7 +11,8 @@ mpm_to_table(
   start = 1L,
   xmax = 1000,
   lx_crit = 0.01,
-  radix = 1
+  radix = 1,
+  remove_final = FALSE
 )
 }
 \arguments{
@@ -46,11 +47,17 @@ calculated (defaults to \code{0.01}).}
 \item{radix}{The starting number of individuals in the synthetic life table
 (defaults to \code{1}). If \code{radix} is set to 1, a simplified life
 table is produced.}
+
+\item{remove_final}{Life table calculations typically assume that the final
+age class is closed and that all individuals die in that age class. This
+can mean that mortality/hazard is artificially inflated for this age class.
+Users can prevent this by setting `remove_final` to `TRUE` (the default is
+`FALSE`).}
 }
 \value{
 A \code{data.frame} containing a variable number columns, depending
   on input variables. Columns include:
-  
+
   \item{x}{age at the start of the age interval \code{[x, x+1)}}
   \item{Nx}{The number of individuals alive at age x. The initial number is
   set with \code{radix}}
@@ -65,7 +72,7 @@ A \code{data.frame} containing a variable number columns, depending
   those entering the interval}
   \item{px}{probability of survival for the interval \code{[x, x+1)} for
   those entering the interval}
-  \item{Lx}{total person-years lived during the interval \code{[x, x+1)}} 
+  \item{Lx}{total person-years lived during the interval \code{[x, x+1)}}
   \item{Tx}{total person years lived beyond age x}
   \item{ex}{remaining life expectancy at age x}
 
@@ -105,8 +112,9 @@ The life table calculations assume that the final age interval is
   for this interval, the probability of death \code{qx} is 1, the probability
   of survival \code{px} is 0 and, because we assume that deaths are evenly
   distributed during the interval, the remaining life expectancy for
-  individuals at the start of the interval is 0.5.
-  
+  individuals at the start of the interval is 0.5. Depending on analyses, it
+  may be a good idea to remove the final row of the table.
+
   If \code{lx_crit} is sufficiently small that only a very small proportion
   of the cohort reach this age (i.e., < 0.05), this should have minimal impact
   on results. Nevertheless, for many analyses, the final row of the life

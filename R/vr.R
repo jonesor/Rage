@@ -1,6 +1,6 @@
 #' Derive mean vital rates from a matrix population model
-#' 
-#' @description 
+#'
+#' @description
 #' Derive mean vital rates of survival, growth (or development), shrinkage (or
 #' de-development), stasis, dormancy, or reproduction from a matrix population
 #' model, by averaging across stage classes. These functions include optional
@@ -8,14 +8,14 @@
 #' \emph{Weighting stages}), excluding certain stage classes from the
 #' calculation (see \emph{Excluding stages}), and defining the set of
 #' biologically-possible transitions (see \emph{Possible transitions}).
-#' 
+#'
 #' These decompositions assume that all transition rates are products of a
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth/development,
 #' shrinkage/de-development, stasis, dormancy, or a/sexual reproduction).
 #' Reproductive vital rates that are not conditional on survival (i.e., within a
 #' stage class from which there is no survival) are also allowed.
-#' 
+#'
 #' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and retrogression)
@@ -30,17 +30,17 @@
 #'   elements indicating whether a given \code{matR} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matR > 0} (see
 #'   \emph{Possible transitions}).
-#' @param exclude Integer, character or logical vector indicating stages for 
-#'   which transitions both \emph{to} and \emph{from} the stage should be 
-#'   excluded from the calculation of vital rates. See section 
+#' @param exclude Integer, character or logical vector indicating stages for
+#'   which transitions both \emph{to} and \emph{from} the stage should be
+#'   excluded from the calculation of vital rates. See section
 #'   \emph{Excluding stages}.
-#' @param exclude_row Integer, character or logical vector indicating stages for 
-#'   which transitions both \emph{to} and \emph{from} the stage should be 
-#'   excluded from the calculation of vital rates. See section 
+#' @param exclude_row Integer, character or logical vector indicating stages for
+#'   which transitions both \emph{to} and \emph{from} the stage should be
+#'   excluded from the calculation of vital rates. See section
 #'   \emph{Excluding stages}.
-#' @param exclude_col Integer, character or logical vector indicating stages for 
-#'   which transitions both \emph{to} and \emph{from} the stage should be 
-#'   excluded from the calculation of vital rates. See section 
+#' @param exclude_col Integer, character or logical vector indicating stages for
+#'   which transitions both \emph{to} and \emph{from} the stage should be
+#'   excluded from the calculation of vital rates. See section
 #'   \emph{Excluding stages}.
 #' @param dorm_stages Integer or character vector indicating dormant stage
 #'   classes.
@@ -55,10 +55,10 @@
 #'   will be coerced to \code{NA}. If \code{FALSE}, dividing the single
 #'   transition by the stage-specific survival probability will always yield a
 #'   value of \code{1}. Defaults to \code{TRUE}.
-#' 
+#'
 #' @return Vector of vital rates. Vital rates corresponding to impossible
 #'   transitions are coerced to \code{NA} (see \emph{Possible transitions}).
-#' 
+#'
 #' @section Possible transitions:
 #' A transition rate of \code{0} within a matrix population model may indicate
 #' that the transition is not possible in the given life cycle (e.g., tadpoles
@@ -67,7 +67,7 @@
 #' rates are to be averaged across multiple stage classes, or compared across
 #' populations, it may be important to distinguish between these two types of
 #' zeros.
-#' 
+#'
 #' By default, the \code{vr_} functions assume that a transition rate of
 #' \code{0} indicates an impossible transition, in which case a value of
 #' \code{NA} will be used in relevant calculations. Specifically, the arguments
@@ -76,7 +76,7 @@
 #' population model includes transitions that are estimated to be \code{0} but
 #' still in fact possible, one should specify the \code{posU} and/or \code{posR}
 #' arguments manually.
-#' 
+#'
 #' @section Weighting stages:
 #' In averaging vital rates across stages, it may be desirable to weight stage
 #' classes differently (e.g., based on reproductive values or stable
@@ -91,12 +91,12 @@
 #' production of different types of offspring, such as seeds vs. seedlings). The
 #' function \code{vr_fecundity} therefore also includes an optional
 #' argument \code{weights_to}.
-#' 
+#'
 #' If supplied, \code{weights_from} will automatically be scaled to sum to 1
 #' over the set of possible transitions, whereas \code{weights_to} will not be
 #' rescaled because we wish to enable the use of reproductive values here, which
 #' do not naturally sum to 1.
-#' 
+#'
 #' @section Excluding stages:
 #' It may be desirable to exclude one or more stages from the calculation of
 #' certain vital rates. For instance, we might not believe that 'growth' to a
@@ -106,36 +106,40 @@
 #' \emph{from} the dormant stage class, which can be done using
 #' \code{exclude_col}. To exclude transitions both \emph{to and from} a given
 #' set of stages, use argument \code{exclude}.
-#' 
+#'
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'
 #' @family vital rates
-#'    
+#'
 #' @examples
 #' # create example MPM (stage 4 is dormant)
-#' matU <- rbind(c(0.1,   0,   0,   0),
-#'               c(0.5, 0.2, 0.1, 0.1),
-#'               c(  0, 0.3, 0.3, 0.1),
-#'               c(  0,   0, 0.5, 0.4))
-#' 
-#' matF <- rbind(c(  0,   0.7, 1.1, 0),
-#'               c(  0,   0.3, 0.8, 0),
-#'               c(  0,   0,   0,   0),
-#'               c(  0,   0,   0,   0))
-#' 
+#' matU <- rbind(
+#'   c(0.1, 0, 0, 0),
+#'   c(0.5, 0.2, 0.1, 0.1),
+#'   c(0, 0.3, 0.3, 0.1),
+#'   c(0, 0, 0.5, 0.4)
+#' )
+#'
+#' matF <- rbind(
+#'   c(0, 0.7, 1.1, 0),
+#'   c(0, 0.3, 0.8, 0),
+#'   c(0, 0, 0, 0),
+#'   c(0, 0, 0, 0)
+#' )
+#'
 #' vr_survival(matU, exclude_col = 4)
 #' vr_growth(matU, exclude = 4)
 #' vr_shrinkage(matU, exclude = 4)
 #' vr_stasis(matU, exclude = 4)
-#' 
+#'
 #' # `exclude*` and `*_stages` arguments can accept stage names
 #' matU <- name_stages(matU)
 #' matF <- name_stages(matF)
 #' vr_dorm_enter(matU, dorm_stages = "stage_4")
 #' vr_dorm_exit(matU, dorm_stages = 4)
-#' 
+#'
 #' vr_fecundity(matU, matF, exclude_col = 4)
-#' 
+#'
 #' @name vr
 NULL
 
@@ -146,11 +150,12 @@ vr_survival <- function(matU,
                         posU = matU > 0,
                         exclude_col = NULL,
                         weights_col = NULL) {
-  
-  vr_vec <- vr_vec_survival(matU = matU,
-                            posU = posU,
-                            exclude_col = exclude_col)
-  
+  vr_vec <- vr_vec_survival(
+    matU = matU,
+    posU = posU,
+    exclude_col = exclude_col
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -164,14 +169,15 @@ vr_growth <- function(matU,
                       exclude_col = NULL,
                       weights_col = NULL,
                       surv_only_na = TRUE) {
-  
-  vr_vec <- vr_vec_growth(matU = matU,
-                          posU = posU,
-                          exclude = exclude,
-                          exclude_row = exclude_row,
-                          exclude_col = exclude_col,
-                          surv_only_na = surv_only_na)
-  
+  vr_vec <- vr_vec_growth(
+    matU = matU,
+    posU = posU,
+    exclude = exclude,
+    exclude_row = exclude_row,
+    exclude_col = exclude_col,
+    surv_only_na = surv_only_na
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -185,14 +191,15 @@ vr_shrinkage <- function(matU,
                          exclude_col = NULL,
                          weights_col = NULL,
                          surv_only_na = TRUE) {
-  
-  vr_vec <- vr_vec_shrinkage(matU = matU,
-                             posU = posU,
-                             exclude = exclude,
-                             exclude_row = exclude_row,
-                             exclude_col = exclude_col,
-                             surv_only_na = surv_only_na)
-  
+  vr_vec <- vr_vec_shrinkage(
+    matU = matU,
+    posU = posU,
+    exclude = exclude,
+    exclude_row = exclude_row,
+    exclude_col = exclude_col,
+    surv_only_na = surv_only_na
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -204,12 +211,13 @@ vr_stasis <- function(matU,
                       exclude = NULL,
                       weights_col = NULL,
                       surv_only_na = TRUE) {
-  
-  vr_vec <- vr_vec_stasis(matU = matU,
-                          posU = posU,
-                          exclude = exclude,
-                          surv_only_na = surv_only_na)
-  
+  vr_vec <- vr_vec_stasis(
+    matU = matU,
+    posU = posU,
+    exclude = exclude,
+    surv_only_na = surv_only_na
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -220,11 +228,12 @@ vr_dorm_enter <- function(matU,
                           posU = matU > 0,
                           dorm_stages,
                           weights_col = NULL) {
-  
-  vr_vec <- vr_vec_dorm_enter(matU = matU,
-                              posU = posU,
-                              dorm_stages = dorm_stages)
-  
+  vr_vec <- vr_vec_dorm_enter(
+    matU = matU,
+    posU = posU,
+    dorm_stages = dorm_stages
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -235,11 +244,12 @@ vr_dorm_exit <- function(matU,
                          posU = matU > 0,
                          dorm_stages,
                          weights_col = NULL) {
-  
-  vr_vec <- vr_vec_dorm_exit(matU = matU,
-                             posU = posU,
-                             dorm_stages = dorm_stages)
-  
+  vr_vec <- vr_vec_dorm_exit(
+    matU = matU,
+    posU = posU,
+    dorm_stages = dorm_stages
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 
@@ -252,13 +262,14 @@ vr_fecundity <- function(matU,
                          exclude_col = NULL,
                          weights_row = NULL,
                          weights_col = NULL) {
-  
-  vr_vec <- vr_vec_reproduction(matU = matU,
-                                matR = matR,
-                                posR = posR,
-                                exclude_col = exclude_col,
-                                weights_row = weights_row)
-  
+  vr_vec <- vr_vec_reproduction(
+    matU = matU,
+    matR = matR,
+    posR = posR,
+    exclude_col = exclude_col,
+    weights_row = weights_row
+  )
+
   return(column_weight(vr_vec, weights_col))
 }
 

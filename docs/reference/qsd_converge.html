@@ -18,7 +18,7 @@ model to reach a defined quasi-stationary stage distribution."><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@ model to reach a defined quasi-stationary stage distribution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mat</span>, start <span class="op">=</span> <span class="fl">1L</span>, conv <span class="op">=</span> <span class="fl">0.01</span>, N <span class="op">=</span> <span class="fl">100000L</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mat</span>, start <span class="op">=</span> <span class="fl">1L</span>, conv <span class="op">=</span> <span class="fl">0.01</span>, N <span class="op">=</span> <span class="fl">100000L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,27 +86,36 @@ model to reach a defined quasi-stationary stage distribution.</p>
 <dd><p>A matrix population model, or component thereof (i.e., a square
 projection matrix). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></dd>
+
+
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to <code>1</code>. Alternately, a
 numeric vector giving the starting population vector (in which case
 <code>length(start)</code> must match <code>ncol(matU))</code>. See section
 <em>Starting from multiple stages</em>.</p></dd>
+
+
 <dt>conv</dt>
 <dd><p>Proportional distance threshold from the stationary stage
 distribution indicating convergence. For example, this value should be
 <code>0.01</code> if the user wants to obtain the time step when the stage
 distribution is within a distance of 1% of the stationary stage
 distribution.</p></dd>
+
+
 <dt>N</dt>
 <dd><p>Maximum number of time steps over which the population will be
 projected. Time steps are in the same units as the matrix population model
 (see <code>AnnualPeriodicity</code> column in COM(P)ADRE metadata). Defaults to
 <code>100,000</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An integer indicating the first time step at which the
+    
+
+<p>An integer indicating the first time step at which the
   quasi-stationary stage distribution is reached (or an <code>NA</code> and a
   warning if the quasi-stationary distribution is not reached).</p>
     </div>
@@ -141,7 +150,7 @@ should match the number of columns in the relevant MPM).</p>
   class), and so does not fundamentally require an ergodic matrix (where the
   long-term equilibrium traits are independent of the initial population
   vector). However, methods for efficiently calculating the stationary stage
-  distribution (SSD) generally do require ergodicity.</p>  
+  distribution (SSD) generally do require ergodicity.</p>
 <p>If the supplied matrix (<code>mat</code>) is non-ergodic, <code>qsd_converge</code>
   first checks for stage classes with no connection (of any degree) from the
   starting stage class specified by argument <code>start</code>, and strips such
@@ -186,24 +195,24 @@ individuals achieving reproductive maturity in each stage class.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># starting stage = 2 (i.e., "small")</span></span>
-<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># starting stage = 2 (i.e., "small")</span></span></span>
+<span class="r-in"><span><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>  <span class="co"># equivalent using named life stages</span></span>
+<span class="r-in"><span><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convergence threshold = 0.001</span></span>
-<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, conv <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convergence threshold = 0.001</span></span></span>
+<span class="r-in"><span><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, conv <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># starting from first reproduction</span></span>
-<span class="r-in"><span class="va">repstages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repstages</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># starting from first reproduction</span></span></span>
+<span class="r-in"><span><span class="va">repstages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repstages</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">qsd_converge</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -218,7 +227,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ order of increasing age, starting with age 0."><!-- mathjax --><script src="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -79,31 +79,38 @@ order of increasing age, starting with age 0.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">lx_to_px</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>
-
-<span class="fu">lx_to_hx</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span>
-
-<span class="fu">px_to_lx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span>
-
-<span class="fu">px_to_hx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span>
-
-<span class="fu">hx_to_lx</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span>
-
-<span class="fu">hx_to_px</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">lx_to_px</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lx_to_hx</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">px_to_lx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">px_to_hx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hx_to_lx</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hx_to_px</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>lx</dt>
 <dd><p>Vector of age-specific survivorship.</p></dd>
+
+
 <dt>px</dt>
 <dd><p>Vector of age-specific survival probabilities.</p></dd>
+
+
 <dt>hx</dt>
 <dd><p>Vector of age-specific mortality hazards.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector.</p>
+    
+
+<p>A vector.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -156,20 +163,20 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.8</span>, <span class="fl">0.7</span>, <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert from lx</span></span>
-<span class="r-in"><span class="va">px</span> <span class="op">&lt;-</span> <span class="fu">lx_to_px</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu">lx_to_hx</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert from px</span></span>
-<span class="r-in"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu">px_to_lx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu">px_to_hx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert from hx</span></span>
-<span class="r-in"><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu">hx_to_lx</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">px</span> <span class="op">&lt;-</span> <span class="fu">hx_to_px</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.8</span>, <span class="fl">0.7</span>, <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convert from lx</span></span></span>
+<span class="r-in"><span><span class="va">px</span> <span class="op">&lt;-</span> <span class="fu">lx_to_px</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu">lx_to_hx</span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convert from px</span></span></span>
+<span class="r-in"><span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu">px_to_lx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hx</span> <span class="op">&lt;-</span> <span class="fu">px_to_hx</span><span class="op">(</span><span class="va">px</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convert from hx</span></span></span>
+<span class="r-in"><span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu">hx_to_lx</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">px</span> <span class="op">&lt;-</span> <span class="fu">hx_to_px</span><span class="op">(</span><span class="va">hx</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -184,7 +191,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

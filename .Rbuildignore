@@ -19,3 +19,6 @@
 vignettes/ms-vignette.Rmd
 ^cran-comments.md
 ^CRAN-RELEASE$
+^cran-comments\.md$
+^revdep$
+^CRAN-SUBMISSION$

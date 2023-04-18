@@ -37,42 +37,46 @@ We'll start by creating an MPM based on a set of underlying vital rates. Our MPM
 
 ```{r}
 ## survival probabilities
-s1 <- 0.20  # seed
-s2 <- 0.40  # small
-s3 <- 0.50  # large
-s4 <- 0.30  # dormant
+s1 <- 0.20 # seed
+s2 <- 0.40 # small
+s3 <- 0.50 # large
+s4 <- 0.30 # dormant
 
 ## matU vital rates conditional on survival (growth, shrinkage, stasis, etc.)
-g12 <- 0.15           # seed to small      (growth)
-g13 <- 0.05           # seed to large      (growth)
-g11 <- 1 - g12 - g13  # seed to seed       (stasis)
-g23 <- 0.45           # small to large     (growth)
-g24 <- 0.10           # small to dormant   (enter dormancy)
-g22 <- 1 - g23 - g24  # small to small     (stasis)
-g34 <- 0.22           # large to dormant   (enter dormancy)
-g33 <- 1 - g34        # large to large     (stasis)
-g43 <- 0.50           # dormant to large   (exit dormancy)
-g44 <- 1 - g43        # dormant to dormant (stasis)
+g12 <- 0.15 # seed to small      (growth)
+g13 <- 0.05 # seed to large      (growth)
+g11 <- 1 - g12 - g13 # seed to seed       (stasis)
+g23 <- 0.45 # small to large     (growth)
+g24 <- 0.10 # small to dormant   (enter dormancy)
+g22 <- 1 - g23 - g24 # small to small     (stasis)
+g34 <- 0.22 # large to dormant   (enter dormancy)
+g33 <- 1 - g34 # large to large     (stasis)
+g43 <- 0.50 # dormant to large   (exit dormancy)
+g44 <- 1 - g43 # dormant to dormant (stasis)
 
 ## matF vital rates conditional on survival (i.e. fecundity)
-f2 <- 0.4   # small
-f3 <- 1.1   # large
+f2 <- 0.4 # small
+f3 <- 1.1 # large
 ```
 
 Next we'll use the vital rates to construct an MPM, based on a post-breeding census design.
 
 ```{r}
 # growth/survival component
-matU <- rbind(c(s1*g11,      0,      0,      0),
-              c(s1*g12, s2*g22,      0,      0),
-              c(s1*g13, s2*g23, s3*g33, s4*g43),
-              c(     0, s2*g24, s3*g34, s4*g44))
+matU <- rbind(
+  c(s1 * g11, 0, 0, 0),
+  c(s1 * g12, s2 * g22, 0, 0),
+  c(s1 * g13, s2 * g23, s3 * g33, s4 * g43),
+  c(0, s2 * g24, s3 * g34, s4 * g44)
+)
 
 # sexual reproduction component
-matF <- rbind(c(     0,  s2*f2,  s3*f3,      0),
-              c(     0,      0,      0,      0),
-              c(     0,      0,      0,      0),
-              c(     0,      0,      0,      0))
+matF <- rbind(
+  c(0, s2 * f2, s3 * f3, 0),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0),
+  c(0, 0, 0, 0)
+)
 ```
 
 ## Deriving vital rates of survival
@@ -187,7 +191,7 @@ w <- popdemo::eigs(matA, what = "ss")
 vr_growth(matU, exclude_row = 4, weights_col = w)
 
 # equivalent to
-pos <- !is.na(vec_growth)                   # possible transitions
+pos <- !is.na(vec_growth) # possible transitions
 sum(vec_growth[pos] * w[pos]) / sum(w[pos]) # weighted average
 ```
 
@@ -208,7 +212,7 @@ However, imagine now that the medium to small transition, which is 0 within `mat
 
 ```{r}
 (pos <- matU > 0) # possible transitions based on matU
-pos[2,3] <- TRUE  # set medium-to-small shrinkage tr to possible
+pos[2, 3] <- TRUE # set medium-to-small shrinkage tr to possible
 
 vr_vec_shrinkage(matU, posU = pos)
 vr_shrinkage(matU, posU = pos)

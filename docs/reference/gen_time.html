@@ -21,7 +21,7 @@ reproduction for a cohort (Coale (1972), p. 18-19)."><!-- mathjax --><script src
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ reproduction for a cohort (Coale (1972), p. 18-19).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gen_time</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R0"</span>, <span class="st">"age_diff"</span>, <span class="st">"cohort"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_time</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R0"</span>, <span class="st">"age_diff"</span>, <span class="st">"cohort"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,28 +92,37 @@ reproduction for a cohort (Coale (1972), p. 18-19).</p>
 <dd><p>The survival component of a matrix population model (i.e., a
 square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression).</p></dd>
+
+
 <dt>matR</dt>
 <dd><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction; either
 sexual, clonal, or both).</p></dd>
+
+
 <dt>method</dt>
-<dd><p>The method used to calculate generation time. Defaults to "R0". 
+<dd><p>The method used to calculate generation time. Defaults to "R0".
 See Details for explanation of calculations.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code>net_repro_rate</code> when
 <code>method = "R0"</code> or <code>mpm_to_*</code> when <code>method = "cohort"</code>. Ignored
 when <code>method = "age_diff"</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns generation time. If <code>matU</code> is singular (often indicating
+    
+
+<p>Returns generation time. If <code>matU</code> is singular (often indicating
   infinite life expectancy), returns <code>NA</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>There are multiple definitions of generation time, three of which are implemented by this
 function:</p>
-<p>1. <code>"R0"</code> (default): This is the number of time steps required for the 
+<p>1. <code>"R0"</code> (default): This is the number of time steps required for the
 population to grow by a factor of its net reproductive rate, equal to
  <code>log(R0) / log(lambda)</code>. Here, <code>R0</code> is the net reproductive rate (the
 per-generation population growth rate; Caswell 2001, Sec. 5.3.4), and
@@ -121,13 +130,13 @@ per-generation population growth rate; Caswell 2001, Sec. 5.3.4), and
 eigenvalue of <code>matU + matR</code>).</p>
 <p>2. <code>"age_diff"</code>: This is the average age difference between parents and
 offspring, equal to <code>(lambda v w) / (v matR w)</code> (Bienvenu &amp; Legendre
-(2015)). Here, <code>lambda</code> is the population growth rate per unit time (the dominant 
-eigenvalue of <code>matU + matR</code>), <code>v</code> is a row vector of stage-specific 
-reproductive values (the left eigenvector corresponding to <code>lambda</code>), and 
-<code>w</code> is a column vector of the stable stage distribution (the right 
+(2015)). Here, <code>lambda</code> is the population growth rate per unit time (the dominant
+eigenvalue of <code>matU + matR</code>), <code>v</code> is a row vector of stage-specific
+reproductive values (the left eigenvector corresponding to <code>lambda</code>), and
+<code>w</code> is a column vector of the stable stage distribution (the right
 eigenvector corresponding to <code>lambda</code>).</p>
 <p>3. <code>"cohort"</code>: This is the age at which members of a cohort are expected to reproduce,
-equal to <code>sum(x lx mx) / sum(lx mx)</code> (Coale (1972), p. 18-19). Here, <code>x</code> is 
+equal to <code>sum(x lx mx) / sum(lx mx)</code> (Coale (1972), p. 18-19). Here, <code>x</code> is
 age, <code>lx</code> is age-specific survivorship, and <code>mx</code> is age-specific fertility.
 See functions <code>mpm_to_lx</code> and <code>mpm_to_mx</code> for details about the conversion of
 matrix population models to life tables.</p>
@@ -140,10 +149,10 @@ matrix population models to life tables.</p>
     <div id="references">
     <h2>References</h2>
     <p>Bienvenu, F. &amp; Legendre, S. 2015. A New Approach to the Generation Time in
- Matrix Population Models. The American Naturalist 185 (6): 834–843. doi:10.1086/681104.</p> 
+ Matrix Population Models. The American Naturalist 185 (6): 834–843. doi:10.1086/681104.</p>
 <p>Caswell, H. 2001. Matrix Population Models: Construction,
   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:
-  978-0878930968</p>  
+  978-0878930968</p>
 <p>Coale, A.J. 1972. The Growth and Structure of Human Populations. Princeton University
   Press. ISBN: 978-0691093574</p>
     </div>
@@ -167,16 +176,16 @@ matrix population models to life tables.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate generation time</span></span>
-<span class="r-in"><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span>  <span class="co"># defaults to "R0" method</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate generation time</span></span></span>
+<span class="r-in"><span><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span> <span class="co"># defaults to "R0" method</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.394253</span>
-<span class="r-in"><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, method <span class="op">=</span> <span class="st">"age_diff"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, method <span class="op">=</span> <span class="st">"age_diff"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.052574</span>
-<span class="r-in"><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, method <span class="op">=</span> <span class="st">"cohort"</span>, lx_crit <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">gen_time</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matR <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, method <span class="op">=</span> <span class="st">"cohort"</span>, lx_crit <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.524948</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -191,7 +200,7 @@ matrix population models to life tables.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

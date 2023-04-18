@@ -4,26 +4,31 @@
 \alias{entropy_k}
 \title{Calculate Keyfitz's entropy from a trajectory of age-specific survivorship}
 \usage{
-entropy_k(lx, trapeze = FALSE)
+entropy_k(lx, trapeze = FALSE, ...)
 }
 \arguments{
-\item{lx}{Survivorship trajectory (a vector of monotonically-declining values
-in the interval [0,1]).}
+\item{lx}{Either a survivorship trajectory (a vector of
+monotonically-declining values in the interval [0,1]), or submatrix U from
+a matrix population model.}
 
 \item{trapeze}{A logical argument indicating whether the composite trapezoid
 approximation should be used for approximating the definite integral.}
+
+\item{...}{Additional variables passed to `mpm_to_lx` if data are supplied as
+a matrix}
 }
 \value{
 Keyfitz's life table entropy.
 }
 \description{
-Calculate Keyfitz's entropy from a vector of age-specific survivorship (\code{lx}).
+Calculate Keyfitz's entropy from a vector of age-specific survivorship
+(\code{lx}).
 }
 \section{Warning}{
 
-Note that this function may produce unexpected results if used on partial 
-survivorship trajectories. In addition, it is sensitive to the length of the 
-survivorship vector. We direct users to the function `\code{\link{shape_surv}}` 
+Note that this function may produce unexpected results if used on partial
+survivorship trajectories. In addition, it is sensitive to the length of the
+survivorship vector. We direct users to the function `\code{\link{shape_surv}}`
 which is relatively robust to these issues.
 }
 
@@ -39,11 +44,14 @@ entropy_k(lx)
 # use trapezoid approximation for definite integral
 entropy_k(lx, trapeze = TRUE)
 
+# calculate directly from the matrix
+entropy_k(mpm1$matU)
+
 }
 \references{
 Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   Wiley.
-  
+
   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
   the entropic principle of natural selection. Entropy 16: 5428-5522.
 }

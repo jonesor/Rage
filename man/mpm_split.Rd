@@ -10,7 +10,7 @@ mpm_split(matA)
 \item{matA}{A matrix population model (i.e., a square projection matrix).}
 }
 \value{
-A list of three matrices: \code{matU},\code{matF} and \code{matC}. 
+A list of three matrices: \code{matU},\code{matF} and \code{matC}.
 \code{matC} will always contain only zeros.
 }
 \description{
@@ -22,10 +22,12 @@ that everything else is growth or survival (i.e. the \bold{U} matrix).
 Clonality is assumed to be non-existent.
 }
 \examples{
-matA <- rbind(c(0.1,   0, 5.3, 4.2),
-              c(0.5, 0.2, 0.1,   0),
-              c(  0, 0.3, 0.3, 0.1),
-              c(  0,   0, 0.5, 0.6))
+matA <- rbind(
+  c(0.1, 0, 5.3, 4.2),
+  c(0.5, 0.2, 0.1, 0),
+  c(0, 0.3, 0.3, 0.1),
+  c(0, 0, 0.5, 0.6)
+)
 
 mpm_split(matA)
 

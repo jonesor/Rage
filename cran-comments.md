@@ -1,77 +1,70 @@
+## R CMD check results
+
+* This is a new release.
+* Minor improvements to functionality.
+
 ## Test environments
-
-### local
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Big Sur 11.3.1
-
-### GitHub Actions
-
-#### Microsoft Windows
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-__R development version__
-
-- R Under development (unstable) (2021-10-13 r81052)
-- Platform: x86_64-w64-mingw32/x64 (64-bit)
-- Running under: Windows Server x64 (build 17763)
-
-#### Apple OSX
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
-
-#### Linux (Ubuntu)
-
-__R old release__
-
-- R version 4.0.5 (2021-03-31)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
-
-__R latest release__
-
-- R version 4.1.1 (2021-08-10)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
-
-__R development version__
-
-- R Under development (unstable) (2021-10-12 r81044)
-- Platform: x86_64-pc-linux-gnu (64-bit)
-- Running under: Ubuntu 20.04.3 LTS
+- R-hub Windows Server 2022, R-devel, 64 bit
+- R-hub Ubuntu Linux 20.04.1 LTS, R-release, GCC
+- R-hub Fedora Linux, R-devel, clang, gfortran
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+── Rage 1.4.0: NOTE
 
-There was 1 NOTE:
+  Build ID:   Rage_1.4.0.tar.gz-55334a159687416cbb72b3b4ede9df0c
+  Platform:   Windows Server 2022, R-devel, 64 bit
+  Submitted:  6h 16m 30.2s ago
+  Build time: 4m 45.1s
 
-    Maintainer: ‘Owen Jones <jones@biology.sdu.dk>’
+❯ checking HTML version of manual ... NOTE
+  Skipping checking math rendering: package 'V8' unavailable
 
-## Downstream dependencies
+❯ checking for detritus in the temp directory ... NOTE
+  Found the following files/directories:
+    'lastMiKTeXException'
 
-There are no current downstream dependencies.
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
+── Rage 1.4.0: NOTE
+
+  Build ID:   Rage_1.4.0.tar.gz-0575e5a1c59f4ad2ac57eac4f69449cc
+  Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
+  Submitted:  6h 16m 30.5s ago
+  Build time: 1h 48m 44.6s
+
+❯ checking CRAN incoming feasibility ... NOTE
+  Maintainer: ‘Owen Jones <jones@biology.sdu.dk>’
+  
+  Found the following (possibly) invalid URLs:
+    URL: https://doi.org/10.1111/2041-210X.13289
+      From: inst/doc/a03_LifeHistoryTraits.html
+      Status: 403
+      Message: Forbidden
+    URL: https://doi.org/10.1111/j.2041-210X.2010.00087.x
+      From: inst/doc/a03_LifeHistoryTraits.html
+      Status: 403
+      Message: Forbidden
+  
+  Found the following (possibly) invalid DOIs:
+    DOI: 10.1111/2041-210X.13792
+      From: inst/CITATION
+      Status: Forbidden
+      Message: 403
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+
+── Rage 1.4.0: NOTE
+
+  Build ID:   Rage_1.4.0.tar.gz-ccb7f7da53a64a8ca7ed52eec418f69e
+  Platform:   Fedora Linux, R-devel, clang, gfortran
+  Submitted:  6h 16m 30.6s ago
+  Build time: 1h 41m 59.6s
+
+❯ checking HTML version of manual ... NOTE
+  Skipping checking HTML validation: no command 'tidy' found
+  Skipping checking math rendering: package 'V8' unavailable
+
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+
+* This is a new release.

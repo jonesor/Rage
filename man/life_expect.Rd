@@ -57,9 +57,9 @@ individuals achieving reproductive maturity in each stage class.
 \examples{
 data(mpm1)
 
-# mean life expectancy starting from stage class 2 
+# mean life expectancy starting from stage class 2
 life_expect_mean(mpm1$matU, start = 2)
-life_expect_mean(mpm1$matU, start = "small")  # equivalent using named life stages
+life_expect_mean(mpm1$matU, start = "small") # equivalent using named life stages
 
 # mean life expectancy starting from first reproduction
 rep_stages <- repro_stages(mpm1$matF)

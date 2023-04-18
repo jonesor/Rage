@@ -23,7 +23,7 @@ table."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -87,13 +87,13 @@ table.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span>
-
-<span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span>
-
-<span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span>
-
-<span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matR</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, xmax <span class="op">=</span> <span class="fl">1000</span>, lx_crit <span class="op">=</span> <span class="fl">0.01</span>, tol <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,31 +103,44 @@ table.</p>
 square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.</p></dd>
+
+
 <dt>matR</dt>
 <dd><p>The reproductive component of a MPM (i.e., a
 square projection matrix reflecting transitions due to reproduction; either
 sexual, clonal, or both). Optionally with named rows and columns indicating
 the corresponding life stage names.</p></dd>
+
+
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to <code>1</code>. Alternately, a numeric vector
 giving the starting population vector (in which case <code>length(start)</code>
 must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></dd>
+
+
 <dt>xmax</dt>
 <dd><p>Maximum age to which age-specific traits will be calculated
 (defaults to <code>1000</code>).</p></dd>
+
+
 <dt>lx_crit</dt>
 <dd><p>Minimum value of <code>lx</code> to which age-specific traits will be
 calculated (defaults to <code>0.01</code>).</p></dd>
+
+
 <dt>tol</dt>
 <dd><p>To account for floating point errors that occasionally lead to
 values of <code>lx</code> slightly greater than 1, values of <code>lx</code> within the open interval
 (<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults to <code>0.0001</code>. To
 prevent coercion, set <code>tol</code> to <code>0</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector</p>
+    
+
+<p>A vector</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -186,55 +199,55 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># age-specific survivorship</span></span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># age-specific survivorship</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00000000 0.15000000 0.04000000 0.01984000 0.01241465 0.00843715</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>       <span class="co"># starting from stage 2</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># starting from stage 2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.000000000 0.500000000 0.316800000 0.208613000 0.143913710 0.100583791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.070696700 0.049775083 0.035066091 0.024708430 0.017411268 0.012269430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.008646119</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.000000000 0.500000000 0.316800000 0.208613000 0.143913710 0.100583791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.070696700 0.049775083 0.035066091 0.024708430 0.017411268 0.012269430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.008646119</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, xmax <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>       <span class="co"># to a maximum age of 10</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, xmax <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># to a maximum age of 10</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00000000 0.15000000 0.04000000 0.01984000 0.01241465 0.00843715</span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>  <span class="co"># to a minimum lx of 0.05</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># to a minimum lx of 0.05</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.00 0.15 0.04</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># age-specific survival probability</span></span>
-<span class="r-in"><span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># age-specific survival probability</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1500000 0.2666667 0.4960000 0.6257384 0.6796124        NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># age-specific mortality hazard</span></span>
-<span class="r-in"><span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># age-specific mortality hazard</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.8971200 1.3217558 0.7011794 0.4688229 0.3862326        NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># age-specific fecundity</span></span>
-<span class="r-in"><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># age-specific fecundity</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.00000  0.00000  9.54125 19.49277 24.83256 26.79977</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### starting from first reproduction</span></span>
-<span class="r-in"><span class="va">repstages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repstages</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### starting from first reproduction</span></span></span>
+<span class="r-in"><span><span class="va">repstages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">repstages</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_lx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.000000000 0.675789474 0.448939474 0.312842500 0.219247752 0.154280646</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.108661787 0.076560740 0.053948683 0.038016464 0.026789679 0.018878389</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.013303407 0.009374777</span>
-<span class="r-in"><span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_px</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.6757895 0.6643185 0.6968478 0.7008247 0.7036818 0.7043125 0.7045783</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.7046521 0.7046783 0.7046862 0.7046889 0.7046897 0.7046900        NA</span>
-<span class="r-in"><span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_hx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.3918737 0.4089935 0.3611882 0.3554975 0.3514291 0.3505331 0.3501558</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.3500511 0.3500139 0.3500026 0.3499989 0.3499977 0.3499973        NA</span>
-<span class="r-in"><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">mpm_to_mx</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 20.08684 23.58049 26.70449 27.41101 27.72566 27.81222 27.84348 27.85293</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 27.85610 27.85709 27.85742 27.85752 27.85756 27.85757</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -249,7 +262,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

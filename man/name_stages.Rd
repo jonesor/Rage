@@ -29,9 +29,11 @@ Adds user-supplied or automatically-generated stage names to a matrix
 population model (MPM).
 }
 \examples{
-matU <- rbind(c(0.0, 0.0, 0.0),
-              c(0.3, 0.1, 0.0),
-              c(0.0, 0.5, 0.8))
+matU <- rbind(
+  c(0.0, 0.0, 0.0),
+  c(0.3, 0.1, 0.0),
+  c(0.0, 0.5, 0.8)
+)
 # (semi)automated naming
 name_stages(matU)
 name_stages(matU, prefix = "s")
@@ -40,6 +42,7 @@ name_stages(matU, names = c("small", "medium", "large"))
 # overwrite existing stage names
 data(mpm1)
 name_stages(mpm1)
+
 }
 \seealso{
 Other transformation: 

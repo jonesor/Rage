@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Rage <img src="man/figures/logo_rage.png" height="160px" align="right" />
+# Rage <img src="man/figures/logo_rage.png" align="right" height="160" style="float:right; height:160px;">
 
 | Project                                                                                                                                                                                                | Main branch                                                                                                                             | Devel branch                                                                                                                           |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
@@ -17,11 +17,11 @@ models (MPMs).
 
 Includes functions for:
 
--   deriving life history traits
--   deriving life tables or life table components
--   deriving vital rates
--   perturbation analyses
--   manipulating and transforming MPMs
+- deriving life history traits
+- deriving life tables or life table components
+- deriving vital rates
+- perturbation analyses
+- manipulating and transforming MPMs
 
 ## Installation
 
@@ -126,7 +126,7 @@ mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 entropy_k(lx) # Keyfitz' entropy
 #> [1] 0.9077186
 entropy_d(lx, mx) # Demetrius' entropy
-#> [1] -1.426434
+#> [1] 2.062862
 shape_surv(lx) # shape of survival/mortality trajectory
 #> [1] -0.04681254
 shape_rep(lx) # shape of fecundity trajectory

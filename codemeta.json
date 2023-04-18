@@ -1,8 +1,5 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "Rage",
   "description": "Functions for calculating life history metrics using matrix population models ('MPMs'). Described in Jones et al. (2021) <doi:10.1101/2021.04.26.441330>.",
@@ -10,13 +7,19 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.1.0.9000",
+  "version": "1.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R version 4.2.3 (2023-03-15)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -118,8 +121,6 @@
       "@id": "https://orcid.org/0000-0002-2063-8736"
     }
   ],
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -130,18 +131,6 @@
     }
   ],
   "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "spelling",
-      "name": "spelling",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=spelling"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
@@ -168,80 +157,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "testthat",
-      "name": "testthat",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
-    }
-  ],
-  "softwareRequirements": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "popdemo",
-      "name": "popdemo",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=popdemo"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "MASS",
-      "name": "MASS",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=MASS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "DiagrammeR",
-      "name": "DiagrammeR",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=DiagrammeR"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "Rcompadre",
       "name": "Rcompadre",
       "provider": {
@@ -254,19 +169,97 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.5.0"
-    }
-  ],
-  "fileSize": "500.571KB",
-  "contIntegration": ["https://github.com/jonesor/Rage/actions/workflows/main_check.yaml", "https://github.com/jonesor/Rage/actions/workflows/devel_build_check.yaml", "https://app.codecov.io/gh/jonesor/Rage"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "DiagrammeR",
+      "name": "DiagrammeR",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=DiagrammeR"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "MASS",
+      "name": "MASS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=MASS"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "popdemo",
+      "name": "popdemo",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=popdemo"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "502.234KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
-      "datePublished": "2021",
+      "datePublished": "2022",
       "author": [
         {
           "@type": "Person",
@@ -280,22 +273,22 @@
         },
         {
           "@type": "Person",
-          "givenName": ["Iain", "M"],
+          "givenName": ["Iain", "M."],
           "familyName": "Stott"
         },
         {
           "@type": "Person",
-          "givenName": ["Tamora", "D"],
+          "givenName": ["Tamora", "D."],
           "familyName": "James"
         },
         {
           "@type": "Person",
-          "givenName": ["Sam", "C"],
+          "givenName": ["Sam", "C."],
           "familyName": "Levin"
         },
         {
           "@type": "Person",
-          "givenName": ["William", "K"],
+          "givenName": ["William", "K."],
           "familyName": "Petry"
         },
         {
@@ -335,26 +328,24 @@
         }
       ],
       "name": "Rcompadre and Rage - two {R} packages to facilitate the use of\n              the {COMPADRE} and {COMADRE} databases and calculation of life\n              history traits from matrix population models",
-      "identifier": "10.1101/2021.04.26.441330",
-      "pagination": "2021.04.26.441330",
-      "@id": "https://doi.org/10.1101/2021.04.26.441330",
-      "sameAs": "https://doi.org/10.1101/2021.04.26.441330",
+      "identifier": "10.1111/2041-210X.13792",
+      "pagination": "770-781",
+      "@id": "https://doi.org/10.1111/2041-210X.13792",
+      "sameAs": "https://doi.org/10.1111/2041-210X.13792",
       "isPartOf": {
         "@type": "PublicationIssue",
-        "datePublished": "2021",
+        "datePublished": "2022",
         "isPartOf": {
           "@type": ["PublicationVolume", "Periodical"],
-          "name": "bioRxiv"
+          "volumeNumber": "13",
+          "name": "Methods in Ecology and Evolution"
         }
       }
     }
   ],
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
+  "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
   "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
+  "contIntegration": ["https://github.com/jonesor/Rage/actions", "https://github.com/jonesor/Rage/actions", "https://app.codecov.io/gh/jonesor/Rage"],
+  "developmentStatus": "https://www.repostatus.org/#active",
   "relatedLink": "https://CRAN.R-project.org/package=Rage"
 }

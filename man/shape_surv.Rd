@@ -4,21 +4,22 @@
 \alias{shape_surv}
 \title{Calculate shape of survival over age}
 \usage{
-shape_surv(surv, xmin = NULL, xmax = NULL, trunc = FALSE)
+shape_surv(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...)
 }
 \arguments{
-\item{surv}{Either 1) a numeric vector describing a survival curve (lx), or
-2) a \code{data.frame} / \code{list} with one column / element titled 'lx'
-describing a survival curve, optionally a column / element 'x' containing
-age classes (each element a number representing the age at the start of the
-class).
+\item{surv}{Either 1) a numeric vector describing a survival curve (lx), 2) a
+  \code{data.frame} / \code{list} with one column / element titled 'lx'
+  describing a survival curve, optionally a column / element 'x' containing
+  age classes (each element a number representing the age at the start of the
+  class), or 3), a \code{matrix}, specifically the U submatrix of a matrix
+  population model (A).
 
-If \code{x} is not supplied, the function will assume age classes starting
-at \code{0} with time steps of \code{1} unit of the
-\code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
-should equal \code{1}. If \code{x} ends at maximum longevity, then
-\code{lx[which.max(x)]} should equal \code{0}; however it is possible to
-supply partial survivorship curves.}
+  In case (2) If \code{x} is not supplied, the function will assume age classes starting
+  at \code{0} with time steps of \code{1} unit of the
+  \code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
+  should equal \code{1}. If \code{x} ends at maximum longevity, then
+  \code{lx[which.max(x)]} should equal \code{0}; however it is possible to
+  supply partial survivorship curves.}
 
 \item{xmin, xmax}{The minimum and maximum age respectively over which to
 evaluate shape. If not given, these default to \code{min(x)} and
@@ -30,6 +31,9 @@ any \code{lx == 0}. Usually this is the case only for the final value of
 be handled. \code{trunc == TRUE} strips out the zero value(s). An
 alternative to this is to transform the zeroes to something approximating
 zero (e.g., 1e-7).}
+
+\item{...}{Additional variables passed to `mpm_to_lx`, if data are supplied
+as a matrix.}
 }
 \value{
 a shape value describing lifespan inequality by comparing the area
@@ -44,13 +48,19 @@ a shape value describing lifespan inequality by comparing the area
   individuals die at birth.
 }
 \description{
-Calculates a 'shape' value of survival lifespan inequality by comparing the 
-area under a survival curve (over age) with the area under a constant 
+Calculates a 'shape' value of survival lifespan inequality by comparing the
+area under a survival curve (over age) with the area under a constant
 survival function.
 }
 \examples{
 # exponential decline in lx yields shape = 0
 lx <- 0.7^(0:20)
+shape_surv(lx)
+
+data(mpm1)
+shape_surv(mpm1$matU)
+
+lx <- mpm_to_lx(mpm1$matU, start = 1)
 shape_surv(lx)
 
 }

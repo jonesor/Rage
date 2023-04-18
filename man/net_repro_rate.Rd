@@ -30,8 +30,8 @@ Returns the net reproductive value. If \code{matU} is singular (often
   indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculate net reproductive value (R0) from a matrix population model. The net 
-reproduction value (R0) is the mean number of recruits produced during the 
+Calculate net reproductive value (R0) from a matrix population model. The net
+reproduction value (R0) is the mean number of recruits produced during the
 mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 }
 \details{
@@ -44,7 +44,7 @@ per-generation population growth rate (i.e., the dominant eigenvalue of
 
 If \code{method = "start"}, net reproductive value is calculated as the
 expected lifetime production of offspring that start life in stage
-\code{start}, by an individual also starting life in stage \code{start} (i.e., 
+\code{start}, by an individual also starting life in stage \code{start} (i.e.,
 \code{(matR \%*\% N)[start,start]}).
 
 If offspring only arise in stage \code{start}, the two methods give the
