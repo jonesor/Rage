@@ -61,7 +61,7 @@ data(mpm1)
 life_expect_mean(mpm1$matU, start = 2)
 
 # equivalent using named life stages
-life_expect_mean(mpm1$matU, start = "small") 
+life_expect_mean(mpm1$matU, start = "small")
 
 # mean life expectancy starting from first reproduction
 rep_stages <- repro_stages(mpm1$matF)

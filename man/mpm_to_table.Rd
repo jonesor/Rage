@@ -152,7 +152,7 @@ data(mpm1)
 mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
 
 # equivalent using named life stages
-mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15) 
+mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)
 mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction

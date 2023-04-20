@@ -70,8 +70,10 @@ data(mpm1)
 # calculate generation time
 gen_time(matU = mpm1$matU, matR = mpm1$matF) # defaults to "R0" method
 gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "age_diff")
-gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "cohort", lx_crit =
-0.001)
+gen_time(
+  matU = mpm1$matU, matR = mpm1$matF, method = "cohort", lx_crit =
+    0.001
+)
 
 }
 \references{
