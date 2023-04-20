@@ -26,16 +26,18 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.,
 which stages are reproductive. Alternatively, a vector of stage indices or
 stage names of the reproductive classes.}
 
-\item{matrix_stages}{Character vector of matrix stage types (e.g., "propagule",
-"active", or "dormant").}
+\item{matrix_stages}{Character vector of matrix stage types (e.g.,
+"propagule", "active", or "dormant").}
 }
 \value{
 A list with four elements reflecting the standardized matrix and
   its components:
   \item{matA}{Standardized projection matrix}
   \item{matU}{Survival component of the standardized projection matrix}
-  \item{matF}{Sexual reproduction component of the standardized projection matrix}
-  \item{matC}{Clonal reproduction component of the standardized projection matrix}
+  \item{matF}{Sexual reproduction component of the standardized projection
+  matrix}
+  \item{matC}{Clonal reproduction component of the standardized projection
+  matrix}
 }
 \description{
 Transform a matrix population model to a standardized set of stage classes

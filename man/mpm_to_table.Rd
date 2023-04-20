@@ -32,8 +32,8 @@ reproduction). Optionally with named rows and columns indicating the
 corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to \code{1}. Alternately, a numeric
-vector giving the starting population vector (in which case
+considers the beginning of life. Defaults to \code{1}. Alternately, a
+numeric vector giving the starting population vector (in which case
 \code{length(start)} must match \code{ncol(matU))}. See section
 \emph{Starting from multiple stages}.}
 
@@ -61,13 +61,16 @@ A \code{data.frame} containing a variable number columns, depending
   \item{x}{age at the start of the age interval \code{[x, x+1)}}
   \item{Nx}{The number of individuals alive at age x. The initial number is
   set with \code{radix}}
-  \item{Dx}{proportion of original cohort dying during the age interval \code{[x, x+1)}}
-  \item{lx}{survivorship, defined as the proportion of initial cohort surviving to the start of
-  age interval \code{[x, x+1)}}
-  \item{dx}{proportion of original cohort dying in the age interval \code{[x, x+1)}}
+  \item{Dx}{proportion of original cohort dying during the age interval
+  \code{[x, x+1)}}
+  \item{lx}{survivorship, defined as the proportion of initial cohort
+  surviving to the start of age interval \code{[x, x+1)}}
+  \item{dx}{proportion of original cohort dying in the age interval \code{[x,
+  x+1)}}
   \item{ax}{The average time survived within the interval by those that die
   during the age interval \code{[x, x+1)}. Assumed to be 0.5}
-  \item{hx}{force of mortality (hazard) during the age interval \code{[x, x+1)}}
+  \item{hx}{force of mortality (hazard) during the age interval \code{[x,
+  x+1)}}
   \item{qx}{probability of death during the interval \code{[x, x+1)} for
   those entering the interval}
   \item{px}{probability of survival for the interval \code{[x, x+1)} for
@@ -116,10 +119,10 @@ The life table calculations assume that the final age interval is
   may be a good idea to remove the final row of the table.
 
   If \code{lx_crit} is sufficiently small that only a very small proportion
-  of the cohort reach this age (i.e., < 0.05), this should have minimal impact
-  on results. Nevertheless, for many analyses, the final row of the life
-  table should be treated with caution and perhaps removed from subsequent
-  analyses.
+  of the cohort reach this age (i.e., < 0.05), this should have minimal
+  impact on results. Nevertheless, for many analyses, the final row of the
+  life table should be treated with caution and perhaps removed from
+  subsequent analyses.
 
 Note that the units of time (e.g.. `x` and `ex`) in the returned life
   table are the same as the projection interval (`ProjectionInterval`) of the
@@ -147,7 +150,9 @@ individuals achieving reproductive maturity in each stage class.
 data(mpm1)
 
 mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
-mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15) # equivalent using named life stages
+
+# equivalent using named life stages
+mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15) 
 mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction

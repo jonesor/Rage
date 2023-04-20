@@ -39,7 +39,10 @@ test_that("mpm_to_ functions work correctly", {
   lx_named <- mpm_to_lx(mat_u_named, start = "sm", xmax = xmax, lx_crit = 0)
   px_named <- mpm_to_px(mat_u_named, start = 1, xmax = xmax, lx_crit = 0)
   hx_named <- mpm_to_hx(mat_u_named, start = 1, xmax = xmax, lx_crit = 0)
-  mx_named <- mpm_to_mx(mat_u_named, mat_f_named, start = 1, xmax = xmax, lx_crit = 0)
+  mx_named <- mpm_to_mx(mat_u_named, mat_f_named,
+    start = 1, xmax = xmax,
+    lx_crit = 0
+  )
   expect_equal(lx, lx_named)
   expect_equal(px, px_named)
   expect_equal(hx, hx_named)

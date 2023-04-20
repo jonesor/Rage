@@ -12,10 +12,7 @@ square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
-\item{matR}{The reproductive component of a matrix population model (i.e., a
-square projection matrix only reflecting transitions due to reproduction; either
-sexual, clonal, or both). Optionally with named rows and columns indicating
-the corresponding life stage names.}
+\item{matR}{The fertility component of a matrix population model.}
 
 \item{start}{Index (or stage name) of the first stage at which the author
 considers the beginning of life. Only used if \code{method = "start"}.
@@ -44,8 +41,8 @@ per-generation population growth rate (i.e., the dominant eigenvalue of
 
 If \code{method = "start"}, net reproductive value is calculated as the
 expected lifetime production of offspring that start life in stage
-\code{start}, by an individual also starting life in stage \code{start} (i.e.,
-\code{(matR \%*\% N)[start,start]}).
+\code{start}, by an individual also starting life in stage \code{start}
+(i.e., \code{(matR \%*\% N)[start,start]}).
 
 If offspring only arise in stage \code{start}, the two methods give the
 same result.

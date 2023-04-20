@@ -21,10 +21,10 @@ A logical vector of length \code{ncol(matR)}, with values of
   \code{TRUE} corresponding to reproductive stages.\cr\cr For a given matrix
   stage (i.e., column of \code{matR}), if there are any positive values of
   reproduction, the function will return \code{TRUE}. However, for a given
-  stage, if there are no positive values of reproduction and one or more values
-  of \code{NA}, the function will return \code{NA} if \code{na_handling ==
-  "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
-  \code{FALSE} if \code{na_handling == "return.false"}.
+  stage, if there are no positive values of reproduction and one or more
+  values of \code{NA}, the function will return \code{NA} if
+  \code{na_handling == "return.na"}, \code{TRUE} if \code{na_handling ==
+  "return.true"}, or \code{FALSE} if \code{na_handling == "return.false"}.
 }
 \description{
 Takes a reproductive matrix and returns a vector of logical values

@@ -13,15 +13,16 @@ progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
-giving the starting population vector (in which case \code{length(start)}
-must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.}
+considers the beginning of life. Defaults to \code{1}. Alternately, a
+numeric vector giving the starting population vector (in which case
+\code{length(start)} must match \code{ncol(matU))}. See section
+\emph{Starting from multiple stages}.}
 
 \item{x_max}{The maximum age, in units of the MPM projection interval, to
 which survivorship will be calculated. Defaults to \code{1000}.}
 
-\item{lx_crit}{Proportion of initial cohort remaining before all are considered
-dead (a value between 0 and 1). Defaults to \code{0.01}.}
+\item{lx_crit}{Proportion of initial cohort remaining before all are
+considered dead (a value between 0 and 1). Defaults to \code{0.01}.}
 }
 \value{
 Returns longevity, the integer age at which expected survivorship
@@ -29,8 +30,8 @@ Returns longevity, the integer age at which expected survivorship
   \code{x_max}, returns \code{NA} and prints a warning message.
 }
 \description{
-Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some
-critical proportion) from a matrix population model
+Calculate longevity (the age \emph{x} at which survivorship for a synthetic
+cohort falls below some critical proportion) from a matrix population model
 }
 \note{
 Note that the units of time in returned values are the same as the

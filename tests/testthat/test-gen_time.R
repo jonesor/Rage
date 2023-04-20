@@ -31,11 +31,10 @@ test_that("gen_time warns and fails gracefully", {
   expect_error(gen_time(mat_u_na, mat_f))
   expect_error(gen_time(mat_u, mat_f_na))
 
-  expect_warning(gen_time(mat_u_survissue, mat_f), method = "age_diff")
-  expect_error(gen_time(mat_u_na, mat_f), method = "age_diff")
-  expect_error(gen_time(mat_u, mat_f_na), method = "age_diff")
+  expect_error(gen_time(mat_u_na, mat_f, method = "age_diff"))
+  expect_error(gen_time(mat_u, mat_f_na, method = "age_diff"))
 
-  expect_warning(gen_time(mat_u_survissue, mat_f), method = "cohort")
-  expect_error(gen_time(mat_u_na, mat_f), method = "cohort")
-  expect_error(gen_time(mat_u, mat_f_na), method = "cohort")
+  expect_warning(gen_time(mat_u_survissue, mat_f))
+  expect_error(gen_time(mat_u_na, mat_f, method = "cohort"))
+  expect_error(gen_time(mat_u, mat_f_na, method = "cohort"))
 })

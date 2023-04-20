@@ -32,5 +32,7 @@ test_that("mpm_collapse warns and fails gracefully", {
   expect_error(mpm_collapse(mat_u_named, mat_f_named,
     collapse = list(c("sm", "md", "lg", "xl"), "xxl")
   ))
-  expect_error(mpm_collapse(mat_u_named, mat_f_named, collapse = list(1:3, "xl")))
+  expect_error(mpm_collapse(mat_u_named, mat_f_named,
+    collapse = list(1:3, "xl")
+  ))
 })

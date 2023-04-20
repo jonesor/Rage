@@ -171,10 +171,11 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
       }
 
       if (dist > 0.001) {
-        warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic after
-                        removing stages not connected from stage 'start', and stable
-                        distribution does not match observed distribution after N
-                        iterations."), call. = FALSE)
+        warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic
+        after removing stages not connected from stage 'start', and stable
+        distribution doesn't match observed distribution after N iterations."),
+          call. = FALSE
+        )
         cat("\n")
         return(NA_integer_)
       }

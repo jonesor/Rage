@@ -17,10 +17,10 @@
 #'   \code{TRUE} corresponding to reproductive stages.\cr\cr For a given matrix
 #'   stage (i.e., column of \code{matR}), if there are any positive values of
 #'   reproduction, the function will return \code{TRUE}. However, for a given
-#'   stage, if there are no positive values of reproduction and one or more values
-#'   of \code{NA}, the function will return \code{NA} if \code{na_handling ==
-#'   "return.na"}, \code{TRUE} if \code{na_handling == "return.true"}, or
-#'   \code{FALSE} if \code{na_handling == "return.false"}.
+#'   stage, if there are no positive values of reproduction and one or more
+#'   values of \code{NA}, the function will return \code{NA} if
+#'   \code{na_handling == "return.na"}, \code{TRUE} if \code{na_handling ==
+#'   "return.true"}, or \code{FALSE} if \code{na_handling == "return.false"}.
 #'
 #' @author Rob Salguero-Gomez <rob.salguero@@zoo.ox.ac.uk>
 #' @author Patrick Barks <patrick.barks@@gmail.com>
@@ -53,8 +53,11 @@ repro_stages <- function(matR, na_handling = "return.true") {
   # validate arguments
   checkValidMat(matR, fail_any_na = FALSE)
   if (!na_handling %in% c("return.na", "return.true", "return.false")) {
-    stop(strwrap(prefix = " ", initial = "", "Argument na_handling must be either 'return.na',
-                 'return.true', or 'return.false'.\n"), call. = FALSE)
+    stop(strwrap(
+      prefix = " ", initial = "",
+      "Argument na_handling must be either 'return.na',
+    'return.true', or 'return.false'.\n"
+    ), call. = FALSE)
   }
 
   if (!any(is.na(matR))) {

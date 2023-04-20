@@ -70,7 +70,8 @@ data(mpm1)
 repro_stages(matR = mpm1$matF)
 
 # collapse reproductive stages (3 and 4) into single stage
-mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, collapse = list(1, 2, 3:4, 5))
+mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, 
+collapse = list(1, 2, 3:4, 5))
 
 # use stage names instead, and name stages in the collapsed matrix
 mpm_collapse(

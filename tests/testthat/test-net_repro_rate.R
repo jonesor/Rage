@@ -21,5 +21,7 @@ test_that("net_repro_rate warns and fails gracefully", {
   expect_error(net_repro_rate(mat_u, mat_f, method = "eigen"))
   expect_error(net_repro_rate(mat_u_named, mat_f, start = "sm"))
   expect_error(net_repro_rate(mat_u, mat_f_named, start = "sm"))
-  expect_error(net_repro_rate(mat_u_named, mat_f_named, start = "invalid stage"))
+  expect_error(net_repro_rate(mat_u_named, mat_f_named,
+    start = "invalid stage"
+  ))
 })

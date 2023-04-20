@@ -11,8 +11,8 @@
 #'   class), or 3), a \code{matrix}, specifically the U submatrix of a matrix
 #'   population model (A).
 #'
-#'   In case (2) If \code{x} is not supplied, the function will assume age classes starting
-#'   at \code{0} with time steps of \code{1} unit of the
+#'   In case (2) If \code{x} is not supplied, the function will assume age
+#'   classes starting at \code{0} with time steps of \code{1} unit of the
 #'   \code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
 #'   should equal \code{1}. If \code{x} ends at maximum longevity, then
 #'   \code{lx[which.max(x)]} should equal \code{0}; however it is possible to
@@ -65,7 +65,8 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
     lx <- surv
     x <- seq_along(lx) - 1
     if (lx[1] != 1) {
-      stop("if `x` isn't given, `lx` must start with 1 as `x[1]` is assumed to be 0.\n")
+      stop("if `x` isn't given, `lx` must start with 1 as `x[1]` is assumed to
+           be 0.\n")
     }
   }
   if (class(surv) %in% c("list", "data.frame")) {
@@ -83,9 +84,10 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
   }
   if (!trunc) {
     if (any(lx %in% 0)) {
-      stop(strwrap(prefix = " ", initial = "", "`lx` cannot be zero (we calculate the `log`).
-                   Consider `trunc = TRUE`, or transforming zero values. See `?shape_surv`
-                   for more details.\n"))
+      stop(strwrap(prefix = " ", initial = "", "`lx` cannot be zero (we
+      calculate the `log`).
+      Consider `trunc = TRUE`, or transforming zero values. See `?shape_surv`
+      for more details.\n"))
     }
   }
   if (trunc) {
@@ -94,8 +96,10 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
   }
   if (is.null(xmin)) xmin <- min(x)
   if (is.null(xmax)) xmax <- max(x)
-  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, x must all be ascending.\n")
-  if (any(diff(lx) > 1e-7)) stop("please don't bring people back from the dead (check lx).\n")
+  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing,
+                              x must all be ascending.\n")
+  if (any(diff(lx) > 1e-7)) stop("please don't bring people back
+                                 from the dead (check lx).\n")
   x_sub <- x[x >= xmin & x <= xmax]
   if (length(x_sub) <= 2) {
     stop("must have > 2 nonzero values of lx to calculate shape.\n")

@@ -20,8 +20,8 @@ corresponding life stage names.}
 
 \item{start}{The index (or stage name) of the first stage of the life cycle
 which the user considers to be the beginning of life. Defaults to \code{1}.
-Alternately, a numeric vector giving the starting population vector (in which
- case \code{length(start)} must match \code{ncol(matU))}. See section
+Alternately, a numeric vector giving the starting population vector (in
+which case \code{length(start)} must match \code{ncol(matU))}. See section
 \emph{Starting from multiple stages}.}
 }
 \value{
@@ -40,8 +40,8 @@ Note that the units of time in returned values are the same as the
 
 Rather than specifying argument \code{start} as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if the user wants to start their
-calculation of life expectancy from reproductive maturity (i.e., first
+multiple starting stage classes. For example, if the user wants to start
+their calculation of life expectancy from reproductive maturity (i.e., first
 reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.
 
@@ -59,7 +59,9 @@ data(mpm1)
 
 # mean life expectancy starting from stage class 2
 life_expect_mean(mpm1$matU, start = 2)
-life_expect_mean(mpm1$matU, start = "small") # equivalent using named life stages
+
+# equivalent using named life stages
+life_expect_mean(mpm1$matU, start = "small") 
 
 # mean life expectancy starting from first reproduction
 rep_stages <- repro_stages(mpm1$matF)

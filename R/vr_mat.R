@@ -11,7 +11,8 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis, or
 #' reproduction). Reproductive vital rates that are not conditional on survival
-#' (i.e., within a stage class from which there is no survival) are also allowed.
+#' (i.e., within a stage class from which there is no survival) are also
+#' allowed.
 #'
 #' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.

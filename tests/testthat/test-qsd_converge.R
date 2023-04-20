@@ -48,5 +48,6 @@ test_that("qsd_converge works w/ non-ergodic matrix", {
   )
 
   expect_length(f_qsd, 1L)
-  # expect_equal(f_qsd, 8L) #This depends on default value of conv in qsd_converge
+  # expect_equal(f_qsd, 8L)
+  # This depends on default value of conv in qsd_converge
 })

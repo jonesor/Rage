@@ -29,8 +29,8 @@ Defaults to \code{NULL}, indicating no clonal reproduction (i.e.,
 
 \item{pert}{Magnitude of the perturbation. Defaults to \code{1e-6}.}
 
-\item{type}{Whether to return \code{sensitivity} or \code{elasticity} values. Defaults
-to \code{sensitivity}.}
+\item{type}{Whether to return \code{sensitivity} or \code{elasticity} values.
+Defaults to \code{sensitivity}.}
 
 \item{demog_stat}{The demographic statistic to be used, as in "the
 sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."

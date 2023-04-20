@@ -17,22 +17,24 @@
 #'   sexual, clonal, or both). Optionally with named rows and columns indicating
 #'   the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
-#'   giving the starting population vector (in which case \code{length(start)}
-#'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a
+#'   numeric vector giving the starting population vector (in which case
+#'   \code{length(start)} must match \code{ncol(matU))}. See section
+#'   \emph{Starting from multiple stages}.
 #' @param xmax Maximum age to which age-specific traits will be calculated
 #'   (defaults to \code{1000}).
-#' @param lx_crit Minimum value of \code{lx} to which age-specific traits will be
-#'   calculated (defaults to \code{0.01}).
+#' @param lx_crit Minimum value of \code{lx} to which age-specific traits will
+#'   be calculated (defaults to \code{0.01}).
 #' @param tol To account for floating point errors that occasionally lead to
-#'   values of \code{lx} slightly greater than 1, values of \code{lx} within the open interval
-#'   (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to \code{0.0001}. To
-#'   prevent coercion, set \code{tol} to \code{0}.
+#'   values of \code{lx} slightly greater than 1, values of \code{lx} within the
+#'   open interval (\code{1}, \code{1 + tol}) are coerced to 1. Defaults to
+#'   \code{0.0001}. To prevent coercion, set \code{tol} to \code{0}.
 #'
 #' @return A vector
 #'
-#' @note Note that the units of time for the returned vectors (i.e., \code{x}) are
-#'   the same as the projection interval (\code{ProjectionInterval}) of the MPM.
+#' @note Note that the units of time for the returned vectors (i.e., \code{x})
+#'   are the same as the projection interval (\code{ProjectionInterval}) of the
+#'   MPM.
 #'
 #'
 #' @section Starting from multiple stages:
@@ -51,10 +53,10 @@
 #' See function \code{\link{mature_distrib}} for calculating the proportion of
 #' individuals achieving reproductive maturity in each stage class.
 #'
-#' @note The output vector is calculated recursively until the age class (\code{x})
-#'   reaches \code{xmax} or survivorship (\code{lx}) falls below \code{lx_crit},
-#'   whichever comes first. To force calculation to \code{xmax}, set
-#'   \code{lx_crit} to \code{0}. Conversely, to force calculation to
+#' @note The output vector is calculated recursively until the age class
+#'   (\code{x}) reaches \code{xmax} or survivorship (\code{lx}) falls below
+#'   \code{lx_crit}, whichever comes first. To force calculation to \code{xmax},
+#'   set \code{lx_crit} to \code{0}. Conversely, to force calculation to
 #'   \code{lx_crit}, set \code{xmax} to \code{Inf}.
 #'
 #' @note Note that the units of time in returned values (i.e., \code{x}) are the

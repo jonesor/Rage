@@ -73,7 +73,10 @@
 #'
 #' # Group vital rates according to specified matrixStages
 #' ms <- c("prop", "active", "active", "active")
-#' vital_rates(matU, matF, matC, splitStages = "matrixStages", matrixStages = ms)
+#' vital_rates(matU, matF, matC,
+#'   splitStages = "matrixStages",
+#'   matrixStages = ms
+#' )
 #'
 #' # Vital rate outputs weighted by the stable stage distribution of 'matA'
 #' vital_rates(matU, matF, matC, splitStages = "all", weights = "SSD")
@@ -90,29 +93,35 @@ vital_rates <- function(matU, matF, matC = NULL, weights = NULL,
     !is.null(weights), weights != "SSD",
     length(weights) != nrow(matU)
   )) {
-    stop(strwrap(prefix = " ", initial = "", "If `weights` are provided, `length(weights)` should be
-                 of the same dimension as `matU`.\n"), call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "", "If `weights` are provided,
+    `length(weights)` should be of the same dimension as `matU`.\n"),
+      call. = FALSE
+    )
   }
 
   if (!splitStages %in% c("all", "ontogeny", "matrixStages")) {
-    stop(strwrap(prefix = " ", initial = "", "Argument `splitStages` must be one of `all`, `ontogeny`,
-                 or `matrixStages`.\n"), call. = FALSE)
+    stop(strwrap(prefix = " ", initial = "", "Argument `splitStages` must be
+    one of `all`, `ontogeny`, or `matrixStages`.\n"), call. = FALSE)
   }
   if (splitStages == "matrixStages") {
     if (is.null(matrixStages)) {
-      stop(strwrap(prefix = " ", initial = "", "If `splitStages` = `matrixStages`, argument `matrixStages`
-                   must be provided.\n"), call. = FALSE)
+      stop(strwrap(
+        prefix = " ", initial = "",
+        "If `splitStages` = `matrixStages`, argument `matrixStages`
+                   must be provided.\n"
+      ), call. = FALSE)
     }
     if (length(matrixStages) != nrow(matU)) {
-      stop("`length(matrixStages)` should be of the same dimension as `matU`.\n",
-        call. = FALSE
-      )
+      stop("`length(matrixStages)` should be of the same dimension
+           as `matU`.\n", call. = FALSE)
     }
   }
 
   if (!is.null(matrixStages)) {
     if (!all(matrixStages %in% c("prop", "active", "dorm"))) {
-      stop("matrixStage names must be 'prop','active' or 'dorm'.\n", call. = FALSE)
+      stop("matrixStage names must be 'prop','active' or 'dorm'.\n",
+        call. = FALSE
+      )
     }
   }
 

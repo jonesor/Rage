@@ -12,9 +12,9 @@ pop_vectors(A, start = "stable.stage")
 
 \item{start}{Method to derive the first population vector in the series.
 Either \code{stable.stage} to use the stable stage distribution of the mean
-matrix as the starting vector, \code{uniform} to use a uniform starting vector
-(all elements equal), or \code{random} to use a randomly-generated starting
-vector. Defaults to the stable stage distribution.}
+matrix as the starting vector, \code{uniform} to use a uniform starting
+vector (all elements equal), or \code{random} to use a randomly-generated
+starting vector. Defaults to the stable stage distribution.}
 }
 \value{
 A list of population vectors
@@ -22,9 +22,9 @@ A list of population vectors
 \description{
 Derive a hypothetical set of population vectors (i.e. population size
 distributions across stages) given a time-series of matrix population models
-(MPMs), by taking the stable stage distribution of the mean matrix as the starting
-vector (or optionally, a uniform or random starting vector), and deriving
-subsequent vectors through recursive population projection.
+(MPMs), by taking the stable stage distribution of the mean matrix as the
+starting vector (or optionally, a uniform or random starting vector), and
+deriving subsequent vectors through recursive population projection.
 }
 \details{
 This function is useful for providing population vectors as input to the
