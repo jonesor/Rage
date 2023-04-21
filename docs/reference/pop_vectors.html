@@ -3,9 +3,9 @@
 time-series of matrix population models — pop_vectors • Rage</title><!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous"><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css"><script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet"><script src="../pkgdown.js"></script><meta property="og:title" content="Derive a hypothetical set of population vectors corresponding to a
 time-series of matrix population models — pop_vectors"><meta property="og:description" content="Derive a hypothetical set of population vectors (i.e. population size
 distributions across stages) given a time-series of matrix population models
-(MPMs), by taking the stable stage distribution of the mean matrix as the starting
-vector (or optionally, a uniform or random starting vector), and deriving
-subsequent vectors through recursive population projection."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+(MPMs), by taking the stable stage distribution of the mean matrix as the
+starting vector (or optionally, a uniform or random starting vector), and
+deriving subsequent vectors through recursive population projection."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -23,7 +23,7 @@ subsequent vectors through recursive population projection."><!-- mathjax --><sc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -80,9 +80,9 @@ time-series of matrix population models</h1>
     <div class="ref-description">
     <p>Derive a hypothetical set of population vectors (i.e. population size
 distributions across stages) given a time-series of matrix population models
-(MPMs), by taking the stable stage distribution of the mean matrix as the starting
-vector (or optionally, a uniform or random starting vector), and deriving
-subsequent vectors through recursive population projection.</p>
+(MPMs), by taking the stable stage distribution of the mean matrix as the
+starting vector (or optionally, a uniform or random starting vector), and
+deriving subsequent vectors through recursive population projection.</p>
     </div>
 
     <div id="ref-usage">
@@ -98,9 +98,9 @@ subsequent vectors through recursive population projection.</p>
 <dt>start</dt>
 <dd><p>Method to derive the first population vector in the series.
 Either <code>stable.stage</code> to use the stable stage distribution of the mean
-matrix as the starting vector, <code>uniform</code> to use a uniform starting vector
-(all elements equal), or <code>random</code> to use a randomly-generated starting
-vector. Defaults to the stable stage distribution.</p></dd>
+matrix as the starting vector, <code>uniform</code> to use a uniform starting
+vector (all elements equal), or <code>random</code> to use a randomly-generated
+starting vector. Defaults to the stable stage distribution.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -144,51 +144,51 @@ al. (2009).</p>
 <span class="r-in"><span><span class="co"># calculate corresponding population vectors</span></span></span>
 <span class="r-in"><span><span class="fu">pop_vectors</span><span class="op">(</span><span class="va">matA_l</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3369236 0.3614924 0.3015840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3082194 0.3424564 0.3493242</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3726470 0.4108725 0.2164805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4232295 0.3828617 0.1939088</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2526338 0.2779577 0.4694084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1968910 0.4512812 0.3518278</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4768183 0.2863179 0.2368638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4632760 0.2183232 0.3184008</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1212235 0.4591106 0.4196659</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2002950 0.4517772 0.3479277</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">pop_vectors</span><span class="op">(</span><span class="va">matA_l</span>, start <span class="op">=</span> <span class="st">"uniform"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3333333 0.3333333 0.3333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3866487 0.4037359 0.2096154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4186822 0.3813104 0.2000074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2519486 0.2744115 0.4736400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2000554 0.4489915 0.3509531</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4760908 0.2869450 0.2369642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4626072 0.2199671 0.3174256</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1213718 0.4590586 0.4195696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2001666 0.4518877 0.3479457</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">pop_vectors</span><span class="op">(</span><span class="va">matA_l</span>, start <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.19241936 0.76054873 0.04703191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2048708 0.4454113 0.3497179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2401312 0.4440006 0.3158682</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4530007 0.3844294 0.1625699</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2656467 0.3066279 0.4277254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1810301 0.4640042 0.3549657</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4854946 0.2806050 0.2339004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4662610 0.2102834 0.3234557</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1194373 0.4603354 0.4202273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2009154 0.4511629 0.3479217</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -201,7 +201,7 @@ al. (2009).</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

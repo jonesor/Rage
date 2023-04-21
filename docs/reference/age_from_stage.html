@@ -23,7 +23,7 @@ table."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -114,9 +114,10 @@ the corresponding life stage names.</p></dd>
 
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to <code>1</code>. Alternately, a numeric vector
-giving the starting population vector (in which case <code>length(start)</code>
-must match <code>ncol(matU))</code>. See section <em>Starting from multiple stages</em>.</p></dd>
+considers the beginning of life. Defaults to <code>1</code>. Alternately, a
+numeric vector giving the starting population vector (in which case
+<code>length(start)</code> must match <code>ncol(matU))</code>. See section
+<em>Starting from multiple stages</em>.</p></dd>
 
 
 <dt>xmax</dt>
@@ -125,15 +126,15 @@ must match <code>ncol(matU))</code>. See section <em>Starting from multiple stag
 
 
 <dt>lx_crit</dt>
-<dd><p>Minimum value of <code>lx</code> to which age-specific traits will be
-calculated (defaults to <code>0.01</code>).</p></dd>
+<dd><p>Minimum value of <code>lx</code> to which age-specific traits will
+be calculated (defaults to <code>0.01</code>).</p></dd>
 
 
 <dt>tol</dt>
 <dd><p>To account for floating point errors that occasionally lead to
-values of <code>lx</code> slightly greater than 1, values of <code>lx</code> within the open interval
-(<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults to <code>0.0001</code>. To
-prevent coercion, set <code>tol</code> to <code>0</code>.</p></dd>
+values of <code>lx</code> slightly greater than 1, values of <code>lx</code> within the
+open interval (<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults to
+<code>0.0001</code>. To prevent coercion, set <code>tol</code> to <code>0</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -144,12 +145,13 @@ prevent coercion, set <code>tol</code> to <code>0</code>.</p></dd>
     </div>
     <div id="note">
     <h2>Note</h2>
-    <p>Note that the units of time for the returned vectors (i.e., <code>x</code>) are
-  the same as the projection interval (<code>ProjectionInterval</code>) of the MPM.</p>
-<p>The output vector is calculated recursively until the age class (<code>x</code>)
-  reaches <code>xmax</code> or survivorship (<code>lx</code>) falls below <code>lx_crit</code>,
-  whichever comes first. To force calculation to <code>xmax</code>, set
-  <code>lx_crit</code> to <code>0</code>. Conversely, to force calculation to
+    <p>Note that the units of time for the returned vectors (i.e., <code>x</code>)
+  are the same as the projection interval (<code>ProjectionInterval</code>) of the
+  MPM.</p>
+<p>The output vector is calculated recursively until the age class
+  (<code>x</code>) reaches <code>xmax</code> or survivorship (<code>lx</code>) falls below
+  <code>lx_crit</code>, whichever comes first. To force calculation to <code>xmax</code>,
+  set <code>lx_crit</code> to <code>0</code>. Conversely, to force calculation to
   <code>lx_crit</code>, set <code>xmax</code> to <code>Inf</code>.</p>
 <p>Note that the units of time in returned values (i.e., <code>x</code>) are the
   same as the projection interval (`ProjectionInterval`) of the MPM.</p>
@@ -258,7 +260,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

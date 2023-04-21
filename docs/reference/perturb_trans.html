@@ -23,7 +23,7 @@ demographic statistic."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -106,20 +106,20 @@ demographic statistic.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>matU</dt>
-<dd><p>The survival component submatrix of a MPM (i.e., a square projection matrix
-reflecting survival-related transitions; e.g., progression, stasis, and
-retrogression).</p></dd>
+<dd><p>The survival component submatrix of a MPM (i.e., a square
+projection matrix reflecting survival-related transitions; e.g.,
+progression, stasis, and retrogression).</p></dd>
 
 
 <dt>matF</dt>
-<dd><p>The sexual component submatrix of a MPM (i.e., a square projection matrix
-reflecting transitions due to sexual reproduction).</p></dd>
+<dd><p>The sexual component submatrix of a MPM (i.e., a square
+projection matrix reflecting transitions due to sexual reproduction).</p></dd>
 
 
 <dt>matC</dt>
-<dd><p>The clonal component submatrix of a MPM (i.e., a square projection matrix
-reflecting transitions due to clonal reproduction). Defaults to
-<code>NULL</code>, indicating no clonal reproduction possible.</p></dd>
+<dd><p>The clonal component submatrix of a MPM (i.e., a square
+projection matrix reflecting transitions due to clonal reproduction).
+Defaults to <code>NULL</code>, indicating no clonal reproduction possible.</p></dd>
 
 
 <dt>posU</dt>
@@ -145,18 +145,18 @@ Details).</p></dd>
 
 <dt>exclude_row</dt>
 <dd><p>A vector of row indices or stages names indicating stages
-for which transitions <em>to</em> the stage should be excluded from perturbation
-analysis. Alternatively, a logical vector of length <code>nrow(matU)</code>
-indicating which stages to include <code>TRUE</code> or exclude <code>FALSE</code> from
-the calculation. See section <em>Excluding stages</em>.</p></dd>
+for which transitions <em>to</em> the stage should be excluded from
+perturbation analysis. Alternatively, a logical vector of length
+<code>nrow(matU)</code> indicating which stages to include <code>TRUE</code> or exclude
+<code>FALSE</code> from the calculation. See section <em>Excluding stages</em>.</p></dd>
 
 
 <dt>exclude_col</dt>
-<dd><p>A vector of column indices or stages names indicating stages
-for which transitions <em>to</em> the stage should be excluded from perturbation
-analysis. Alternatively, a logical vector of length <code>ncol(matU)</code>
-indicating which stages to include <code>TRUE</code> or exclude <code>FALSE</code> from
-the calculation. See section <em>Excluding stages</em>.</p></dd>
+<dd><p>A vector of column indices or stages names indicating
+stages for which transitions <em>to</em> the stage should be excluded from
+perturbation analysis. Alternatively, a logical vector of length
+<code>ncol(matU)</code> indicating which stages to include <code>TRUE</code> or exclude
+<code>FALSE</code> from the calculation. See section <em>Excluding stages</em>.</p></dd>
 
 
 <dt>pert</dt>
@@ -220,9 +220,9 @@ the arguments <code>posX</code> are specified by the logical expression <code>(m
 &gt; 0)</code>. If the matrix population model includes transitions that are possible
 but estimated to be <code>0</code>, users should specify the <code>posX</code>
 argument(s) manually.</p>
-<p>If there are no possible transitions for a given process (e.g., clonality, in many species),
-the value of sensitivity or elasticity returned for that process will be
-<code>NA</code>.</p>
+<p>If there are no possible transitions for a given process (e.g., clonality, in
+many species), the value of sensitivity or elasticity returned for that
+process will be <code>NA</code>.</p>
     </div>
     <div id="excluding-stages">
     <h2>Excluding stages</h2>
@@ -339,7 +339,7 @@ the value of sensitivity or elasticity returned for that process will be
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

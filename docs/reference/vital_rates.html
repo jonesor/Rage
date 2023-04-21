@@ -21,7 +21,7 @@ life cycle."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -231,7 +231,10 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Group vital rates according to specified matrixStages</span></span></span>
 <span class="r-in"><span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prop"</span>, <span class="st">"active"</span>, <span class="st">"active"</span>, <span class="st">"active"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>, splitStages <span class="op">=</span> <span class="st">"matrixStages"</span>, matrixStages <span class="op">=</span> <span class="va">ms</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vital_rates</span><span class="op">(</span><span class="va">matU</span>, <span class="va">matF</span>, <span class="va">matC</span>,</span></span>
+<span class="r-in"><span>  splitStages <span class="op">=</span> <span class="st">"matrixStages"</span>,</span></span>
+<span class="r-in"><span>  matrixStages <span class="op">=</span> <span class="va">ms</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $survProp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -291,7 +294,7 @@ must also specify separate argument <code>matrixStages</code>.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

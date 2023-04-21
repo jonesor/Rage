@@ -103,7 +103,19 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/is_leslie.html</loc>
+  </url>
+  <url>
+    <loc>/reference/is_leslie_matrix.html</loc>
+  </url>
+  <url>
     <loc>/reference/kEntropy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/leslie_collapse.html</loc>
+  </url>
+  <url>
+    <loc>/reference/leslie_mpm1.html</loc>
   </url>
   <url>
     <loc>/reference/lifeExpectancy.html</loc>

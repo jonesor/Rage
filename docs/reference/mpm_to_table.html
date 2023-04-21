@@ -20,7 +20,7 @@ of Caswell (2001).'><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -118,8 +118,8 @@ corresponding life stage names.</p></dd>
 
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage at which the author
-considers the beginning of life. Defaults to <code>1</code>. Alternately, a numeric
-vector giving the starting population vector (in which case
+considers the beginning of life. Defaults to <code>1</code>. Alternately, a
+numeric vector giving the starting population vector (in which case
 <code>length(start)</code> must match <code>ncol(matU))</code>. See section
 <em>Starting from multiple stages</em>.</p></dd>
 
@@ -163,21 +163,24 @@ Users can prevent this by setting `remove_final` to `TRUE` (the default is
   set with <code>radix</code></p></dd>
 
   <dt>Dx</dt>
-<dd><p>proportion of original cohort dying during the age interval <code>[x, x+1)</code></p></dd>
+<dd><p>proportion of original cohort dying during the age interval
+  <code>[x, x+1)</code></p></dd>
 
   <dt>lx</dt>
-<dd><p>survivorship, defined as the proportion of initial cohort surviving to the start of
-  age interval <code>[x, x+1)</code></p></dd>
+<dd><p>survivorship, defined as the proportion of initial cohort
+  surviving to the start of age interval <code>[x, x+1)</code></p></dd>
 
   <dt>dx</dt>
-<dd><p>proportion of original cohort dying in the age interval <code>[x, x+1)</code></p></dd>
+<dd><p>proportion of original cohort dying in the age interval <code>[x,
+  x+1)</code></p></dd>
 
   <dt>ax</dt>
 <dd><p>The average time survived within the interval by those that die
   during the age interval <code>[x, x+1)</code>. Assumed to be 0.5</p></dd>
 
   <dt>hx</dt>
-<dd><p>force of mortality (hazard) during the age interval <code>[x, x+1)</code></p></dd>
+<dd><p>force of mortality (hazard) during the age interval <code>[x,
+  x+1)</code></p></dd>
 
   <dt>qx</dt>
 <dd><p>probability of death during the interval <code>[x, x+1)</code> for
@@ -242,10 +245,10 @@ Users can prevent this by setting `remove_final` to `TRUE` (the default is
   individuals at the start of the interval is 0.5. Depending on analyses, it
   may be a good idea to remove the final row of the table.</p>
 <p>If <code>lx_crit</code> is sufficiently small that only a very small proportion
-  of the cohort reach this age (i.e., &lt; 0.05), this should have minimal impact
-  on results. Nevertheless, for many analyses, the final row of the life
-  table should be treated with caution and perhaps removed from subsequent
-  analyses.</p>
+  of the cohort reach this age (i.e., &lt; 0.05), this should have minimal
+  impact on results. Nevertheless, for many analyses, the final row of the
+  life table should be treated with caution and perhaps removed from
+  subsequent analyses.</p>
 <p>Note that the units of time (e.g.. `x` and `ex`) in the returned life
   table are the same as the projection interval (`ProjectionInterval`) of the
   MPM.</p>
@@ -320,7 +323,9 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 10 0.017411268 0.005141838 0.3464769 0.2953167 0.7046833 1.701265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 11 0.012269430 0.003623311 0.3464705 0.2953121 0.7046879 1.204688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13 12 0.008646119 0.008646119 2.0000000 1.0000000 0.0000000 0.500000</span>
-<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># equivalent using named life stages</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_to_table</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span>, xmax <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x          lx          dx        hx        qx        px       ex</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 1.000000000 0.500000000 0.6666667 0.5000000 0.5000000 1.988484</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 0.500000000 0.183200000 0.4485798 0.3664000 0.6336000 2.476967</span>
@@ -394,7 +399,7 @@ Modeling Population Processes. Wiley. ISBN: 9781557864512</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

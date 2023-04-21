@@ -18,7 +18,7 @@ expectancy from a matrix population model (MPM)."><!-- mathjax --><script src="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -96,8 +96,8 @@ corresponding life stage names.</p></dd>
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage of the life cycle
 which the user considers to be the beginning of life. Defaults to <code>1</code>.
-Alternately, a numeric vector giving the starting population vector (in which
- case <code>length(start)</code> must match <code>ncol(matU))</code>. See section
+Alternately, a numeric vector giving the starting population vector (in
+which case <code>length(start)</code> must match <code>ncol(matU))</code>. See section
 <em>Starting from multiple stages</em>.</p></dd>
 
 </dl></div>
@@ -119,8 +119,8 @@ Alternately, a numeric vector giving the starting population vector (in which
 
 <p>Rather than specifying argument <code>start</code> as a single stage class from
 which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if the user wants to start their
-calculation of life expectancy from reproductive maturity (i.e., first
+multiple starting stage classes. For example, if the user wants to start
+their calculation of life expectancy from reproductive maturity (i.e., first
 reproduction), they should account for the possibility that there may be
 multiple stage classes in which an individual could first reproduce.</p>
 <p>To specify multiple starting stage classes, specify argument <code>start</code> as
@@ -161,7 +161,9 @@ individuals achieving reproductive maturity in each stage class.</p>
 <span class="r-in"><span><span class="co"># mean life expectancy starting from stage class 2</span></span></span>
 <span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.509116</span>
-<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># equivalent using named life stages</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># equivalent using named life stages</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.509116</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># mean life expectancy starting from first reproduction</span></span></span>
@@ -184,7 +186,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">
