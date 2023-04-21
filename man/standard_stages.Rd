@@ -72,6 +72,8 @@ standard_stages(r$matF, r$repro_stages, r$matrix_stages)
 \code{\link{mpm_standardize}}
 
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},

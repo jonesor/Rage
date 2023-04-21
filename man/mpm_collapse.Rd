@@ -95,6 +95,8 @@ Salguero-Gomez, R. & Plotkin, J. B. 2010. Matrix dimensions bias
 \code{\link{mpm_standardize}}
 
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},

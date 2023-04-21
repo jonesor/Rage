@@ -12,31 +12,35 @@
 #' @param m the dimensionality of the desired aggregated matrix
 #'
 #' @return a list including the following elements:
-#' \item{B}{the aggregated matrix}
-#' \item{W}{the weight matrix}
-#' \item{Ak}{the original (or expanded) Leslie matrix raised to the k power}
-#' \item{S}{the partitioning matrix}
-#' \item{n}{the size of the original (or expanded) Leslie matrix}
-#' \item{m}{the size of the aggregated matrix}
-#' \item{k}{the quotient of the original size divided by the aggregated size}
-#' \item{EFF}{the effectiveness of aggregation}
+#' \item{B}{The aggregated matrix}
+#' \item{W}{The weight matrix}
+#' \item{Ak}{The original (or expanded) Leslie matrix raised to the k power}
+#' \item{S}{The partitioning matrix}
+#' \item{n}{The size of the original (or expanded) Leslie matrix}
+#' \item{m}{The size of the aggregated matrix}
+#' \item{k}{The quotient of the original size divided by the aggregated size}
+#' \item{EFF}{The effectiveness of aggregation}
 #'
 #' @examples
 #' data(leslie_mpm1)
 #' A <- leslie_mpm1$matU + leslie_mpm1$matF
-#' Leslie_collapse(A, 4)
+#' leslie_collapse(A, 4)
 #'
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #'
-#' @export Leslie_collapse
-#'
+#' @export leslie_collapse
+#' @family transformation
 #' @importFrom expm %^%
-Leslie_collapse <- function(A, m) {
+leslie_collapse <- function(A, m) {
+  # data input validation
+  if(!m%%1==0 || m<1) {stop("m must be a positive integer")}
+  if(nrow(A)!=ncol(A)) {stop("A must be a square matrix")}
+  
   # first check whether the matrix is a Leslie matrix
-  if (!is_Leslie(A)) stop("A is not a Leslie matrix")
+  if (!is_leslie(A)) {stop("A must be a Leslie matrix")}
   n <- dim(A)[1]
   if (n %% m != 0) {
-    A <- Leslie_expand(A, m)
+    A <- leslie_expand(A, m)
   } # if
   n <- dim(A)[1]
   k <- n / m
@@ -78,7 +82,7 @@ Leslie_collapse <- function(A, m) {
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #'
 #' @noRd
-Leslie_expand <- function(A, m) {
+leslie_expand <- function(A, m) {
   n <- dim(A)[1]
   A.expanded <- matrix(0, nrow = n * m, ncol = n * m)
   # fill in first row of A.expanded
@@ -118,7 +122,7 @@ Leslie_expand <- function(A, m) {
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #'
 #' @noRd
-is_Leslie <- function(A) {
+is_leslie <- function(A) {
   EPS <- 0.00001
   if (is.na(sum(A))) {
     return(FALSE)

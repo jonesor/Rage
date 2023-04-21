@@ -100,6 +100,8 @@ mpm_standardize(matU, matF, matC, repro_stages, matrix_stages)
 }
 \seealso{
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},

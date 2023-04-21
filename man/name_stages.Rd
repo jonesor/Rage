@@ -47,6 +47,8 @@ name_stages(mpm1)
 }
 \seealso{
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},
