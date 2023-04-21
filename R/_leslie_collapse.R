@@ -78,7 +78,7 @@ leslie_collapse <- function(A, m) {
 #'   0.5670728, 0.0000000, 0.000000,
 #'   0.0000000, 0.2194218, 0.000000
 #' ), byrow = TRUE, ncol = 3)
-#' Leslie_expand(A, 2)
+#' leslie_expand(A, 2)
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #'
 #' @noRd
@@ -114,14 +114,14 @@ leslie_expand <- function(A, m) {
 #' A <- matrix(c(0.1, 1.2, 1.1, 
 #'               0.0, 0.2, 0.0, 
 #'               0.0, 0.0, 0.3), nrow = 3, byrow = TRUE)
-#' is_Leslie(A) # true
+#' is_leslie(A) # true
 #' A <- matrix(c(0.1, 1.2, 1.1, 
 #'               0.1, 0.2, 0.1, 
 #'               0.2, 0.3, 0.3), nrow = 3, byrow = TRUE)
-#' is_Leslie(A) # false?
+#' is_leslie(A) # false?
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #'
-#' @noRd
+#' @export is_leslie
 is_leslie <- function(A) {
   EPS <- 0.00001
   if (is.na(sum(A))) {
