@@ -37,6 +37,11 @@ A <- leslie_mpm1$matU + leslie_mpm1$matF
 leslie_collapse(A, 4)
 
 }
+\references{
+Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
+  with application to ten diverse animal species. Population Ecology, 1–21.
+  https://doi.org/10.1002/1438-390X.12149
+}
 \seealso{
 Other transformation: 
 \code{\link{is_leslie_matrix}()},

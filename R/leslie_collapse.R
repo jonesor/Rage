@@ -27,7 +27,9 @@
 #' leslie_collapse(A, 4)
 #'
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
-#'
+#' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
+#'   with application to ten diverse animal species. Population Ecology, 1–21.
+#'   https://doi.org/10.1002/1438-390X.12149
 #' @export leslie_collapse
 #' @family transformation
 #' @importFrom expm %^%
@@ -80,7 +82,9 @@ leslie_collapse <- function(A, m) {
 #' ), byrow = TRUE, ncol = 3)
 #' leslie_expand(A, 2)
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
-#'
+#' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
+#'   with application to ten diverse animal species. Population Ecology, 1–21.
+#'   https://doi.org/10.1002/1438-390X.12149
 #' @noRd
 leslie_expand <- function(A, m) {
   n <- dim(A)[1]
@@ -120,7 +124,9 @@ leslie_expand <- function(A, m) {
 #'               0.2, 0.3, 0.3), nrow = 3, byrow = TRUE)
 #' is_leslie(A) # false?
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
-#'
+#' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
+#'   with application to ten diverse animal species. Population Ecology, 1–21.
+#'   https://doi.org/10.1002/1438-390X.12149
 #' @export is_leslie
 is_leslie <- function(A) {
   EPS <- 0.00001
