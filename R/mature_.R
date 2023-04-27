@@ -124,7 +124,7 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   if (!is.numeric(start)) {
     checkMatchingStageNames(M = matU)
   }
-  if (is.numeric(repro_stages) | is.character(repro_stages)) {
+  if (is.numeric(repro_stages) || is.character(repro_stages)) {
     checkValidStages(matU, repro_stages)
   }
 

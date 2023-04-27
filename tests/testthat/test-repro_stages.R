@@ -8,9 +8,9 @@ test_that("repro_stages works correctly", {
   x_na_2 <- repro_stages(mat_f_na, na_handling = "return.na")
   x_na_3 <- repro_stages(mat_f_na, na_handling = "return.false")
 
-  expect_false(any(is.na(x_na_1)))
-  expect_true(any(is.na(x_na_2)))
-  expect_false(any(is.na(x_na_3)))
+  expect_false(anyNA(x_na_1))
+  expect_true(anyNA(x_na_2))
+  expect_false(anyNA(x_na_3))
 })
 
 test_that("repro_stages warns and fails gracefully", {

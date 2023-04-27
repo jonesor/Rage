@@ -17,7 +17,7 @@
 #'
 #' @description
 #' An example Leslie matrix population model (MPM) used for demonstration and
-#' testing purposes. 
+#' testing purposes.
 #'
 #' @format
 #' A list with two elements:

@@ -3,7 +3,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut, "list")
   expect_length(vrOut, 5)
-  expect_equal(vrOut$clo, 0)
+  expect_identical(vrOut$clo, 0)
 
   vrOut_c <- vital_rates(
     matU = mat_u,
@@ -24,7 +24,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut_ss, "list")
   expect_length(vrOut_ss, 5)
-  expect_equal(vrOut_ss$clo, 0)
+  expect_identical(vrOut_ss$clo, 0)
 
   vrOut_ss2 <-
     vital_rates(
@@ -35,7 +35,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut_ss2, "list")
   expect_length(vrOut_ss2, 9)
-  expect_equal(vrOut_ss2$cloAdu, 0)
+  expect_identical(vrOut_ss2$cloAdu, 0)
 
   vrOut_ss3 <-
     vital_rates(
@@ -47,7 +47,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut_ss3, "list")
   expect_length(vrOut_ss3, 10)
-  expect_equal(vrOut_ss3$clo, 0)
+  expect_identical(vrOut_ss3$clo, 0)
 
   vrOut_wt <- vital_rates(
     matU = mat_u,
@@ -57,7 +57,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut_wt, "list")
   expect_length(vrOut_wt, 5)
-  expect_equal(vrOut$clo, 0)
+  expect_identical(vrOut$clo, 0)
 
   vrOut_wt2 <-
     vital_rates(
@@ -68,7 +68,7 @@ test_that("vital_rates functions work correctly", {
 
   expect_type(vrOut_wt2, "list")
   expect_length(vrOut_wt2, 5)
-  expect_equal(vrOut_wt2$clo, 0)
+  expect_identical(vrOut_wt2$clo, 0)
 })
 
 

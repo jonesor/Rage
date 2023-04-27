@@ -35,11 +35,17 @@
 #' @importFrom expm %^%
 leslie_collapse <- function(A, m) {
   # data input validation
-  if(!m%%1==0 || m<1) {stop("m must be a positive integer")}
-  if(nrow(A)!=ncol(A)) {stop("A must be a square matrix")}
-  
+  if (!m %% 1 == 0 || m < 1) {
+    stop("m must be a positive integer")
+  }
+  if (nrow(A) != ncol(A)) {
+    stop("A must be a square matrix")
+  }
+
   # first check whether the matrix is a Leslie matrix
-  if (!is_leslie(A)) {stop("A must be a Leslie matrix")}
+  if (!is_leslie(A)) {
+    stop("A must be a Leslie matrix")
+  }
   n <- dim(A)[1]
   if (n %% m != 0) {
     A <- leslie_expand(A, m)
@@ -115,15 +121,19 @@ leslie_expand <- function(A, m) {
 #' @return a logical value indicating whether the matrix is a Leslie matrix
 #'
 #' @examples
-#' A <- matrix(c(0.1, 1.2, 1.1, 
-#'               0.0, 0.2, 0.0, 
-#'               0.0, 0.0, 0.3), nrow = 3, byrow = TRUE)
+#' A <- matrix(c(
+#'   0.1, 1.2, 1.1,
+#'   0.0, 0.2, 0.0,
+#'   0.0, 0.0, 0.3
+#' ), nrow = 3, byrow = TRUE)
 #' is_leslie(A) # true
-#' A <- matrix(c(0.1, 1.2, 1.1, 
-#'               0.1, 0.2, 0.1, 
-#'               0.2, 0.3, 0.3), nrow = 3, byrow = TRUE)
+#' A <- matrix(c(
+#'   0.1, 1.2, 1.1,
+#'   0.1, 0.2, 0.1,
+#'   0.2, 0.3, 0.3
+#' ), nrow = 3, byrow = TRUE)
 #' is_leslie(A) # false?
-#' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
+#' @author Richard A. Hinrichsen <rich@@hinrichsenenvironmental.com>
 #' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
 #'   with application to ten diverse animal species. Population Ecology, 1–21.
 #'   https://doi.org/10.1002/1438-390X.12149

@@ -84,9 +84,9 @@ Similarly to the mean life expectancy function, here one too can examine how lon
 
 ```{r}
 longval <- c()
-startvec <- c(1:dim(mpm1$matU)[1]) # vector of starting stages
+startvec <- seq_len(dim(mpm1$matU)[1]) # vector of starting stages
 
-for (i in c(startvec)) {
+for (i in 1:c(startvec)) {
   longval[i] <- longevity(matU = mpm1$matU, start = startvec[i], lx_crit = 0.05)
 }
 

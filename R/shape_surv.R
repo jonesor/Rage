@@ -61,7 +61,7 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
     surv <- mpm_to_lx(surv, ...)
   }
 
-  if (class(surv) %in% "numeric") {
+  if (inherits(surv, "numeric")) {
     lx <- surv
     x <- seq_along(lx) - 1
     if (lx[1] != 1) {
@@ -69,7 +69,7 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
            be 0.\n")
     }
   }
-  if (class(surv) %in% c("list", "data.frame")) {
+  if (inherits(surv, c("list", "data.frame"))) {
     if (!all(c("x", "lx") %in% names(surv))) {
       stop("`surv` doesn't contain both `x` and `lx`.\n")
     }
@@ -78,7 +78,7 @@ shape_surv <- function(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...) {
     if (length(x) != length(lx)) {
       stop("`x` and `lx` must be the same length")
     }
-    if ((x[1] %in% 0) & !(lx[1] %in% 1)) {
+    if ((x[1] %in% 0) && !(lx[1] %in% 1)) {
       stop("`lx` must start with `1` where `x[1]` is `0`.\n")
     }
   }

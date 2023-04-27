@@ -19,13 +19,17 @@ elements on the subdiagonal are between 0 and 1, and (3) the sum of the birth
 rates is positive.
 }
 \examples{
-A <- matrix(c(0.1, 1.2, 1.1, 
-              0.0, 0.2, 0.0, 
-              0.0, 0.0, 0.3), nrow = 3, byrow = TRUE)
+A <- matrix(c(
+  0.1, 1.2, 1.1,
+  0.0, 0.2, 0.0,
+  0.0, 0.0, 0.3
+), nrow = 3, byrow = TRUE)
 is_leslie(A) # true
-A <- matrix(c(0.1, 1.2, 1.1, 
-              0.1, 0.2, 0.1, 
-              0.2, 0.3, 0.3), nrow = 3, byrow = TRUE)
+A <- matrix(c(
+  0.1, 1.2, 1.1,
+  0.1, 0.2, 0.1,
+  0.2, 0.3, 0.3
+), nrow = 3, byrow = TRUE)
 is_leslie(A) # false?
 }
 \references{

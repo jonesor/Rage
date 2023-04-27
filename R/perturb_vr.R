@@ -193,11 +193,6 @@ perturb_vr <- function(matU, matF, matC = NULL,
     matElasGrow <- lwr * matElasGrowShri
     matElasShri <- upr * matElasGrowShri
 
-    # zero out grow/shri elasticities for stages with no survival
-    # PB: I think this is unnecessary... just being 'safe'
-    # elasGrow[sigma == 0] <- 0
-    # elasShri[sigma == 0] <- 0
-
     # elasticity to fecundity and clonality
     matElasFec <- noSurvA * matSensFec / stat
     matElasClo <- noSurvA * matSensClo / stat

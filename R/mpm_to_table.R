@@ -269,7 +269,7 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
     out$lxcx <- out$lx * out$cx
   }
 
-  if (!is.null(matF) & !is.null(matC)) {
+  if (!is.null(matF) && !is.null(matC)) {
     out$mxcx <- out$mx + out$cx
     out$lxmxcx <- out$lx * out$mxcx
   }

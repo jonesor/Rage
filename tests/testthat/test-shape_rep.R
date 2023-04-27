@@ -2,11 +2,11 @@ test_that("shape_rep works correctly", {
   # constant mx
   mx1 <- c(0, 1, 1, 1, 1, 1, 1, 1, 1)
   s1a <- shape_rep(mx1)
-  expect_equal(s1a, 0)
+  expect_identical(s1a, 0)
 
   # constant hazard, custom xlim
   s1b <- shape_rep(mx1, xmin = 2, xmax = 5)
-  expect_equal(s1b, 0)
+  expect_identical(s1b, 0)
 
   # decreasing mx
   mx2 <- seq(1, 0, -0.1)
@@ -21,7 +21,7 @@ test_that("shape_rep works correctly", {
   # check works with data frame
   lt <- data.frame(x = seq_along(mx3) - 1, mx = mx3)
   s4 <- shape_rep(lt)
-  expect_equal(s4, s3)
+  expect_identical(s4, s3)
 })
 
 

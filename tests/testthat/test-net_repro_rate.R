@@ -6,12 +6,12 @@ test_that("net_repro_rate works correctly", {
   x_named <- net_repro_rate(mat_u_named, mat_f_named, start = "sm")
 
   expect_length(x, 1L)
-  expect_true(x > 0)
-  expect_length(x_start, 1L)
-  expect_true(x_start > 0)
-  expect_equal(x_zero, 0)
-  expect_equal(x_singular, NA_real_)
-  expect_equal(x, x_named)
+  expect_gt(x, 0)
+  expect_length(x_start, 1)
+  expect_gt(x_start, 0)
+  expect_identical(x_zero, 0)
+  expect_identical(x_singular, NA_real_)
+  expect_identical(x, x_named)
 })
 
 test_that("net_repro_rate warns and fails gracefully", {

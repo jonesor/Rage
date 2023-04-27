@@ -3,9 +3,9 @@ test_that("life_expect_mean works correctly", {
   l0_singular <- life_expect_mean(mat_u_singular)
   l1 <- life_expect_mean(mat_u_named, start = "sm")
 
-  expect_true(l0 > 0)
+  expect_gt(l0, 0)
   expect_true(is.na(l0_singular))
-  expect_equal(l0, l1)
+  expect_identical(l0, l1)
 })
 
 test_that("life_expect_mean warns and fails gracefully", {
@@ -25,9 +25,9 @@ test_that("life_expect_var works correctly", {
   l0_singular <- life_expect_var(mat_u_singular)
   l1 <- life_expect_var(mat_u_named, start = "sm")
 
-  expect_true(l0 > 0)
+  expect_gt(l0, 0)
   expect_true(is.na(l0_singular))
-  expect_equal(l0, l1)
+  expect_identical(l0, l1)
 })
 
 test_that("life_expect_var warns and fails gracefully", {

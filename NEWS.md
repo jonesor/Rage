@@ -2,6 +2,8 @@
 
 * added `is_leslie_matrix` function to detect a Leslie matrix.
 * added `leslie_collapse` function to aggregate a Leslie matrix to a desired dimension. This function is similar to `mpm_collapse` but it will ensure that the returned aggregated matrix is also in the form of a Leslie matrix. 
+* peformance enhancements to speed up code and make it more robust.
+* increased unit test coverage to >95%
 
 # Rage 1.4.0
 

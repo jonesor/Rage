@@ -5,11 +5,11 @@ test_that("entropy_d works correctly", {
   x <- entropy_d(lx, mx)
 
   expect_length(x, 1L)
-  expect_true(x > 0)
+  expect_gt(x, 0)
 })
 
 test_that("entropy_d warns and fails gracefully", {
-  lx1 <- c(1.1, 0.6, 0.5, 0.4) # lx > 1
+  lx1 <- c(1.1, 0.6, 0.5, 0.4) # lx is greater than 1
   mx1 <- c(4.4, 3.3, 2.2, 1.1)
   expect_error(entropy_d(lx1, mx1))
 

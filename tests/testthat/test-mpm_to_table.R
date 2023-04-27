@@ -12,13 +12,13 @@ test_that("mpm_to_table works correctly", {
   )
 
   expect_s3_class(x_u, "data.frame")
-  expect_equal(nrow(x_u), xmax + 1)
-  expect_equal(ncol(x_u), 7)
-  expect_equal(ncol(x_uf), 9)
-  expect_equal(ncol(x_uc), 9)
-  expect_equal(ncol(x_ufc), 13)
-  expect_equal(x_u, x_u_named)
-  expect_equal(x_uf, x_uf_named)
+  expect_identical(nrow(x_u), as.integer(xmax + 1))
+  expect_identical(ncol(x_u), 7L)
+  expect_identical(ncol(x_uf), 9L)
+  expect_identical(ncol(x_uc), 9L)
+  expect_identical(ncol(x_ufc), 13L)
+  expect_identical(x_u, x_u_named)
+  expect_identical(x_uf, x_uf_named)
 })
 
 test_that("mpm_to_table warns and fails gracefully", {

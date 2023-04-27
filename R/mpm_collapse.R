@@ -84,10 +84,8 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  # checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    # checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, stages = collapse)
 
@@ -113,7 +111,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
 
   # convert `collapse` names to corresponding row/col numbers if needed
-  if (all(sapply(collapse, is.character))) {
+  if (all(vapply(collapse, is.character, logical(1)))){
     collapse <- lapply(collapse, function(x) which(colnames(matU) %in% x))
   }
 
@@ -137,7 +135,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
 
   # replace missing rows/cols with NA
-  if (any(is.na(collapse))) {
+  if (anyNA(collapse)) {
     i <- which(is.na(collapse))
     P[i, ] <- rep(NA_real_, originalDim)
     Q[, i] <- rep(NA_real_, originalDim)

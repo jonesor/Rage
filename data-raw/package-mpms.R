@@ -35,20 +35,6 @@ mpm1 <- list(matU = matU, matF = matF)
 usethis::use_data(mpm1, overwrite = TRUE)
 
 
-
-# # growth/survival component
-# matU <- rbind(c(0.1,   0,   0,   0),
-#               c(0.6, 0.2, 0.1,   0),
-#               c(  0, 0.5, 0.5, 0.1),
-#               c(  0,   0, 0.3, 0.8))
-#
-# # sexual reproduction component
-# matF <- rbind(c(  0,   0, 0.2, 0.6),
-#               c(  0,   0, 0.1, 0.2),
-#               c(  0,   0,   0,   0),
-#               c(  0,   0,   0,   0))
-
-
 # Leslie Matrices
 leslie_mpm1 <- list(
   matU = matrix(c(

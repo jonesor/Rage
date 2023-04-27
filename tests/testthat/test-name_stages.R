@@ -1,5 +1,5 @@
 test_that("name_stages works correctly", {
-  s <- 10 # matrix dimension
+  s <- as.integer(10) # matrix dimension
 
   # generate lists of matrices
   x1 <- replicate(2, matrix(runif(s^2), s, s), simplify = FALSE)
@@ -7,17 +7,17 @@ test_that("name_stages works correctly", {
   y1 <- name_stages(x1)
   expect_true(inherits(y1, "list"))
   expect_true(inherits(y1[[1]], "matrix"))
-  expect_true(nrow(y1[[1]]) == s)
+  expect_identical(nrow(y1[[1]]), s)
 
   y2 <- name_stages(x1[[1]])
   expect_true(inherits(y2, "matrix"))
-  expect_true(nrow(y2) == s)
+  expect_identical(nrow(y2), s)
 
   y3 <- name_stages(x1[[1]], prefix = "", left_pad = FALSE)
-  expect_true(identical(rownames(y3), as.character(1:s)))
+  expect_identical(rownames(y3), as.character(1:s))
 
   y4 <- name_stages(x1[[1]], names = LETTERS[1:s], prefix = NULL)
-  expect_true(identical(rownames(y4), LETTERS[1:s]))
+  expect_identical(rownames(y4), LETTERS[1:s])
 })
 
 test_that("name_stages warns and fails gracefully", {

@@ -55,7 +55,7 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
   if (start_vec) {
     # check that abundances of all stages have been set if passing
     # a population vector
-    if ((length(s) > 1 & length(s) != ncol(M)) ||
+    if ((length(s) > 1 && length(s) != ncol(M)) ||
       (is.numeric(s) && length(s) == 1 && !(s %in% seq_len(nrow(M)))) ||
       (is.character(s) && length(s) == 1 &&
         !(s %in% unique(unlist(dimnames(M)))))) {
@@ -89,7 +89,7 @@ checkValidStages <- function(M, stages) {
       call. = FALSE
     )
   } else if (is.numeric(stages) &&
-    !all(stages[!is.na(stages)] %in% 1:ncol(M))) {
+    !all(stages[!is.na(stages)] %in% seq_len(ncol(M)))) {
     stop("Some stage indices ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
       "exceeded matrix dimension (", nrow(M), "): ",
@@ -106,11 +106,13 @@ checkValidStages <- function(M, stages) {
     )
   } else if (is.list(stages) && any(sapply(stages, is.numeric)) &&
     any(!unique(unlist(stages))[!is.na(unique(unlist(stages)))] %in%
-      1:ncol(M))) {
+      seq_len(ncol(M)))) {
     stop("Some stage indices ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
       "exceeded matrix dimension (", nrow(M), "): ",
-      paste(unique(unlist(stages))[!unique(unlist(stages)) %in% 1:ncol(M)],
+      paste(
+        unique(unlist(stages))[!unique(unlist(stages)) %in%
+          seq_len(ncol(M))],
         collapse = ", "
       ),
       call. = FALSE
@@ -144,7 +146,7 @@ colSums2 <- function(mat) {
 meanMat <- function(x, na.rm = FALSE) {
   n_row <- vapply(x, nrow, numeric(1))
   n_col <- vapply(x, ncol, numeric(1))
-  if (length(unique(n_row)) != 1 | length(unique(n_col)) != 1) {
+  if (length(unique(n_row)) != 1 || length(unique(n_col)) != 1) {
     stop("All matrices in list must be of same dimension.\n")
   }
   if (na.rm) x <- lapply(x, zero_NA)

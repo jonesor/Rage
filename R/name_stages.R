@@ -81,7 +81,7 @@ name_stages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
   # warn if overwriting existing stage names
   if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames),
     use.names = FALSE
-  )) |
+  )) ||
     is.matrix(mat) && !is.null(unlist(dimnames(mat), use.names = FALSE))) {
     warning("Existing stage names have been overwritten!\n")
   }

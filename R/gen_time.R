@@ -93,7 +93,7 @@ gen_time <- function(matU, matR, method = c("R0", "age_diff", "cohort"), ...) {
     # check for singularity
     matDim <- nrow(matU)
     N <- try(solve(diag(matDim) - matU), silent = TRUE)
-    if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
+    if (inherits(N, "try-error") && grepl("singular", N[1], fixed = TRUE)) {
       out <- NA_real_
     } else {
       A <- matU + matR
@@ -106,12 +106,12 @@ gen_time <- function(matU, matR, method = c("R0", "age_diff", "cohort"), ...) {
     # check for singularity
     matDim <- nrow(matU)
     N <- try(solve(diag(matDim) - matU), silent = TRUE)
-    if (("try-error" %in% class(N)) && grepl("singular", N[1])) {
+    if (inherits(N, "try-error") && grepl("singular", N[1], fixed = TRUE)) {
       out <- NA_real_
     } else {
       lx <- mpm_to_lx(matU, ...)
       mx <- mpm_to_mx(matU, matR, ...)
-      x <- 1L:length(lx)
+      x <- seq_along(lx)
       out <- sum(x * lx * mx) / sum(lx * mx)
     }
   } else {

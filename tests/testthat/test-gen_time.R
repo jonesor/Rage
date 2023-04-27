@@ -4,26 +4,26 @@ test_that("gen_time works correctly", {
   x_singular <- gen_time(mat_u_singular, mat_f)
 
   expect_length(x, 1L)
-  expect_true(x > 0)
+  expect_gt(x, 0)
   expect_length(x_start, 1L)
-  expect_true(x_start > 0)
-  expect_equal(x_singular, NA_real_)
+  expect_gt(x_start, 0)
+  expect_identical(x_singular, NA_real_)
 
   x_r0 <- gen_time(mat_u, mat_f, method = "R0")
 
-  expect_equal(x, x_r0)
+  expect_identical(x, x_r0)
 
   x_po <- gen_time(mat_u, mat_f, method = "age_diff")
   x_singular_po <- gen_time(mat_u_singular, mat_f, method = "age_diff")
   expect_length(x_po, 1L)
-  expect_true(x_po > 0)
-  expect_equal(x_singular_po, NA_real_)
+  expect_gt(x_po, 0)
+  expect_identical(x_singular_po, NA_real_)
 
   x_co <- gen_time(mat_u, mat_f, method = "cohort")
   x_singular_co <- gen_time(mat_u_singular, mat_f, method = "cohort")
   expect_length(x_co, 1L)
-  expect_true(x_co > 0)
-  expect_equal(x_singular_co, NA_real_)
+  expect_gt(x_co, 0)
+  expect_identical(x_singular_co, NA_real_)
 })
 
 test_that("gen_time warns and fails gracefully", {

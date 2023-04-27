@@ -9,13 +9,13 @@ test_that("mpm_to_ functions work correctly", {
   expect_true(all(lx == cummin(lx))) # monotonic declining
 
   lx_zero <- suppressWarnings(mpm_to_lx(mat_u_zero, start = 1, xmax = xmax))
-  expect_equal(lx_zero[1], 1)
+  expect_identical(lx_zero[1], 1)
   expect_true(all(lx_zero[-1] == 0))
 
   # specify start as integer vs. vector
   lx_a <- mpm_to_lx(mat_u, start = 2)
   lx_b <- mpm_to_lx(mat_u, start = c(0, 1, 0, 0))
-  expect_equal(lx_a, lx_b)
+  expect_identical(lx_a, lx_b)
 
   # mpm_to_px
   px <- mpm_to_px(mat_u, start = 1, xmax = xmax, lx_crit = 0)
@@ -43,10 +43,10 @@ test_that("mpm_to_ functions work correctly", {
     start = 1, xmax = xmax,
     lx_crit = 0
   )
-  expect_equal(lx, lx_named)
-  expect_equal(px, px_named)
-  expect_equal(hx, hx_named)
-  expect_equal(mx, mx_named)
+  expect_identical(lx, lx_named)
+  expect_identical(px, px_named)
+  expect_identical(hx, hx_named)
+  expect_identical(mx, mx_named)
 })
 
 

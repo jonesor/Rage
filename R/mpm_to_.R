@@ -175,7 +175,7 @@ mpm_to_lx <- function(matU, start = 1L, xmax = 1000, lx_crit = 0.01,
 
   n <- start_vec
 
-  while (lx > lx_crit & t < xmax) {
+  while (lx > lx_crit && t < xmax) {
     n <- matU %*% n
     lx <- sum(n)
     t <- t + 1L

@@ -2,13 +2,13 @@ test_that("mature_distrib works correctly", {
   repstages <- repro_stages(mat_f)
   x1 <- mature_distrib(mat_u, repro_stages = repstages)
   expect_length(x1, ncol(mat_u))
-  expect_equal(sum(x1), 1)
-  expect_length(x1[x1 > 0], 1) # repro maturity in only 1 stage class
+  expect_identical(sum(x1), 1)
+  expect_identical(x1[x1 > 0], 1) # repro maturity in only 1 stage class
 
   # test using named stages
   x2 <- mature_distrib(mat_u_named, repro_stages = c("lg", "xl"))
   expect_length(x2, ncol(mat_u_named))
-  expect_equal(sum(x2), 1)
+  expect_identical(sum(x2), 1)
   expect_identical(x1, unname(x2))
 
   mat_u2 <- mat_u

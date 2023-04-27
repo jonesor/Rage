@@ -76,11 +76,11 @@ shape_rep <- function(rep, surv = NULL, xmin = NULL, xmax = NULL, ...) {
     rep <- mpm_to_mx(matU = surv, matR = rep, ...)
   }
 
-  if (class(rep) %in% "numeric") {
+  if (inherits(rep, "numeric")) {
     mx <- rep
     x <- seq_along(mx) - 1
   }
-  if (class(rep) %in% c("list", "data.frame")) {
+  if (inherits(rep, c("list", "data.frame"))) {
     if (!all(c("x", "mx") %in% names(rep))) {
       stop("`rep` doesn't contain both `x` and `mx`.\n")
     }

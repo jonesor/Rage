@@ -17,26 +17,35 @@ argument relaxes the test for the first row of A summing to a positive
 value.}
 }
 \value{
-A logical value indicating whether the matrix is a Leslie matrix or not
+A logical value indicating whether the matrix is a Leslie matrix or
+not
 }
 \description{
-Checks if a given matrix is a Leslie matrix. 
-A matrix is determined to be a Leslie matrix if it satisfies the following conditions:
+Checks if a given matrix is a Leslie matrix.
+A matrix is determined to be a Leslie matrix if it satisfies the following
+conditions:
 * All elements of A are non-negative.
-* The subdiagonal elements of A, excluding the last column, are all between 0 and 1.
-* The sum of the elements in the first row (representing reproduction) of A is positive.
+* The subdiagonal elements of A, excluding the last column, are all between 0
+ and 1.
+* The sum of the elements in the first row (representing reproduction) of A
+is positive.
 * The upper triangle of A, excluding the first row, contains only 0s.
-* The diagonal of A, excluding the top-left and bottom-right corners contain only 0s.
+* The diagonal of A, excluding the top-left and bottom-right corners contain
+only 0s.
 * The lower triangle of A, excluding the subdiagonal, contains only 0s.
 }
 \examples{
-A <- matrix(c(0.1, 1.2, 1.1, 
-              0.1, 0.0, 0.0, 
-              0.0, 0.2, 0.3), nrow = 3, byrow = TRUE)
+A <- matrix(c(
+  0.1, 1.2, 1.1,
+  0.1, 0.0, 0.0,
+  0.0, 0.2, 0.3
+), nrow = 3, byrow = TRUE)
 is_leslie_matrix(A) # true
-A <- matrix(c(0.1, 1.2, 1.1, 
-              0.1, 0.2, 0.1, 
-              0.2, 0.3, 0.3), nrow = 3, byrow = TRUE)
+A <- matrix(c(
+  0.1, 1.2, 1.1,
+  0.1, 0.2, 0.1,
+  0.2, 0.3, 0.3
+), nrow = 3, byrow = TRUE)
 is_leslie_matrix(A) # false
 
 data(leslie_mpm1)

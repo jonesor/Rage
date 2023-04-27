@@ -71,7 +71,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)
-  if (lx_crit < 0 | lx_crit > 1) {
+  if (lx_crit < 0 || lx_crit > 1) {
     stop("lx_crit must be a proportion between 0 and 1.\n", call. = FALSE)
   }
 
@@ -89,7 +89,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
   lx <- sum(start_vec)
   t <- 0L
 
-  while (lx > lx_crit & t < x_max) {
+  while (lx > lx_crit && t < x_max) {
     start_vec <- matU %*% start_vec
     lx <- sum(start_vec)
     t <- t + 1L
