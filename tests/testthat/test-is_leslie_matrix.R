@@ -1,6 +1,3 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
 A <- matrix(c(
 0.1, 1.2, 1.1,
 0.1, 0.0, 0.0,

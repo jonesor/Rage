@@ -255,8 +255,8 @@ The functions in `Rage` fall into five broad categories, and are detailed in the
 
 ```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
-| Function category                       | Stand-alone vignette                  |
-|-----------------------------------------|---------------------------------------|
+| Function category                       | Stand-alone vignette             |
+|-----------------------------------------|----------------------------------|
 | 1. [Vital rates](#vitalrates)  | [VitalRates](https://jonesor.github.io/Rage/articles/a02_VitalRates.html)     |
 | 2. [Life tables](#lifetable) | [AgeFromStage](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) |
 | 3. [Perturbation analysis](#perturb)    | [TernaryPlots](https://jonesor.github.io/Rage/articles/a04_TernaryPlots.html) |

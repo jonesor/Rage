@@ -14,7 +14,7 @@ checkValidMat <- function(M,
       call. = FALSE
     )
   }
-  if (fail_any_na && any(is.na(M))) {
+  if (fail_any_na && anyNA(M)) {
     stop("Argument ", mn, " contains missing values (i.e. <NA>).\n",
       call. = FALSE
     )
@@ -97,15 +97,15 @@ checkValidStages <- function(M, stages) {
       call. = FALSE
     )
   } else if (is.character(stages) &&
-    any(!stages[!is.na(stages)] %in% colnames(M))) {
+    !all(stages[!is.na(stages)] %in% colnames(M))) {
     stop("Some stage names ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
       "were not found in matrix: ",
       paste(stages[!stages %in% colnames(M)], collapse = ", "),
       call. = FALSE
     )
-  } else if (is.list(stages) && any(sapply(stages, is.numeric)) &&
-    any(!unique(unlist(stages))[!is.na(unique(unlist(stages)))] %in%
+  } else if (is.list(stages) && any(vapply(stages, is.numeric, logical(1))) &&
+    !all(na.omit(unique(unlist(stages))) %in%
       seq_len(ncol(M)))) {
     stop("Some stage indices ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
@@ -117,9 +117,10 @@ checkValidStages <- function(M, stages) {
       ),
       call. = FALSE
     )
-  } else if (is.list(stages) && any(sapply(stages, is.character)) &&
-    any(!unique(unlist(stages))[!is.na(unique(unlist(stages)))] %in%
-      colnames(M))) {
+  } else if (is.list(stages) && any(vapply(stages, is.character, logical(1))) &&
+    !all(na.omit(unique(unlist(stages))) %in%
+      colnames(M))
+    ) {
     stop("Some stage names ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
       "were not found in matrix: ",
@@ -175,8 +176,8 @@ area_under_curve <- function(x, y) {
 #' @importFrom MASS ginv
 .matrix_inverse <- function(mat) {
   mat_inv <- try(solve(mat), silent = TRUE)
-  if ("try-error" %in% class(mat_inv)) {
-    mat_inv <- MASS::ginv(mat)
+  if (inherits(mat_inv, "try-error")) {
+    mat_inv <- ginv(mat)
   }
   return(mat_inv)
 }
