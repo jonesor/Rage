@@ -41,7 +41,7 @@ test_that("life_expect_var warns and fails gracefully", {
   expect_error(life_expect_var(mat_u_named_partial, start = "sm"))
 })
 
-
-testthat::expect_true(inherits(life_expect(mat_u), "data.frame"))
-
-testthat::expect_warning(inherits(life_expect(mat_u), "data.frame"))
+test_that("Deprecated function life_expect works", {
+  expect_true(inherits(life_expect(mat_u), "data.frame"))
+  expect_warning(inherits(life_expect(mat_u), "data.frame"))
+})
