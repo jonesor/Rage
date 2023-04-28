@@ -19,9 +19,9 @@ test_that("perturb_matrix works correctly", {
   }
   x_cust <- perturb_matrix(mat_a, demog_stat = "fn_custom")
   expect_true(all(x_cust == 0))
-  
-  
-  expect_error(perturb_matrix(mat_a,demog_stat = "blurg"))
+
+
+  expect_error(perturb_matrix(mat_a, demog_stat = "blurg"))
 })
 
 
@@ -29,5 +29,3 @@ test_that("perturb_matrix warns and fails gracefully", {
   notfn <- "rtpsqwpaclfkhamw"
   expect_error(perturb_matrix(mat_a, demog_stat = notfn))
 })
-
-

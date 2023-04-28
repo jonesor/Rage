@@ -111,7 +111,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
 
   # convert `collapse` names to corresponding row/col numbers if needed
-  if (all(vapply(collapse, is.character, logical(1)))){
+  if (all(vapply(collapse, is.character, logical(1)))) {
     collapse <- lapply(collapse, function(x) which(colnames(matU) %in% x))
   }
 

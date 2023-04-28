@@ -61,18 +61,26 @@ repro_stages <- function(matR, na_handling = "return.true") {
   }
 
   if (!anyNA(matR)) {
-    reproStages <- apply(matR, 2, function(x) {any(x > 0)})
+    reproStages <- apply(matR, 2, function(x) {
+      any(x > 0)
+    })
   } else if (na_handling == "return.na") {
     # works because of how function `any` handles NA
     # any(c(0, NA, 0) > 0) will return NA
     # any(c(0, NA, 1) > 0) will return TRUE
-    reproStages <- apply(matR, 2, function(x) {any(x > 0)})
+    reproStages <- apply(matR, 2, function(x) {
+      any(x > 0)
+    })
   } else if (na_handling == "return.true") {
     matR[which(is.na(matR))] <- Inf
-    reproStages <- apply(matR, 2, function(x) {any(x > 0)})
+    reproStages <- apply(matR, 2, function(x) {
+      any(x > 0)
+    })
   } else if (na_handling == "return.false") {
     matR[which(is.na(matR))] <- 0
-    reproStages <- apply(matR, 2, function(x) {any(x > 0)})
+    reproStages <- apply(matR, 2, function(x) {
+      any(x > 0)
+    })
   }
 
   return(reproStages)

@@ -42,6 +42,6 @@ test_that("life_expect_var warns and fails gracefully", {
 })
 
 
-testthat::expect_true(inherits(life_expect(mat_u),"data.frame"))
+testthat::expect_true(inherits(life_expect(mat_u), "data.frame"))
 
-testthat::expect_warning(inherits(life_expect(mat_u),"data.frame"))
+testthat::expect_warning(inherits(life_expect(mat_u), "data.frame"))

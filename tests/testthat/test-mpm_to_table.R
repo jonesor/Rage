@@ -34,16 +34,17 @@ test_that("mpm_to_table warns and fails gracefully", {
 })
 
 
-mu_1 <- matrix(c(0.08,0.9,0.08,0.9),ncol = 2)
+mu_1 <- matrix(c(0.08, 0.9, 0.08, 0.9), ncol = 2)
 mu_1
 mpm_to_table(mu_1)
 expect_s3_class(mpm_to_table(mu_1), "data.frame")
 
-expect_error(mpm_to_table(mu_1,remove_final = "Yes"))
-expect_warning(mpm_to_table(mu_1,lx_crit = 0.1))
+expect_error(mpm_to_table(mu_1, remove_final = "Yes"))
+expect_warning(mpm_to_table(mu_1, lx_crit = 0.1))
 
 expect_s3_class(mpm_to_table(mu_1, radix = 1000), "data.frame")
 
-expect_s3_class(mpm_to_table(mu_1, radix = 1000, 
-                             remove_final = TRUE), "data.frame")
-
+expect_s3_class(mpm_to_table(mu_1,
+  radix = 1000,
+  remove_final = TRUE
+), "data.frame")

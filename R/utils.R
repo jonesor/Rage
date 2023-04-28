@@ -120,7 +120,7 @@ checkValidStages <- function(M, stages) {
   } else if (is.list(stages) && any(vapply(stages, is.character, logical(1))) &&
     !all(na.omit(unique(unlist(stages))) %in%
       colnames(M))
-    ) {
+  ) {
     stop("Some stage names ",
       ifelse(is.null(arg), "", paste0("in `", arg, "` ")),
       "were not found in matrix: ",
