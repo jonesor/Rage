@@ -79,6 +79,7 @@ checkValidStartLife <- function(s, M, start_vec = FALSE) {
   }
 }
 
+#' @importFrom stats na.omit
 #' @noRd
 checkValidStages <- function(M, stages) {
   # checks that the stages vector supplied has valid indices or names
