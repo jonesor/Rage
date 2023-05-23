@@ -2,7 +2,7 @@
 % Please edit documentation in R/net_repro_rate.R
 \name{net_repro_rate}
 \alias{net_repro_rate}
-\title{Calculate net reproductive value (R0) from a matrix population model}
+\title{Calculate net reproductive rate (R0) from a matrix population model}
 \usage{
 net_repro_rate(matU, matR, start = 1, method = "generation")
 }
@@ -18,28 +18,28 @@ columns indicating the corresponding life stage names.}
 considers the beginning of life. Only used if \code{method = "start"}.
 Defaults to \code{1}.}
 
-\item{method}{The method used to calculate net reproductive value, either
+\item{method}{The method used to calculate net reproductive rate, either
 \code{"generation"} or \code{"start"}. Defaults to \code{"generation"}.
 See Details.}
 }
 \value{
-Returns the net reproductive value. If \code{matU} is singular (often
+Returns the net reproductive rate. If \code{matU} is singular (often
   indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
-Calculate net reproductive value (R0) from a matrix population model. The net
-reproduction value (R0) is the mean number of recruits produced during the
+Calculate net reproductive rate (R0) from a matrix population model. The net
+reproduction rate (R0) is the mean number of recruits produced during the
 mean life expectancy of an individual. See section 5.3.5 of Caswell (2001).
 }
 \details{
 The \code{method} argument controls how net reproductive rate is calculated.
 
-If \code{method = "generation"}, net reproductive value is calculated as the
+If \code{method = "generation"}, net reproductive rate is calculated as the
 per-generation population growth rate (i.e., the dominant eigenvalue of
 \code{matR \%*\% N}, where \code{N} is the fundamental matrix). See Caswell
 (2001) Section 5.3.4.
 
-If \code{method = "start"}, net reproductive value is calculated as the
+If \code{method = "start"}, net reproductive rate is calculated as the
 expected lifetime production of offspring that start life in stage
 \code{start}, by an individual also starting life in stage \code{start}
 (i.e., \code{(matR \%*\% N)[start,start]}).
