@@ -124,7 +124,7 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
   if (!is.numeric(start)) {
     checkMatchingStageNames(M = matU)
   }
-  if (is.numeric(repro_stages) | is.character(repro_stages)) {
+  if (is.numeric(repro_stages) || is.character(repro_stages)) {
     checkValidStages(matU, repro_stages)
   }
 
@@ -144,7 +144,8 @@ mature_distrib <- function(matU, start = 1L, repro_stages) {
 
 #' @noRd
 calc_Bprime <- function(matU, fec_stages) {
-  # Note: internal function; doesn't need stage name support in current use context
+  # Note: internal function; doesn't need stage name support in
+  # current use context
   m <- ncol(matU)
 
   # Probability of survival to first sexual reproductive event

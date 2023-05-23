@@ -18,8 +18,8 @@
 #'   square projection matrix only containing survival-related transitions;
 #'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e., a
-#'   square projection matrix only reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both).
+#'   square projection matrix only reflecting transitions due to reproduction;
+#'   either sexual, clonal, or both).
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
 #'   elements indicating whether a given \code{matU} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
@@ -75,10 +75,10 @@
 #' @section Excluding stages:
 #' It may be desirable to exclude one or more stages from the calculation of
 #' certain vital rates. For instance, a user might not believe that 'growth' to
-#' a dormant stage class really reflects biological growth, in which case the user
-#' could exclude transitions \emph{to} the dormant stage class using the argument
-#' \code{exclude_row}. The user may or may not want to ignore 'growth' transitions
-#' \emph{from} the dormant stage class, which can be done using
+#' a dormant stage class really reflects biological growth, in which case the
+#' user could exclude transitions \emph{to} the dormant stage class using the
+#' argument \code{exclude_row}. The user may or may not want to ignore 'growth'
+#' transitions \emph{from} the dormant stage class, which can be done using
 #' \code{exclude_col}. The argument \code{exclude_col} effectively just coerces
 #' the respective vital rate to \code{NA}, to prevent it from getting used in
 #' subsequent calculations. To exclude transitions both \emph{to and from} a

@@ -23,8 +23,8 @@
 #'   Defaults to \code{NULL}, indicating no clonal reproduction (i.e.,
 #'   \code{matC} is a matrix of zeros).
 #' @param pert Magnitude of the perturbation. Defaults to \code{1e-6}.
-#' @param type Whether to return \code{sensitivity} or \code{elasticity} values. Defaults
-#'   to \code{sensitivity}.
+#' @param type Whether to return \code{sensitivity} or \code{elasticity} values.
+#'   Defaults to \code{sensitivity}.
 #' @param demog_stat The demographic statistic to be used, as in "the
 #'   sensitivity/elasticity of \code{demog_stat} to vital rate perturbations."
 #'   Defaults to the per-capita population growth rate at equilibrium
@@ -94,8 +94,11 @@ perturb_vr <- function(matU, matF, matC = NULL,
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (inherits(statfun, "try-error")) {
-      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name
-                   of a function that returns a single numeric value.\n"), call. = FALSE)
+      stop(strwrap(
+        prefix = " ", initial = "",
+        "`demog_stat` must be `lambda` or the name
+      of a function that returns a single numeric value.\n"
+      ), call. = FALSE)
     }
   }
 
@@ -189,11 +192,6 @@ perturb_vr <- function(matU, matF, matC = NULL,
     # elasticity to growth and shrinkage
     matElasGrow <- lwr * matElasGrowShri
     matElasShri <- upr * matElasGrowShri
-
-    # zero out grow/shri elasticities for stages with no survival
-    # PB: I think this is unnecessary... just being 'safe'
-    # elasGrow[sigma == 0] <- 0
-    # elasShri[sigma == 0] <- 0
 
     # elasticity to fecundity and clonality
     matElasFec <- noSurvA * matSensFec / stat

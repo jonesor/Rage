@@ -12,11 +12,11 @@ test_that("vr_mat functions work correctly", {
   expect_true(all(is.na(x1[, 1])))
 
   x2 <- vr_mat_U(U1, surv_only_na = FALSE)
-  expect_true(!all(is.na(x2[, 1])))
+  expect_false(all(is.na(x2[, 1])))
 
   # all transitions possible
   x3 <- vr_mat_U(U1, posU = matrix(TRUE, nrow = 4, ncol = 4))
-  expect_true(!any(is.na(x3)))
+  expect_false(anyNA(x3))
 
 
   ### test vr_mat_R
@@ -33,7 +33,7 @@ test_that("vr_mat functions work correctly", {
 
   # all transitions possible
   x5 <- vr_mat_R(U1, R1, posR = matrix(TRUE, nrow = 4, ncol = 4))
-  expect_true(!any(is.na(x5)))
+  expect_false(anyNA(x5))
 })
 
 

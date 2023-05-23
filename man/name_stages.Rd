@@ -10,10 +10,11 @@ name_stages(mat, names = NULL, prefix = "stage_", left_pad = TRUE)
 \item{mat}{An MPM, either as a single matrix or list of matrices.}
 
 \item{names}{A character vector specifying the name of each life stage, in
-order. If provided, \code{prefix} and \code{left_pad} arguments are ignored.}
+order. If provided, \code{prefix} and \code{left_pad} arguments are
+ignored.}
 
-\item{prefix}{A string to be pre-pended to the stage number when automatically
-naming stages. Defaults to \code{stage_}.}
+\item{prefix}{A string to be pre-pended to the stage number when
+automatically naming stages. Defaults to \code{stage_}.}
 
 \item{left_pad}{Logical, whether to pre-pend \code{0} to stage names such
 that all stage numbers have equal length, enabling lexicographic sorting.
@@ -46,6 +47,8 @@ name_stages(mpm1)
 }
 \seealso{
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_rearrange}()},
 \code{\link{mpm_split}()},

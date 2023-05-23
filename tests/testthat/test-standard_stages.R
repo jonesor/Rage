@@ -11,7 +11,7 @@ test_that("standard_stages works correctly", {
   # make sure all stages in original mpm represented in output
   stages <- as.numeric(unlist(x))
   stages <- stages[!is.na(stages)]
-  expect_true(all(1:nrow(r$matU) %in% stages))
+  expect_true(all(seq_len(nrow(r$matU)) %in% stages))
 
 
   ## mpm with inter-reproductive stage
@@ -29,7 +29,7 @@ test_that("standard_stages works correctly", {
   # make sure all stages in original mpm represented in output
   stages <- as.numeric(unlist(x))
   stages <- stages[!is.na(stages)]
-  expect_true(all(1:nrow(r$matU) %in% stages))
+  expect_true(all(seq_len(nrow(r$matU)) %in% stages))
 
 
   ## mpm with all stages reproductive
@@ -48,7 +48,7 @@ test_that("standard_stages works correctly", {
   expect_true(is.na(x$postRepStages))
 
   # make sure all stages in original mpm represented in output
-  expect_true(all(1:nrow(r$matU) %in% stages))
+  expect_true(all(seq_len(nrow(r$matU)) %in% stages))
 })
 
 

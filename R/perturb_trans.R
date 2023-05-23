@@ -9,14 +9,14 @@
 #' equilibrium (\eqn{\lambda}), or, with a user-supplied function, any other
 #' demographic statistic.
 #'
-#' @param matU The survival component submatrix of a MPM (i.e., a square projection matrix
-#'   reflecting survival-related transitions; e.g., progression, stasis, and
-#'   retrogression).
-#' @param matF The sexual component submatrix of a MPM (i.e., a square projection matrix
-#'   reflecting transitions due to sexual reproduction).
-#' @param matC The clonal component submatrix of a MPM (i.e., a square projection matrix
-#'   reflecting transitions due to clonal reproduction). Defaults to
-#'   \code{NULL}, indicating no clonal reproduction possible.
+#' @param matU The survival component submatrix of a MPM (i.e., a square
+#'   projection matrix reflecting survival-related transitions; e.g.,
+#'   progression, stasis, and retrogression).
+#' @param matF The sexual component submatrix of a MPM (i.e., a square
+#'   projection matrix reflecting transitions due to sexual reproduction).
+#' @param matC The clonal component submatrix of a MPM (i.e., a square
+#'   projection matrix reflecting transitions due to clonal reproduction).
+#'   Defaults to \code{NULL}, indicating no clonal reproduction possible.
 #' @param posU A logical matrix of the same dimension as \code{matU}, with
 #'   elements indicating whether a given \code{matU} transition is possible
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matU > 0} (see
@@ -30,15 +30,15 @@
 #'   (\code{TRUE}) or not (\code{FALSE}). Defaults to \code{matC > 0} (see
 #'   Details).
 #' @param exclude_row A vector of row indices or stages names indicating stages
-#'   for which transitions \emph{to} the stage should be excluded from perturbation
-#'   analysis. Alternatively, a logical vector of length \code{nrow(matU)}
-#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
-#'   the calculation. See section \emph{Excluding stages}.
-#' @param exclude_col A vector of column indices or stages names indicating stages
-#'   for which transitions \emph{to} the stage should be excluded from perturbation
-#'   analysis. Alternatively, a logical vector of length \code{ncol(matU)}
-#'   indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
-#'   the calculation. See section \emph{Excluding stages}.
+#'   for which transitions \emph{to} the stage should be excluded from
+#'   perturbation analysis. Alternatively, a logical vector of length
+#'   \code{nrow(matU)} indicating which stages to include \code{TRUE} or exclude
+#'   \code{FALSE} from the calculation. See section \emph{Excluding stages}.
+#' @param exclude_col A vector of column indices or stages names indicating
+#'   stages for which transitions \emph{to} the stage should be excluded from
+#'   perturbation analysis. Alternatively, a logical vector of length
+#'   \code{ncol(matU)} indicating which stages to include \code{TRUE} or exclude
+#'   \code{FALSE} from the calculation. See section \emph{Excluding stages}.
 #' @param pert The magnitude of the perturbation (defaults to \code{1e-6}).
 #' @param type An argument defining whether to return `sensitivity` or
 #'   `elasticity` values. Defaults to `sensitivity`.
@@ -66,9 +66,9 @@
 #' but estimated to be \code{0}, users should specify the \code{posX}
 #' argument(s) manually.
 #'
-#' If there are no possible transitions for a given process (e.g., clonality, in many species),
-#' the value of sensitivity or elasticity returned for that process will be
-#' \code{NA}.
+#' If there are no possible transitions for a given process (e.g., clonality, in
+#' many species), the value of sensitivity or elasticity returned for that
+#' process will be \code{NA}.
 #'
 #' @return A list with 5 elements: \item{stasis}{The sensitivity or elasticity
 #'   of \code{demog_stat} to stasis.} \item{retrogression}{The sensitivity or
@@ -135,10 +135,9 @@ perturb_trans <- function(matU, matF, matC = NULL,
   # Validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  # checkMatchingStageNames(matU, matF)
+
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    # checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, exclude_row)
   checkValidStages(matU, exclude_col)
@@ -150,8 +149,11 @@ perturb_trans <- function(matU, matF, matC = NULL,
   } else {
     statfun <- try(match.fun(demog_stat), silent = TRUE)
     if (inherits(statfun, "try-error")) {
-      stop(strwrap(prefix = " ", initial = "", "`demog_stat` must be `lambda` or the name
-                   of a function that returns a single numeric value.\n"), call. = FALSE)
+      stop(strwrap(
+        prefix = " ", initial = "",
+        "`demog_stat` must be `lambda` or the name
+      of a function that returns a single numeric value.\n"
+      ), call. = FALSE)
     }
   }
 

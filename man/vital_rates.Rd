@@ -84,7 +84,10 @@ vital_rates(matU, matF, matC, splitStages = "ontogeny")
 
 # Group vital rates according to specified matrixStages
 ms <- c("prop", "active", "active", "active")
-vital_rates(matU, matF, matC, splitStages = "matrixStages", matrixStages = ms)
+vital_rates(matU, matF, matC,
+  splitStages = "matrixStages",
+  matrixStages = ms
+)
 
 # Vital rate outputs weighted by the stable stage distribution of 'matA'
 vital_rates(matU, matF, matC, splitStages = "all", weights = "SSD")

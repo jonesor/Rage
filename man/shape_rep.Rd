@@ -13,8 +13,8 @@ shape_rep(rep, surv = NULL, xmin = NULL, xmax = NULL, ...)
   containing age classes (each element a number representing the age at the
   start of the class), or 3) a matrix, specifically the reproduction
   submatrix (e.g. F matrix) of a matrix population model. If \code{rep} is
-  provided as a matrix, then \code{surv} must be provided as the U submatrix of
-  the matrix population model.
+  provided as a matrix, then \code{surv} must be provided as the U submatrix
+  of the matrix population model.
 
   In case (2), if x is not supplied, the function will assume age classes
   starting at 0 with time steps of unit. If x ends at maximum longevity,
@@ -37,13 +37,13 @@ provided as matrices.}
 a shape value describing symmetry of reproduction over age by
   comparing the area under a cumulative reproduction curve over age with the
   area under constant reproduction. May take any real value between -0.5 and
-  +0.5. A value of 0 indicates negligible ageing (neither generally increasing
-  nor generally decreasing reproduction with age); positive values indicate
-  senescence (generally decreasing reproduction with age); negative values
-  indicate negative senescence (generally increasing reproduction with age).
-  A value of +0.5 indicates that (hypothetically) all individuals are born to
-  individuals of age 0; a value of -0.5 indicates that all individuals are
-  born at the age of maximum longevity.
+  +0.5. A value of 0 indicates negligible ageing (neither generally
+  increasing nor generally decreasing reproduction with age); positive values
+  indicate senescence (generally decreasing reproduction with age); negative
+  values indicate negative senescence (generally increasing reproduction with
+  age). A value of +0.5 indicates that (hypothetically) all individuals are
+  born to individuals of age 0; a value of -0.5 indicates that all
+  individuals are born at the age of maximum longevity.
 }
 \description{
 Calculates a 'shape' value of distribution of reproduction over age by

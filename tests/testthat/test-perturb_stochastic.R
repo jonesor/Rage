@@ -11,7 +11,7 @@ test_that("perturb_stochastic works correctly", {
   expect_type(e1, "list")
   expect_true(inherits(e1[[1]], "matrix"))
   expect_length(e1, 3)
-  expect_true(nrow(e1[[1]]) == s)
+  expect_identical(nrow(e1[[1]]), as.integer(s))
 
 
   ### test failure

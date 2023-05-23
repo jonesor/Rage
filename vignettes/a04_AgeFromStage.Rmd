@@ -80,7 +80,8 @@ First, we'll subset `Compadre` to our group of interest (`OrganismType == "Tree"
 library(Rcompadre)
 data(Compadre)
 
-# In older versions of Com(p)adre the ProjectionInterval column was called AnnualPeriodicity.
+# In older versions of Com(p)adre the ProjectionInterval column was called
+# AnnualPeriodicity.
 if ("AnnualPeriodicity" %in% names(Compadre)) {
   Compadre$ProjectionInterval <- Compadre$AnnualPeriodicity
 }
@@ -95,7 +96,10 @@ comp_use <- subset(comp_flag, OrganismType == "Tree" &
 Let's take a look at the species/populations that made the cut.
 
 ```{r}
-CompadreData(comp_use)[, c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+CompadreData(comp_use)[, c(
+  "SpeciesAccepted", "MatrixPopulation",
+  "MatrixTreatment"
+)]
 ```
 
 Notice that there are 3 matrices for the species _Phyllanthus indofischeri_, reflecting different treatment groups. Let's collapse these replicates down to a single matrix per species, by averaging the relevant MPMs using `cdb_collapse()`. We'll also use the function `cdb_id_stages()`, to make sure we're only collapsing matrices that have the same stage class definitions.
@@ -108,7 +112,10 @@ comp_use$stage_id <- cdb_id_stages(comp_use)
 comp_collapse <- cdb_collapse(comp_use, "stage_id")
 
 # check species/populations again
-CompadreData(comp_collapse)[, c("SpeciesAccepted", "MatrixPopulation", "MatrixTreatment")]
+CompadreData(comp_collapse)[, c(
+  "SpeciesAccepted", "MatrixPopulation",
+  "MatrixTreatment"
+)]
 ```
 
 Next, let's look at the organized stage classes for each MPM. If any of our MPMs include propagule or dormant stage classes, we may want to account for them when calculating lx.

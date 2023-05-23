@@ -51,7 +51,8 @@ These decompositions assume that all transition rates are products of a
 stage-specific survival term (column sums of \code{matU}) and a lower level
 vital rate that is conditional on survival (growth, shrinkage, stasis, or
 reproduction). Reproductive vital rates that are not conditional on survival
-(i.e., within a stage class from which there is no survival) are also allowed.
+(i.e., within a stage class from which there is no survival) are also
+allowed.
 }
 \details{
 A transition rate of \code{0} within a matrix population model may indicate

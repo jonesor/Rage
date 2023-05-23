@@ -5,9 +5,10 @@
 #'
 #' @param mat An MPM, either as a single matrix or list of matrices.
 #' @param names A character vector specifying the name of each life stage, in
-#'   order. If provided, \code{prefix} and \code{left_pad} arguments are ignored.
-#' @param prefix A string to be pre-pended to the stage number when automatically
-#'   naming stages. Defaults to \code{stage_}.
+#'   order. If provided, \code{prefix} and \code{left_pad} arguments are
+#'   ignored.
+#' @param prefix A string to be pre-pended to the stage number when
+#'   automatically naming stages. Defaults to \code{stage_}.
 #' @param left_pad Logical, whether to pre-pend \code{0} to stage names such
 #'   that all stage numbers have equal length, enabling lexicographic sorting.
 #'   For example, stage \code{1} becomes \code{01} for matrices with 10-99
@@ -78,7 +79,9 @@ name_stages <- function(mat, names = NULL, prefix = "stage_", left_pad = TRUE) {
     )
   }
   # warn if overwriting existing stage names
-  if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames), use.names = FALSE)) |
+  if (is.list(mat) && !is.null(unlist(lapply(mat, dimnames),
+    use.names = FALSE
+  )) ||
     is.matrix(mat) && !is.null(unlist(dimnames(mat), use.names = FALSE))) {
     warning("Existing stage names have been overwritten!\n")
   }

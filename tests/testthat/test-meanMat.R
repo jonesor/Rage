@@ -7,7 +7,7 @@ test_that("meanMat works correctly", {
 
   y1 <- meanMat(x1)
   expect_true(inherits(y1, "matrix"))
-  expect_true(nrow(y1) == s)
+  expect_identical(nrow(y1), as.integer(s))
 
   # na handling
   y2 <- meanMat(x2)
@@ -15,7 +15,7 @@ test_that("meanMat works correctly", {
   expect_true(is.na(y2[1, 1]))
 
   y3 <- meanMat(x2, na.rm = TRUE)
-  expect_true(!is.na(y3[1, 1]))
+  expect_false(is.na(y3[1, 1]))
 })
 
 test_that("meanMat warns and fails gracefully", {

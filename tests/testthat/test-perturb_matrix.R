@@ -11,7 +11,7 @@ test_that("perturb_matrix works correctly", {
 
   x_elas1 <- perturb_matrix(mat_a, type = "elasticity")
   expect_true(inherits(x_elas1, "matrix"))
-  expect_true(abs(sum(x_elas1) - 1) < 1e-6)
+  expect_lt(abs(sum(x_elas1) - 1), 1e-6)
 
   # check works with custom demog_stat function
   fn_custom <- function(x) {
@@ -19,6 +19,9 @@ test_that("perturb_matrix works correctly", {
   }
   x_cust <- perturb_matrix(mat_a, demog_stat = "fn_custom")
   expect_true(all(x_cust == 0))
+
+
+  expect_error(perturb_matrix(mat_a, demog_stat = "blurg"))
 })
 
 

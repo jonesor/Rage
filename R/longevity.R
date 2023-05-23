@@ -1,20 +1,21 @@
 #' Calculate longevity from a matrix population model
 #'
-#' Calculate longevity (the age \emph{x} at which survivorship for a synthetic cohort falls below some
-#' critical proportion) from a matrix population model
+#' Calculate longevity (the age \emph{x} at which survivorship for a synthetic
+#' cohort falls below some critical proportion) from a matrix population model
 #'
 #' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
 #' @param start The index (or stage name) of the first stage at which the author
-#'   considers the beginning of life. Defaults to \code{1}. Alternately, a numeric vector
-#'   giving the starting population vector (in which case \code{length(start)}
-#'   must match \code{ncol(matU))}. See section \emph{Starting from multiple stages}.
+#'   considers the beginning of life. Defaults to \code{1}. Alternately, a
+#'   numeric vector giving the starting population vector (in which case
+#'   \code{length(start)} must match \code{ncol(matU))}. See section
+#'   \emph{Starting from multiple stages}.
 #' @param x_max The maximum age, in units of the MPM projection interval, to
 #'   which survivorship will be calculated. Defaults to \code{1000}.
-#' @param lx_crit Proportion of initial cohort remaining before all are considered
-#' dead (a value between 0 and 1). Defaults to \code{0.01}.
+#' @param lx_crit Proportion of initial cohort remaining before all are
+#'   considered dead (a value between 0 and 1). Defaults to \code{0.01}.
 #'
 #' @return Returns longevity, the integer age at which expected survivorship
 #'   falls below \code{lx_crit}. If survivorship doesn't reach \code{lx_crit} by
@@ -70,7 +71,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidStartLife(start, matU, start_vec = TRUE)
-  if (lx_crit < 0 | lx_crit > 1) {
+  if (lx_crit < 0 || lx_crit > 1) {
     stop("lx_crit must be a proportion between 0 and 1.\n", call. = FALSE)
   }
 
@@ -88,7 +89,7 @@ longevity <- function(matU, start = 1L, x_max = 1000, lx_crit = 0.01) {
   lx <- sum(start_vec)
   t <- 0L
 
-  while (lx > lx_crit & t < x_max) {
+  while (lx > lx_crit && t < x_max) {
     start_vec <- matU %*% start_vec
     lx <- sum(start_vec)
     t <- t + 1L

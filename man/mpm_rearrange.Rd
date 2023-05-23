@@ -72,6 +72,8 @@ mpm_rearrange(matU, matF,
 \code{\link{mpm_standardize}}
 
 Other transformation: 
+\code{\link{is_leslie_matrix}()},
+\code{\link{leslie_collapse}()},
 \code{\link{mpm_collapse}()},
 \code{\link{mpm_split}()},
 \code{\link{mpm_standardize}()},

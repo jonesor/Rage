@@ -60,7 +60,7 @@ perturb_stochastic <- function(X_t, u_t) {
   X_std <- lapply(X_t, function(X) X - X_mu[[1]])
 
   # calculate observed lambda at each time t
-  lambda_t <- mapply(function(X, u) sum(X %*% u), X_t, u_t)
+  lambda_t <- unlist(Map(function(X, u) sum(X %*% u), X_t, u_t))
 
   E <- E_mu <- E_sigma <- matrix(0, s, s)
   I <- diag(s)
@@ -75,9 +75,9 @@ perturb_stochastic <- function(X_t, u_t) {
       C_sigma <- lapply(X_std, build_pert_mats, i = i, j = j)
 
       ## calculate e_R
-      e_R <- mapply(e_fn, mat = C, vec = u_t, lam = lambda_t)
-      e_R_mu <- mapply(e_fn, mat = C_mu, vec = u_t, lam = lambda_t)
-      e_R_sigma <- mapply(e_fn, mat = C_sigma, vec = u_t, lam = lambda_t)
+      e_R <- unlist(Map(e_fn, mat = C, vec = u_t, lam = lambda_t))
+      e_R_mu <- unlist(Map(e_fn, mat = C_mu, vec = u_t, lam = lambda_t))
+      e_R_sigma <- unlist(Map(e_fn, mat = C_sigma, vec = u_t, lam = lambda_t))
 
       ## calculate e_U
       w_t <- w_t_mu <- w_t_sigma <- list()
@@ -95,9 +95,9 @@ perturb_stochastic <- function(X_t, u_t) {
           (C_sigma[[t]] %*% u_t[[t]] + X_t[[t]] %*% w_t_sigma[[t]])
       }
 
-      e_U <- mapply(e_fn, mat = X_t, vec = w_t, lam = lambda_t)
-      e_U_mu <- mapply(e_fn, mat = X_t, vec = w_t_mu, lam = lambda_t)
-      e_U_sigma <- mapply(e_fn, mat = X_t, vec = w_t_sigma, lam = lambda_t)
+      e_U <- unlist(Map(e_fn, mat = X_t, vec = w_t, lam = lambda_t))
+      e_U_mu <- unlist(Map(e_fn, mat = X_t, vec = w_t_mu, lam = lambda_t))
+      e_U_sigma <- unlist(Map(e_fn, mat = X_t, vec = w_t_sigma, lam = lambda_t))
 
       ## calculate stochastic elasticities
       E[i, j] <- mean(e_R + e_U)

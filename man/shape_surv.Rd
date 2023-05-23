@@ -14,8 +14,8 @@ shape_surv(surv, xmin = NULL, xmax = NULL, trunc = FALSE, ...)
   class), or 3), a \code{matrix}, specifically the U submatrix of a matrix
   population model (A).
 
-  In case (2) If \code{x} is not supplied, the function will assume age classes starting
-  at \code{0} with time steps of \code{1} unit of the
+  In case (2) If \code{x} is not supplied, the function will assume age
+  classes starting at \code{0} with time steps of \code{1} unit of the
   \code{ProjectionInterval}. If \code{x} begins at \code{0} then \code{lx[1]}
   should equal \code{1}. If \code{x} ends at maximum longevity, then
   \code{lx[which.max(x)]} should equal \code{0}; however it is possible to

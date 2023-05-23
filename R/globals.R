@@ -1,3 +1,3 @@
-globalVariables(unique(c(
+globalVariables(
   "start"
-)))
+)

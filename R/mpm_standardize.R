@@ -19,14 +19,16 @@
 #' @param repro_stages Logical vector of length \code{ncol(matU)} indicating
 #'   which stages are reproductive. Alternatively, a vector of stage indices or
 #'   stage names of the reproductive classes.
-#' @param matrix_stages Character vector of matrix stage types (e.g., "propagule",
-#'   "active", or "dormant").
+#' @param matrix_stages Character vector of matrix stage types (e.g.,
+#'   "propagule", "active", or "dormant").
 #' @return A list with four elements reflecting the standardized matrix and
 #'   its components:
 #'   \item{matA}{Standardized projection matrix}
 #'   \item{matU}{Survival component of the standardized projection matrix}
-#'   \item{matF}{Sexual reproduction component of the standardized projection matrix}
-#'   \item{matC}{Clonal reproduction component of the standardized projection matrix}
+#'   \item{matF}{Sexual reproduction component of the standardized projection
+#'   matrix}
+#'   \item{matC}{Clonal reproduction component of the standardized projection
+#'   matrix}
 #'
 #' @section Missing Stages:
 #' The returned standardized matrix will always be of dimension \code{4}, even

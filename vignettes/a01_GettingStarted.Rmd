@@ -116,7 +116,10 @@ In our example, all of the elements of __A__ are found in only one of the submat
 
 ```{r,echo=FALSE,fig.align='center',fig.height=4,fig.width=9,out.width='100%'}
 blankdat <- expand.grid(to = stages, from = stages, trans = 0)
-blankdat$to <- factor(blankdat$to, levels = c("flowering", "rosette", "seedling"))
+blankdat$to <- factor(blankdat$to, levels = c(
+  "flowering", "rosette",
+  "seedling"
+))
 blankdat$from <- factor(blankdat$from,
   levels = c("seedling", "rosette", "flowering")
 )
@@ -252,8 +255,8 @@ The functions in `Rage` fall into five broad categories, and are detailed in the
 
 ```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
-| Function category                       | Stand-alone vignette                  |
-|-----------------------------------------|---------------------------------------|
+| Function category                       | Stand-alone vignette             |
+|-----------------------------------------|----------------------------------|
 | 1. [Vital rates](#vitalrates)  | [VitalRates](https://jonesor.github.io/Rage/articles/a02_VitalRates.html)     |
 | 2. [Life tables](#lifetable) | [AgeFromStage](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) |
 | 3. [Perturbation analysis](#perturb)    | [TernaryPlots](https://jonesor.github.io/Rage/articles/a04_TernaryPlots.html) |
@@ -359,7 +362,10 @@ towards the SSD:
 cohort <- popdemo::project(A = mpm1$matU, vector = c(0, 1, 0, 0, 0), time = 10)
 popStructure <- vec(cohort) / rowSums(vec(cohort))
 
-matplot(popStructure, type = "l", xlab = "time", ylab = "proportion in stage class")
+matplot(popStructure,
+  type = "l", xlab = "time",
+  ylab = "proportion in stage class"
+)
 ```
 
 Using `qsd_converge`, we can find the time at which the cohort reaches the QSD
@@ -375,7 +381,10 @@ lt_preQSD <- lt[1:q, ]
 # plot mortality trajectory from the life table subset (blue),
 # showing plateau effect if the trajectory (grey) was allowed to continue to the
 # QSD (dashed vertical line) and beyond
-plot(qx ~ x, data = lt, type = "l", col = "darkgrey", ylim = c(0, 1), xlab = "age")
+plot(qx ~ x,
+  data = lt, type = "l", col = "darkgrey", ylim = c(0, 1),
+  xlab = "age"
+)
 lines(qx ~ x, data = lt_preQSD, type = "l", col = "blue", lwd = 4)
 abline(v = q, lty = "dashed")
 ```
@@ -473,11 +482,14 @@ stage names using the function `name_stages`, electing to use generic or custom
 names.
 
 ```{r}
-(col1_auto <- name_stages(mat = col1, prefix = "class_")) # automated stage naming
+# automated stage naming
+(col1_auto <- name_stages(mat = col1, prefix = "class_"))
+
+# overwrite with custom stages
 (col1_cust <- name_stages(
   mat = col1, names = c("seed", "active", "dormant"),
   prefix = NULL
-)) # overwrite with custom stages
+))
 ```
 
 The transition rates in the collapsed matrix are a weighted average of the

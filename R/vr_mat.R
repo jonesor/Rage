@@ -11,7 +11,8 @@
 #' stage-specific survival term (column sums of \code{matU}) and a lower level
 #' vital rate that is conditional on survival (growth, shrinkage, stasis, or
 #' reproduction). Reproductive vital rates that are not conditional on survival
-#' (i.e., within a stage class from which there is no survival) are also allowed.
+#' (i.e., within a stage class from which there is no survival) are also
+#' allowed.
 #'
 #' @param matU The survival component of a matrix population model (i.e., a
 #'   square projection matrix reflecting survival-related transitions; e.g.
@@ -89,7 +90,6 @@
 #' @export vr_mat_U
 vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
   checkValidMat(matU)
-  # checkMatchingStageNames(matU)
   sigma <- colSums(matU, na.rm = TRUE)
   sigma[sigma == 0] <- NA_real_ # can't calculate lower-vr if no survival
 
@@ -109,7 +109,6 @@ vr_mat_U <- function(matU, posU = matU > 0, surv_only_na = TRUE) {
 vr_mat_R <- function(matU, matR, posR = matR > 0) {
   checkValidMat(matU)
   checkValidMat(matR)
-  # checkMatchingStageNames(matU, matR)
   sigma <- colSums(matU)
 
   sigma[sigma == 0] <- 1 # avoid NaN if no survival

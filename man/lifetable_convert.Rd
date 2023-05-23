@@ -34,8 +34,8 @@ A vector.
 }
 \description{
 Convert between vectors of age-specific survivorship (\code{lx}), survival
-probability (\code{px}), or mortality hazard (\code{hx}). Input vectors must be arranged in
-order of increasing age, starting with age 0.
+probability (\code{px}), or mortality hazard (\code{hx}). Input vectors must
+be arranged in order of increasing age, starting with age 0.
 }
 \details{
 \code{lx} gives the proportional survivorship to the start of age

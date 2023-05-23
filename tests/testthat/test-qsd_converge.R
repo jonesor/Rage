@@ -1,20 +1,20 @@
 test_that("qsd_converge works correctly", {
   x1 <- qsd_converge(mat_u)
   expect_length(x1, 1L)
-  expect_true(x1 > 0)
+  expect_gt(x1, 0)
 
   # matU all zero
   x2 <- suppressWarnings(qsd_converge(mat_u_zero))
-  expect_equal(x2, 1L)
+  expect_identical(x2, 1L)
 
   # multiple starting stages
   x3 <- qsd_converge(mat_u, start = c(0.8, 0.2, 0, 0))
   expect_length(x3, 1L)
-  expect_true(x3 > 0)
+  expect_gt(x3, 0)
 
   # named life stages
   x4 <- qsd_converge(mat_u_named, start = "sm")
-  expect_equal(x1, x4)
+  expect_identical(x1, x4)
 })
 
 test_that("qsd_converge warns and fails gracefully", {
@@ -40,7 +40,6 @@ test_that("qsd_converge works w/ non-ergodic matrix", {
   t_qsd <- qsd_converge(mat_no_ergo)
 
   expect_length(t_qsd, 1L)
-  # expect_equal(t_qsd, 10L)
 
   # multi-state w/ non-ergodic also works.
   f_qsd <- qsd_converge(mat_no_ergo,
@@ -48,5 +47,5 @@ test_that("qsd_converge works w/ non-ergodic matrix", {
   )
 
   expect_length(f_qsd, 1L)
-  # expect_equal(f_qsd, 8L) #This depends on default value of conv in qsd_converge
+  # This depends on default value of conv in qsd_converge
 })

@@ -7,5 +7,5 @@ test_that("mpm_split works correctly", {
   expect_length(x, 3)
   expect_true(all(x$matC == 0))
 
-  expect_equal(ncol(mat_u), ncol(x$matU))
+  expect_identical(ncol(mat_u), ncol(x$matU))
 })

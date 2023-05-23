@@ -6,18 +6,12 @@ test_that("mature_ functions work correctly", {
   x_prob2 <- mature_prob(mat_u, mat_f, start = 2)
   expect_gt(x_prob2, x_prob1)
 
-  # x_prob3 <- mature_prob(mat_u_named, mat_f_named, start = "md")
-  # expect_gt(x_prob3, x_prob2) #These are equal (fix)
-
   x_age1 <- mature_age(mat_u, mat_f)
   expect_type(x_age1, "double")
   expect_length(x_age1, 1L)
 
   x_age2 <- mature_age(mat_u, mat_f, start = 2)
   expect_lt(x_age2, x_age1)
-
-  # x_age3 <- mature_age(mat_u_named, mat_f_named, start = "md")
-  # expect_lt(x_age3, x_age2) #These are equal (fix)
 
   # test life cycles with no connection from 'start' to repro stage(s)
   matU <- rbind(

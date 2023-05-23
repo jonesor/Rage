@@ -21,7 +21,7 @@ using the function mpm_standardize."><!-- mathjax --><script src="https://cdnjs.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -111,15 +111,17 @@ sexual (e.g., <code>matF</code>), clonal (e.g., <code>matC</code>), or both).</p
 <p><code>TRUE</code> corresponding to reproductive stages.<br><br> For a given matrix
   stage (i.e., column of <code>matR</code>), if there are any positive values of
   reproduction, the function will return <code>TRUE</code>. However, for a given
-  stage, if there are no positive values of reproduction and one or more values
-  of <code>NA</code>, the function will return <code>NA</code> if <code>na_handling ==
-  "return.na"</code>, <code>TRUE</code> if <code>na_handling == "return.true"</code>, or</p>
+  stage, if there are no positive values of reproduction and one or more
+  values of <code>NA</code>, the function will return <code>NA</code> if</p>
 <p></p>
-<p><code>FALSE</code> if <code>na_handling == "return.false"</code>.</p>
+<p><code>na_handling == "return.na"</code>, <code>TRUE</code> if <code>na_handling ==
+  "return.true"</code>, or <code>FALSE</code> if <code>na_handling == "return.false"</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other transformation: 
+<code><a href="is_leslie_matrix.html">is_leslie_matrix</a>()</code>,
+<code><a href="leslie_collapse.html">leslie_collapse</a>()</code>,
 <code><a href="mpm_collapse.html">mpm_collapse</a>()</code>,
 <code><a href="mpm_rearrange.html">mpm_rearrange</a>()</code>,
 <code><a href="mpm_split.html">mpm_split</a>()</code>,
@@ -169,7 +171,7 @@ sexual (e.g., <code>matF</code>), clonal (e.g., <code>matC</code>), or both).</p
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

@@ -10,8 +10,8 @@
 #'   containing age classes (each element a number representing the age at the
 #'   start of the class), or 3) a matrix, specifically the reproduction
 #'   submatrix (e.g. F matrix) of a matrix population model. If \code{rep} is
-#'   provided as a matrix, then \code{surv} must be provided as the U submatrix of
-#'   the matrix population model.
+#'   provided as a matrix, then \code{surv} must be provided as the U submatrix
+#'   of the matrix population model.
 #'
 #'   In case (2), if x is not supplied, the function will assume age classes
 #'   starting at 0 with time steps of unit. If x ends at maximum longevity,
@@ -30,13 +30,13 @@
 #' @return a shape value describing symmetry of reproduction over age by
 #'   comparing the area under a cumulative reproduction curve over age with the
 #'   area under constant reproduction. May take any real value between -0.5 and
-#'   +0.5. A value of 0 indicates negligible ageing (neither generally increasing
-#'   nor generally decreasing reproduction with age); positive values indicate
-#'   senescence (generally decreasing reproduction with age); negative values
-#'   indicate negative senescence (generally increasing reproduction with age).
-#'   A value of +0.5 indicates that (hypothetically) all individuals are born to
-#'   individuals of age 0; a value of -0.5 indicates that all individuals are
-#'   born at the age of maximum longevity.
+#'   +0.5. A value of 0 indicates negligible ageing (neither generally
+#'   increasing nor generally decreasing reproduction with age); positive values
+#'   indicate senescence (generally decreasing reproduction with age); negative
+#'   values indicate negative senescence (generally increasing reproduction with
+#'   age). A value of +0.5 indicates that (hypothetically) all individuals are
+#'   born to individuals of age 0; a value of -0.5 indicates that all
+#'   individuals are born at the age of maximum longevity.
 #'
 #' @author Iain Stott <iainmstott@@gmail.com>
 #'
@@ -76,11 +76,11 @@ shape_rep <- function(rep, surv = NULL, xmin = NULL, xmax = NULL, ...) {
     rep <- mpm_to_mx(matU = surv, matR = rep, ...)
   }
 
-  if (class(rep) %in% "numeric") {
+  if (inherits(rep, "numeric")) {
     mx <- rep
     x <- seq_along(mx) - 1
   }
-  if (class(rep) %in% c("list", "data.frame")) {
+  if (inherits(rep, c("list", "data.frame"))) {
     if (!all(c("x", "mx") %in% names(rep))) {
       stop("`rep` doesn't contain both `x` and `mx`.\n")
     }
@@ -92,8 +92,10 @@ shape_rep <- function(rep, surv = NULL, xmin = NULL, xmax = NULL, ...) {
   }
   if (is.null(xmin)) xmin <- x[min(which(mx > 0))]
   if (is.null(xmax)) xmax <- max(x)
-  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, `x` must all be ascending.\n")
-  if (any(mx < 0)) stop("You appear to have minus-babies (check `mx` for negative values).\n")
+  if (any(diff(x) <= 0)) stop("much as we'd like to reverse ageing, `x`
+                              must all be ascending.\n")
+  if (any(mx < 0)) stop("You appear to have minus-babies (check `mx`
+                        for negative values).\n")
   x_sub <- x[x >= xmin & x <= xmax]
   if (length(x_sub) <= 2) {
     stop("must have > 2 nonzero values of `mx` to calculate shape.\n")

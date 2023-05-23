@@ -13,17 +13,17 @@ test_that("mpm_collapse works correctly", {
   expect_length(x1, 4)
   expect_true(all(x1$matC == 0))
 
-  expect_equal(ncol(x1$matA), length(c1))
-  expect_equal(ncol(x2$matA), length(c2))
-  expect_equal(ncol(x3$matA), length(c3))
-  expect_equal(ncol(x4$matA), length(c4))
+  expect_identical(ncol(x1$matA), length(c1))
+  expect_identical(ncol(x2$matA), length(c2))
+  expect_identical(ncol(x3$matA), length(c3))
+  expect_identical(ncol(x4$matA), length(c4))
 
-  expect_equal(x2$matU, mat_u)
-  expect_equal(x2$matF, mat_f)
+  expect_identical(x2$matU, mat_u)
+  expect_identical(x2$matF, mat_f)
 
   expect_identical(x1, x3)
 
-  expect_equal(colnames(x4$matA), names(c4))
+  expect_identical(colnames(x4$matA), names(c4))
 })
 
 test_that("mpm_collapse warns and fails gracefully", {
@@ -32,5 +32,7 @@ test_that("mpm_collapse warns and fails gracefully", {
   expect_error(mpm_collapse(mat_u_named, mat_f_named,
     collapse = list(c("sm", "md", "lg", "xl"), "xxl")
   ))
-  expect_error(mpm_collapse(mat_u_named, mat_f_named, collapse = list(1:3, "xl")))
+  expect_error(mpm_collapse(mat_u_named, mat_f_named,
+    collapse = list(1:3, "xl")
+  ))
 })

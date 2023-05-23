@@ -5,10 +5,10 @@ test_that("longevity works correctly", {
   x_named <- longevity(mat_u_named, start = "sm")
 
   expect_length(x, 1L)
-  expect_true(x > 0)
-  expect_equal(x_zero, 1)
-  expect_equal(x_noconverg, NA_real_)
-  expect_equal(x, x_named)
+  expect_gt(x, 0)
+  expect_identical(x_zero, 1L)
+  expect_identical(as.integer(x_noconverg), as.integer(NA_real_))
+  expect_identical(x, x_named)
 })
 
 test_that("longevity warns and fails gracefully", {

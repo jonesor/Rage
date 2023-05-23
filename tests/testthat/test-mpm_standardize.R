@@ -10,7 +10,7 @@ test_that("mpm_standardize works correctly", {
 
   expect_type(x1, "list")
   expect_length(x1, 4)
-  expect_equal(ncol(x1$matA), 4)
+  expect_identical(ncol(x1$matA), 4L)
 
   x2 <- mpm_standardise(mat_u_inter, mat_f_inter,
     repro_stages = repro_stages,

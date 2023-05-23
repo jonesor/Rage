@@ -1,7 +1,7 @@
 Type: Package
 Package: Rage
 Title: Life History Metrics from Matrix Population Models
-Version: 1.4.0
+Version: 1.4.0.9000
 Authors@R: c(
     person("Patrick", "Barks", , "barks@biology.sdu.dk", role = "aut",
            comment = c(ORCID = "0000-0002-5947-8151")),
@@ -12,6 +12,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-4394-6894")),
     person(c("Judy", "P."), "Che-Castaldo", , "jchecastaldo@lpzoo.org", role = "aut",
            comment = c(ORCID = "0000-0002-9118-9202")),
+    person(c("Richard", "A."), "Hinrichsen", , "rich@hinrichsenenvironmental.com", role = "aut",
+           comment = c(ORCID = "0000-0003-0761-3005")),
     person("John", "Jackson", , "jjackson0308@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-4563-2840")),
     person("Tamora", "James", , "tamoradjames@protonmail.com", role = "aut",
@@ -41,6 +43,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     DiagrammeR,
+    expm,
     MASS,
     popdemo,
     stats

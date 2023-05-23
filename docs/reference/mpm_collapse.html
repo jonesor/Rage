@@ -24,7 +24,7 @@ expected at the stable distribution."><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -170,6 +170,8 @@ corresponding to a missing stage will be coerced to <code>NA</code>.</p>
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="mpm_standardize.html">mpm_standardize</a></code></p>
 <p>Other transformation: 
+<code><a href="is_leslie_matrix.html">is_leslie_matrix</a>()</code>,
+<code><a href="leslie_collapse.html">leslie_collapse</a>()</code>,
 <code><a href="mpm_rearrange.html">mpm_rearrange</a>()</code>,
 <code><a href="mpm_split.html">mpm_split</a>()</code>,
 <code><a href="mpm_standardize.html">mpm_standardize</a>()</code>,
@@ -193,7 +195,10 @@ corresponding to a missing stage will be coerced to <code>NA</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   FALSE   FALSE    TRUE    TRUE   FALSE </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># collapse reproductive stages (3 and 4) into single stage</span></span></span>
-<span class="r-in"><span><span class="fu">mpm_collapse</span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mpm_collapse</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, matF <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>,</span></span>
+<span class="r-in"><span>  collapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]        [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.10 0.00 28.54374157 0.00</span>
@@ -271,7 +276,7 @@ corresponding to a missing stage will be coerced to <code>NA</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">

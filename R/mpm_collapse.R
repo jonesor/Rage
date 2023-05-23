@@ -64,7 +64,10 @@
 #' repro_stages(matR = mpm1$matF)
 #'
 #' # collapse reproductive stages (3 and 4) into single stage
-#' mpm_collapse(matU = mpm1$matU, matF = mpm1$matF, collapse = list(1, 2, 3:4, 5))
+#' mpm_collapse(
+#'   matU = mpm1$matU, matF = mpm1$matF,
+#'   collapse = list(1, 2, 3:4, 5)
+#' )
 #'
 #' # use stage names instead, and name stages in the collapsed matrix
 #' mpm_collapse(
@@ -81,10 +84,8 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   # validate arguments
   checkValidMat(matU)
   checkValidMat(matF)
-  # checkMatchingStageNames(matU, matF)
   if (!is.null(matC)) {
     checkValidMat(matC, warn_all_zero = FALSE)
-    # checkMatchingStageNames(matU, matC)
   }
   checkValidStages(matU, stages = collapse)
 
@@ -110,7 +111,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
 
   # convert `collapse` names to corresponding row/col numbers if needed
-  if (all(sapply(collapse, is.character))) {
+  if (all(vapply(collapse, is.character, logical(1)))) {
     collapse <- lapply(collapse, function(x) which(colnames(matU) %in% x))
   }
 
@@ -134,7 +135,7 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
   }
 
   # replace missing rows/cols with NA
-  if (any(is.na(collapse))) {
+  if (anyNA(collapse)) {
     i <- which(is.na(collapse))
     P[i, ] <- rep(NA_real_, originalDim)
     Q[, i] <- rep(NA_real_, originalDim)

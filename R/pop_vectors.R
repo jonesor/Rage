@@ -3,9 +3,9 @@
 #'
 #' Derive a hypothetical set of population vectors (i.e. population size
 #' distributions across stages) given a time-series of matrix population models
-#' (MPMs), by taking the stable stage distribution of the mean matrix as the starting
-#' vector (or optionally, a uniform or random starting vector), and deriving
-#' subsequent vectors through recursive population projection.
+#' (MPMs), by taking the stable stage distribution of the mean matrix as the
+#' starting vector (or optionally, a uniform or random starting vector), and
+#' deriving subsequent vectors through recursive population projection.
 #'
 #' This function is useful for providing population vectors as input to the
 #' \code{\link{perturb_stochastic}} function which calculates stochastic
@@ -16,9 +16,9 @@
 #' @param A A list of MPMs (i.e., square population projection matrices).
 #' @param start Method to derive the first population vector in the series.
 #'   Either \code{stable.stage} to use the stable stage distribution of the mean
-#'   matrix as the starting vector, \code{uniform} to use a uniform starting vector
-#'   (all elements equal), or \code{random} to use a randomly-generated starting
-#'   vector. Defaults to the stable stage distribution.
+#'   matrix as the starting vector, \code{uniform} to use a uniform starting
+#'   vector (all elements equal), or \code{random} to use a randomly-generated
+#'   starting vector. Defaults to the stable stage distribution.
 #'
 #' @return A list of population vectors
 #'
@@ -54,7 +54,8 @@ pop_vectors <- function(A, start = "stable.stage") {
     w[[1]] <- runif(s)
     w[[1]] <- w[[1]] / sum(w[[1]])
   } else {
-    stop("Argument start must be one of 'stable.stage', 'uniform', or 'random'.\n",
+    stop("Argument start must be one of 'stable.stage',
+         'uniform', or 'random'.\n",
       .call = FALSE
     )
   }

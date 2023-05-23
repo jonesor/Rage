@@ -20,16 +20,16 @@ perturb_trans(
 )
 }
 \arguments{
-\item{matU}{The survival component submatrix of a MPM (i.e., a square projection matrix
-reflecting survival-related transitions; e.g., progression, stasis, and
-retrogression).}
+\item{matU}{The survival component submatrix of a MPM (i.e., a square
+projection matrix reflecting survival-related transitions; e.g.,
+progression, stasis, and retrogression).}
 
-\item{matF}{The sexual component submatrix of a MPM (i.e., a square projection matrix
-reflecting transitions due to sexual reproduction).}
+\item{matF}{The sexual component submatrix of a MPM (i.e., a square
+projection matrix reflecting transitions due to sexual reproduction).}
 
-\item{matC}{The clonal component submatrix of a MPM (i.e., a square projection matrix
-reflecting transitions due to clonal reproduction). Defaults to
-\code{NULL}, indicating no clonal reproduction possible.}
+\item{matC}{The clonal component submatrix of a MPM (i.e., a square
+projection matrix reflecting transitions due to clonal reproduction).
+Defaults to \code{NULL}, indicating no clonal reproduction possible.}
 
 \item{posU}{A logical matrix of the same dimension as \code{matU}, with
 elements indicating whether a given \code{matU} transition is possible
@@ -47,16 +47,16 @@ elements indicating whether a given \code{matC} transition is possible
 Details).}
 
 \item{exclude_row}{A vector of row indices or stages names indicating stages
-for which transitions \emph{to} the stage should be excluded from perturbation
-analysis. Alternatively, a logical vector of length \code{nrow(matU)}
-indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
-the calculation. See section \emph{Excluding stages}.}
+for which transitions \emph{to} the stage should be excluded from
+perturbation analysis. Alternatively, a logical vector of length
+\code{nrow(matU)} indicating which stages to include \code{TRUE} or exclude
+\code{FALSE} from the calculation. See section \emph{Excluding stages}.}
 
-\item{exclude_col}{A vector of column indices or stages names indicating stages
-for which transitions \emph{to} the stage should be excluded from perturbation
-analysis. Alternatively, a logical vector of length \code{ncol(matU)}
-indicating which stages to include \code{TRUE} or exclude \code{FALSE} from
-the calculation. See section \emph{Excluding stages}.}
+\item{exclude_col}{A vector of column indices or stages names indicating
+stages for which transitions \emph{to} the stage should be excluded from
+perturbation analysis. Alternatively, a logical vector of length
+\code{ncol(matU)} indicating which stages to include \code{TRUE} or exclude
+\code{FALSE} from the calculation. See section \emph{Excluding stages}.}
 
 \item{pert}{The magnitude of the perturbation (defaults to \code{1e-6}).}
 
@@ -108,9 +108,9 @@ the arguments \code{posX} are specified by the logical expression \code{(matX
 but estimated to be \code{0}, users should specify the \code{posX}
 argument(s) manually.
 
-If there are no possible transitions for a given process (e.g., clonality, in many species),
-the value of sensitivity or elasticity returned for that process will be
-\code{NA}.
+If there are no possible transitions for a given process (e.g., clonality, in
+many species), the value of sensitivity or elasticity returned for that
+process will be \code{NA}.
 }
 \section{Excluding stages}{
  It may be desirable to exclude one or more stages

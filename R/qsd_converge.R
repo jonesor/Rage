@@ -139,7 +139,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
     n <- start_vec
     t <- 1L
 
-    while (!all(nonzero) & t < (nrow(mat) * 2)) {
+    while (!all(nonzero) && t < (nrow(mat) * 2)) {
       n <- mat %*% n
       nonzero[n > 0] <- TRUE
       t <- t + 1L
@@ -163,7 +163,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
       dist <- 1
       t <- 0L
 
-      while (dist > 0.001 & t < N) {
+      while (dist > 0.001 && t < N) {
         n <- mat %*% n
         n <- n / sum(n)
         dist <- 0.5 * (sum(abs(n - w)))
@@ -171,10 +171,11 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
       }
 
       if (dist > 0.001) {
-        warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic after
-                        removing stages not connected from stage 'start', and stable
-                        distribution does not match observed distribution after N
-                        iterations."), call. = FALSE)
+        warning(strwrap(prefix = " ", initial = "", "Matrix is still non-ergodic
+        after removing stages not connected from stage 'start', and stable
+        distribution doesn't match observed distribution after N iterations."),
+          call. = FALSE
+        )
         cat("\n")
         return(NA_integer_)
       }
@@ -190,7 +191,7 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
   dist <- conv + 1
   t <- 0L
 
-  while (!is.na(dist) & dist > conv & t < N) {
+  while (!is.na(dist) && dist > conv && t < N) {
     dist <- 0.5 * (sum(abs(n - w)))
     n <- mat %*% n
     if (sum(n) > 0) n <- n / sum(n)
@@ -204,8 +205,8 @@ qsd_converge <- function(mat, start = 1L, conv = 0.01, N = 1e5L) {
 #' @noRd
 stable_zero <- function(mat, n1) {
   n <- n1
-  for (i in 1:nrow(mat)) {
+  for (i in seq_len(nrow(mat))) {
     n <- mat %*% n
   }
-  return(ifelse(sum(n) == 0, TRUE, FALSE))
+  return(sum(n) == 0)
 }

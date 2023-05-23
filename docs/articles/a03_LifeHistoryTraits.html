@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0.9000</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2023-04-10</h4>
+            <h4 data-toc-skip class="date">2023-05-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -163,9 +163,12 @@ reproduction. Instead, they only require a <strong>U</strong> matrix
 expectancy, or the mean time to death, and the variance in time to death
 can be obtained using <code><a href="../reference/life_expect.html">life_expect_var()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># mean life expectancy from "seed" stage</span></span>
+<code class="sourceCode R"><span><span class="co"># mean life expectancy from "seed" stage</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.250506</span></span>
-<span><span class="fu"><a href="../reference/life_expect.html">life_expect_var</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># variance in life expectancy from "seed" stage</span></span>
+<span></span>
+<span><span class="co"># variance in life expectancy from "seed" stage</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_var</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 19.23639</span></span></code></pre></div>
 <p>Life expectancy is dependent on a starting stage, which is specified
 using the <code>start</code> argument. That is, the expected time to
@@ -178,7 +181,8 @@ lifespan. In the example MPM, life expectancy from the first stage
 relatively low probability of survival in the seed stage, reducing the
 expected time to death.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># mean life expectancy from "small" stage</span></span>
+<code class="sourceCode R"><span><span class="co"># mean life expectancy from "small" stage</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.509116</span></span></code></pre></div>
 <p>Sometimes one may want to include multiple starting stage classes
 when calculating life expectancy. For example, life expectancy from
@@ -210,14 +214,17 @@ individual germinates. Longevity is highest for the “medium” and “large”
 stages, but is the same for individuals starting in the “small” stage as
 those starting in the “dormant” stage.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">longval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">startvec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># vector of starting stages</span></span>
+<code class="sourceCode R"><span><span class="va">longval</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="va">startvec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span><span class="op">)</span> <span class="co"># vector of starting stages</span></span>
 <span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">startvec</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">startvec</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">longval</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/longevity.html">longevity</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">startvec</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">longval</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Starting stage"</span>, ylab <span class="op">=</span> <span class="st">"Longevity to 5% survivorship"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">longval</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Starting stage"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Longevity to 5% survivorship"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="a03_LifeHistoryTraits_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">longval</span></span>
@@ -293,7 +300,10 @@ producing offspring.</p>
 <span><span class="co">#&gt; large      0     0    0.0   0.0       0</span></span>
 <span><span class="co">#&gt; dormant    0     0    0.0   0.0       0</span></span>
 <span></span>
-<span><span class="va">maturedist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repro_maturity.html">mature_distrib</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>, repro_stages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">maturedist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/repro_maturity.html">mature_distrib</a></span><span class="op">(</span></span>
+<span>  matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  repro_stages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">maturedist</span></span>
 <span><span class="co">#&gt;       seed      small     medium      large    dormant </span></span>
 <span><span class="co">#&gt; 0.00000000 0.00000000 0.92105263 0.07894737 0.00000000</span></span></code></pre></div>
@@ -302,9 +312,12 @@ life expectancy from reproductive maturity, using the data-based
 distribution rather than the hypothetical one (40% in “small” stage and
 60% in “medium” stage) used above:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span> <span class="co"># mean life expectancy from maturity</span></span>
+<code class="sourceCode R"><span><span class="co"># mean life expectancy from maturity</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3.179005</span></span>
-<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># mean life expectancy from "small" stage</span></span>
+<span></span>
+<span><span class="co"># mean life expectancy from "small" stage</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.509116</span></span></code></pre></div>
 <p>In doing so, mean life expectancy from maturity is 0.67 years longer
 than that after germination (from “small” stage). In this case, this
@@ -335,7 +348,10 @@ post-germination.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lx_seed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"seed"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lx</span>, xlab <span class="op">=</span> <span class="st">"Survival time (years)"</span>, ylab <span class="op">=</span> <span class="st">"Survivorship"</span>, type <span class="op">=</span> <span class="st">"s"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/Projection-plots.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lx</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"Survival time (years)"</span>, ylab <span class="op">=</span> <span class="st">"Survivorship"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"s"</span>, col <span class="op">=</span> <span class="st">"black"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">lx_seed</span>, type <span class="op">=</span> <span class="st">"s"</span>, col <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,</span>
 <span>  inset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"From seed stage"</span>, <span class="st">"From small stage"</span><span class="op">)</span>,</span>
@@ -392,9 +408,12 @@ pace and shape of fertility have also been developed (Baudisch &amp;
 Stott 2019). In addition to the entropy measures described above, the
 <code>shape_</code> functions are also useful metrics.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># shape of survival/mortality trajectory</span></span>
+<code class="sourceCode R"><span><span class="co"># shape of survival/mortality trajectory</span></span>
+<span><span class="fu"><a href="../reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -0.04681254</span></span>
-<span><span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span> <span class="co"># shape of fecundity trajectory</span></span>
+<span></span>
+<span><span class="co"># shape of fecundity trajectory</span></span>
+<span><span class="fu"><a href="../reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">mx</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -0.02999578</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -434,7 +453,7 @@ National Academy of Sciences 113 (1): 230–35</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
 </div>
 
 <div class="pkgdown">
