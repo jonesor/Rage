@@ -94,7 +94,7 @@ ggdat$col[is.na(ggdat$col)] <- "transparent"
 ggdat$to <- factor(ggdat$to, levels = c("flowering", "rosette", "seedling"))
 ggdat$from <- factor(ggdat$from, levels = c("seedling", "rosette", "flowering"))
 ggplot(ggdat, aes(x = from, y = to, label = trans)) +
-  geom_tile(color = "black", fill = "white", size = 0.25, show.legend = FALSE) +
+  geom_tile(color = "black", fill = "white", linewidth = 0.25, show.legend = FALSE) +
   geom_text(size = 6) +
   scale_x_discrete(position = "top") +
   labs(x = "current life stage", y = "life stage at time t+1") +
@@ -136,10 +136,10 @@ ggplot(
 ) +
   geom_tile(
     data = blankdat,
-    aes(fill = NULL), fill = "white", color = "black", size = 0.25
+    aes(fill = NULL), fill = "white", color = "black", linewidth = 0.25
   ) +
   geom_text(data = blankdat, aes(fill = NULL), size = 6) +
-  geom_tile(color = "black", size = 0.25, show.legend = FALSE) +
+  geom_tile(color = "black", linewidth = 0.25, show.legend = FALSE) +
   geom_text(size = 6) +
   scale_x_discrete(position = "top") +
   scale_fill_manual(values = c(
