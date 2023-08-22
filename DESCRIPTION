@@ -1,7 +1,7 @@
 Type: Package
 Package: Rage
 Title: Life History Metrics from Matrix Population Models
-Version: 1.4.0.9000
+Version: 1.5.0
 Authors@R: c(
     person("Patrick", "Barks", , "barks@biology.sdu.dk", role = "aut",
            comment = c(ORCID = "0000-0002-5947-8151")),
