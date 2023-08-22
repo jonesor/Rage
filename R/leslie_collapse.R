@@ -43,7 +43,7 @@ leslie_collapse <- function(A, m) {
   }
 
   # first check whether the matrix is a Leslie matrix
-  if (!is_leslie(A)) {
+  if (!is_leslie_matrix(A)) {
     stop("A must be a Leslie matrix")
   }
   n <- dim(A)[1]
@@ -109,65 +109,3 @@ leslie_expand <- function(A, m) {
   return(A.expanded)
 }
 
-#' Check whether a matrix is a Leslie matrix
-#'
-#' Checks whether a matrix is a Leslie matrix by verifying that the matrix
-#' satisfies three conditions: (1) the matrix has non-negative elements, (2) the
-#' elements on the subdiagonal are between 0 and 1, and (3) the sum of the birth
-#' rates is positive.
-#'
-#' @param A a matrix to be checked
-#'
-#' @return a logical value indicating whether the matrix is a Leslie matrix
-#'
-#' @examples
-#' A <- matrix(c(
-#'   0.1, 1.2, 1.1,
-#'   0.0, 0.2, 0.0,
-#'   0.0, 0.0, 0.3
-#' ), nrow = 3, byrow = TRUE)
-#' is_leslie(A) # true
-#' A <- matrix(c(
-#'   0.1, 1.2, 1.1,
-#'   0.1, 0.2, 0.1,
-#'   0.2, 0.3, 0.3
-#' ), nrow = 3, byrow = TRUE)
-#' is_leslie(A) # false?
-#' @author Richard A. Hinrichsen <rich@@hinrichsenenvironmental.com>
-#' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
-#'   with application to ten diverse animal species. Population Ecology, 1–21.
-#'   https://doi.org/10.1002/1438-390X.12149
-#' @export is_leslie
-is_leslie <- function(A) {
-  EPS <- 0.00001
-  if (is.na(sum(A))) {
-    return(FALSE)
-  }
-  m <- dim(A)[1]
-  if (m == 1) {
-    return(TRUE)
-  }
-  birth.rates <- A[1, ]
-  if (m > 2) {
-    survival.rates <- diag(A[2:m, 1:(m - 1)])
-  }
-  if (m == 2) {
-    survival.rates <- A[2, 1]
-  }
-
-  Anew <- matrix(0, nrow = m, ncol = m)
-  if (m > 2) Anew[2:m, 1:(m - 1)] <- diag(survival.rates)
-  if (m == 2) {
-    Anew[2, 1] <- survival.rates
-  }
-  Anew[1, ] <- birth.rates
-
-  error <- c(A) - c(Anew)
-  error.squared <- t(error) %*% error
-  test1 <- (sqrt(error.squared) < EPS)
-  iii <- (survival.rates >= 0) & (survival.rates <= 1)
-  test2 <- (sum(iii) == (m - 1))
-  iii <- (birth.rates >= 0)
-  test3 <- (sum(iii) == m)
-  return(is.logical(test1 & test2 & test3))
-}
