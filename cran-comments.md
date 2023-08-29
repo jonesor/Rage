@@ -1,7 +1,7 @@
 ## R CMD check results
 
 * This is a new release.
-* Minor improvements to functionality.
+* Includes improvements to functionality and some method corrections.
 
 ## Test environments
 - R-hub Windows Server 2022, R-devel, 64 bit
