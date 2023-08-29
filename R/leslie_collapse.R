@@ -108,4 +108,3 @@ leslie_expand <- function(A, m) {
   }
   return(A.expanded)
 }
-

@@ -61,7 +61,7 @@
 #' # mean life expectancies starting from each of the stages
 #' life_expect_mean(mpm1$matU, start = NULL)
 #'
-#' # mean life expectancy starting from first reproduction, where this varies 
+#' # mean life expectancy starting from first reproduction, where this varies
 #' # across individuals
 #' rep_stages <- repro_stages(mpm1$matF)
 #' (n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages))
@@ -77,12 +77,12 @@
 #' life_expect_var(mpm1$matU, start = NULL)
 #'
 #' # variance of life expectancies with a set mixing distribution
-#' life_expect_var(mpm1$matU, mixdist = c(0.0,0.1,0.3,0.1,0.5), start = NULL)
-#' 
+#' life_expect_var(mpm1$matU, mixdist = c(0.0, 0.1, 0.3, 0.1, 0.5), start = NULL)
+#'
 #' # setting mixdist to ignore all but one stage should produce the same result
 #' # as setting the start argument to that stage
 #' life_expect_mean(mpm1$matU, start = 3)
-#' life_expect_mean(mpm1$matU, mixdist = c(0,0,1,0,0), start = NULL)
+#' life_expect_mean(mpm1$matU, mixdist = c(0, 0, 1, 0, 0), start = NULL)
 #'
 #' @rdname life_expect
 #' @export life_expect_mean
@@ -94,7 +94,7 @@ life_expect_mean <- function(matU, mixdist = NULL, start = 1L) {
          state. The mixing distribution defines how you want the function to
          average over all possible starting states.")
   }
-  
+
   # check that the MPM is valid
   checkValidMat(matU, warn_surv_issue = TRUE)
 
@@ -155,23 +155,23 @@ life_expect_var <- function(matU, mixdist = NULL, start = 1L) {
          state. The mixing distribution defines how you want the function to
          average over all possible starting states.")
   }
-  
+
   # check that the MPM is valid
   checkValidMat(matU, warn_surv_issue = TRUE)
-  
+
   # check that, if it is not NULL, start is valid (i.e. that is it an integer or
   # stage name that matches the MPM)
   if (!is.null(start)) {
     checkValidStartLife(start, matU, start_vec = TRUE)
   }
-  
+
   # if start is a character string (e.g. a stage name) turn it into a numeric.
   if (inherits(start, "character")) {
     startNumeric <- match(start, colnames(matU))
   } else {
     startNumeric <- start
   }
-  
+
   matDim <- dim(matU)[1]
 
   # calculate the fundamental matrix
@@ -183,28 +183,29 @@ life_expect_var <- function(matU, mixdist = NULL, start = 1L) {
     return(NA_real_)
   } else {
     expLCond_z <- life_expect_mean(matU, mixdist = NULL, start = NULL)
-  
-  ## Calculate Ex(R | current state)
 
-  ## Var(L | current state) using eqn. 5.12 from Hal Caswell (2001)
-  eT <- matrix(data = 1, ncol = matDim, nrow = 1) # column vector of 1's
-  varLCond_z <- eT %*% (2 * N %*% N - N) - (expLCond_z)^2
+    ## Calculate Ex(R | current state)
 
-  if (is.null(mixdist)) {
-    outputVar <- varLCond_z
-  } else {
-    # variance in LRO due to differences along trajectories:
-    varL_within <- varLCond_z %*% mixdist
-    # variance in LRO due to differences among starting states:
-    varL_between <- t(mixdist) %*% t(expLCond_z^2) -
-      (t(mixdist) %*% t(expLCond_z))^2
-    # total variance in lifespan, given the mixing distribution:
-    outputVar <- varL_within + varL_between
+    ## Var(L | current state) using eqn. 5.12 from Hal Caswell (2001)
+    eT <- matrix(data = 1, ncol = matDim, nrow = 1) # column vector of 1's
+    varLCond_z <- eT %*% (2 * N %*% N - N) - (expLCond_z)^2
+
+    if (is.null(mixdist)) {
+      outputVar <- varLCond_z
+    } else {
+      # variance in LRO due to differences along trajectories:
+      varL_within <- varLCond_z %*% mixdist
+      # variance in LRO due to differences among starting states:
+      varL_between <- t(mixdist) %*% t(expLCond_z^2) -
+        (t(mixdist) %*% t(expLCond_z))^2
+      # total variance in lifespan, given the mixing distribution:
+      outputVar <- varL_within + varL_between
+    }
+    if (!is.null(start)) {
+      return(outputVar[startNumeric])
+    }
+    if (is.null(start)) {
+      return(outputVar)
+    }
   }
-  if(!is.null(start)){
-    return(outputVar[startNumeric])
-  } 
-  if(is.null(start)){
-    return(outputVar)
-  }}
 }
