@@ -77,11 +77,9 @@ expectancy from a matrix population model (MPM).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="cn">NULL</span>, start <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">life_expect</span><span class="op">(</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="cn">NULL</span>, start <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,42 +91,50 @@ retrogression). Optionally with named rows and columns indicating the
 corresponding life stage names.</p></dd>
 
 
+<dt>mixdist</dt>
+<dd><p>A vector with a length equal to the dimension of the MPM
+defining how the function should average the output over the. possible
+starting states. See section <em>Starting from multiple stages</em>. If this
+argument is used, `start` must be set to `NULL`.</p></dd>
+
+
 <dt>start</dt>
 <dd><p>The index (or stage name) of the first stage of the life cycle
 which the user considers to be the beginning of life. Defaults to <code>1</code>.
-Alternately, a numeric vector giving the starting population vector (in
-which case <code>length(start)</code> must match <code>ncol(matU))</code>. See section
-<em>Starting from multiple stages</em>.</p></dd>
+If set to `NULL` the function returns mean life expectancy from each of the
+stages of the MPM.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>Returns life expectancy. If <code>matU</code> is singular (often indicating
-  infinite life expectancy), returns <code>NA</code>.</p>
-    </div>
-    <div id="note">
-    <h2>Note</h2>
-    <p>Note that the units of time in returned values are the same as the
-  projection interval (`ProjectionInterval`) of the MPM.</p>
+<p>Returns life expectancy in the units of the projection interval
+  (`ProjectionInterval`) of the MPM. If <code>matU</code> is singular (often
+  indicating infinite life expectancy), returns <code>NA</code>.</p>
     </div>
     <div id="starting-from-multiple-stages">
     <h2>Starting from multiple stages</h2>
     
 
-<p>Rather than specifying argument <code>start</code> as a single stage class from
-which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if the user wants to start
-their calculation of life expectancy from reproductive maturity (i.e., first
-reproduction), they should account for the possibility that there may be
-multiple stage classes in which an individual could first reproduce.</p>
-<p>To specify multiple starting stage classes, specify argument <code>start</code> as
-the desired starting population vector (<strong>n1</strong>), giving the proportion
-of individuals starting in each stage class (the length of <code>start</code>
-should match the number of columns in the relevant MPM).</p>
-<p>See function <code><a href="repro_maturity.html">mature_distrib</a></code> for calculating the proportion of
-individuals achieving reproductive maturity in each stage class.</p>
+<p>Sometimes, it is necessary to calculate life expectancy considering multiple
+starting stage classes instead of just a single stage from which all
+individuals begin their lives. This scenario arises when there are several
+possible stages at which an individual can start a particular life event,
+such as reproductive maturity.
+To handle such cases, the function provides support for multiple starting
+stage classes. When calculating life expectancy in this context, the outputs
+should be averaged using weights determined by the distribution of
+individuals across these stages. To achieve this, the `start` argument should
+be set to `NULL`, indicating that the starting stage is not specified, and
+the `mixdist` argument should be utilized.
+In the context described, The `mixdist` argument expects a vector that
+represents the proportion of individuals with their first reproduction in
+each stage of the MPM. By providing this distribution, the function
+calculates the mean lifespan by appropriately weighting the life expectancies
+corresponding to each starting stage.
+For a practical example that demonstrates this usage, please refer to the
+code example below.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -150,8 +156,8 @@ individuals achieving reproductive maturity in each stage class.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-    <p>Roberto Salguero-Gomez &lt;rob.salguero@zoo.ox.ac.uk&gt;</p>
-<p>Hal Caswell &lt;hcaswell@whoi.edu&gt;</p>
+    <p>Christine M. Hernández &lt;cmh352@cornell.edu&gt;</p>
+<p>Owen R. Jones &lt;jones@biology.sdu.dk&gt;</p>
     </div>
 
     <div id="ref-examples">
@@ -166,15 +172,46 @@ individuals achieving reproductive maturity in each stage class.</p>
 <span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.509116</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># mean life expectancy starting from first reproduction</span></span></span>
+<span class="r-in"><span><span class="co"># mean life expectancies starting from each of the stages</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          seed    small   medium    large  dormant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.250506 2.509116 3.103368 4.061429 2.142828</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># mean life expectancy starting from first reproduction, where this varies </span></span></span>
+<span class="r-in"><span><span class="co"># across individuals</span></span></span>
 <span class="r-in"><span><span class="va">rep_stages</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_stages.html">repro_stages</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">rep_stages</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">n1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.179005</span>
+<span class="r-in"><span><span class="op">(</span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="repro_maturity.html">mature_distrib</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, repro_stages <span class="op">=</span> <span class="va">rep_stages</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seed      small     medium      large    dormant </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.00000000 0.00000000 0.92105263 0.07894737 0.00000000 </span>
+<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="va">n1</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 3.179005</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># variance of life expectancy from stage class 1</span></span></span>
 <span class="r-in"><span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19.23639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7816213</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># variance of life expectancy from stage class 1</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"seed"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7816213</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># variance of life expectancy from each stage class</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           seed    small   medium   large  dormant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.7816213 5.901059 7.397492 8.66971 4.860763</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># variance of life expectancies with a set mixing distribution</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_var</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span>,<span class="fl">0.1</span>,<span class="fl">0.3</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span><span class="op">)</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 6.498089</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># setting mixdist to ignore all but one stage should produce the same result</span></span></span>
+<span class="r-in"><span><span class="co"># as setting the start argument to that stage</span></span></span>
+<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.103368</span>
+<span class="r-in"><span><span class="fu">life_expect_mean</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 3.103368</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -186,7 +223,7 @@ individuals achieving reproductive maturity in each stage class.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
 </div>
 
 <div class="pkgdown">

@@ -3,14 +3,11 @@
 \name{life_expect_mean}
 \alias{life_expect_mean}
 \alias{life_expect_var}
-\alias{life_expect}
 \title{Calculate mean and variance of life expectancy from a matrix population model}
 \usage{
-life_expect_mean(matU, start = 1L)
+life_expect_mean(matU, mixdist = NULL, start = 1L)
 
-life_expect_var(matU, start = 1L)
-
-life_expect(matU, start = 1L)
+life_expect_var(matU, mixdist = NULL, start = 1L)
 }
 \arguments{
 \item{matU}{The survival component of a MPM (i.e., a square projection matrix
@@ -18,40 +15,45 @@ reflecting survival-related transitions; e.g., progression, stasis, and
 retrogression). Optionally with named rows and columns indicating the
 corresponding life stage names.}
 
+\item{mixdist}{A vector with a length equal to the dimension of the MPM
+defining how the function should average the output over the. possible
+starting states. See section \emph{Starting from multiple stages}. If this
+argument is used, `start` must be set to `NULL`.}
+
 \item{start}{The index (or stage name) of the first stage of the life cycle
 which the user considers to be the beginning of life. Defaults to \code{1}.
-Alternately, a numeric vector giving the starting population vector (in
-which case \code{length(start)} must match \code{ncol(matU))}. See section
-\emph{Starting from multiple stages}.}
+If set to `NULL` the function returns mean life expectancy from each of the
+stages of the MPM.}
 }
 \value{
-Returns life expectancy. If \code{matU} is singular (often indicating
-  infinite life expectancy), returns \code{NA}.
+Returns life expectancy in the units of the projection interval
+  (`ProjectionInterval`) of the MPM. If \code{matU} is singular (often
+  indicating infinite life expectancy), returns \code{NA}.
 }
 \description{
 Applies Markov chain approaches to obtain mean and variance of life
 expectancy from a matrix population model (MPM).
 }
-\note{
-Note that the units of time in returned values are the same as the
-  projection interval (`ProjectionInterval`) of the MPM.
-}
 \section{Starting from multiple stages}{
 
-Rather than specifying argument \code{start} as a single stage class from
-which all individuals start life, it may sometimes be desirable to allow for
-multiple starting stage classes. For example, if the user wants to start
-their calculation of life expectancy from reproductive maturity (i.e., first
-reproduction), they should account for the possibility that there may be
-multiple stage classes in which an individual could first reproduce.
-
-To specify multiple starting stage classes, specify argument \code{start} as
-the desired starting population vector (\strong{n1}), giving the proportion
-of individuals starting in each stage class (the length of \code{start}
-should match the number of columns in the relevant MPM).
-
-See function \code{\link{mature_distrib}} for calculating the proportion of
-individuals achieving reproductive maturity in each stage class.
+Sometimes, it is necessary to calculate life expectancy considering multiple
+starting stage classes instead of just a single stage from which all
+individuals begin their lives. This scenario arises when there are several
+possible stages at which an individual can start a particular life event,
+such as reproductive maturity.
+To handle such cases, the function provides support for multiple starting
+stage classes. When calculating life expectancy in this context, the outputs
+should be averaged using weights determined by the distribution of
+individuals across these stages. To achieve this, the `start` argument should
+be set to `NULL`, indicating that the starting stage is not specified, and
+the `mixdist` argument should be utilized.
+In the context described, The `mixdist` argument expects a vector that
+represents the proportion of individuals with their first reproduction in
+each stage of the MPM. By providing this distribution, the function
+calculates the mean lifespan by appropriately weighting the life expectancies
+corresponding to each starting stage.
+For a practical example that demonstrates this usage, please refer to the
+code example below.
 }
 
 \examples{
@@ -63,13 +65,31 @@ life_expect_mean(mpm1$matU, start = 2)
 # equivalent using named life stages
 life_expect_mean(mpm1$matU, start = "small")
 
-# mean life expectancy starting from first reproduction
+# mean life expectancies starting from each of the stages
+life_expect_mean(mpm1$matU, start = NULL)
+
+# mean life expectancy starting from first reproduction, where this varies 
+# across individuals
 rep_stages <- repro_stages(mpm1$matF)
-n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages)
-life_expect_mean(mpm1$matU, start = n1)
+(n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages))
+life_expect_mean(mpm1$matU, mixdist = n1, start = NULL)
 
 # variance of life expectancy from stage class 1
 life_expect_var(mpm1$matU, start = 1)
+
+# variance of life expectancy from stage class 1
+life_expect_var(mpm1$matU, start = "seed")
+
+# variance of life expectancy from each stage class
+life_expect_var(mpm1$matU, start = NULL)
+
+# variance of life expectancies with a set mixing distribution
+life_expect_var(mpm1$matU, mixdist = c(0.0,0.1,0.3,0.1,0.5), start = NULL)
+
+# setting mixdist to ignore all but one stage should produce the same result
+# as setting the start argument to that stage
+life_expect_mean(mpm1$matU, start = 3)
+life_expect_mean(mpm1$matU, mixdist = c(0,0,1,0,0), start = NULL)
 
 }
 \references{
@@ -89,8 +109,8 @@ Other life history traits:
 \code{\link{shape_surv}()}
 }
 \author{
-Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
+Christine M. Hernández <cmh352@cornell.edu>
 
-Hal Caswell <hcaswell@whoi.edu>
+Owen R. Jones <jones@biology.sdu.dk>
 }
 \concept{life history traits}

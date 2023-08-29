@@ -185,7 +185,7 @@
 </h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/life_expect.html">life_expect</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span></span>
+<code class="sourceCode R"><span><span class="fu">life_expect</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span></span>
 <span><span class="co">#&gt; Warning: 'life_expect' is deprecated.</span></span>
 <span><span class="co">#&gt; Use 'life_expect_mean' instead.</span></span>
 <span><span class="co">#&gt; See help("Deprecated")</span></span>
@@ -319,11 +319,11 @@
 <code class="sourceCode R"><span><span class="co"># matrix element perturbation</span></span>
 <span><span class="fu"><a href="reference/perturb_matrix.html">perturb_matrix</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matA</span>, type <span class="op">=</span> <span class="st">"sensitivity"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;               seed      small      medium       large     dormant</span></span>
-<span><span class="co">#&gt; seed     0.2173031 0.01133203 0.004786307 0.002986834 0.001150702</span></span>
-<span><span class="co">#&gt; small    4.4374613 0.23140857 0.097739871 0.060993321 0.023498190</span></span>
-<span><span class="co">#&gt; medium  10.8654599 0.56661979 0.239323187 0.149346517 0.057537004</span></span>
-<span><span class="co">#&gt; large   21.3053309 1.11104269 0.469270739 0.292842888 0.112820081</span></span>
-<span><span class="co">#&gt; dormant  3.6111989 0.18831948 0.079540420 0.049636196 0.019122780</span></span>
+<span><span class="co">#&gt; seed     0.2173031 0.01133203 0.004786308 0.002986833 0.001150703</span></span>
+<span><span class="co">#&gt; small    4.4374613 0.23140857 0.097739870 0.060993320 0.023498191</span></span>
+<span><span class="co">#&gt; medium  10.8654599 0.56661979 0.239323184 0.149346516 0.057537001</span></span>
+<span><span class="co">#&gt; large   21.3053309 1.11104269 0.469270739 0.292842885 0.112820081</span></span>
+<span><span class="co">#&gt; dormant  3.6111989 0.18831947 0.079540419 0.049636195 0.019122779</span></span>
 <span></span>
 <span><span class="co"># vital rate perturbation</span></span>
 <span><span class="co"># (we use as.data.frame here for prettier printing)</span></span>
@@ -376,7 +376,7 @@
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage – Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” <em>bioRxiv</em>. doi: <a href="https://doi.org/10.1101/2021.04.26.441330" class="external-link">10.1101/2021.04.26.441330</a>.</p>
+<p>Jones, O. R., Barks, P., Stott, I., James, T. D., Levin, S., Petry, W. K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette, C., Thomas, C. C., &amp; Salguero-Gómez, R. (2022). <code>Rcompadre</code> and <code>Rage</code>—Two R packages to facilitate the use of the COMPADRE and COMADRE databases and calculation of life-history traits from matrix population models. <em>Methods in Ecology and Evolution</em>, 13, 770–781. doi: <a href="https://doi.org/10.1111/2041-210X.13792" class="external-link">10.1111/2041-210X.13792</a></p>
 </div>
 <div class="section level2">
 <h2 id="contributions">Contributions<a class="anchor" aria-label="anchor" href="#contributions"></a>
@@ -434,6 +434,7 @@
 <li>Roberto Salguero-Gomez <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6085-4433" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Iain Stott <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2724-7436" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Chelsea C. Thomas <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8155-9353" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Christina M. Hernández <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7188-8217" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -446,7 +447,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
 </div>
 
 <div class="pkgdown">

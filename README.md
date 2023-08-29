@@ -276,11 +276,11 @@ retrogression, etc.), respectively.
 # matrix element perturbation
 perturb_matrix(mpm1$matA, type = "sensitivity")
 #>               seed      small      medium       large     dormant
-#> seed     0.2173031 0.01133203 0.004786307 0.002986834 0.001150702
-#> small    4.4374613 0.23140857 0.097739871 0.060993321 0.023498190
-#> medium  10.8654599 0.56661979 0.239323187 0.149346517 0.057537004
-#> large   21.3053309 1.11104269 0.469270739 0.292842888 0.112820081
-#> dormant  3.6111989 0.18831948 0.079540420 0.049636196 0.019122780
+#> seed     0.2173031 0.01133203 0.004786308 0.002986833 0.001150703
+#> small    4.4374613 0.23140857 0.097739870 0.060993320 0.023498191
+#> medium  10.8654599 0.56661979 0.239323184 0.149346516 0.057537001
+#> large   21.3053309 1.11104269 0.469270739 0.292842885 0.112820081
+#> dormant  3.6111989 0.18831947 0.079540419 0.049636195 0.019122779
 
 # vital rate perturbation
 # (we use as.data.frame here for prettier printing)
@@ -349,12 +349,13 @@ See the Changelog for more details.
 
 ## Citation
 
-Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C.
-Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage
-– Two R Packages to Facilitate the Use of the COMPADRE and COMADRE
-Databases and Calculation of Life History Traits from Matrix Population
-Models.” *bioRxiv*. doi:
-[10.1101/2021.04.26.441330](https://doi.org/10.1101/2021.04.26.441330).
+Jones, O. R., Barks, P., Stott, I., James, T. D., Levin, S., Petry, W.
+K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette,
+C., Thomas, C. C., & Salguero-Gómez, R. (2022). `Rcompadre` and
+`Rage`—Two R packages to facilitate the use of the COMPADRE and COMADRE
+databases and calculation of life-history traits from matrix population
+models. *Methods in Ecology and Evolution*, 13, 770–781. doi:
+[10.1111/2041-210X.13792](https://doi.org/10.1111/2041-210X.13792)
 
 ## Contributions
 

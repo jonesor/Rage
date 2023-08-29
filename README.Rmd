@@ -271,7 +271,7 @@ See the Changelog for more details.
 
 ## Citation
 
-Jones, Owen R., Patrick Barks, Iain M. Stott, Tamora D. James, Sam C. Levin, William K. Petry, Pol Capdevila, et al. 2021. “Rcompadre and Rage -- Two R Packages to Facilitate the Use of the COMPADRE and COMADRE Databases and Calculation of Life History Traits from Matrix Population Models.” _bioRxiv_. doi: [10.1101/2021.04.26.441330](https://doi.org/10.1101/2021.04.26.441330).
+Jones, O. R., Barks, P., Stott, I., James, T. D., Levin, S., Petry, W. K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette, C., Thomas, C. C., & Salguero-Gómez, R. (2022). `Rcompadre` and `Rage`—Two R packages to facilitate the use of the COMPADRE and COMADRE databases and calculation of life-history traits from matrix population models. _Methods in Ecology and Evolution_, 13, 770–781. doi: [10.1111/2041-210X.13792](https://doi.org/10.1111/2041-210X.13792)
 
 ## Contributions
 

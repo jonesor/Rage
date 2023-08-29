@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2023-05-23</h4>
+            <h4 data-toc-skip class="date">2023-08-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -169,7 +169,7 @@ can be obtained using <code><a href="../reference/life_expect.html">life_expect_
 <span></span>
 <span><span class="co"># variance in life expectancy from "seed" stage</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_var</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 19.23639</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.7816213</span></span></code></pre></div>
 <p>Life expectancy is dependent on a starting stage, which is specified
 using the <code>start</code> argument. That is, the expected time to
 death will be different for an individual that is currently in the first
@@ -196,12 +196,12 @@ stage and 60% from the “medium” stage of the example MPM would be
 calculated as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2.865667</span></span></code></pre></div>
+<span><span class="co">#&gt; numeric(0)</span></span></code></pre></div>
 <p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which the
 survivorship of a cohort falls below a user-defined critical threshold,
 specified as a value (between 0 and 1) supplied to the
 <code>lx_crit</code> argument. The specifications regarding the
-<code>start</code> argument for <code><a href="../reference/life_expect.html">life_expect()</a></code> also applies
+<code>start</code> argument for <code>life_expect()</code> also applies
 to this function. Using the example MPM, the post-germination years
 until survivorship falls to below 5% would be calculated as:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -314,7 +314,7 @@ distribution rather than the hypothetical one (40% in “small” stage and
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># mean life expectancy from maturity</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 3.179005</span></span>
+<span><span class="co">#&gt; numeric(0)</span></span>
 <span></span>
 <span><span class="co"># mean life expectancy from "small" stage</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -453,7 +453,7 @@ National Academy of Sciences 113 (1): 230–35</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
 </div>
 
 <div class="pkgdown">
