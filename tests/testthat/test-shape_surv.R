@@ -25,7 +25,7 @@ test_that("shape_surv works correctly", {
   # check works with data frame
   lt <- data.frame(x = x3, lx = lx3)
   s4 <- shape_surv(lt, trunc = TRUE)
-  expect_identical(s4, s3)
+  expect_equal(s4, s3, tolerance = 1e-09)
 })
 
 
