@@ -4,31 +4,10 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/articles/AgeFromStage.html</loc>
-  </url>
-  <url>
-    <loc>/articles/GettingStarted.html</loc>
-  </url>
-  <url>
-    <loc>/articles/TernaryPlots.html</loc>
-  </url>
-  <url>
-    <loc>/articles/VitalRates.html</loc>
-  </url>
-  <url>
     <loc>/articles/a01_GettingStarted.html</loc>
   </url>
   <url>
     <loc>/articles/a02_VitalRates.html</loc>
-  </url>
-  <url>
-    <loc>/articles/a03_AgeFromStage.html</loc>
   </url>
   <url>
     <loc>/articles/a03_LifeHistoryTraits.html</loc>
@@ -37,25 +16,10 @@
     <loc>/articles/a04_AgeFromStage.html</loc>
   </url>
   <url>
-    <loc>/articles/a04_TernaryPlots.html</loc>
-  </url>
-  <url>
-    <loc>/articles/a05_LifeHistoryTraits.html</loc>
-  </url>
-  <url>
     <loc>/articles/a05_SuggestedQualityControl.html</loc>
   </url>
   <url>
-    <loc>/articles/a05_TernaryPlots.html</loc>
-  </url>
-  <url>
-    <loc>/articles/getting-started.html</loc>
-  </url>
-  <url>
     <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/vital-rates.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -67,25 +31,10 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/R0.html</loc>
-  </url>
-  <url>
     <loc>/reference/Rage-package.html</loc>
   </url>
   <url>
-    <loc>/reference/ageSpecificRepro.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ageSpecificSurv.html</loc>
-  </url>
-  <url>
     <loc>/reference/age_from_stage.html</loc>
-  </url>
-  <url>
-    <loc>/reference/collapseMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dEntropy.html</loc>
   </url>
   <url>
     <loc>/reference/entropy_d.html</loc>
@@ -97,31 +46,16 @@
     <loc>/reference/gen_time.html</loc>
   </url>
   <url>
-    <loc>/reference/identifyReproStages.html</loc>
-  </url>
-  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/is_leslie.html</loc>
-  </url>
-  <url>
     <loc>/reference/is_leslie_matrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kEntropy.html</loc>
   </url>
   <url>
     <loc>/reference/leslie_collapse.html</loc>
   </url>
   <url>
     <loc>/reference/leslie_mpm1.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lifeExpectancy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lifeTimeRepEvents.html</loc>
   </url>
   <url>
     <loc>/reference/life_expect.html</loc>
@@ -131,12 +65,6 @@
   </url>
   <url>
     <loc>/reference/longevity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makeLifeTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/matrixElementPerturbation.html</loc>
   </url>
   <url>
     <loc>/reference/mpm1.html</loc>
@@ -157,9 +85,6 @@
     <loc>/reference/mpm_to_table.html</loc>
   </url>
   <url>
-    <loc>/reference/nameStages.html</loc>
-  </url>
-  <url>
     <loc>/reference/name_stages.html</loc>
   </url>
   <url>
@@ -178,22 +103,13 @@
     <loc>/reference/perturb_vr.html</loc>
   </url>
   <url>
-    <loc>/reference/plotLifeCycle.html</loc>
-  </url>
-  <url>
     <loc>/reference/plot_life_cycle.html</loc>
   </url>
   <url>
     <loc>/reference/pop_vectors.html</loc>
   </url>
   <url>
-    <loc>/reference/qsdConverge.html</loc>
-  </url>
-  <url>
     <loc>/reference/qsd_converge.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rearrangeMatrix.html</loc>
   </url>
   <url>
     <loc>/reference/repro_maturity.html</loc>
@@ -202,28 +118,13 @@
     <loc>/reference/repro_stages.html</loc>
   </url>
   <url>
-    <loc>/reference/reprodStages.html</loc>
-  </url>
-  <url>
     <loc>/reference/shape_rep.html</loc>
   </url>
   <url>
     <loc>/reference/shape_surv.html</loc>
   </url>
   <url>
-    <loc>/reference/splitMatrix.html</loc>
-  </url>
-  <url>
     <loc>/reference/standard_stages.html</loc>
-  </url>
-  <url>
-    <loc>/reference/standardizeMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vitalRatePerturbation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vitalRates.html</loc>
   </url>
   <url>
     <loc>/reference/vital_rates.html</loc>
