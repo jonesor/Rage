@@ -11,8 +11,8 @@ test_that("mpm_rearrange works correctly", {
   expect_type(x, "list")
   expect_length(x, 6)
 
-  expect_identical(sum(mat_u_inter), sum(x$matU))
-  expect_identical(sum(mat_f_inter), sum(x$matF))
+  expect_equal(sum(mat_u_inter), sum(x$matU), tolerance = 1e-09)
+  expect_equal(sum(mat_f_inter), sum(x$matF), tolerance = 1e-09)
   expect_identical(sort(matrix_stages), sort(x$matrix_stages))
   expect_true(x$nonRepInterRep %in% seq_along(repro_stages))
 

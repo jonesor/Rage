@@ -68,7 +68,7 @@ life_expect_mean(mpm1$matU, start = "small")
 # mean life expectancies starting from each of the stages
 life_expect_mean(mpm1$matU, start = NULL)
 
-# mean life expectancy starting from first reproduction, where this varies 
+# mean life expectancy starting from first reproduction, where this varies
 # across individuals
 rep_stages <- repro_stages(mpm1$matF)
 (n1 <- mature_distrib(mpm1$matU, start = 2, repro_stages = rep_stages))
@@ -84,12 +84,12 @@ life_expect_var(mpm1$matU, start = "seed")
 life_expect_var(mpm1$matU, start = NULL)
 
 # variance of life expectancies with a set mixing distribution
-life_expect_var(mpm1$matU, mixdist = c(0.0,0.1,0.3,0.1,0.5), start = NULL)
+life_expect_var(mpm1$matU, mixdist = c(0.0, 0.1, 0.3, 0.1, 0.5), start = NULL)
 
 # setting mixdist to ignore all but one stage should produce the same result
 # as setting the start argument to that stage
 life_expect_mean(mpm1$matU, start = 3)
-life_expect_mean(mpm1$matU, mixdist = c(0,0,1,0,0), start = NULL)
+life_expect_mean(mpm1$matU, mixdist = c(0, 0, 1, 0, 0), start = NULL)
 
 }
 \references{

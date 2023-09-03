@@ -1,7 +1,7 @@
 Type: Package
 Package: Rage
 Title: Life History Metrics from Matrix Population Models
-Version: 1.5.0
+Version: 1.5.1
 Authors@R: c(
     person("Patrick", "Barks", , "barks@biology.sdu.dk", role = "aut",
            comment = c(ORCID = "0000-0002-5947-8151")),
@@ -31,8 +31,8 @@ Authors@R: c(
     person("Iain", "Stott", , "stott@biology.sdu.dk", role = "aut",
            comment = c(ORCID = "0000-0003-2724-7436")),
     person(c("Chelsea", "C."), "Thomas", , "esochels@gmail.com", role = "aut",
-           comment = c(ORCID = "0000-0002-8155-9353")), 
-    person(c("Christina","M."), "Hernández", , "cmh352@cornell.edu", role = "aut",
+           comment = c(ORCID = "0000-0002-8155-9353")),
+    person(c("Christina", "M."), "Hernández", , "cmh352@cornell.edu", role = "aut",
            comment = c(ORCID = "0000-0002-7188-8217"))
   )
 Description: Functions for calculating life history metrics using matrix
