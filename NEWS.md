@@ -1,5 +1,7 @@
 # Rage (development version)
 
+* `plot_life_cycle` now includes a logical argument `show_gv` which allows users to print the `graphViz` code constructed by the function to the screen. This is useful for use elsewhere, or for debugging plots.
+
 # Rage 1.5.1
 
 * Patch to fix test errors on older systems (r-oldrel-macos-arm64). No changes to main package code. 

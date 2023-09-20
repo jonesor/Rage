@@ -15,6 +15,9 @@
 #' @param fontsize Size of the font used in the diagram.
 #' @param nodefontsize Size of the font used in the node part of the diagram.
 #' @param edgecol Colour of the arrows in the diagram.
+#' @param show_gv Logical. If `TRUE` the graph viz command used by the code is
+#'   printed to the screen. This can be useful for debugging, or for use
+#'   elsewhere. Default is `FALSE`.
 #'
 #' @return An object of class \code{grViz} representing the life cycle diagram
 #'
@@ -37,7 +40,7 @@
 #' @export plot_life_cycle
 plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
                             fontsize = 10, nodefontsize = 12,
-                            edgecol = "grey") {
+                            edgecol = "grey", show_gv = FALSE) {
   # Identify stages
   if (missing(stages) && is.null(dimnames(matA))) {
     stages <- seq_len(ncol(matA))
@@ -64,7 +67,7 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
   graph <- graph[graph$trans > 0, ]
 
   # Create vector of node names (add semicolon for use by graphViz)
-  nodes <- paste(paste0("'", stages, "'"), collapse = "; ")
+  nodes <- paste(paste0("'", stages, "'"), collapse = " -> ")
 
   # Manipulate minimim length of edge to make the plot pretty (experimental!)
   graph$min_len <- (as.numeric(graph$to) - as.numeric(graph$from)) * 3
@@ -79,23 +82,27 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
     collapse = ""
   )
 
-  # The graphviz argument, pasted together
-  grViz(
-    paste(
-      "
+  gv <- paste(
+    "
 digraph {
   {
     graph[overlap=false];
     rank=same;
     node [shape=", shape, ", fontsize=", nodefontsize, "];",
-      nodes, "
+    nodes, "
   }",
-      "ordering=out
+    "ordering=out
   x [style=invis]
   x -> {", nodes, "} [style=invis]", edges,
-      "labelloc=\"t\";
+    "labelloc=\"t\";
   label=\"", title, "\"
 }"
-    )
   )
+  # The graphviz argument, pasted together
+  grViz(
+    gv
+  )
+  if(show_gv == TRUE){
+    cat(gv)
+  }
 }
