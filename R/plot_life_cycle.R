@@ -15,9 +15,6 @@
 #' @param fontsize Size of the font used in the diagram.
 #' @param nodefontsize Size of the font used in the node part of the diagram.
 #' @param edgecol Colour of the arrows in the diagram.
-#' @param show_gv Logical. If `TRUE` the graph viz command used by the code is
-#'   printed to the screen. This can be useful for debugging, or for use
-#'   elsewhere. Default is `FALSE`.
 #'
 #' @return An object of class \code{grViz} representing the life cycle diagram
 #'
@@ -40,13 +37,13 @@
 #' @export plot_life_cycle
 plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
                             fontsize = 10, nodefontsize = 12,
-                            edgecol = "grey", show_gv = FALSE) {
+                            edgecol = "grey") {
   # Identify stages
   if (missing(stages) && is.null(dimnames(matA))) {
     stages <- seq_len(ncol(matA))
   } else if (missing(stages) && !is.null(dimnames(matA))) {
     stages <- dimnames(matA)[[1]]
-
+    
     if (!identical(
       dimnames(matA)[[1]],
       dimnames(matA)[[2]]
@@ -58,51 +55,47 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
       ))
     }
   }
-
+  
   # Construct a "from" -> "to" graph dataset (edges)
   graph <- expand.grid(to = stages, from = stages)
   graph$trans <- round(c(matA), 3)
-
+  
   # Subset to only include those where the trans > 0
   graph <- graph[graph$trans > 0, ]
-
+  
   # Create vector of node names (add semicolon for use by graphViz)
-  nodes <- paste(paste0("'", stages, "'"), collapse = " -> ")
-
+  nodes <- paste(paste0("'", stages, "'"), collapse = "; ")
+  
   # Manipulate minimim length of edge to make the plot pretty (experimental!)
   graph$min_len <- (as.numeric(graph$to) - as.numeric(graph$from)) * 3
-
+  
   # Create the edges argument for graphviz by pasting commands together
   edges <- paste0("'", graph$from, "'", " -> ", "'", graph$to, "'",
-    "[minlen=", graph$min_len,
-    ",fontsize=", fontsize,
-    ",color=", edgecol,
-    ",xlabel=", paste("\"", graph$trans),
-    "\"]\n",
-    collapse = ""
+                  "[minlen=", graph$min_len,
+                  ",fontsize=", fontsize,
+                  ",color=", edgecol,
+                  ",xlabel=", paste("\"", graph$trans),
+                  "\"]\n",
+                  collapse = ""
   )
-
-  gv <- paste(
-    "
+  
+  # The graphviz argument, pasted together
+  grViz(
+    paste(
+      "
 digraph {
   {
     graph[overlap=false];
     rank=same;
     node [shape=", shape, ", fontsize=", nodefontsize, "];",
-    nodes, "
+      nodes, "
   }",
-    "ordering=out
+      "ordering=out
   x [style=invis]
   x -> {", nodes, "} [style=invis]", edges,
-    "labelloc=\"t\";
+      "labelloc=\"t\";
   label=\"", title, "\"
 }"
+    )
   )
-  # The graphviz argument, pasted together
-  grViz(
-    gv
-  )
-  if(show_gv == TRUE){
-    cat(gv)
-  }
 }
