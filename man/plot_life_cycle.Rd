@@ -11,7 +11,8 @@ plot_life_cycle(
   shape = "egg",
   fontsize = 10,
   nodefontsize = 12,
-  edgecol = "grey"
+  edgecol = "grey",
+  node_order = NULL
 )
 }
 \arguments{
@@ -31,6 +32,10 @@ shape accepted by \code{graphViz} is acceptable.}
 \item{nodefontsize}{Size of the font used in the node part of the diagram.}
 
 \item{edgecol}{Colour of the arrows in the diagram.}
+
+\item{node_order}{An optional numeric vector giving the order that the nodes
+should be presented in the plot. Default is `NULL` whereby the order is the
+same as `stages`, or row/column names, of the matrix.}
 }
 \value{
 An object of class \code{grViz} representing the life cycle diagram
@@ -51,6 +56,12 @@ matA <- rbind(
 )
 
 plot_life_cycle(matA)
+
+# Change the order of the nodes and give them names
+plot_life_cycle(matA,
+  stages = c("A", "B", "C", "D", "E"),
+  node_order = 5:1
+)
 
 }
 \author{
