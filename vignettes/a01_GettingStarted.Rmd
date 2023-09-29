@@ -257,11 +257,11 @@ The functions in `Rage` fall into five broad categories, and are detailed in the
 tabl <- "
 | Function category                       | Stand-alone vignette             |
 |-----------------------------------------|----------------------------------|
-| 1. [Vital rates](#vitalrates)  | [VitalRates](https://jonesor.github.io/Rage/articles/a02_VitalRates.html)     |
-| 2. [Life tables](#lifetable) | [AgeFromStage](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) |
-| 3. [Perturbation analysis](#perturb)    | [TernaryPlots](https://jonesor.github.io/Rage/articles/a04_TernaryPlots.html) |
-| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html) |
-| 5. [Transformation of matrices](#maniptransform) | n/a                                   |
+| 1. [Vital rates](#vitalrates)  | [GettingStarted](https://jonesor.github.io/Rage/articles/a01_GettingStarted.html)     |
+| 2. [Life tables](#lifetable) | [VitalRates](https://jonesor.github.io/Rage/articles/a02_VitalRates.html)  |
+| 3. [Perturbation analysis](#perturb)    | [LifeHistoryTraits](https://jonesor.github.io/Rage/articles/a03_LifeHistoryTraits.html) |
+| 4. [Deriving life history traits](#lifehist) | [AgeFromStage](https://jonesor.github.io/Rage/articles/a04_AgeFromStage.html)  |
+| 5. [Transformation of matrices](#maniptransform) | [QualityControl](https://jonesor.github.io/Rage/articles/a05_SuggestedQualityControl.html) |
 "
 cat(tabl)
 ```
@@ -389,7 +389,7 @@ lines(qx ~ x, data = lt_preQSD, type = "l", col = "blue", lwd = 4)
 abline(v = q, lty = "dashed")
 ```
 
-We refer readers to the [AgeFromStage vignette](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) for further
+We refer readers to the [AgeFromStage vignette](https://jonesor.github.io/Rage/articles/a04_AgeFromStage.html) for further
 detail on these methods.
 
 ## 3. Perturbation analyses {#perturb}
@@ -436,7 +436,7 @@ trajectories through the life cycle.
 
 `Rage` provides functions to calculate a wide range of life history traits from 
 both MPMs and life tables. We illustrate the general pattern of these functions 
-below, referring the reader to the [LifeHistoryTraits vignette](https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html)
+below, referring the reader to the [LifeHistoryTraits vignette](https://jonesor.github.io/Rage/articles/a03_LifeHistoryTraits.html)
 and the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html) 
 for a complete list of functionality.
 
