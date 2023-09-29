@@ -111,6 +111,14 @@ life_expect_mean <- function(matU, mixdist = NULL, start = 1L) {
     startNumeric <- start
   }
 
+  # if start is not feasible, throw an error
+  if (!is.null(start)) {
+    if (!startNumeric %in% 1:nrow(matU)) {
+      stop("The start value must match a stage name of matU, or be an integer
+         between 1 and the number of stages.")
+    }
+  }
+
   matDim <- dim(matU)[1]
 
   ## Calculate Ex(R | current state)
@@ -130,7 +138,9 @@ life_expect_mean <- function(matU, mixdist = NULL, start = 1L) {
   # If mixdist is NOT null
   if (!is.null(mixdist)) {
     expL <- expLCond_z %*% mixdist
-    return(expL)
+    expL_out <- as.vector(expL)
+    names(expL_out) <- colnames(expL)
+    return(expL_out)
   }
 
   # If start is NOT null
@@ -139,7 +149,9 @@ life_expect_mean <- function(matU, mixdist = NULL, start = 1L) {
   }
 
   if (is.null(start)) {
-    return(expLCond_z)
+    expLCond_z_out <- as.vector(expLCond_z)
+    names(expLCond_z_out) <- colnames(expLCond_z)
+    return(expLCond_z_out)
   }
 }
 
@@ -182,7 +194,11 @@ life_expect_var <- function(matU, mixdist = NULL, start = 1L) {
   if (inherits(N, "try-error")) {
     return(NA_real_)
   } else {
-    expLCond_z <- life_expect_mean(matU, mixdist = NULL, start = NULL)
+    expLCond_z_prelim <- life_expect_mean(matU, mixdist = NULL, start = NULL)
+
+    # Convert to a matrix, required for the calculations below
+    expLCond_z <- matrix(expLCond_z_prelim, nrow = 1, ncol = nrow(matU))
+    colnames(expLCond_z) <- names(expLCond_z_prelim)
 
     ## Calculate Ex(R | current state)
 
@@ -202,9 +218,12 @@ life_expect_var <- function(matU, mixdist = NULL, start = 1L) {
       outputVar <- varL_within + varL_between
     }
     if (!is.null(start)) {
-      return(outputVar[startNumeric])
+      return(as.vector(outputVar[startNumeric]))
     }
     if (is.null(start)) {
+      outputVar_prelim <- outputVar
+      outputVar <- as.vector(outputVar_prelim)
+      names(outputVar) <- colnames(outputVar_prelim)
       return(outputVar)
     }
   }

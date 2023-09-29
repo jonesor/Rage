@@ -88,12 +88,8 @@ functionally-distinct from the ‘above-ground’ stages, we’ll specify
 stage.
 
 ``` r
-life_expect(mpm1$matU, start = 2) # life expectancy
-#> Warning: 'life_expect' is deprecated.
-#> Use 'life_expect_mean' instead.
-#> See help("Deprecated")
-#>       mean     var
-#> 1 2.509116 14.5045
+life_expect_mean(mpm1$matU, start = 2) # life expectancy
+#> [1] 2.509116
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 #> [1] 7
 mature_age(mpm1$matU, mpm1$matF, start = 2) # mean age at first reproduction

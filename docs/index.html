@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
       </span>
     </div>
 
@@ -185,12 +185,8 @@
 </h3>
 <p>One of the most common arguments among functions in Rage is <code>start</code>, which is used to specify the stage class that represents the ‘beginning of life’ for the purposes of calculation. Because the first stage class in <code>mpm1</code> is a ‘seed’ stage, which we might consider functionally-distinct from the ‘above-ground’ stages, we’ll specify <code>start = 2</code> to set our starting stage class of interest to the ‘small’ stage.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">life_expect</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span></span>
-<span><span class="co">#&gt; Warning: 'life_expect' is deprecated.</span></span>
-<span><span class="co">#&gt; Use 'life_expect_mean' instead.</span></span>
-<span><span class="co">#&gt; See help("Deprecated")</span></span>
-<span><span class="co">#&gt;       mean     var</span></span>
-<span><span class="co">#&gt; 1 2.509116 14.5045</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># life expectancy</span></span>
+<span><span class="co">#&gt; [1] 2.509116</span></span>
 <span><span class="fu"><a href="reference/longevity.html">longevity</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span>, lx_crit <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="co"># longevity (age at lx = 0.05)</span></span>
 <span><span class="co">#&gt; [1] 7</span></span>
 <span><span class="fu"><a href="reference/repro_maturity.html">mature_age</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># mean age at first reproduction</span></span>

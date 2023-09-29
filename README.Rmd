@@ -81,7 +81,7 @@ stages, we'll specify `start = 2` to set our starting stage class of interest to
 the 'small' stage.
 
 ```{r}
-life_expect(mpm1$matU, start = 2) # life expectancy
+life_expect_mean(mpm1$matU, start = 2) # life expectancy
 longevity(mpm1$matU, start = 2, lx_crit = 0.05) # longevity (age at lx = 0.05)
 mature_age(mpm1$matU, mpm1$matF, start = 2) # mean age at first reproduction
 mature_prob(mpm1$matU, mpm1$matF, start = 2) # prob survival to first repro

@@ -66,10 +66,12 @@ life_expect_mean(matU = mpm1$matU, start = 2)
 ```
 
 
-Sometimes one may want to include multiple starting stage classes when calculating life expectancy. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the `start` argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the "small" stage and 60% from the "medium" stage of the example MPM would be calculated as:
+In certain cases, life expectancy needs to consider multiple starting stage classes rather than a single stage. This situation arises when there are multiple possible stages at which an individual can begin a specific life event, like reproductive maturity.
+To address this, the function supports multiple starting stage classes. When calculating life expectancy in this context, the results are averaged using weights based on the distribution of individuals across these stages. To do this, set the start argument to NULL to indicate an unspecified starting stage and use the mixdist argument.
+In this scenario, the mixdist argument expects a vector representing the proportion of individuals starting their first reproduction in each stage of the MPM. By providing this distribution, the function calculates the mean lifespan by appropriately weighting the life expectancies associated with each starting stage. For example, life expectancy given 40% of individuals start from the "small" stage and 60% from the "medium" stage of the example MPM would be calculated as:
 
 ```{r}
-life_expect_mean(matU = mpm1$matU, start = c(0, 0.4, 0.6, 0, 0))
+life_expect_mean(matU = mpm1$matU, mixdist = c(0, 0.4, 0.6, 0, 0), start = NULL)
 ```
 
 
@@ -144,7 +146,7 @@ One can then use this distribution to update the estimate of mean life expectanc
 
 ```{r}
 # mean life expectancy from maturity
-life_expect_mean(matU = mpm1$matU, start = c(maturedist))
+life_expect_mean(matU = mpm1$matU, mixdist = maturedist, start = NULL)
 
 # mean life expectancy from "small" stage
 life_expect_mean(matU = mpm1$matU, start = 2)

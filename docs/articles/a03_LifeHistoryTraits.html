@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2023-09-27</h4>
+            <h4 data-toc-skip class="date">2023-09-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -184,19 +184,24 @@ expected time to death.</p>
 <code class="sourceCode R"><span><span class="co"># mean life expectancy from "small" stage</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.509116</span></span></code></pre></div>
-<p>Sometimes one may want to include multiple starting stage classes
-when calculating life expectancy. For example, life expectancy from
-reproductive maturity (i.e. first reproduction) can be calculated while
-accounting for the possibility that an individual may first reproduce in
-one of several stages. In this case, the <code>start</code> argument can
-be specified as a vector (of the same length as the matrix dimension)
-giving the proportion of individuals starting in each stage. For
-example, life expectancy given 40% of individuals start from the “small”
-stage and 60% from the “medium” stage of the example MPM would be
-calculated as:</p>
+<p>In certain cases, life expectancy needs to consider multiple starting
+stage classes rather than a single stage. This situation arises when
+there are multiple possible stages at which an individual can begin a
+specific life event, like reproductive maturity. To address this, the
+function supports multiple starting stage classes. When calculating life
+expectancy in this context, the results are averaged using weights based
+on the distribution of individuals across these stages. To do this, set
+the start argument to NULL to indicate an unspecified starting stage and
+use the mixdist argument. In this scenario, the mixdist argument expects
+a vector representing the proportion of individuals starting their first
+reproduction in each stage of the MPM. By providing this distribution,
+the function calculates the mean lifespan by appropriately weighting the
+life expectancies associated with each starting stage. For example, life
+expectancy given 40% of individuals start from the “small” stage and 60%
+from the “medium” stage of the example MPM would be calculated as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; numeric(0)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.865667</span></span></code></pre></div>
 <p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which the
 survivorship of a cohort falls below a user-defined critical threshold,
 specified as a value (between 0 and 1) supplied to the
@@ -313,8 +318,8 @@ distribution rather than the hypothetical one (40% in “small” stage and
 60% in “medium” stage) used above:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># mean life expectancy from maturity</span></span>
-<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; numeric(0)</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="va">maturedist</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.179005</span></span>
 <span></span>
 <span><span class="co"># mean life expectancy from "small" stage</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>

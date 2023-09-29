@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -281,7 +281,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "520.893KB",
+  "fileSize": "524.718KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
