@@ -53,6 +53,7 @@ Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
 }
 \seealso{
 Other life history traits: 
+\code{\link{entropy_k2}()},
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
 \code{\link{life_expect_mean}()},

@@ -1,7 +1,7 @@
 #' Calculate Keyfitz's entropy from a trajectory of age-specific survivorship
 #'
 #' Calculate Keyfitz's entropy from a vector of age-specific survivorship
-#' (\code{lx}).
+#' (\code{lx}), or from the U submatrix of a matrix population model.
 #'
 #' @section Warning:
 #' Note that this function may produce unexpected results if used on partial
@@ -28,6 +28,11 @@
 #'   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
 #'   the entropic principle of natural selection. Entropy 16: 5428-5522.
 #'
+#'   de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising
+#'   Keyfitz' entropy for studies of actuarial senescence and comparative
+#'   demography. Methods in Ecology and Evolution, 14, 1312–1319.
+#'   https://doi.org/10.1111/2041-210X.14083
+#'
 #' @family life history traits
 #'
 #' @examples
@@ -47,6 +52,14 @@
 #'
 #' @export entropy_k
 entropy_k <- function(lx, trapeze = FALSE, ...) {
+  # This function is deprecated, use entropy_k2 which has two functions within
+  # it suitable for age-based and stage-based matrices, selected with a type
+  # argument.
+  .Deprecated("entropy_k2", msg = paste(
+    "The way this function calculates entropy is problematic.",
+    "See de Vries et al. 2023 for details."
+  ))
+
   if (inherits(lx, "numeric")) {
     # validate arguments
     if (any(lx < 0 | lx > 1)) {

@@ -22,7 +22,7 @@ Keyfitz's life table entropy.
 }
 \description{
 Calculate Keyfitz's entropy from a vector of age-specific survivorship
-(\code{lx}).
+(\code{lx}), or from the U submatrix of a matrix population model.
 }
 \section{Warning}{
 
@@ -54,10 +54,16 @@ Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 
   Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
   the entropic principle of natural selection. Entropy 16: 5428-5522.
+
+  de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising
+  Keyfitz' entropy for studies of actuarial senescence and comparative
+  demography. Methods in Ecology and Evolution, 14, 1312–1319.
+  https://doi.org/10.1111/2041-210X.14083
 }
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
+\code{\link{entropy_k2}()},
 \code{\link{gen_time}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
