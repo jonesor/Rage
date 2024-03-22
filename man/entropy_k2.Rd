@@ -4,10 +4,16 @@
 \alias{entropy_k2}
 \title{Calculate Keyfitz entropy for a matrix population model}
 \usage{
-entropy_k2(m, type = "age")
+entropy_k2(
+  Umat,
+  type = "age",
+  init_distrib = NULL,
+  max_age = NULL,
+  n_is_maxage = FALSE
+)
 }
 \arguments{
-\item{m}{A square numeric matrix representing the U submatrix of a matrix
+\item{Umat}{A square numeric matrix representing the U submatrix of a matrix
 population model. For age-based matrices, the dimension corresponds to the
 number of age classes}
 
@@ -15,6 +21,16 @@ number of age classes}
 calculations. This is necessary because the calculations for age vs.
 stage-based matrices are different. Possible options are `age` and `stage`.
 The latter is not yet implemented. Defaults to `age`.}
+
+\item{init_distrib}{For stage-based matrices, the initial cohort distribution across
+stages. This should sum to 1. If it does not sum to 1, the function
+rescales it to 1. Defaults to the stable stage distribution if no
+information is provided.}
+
+\item{max_age}{For stage-based matrices, the upper age, in units of the projection
+interval. Defaults to 1000 if no information is provided.}
+
+\item{n_is_maxage}{If TRUE, survival p_n is set to zero. Defaults to FALSE.}
 }
 \value{
 Returns a single numeric value representing the Keyfitz entropy
@@ -27,12 +43,13 @@ Computes Keyfitz entropy from the U submatrix of a matrix population model.
 data(leslie_mpm1)
 
 entropy_k2(leslie_mpm1$matU)
-
+data(mpm1)
+entropy_k2(mpm1$matU, type = "stage")
 }
 \references{
 Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   Wiley.
-  
+
   de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising
   Keyfitz' entropy for studies of actuarial senescence and comparative
   demography. Methods in Ecology and Evolution, 14, 1312–1319.
@@ -52,5 +69,7 @@ Other life history traits:
 }
 \author{
 Lotte de Vries <c.devries@uva.nl>
+
+Stefano Giaimo <giaimo@evolbio.mpg.de>
 }
 \concept{life history traits}
