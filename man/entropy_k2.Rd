@@ -4,36 +4,29 @@
 \alias{entropy_k2}
 \title{Calculate Keyfitz entropy for a matrix population model}
 \usage{
-entropy_k2(A, type = "age")
+entropy_k2(m, type = "age")
 }
 \arguments{
-\item{A}{A square numeric projection matrix The dimension of the matrix
-corresponds to the number of age classes}
+\item{m}{A square numeric matrix representing the U submatrix of a matrix
+population model. For age-based matrices, the dimension corresponds to the
+number of age classes}
 
 \item{type}{An argument specifying the type of matrix model used in the
 calculations. This is necessary because the calculations for age vs.
-stage-based matrices are different. Possible options are `age` and `stage`.}
+stage-based matrices are different. Possible options are `age` and `stage`.
+The latter is not yet implemented. Defaults to `age`.}
 }
 \value{
 Returns a single numeric value representing the Keyfitz entropy
 for the given matrix. This value quantifies the dispersion of age at death.
 }
 \description{
-This function computes Keyfitz entropy from a transition matrix (the A
-matrix). The function is designed to work with discrete, age-classified
-matrix models.
+Computes Keyfitz entropy from the U submatrix of a matrix population model.
 }
 \examples{
-# Define a matrix population model for a hypothetical population
-A <- matrix(c(
-  0.7, 0.0, 0.0, 0.5,
-  0.4, 0.8, 0.0, 0.0,
-  0.0, 0.2, 0.9, 0.0,
-  0.0, 0.0, 0.2, 0.1
-), nrow = 4, byrow = TRUE)
+data(leslie_mpm1)
 
-# Calculate Keyfitz entropy
-entropy_k2(A)
+entropy_k2(leslie_mpm1$matU)
 
 }
 \references{
@@ -59,7 +52,5 @@ Other life history traits:
 }
 \author{
 Lotte de Vries <c.devries@uva.nl>
-
-Owen R. Jones <jones@biology.sdu.dk>
 }
 \concept{life history traits}
