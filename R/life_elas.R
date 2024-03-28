@@ -47,21 +47,21 @@
 #' lx <- mpm_to_lx(mpm1$matU, start = 2)
 #'
 #' # calculate Keyfitz' entropy
-#' entropy_k(lx)
+#' life_elas(lx)
 #'
 #' # use trapezoid approximation for definite integral
-#' entropy_k(lx, trapeze = TRUE)
+#' life_elas(lx, trapeze = TRUE)
 #'
 #' # calculate directly from the matrix
-#' entropy_k(mpm1$matU)
+#' life_elas(mpm1$matU)
 #'
-#' @export entropy_k
-entropy_k <- function(lx, trapeze = FALSE, ...) {
+#' @export
+life_elas <- function(lx, trapeze = FALSE, ...) {
   # This function is deprecated, use entropy_k2 which has two functions within
   # it suitable for age-based and stage-based matrices, selected with a type
   # argument.
   .Deprecated(msg = paste(
-    "The way entropy_k calculates entropy is problematic.",
+    "The way life_elas calculates entropy is problematic.",
     "Use entropy_k_age or entropy_k_stage as alternatives.",
     "See de Vries et al. 2023 for details."
   ))
