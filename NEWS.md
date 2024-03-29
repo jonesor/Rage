@@ -1,4 +1,4 @@
-# Rage (development version)
+# Rage 1.6.0
 
 * `plot_life_cycle` now includes a logical argument `show_gv` which allows users to print the `graphViz` code constructed by the function to the screen. This is useful for use elsewhere, or for debugging plots.
 * The function `entropy_k` is being deprecated. We change the function name to `life_elas` and recommend use of the new functions `entropy_k_age` and `entropy_k_stage` for Leslie and Lefkovitch matrices respectively. See the article by de Vries et al (2023) for the rationale for this change.
