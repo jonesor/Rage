@@ -123,14 +123,14 @@
       "@type": "Person",
       "givenName": "Lotte",
       "familyName": "de Vries",
-      "email": "c.devries@@uva.nl",
+      "email": "c.devries@uva.nl",
       "@id": "https://orcid.org/0000-0001-8955-0479"
     },
     {
       "@type": "Person",
       "givenName": "Stefano",
       "familyName": "Giaimo",
-      "email": "giaimo@@evolbio.mpg.de",
+      "email": "giaimo@evolbio.mpg.de",
       "@id": "https://orcid.org/0000-0003-0421-3065"
     }
   ],
@@ -300,7 +300,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "546.091KB",
+  "fileSize": "547.771KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
