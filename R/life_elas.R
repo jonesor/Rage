@@ -4,10 +4,11 @@
 #' (\code{lx}), or from the U submatrix of a matrix population model.
 #'
 #' @section Warning:
-#' Note that this function may produce unexpected results if used on partial
-#' survivorship trajectories. In addition, it is sensitive to the length of the
-#' survivorship vector. We direct users to the function
-#' `\code{\link{shape_surv}}` which is relatively robust to these issues.
+#' Note that this function, which was formerly called `entropy_k` may produce
+#' unexpected results if used on partial survivorship trajectories. In addition,
+#' it is sensitive to the length of the survivorship vector. We direct users to
+#' the function `\code{\link{shape_surv}}` which is relatively robust to these
+#' issues.
 #'
 #' Furthermore, de Vries et al. 2023 have shown that the way this function
 #' calculates entropy is problematic for other reasons. We recommend to use
@@ -20,7 +21,7 @@
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
 #' @param ... Additional variables passed to `mpm_to_lx` if data are supplied as
-#'   a matrix.  This could include the `start` argument to select a starting
+#'   a matrix. This could include the `start` argument to select a starting
 #'   stage.
 #'
 #' @return Keyfitz's life table entropy.
@@ -48,25 +49,19 @@
 #' lx <- mpm_to_lx(mpm1$matU, start = 2)
 #'
 #' # calculate Keyfitz' entropy
-#' entropy_k(lx)
+#' life_elas(lx)
 #'
 #' # use trapezoid approximation for definite integral
-#' entropy_k(lx, trapeze = TRUE)
+#' life_elas(lx, trapeze = TRUE)
 #'
 #' # calculate directly from the matrix
-#' entropy_k(mpm1$matU)
+#' life_elas(mpm1$matU)
 #'
-#' @export entropy_k
-entropy_k <- function(lx, trapeze = FALSE, ...) {
+#' @export
+life_elas <- function(lx, trapeze = FALSE, ...) {
   # This function is deprecated, use entropy_k2 which has two functions within
   # it suitable for age-based and stage-based matrices, selected with a type
   # argument.
-  .Deprecated(msg = paste(
-    "The way `entropy_k` calculates entropy is problematic.",
-    "Use `entropy_k_age` or `entropy_k_stage` as alternatives.",
-    "See de Vries et al. 2023 for details.",
-    "After deprecation, this function will be renamed `life_elas`."
-  ))
 
   if (inherits(lx, "numeric")) {
     # validate arguments
