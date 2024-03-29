@@ -453,13 +453,11 @@ net_repro_rate(
 )
 ```
 
-When calculating life table-based traits, MPMs can be transformed to the necessary 
-age-based trajectory prior to analysis.
+It can sometimes be useful to calculate age-based trajectories from stage-based matrices. This can be achieved with functions like `mpm_to_lx`.
 
 ```{r}
 # derive post-germination survivorship trajectory from U matrix
 lx <- mpm_to_lx(matU = mpm1$matU, start = "small")
-entropy_k(lx = lx) # calculate Keyfitz' entropy
 ```
 
 ## 5. Transforming MPMs {#maniptransform}
