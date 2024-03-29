@@ -43,6 +43,12 @@
     <loc>/reference/entropy_k.html</loc>
   </url>
   <url>
+    <loc>/reference/entropy_k_age.html</loc>
+  </url>
+  <url>
+    <loc>/reference/entropy_k_stage.html</loc>
+  </url>
+  <url>
     <loc>/reference/gen_time.html</loc>
   </url>
   <url>
@@ -56,6 +62,9 @@
   </url>
   <url>
     <loc>/reference/leslie_mpm1.html</loc>
+  </url>
+  <url>
+    <loc>/reference/life_elas.html</loc>
   </url>
   <url>
     <loc>/reference/life_expect.html</loc>

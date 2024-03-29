@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2023-10-14</h4>
+            <h4 data-toc-skip class="date">2024-03-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -377,11 +377,32 @@ curves type I (high survival in early part of life and decreasing over
 time), a value of 1 to survival curve type II (constant survival), and
 values less than 1 to survival curve type III (low survival early and
 increasing over time) (Salguero-Gómez et al. 2016).</p>
+<p>These can be calculated from the age-trajectories, or from the
+matrices directly (in this case, the age-trajectories are calculated
+internally).</p>
+<p>Recently, de Vries et al. (2023) highlighted a problem in the
+calculations of Keyfitz’ entropy for discrete age trajectories.
+Following this revelation it is recommended to use the function
+<code>entropy_k_age</code> to calculate entropy for age-based (Leslie)
+matrices and <code>entropy_k_stage</code> for stage-based Lefkovitch
+matrices.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span> <span class="co"># Demetrius' entropy</span></span>
 <span><span class="co">#&gt; [1] 2.062862</span></span>
-<span><span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
-<span><span class="co">#&gt; [1] 0.9077186</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># Demetrius' entropy</span></span>
+<span><span class="co">#&gt; [1] 2.062862</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/life_elas.html">life_elas</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
+<span><span class="co">#&gt; [1] 0.9077186</span></span>
+<span><span class="fu"><a href="../reference/life_elas.html">life_elas</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
+<span><span class="co">#&gt; [1] 0.9077186</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/entropy_k_stage.html">entropy_k_stage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.131567</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">leslie_mpm1</span><span class="op">)</span> <span class="co"># load leslie matrix</span></span>
+<span><span class="fu"><a href="../reference/entropy_k_age.html">entropy_k_age</a></span><span class="op">(</span><span class="va">leslie_mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.626804</span></span></code></pre></div>
 <p>It is important to note that both of these entropy measures may
 produce unexpected results if only partial survivorship and fecundity
 age-based trajectories are used in the calculations. Indeed, both
@@ -430,6 +451,10 @@ ISBN-10: 0878930965</p>
 Nature 275: 213-214.</p>
 <p>Demetrius, L., &amp; Gundlach, V. M. 2014. Directionality theory and
 the entropic principle of natural selection. Entropy 16: 5428-5522.</p>
+<p>de Vries, C., Bernard, C., &amp; Salguero-Gómez, R. 2023.
+Discretising Keyfitz’ entropy for studies of actuarial senescence and
+comparative demography. Methods in Ecology and Evolution, 14, 1312–1319.
+<a href="https://doi.org/10.1111/2041-210X.14083" class="external-link uri">https://doi.org/10.1111/2041-210X.14083</a></p>
 <p>Morris, W. F. &amp; Doak, D. F. 2003. Quantitative Conservation
 Biology: Theory and Practice of Population Viability Analysis. Sinauer
 Associates, Sunderland, MA. ISBN-10: 0878935460</p>
@@ -453,7 +478,7 @@ National Academy of Sciences 113 (1): 230–35</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández, Lotte de Vries, Stefano Giaimo.</p>
 </div>
 
 <div class="pkgdown">
