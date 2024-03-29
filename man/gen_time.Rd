@@ -91,7 +91,10 @@ University Press. ISBN: 978-0691093574
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
+\code{\link{entropy_k_age}()},
+\code{\link{entropy_k_stage}()},
 \code{\link{entropy_k}()},
+\code{\link{life_elas}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},

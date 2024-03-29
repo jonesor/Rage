@@ -73,15 +73,25 @@ shape_rep(rep = mpm1$matF, surv = mpm1$matU)
 
 }
 \references{
-Baudisch, A, Stott, I. 2019. A pace and shape perspective on
-  fertility. Methods Ecol Evol. 10: 1941– 1951.
+Wrycza, T.F. and Baudisch, A., 2014. The pace of aging: Intrinsic
+  time scales in demography. Demographic Research, 30, pp.1571-1590.
+  <https://doi.org/10.4054/DemRes.2014.30.57>
+
+  Baudisch, A. 2011, The pace and shape of ageing. Methods in Ecology and
+  Evolution, 2: 375-382. https://doi.org/10.1111/j.2041-210X.2010.00087.x
+
+  Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility.
+  Methods Ecol Evol. 10: 1941– 1951.
   <https://doi.org/10.1111/2041-210X.13289>
 }
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
+\code{\link{entropy_k_age}()},
+\code{\link{entropy_k_stage}()},
 \code{\link{entropy_k}()},
 \code{\link{gen_time}()},
+\code{\link{life_elas}()},
 \code{\link{life_expect_mean}()},
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
