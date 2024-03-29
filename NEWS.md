@@ -1,8 +1,7 @@
 # Rage 1.6.0
 
-* Bug fix in `plot_life_cycle` to ensure that nodes are placed in the correct order. Additional argument `node_order` also allows nodes to be placed in any arbitrary order.
-* Changes to `life_expect_var` and `life_expect_mean` to ensure that outputs are consistent (as vectors).
-* Improved test coverage (still >95%)
+* `plot_life_cycle` now includes a logical argument `show_gv` which allows users to print the `graphViz` code constructed by the function to the screen. This is useful for use elsewhere, or for debugging plots.
+* The function `entropy_k` is being deprecated. We change the function name to `life_elas` and recommend use of the new functions `entropy_k_age` and `entropy_k_stage` for Leslie and Lefkovitch matrices respectively. See the article by de Vries et al (2023) for the rationale for this change.
 
 # Rage 1.5.1
 
@@ -15,6 +14,7 @@
 * Error in `life_expect_var` (#193) corrected (contribution from Chrissy Hernández, @chrissy3815). Note that `life_expect_mean` and `life_expect_var` now function slightly differently. Be aware!
 * performance enhancements to speed up code and make it more robust.
 * increased unit test coverage to >95%
+
 
 # Rage 1.4.0
 
