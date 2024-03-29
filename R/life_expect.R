@@ -40,8 +40,8 @@
 #'   (`ProjectionInterval`) of the MPM. If \code{matU} is singular (often
 #'   indicating infinite life expectancy), returns \code{NA}.
 #'
-#' @author Christine M. Hernández <cmh352@cornell.edu>
-#' @author Owen R. Jones <jones@biology.sdu.dk>
+#' @author Christine M. Hernández <cmh352@@cornell.edu>
+#' @author Owen R. Jones <jones@@biology.sdu.dk>
 #'
 #' @family life history traits
 #'
