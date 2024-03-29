@@ -33,7 +33,11 @@ Authors@R: c(
     person(c("Chelsea", "C."), "Thomas", , "esochels@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-8155-9353")),
     person(c("Christina", "M."), "Hernández", , "cmh352@cornell.edu", role = "aut",
-           comment = c(ORCID = "0000-0002-7188-8217"))
+           comment = c(ORCID = "0000-0002-7188-8217")),
+    person("Lotte", "de Vries", "c.devries@@uva.nl", role = "aut",
+           comment = c(ORCID = "0000-0001-8955-0479")),
+    person("Stefano", "Giaimo", "giaimo@@evolbio.mpg.de", role = "aut",
+           comment = c(ORCID = "0000-0003-0421-3065")),
   )
 Description: Functions for calculating life history metrics using matrix
     population models ('MPMs'). Described in Jones et al. (2021)
