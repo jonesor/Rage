@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -70,7 +70,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.6.0" id="rage-160">Rage 1.6.0<a class="anchor" aria-label="anchor" href="#rage-160"></a></h2>
+<h2 class="page-header" data-toc-text="1.7.0" id="rage-170">Rage 1.7.0<a class="anchor" aria-label="anchor" href="#rage-170"></a></h2>
+<ul><li>
+<code>plot_life_cycle</code> now includes a logical argument <code>show_gv</code> which allows users to print the <code>graphViz</code> code constructed by the function to the screen. This is useful for use elsewhere, or for debugging plots.</li>
+<li>The function <code>entropy_k</code> is being deprecated. We change the function name to <code>life_elas</code> and recommend use of the new functions <code>entropy_k_age</code> and <code>entropy_k_stage</code> for Leslie and Lefkovitch matrices respectively. See the article by de Vries et al (2023) for the rationale for this change.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.6.0" id="rage-160">Rage 1.6.0<small>2023-09-29</small><a class="anchor" aria-label="anchor" href="#rage-160"></a></h2>
 <ul><li>Bug fix in <code>plot_life_cycle</code> to ensure that nodes are placed in the correct order. Additional argument <code>node_order</code> also allows nodes to be placed in any arbitrary order.</li>
 <li>Changes to <code>life_expect_var</code> and <code>life_expect_mean</code> to ensure that outputs are consistent (as vectors).</li>
 <li>Improved test coverage (still &gt;95%)</li>
@@ -151,7 +157,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
+  <p></p><p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández, Lotte de Vries, Stefano Giaimo.</p>
 </div>
 
 <div class="pkgdown">

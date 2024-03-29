@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -200,21 +200,11 @@
 <span><span class="co">#&gt; [1] 1.852091</span></span>
 <span><span class="fu"><a href="reference/gen_time.html">gen_time</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span><span class="op">)</span> <span class="co"># generation time</span></span>
 <span><span class="co">#&gt; [1] 5.394253</span></span></code></pre></div>
-<p>Other life history traits are calculated from a life table rather than an MPM, in which case we can first use the <code>mpm_to_</code> group of functions to derive the necessary life table components.</p>
+<p>Some life history traits are calculated from a life table rather than an MPM. For example, traits like entropy (<code>entropy_k_stage</code>) and shape measures (<code>shape_surv</code>, <code>shape_rep</code>) etc. In these cases, the calculation of age trajectories (lx and or mx trajectories) is handled internally. Nevertheless, it can still be useful to obtain the trajectories directly, in which case we can first use the <code>mpm_to_</code> group of functions.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># first derive age-trajectories of survivorship (lx) and fecundity (mx)</span></span>
 <span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># then calculate life history traits</span></span>
-<span><span class="fu"><a href="reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
-<span><span class="co">#&gt; [1] 0.9077186</span></span>
-<span><span class="fu"><a href="reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span> <span class="co"># Demetrius' entropy</span></span>
-<span><span class="co">#&gt; [1] 2.062862</span></span>
-<span><span class="fu"><a href="reference/shape_surv.html">shape_surv</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># shape of survival/mortality trajectory</span></span>
-<span><span class="co">#&gt; [1] -0.04681254</span></span>
-<span><span class="fu"><a href="reference/shape_rep.html">shape_rep</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># shape of fecundity trajectory</span></span>
-<span><span class="co">#&gt; [1] 0.3097147</span></span></code></pre></div>
+<span><span class="va">mx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/age_from_stage.html">mpm_to_mx</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="life-tables-and-the-quasi-stationary-distribution">Life tables and the quasi-stationary distribution<a class="anchor" aria-label="anchor" href="#life-tables-and-the-quasi-stationary-distribution"></a>
@@ -431,6 +421,8 @@
 <li>Iain Stott <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2724-7436" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Chelsea C. Thomas <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8155-9353" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Christina M. Hernández <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7188-8217" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Lotte de Vries <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-8955-0479" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Stefano Giaimo <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0421-3065" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -443,7 +435,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández, Lotte de Vries, Stefano Giaimo.</p>
 </div>
 
 <div class="pkgdown">

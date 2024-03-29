@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ Che-Castaldo</h4>
 Salguero-Gomez</h4>
                         <h4 data-toc-skip class="author">Others</h4>
             
-            <h4 data-toc-skip class="date">2023-09-29</h4>
+            <h4 data-toc-skip class="date">2024-03-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a03_LifeHistoryTraits.Rmd" class="external-link"><code>vignettes/a03_LifeHistoryTraits.Rmd</code></a></small>
       <div class="hidden name"><code>a03_LifeHistoryTraits.Rmd</code></div>
@@ -184,23 +184,25 @@ expected time to death.</p>
 <code class="sourceCode R"><span><span class="co"># mean life expectancy from "small" stage</span></span>
 <span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.509116</span></span></code></pre></div>
-<p>In certain cases, life expectancy needs to consider multiple starting
-stage classes rather than a single stage. This situation arises when
-there are multiple possible stages at which an individual can begin a
-specific life event, like reproductive maturity. To address this, the
-function supports multiple starting stage classes. When calculating life
-expectancy in this context, the results are averaged using weights based
-on the distribution of individuals across these stages. To do this, set
-the start argument to NULL to indicate an unspecified starting stage and
-use the mixdist argument. In this scenario, the mixdist argument expects
-a vector representing the proportion of individuals starting their first
-reproduction in each stage of the MPM. By providing this distribution,
-the function calculates the mean lifespan by appropriately weighting the
-life expectancies associated with each starting stage. For example, life
-expectancy given 40% of individuals start from the “small” stage and 60%
-from the “medium” stage of the example MPM would be calculated as:</p>
+<p>In certain situations, it is useful to compute life expectancy while
+taking into account that there can be multiple initial stage classes
+rather than a single stage from which every individual commences their
+life cycle. This need occurs in scenarios where individuals can enter a
+life stage, such as reaching reproductive maturity, from more than one
+possible stage. To accommodate these instances, the
+<code>life_expect_mean</code> function supports multiple initial stage
+classes. In these scenarios, results should be averaged, with weights
+based on the distribution of individuals among the potential starting
+stages. This is achieved by setting the <code>start</code> parameter to
+<code>NULL</code>, which signifies an unspecified starting stage, and
+employing the <code>mixdist</code> parameter.</p>
+<p>The <code>mixdist</code> parameter is expected to be a vector
+reflecting the proportion of individuals initiating reproduction at each
+stage within the Matrix Population Model (MPM). By inputting this
+distribution, the function computes the life expectancy by weighting the
+contribution from for each initial stage accordingly.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="cn">NULL</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.865667</span></span></code></pre></div>
 <p>The function <code><a href="../reference/longevity.html">longevity()</a></code> estimates the time to which the
 survivorship of a cohort falls below a user-defined critical threshold,
@@ -318,7 +320,7 @@ distribution rather than the hypothetical one (40% in “small” stage and
 60% in “medium” stage) used above:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># mean life expectancy from maturity</span></span>
-<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mixdist <span class="op">=</span> <span class="va">maturedist</span>, start <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/life_expect.html">life_expect_mean</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="cn">NULL</span>, mixdist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">maturedist</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3.179005</span></span>
 <span></span>
 <span><span class="co"># mean life expectancy from "small" stage</span></span>
@@ -382,11 +384,32 @@ curves type I (high survival in early part of life and decreasing over
 time), a value of 1 to survival curve type II (constant survival), and
 values less than 1 to survival curve type III (low survival early and
 increasing over time) (Salguero-Gómez et al. 2016).</p>
+<p>These can be calculated from the age-trajectories, or from the
+matrices directly (in this case, the age-trajectories are calculated
+internally).</p>
+<p>Recently, de Vries et al. (2023) highlighted a problem in the
+calculations of Keyfitz’ entropy for discrete age trajectories.
+Following this revelation it is recommended to use the function
+<code>entropy_k_age</code> to calculate entropy for age-based (Leslie)
+matrices and <code>entropy_k_stage</code> for stage-based Lefkovitch
+matrices.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span><span class="va">lx</span>, <span class="va">mx</span><span class="op">)</span> <span class="co"># Demetrius' entropy</span></span>
 <span><span class="co">#&gt; [1] 2.062862</span></span>
-<span><span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
-<span><span class="co">#&gt; [1] 0.9077186</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/entropy_d.html">entropy_d</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, mx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># Demetrius' entropy</span></span>
+<span><span class="co">#&gt; [1] 2.062862</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/life_elas.html">life_elas</a></span><span class="op">(</span><span class="va">lx</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
+<span><span class="co">#&gt; [1] 0.9077186</span></span>
+<span><span class="fu"><a href="../reference/life_elas.html">life_elas</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span> <span class="co"># Keyfitz' entropy</span></span>
+<span><span class="co">#&gt; [1] 0.9077186</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/entropy_k_stage.html">entropy_k_stage</a></span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.131567</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">leslie_mpm1</span><span class="op">)</span> <span class="co"># load leslie matrix</span></span>
+<span><span class="fu"><a href="../reference/entropy_k_age.html">entropy_k_age</a></span><span class="op">(</span><span class="va">leslie_mpm1</span><span class="op">$</span><span class="va">matU</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.626804</span></span></code></pre></div>
 <p>It is important to note that both of these entropy measures may
 produce unexpected results if only partial survivorship and fecundity
 age-based trajectories are used in the calculations. Indeed, both
@@ -435,6 +458,10 @@ ISBN-10: 0878930965</p>
 Nature 275: 213-214.</p>
 <p>Demetrius, L., &amp; Gundlach, V. M. 2014. Directionality theory and
 the entropic principle of natural selection. Entropy 16: 5428-5522.</p>
+<p>de Vries, C., Bernard, C., &amp; Salguero-Gómez, R. 2023.
+Discretising Keyfitz’ entropy for studies of actuarial senescence and
+comparative demography. Methods in Ecology and Evolution, 14, 1312–1319.
+<a href="https://doi.org/10.1111/2041-210X.14083" class="external-link uri">https://doi.org/10.1111/2041-210X.14083</a></p>
 <p>Morris, W. F. &amp; Doak, D. F. 2003. Quantitative Conservation
 Biology: Theory and Practice of Population Viability Analysis. Sinauer
 Associates, Sunderland, MA. ISBN-10: 0878935460</p>
@@ -458,7 +485,7 @@ National Academy of Sciences 113 (1): 230–35</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández, Lotte de Vries, Stefano Giaimo.</p>
 </div>
 
 <div class="pkgdown">

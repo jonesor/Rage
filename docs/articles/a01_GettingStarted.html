@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       
 
       </header><script src="a01_GettingStarted_files/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="a01_GettingStarted_files/viz-1.8.2/viz.js"></script><link href="a01_GettingStarted_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="a01_GettingStarted_files/grViz-binding-1.0.10/grViz.js"></script><div class="row">
+<script src="a01_GettingStarted_files/grViz-binding-1.0.9/grViz.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with Rage</h1>
@@ -97,7 +97,7 @@ Barks</h4>
                         <h4 data-toc-skip class="author">William K.
 Petry</h4>
             
-            <h4 data-toc-skip class="date">2023-09-29</h4>
+            <h4 data-toc-skip class="date">2024-03-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a01_GettingStarted.Rmd" class="external-link"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
@@ -141,8 +141,8 @@ represent the biology of this life cycle graphically (Fig. 1) where each
 life stage is a node and the life stages are connected with arrows
 showing the paths (and probabilities) that individuals move between
 stages.</p>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f35a63d4cc5c2074d385" style="width:576px;height:192px;"></div>
-<script type="application/json" data-for="htmlwidget-f35a63d4cc5c2074d385">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\" \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0fd0128420a21dc1bdef" style="width:576px;height:192px;"></div>
+<script type="application/json" data-for="htmlwidget-0fd0128420a21dc1bdef">{"x":{"diagram":"\ndigraph {\n  {\n    graph[overlap=false];\n    rank=same;\n    node [shape= egg , fontsize= 12 ]; \"seedling\"; \"rosette\"; \"flowering\" \n  } ordering=out\n  x [style=invis]\n  x -> { \"seedling\"; \"rosette\"; \"flowering\" } [style=invis] \"seedling\" -> \"rosette\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.5\"]\n\"rosette\" -> \"rosette\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.3\"]\n\"rosette\" -> \"flowering\"[minlen=3,fontsize=10,color=PaleGreen4,xlabel=\" 0.4\"]\n\"flowering\" -> \"seedling\"[minlen=-6,fontsize=10,color=Goldenrod1,xlabel=\" 3.2\"]\n\"flowering\" -> \"rosette\"[minlen=-3,fontsize=10,color=MediumOrchid4,xlabel=\" 0.8\"]\n\"flowering\" -> \"flowering\"[minlen=0,fontsize=10,color=PaleGreen4,xlabel=\" 0.9\"]\n labelloc=\"t\";\n  label=\"  \"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p><strong>Figure 1.</strong> Life cycle diagram for a hypothetical
 plant with three life stages (nodes). Arrows are coloured by
 conventional groupings of demographic processes: growth and survival
 (green), sexual reproduction via seeds (gold) and asexual reproduction
@@ -369,27 +369,27 @@ and are detailed in the subsections below:</p>
 <tr class="odd">
 <td>1. <a href="#vitalrates">Vital rates</a>
 </td>
-<td><a href="https://jonesor.github.io/Rage/articles/a01_GettingStarted.html" class="external-link">GettingStarted</a></td>
+<td><a href="https://jonesor.github.io/Rage/articles/a02_VitalRates.html" class="external-link">VitalRates</a></td>
 </tr>
 <tr class="even">
 <td>2. <a href="#lifetable">Life tables</a>
 </td>
-<td><a href="https://jonesor.github.io/Rage/articles/a02_VitalRates.html" class="external-link">VitalRates</a></td>
+<td><a href="https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html" class="external-link">AgeFromStage</a></td>
 </tr>
 <tr class="odd">
 <td>3. <a href="#perturb">Perturbation analysis</a>
 </td>
-<td><a href="https://jonesor.github.io/Rage/articles/a03_LifeHistoryTraits.html" class="external-link">LifeHistoryTraits</a></td>
+<td><a href="https://jonesor.github.io/Rage/articles/a04_TernaryPlots.html" class="external-link">TernaryPlots</a></td>
 </tr>
 <tr class="even">
 <td>4. <a href="#lifehist">Deriving life history traits</a>
 </td>
-<td><a href="https://jonesor.github.io/Rage/articles/a04_AgeFromStage.html" class="external-link">AgeFromStage</a></td>
+<td><a href="https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html" class="external-link">LifeHistoryTraits</a></td>
 </tr>
 <tr class="odd">
 <td>5. <a href="#maniptransform">Transformation of matrices</a>
 </td>
-<td><a href="https://jonesor.github.io/Rage/articles/a05_SuggestedQualityControl.html" class="external-link">QualityControl</a></td>
+<td>n/a</td>
 </tr>
 </tbody>
 </table>
@@ -537,7 +537,7 @@ age-specific trajectory accordingly.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt_preQSD</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<p>We refer readers to the <a href="https://jonesor.github.io/Rage/articles/a04_AgeFromStage.html" class="external-link">AgeFromStage
+<p>We refer readers to the <a href="https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html" class="external-link">AgeFromStage
 vignette</a> for further detail on these methods.</p>
 </div>
 <div class="section level3">
@@ -620,7 +620,7 @@ individual-level demographic rates, and tracing trajectories through the
 life cycle.</p>
 <p><code>Rage</code> provides functions to calculate a wide range of
 life history traits from both MPMs and life tables. We illustrate the
-general pattern of these functions below, referring the reader to the <a href="https://jonesor.github.io/Rage/articles/a03_LifeHistoryTraits.html" class="external-link">LifeHistoryTraits
+general pattern of these functions below, referring the reader to the <a href="https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html" class="external-link">LifeHistoryTraits
 vignette</a> and the <a href="https://jonesor.github.io/Rage/reference/index.html" class="external-link">documentation
 webpage</a> for a complete list of functionality.</p>
 <p>MPM-based analyses take the required submatrix (or submatrices),
@@ -637,13 +637,12 @@ thresholds.</p>
 <span>  method <span class="op">=</span> <span class="st">"start"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.852091</span></span></code></pre></div>
-<p>When calculating life table-based traits, MPMs can be transformed to
-the necessary age-based trajectory prior to analysis.</p>
+<p>It can sometimes be useful to calculate age-based trajectories from
+stage-based matrices. This can be achieved with functions like
+<code>mpm_to_lx</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># derive post-germination survivorship trajectory from U matrix</span></span>
-<span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/entropy_k.html">entropy_k</a></span><span class="op">(</span>lx <span class="op">=</span> <span class="va">lx</span><span class="op">)</span> <span class="co"># calculate Keyfitz' entropy</span></span>
-<span><span class="co">#&gt; [1] 0.9077186</span></span></code></pre></div>
+<span><span class="va">lx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/age_from_stage.html">mpm_to_lx</a></span><span class="op">(</span>matU <span class="op">=</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="maniptransform">5. Transforming MPMs<a class="anchor" aria-label="anchor" href="#maniptransform"></a>
@@ -763,7 +762,7 @@ Statistical Association 67:347-363.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández.</p>
+<p>Developed by Patrick Barks, Pol Capdevila, Hal Caswell, Judy P. Che-Castaldo, Richard A. Hinrichsen, John Jackson, Tamora James, Owen Jones, Sam Levin, William K. Petry, Roberto Salguero-Gomez, Iain Stott, Chelsea C. Thomas, Christina M. Hernández, Lotte de Vries, Stefano Giaimo.</p>
 </div>
 
 <div class="pkgdown">
