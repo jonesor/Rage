@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
+  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -118,6 +118,20 @@
       "familyName": "Hernández",
       "email": "cmh352@cornell.edu",
       "@id": "https://orcid.org/0000-0002-7188-8217"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Lotte",
+      "familyName": "de Vries",
+      "email": "c.devries@@uva.nl",
+      "@id": "https://orcid.org/0000-0001-8955-0479"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Stefano",
+      "familyName": "Giaimo",
+      "email": "giaimo@@evolbio.mpg.de",
+      "@id": "https://orcid.org/0000-0003-0421-3065"
     }
   ],
   "contributor": [
@@ -281,7 +295,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "520.893KB",
+  "fileSize": "545.063KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -370,7 +384,6 @@
     }
   ],
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
   "contIntegration": ["https://github.com/jonesor/Rage/actions", "https://github.com/jonesor/Rage/actions", "https://app.codecov.io/gh/jonesor/Rage"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "relatedLink": "https://CRAN.R-project.org/package=Rage"
