@@ -34,6 +34,8 @@ Authors:
   \item Iain Stott \email{stott@biology.sdu.dk} (\href{https://orcid.org/0000-0003-2724-7436}{ORCID})
   \item Chelsea C. Thomas \email{esochels@gmail.com} (\href{https://orcid.org/0000-0002-8155-9353}{ORCID})
   \item Christina M. Hernández \email{cmh352@cornell.edu} (\href{https://orcid.org/0000-0002-7188-8217}{ORCID})
+  \item Lotte de Vries \email{c.devries@@uva.nl} (\href{https://orcid.org/0000-0001-8955-0479}{ORCID})
+  \item Stefano Giaimo \email{giaimo@@evolbio.mpg.de} (\href{https://orcid.org/0000-0003-0421-3065}{ORCID})
 }
 
 Other contributors:

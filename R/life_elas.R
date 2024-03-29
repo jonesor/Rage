@@ -9,7 +9,7 @@
 #' it is sensitive to the length of the survivorship vector. We direct users to
 #' the function `\code{\link{shape_surv}}` which is relatively robust to these
 #' issues.
-#' 
+#'
 #' Furthermore, de Vries et al. 2023 have shown that the way this function
 #' calculates entropy is problematic for other reasons. We recommend to use
 #' `\code{\link{entropy_k_age}}` or ``\code{\link{entropy_k_stage}}` as

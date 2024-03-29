@@ -35,7 +35,7 @@
 #' )
 #'
 #' plot_life_cycle(matA)
-#' 
+#'
 #' # One could save the diagram as a PNG file using a combination of `export_svg`
 #' # (from the `DiagrammeRsvg` package) and `rsvg_png` (from the `rsvg` package)
 #' # like this:

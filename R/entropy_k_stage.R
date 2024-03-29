@@ -4,7 +4,7 @@
 #' matrix population model.
 #'
 #' @param Umat A square numeric matrix representing the U submatrix of a
-#'   stage-based (Lefkovitch) matrix population model. 
+#'   stage-based (Lefkovitch) matrix population model.
 #' @param init_distrib The initial cohort distribution across
 #'   stages. This should sum to 1. If it does not sum to 1, the function
 #'   rescales it to 1. Defaults to an equal distribution across stages.

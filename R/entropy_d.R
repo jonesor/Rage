@@ -12,7 +12,7 @@
 #'
 #' @param lx Either a survivorship trajectory (a vector of
 #'   monotonically-declining values in the interval [0,1]), or submatrix U from
-#'   a matrix population model. 
+#'   a matrix population model.
 #' @param mx Either an age-specific fecundity trajectory (a vector of
 #'   non-negative values), or submatrix U from a matrix population model.
 #' @param ... Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the

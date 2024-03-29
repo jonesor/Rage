@@ -203,7 +203,7 @@ life_elas(lx = mpm1$matU, start = "small") # Keyfitz' entropy
 entropy_k_stage(mpm1$matU)
 
 data(leslie_mpm1) # load leslie matrix
-entropy_k_age(leslie_mpm1$matU) 
+entropy_k_age(leslie_mpm1$matU)
 ```
 
 It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius' entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the "small" stage, and therefore it does not include the full life cycle. 
