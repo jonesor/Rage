@@ -21,7 +21,8 @@
 #' @param trapeze A logical argument indicating whether the composite trapezoid
 #'   approximation should be used for approximating the definite integral.
 #' @param ... Additional variables passed to `mpm_to_lx` if data are supplied as
-#'   a matrix
+#'   a matrix. This could include the `start` argument to select a starting
+#'   stage.
 #'
 #' @return Keyfitz's life table entropy.
 #'
@@ -61,11 +62,6 @@ life_elas <- function(lx, trapeze = FALSE, ...) {
   # This function is deprecated, use entropy_k2 which has two functions within
   # it suitable for age-based and stage-based matrices, selected with a type
   # argument.
-  .Deprecated(msg = paste(
-    "The way life_elas calculates entropy is problematic.",
-    "Use entropy_k_age or entropy_k_stage as alternatives.",
-    "See de Vries et al. 2023 for details."
-  ))
 
   if (inherits(lx, "numeric")) {
     # validate arguments

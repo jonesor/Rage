@@ -16,7 +16,8 @@ a matrix population model.}
 non-negative values), or submatrix U from a matrix population model.}
 
 \item{...}{Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the
-data are supplied as matrices.}
+data are supplied as matrices. This could include the `start` argument to
+select a starting stage.}
 }
 \value{
 Demetrius' entropy.

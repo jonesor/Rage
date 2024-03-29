@@ -15,7 +15,8 @@ a matrix population model.}
 approximation should be used for approximating the definite integral.}
 
 \item{...}{Additional variables passed to `mpm_to_lx` if data are supplied as
-a matrix}
+a matrix.  This could include the `start` argument to select a starting
+stage.}
 }
 \value{
 Keyfitz's life table entropy.
