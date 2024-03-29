@@ -61,9 +61,10 @@ entropy_k <- function(lx, trapeze = FALSE, ...) {
   # it suitable for age-based and stage-based matrices, selected with a type
   # argument.
   .Deprecated(msg = paste(
-    "The way entropy_k calculates entropy is problematic.",
-    "Use entropy_k_age or entropy_k_stage as alternatives.",
-    "See de Vries et al. 2023 for details."
+    "The way `entropy_k` calculates entropy is problematic.",
+    "Use `entropy_k_age` or `entropy_k_stage` as alternatives.",
+    "See de Vries et al. 2023 for details.",
+    "After deprecation, this function will be renamed `life_elas`."
   ))
 
   if (inherits(lx, "numeric")) {
