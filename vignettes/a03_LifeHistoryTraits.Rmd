@@ -66,12 +66,10 @@ life_expect_mean(matU = mpm1$matU, start = 2)
 ```
 
 
-In certain cases, life expectancy needs to consider multiple starting stage classes rather than a single stage. This situation arises when there are multiple possible stages at which an individual can begin a specific life event, like reproductive maturity.
-To address this, the function supports multiple starting stage classes. When calculating life expectancy in this context, the results are averaged using weights based on the distribution of individuals across these stages. To do this, set the start argument to NULL to indicate an unspecified starting stage and use the mixdist argument.
-In this scenario, the mixdist argument expects a vector representing the proportion of individuals starting their first reproduction in each stage of the MPM. By providing this distribution, the function calculates the mean lifespan by appropriately weighting the life expectancies associated with each starting stage. For example, life expectancy given 40% of individuals start from the "small" stage and 60% from the "medium" stage of the example MPM would be calculated as:
+Sometimes one may want to include multiple starting stage classes when calculating life expectancy. For example, life expectancy from reproductive maturity (i.e. first reproduction) can be calculated while accounting for the possibility that an individual may first reproduce in one of several stages. In this case, the `start` argument can be specified as a vector (of the same length as the matrix dimension) giving the proportion of individuals starting in each stage. For example, life expectancy given 40% of individuals start from the "small" stage and 60% from the "medium" stage of the example MPM would be calculated as:
 
 ```{r}
-life_expect_mean(matU = mpm1$matU, mixdist = c(0, 0.4, 0.6, 0, 0), start = NULL)
+life_expect_mean(matU = mpm1$matU, start = c(0, 0.4, 0.6, 0, 0))
 ```
 
 
@@ -146,7 +144,7 @@ One can then use this distribution to update the estimate of mean life expectanc
 
 ```{r}
 # mean life expectancy from maturity
-life_expect_mean(matU = mpm1$matU, mixdist = maturedist, start = NULL)
+life_expect_mean(matU = mpm1$matU, start = c(maturedist))
 
 # mean life expectancy from "small" stage
 life_expect_mean(matU = mpm1$matU, start = 2)
@@ -189,11 +187,23 @@ Finally, one can use these life table components to calculate additional life hi
 
 Demetrius' entropy is a measure of how reproductive episodes are spread across the lifespan (Demetrius & Gundlach 2014). A value of 0 indicates only one reproduction event in the entire life time (also known as semelparity), and larger values indicate a more even distribution of reproductive events over the life cycle. 
 
-Keyfitz' entropy describes the shape of the age-specific survivorship curve (Demetrius 1978). Values greater than 1 correspond to survival curves type I (high survival in early part of life and decreasing over time), a value of 1 to survival curve type II (constant survival), and values less than 1 to survival curve type III (low survival early and increasing over time) (Salguero-Gómez et al. 2016).
+Keyfitz' entropy describes the shape of the age-specific survivorship curve (Demetrius 1978). Values greater than 1 correspond to survival curves type I (high survival in early part of life and decreasing over time), a value of 1 to survival curve type II (constant survival), and values less than 1 to survival curve type III (low survival early and increasing over time) (Salguero-Gómez et al. 2016). 
+
+These can be calculated from the age-trajectories, or from the matrices directly (in this case, the age-trajectories are calculated internally).
+
+Recently, de Vries et al. (2023) highlighted a problem in the calculations of Keyfitz' entropy for discrete age trajectories. Following this revelation it is recommended to use the function `entropy_k_age` to calculate entropy for age-based (Leslie) matrices and `entropy_k_stage` for stage-based Lefkovitch matrices. 
 
 ```{r}
 entropy_d(lx, mx) # Demetrius' entropy
-entropy_k(lx) # Keyfitz' entropy
+entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = "small") # Demetrius' entropy
+
+life_elas(lx) # Keyfitz' entropy
+life_elas(lx = mpm1$matU, start = "small") # Keyfitz' entropy
+
+entropy_k_stage(mpm1$matU)
+
+data(leslie_mpm1) # load leslie matrix
+entropy_k_age(leslie_mpm1$matU)
 ```
 
 It is important to note that both of these entropy measures may produce unexpected results if only partial survivorship and fecundity age-based trajectories are used in the calculations. Indeed, both metrics of demographic entropy are sensitive to the length of the those trajectory vectors. For example, the Demetrius' entropy calculated above has a negative value due to being calculated from age-specific survivorships and fecundities starting from the "small" stage, and therefore it does not include the full life cycle. 
@@ -222,6 +232,8 @@ Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and Interpre
 Demetrius, L. 1978. Adaptive value, entropy and survivorship curves. Nature 275: 213-214.
 
 Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and the entropic principle of natural selection. Entropy 16: 5428-5522.
+
+de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising Keyfitz' entropy for studies of actuarial senescence and comparative demography. Methods in Ecology and Evolution, 14, 1312–1319. <https://doi.org/10.1111/2041-210X.14083>
 
 Morris, W. F. & Doak, D. F. 2003. Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460
 
