@@ -191,14 +191,14 @@ Keyfitz' entropy describes the shape of the age-specific survivorship curve (Dem
 
 These can be calculated from the age-trajectories, or from the matrices directly (in this case, the age-trajectories are calculated internally).
 
-Recently, de Vries et al. (2023) highlighted a problem in the calculations of Keyfitz' entropy for discrete age trajectories. Following this revelation it is recommended to use the function `entropy_k_age` to calculate entropy for age-based (Leslie) matrices and `entropy_k_stage` for stage-based Lefkovitch matrices.
+Recently, de Vries et al. (2023) highlighted a problem in the calculations of Keyfitz' entropy for discrete age trajectories. Following this revelation it is recommended to use the function `entropy_k_age` to calculate entropy for age-based (Leslie) matrices and `entropy_k_stage` for stage-based Lefkovitch matrices. 
 
 ```{r}
 entropy_d(lx, mx) # Demetrius' entropy
-entropy_d(lx = mpm1$matU, mx = mpm1$matF) # Demetrius' entropy
+entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = "small") # Demetrius' entropy
 
 life_elas(lx) # Keyfitz' entropy
-life_elas(lx = mpm1$matU) # Keyfitz' entropy
+life_elas(lx = mpm1$matU, start = "small") # Keyfitz' entropy
 
 entropy_k_stage(mpm1$matU)
 
