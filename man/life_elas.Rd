@@ -26,10 +26,11 @@ Calculate Keyfitz's entropy from a vector of age-specific survivorship
 }
 \section{Warning}{
 
-Note that this function may produce unexpected results if used on partial
-survivorship trajectories. In addition, it is sensitive to the length of the
-survivorship vector. We direct users to the function
-`\code{\link{shape_surv}}` which is relatively robust to these issues.
+Note that this function, which was formerly called `entropy_k` may produce
+unexpected results if used on partial survivorship trajectories. In addition,
+it is sensitive to the length of the survivorship vector. We direct users to
+the function `\code{\link{shape_surv}}` which is relatively robust to these
+issues.
 
 Furthermore, de Vries et al. 2023 have shown that the way this function
 calculates entropy is problematic for other reasons. We recommend to use
