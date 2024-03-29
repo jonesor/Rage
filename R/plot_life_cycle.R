@@ -36,6 +36,17 @@
 #'
 #' plot_life_cycle(matA)
 #'
+#' # One could save the diagram as a PNG file using a combination of `export_svg`
+#' # (from the `DiagrammeRsvg` package) and `rsvg_png` (from the `rsvg` package)
+#' # like this:
+#' \dontrun{
+#' p1 <- plot_life_cycle(matA)
+#' p1 %>%
+#'   DiagrammeRsvg::export_svg %>%
+#'   charToRaw() %>%
+#'   rsvg::rsvg_png("my life cycle.png")
+#' }
+#'
 #' # Change the order of the nodes and give them names
 #' plot_life_cycle(matA,
 #'   stages = c("A", "B", "C", "D", "E"),
