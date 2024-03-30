@@ -44,7 +44,7 @@ An object of class \code{grViz} representing the life cycle diagram
 Plots the life cycle diagram illustrated by a matrix population model. This
 function processes the matrix model and passes the information to the
 graphViz function in DiagrammeR. See
-\url{http://rich-iannone.github.io/DiagrammeR/}.
+\url{https://rich-iannone.github.io/DiagrammeR/}.
 }
 \examples{
 matA <- rbind(

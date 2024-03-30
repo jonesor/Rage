@@ -3,7 +3,7 @@
 #' Plots the life cycle diagram illustrated by a matrix population model. This
 #' function processes the matrix model and passes the information to the
 #' graphViz function in DiagrammeR. See
-#' \url{http://rich-iannone.github.io/DiagrammeR/}.
+#' \url{https://rich-iannone.github.io/DiagrammeR/}.
 #'
 #' @param matA A matrix population model (i.e., a square projection matrix)
 #' @param stages Optional vector of stage class labels. If missing, it first

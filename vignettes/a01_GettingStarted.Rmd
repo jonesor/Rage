@@ -257,16 +257,16 @@ The functions in `Rage` fall into five broad categories, and are detailed in the
 tabl <- "
 | Function category                       | Stand-alone vignette             |
 |-----------------------------------------|----------------------------------|
-| 1. [Vital rates](#vitalrates)  | [VitalRates](https://jonesor.github.io/Rage/articles/a02_VitalRates.html)     |
-| 2. [Life tables](#lifetable) | [AgeFromStage](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) |
-| 3. [Perturbation analysis](#perturb)    | [TernaryPlots](https://jonesor.github.io/Rage/articles/a04_TernaryPlots.html) |
-| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html) |
+| 1. [Vital rates](#vitalrates)  | [VitalRates](vignette:a02_VitalRates)     |
+| 2. [Life tables](#lifetable) | [AgeFromStage](vignette:a03_AgeFromStage) |
+| 3. [Perturbation analysis](#perturb)    | n/a |
+| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](vignette:a05_LifeHistoryTraits) |
 | 5. [Transformation of matrices](#maniptransform) | n/a                                   |
 "
 cat(tabl)
 ```
 
-A full list of functions by category is available at the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html).
+A full list of functions by category is available at the [documentation webpage](reference/).
 
 ## 1. Standardized vital rates {#vitalrates}
 
@@ -306,7 +306,7 @@ Life stages may be excluded, allowing the user to tailor these calculations to
 the life history of the organism and their working definition of each vital rate.
 Similarly, custom weights are allowed to control the contributions of life stages 
 to the average. This functionality is more fully described in the 
-[Vital Rates vignette](https://jonesor.github.io/Rage/articles/a02_VitalRates.html).
+[Vital Rates vignette](vignette:a02_VitalRates).
 
 ```{r}
 vr_survival(matU = mpm1$matU, exclude_col = 1) # exclude 'seed' stage
@@ -389,7 +389,7 @@ lines(qx ~ x, data = lt_preQSD, type = "l", col = "blue", lwd = 4)
 abline(v = q, lty = "dashed")
 ```
 
-We refer readers to the [AgeFromStage vignette](https://jonesor.github.io/Rage/articles/a03_AgeFromStage.html) for further
+We refer readers to the [AgeFromStage vignette](vignette:a03_AgeFromStage) for further
 detail on these methods.
 
 ## 3. Perturbation analyses {#perturb}
@@ -436,8 +436,8 @@ trajectories through the life cycle.
 
 `Rage` provides functions to calculate a wide range of life history traits from 
 both MPMs and life tables. We illustrate the general pattern of these functions 
-below, referring the reader to the [LifeHistoryTraits vignette](https://jonesor.github.io/Rage/articles/a05_LifeHistoryTraits.html)
-and the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html) 
+below, referring the reader to the [LifeHistoryTraits vignette](vignette:a05_LifeHistoryTraits)
+and the [documentation webpage](reference/) 
 for a complete list of functionality.
 
 MPM-based analyses take the required submatrix (or submatrices), optionally allowing
