@@ -267,7 +267,7 @@ See the Changelog for more details.
 
 ## Citation
 
-Jones, O. R., Barks, P., Stott, I., James, T. D., Levin, S., Petry, W. K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette, C., Thomas, C. C., & Salguero-Gómez, R. (2022). `Rcompadre` and `Rage`—Two R packages to facilitate the use of the COMPADRE and COMADRE databases and calculation of life-history traits from matrix population models. _Methods in Ecology and Evolution_, 13, 770–781. doi: [10.1111/2041-210X.13792](https://doi.org/10.1111/2041-210X.13792)
+Jones, O. R., Barks, P., Stott, I., James, T. D., Levin, S., Petry, W. K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette, C., Thomas, C. C., & Salguero-Gómez, R. (2022). `Rcompadre` and `Rage`—Two R packages to facilitate the use of the COMPADRE and COMADRE databases and calculation of life-history traits from matrix population models. _Methods in Ecology and Evolution_, 13, 770–781. \doi{doi:10.1111/2041-210X.13792}
 
 ## Contributions
 

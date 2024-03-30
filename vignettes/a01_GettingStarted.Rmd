@@ -258,9 +258,9 @@ tabl <- "
 | Function category                       | Stand-alone vignette             |
 |-----------------------------------------|----------------------------------|
 | 1. [Vital rates](#vitalrates)  | [VitalRates](a02_VitalRates.html)     |
-| 2. [Life tables](#lifetable) | [AgeFromStage](a03_AgeFromStage.html) |
+| 2. [Life tables](#lifetable) | [AgeFromStage](a04_AgeFromStage.html) |
 | 3. [Perturbation analysis](#perturb)    | n/a |
-| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](a05_LifeHistoryTraits.html) |
+| 4. [Deriving life history traits](#lifehist) | [LifeHistoryTraits](a03_LifeHistoryTraits.html) |
 | 5. [Transformation of matrices](#maniptransform) | n/a                                   |
 "
 cat(tabl)
@@ -389,7 +389,7 @@ lines(qx ~ x, data = lt_preQSD, type = "l", col = "blue", lwd = 4)
 abline(v = q, lty = "dashed")
 ```
 
-We refer readers to the [AgeFromStage vignette](a03_AgeFromStage.html) for further
+We refer readers to the [AgeFromStage vignette](a04_AgeFromStage.html) for further
 detail on these methods.
 
 ## 3. Perturbation analyses {#perturb}
@@ -436,8 +436,8 @@ trajectories through the life cycle.
 
 `Rage` provides functions to calculate a wide range of life history traits from 
 both MPMs and life tables. We illustrate the general pattern of these functions 
-below, referring the reader to the [LifeHistoryTraits vignette](a05_LifeHistoryTraits.html)
-and the [documentation webpage](reference/) 
+below, referring the reader to the [LifeHistoryTraits vignette](a03_LifeHistoryTraits.html)
+and the [documentation webpage](reference/index.html) 
 for a complete list of functionality.
 
 MPM-based analyses take the required submatrix (or submatrices), optionally allowing
