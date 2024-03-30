@@ -64,7 +64,7 @@ Keyfitz, N. 1977. Applied Mathematical Demography. New York:
   de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising
   Keyfitz' entropy for studies of actuarial senescence and comparative
   demography. Methods in Ecology and Evolution, 14, 1312–1319.
-  https://doi.org/10.1111/2041-210X.14083
+  <doi:10.1111/2041-210X.14083>
 }
 \seealso{
 Other life history traits: 
