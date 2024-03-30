@@ -266,7 +266,7 @@ tabl <- "
 cat(tabl)
 ```
 
-A full list of functions by category is available at the [documentation webpage](reference/).
+A full list of functions by category is available at the [documentation webpage](reference/index.html).
 
 ## 1. Standardized vital rates {#vitalrates}
 
