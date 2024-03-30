@@ -29,7 +29,7 @@
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
 #' @references Hinrichsen, R. A. (2023). Aggregation of Leslie matrix models
 #'   with application to ten diverse animal species. Population Ecology, 1–21.
-#'   https://doi.org/10.1002/1438-390X.12149
+#'   <doi:10.1002/1438-390X.12149>
 #' @export leslie_collapse
 #' @family transformation
 #' @importFrom expm %^%

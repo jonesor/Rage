@@ -59,7 +59,7 @@
 #'
 #' @references Bienvenu, F. & Legendre, S. 2015. A New Approach to the
 #'   Generation Time in Matrix Population Models. The American Naturalist 185
-#'   (6): 834–843. doi:10.1086/681104.
+#'   (6): 834–843. <doi:10.1086/681104>.
 #'
 #' Caswell, H. 2001. Matrix Population Models: Construction,
 #'   Analysis, and Interpretation. Sinauer Associates; 2nd edition. ISBN:

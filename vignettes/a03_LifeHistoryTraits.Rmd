@@ -225,9 +225,9 @@ shape_rep(mx)
 ```
 
 ## References
-Baudisch, A. 2011. The pace and shape of ageing. Methods in Ecology and Evolution, 2(4), 375– 382. \doi{doi:10.1111/j.2041-210X.2010.00087.x}
+Baudisch, A. 2011. The pace and shape of ageing. Methods in Ecology and Evolution, 2(4), 375– 382. <doi:10.1111/j.2041-210X.2010.00087.x>
 
-Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. \doi{doi:10.1111/2041-210X.13289}
+Baudisch, A, Stott, I. 2019. A pace and shape perspective on fertility. Methods Ecol Evol. 10: 1941– 1951. <doi:10.1111/2041-210X.13289>
 
 Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and Interpretation. 2nd edition. Sinauer Associates, Sunderland, MA. ISBN-10: 0878930965
 
@@ -235,7 +235,7 @@ Demetrius, L. 1978. Adaptive value, entropy and survivorship curves. Nature 275:
 
 Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and the entropic principle of natural selection. Entropy 16: 5428-5522.
 
-de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising Keyfitz' entropy for studies of actuarial senescence and comparative demography. Methods in Ecology and Evolution, 14, 1312–1319. \doi{doi:10.1111/2041-210X.14083}
+de Vries, C., Bernard, C., & Salguero-Gómez, R. 2023. Discretising Keyfitz' entropy for studies of actuarial senescence and comparative demography. Methods in Ecology and Evolution, 14, 1312–1319. <doi:10.1111/2041-210X.14083>
 
 Morris, W. F. & Doak, D. F. 2003. Quantitative Conservation Biology: Theory and Practice of Population Viability Analysis. Sinauer Associates, Sunderland, MA. ISBN-10: 0878935460
 
