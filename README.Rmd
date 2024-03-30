@@ -257,10 +257,10 @@ For a complete list of functions see the package [Reference](https://jonesor.git
 
 Specific earlier releases of this package can be installed using the appropriate `@` tag. 
 
-For example to install version 0.1.0:
+For example to install version 1.0.0:
 
 ```{r, eval=FALSE}
-remotes::install_github("jonesor/Rage@v0.1.0")
+remotes::install_github("jonesor/Rage@v1.0.0")
 ```
 
 See the Changelog for more details.
