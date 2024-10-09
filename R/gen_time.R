@@ -13,13 +13,20 @@
 #'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction;
-#'   either sexual, clonal, or both).
+#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be 
+#'   constructed by summing \code{matF} and \code{matC}.
+#' @param matF (Optional) The matrix reflecting sexual reproduction. If provided 
+#'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If \code{matR} 
+#'   is provided, this argument is ignored.
+#' @param matC (Optional) The matrix reflecting clonal (asexual) reproduction. If 
+#'   provided without \code{matF}, \code{matF} is assumed to be a zero matrix. If 
+#'   \code{matR} is provided, this argument is ignored.
 #' @param method The method used to calculate generation time. Defaults to "R0".
 #'   See Details for explanation of calculations.
 #' @param ... Additional arguments passed to \code{net_repro_rate} when
 #'   \code{method = "R0"} or \code{mpm_to_*} when \code{method = "cohort"}.
-#'   Ignored when \code{method = "age_diff"}
-#'
+#'   Ignored when \code{method = "age_diff"}.
+
 #' @details
 #' There are multiple definitions of generation time, three of which are
 #' implemented by this function:
@@ -80,7 +87,11 @@
 #' )
 #'
 #' @export gen_time
-gen_time <- function(matU, matR, method = c("R0", "age_diff", "cohort"), ...) {
+gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL, method = c("R0", "age_diff", "cohort"), ...) {
+  
+  # Call the helper function to construct matR if not provided
+  matR <- process_fertility_inputs(matR, matF, matC)
+  
   method <- match.arg(method)
   # leave remaining arg validation to functions that depend on them
 

@@ -178,8 +178,8 @@ vr_vec_reproduction(matU, matR, exclude_col = "stage_4")
 \seealso{
 Other vital rates: 
 \code{\link{vital_rates}()},
-\code{\link{vr_mat}},
-\code{\link{vr}}
+\code{\link{vr}},
+\code{\link{vr_mat}}
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>

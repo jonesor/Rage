@@ -79,9 +79,9 @@ Wrycza, T.F. and Baudisch, A., 2014. The pace of aging: Intrinsic
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
+\code{\link{entropy_k}()},
 \code{\link{entropy_k_age}()},
 \code{\link{entropy_k_stage}()},
-\code{\link{entropy_k}()},
 \code{\link{gen_time}()},
 \code{\link{life_elas}()},
 \code{\link{life_expect_mean}()},

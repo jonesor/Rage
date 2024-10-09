@@ -101,8 +101,8 @@ Caswell, H. 2001. Matrix Population Models: Construction,
 \seealso{
 Other vital rates: 
 \code{\link{vital_rates}()},
-\code{\link{vr_vec}},
-\code{\link{vr}}
+\code{\link{vr}},
+\code{\link{vr_vec}}
 }
 \author{
 Patrick Barks <patrick.barks@gmail.com>
