@@ -194,7 +194,7 @@ life_expect_var <- function(matU, mixdist = NULL, start = 1L) {
   if (inherits(N, "try-error")) {
     return(NA_real_)
   } else {
-    expLCond_z_prelim <- life_expect_mean(matU, mixdist = NULL, start = NULL)
+    expLCond_z_prelim <- suppressWarnings(life_expect_mean(matU, mixdist = NULL, start = NULL))
 
     # Convert to a matrix, required for the calculations below
     expLCond_z <- matrix(expLCond_z_prelim, nrow = 1, ncol = nrow(matU))
