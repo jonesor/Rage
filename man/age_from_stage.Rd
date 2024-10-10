@@ -8,7 +8,16 @@
 \alias{mpm_to_hx}
 \title{Calculate age-specific traits from a matrix population model}
 \usage{
-mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
+mpm_to_mx(
+  matU,
+  matR = NULL,
+  matF = NULL,
+  matC = NULL,
+  start = 1L,
+  xmax = 1000,
+  lx_crit = 0.01,
+  tol = 1e-04
+)
 
 mpm_to_lx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)
 
@@ -22,10 +31,18 @@ square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
-\item{matR}{The reproductive component of a MPM (i.e., a
-square projection matrix reflecting transitions due to reproduction; either
-sexual, clonal, or both). Optionally with named rows and columns indicating
-the corresponding life stage names.}
+\item{matR}{The reproductive component of a matrix population model (i.e., a
+square projection matrix only reflecting transitions due to reproduction;
+either sexual, clonal, or both). If \code{matR} is not provided, it will be
+constructed by summing \code{matF} and \code{matC}.}
+
+\item{matF}{The matrix reflecting sexual reproduction. If provided
+without \code{matC}, \code{matC} is assumed to be a zero matrix. If
+\code{matR} is provided, this argument is ignored.}
+
+\item{matC}{The matrix reflecting clonal (asexual) reproduction.
+If provided without \code{matF}, \code{matF} is assumed to be a zero
+matrix. If \code{matR} is provided, this argument is ignored.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to \code{1}. Alternately, a
@@ -116,6 +133,10 @@ mpm_to_lx(mpm1$matU, start = n1)
 mpm_to_px(mpm1$matU, start = n1)
 mpm_to_hx(mpm1$matU, start = n1)
 mpm_to_mx(mpm1$matU, mpm1$matF, start = n1)
+
+# specifying matrices explictly
+mpm_to_mx(matU = mpm1$matU, matF = mpm1$matF, start = n1)
+mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = n1)
 
 }
 \references{
