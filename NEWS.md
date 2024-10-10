@@ -1,6 +1,8 @@
 # Rage (development version)
 
--   Improved consistency in the handling of reproductive matrices (**F** (sexual reproduction), **C** (clonal reproduction), **R** (clonal and sexual reproduction combined)) across multiple functions. These are: gen_time.
+-   Improved consistency in the handling of reproductive matrices (**F** (sexual reproduction), **C** (clonal reproduction), **R** (clonal and sexual reproduction combined)) across multiple functions. These are: `gen_time`, `mature_prob`, `mature_age`, `mpm_to_table`, `mpm_to_mx`.
+    \\
+    Following this change, we recommend that users explicitly name their arguments rather than relying on argument order, since the argument order has changed with this update. Update your existing code accordingly if you notice unexpected behaviour.
 
 # Rage 1.7.0
 
