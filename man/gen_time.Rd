@@ -23,11 +23,11 @@ square projection matrix only reflecting transitions due to reproduction;
 either sexual, clonal, or both). If \code{matR} is not provided, it will be
 constructed by summing \code{matF} and \code{matC}.}
 
-\item{matF}{(Optional) The matrix reflecting sexual reproduction. If provided
+\item{matF}{The matrix reflecting sexual reproduction. If provided
 without \code{matC}, \code{matC} is assumed to be a zero matrix. If
 \code{matR} is provided, this argument is ignored.}
 
-\item{matC}{(Optional) The matrix reflecting clonal (asexual) reproduction.
+\item{matC}{The matrix reflecting clonal (asexual) reproduction.
 If provided without \code{matF}, \code{matF} is assumed to be a zero
 matrix. If \code{matR} is provided, this argument is ignored.}
 
