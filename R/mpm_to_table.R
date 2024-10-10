@@ -9,14 +9,16 @@
 #'   square projection matrix reflecting survival-related transitions; e.g.,
 #'   progression, stasis, and/or retrogression). Optionally with named rows and
 #'   columns indicating the corresponding life stage names.
-#' @param matF (Optional) The sexual component of a matrix population model
-#'   (i.e., a square projection matrix reflecting transitions due to sexual
-#'   reproduction). Optionally with named rows and columns indicating the
-#'   corresponding life stage names.
-#' @param matC (Optional) The clonal component of a matrix population model
-#'   (i.e., a square projection matrix reflecting transitions due to clonal
-#'   reproduction). Optionally with named rows and columns indicating the
-#'   corresponding life stage names.
+#' @param matR The reproductive component of a matrix population model (i.e., a
+#'   square projection matrix only reflecting transitions due to reproduction;
+#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be
+#'   constructed by summing \code{matF} and \code{matC}.
+#' @param matF The matrix reflecting sexual reproduction. If provided
+#'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If
+#'   \code{matR} is provided, this argument is ignored.
+#' @param matC The matrix reflecting clonal (asexual) reproduction.
+#'   If provided without \code{matF}, \code{matF} is assumed to be a zero
+#'   matrix. If \code{matR} is provided, this argument is ignored.
 #' @param start The index (or stage name) of the first stage at which the author
 #'   considers the beginning of life. Defaults to \code{1}. Alternately, a
 #'   numeric vector giving the starting population vector (in which case
@@ -71,6 +73,8 @@
 #'   \code{[x, x+1)}}
 #'   \item{lxcx}{expected number of clonal offspring per original
 #'   cohort member produced during the interval \code{[x, x+1)}}
+#'
+#' If only \code{matR} is provided, the calculations proceed as with \code{matF}.
 #'
 #' If both \code{matF} and \code{matC} are provided, also includes:
 #'   \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) during
@@ -156,16 +160,37 @@
 #'
 #' # equivalent using named life stages
 #' mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)
-#' mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
+#' mpm_to_table(matU = mpm1$matU, matR = mpm1$matF, start = 2, xmax = 15)
 #'
 #' ### starting from first reproduction
 #' repStages <- repro_stages(mpm1$matF)
 #' n1 <- mature_distrib(matU = mpm1$matU, start = 2, repro_stages = repStages)
 #' mpm_to_table(matU = mpm1$matU, start = n1)
 #' @export mpm_to_table
-mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
+mpm_to_table <- function(matU, matR = NULL, matF = NULL, matC = NULL, start = 1L,
                          xmax = 1000, lx_crit = 0.01, radix = 1,
                          remove_final = FALSE) {
+  
+  # Handle reproduction matrices R, F and C
+  # Check if matR is provided and matF and matC are NULL
+  if (!is.null(matR) && is.null(matF) && is.null(matC)) {
+    # If only matR is provided, assume matR = matF, set matC to NULL
+    matF <- matR
+    matC <- NULL
+  } else if (!is.null(matF) && is.null(matR) && is.null(matC)) {
+    # If only matF is provided, use matF and set matC to NULL
+    matC <- NULL
+  } else if (!is.null(matC) && is.null(matR) && is.null(matF)) {
+    # If only matC is provided, use matC and set matF to NULL
+    matF <- NULL
+  } else if (!is.null(matF) && !is.null(matC)) {
+    # If both matF and matC are provided, use them unchanged
+    # No changes required, matF and matC stay as they are
+  } #else {
+    # Handle case where no valid combination of inputs is provided
+  #  stop("Invalid combination of inputs: Provide either matR, matF, or matC, or both matF and matC.")
+  #}
+  
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   if (!is.null(matF)) checkValidMat(matF)
@@ -206,7 +231,6 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
 
   # Probability of surviving between x and x+1 (px)
   px <- 1 - qx
-
 
   # Person-years lived between x and x+1
   # We use an ax value of 0.5, which means that we implicitly assume that deaths
@@ -259,13 +283,14 @@ mpm_to_table <- function(matU, matF = NULL, matC = NULL, start = 1L,
     )
   }
 
+  # Reproduction
   if (!is.null(matF)) {
-    out$mx <- mpm_to_mx(matU, matF, start, xmax = N - 1, lx_crit = lx_crit)
+    out$mx <- mpm_to_mx(matU = matU, matF = matF, start = start, xmax = N - 1, lx_crit = lx_crit)
     out$lxmx <- out$lx * out$mx
   }
 
   if (!is.null(matC)) {
-    out$cx <- mpm_to_mx(matU, matC, start, xmax = N - 1, lx_crit = lx_crit)
+    out$cx <- mpm_to_mx(matU = matU, matC = matC, start = start, xmax = N - 1, lx_crit = lx_crit)
     out$lxcx <- out$lx * out$cx
   }
 
