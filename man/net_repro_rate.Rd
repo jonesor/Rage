@@ -4,7 +4,14 @@
 \alias{net_repro_rate}
 \title{Calculate net reproductive rate (R0) from a matrix population model}
 \usage{
-net_repro_rate(matU, matR, start = 1, method = "generation")
+net_repro_rate(
+  matU,
+  matR = NULL,
+  matF = NULL,
+  matC = NULL,
+  start = 1,
+  method = "generation"
+)
 }
 \arguments{
 \item{matU}{The survival component of a matrix population model (i.e., a
@@ -12,7 +19,18 @@ square projection matrix reflecting survival-related transitions; e.g.
 progression, stasis, and retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
-\item{matR}{The fertility component of a matrix population model.}
+\item{matR}{The reproductive component of a matrix population model (i.e., a
+square projection matrix only reflecting transitions due to reproduction;
+either sexual, clonal, or both). If \code{matR} is not provided, it will be
+constructed by summing \code{matF} and \code{matC}.}
+
+\item{matF}{The matrix reflecting sexual reproduction. If provided
+without \code{matC}, \code{matC} is assumed to be a zero matrix. If
+\code{matR} is provided, this argument is ignored.}
+
+\item{matC}{The matrix reflecting clonal (asexual) reproduction.
+If provided without \code{matF}, \code{matF} is assumed to be a zero
+matrix. If \code{matR} is provided, this argument is ignored.}
 
 \item{start}{Index (or stage name) of the first stage at which the author
 considers the beginning of life. Only used if \code{method = "start"}.
@@ -54,8 +72,16 @@ net_repro_rate(mpm1$matU, mpm1$matF)
 
 # calculate R0 using the start method, specifying either the life stage index
 # or name
-net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 2)
-net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "small")
+net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = 1)
+net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "seed")
+
+# It is usually better to explicitly name the arguments, rather than relying
+on order.
+net_repro_rate(matU = mpm1$matU, matF = mpm1$matF, 
+method = "start", start = 1)
+
+net_repro_rate(matU = mpm1$matU, matR = mpm1$matF, 
+method = "start", start = "seed")
 
 }
 \references{
