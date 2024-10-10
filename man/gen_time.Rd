@@ -20,16 +20,16 @@ progression, stasis, and retrogression).}
 
 \item{matR}{The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction;
-either sexual, clonal, or both). If \code{matR} is not provided, it will be 
+either sexual, clonal, or both). If \code{matR} is not provided, it will be
 constructed by summing \code{matF} and \code{matC}.}
 
-\item{matF}{(Optional) The matrix reflecting sexual reproduction. If provided 
-without \code{matC}, \code{matC} is assumed to be a zero matrix. If \code{matR} 
-is provided, this argument is ignored.}
-
-\item{matC}{(Optional) The matrix reflecting clonal (asexual) reproduction. If 
-provided without \code{matF}, \code{matF} is assumed to be a zero matrix. If 
+\item{matF}{(Optional) The matrix reflecting sexual reproduction. If provided
+without \code{matC}, \code{matC} is assumed to be a zero matrix. If
 \code{matR} is provided, this argument is ignored.}
+
+\item{matC}{(Optional) The matrix reflecting clonal (asexual) reproduction.
+If provided without \code{matF}, \code{matF} is assumed to be a zero
+matrix. If \code{matR} is provided, this argument is ignored.}
 
 \item{method}{The method used to calculate generation time. Defaults to "R0".
 See Details for explanation of calculations.}
@@ -85,6 +85,7 @@ data(mpm1)
 
 # calculate generation time
 gen_time(matU = mpm1$matU, matR = mpm1$matF) # defaults to "R0" method
+gen_time(matU = mpm1$matU, matF = mpm1$matF) # defaults to "R0" method
 gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "age_diff")
 gen_time(
   matU = mpm1$matU, matR = mpm1$matF, method = "cohort", lx_crit =
