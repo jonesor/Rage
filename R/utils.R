@@ -204,19 +204,25 @@ reproductive.value <- function(x) {
 
 #' @noRd
 process_fertility_inputs <- function(matR = NULL, matF = NULL, matC = NULL) {
-  # Check if matR is provided
-  if (is.null(matR)) {
-    # If matF is NULL and matC is provided, assume matF is a zero matrix
-    if (is.null(matF) && !is.null(matC)) {
-      matF <- matrix(0, nrow = nrow(matC), ncol = ncol(matC))
-    }
-    # If matF is provided but matC is NULL, assume matC is a zero matrix
-    if (!is.null(matF) && is.null(matC)) {
-      matC <- matrix(0, nrow = nrow(matF), ncol = ncol(matF))
-    }
-    # Combine matF and matC to create matR
-    matR <- matF + matC
+  # If matR is provided, return it as is
+  if (!is.null(matR)) {
+    return(matR)
   }
+  
+  # If matR is NULL, process matF and matC
+  if (!is.null(matF) && is.null(matC)) {
+    # If matF is provided but matC is NULL, assume matC is a zero matrix
+    matC <- matrix(0, nrow = nrow(matF), ncol = ncol(matF))
+  } else if (is.null(matF) && !is.null(matC)) {
+    # If matC is provided but matF is NULL, assume matF is a zero matrix
+    matF <- matrix(0, nrow = nrow(matC), ncol = ncol(matC))
+  } else if (is.null(matF) && is.null(matC)) {
+    # If both matF and matC are NULL, return NULL
+    return(NULL)
+  }
+  
+  # Combine matF and matC to create matR
+  matR <- matF + matC
   
   # Return the constructed matR
   return(matR)
