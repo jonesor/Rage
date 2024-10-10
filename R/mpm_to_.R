@@ -120,6 +120,7 @@
 #' # specifying matrices explictly
 #' mpm_to_mx(matU = mpm1$matU, matF = mpm1$matF, start = n1)
 #' mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = n1)
+#' mpm_to_mx(matU = mpm1$matU, matC = mpm1$matF, start = n1)
 #' 
 #' @name age_from_stage
 NULL
@@ -130,13 +131,14 @@ NULL
 mpm_to_mx <- function(matU, matR = NULL, matF = NULL, matC = NULL, 
                       start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
+  
   # Call the helper function to construct matR if not provided
-  matR <- process_fertility_inputs(matR, matF, matC)
+  matR <- process_fertility_inputs(matR = matR, matF = matF, matC = matC)
   
   # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
 
-  N <- length(mpm_to_lx(matU, start, xmax, lx_crit, tol))
+  N <- length(mpm_to_lx(matU = matU, start, xmax, lx_crit, tol))
 
   if (length(start) == 1) {
     start_vec <- rep(0.0, nrow(matU))
