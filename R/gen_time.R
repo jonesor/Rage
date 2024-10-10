@@ -15,10 +15,10 @@
 #'   square projection matrix only reflecting transitions due to reproduction;
 #'   either sexual, clonal, or both). If \code{matR} is not provided, it will be
 #'   constructed by summing \code{matF} and \code{matC}.
-#' @param matF (Optional) The matrix reflecting sexual reproduction. If provided
+#' @param matF The matrix reflecting sexual reproduction. If provided
 #'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If
 #'   \code{matR} is provided, this argument is ignored.
-#' @param matC (Optional) The matrix reflecting clonal (asexual) reproduction.
+#' @param matC The matrix reflecting clonal (asexual) reproduction.
 #'   If provided without \code{matF}, \code{matF} is assumed to be a zero
 #'   matrix. If \code{matR} is provided, this argument is ignored.
 #' @param method The method used to calculate generation time. Defaults to "R0".
