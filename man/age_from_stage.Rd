@@ -137,6 +137,7 @@ mpm_to_mx(mpm1$matU, mpm1$matF, start = n1)
 # specifying matrices explictly
 mpm_to_mx(matU = mpm1$matU, matF = mpm1$matF, start = n1)
 mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = n1)
+mpm_to_mx(matU = mpm1$matU, matC = mpm1$matF, start = n1)
 
 }
 \references{
