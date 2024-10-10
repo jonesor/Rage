@@ -9,13 +9,18 @@
 #' reproductive maturity among stage class (\code{mature_distrib}).
 #'
 #' @param matU The survival component of a matrix population model (i.e., a
-#'   square projection matrix reflecting survival-related transitions; e.g.
-#'   progression, stasis, and retrogression). Optionally with named rows and
-#'   columns indicating the corresponding life stage names.
+#'   square projection matrix reflecting survival-related transitions; e.g.,
+#'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e., a
-#'   square projection matrix reflecting transitions due to reproduction; either
-#'   sexual, clonal, or both). Optionally with named rows and columns indicating
-#'   the corresponding life stage names.
+#'   square projection matrix only reflecting transitions due to reproduction;
+#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be
+#'   constructed by summing \code{matF} and \code{matC}.
+#' @param matF (Optional) The matrix reflecting sexual reproduction. If provided
+#'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If
+#'   \code{matR} is provided, this argument is ignored.
+#' @param matC (Optional) The matrix reflecting clonal (asexual) reproduction.
+#'   If provided without \code{matF}, \code{matF} is assumed to be a zero
+#'   matrix. If \code{matR} is provided, this argument is ignored.
 #' @param start The index (or stage name) of the first stage at which the author
 #'   considers the beginning of life. Defaults to \code{1}.
 #' @param repro_stages A vector of stage names or indices indicating which
@@ -44,8 +49,10 @@
 #' @examples
 #' data(mpm1)
 #'
+#' mature_prob(matU = mpm1$matU, matR = mpm1$matF, start = 2)
 #' mature_prob(mpm1$matU, mpm1$matF, start = 2)
-#' mature_age(mpm1$matU, mpm1$matF, start = 2)
+#' mature_age(matU = mpm1$matU, matR = mpm1$matF, start = 2)
+#' mature_age(matU = mpm1$matU, matF = mpm1$matF, start = 2)
 #'
 #' ### distribution of first reproductive maturity among stage classes
 #' repstage <- repro_stages(mpm1$matF)
@@ -57,7 +64,12 @@ NULL
 
 #' @rdname repro_maturity
 #' @export mature_prob
-mature_prob <- function(matU, matR, start = 1L) {
+mature_prob <- function(matU, matR = NULL, matF = NULL, 
+                        matC = NULL, start = 1L) {
+  
+  # Call the helper function to construct matR if not provided
+  matR <- process_fertility_inputs(matR, matF, matC)
+  
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
@@ -75,7 +87,12 @@ mature_prob <- function(matU, matR, start = 1L) {
 
 #' @rdname repro_maturity
 #' @export mature_age
-mature_age <- function(matU, matR, start = 1L) {
+mature_age <- function(matU, matR = NULL, matF = NULL, 
+                       matC = NULL, start = 1L) {
+  
+  # Call the helper function to construct matR if not provided
+  matR <- process_fertility_inputs(matR, matF, matC)
+  
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
