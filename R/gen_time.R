@@ -13,14 +13,14 @@
 #'   progression, stasis, and retrogression).
 #' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction;
-#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be 
+#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be
 #'   constructed by summing \code{matF} and \code{matC}.
-#' @param matF (Optional) The matrix reflecting sexual reproduction. If provided 
-#'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If \code{matR} 
-#'   is provided, this argument is ignored.
-#' @param matC (Optional) The matrix reflecting clonal (asexual) reproduction. If 
-#'   provided without \code{matF}, \code{matF} is assumed to be a zero matrix. If 
+#' @param matF (Optional) The matrix reflecting sexual reproduction. If provided
+#'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If
 #'   \code{matR} is provided, this argument is ignored.
+#' @param matC (Optional) The matrix reflecting clonal (asexual) reproduction.
+#'   If provided without \code{matF}, \code{matF} is assumed to be a zero
+#'   matrix. If \code{matR} is provided, this argument is ignored.
 #' @param method The method used to calculate generation time. Defaults to "R0".
 #'   See Details for explanation of calculations.
 #' @param ... Additional arguments passed to \code{net_repro_rate} when
@@ -80,6 +80,7 @@
 #'
 #' # calculate generation time
 #' gen_time(matU = mpm1$matU, matR = mpm1$matF) # defaults to "R0" method
+#' gen_time(matU = mpm1$matU, matF = mpm1$matF) # defaults to "R0" method
 #' gen_time(matU = mpm1$matU, matR = mpm1$matF, method = "age_diff")
 #' gen_time(
 #'   matU = mpm1$matU, matR = mpm1$matF, method = "cohort", lx_crit =
@@ -87,7 +88,8 @@
 #' )
 #'
 #' @export gen_time
-gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL, method = c("R0", "age_diff", "cohort"), ...) {
+gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL, 
+                     method = c("R0", "age_diff", "cohort"), ...) {
   
   # Call the helper function to construct matR if not provided
   matR <- process_fertility_inputs(matR, matF, matC)
