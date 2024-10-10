@@ -6,6 +6,7 @@
 \usage{
 mpm_to_table(
   matU,
+  matR = NULL,
   matF = NULL,
   matC = NULL,
   start = 1L,
@@ -21,15 +22,18 @@ square projection matrix reflecting survival-related transitions; e.g.,
 progression, stasis, and/or retrogression). Optionally with named rows and
 columns indicating the corresponding life stage names.}
 
-\item{matF}{(Optional) The sexual component of a matrix population model
-(i.e., a square projection matrix reflecting transitions due to sexual
-reproduction). Optionally with named rows and columns indicating the
-corresponding life stage names.}
+\item{matR}{The reproductive component of a matrix population model (i.e., a
+square projection matrix only reflecting transitions due to reproduction;
+either sexual, clonal, or both). If \code{matR} is not provided, it will be
+constructed by summing \code{matF} and \code{matC}.}
 
-\item{matC}{(Optional) The clonal component of a matrix population model
-(i.e., a square projection matrix reflecting transitions due to clonal
-reproduction). Optionally with named rows and columns indicating the
-corresponding life stage names.}
+\item{matF}{The matrix reflecting sexual reproduction. If provided
+without \code{matC}, \code{matC} is assumed to be a zero matrix. If
+\code{matR} is provided, this argument is ignored.}
+
+\item{matC}{The matrix reflecting clonal (asexual) reproduction.
+If provided without \code{matF}, \code{matF} is assumed to be a zero
+matrix. If \code{matR} is provided, this argument is ignored.}
 
 \item{start}{The index (or stage name) of the first stage at which the author
 considers the beginning of life. Defaults to \code{1}. Alternately, a
@@ -90,6 +94,8 @@ If \code{matC} is provided, also includes:
   \code{[x, x+1)}}
   \item{lxcx}{expected number of clonal offspring per original
   cohort member produced during the interval \code{[x, x+1)}}
+
+If only \code{matR} is provided, the calculations proceed as with \code{matF}.
 
 If both \code{matF} and \code{matC} are provided, also includes:
   \item{mxcx}{per-capita rate of total reproduction (sexual + clonal) during
@@ -153,7 +159,7 @@ mpm_to_table(matU = mpm1$matU, start = 2, xmax = 15)
 
 # equivalent using named life stages
 mpm_to_table(matU = mpm1$matU, start = "small", xmax = 15)
-mpm_to_table(matU = mpm1$matU, matF = mpm1$matF, start = 2, xmax = 15)
+mpm_to_table(matU = mpm1$matU, matR = mpm1$matF, start = 2, xmax = 15)
 
 ### starting from first reproduction
 repStages <- repro_stages(mpm1$matF)
