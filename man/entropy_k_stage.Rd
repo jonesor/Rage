@@ -39,6 +39,7 @@ Keyfitz, N. 1977. Applied Mathematical Demography. New York:
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
+\code{\link{entropy_d2}()},
 \code{\link{entropy_k}()},
 \code{\link{entropy_k_age}()},
 \code{\link{gen_time}()},
