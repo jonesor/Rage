@@ -3,10 +3,11 @@
 * This is a minor update. Adding an additional option to a function and improving consistency in data handling. Minor bug fixes.
 
 ## Test environments
-- R-hub x86_64-pc-linux-gnu (r-devel)
-- R-hub x86_64-apple-darwin20 (r-devel)
-- R-hub aarch64-apple-darwin20 (r-devel)
-- R-hub x86_64-w64-mingw32 (r-devel)
+
+- Rhub linux ubuntu-latest on Github
+- Rhub macos macos-latest on Github
+- Rhub macos-arm64 macos-14 on Github
+- Rhub windows windows-latest on Github
 
 ── Rage 1.8.0, Install OK with no notes on all test environments
 
