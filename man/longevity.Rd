@@ -80,7 +80,6 @@ individuals achieving reproductive maturity in each stage class.
 
 Other life history traits: 
 \code{\link{entropy_d}()},
-\code{\link{entropy_d2}()},
 \code{\link{entropy_k}()},
 \code{\link{entropy_k_age}()},
 \code{\link{entropy_k_stage}()},

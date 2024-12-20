@@ -229,7 +229,6 @@ process_fertility_inputs <- function(matR = NULL, matF = NULL, matC = NULL) {
 }
 
 #' @noRd
-#' Used in entropy.d
 get.leslie <- function(lx, mx) {
   nage <- length(lx)
   A <- matrix(0, nrow = nage, ncol = nage)

@@ -77,7 +77,6 @@ Caswell, H. 2001. Matrix Population Models: Construction,
 \seealso{
 Other life history traits: 
 \code{\link{entropy_d}()},
-\code{\link{entropy_d2}()},
 \code{\link{entropy_k}()},
 \code{\link{entropy_k_age}()},
 \code{\link{entropy_k_stage}()},
