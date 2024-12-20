@@ -1,8 +1,8 @@
-# Rage (development version)
+# Rage 1.8.0
 
 -   Improved consistency in the handling of reproductive matrices (**F** (sexual reproduction), **C** (clonal reproduction), **R** (clonal and sexual reproduction combined)) across multiple functions. These are: `gen_time`, `mature_prob`, `mature_age`, `mpm_to_table`, `mpm_to_mx`.
-    \\
     Following this change, we recommend that users explicitly name their arguments rather than relying on argument order, since the argument order has changed with this update. Update your existing code accordingly if you notice unexpected behaviour.
+-   Modified `entropy_d` to include an option to scale the entropy calculations to account for population growth/shrinkage. Users can now choose between the `scaled` (Caswell, 2001 eqns. 4.94-4.97) or `unscaled` (from Demetrius 1978) method. The default is `scaled` and thus re-running old code will likely change outputs that relied on `entropy_d`.
 
 # Rage 1.7.0
 

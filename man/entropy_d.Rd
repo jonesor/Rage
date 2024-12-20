@@ -5,7 +5,7 @@
 \title{Calculate Demetrius' entropy from trajectories of age-specific survivorship
 and fecundity}
 \usage{
-entropy_d(lx, mx, ...)
+entropy_d(lx, mx, type = "scaled", ...)
 }
 \arguments{
 \item{lx}{Either a survivorship trajectory (a vector of
@@ -13,7 +13,9 @@ monotonically-declining values in the interval [0,1]), or submatrix U from
 a matrix population model.}
 
 \item{mx}{Either an age-specific fecundity trajectory (a vector of
-non-negative values), or submatrix U from a matrix population model.}
+non-negative values), or submatrix F from a matrix population model.}
+
+\item{type}{Calculation type, either `scaled` (default) or `unscaled`.}
 
 \item{...}{Additional variables passed to `mpm_to_lx` and `mpm_to_mx` if the
 data are supplied as matrices. This could include the `start` argument to
@@ -24,7 +26,18 @@ Demetrius' entropy.
 }
 \description{
 This function calculates Demetrius' entropy from vectors of age-specific
-survivorship (\code{lx}) and fecundity (\code{mx}).
+survivorship (\code{lx}) and fecundity (\code{mx}). Users can choose between
+the scaled (Caswell, 2001 eqns. 4.94-4.97) or unscaled (from Demetrius 1978)
+method.
+}
+\details{
+The scaled version accounts for population growth or shrinkage by adjusting
+the contributions of survivorship and fecundity using the dominant eigenvalue
+(lambda). Specifically, each contribution is weighted by lambda raised
+to the negative power of age. Conversely, the unscaled version does not
+account for population growth. It calculates entropy directly from the
+proportional contributions of survivorship and fecundity without adjustment
+for population dynamics.
 }
 \section{Warning}{
  Note that this function may produce unexpected results if
@@ -41,16 +54,20 @@ data(mpm1)
 lx <- mpm_to_lx(mpm1$matU, start = 2)
 mx <- mpm_to_mx(mpm1$matU, mpm1$matF, start = 2)
 
-# calculate Demetrius' entropy
-entropy_d(lx, mx)
+entropy_d(lx, mx, type = "unscaled")
+entropy_d(lx, mx, type = "scaled")
 
-# calculate Demetrius' entropy directly from MPM
+
+# calculate entropy directly from MPM
 entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = 2)
 
 }
 \references{
-Demetrius, L., & Gundlach, V. M. 2014. Directionality theory and
-  the entropic principle of natural selection. Entropy 16: 5428-5522.
+Demetrius, L. 1978. Adaptive value, entropy and survivorship
+  curves. Nature, 275(5677), 213–214.
+  
+  Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
+  Interpretation. Sinauer Associates.
 }
 \seealso{
 Other life history traits: 
@@ -70,5 +87,9 @@ Other life history traits:
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>
 
 Patrick Barks <patrick.barks@gmail.com>
+
+Richard Hinrichsen <rich@hinrichsenenvironmental.com>
+
+Owen Jones <jones@biology.sdu.dk>
 }
 \concept{life history traits}
