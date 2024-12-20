@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
+  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -300,7 +300,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "547.099KB",
+  "fileSize": "559.03KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -389,7 +389,6 @@
     }
   ],
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
-  "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
   "contIntegration": ["https://github.com/jonesor/Rage/actions", "https://github.com/jonesor/Rage/actions", "https://app.codecov.io/gh/jonesor/Rage"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "relatedLink": "https://CRAN.R-project.org/package=Rage"
