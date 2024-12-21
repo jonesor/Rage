@@ -1,6 +1,7 @@
 ## R CMD check results
 
 * This is a minor update. Adding an additional option to a function and improving consistency in data handling. Minor bug fixes.
+* Fixed URL in a01_GettingStarted.html
 
 ## Test environments
 
