@@ -437,7 +437,7 @@ trajectories through the life cycle.
 `Rage` provides functions to calculate a wide range of life history traits from 
 both MPMs and life tables. We illustrate the general pattern of these functions 
 below, referring the reader to the [LifeHistoryTraits vignette](a03_LifeHistoryTraits.html)
-and the [documentation webpage](reference/index.html) 
+and the [documentation webpage](https://jonesor.github.io/Rage/reference/index.html) 
 for a complete list of functionality.
 
 MPM-based analyses take the required submatrix (or submatrices), optionally allowing
