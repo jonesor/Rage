@@ -86,7 +86,8 @@ Other life history traits:
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
 \code{\link{shape_rep}()},
-\code{\link{shape_surv}()}
+\code{\link{shape_surv}()},
+\code{\link{stage_at_death_dist}()}
 }
 \author{
 Roberto Salguero-Gomez <rob.salguero@zoo.ox.ac.uk>

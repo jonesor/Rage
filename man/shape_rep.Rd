@@ -95,7 +95,8 @@ Other life history traits:
 \code{\link{longevity}()},
 \code{\link{net_repro_rate}()},
 \code{\link{repro_maturity}},
-\code{\link{shape_surv}()}
+\code{\link{shape_surv}()},
+\code{\link{stage_at_death_dist}()}
 }
 \author{
 Iain Stott <iainmstott@gmail.com>
