@@ -122,10 +122,8 @@ gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL,
     if (inherits(N, "try-error") && grepl("singular", N[1], fixed = TRUE)) {
       out <- NA_real_
     } else {
-      lx <- mpm_to_lx(matU, ...)
-      mx <- mpm_to_mx(matU, matR, ...)
-      x <- seq_along(lx)
-      out <- sum(x * lx * mx) / sum(lx * mx)
+      lt <- mpm_to_table(matU = matU, matF = matR, ...)  # passes start/xmax/lx_crit via ...
+      out <- sum(lt$x * lt$lx * lt$mx) / sum(lt$lx * lt$mx)
     }
   } else {
     stop("Unsupported method. Must be either 'R0', 'age_diff', or 'cohort'.")
