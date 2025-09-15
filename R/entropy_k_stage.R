@@ -1,7 +1,17 @@
 #' Calculate Keyfitz entropy for a stage-based matrix population model
 #'
-#' Computes Keyfitz entropy from the U submatrix of a stage-based (Lefkovitch)
-#' matrix population model.
+#' Computes the discrete-time Keyfitz entropy for a stage-based (Lefkovitch) matrix
+#' population model using the **U** submatrix. This implementation follows the
+#' life-disparity / life-expectancy formulation (H_N) adapted to stage models (H_N^+):
+#' it projects survivorship directly from \code{Umat} and quantifies the dispersion of
+#' **ages at death** (in projection steps) relative to mean life expectancy.
+#' 
+#' \strong{Interpretation.} Values reflect the \emph{shape} of mortality across age:
+#' \itemize{
+#'   \item \eqn{H < 1}: increasing mortality with age (senescence)
+#'   \item \eqn{H = 1}: approximately age-constant mortality
+#'   \item \eqn{H > 1}: decreasing mortality with age (negative senescence)
+#' }
 #'
 #' @param Umat A square numeric matrix representing the U submatrix of a
 #'   stage-based (Lefkovitch) matrix population model.
@@ -12,15 +22,27 @@
 #'   to 1000 if no information is provided.
 #' @param n_is_maxage If TRUE, survival p_n is set to zero. Defaults to FALSE.
 #'
-#' @return Returns a single numeric value representing the Keyfitz entropy
-#' for the given matrix. This value quantifies the dispersion of age at death.
+#' @return Returns a single numeric value representing the Keyfitz entropy for
+#'   the given matrix. This value quantifies the dispersion of age at death (not
+#'   stage at death).
+#'   
+#' @details
+#' The function avoids age-from-stage preprocessing by obtaining survivorship
+#' from successive powers of \eqn{U} up to \code{max_age}. In pure age-class
+#' (Leslie) models with \eqn{k} age classes and no persistence in the terminal
+#' class, using \code{max_age = k} recovers the exact discrete-time value.
 #'
+#' The result depends on the starting cohort \code{init_distrib} (e.g., all
+#' recruits, a single stage, or recruits at equilibrium). Choose \code{init_distrib}
+#' to match the biological question.
+#' 
 #' @author Stefano Giaimo <giaimo@@evolbio.mpg.de>
 #' @author Owen Jones <jones@@biology.sdu.dk>
 #'
-#' @references Keyfitz, N. 1977. Applied Mathematical Demography. New York:
-#'   Wiley.
-#'
+#' @references 
+#' Keyfitz, N. 1977. Applied Mathematical Demography. New York: Wiley.
+#' Giaimo S. 2024. Discretising and validating Keyfitz entropy for any demographic
+#' classification. Methods in Ecology and Evolution. 15, 1278–1285.
 #'
 #' @family life history traits
 #' @examples

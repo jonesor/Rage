@@ -1,3 +1,10 @@
+# Rage (development version)
+
+-   Added function `stage_at_death_dist` which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.
+-   Added function `evenness_shannon` to calculate the evenness of the stages at death.
+-   Improved documentation for `entropy_k_stage`.
+-   Fixed error in `gen_time` which caused an over estimate of generation time under `method = "cohort"` of 1 year.
+
 # Rage 1.8.0
 
 -   Improved consistency in the handling of reproductive matrices (**F** (sexual reproduction), **C** (clonal reproduction), **R** (clonal and sexual reproduction combined)) across multiple functions. These are: `gen_time`, `mature_prob`, `mature_age`, `mpm_to_table`, `mpm_to_mx`.

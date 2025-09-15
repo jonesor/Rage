@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0.9000</span>
       </span>
     </div>
 
@@ -69,6 +69,13 @@
       <small>Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="development version" id="rage-development-version">Rage (development version)<a class="anchor" aria-label="anchor" href="#rage-development-version"></a></h2>
+<ul><li>Added function <code>stage_at_death_dist</code> which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.</li>
+<li>Added function <code>evenness_shannon</code> to calculate the evenness of the stages at death.</li>
+<li>Improved documentation for <code>entropy_k_stage</code>.</li>
+<li>Fixed error in <code>gen_time</code> which caused an over estimate of generation time under <code>method = "cohort"</code> of 1 year.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.0" id="rage-180">Rage 1.8.0<small>2025-01-07</small><a class="anchor" aria-label="anchor" href="#rage-180"></a></h2>
 <ul><li>Improved consistency in the handling of reproductive matrices (<strong>F</strong> (sexual reproduction), <strong>C</strong> (clonal reproduction), <strong>R</strong> (clonal and sexual reproduction combined)) across multiple functions. These are: <code>gen_time</code>, <code>mature_prob</code>, <code>mature_age</code>, <code>mpm_to_table</code>, <code>mpm_to_mx</code>. Following this change, we recommend that users explicitly name their arguments rather than relying on argument order, since the argument order has changed with this update. Update your existing code accordingly if you notice unexpected behaviour.</li>

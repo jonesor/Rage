@@ -1,0 +1,51 @@
+#' Shannon Evenness (Pielou's J)
+#'
+#' Computes the general Shannon evenness index (aka Pielou's J), defined as the
+#' ratio of the observed Shannon entropy to the maximum possible entropy given
+#' the number of categories. This function is included here because Shannon
+#' evenness can be applied to stage-at-death distributions to quantify how
+#' evenly deaths are distributed across stages.
+#'
+#' @param p A numeric vector of counts or probabilities. If counts are
+#'   provided, they are normalised to sum to 1 internally.
+#'
+#' @return A numeric value between 0 and 1 representing Shannon evenness. A
+#'   value of 1 indicates an even distribution, while low values indicate uneven
+#'   distributions. A value of 0 indicates that all deaths are lumped into one
+#'   stage.
+#'
+#' @details Zero entries in \code{p} contribute nothing to entropy
+#'   but do count towards the total number of categories when computing
+#'   the maximum entropy (\eqn{H_\max = \log(K)}).
+#'
+#' @examples
+#' #Even
+#' evenness_shannon(c(0.2,0.2,0.2,0.2,0.2))
+#' 
+#' #Skewed
+#' evenness_shannon(c(0.8,0.1,0.05,0.03,0.02))
+#' 
+#' evenness_shannon(c(1,0,0,0,0))
+#' 
+#' #From a matrix model's stage at death distribution
+#' data(mpm1)
+#' matA <- mpm1$matU + mpm1$matF
+#' ssd <- popdemo::eigs(matA, "ss")
+#' x <- stage_at_death_dist(mpm1$matU, start = ssd)
+#' evenness_shannon(x)
+#'
+#' @export
+evenness_shannon <- function(p) {
+  # 1) Normalise
+  p <- p / sum(p)
+  
+  # 2) Compute per-category contributions, zeros handled explicitly
+  nz <- p > 0
+  contrib <- numeric(length(p))       # default 0 for p == 0
+  contrib[nz] <- p[nz] * log(p[nz])   # compute only where p > 0
+  
+  # 3) Entropy and evenness
+  H <- -sum(contrib)
+  J <- H / log(length(p))
+  return(J)
+}

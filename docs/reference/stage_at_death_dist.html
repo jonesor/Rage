@@ -20,7 +20,7 @@ stage."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0.9000</span>
       </span>
     </div>
 
@@ -154,13 +154,15 @@ also assumes that all stages are transient (i.e. eventual death is certain).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Starting entirely in stage 1</span></span></span>
 <span class="r-in"><span><span class="fu">stage_at_death_dist</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in stage_at_death_dist(mpm1$matU, start = c(1, 0, 0, 0, 0)):</span> object 'n' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        seed       small      medium       large     dormant </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.944444444 0.033560934 0.011939742 0.003756355 0.006298525 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Starting with the SSD (requires the full A matrix)</span></span></span>
 <span class="r-in"><span><span class="va">matA</span> <span class="op">&lt;-</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">mpm1</span><span class="op">$</span><span class="va">matF</span></span></span>
 <span class="r-in"><span><span class="va">ssd</span> <span class="op">&lt;-</span> <span class="fu">popdemo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/popdemo/man/eigs.html" class="external-link">eigs</a></span><span class="op">(</span><span class="va">matA</span>, <span class="st">"ss"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">stage_at_death_dist</span><span class="op">(</span><span class="va">mpm1</span><span class="op">$</span><span class="va">matU</span>, start <span class="op">=</span> <span class="va">ssd</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in stage_at_death_dist(mpm1$matU, start = ssd):</span> object 'n' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seed      small     medium      large    dormant </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.86391475 0.06191606 0.03553598 0.01444290 0.02419030 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
