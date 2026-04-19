@@ -107,6 +107,7 @@ Other transformation:
 \code{\link{mpm_split}()},
 \code{\link{name_stages}()},
 \code{\link{repro_stages}()},
+\code{\link{scale_mpm_to_lambda1}()},
 \code{\link{standard_stages}()}
 }
 \author{
