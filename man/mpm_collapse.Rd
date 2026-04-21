@@ -61,6 +61,10 @@ even if one or more elements of the \code{collapse} argument is \code{NA}
 (corresponding to a desired stage of the collapsed matrix that is not present
 in the original matrix). In the collapsed matrix, any row/column
 corresponding to a missing stage will be coerced to \code{NA}.
+
+If all stages within a collapsed group have zero weight in the stable stage
+distribution, equal weights are used for that group to avoid undefined
+values.
 }
 
 \examples{

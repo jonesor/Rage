@@ -41,6 +41,10 @@
 #' in the original matrix). In the collapsed matrix, any row/column
 #' corresponding to a missing stage will be coerced to \code{NA}.
 #'
+#' If all stages within a collapsed group have zero weight in the stable stage
+#' distribution, equal weights are used for that group to avoid undefined
+#' values.
+#'
 #' @author Rob Salguero-Gómez <rob.salguero@@zoo.ox.ac.uk>
 #' @author William K. Petry <wpetry@@ncsu.edu>
 #'
@@ -129,8 +133,13 @@ mpm_collapse <- function(matU, matF, matC = NULL, collapse) {
 
   for (j in columns) {
     rows <- which(Q[, j] == 1)
+    rows_sum <- sum(w[rows])
     for (i in rows) {
-      Q[i, j] <- w[i] / sum(w[rows])
+      if (rows_sum == 0) {
+        Q[i, j] <- 1 / length(rows)
+      } else {
+        Q[i, j] <- w[i] / rows_sum
+      }
     }
   }
 
