@@ -26,7 +26,7 @@ evenly deaths are distributed across stages.
 \details{
 Zero entries in \code{p} contribute nothing to entropy
   but do count towards the total number of categories when computing
-  the maximum entropy (\eqn{H_\max = \log(K)}).
+  the maximum entropy (\eqn{H_{\max} = \log(K)}).
 }
 \examples{
 #Even
