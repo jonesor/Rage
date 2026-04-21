@@ -5,6 +5,12 @@ test_that("mpm_to_table works correctly", {
   x_uf <- mpm_to_table(matU = mat_u, matF = mat_f, xmax = xmax, lx_crit = 0)
   x_uc <- mpm_to_table(matU = mat_u, matC = mat_c, xmax = xmax, lx_crit = 0)
   x_ufc <- mpm_to_table(matU = mat_u, matF = mat_f, matC = mat_c, xmax = xmax, lx_crit = 0)
+  x_r <- mpm_to_table(matU = mat_u, matR = mat_f, xmax = xmax, lx_crit = 0)
+  x_rfc <- mpm_to_table(matU = mat_u, matR = mat_f + mat_c, xmax = xmax, lx_crit = 0)
+  x_precedence <- mpm_to_table(
+    matU = mat_u, matR = mat_f, matF = mat_c, matC = mat_c,
+    xmax = xmax, lx_crit = 0
+  )
   x_u_named <- mpm_to_table(matU = mat_u_named, start = "sm", xmax = xmax, lx_crit = 0)
   x_uf_named <- mpm_to_table(matU = mat_u_named, mat_f_named,
     start = "sm", xmax = xmax,
@@ -17,6 +23,11 @@ test_that("mpm_to_table works correctly", {
   expect_identical(ncol(x_uf), 9L)
   expect_identical(ncol(x_uc), 9L)
   expect_identical(ncol(x_ufc), 13L)
+  expect_identical(x_uf, x_r)
+  expect_identical(ncol(x_rfc), 9L)
+  expect_identical(x_r$mx, x_precedence$mx)
+  expect_false("cx" %in% names(x_rfc))
+  expect_equal(x_rfc$mx, x_ufc$mxcx)
   expect_identical(x_u, x_u_named)
   expect_identical(x_uf, x_uf_named)
 })
@@ -27,6 +38,7 @@ test_that("mpm_to_table warns and fails gracefully", {
   expect_error(mpm_to_table(matU = mat_u_na, matF = mat_f, xmax = xmax))
   expect_error(mpm_to_table(matU = mat_u, matF = mat_f_na, xmax = xmax))
   expect_error(mpm_to_table(matU = mat_u, matC = mat_c_na, xmax = xmax))
+  expect_error(mpm_to_table(matU = mat_u, matR = mat_f_na, xmax = xmax))
   expect_error(mpm_to_table(matU = mat_u,
     matF = mat_f_named, start = "sm",
     xmax = xmax

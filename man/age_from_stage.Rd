@@ -33,8 +33,9 @@ columns indicating the corresponding life stage names.}
 
 \item{matR}{The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction;
-either sexual, clonal, or both). If \code{matR} is not provided, it will be
-constructed by summing \code{matF} and \code{matC}.}
+either sexual, clonal, or both). If \code{matR} is supplied, \code{matF}
+and \code{matC} are ignored. Otherwise, \code{matR} is constructed by
+summing \code{matF} and \code{matC}.}
 
 \item{matF}{The matrix reflecting sexual reproduction. If provided
 without \code{matC}, \code{matC} is assumed to be a zero matrix. If

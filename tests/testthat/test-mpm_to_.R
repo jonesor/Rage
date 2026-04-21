@@ -27,8 +27,18 @@ test_that("mpm_to_ functions work correctly", {
 
   # mpm_to_mx
   mx <- mpm_to_mx(mat_u, mat_f, start = 1, xmax = xmax, lx_crit = 0)
+  mx_r <- mpm_to_mx(mat_u, matR = mat_f, start = 1, xmax = xmax, lx_crit = 0)
+  mx_fc <- mpm_to_mx(mat_u, matF = mat_f, matC = mat_c, start = 1, xmax = xmax, lx_crit = 0)
+  mx_rfc <- mpm_to_mx(mat_u, matR = mat_f + mat_c, start = 1, xmax = xmax, lx_crit = 0)
+  mx_precedence <- mpm_to_mx(mat_u,
+    matR = mat_f, matF = mat_c, matC = mat_c,
+    start = 1, xmax = xmax, lx_crit = 0
+  )
   expect_length(mx, length(lx))
   expect_true(all(mx >= 0))
+  expect_identical(mx, mx_r)
+  expect_identical(mx_fc, mx_rfc)
+  expect_identical(mx, mx_precedence)
 
   mx_zero <- suppressWarnings(mpm_to_mx(mat_u_zero, mat_f,
     start = 1, xmax = xmax
@@ -71,4 +81,5 @@ test_that("mpm_to_ functions warn and fail gracefully", {
   expect_error(mpm_to_mx(mat_u_na, mat_f))
   expect_error(mpm_to_mx(mat_u, mat_f_na))
   expect_error(mpm_to_mx(mat_u, mat_f, start = "stage name"))
+  expect_error(mpm_to_mx(mat_u, matR = mat_f_na))
 })

@@ -11,8 +11,9 @@
 #'   columns indicating the corresponding life stage names.
 #' @param matR The reproductive component of a matrix population model (i.e., a
 #'   square projection matrix only reflecting transitions due to reproduction;
-#'   either sexual, clonal, or both). If \code{matR} is not provided, it will be
-#'   constructed by summing \code{matF} and \code{matC}.
+#'   either sexual, clonal, or both). If \code{matR} is supplied, \code{matF}
+#'   and \code{matC} are ignored. Otherwise, \code{matR} is constructed by
+#'   summing \code{matF} and \code{matC}.
 #' @param matF The matrix reflecting sexual reproduction. If provided
 #'   without \code{matC}, \code{matC} is assumed to be a zero matrix. If
 #'   \code{matR} is provided, this argument is ignored.
@@ -176,31 +177,14 @@
 mpm_to_table <- function(matU, matR = NULL, matF = NULL, matC = NULL, start = 1L,
                          xmax = 1000, lx_crit = 0.01, radix = 1,
                          remove_final = FALSE) {
-  
-  # Handle reproduction matrices R, F and C
-  # Check if matR is provided and matF and matC are NULL
-  if (!is.null(matR) && is.null(matF) && is.null(matC)) {
-    # If only matR is provided, assume matR = matF, set matC to NULL
-    matF <- matR
-    matC <- NULL
-  } else if (!is.null(matF) && is.null(matR) && is.null(matC)) {
-    # If only matF is provided, use matF and set matC to NULL
-    matC <- NULL
-  } else if (!is.null(matC) && is.null(matR) && is.null(matF)) {
-    # If only matC is provided, use matC and set matF to NULL
-    matF <- NULL
-  } else if (!is.null(matF) && !is.null(matC)) {
-    # If both matF and matC are provided, use them unchanged
-    # No changes required, matF and matC stay as they are
-  } #else {
-    # Handle case where no valid combination of inputs is provided
-  #  stop("Invalid combination of inputs: Provide either matR, matF, or matC, or both matF and matC.")
-  #}
+  use_matR <- !is.null(matR)
+  matR_total <- process_fertility_inputs(matR = matR, matF = matF, matC = matC)
   
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
-  if (!is.null(matF)) checkValidMat(matF)
-  if (!is.null(matC)) checkValidMat(matC)
+  if (!is.null(matR_total)) checkValidMat(matR_total)
+  if (!use_matR && !is.null(matF)) checkValidMat(matF)
+  if (!use_matR && !is.null(matC)) checkValidMat(matC)
   checkValidStartLife(start, matU, start_vec = TRUE)
 
   # remove_final
@@ -290,17 +274,23 @@ mpm_to_table <- function(matU, matR = NULL, matF = NULL, matC = NULL, start = 1L
   }
 
   # Reproduction
-  if (!is.null(matF)) {
+  if (use_matR) {
+    out$mx <- mpm_to_mx(
+      matU = matU, matR = matR_total, start = start,
+      xmax = N - 1, lx_crit = lx_crit
+    )
+    out$lxmx <- out$lx * out$mx
+  } else if (!is.null(matF)) {
     out$mx <- mpm_to_mx(matU = matU, matF = matF, start = start, xmax = N - 1, lx_crit = lx_crit)
     out$lxmx <- out$lx * out$mx
   }
 
-  if (!is.null(matC)) {
+  if (!use_matR && !is.null(matC)) {
     out$cx <- mpm_to_mx(matU = matU, matC = matC, start = start, xmax = N - 1, lx_crit = lx_crit)
     out$lxcx <- out$lx * out$cx
   }
 
-  if (!is.null(matF) && !is.null(matC)) {
+  if (!use_matR && !is.null(matF) && !is.null(matC)) {
     out$mxcx <- out$mx + out$cx
     out$lxmxcx <- out$lx * out$mxcx
   }
