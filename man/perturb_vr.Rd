@@ -62,6 +62,12 @@ dormancy, or reproduction). Reproductive vital rates that are not conditional
 on survival (i.e., within a stage class from which there is no survival) are
 also allowed.
 }
+\note{
+Fecundity and clonality outputs assume a post-breeding census
+  interpretation. In pre-breeding models, birth rate and newborn survival are
+  generally confounded within fecundity transitions. See Kendall et al.
+  (2019).
+}
 \examples{
 matU <- rbind(
   c(0.1, 0, 0, 0),

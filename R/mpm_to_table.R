@@ -118,6 +118,12 @@
 #'   life table should be treated with caution and perhaps removed from
 #'   subsequent analyses.
 #'
+#' @note If reproduction columns are included, the resulting \code{mx},
+#'   \code{cx}, and related trajectories reflect reproductive output as
+#'   represented at the census boundary. As a result, reproductive trajectories
+#'   from pre-breeding and post-breeding models are not necessarily directly
+#'   comparable. See Kendall et al. (2019).
+#'
 #' @note Note that the units of time (e.g.. `x` and `ex`) in the returned life
 #'   table are the same as the projection interval (`ProjectionInterval`) of the
 #'   MPM.

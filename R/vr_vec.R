@@ -84,6 +84,11 @@
 #' subsequent calculations. To exclude transitions both \emph{to and from} a
 #' given set of stages, use argument \code{exclude}.
 #'
+#' @note Reproduction-related outputs assume a post-breeding census
+#'   interpretation. In pre-breeding models, birth rate and newborn survival are
+#'   generally confounded within fecundity transitions. See Kendall et al.
+#'   (2019).
+#'
 #' @author Patrick Barks <patrick.barks@@gmail.com>
 #'
 #' @family vital rates

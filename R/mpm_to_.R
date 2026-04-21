@@ -65,6 +65,11 @@
 #'   set \code{lx_crit} to \code{0}. Conversely, to force calculation to
 #'   \code{lx_crit}, set \code{xmax} to \code{Inf}.
 #'
+#' @note For \code{mpm_to_mx()}, the output reflects reproductive output as
+#'   represented at the census boundary. As a result, \code{mx} trajectories
+#'   from pre-breeding and post-breeding models are not necessarily directly
+#'   comparable. See Kendall et al. (2019).
+#'
 #' @note Note that the units of time in returned values (i.e., \code{x}) are the
 #'   same as the projection interval (`ProjectionInterval`) of the MPM.
 #'

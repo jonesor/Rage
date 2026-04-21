@@ -110,6 +110,12 @@ dormancy, or reproduction). Reproductive vital rates that are not conditional
 on survival (i.e., within a stage class from which there is no survival) are
 also allowed.
 }
+\note{
+Reproduction-related outputs assume a post-breeding census
+  interpretation. In pre-breeding models, birth rate and newborn survival are
+  generally confounded within fecundity transitions. See Kendall et al.
+  (2019).
+}
 \section{Possible transitions}{
 
 A transition rate of \code{0} within a matrix population model may indicate
