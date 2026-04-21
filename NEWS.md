@@ -1,5 +1,7 @@
 # Rage (development version)
 
+-   `is_leslie_matrix` no longer accepts matrices where `A[n,n] > 0` (plus-group matrices). Such matrices are not true Leslie matrices and caused `leslie_collapse` to silently produce incorrect results via `leslie_expand`.
+
 -   Added function `stage_at_death_dist` which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.
 -   Added function `evenness_shannon` to calculate the evenness of the stages at death.
 -   Added function `scale_mpm_to_lambda1` to rescale an MPM so that the dominant eigenvalue of the projection matrix is 1.

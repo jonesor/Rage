@@ -9,8 +9,7 @@
 #' * The sum of the elements in the first row (representing reproduction) of A
 #' is positive.
 #' * The upper triangle of A, excluding the first row, contains only 0s.
-#' * The diagonal of A, excluding the top-left and bottom-right corners contain
-#' only 0s.
+#' * The diagonal of A, excluding the top-left corner, contains only 0s.
 #' * The lower triangle of A, excluding the subdiagonal, contains only 0s.
 #'
 #' @param A Matrix to be tested
@@ -28,7 +27,7 @@
 #' A <- matrix(c(
 #'   0.1, 1.2, 1.1,
 #'   0.1, 0.0, 0.0,
-#'   0.0, 0.2, 0.3
+#'   0.0, 0.2, 0.0
 #' ), nrow = 3, byrow = TRUE)
 #' is_leslie_matrix(A) # true
 #' A <- matrix(c(
@@ -78,10 +77,9 @@ is_leslie_matrix <- function(A, includes_mat_F = TRUE) {
   # zeros in upper triangle, not including first row
   test4 <- all(A[upper_tri] == 0)
 
-  # zeros in the diagonal, except [1,1] and [n,n] positions
+  # zeros in the diagonal, except [1,1]
   diagIndicator <- diag(TRUE, n)
   diagIndicator[1, 1] <- FALSE
-  diagIndicator[n, n] <- FALSE
   A[diagIndicator]
   test5 <- all(A[diagIndicator] == 0)
 
