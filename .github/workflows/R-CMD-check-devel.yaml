@@ -54,7 +54,7 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          args: 'c("--as-cran")'
+          args: 'c("--as-cran", if (.Platform$OS.type == "windows") "--no-manual" else character(0))'
           error-on: '"warning"'
 
       - name: Show testthat output
