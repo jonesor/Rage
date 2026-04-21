@@ -15,6 +15,11 @@ test_that("plot_life_cycle works correctly", {
   expect_s3_class(p3, "grViz")
   expect_s3_class(p4, "grViz")
   expect_s3_class(p5, "grViz")
+  expect_match(p1$x$diagram, "graph\\[overlap=false, margin=0, pad=0\\]")
+  expect_false(grepl("x \\[style=invis\\]", p1$x$diagram))
+  expect_false(grepl("labelloc=\"t\"", p1$x$diagram, fixed = TRUE))
+  expect_true(grepl("labelloc=\"t\"", p3$x$diagram, fixed = TRUE))
+  expect_true(grepl("\n  label=\"my_title\"", p3$x$diagram, fixed = TRUE))
 })
 
 

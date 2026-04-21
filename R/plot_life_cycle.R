@@ -113,7 +113,8 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
   # Manipulate minimim length of edge to make the plot pretty (experimental!)
   graph$min_len <- (as.numeric(graph$to) - as.numeric(graph$from)) * 3
   # Create the edges argument for graphviz by pasting commands together
-  edges <- paste0("'", graph$from, "'", " -> ", "'", graph$to, "'",
+  edges <- paste0(
+    "'", graph$from, "'", " -> ", "'", graph$to, "'",
     "[minlen=", graph$min_len,
     ",fontsize=", fontsize,
     ",color=", edgecol,
@@ -122,23 +123,29 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
     collapse = ""
   )
 
+  graph_label <- if (is.null(title)) {
+    ""
+  } else {
+    paste0("  labelloc=\"t\";\n  label=\"", title, "\"\n")
+  }
+
   # The graphviz argument, pasted together
   grViz(
     paste(
       "
 digraph {
   {
-    graph[overlap=false];
+    graph[overlap=false, margin=0, pad=0];
     rank=same;
     node [shape=", shape, ", fontsize=", nodefontsize, "];",
-      nodes, "
+      nodes,
+      "
   }",
-      "ordering=out
-  x [style=invis]
-  x -> {", nodes, "} [style=invis]", edges,
-      "labelloc=\"t\";
-  label=\"", title, "\"
-}"
+      "
+",
+      edges,
+      graph_label,
+      "}"
     )
   )
 }
