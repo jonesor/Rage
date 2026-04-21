@@ -1,0 +1,10 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  a01_GettingStarted: a01_GettingStarted.html
+  a02_VitalRates: a02_VitalRates.html
+  a03_LifeHistoryTraits: a03_LifeHistoryTraits.html
+  a04_AgeFromStage: a04_AgeFromStage.html
+  a05_SuggestedQualityControl: a05_SuggestedQualityControl.html
+last_built: 2026-04-21T19:00Z
