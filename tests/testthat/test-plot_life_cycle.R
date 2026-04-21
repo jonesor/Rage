@@ -1,16 +1,20 @@
 test_that("plot_life_cycle works correctly", {
   mat_a <- mat_u + mat_f
   stages <- letters[seq_len(nrow(mat_a))]
+  mat_a_na <- mat_a
+  mat_a_na[1, 3] <- NA
 
   p1 <- plot_life_cycle(mat_a)
   p2 <- plot_life_cycle(mat_a, stages = stages)
   p3 <- plot_life_cycle(mat_a, stages = stages, title = "my_title")
   p4 <- plot_life_cycle(mat_a, node_order = 1:4)
+  p5 <- plot_life_cycle(mat_a_na)
 
   expect_s3_class(p1, "grViz")
   expect_s3_class(p2, "grViz")
   expect_s3_class(p3, "grViz")
   expect_s3_class(p4, "grViz")
+  expect_s3_class(p5, "grViz")
 })
 
 

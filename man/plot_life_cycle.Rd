@@ -44,7 +44,10 @@ An object of class \code{grViz} representing the life cycle diagram
 Plots the life cycle diagram illustrated by a matrix population model. This
 function processes the matrix model and passes the information to the
 graphViz function in DiagrammeR. See
-\url{https://rich-iannone.github.io/DiagrammeR/}.
+\url{https://rich-iannone.github.io/DiagrammeR/}. Transitions with value
+\code{0} are assumed to be biologically impossible, and arrows are omitted
+from the diagram. Transition rates of \code{NA} are shown as arrows, labelled
+with \code{NA}.
 }
 \examples{
 matA <- rbind(
@@ -56,6 +59,11 @@ matA <- rbind(
 )
 
 plot_life_cycle(matA)
+
+# Plot and label unknown transitions as NA
+matA_na <- matA
+matA_na[1, 5] <- NA
+plot_life_cycle(matA_na)
 
 # One could save the diagram as a PNG file using a combination of `export_svg`
 # (from the `DiagrammeRsvg` package) and `rsvg_png` (from the `rsvg` package)

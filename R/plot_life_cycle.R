@@ -3,7 +3,10 @@
 #' Plots the life cycle diagram illustrated by a matrix population model. This
 #' function processes the matrix model and passes the information to the
 #' graphViz function in DiagrammeR. See
-#' \url{https://rich-iannone.github.io/DiagrammeR/}.
+#' \url{https://rich-iannone.github.io/DiagrammeR/}. Transitions with value
+#' \code{0} are assumed to be biologically impossible, and arrows are omitted
+#' from the diagram. Transition rates of \code{NA} are shown as arrows, labelled
+#' with \code{NA}.
 #'
 #' @param matA A matrix population model (i.e., a square projection matrix)
 #' @param stages Optional vector of stage class labels. If missing, it first
@@ -35,6 +38,11 @@
 #' )
 #'
 #' plot_life_cycle(matA)
+#'
+#' # Plot and label unknown transitions as NA
+#' matA_na <- matA
+#' matA_na[1, 5] <- NA
+#' plot_life_cycle(matA_na)
 #'
 #' # One could save the diagram as a PNG file using a combination of `export_svg`
 #' # (from the `DiagrammeRsvg` package) and `rsvg_png` (from the `rsvg` package)
@@ -87,10 +95,11 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
   }
   # Construct a "from" -> "to" graph dataset (edges)
   graph <- expand.grid(to = stages, from = stages)
-  graph$trans <- round(c(matA), 3)
+  graph$trans <- c(matA)
+  graph$label <- ifelse(is.na(graph$trans), "NA", format(round(graph$trans, 3)))
 
-  # Subset to only include those where the trans > 0
-  graph <- graph[graph$trans > 0, ]
+  # Subset to include positive transitions and unknown transitions
+  graph <- graph[is.na(graph$trans) | graph$trans > 0, ]
 
   # Create vector of node names (add semicolon for use by graphViz)
   if (is.null(node_order)) {
@@ -108,7 +117,7 @@ plot_life_cycle <- function(matA, stages, title = NULL, shape = "egg",
     "[minlen=", graph$min_len,
     ",fontsize=", fontsize,
     ",color=", edgecol,
-    ",xlabel=", paste("\"", graph$trans),
+    ",xlabel=", paste("\"", graph$label),
     "\"]\n",
     collapse = ""
   )
