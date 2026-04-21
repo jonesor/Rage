@@ -2,6 +2,11 @@
 
 -   Added function `stage_at_death_dist` which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.
 -   Added function `evenness_shannon` to calculate the evenness of the stages at death.
+-   Added function `scale_mpm_to_lambda1` to rescale an MPM so that the dominant eigenvalue of the projection matrix is 1.
+-   Improved consistency in the handling of total reproduction matrices (`matR`) in `mpm_to_mx`, `mpm_to_table`, `gen_time`, and `net_repro_rate`.
+-   `plot_life_cycle` now handles `NA` transitions explicitly, labels them as `NA`, and produces a tighter plot with less surrounding whitespace.
+-   Fixed an edge case in `mpm_collapse` that could produce `NaN` values when collapsing groups of stages with zero stable-stage weight.
+-   Added short notes to fecundity- and reproduction-related documentation clarifying interpretation under pre- versus post-breeding census designs.
 -   Improved documentation for `entropy_k_stage`.
 -   Fixed error in `gen_time` which caused an over estimate of generation time under `method = "cohort"` of 1 year.
 
