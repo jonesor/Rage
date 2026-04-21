@@ -39,7 +39,7 @@
 #'
 #' data(leslie_mpm1)
 #' A <- leslie_mpm1$matU + leslie_mpm1$matF
-#' is_leslie_matrix(A) # false
+#' is_leslie_matrix(A) # false: A[n,n] > 0 makes this a plus-group variant
 #'
 #' @family transformation
 #' @export is_leslie_matrix

@@ -36,13 +36,15 @@ usethis::use_data(mpm1, overwrite = TRUE)
 
 
 # Leslie Matrices
+# Note: matU[8,8] is set to 0 to ensure this is a strict Leslie matrix
+# (no plus-group). The original data had matU[8,8] = 0.128.
 leslie_mpm1 <- list(
   matU = matrix(c(
     0, 0.883, 0, 0, 0, 0, 0, 0, 0, 0, 0.830,
     0, 0, 0, 0, 0, 0, 0, 0, 0.758, 0, 0, 0, 0, 0, 0, 0,
     0, 0.661, 0, 0, 0, 0, 0, 0, 0, 0, 0.540,
     0, 0, 0, 0, 0, 0, 0, 0, 0.398, 0, 0, 0, 0, 0, 0,
-    0, 0, 0.253, 0, 0, 0, 0, 0, 0, 0, 0.128
+    0, 0, 0.253, 0, 0, 0, 0, 0, 0, 0, 0
   ), ncol = 8),
   matF = matrix(c(
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0,

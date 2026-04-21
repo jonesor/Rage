@@ -26,4 +26,5 @@ data(leslie_mpm1)
 
 A <- leslie_mpm1$matU + leslie_mpm1$matF
 
-expect_true(is_leslie_matrix(A)) # false
+# leslie_mpm1 has A[n,n] > 0 (plus-group variant), so is not a Leslie matrix
+expect_false(is_leslie_matrix(A))

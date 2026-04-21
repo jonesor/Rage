@@ -22,8 +22,16 @@
 #' \item{EFF}{The effectiveness of aggregation}
 #'
 #' @examples
-#' data(leslie_mpm1)
-#' A <- leslie_mpm1$matU + leslie_mpm1$matF
+#' A <- matrix(c(
+#'   0,   0,    2.5, 5.0, 3.0, 1.5, 0.5, 0,
+#'   0.9, 0,    0,   0,   0,   0,   0,   0,
+#'   0,   0.8,  0,   0,   0,   0,   0,   0,
+#'   0,   0,    0.75,0,   0,   0,   0,   0,
+#'   0,   0,    0,   0.7, 0,   0,   0,   0,
+#'   0,   0,    0,   0,   0.6, 0,   0,   0,
+#'   0,   0,    0,   0,   0,   0.5, 0,   0,
+#'   0,   0,    0,   0,   0,   0,   0.4, 0
+#' ), nrow = 8, byrow = TRUE)
 #' leslie_collapse(A, 4)
 #'
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
