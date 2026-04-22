@@ -22,25 +22,44 @@ not
 }
 \description{
 Checks if a given matrix is a Leslie matrix.
-A matrix is determined to be a Leslie matrix if it satisfies the following
-conditions:
-* All elements of A are non-negative.
-* The subdiagonal elements of A, excluding the last column, are all between 0
- and 1.
-* The sum of the elements in the first row (representing reproduction) of A
-is positive.
-* The upper triangle of A, excluding the first row, contains only 0s.
-* The diagonal of A, excluding the top-left and bottom-right corners contain
-only 0s.
-* The lower triangle of A, excluding the subdiagonal, contains only 0s.
+}
+\details{
+A formal Leslie matrix satisfies the following conditions:
+* All elements are non-negative.
+* The subdiagonal elements (survivals), excluding the last column, are all
+  between 0 and 1.
+* The sum of the elements in the first row (fecundities) is positive (unless
+  `includes_mat_F = FALSE`).
+* The upper triangle, excluding the first row, contains only 0s.
+* The diagonal, excluding the top-left corner (`A[1,1]`), contains only 0s.
+* The lower triangle, excluding the subdiagonal, contains only 0s.
+
+**Plus-group extension.** In some models the oldest age class is an open-
+ended *plus group* representing individuals that have survived beyond the
+maximum explicitly modelled age. These individuals remain in the last class
+with probability `A[n,n] > 0`. This function accepts such matrices by also
+exempting the bottom-right corner (`A[n,n]`) from the diagonal-zero
+requirement. When a plus-group matrix is passed to `leslie_collapse`, the
+`A[n,n]` term is correctly carried through the internal `leslie_expand` step.
 }
 \examples{
+# Standard Leslie matrix
 A <- matrix(c(
+  0.1, 1.2, 1.1,
+  0.1, 0.0, 0.0,
+  0.0, 0.2, 0.0
+), nrow = 3, byrow = TRUE)
+is_leslie_matrix(A) # true
+
+# Plus-group Leslie matrix: A[n,n] > 0 is permitted
+A_plus <- matrix(c(
   0.1, 1.2, 1.1,
   0.1, 0.0, 0.0,
   0.0, 0.2, 0.3
 ), nrow = 3, byrow = TRUE)
-is_leslie_matrix(A) # true
+is_leslie_matrix(A_plus) # true
+
+# Not a Leslie matrix: non-zero off-diagonal elements
 A <- matrix(c(
   0.1, 1.2, 1.1,
   0.1, 0.2, 0.1,
@@ -48,9 +67,10 @@ A <- matrix(c(
 ), nrow = 3, byrow = TRUE)
 is_leslie_matrix(A) # false
 
+# leslie_mpm1 is a plus-group Leslie matrix (A[n,n] > 0)
 data(leslie_mpm1)
 A <- leslie_mpm1$matU + leslie_mpm1$matF
-is_leslie_matrix(A) # false
+is_leslie_matrix(A) # true
 
 }
 \seealso{
