@@ -159,7 +159,63 @@ effectiveness of aggregation.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">leslie_mpm1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">leslie_mpm1</span><span class="op">$</span><span class="va">matU</span> <span class="op">+</span> <span class="va">leslie_mpm1</span><span class="op">$</span><span class="va">matF</span></span></span>
 <span class="r-in"><span><span class="fu">leslie_collapse</span><span class="op">(</span><span class="va">A</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in leslie_collapse(A, 4):</span> A must be a Leslie matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]     [,2]      [,3]       [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.3590360 8.062029 6.9520840 5.59842330</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.6989141 0.000000 0.0000000 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.458560 0.0000000 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.0000000 0.000000 0.1887098 0.03029564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $W</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]       [,4]       [,5]       [,6]        [,7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.8781639 0.0000000 0.0000000 0.00000000 0.00000000 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.4276144 0.0000000 0.00000000 0.00000000 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.1957251 0.00000000 0.00000000 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.0000000 0.0000000 0.0000000 0.08181476 0.00000000 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.0000000 0.0000000 0.0000000 0.00000000 0.02982285 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 0.0000000 0.0000000 0.0000000 0.00000000 0.00000000 0.00888094 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7,] 0.0000000 0.0000000 0.0000000 0.00000000 0.00000000 0.00000000 0.001949207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [8,] 0.0000000 0.0000000 0.0000000 0.00000000 0.00000000 0.00000000 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7,] 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [8,] 0.0002926078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Ak</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         0       1        2       3       4        5        6        7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0 0.00000 4.15000 3.790000 3.30500 2.70000 1.990000 1.265000 0.640000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.00000 0.00000 4.415000 4.41500 4.41500 4.415000 4.415000 4.415000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.73289 0.00000 0.000000 0.00000 0.00000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.00000 0.62914 0.000000 0.00000 0.00000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.00000 0.00000 0.501038 0.00000 0.00000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.00000 0.00000 0.000000 0.35694 0.00000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.00000 0.00000 0.000000 0.00000 0.21492 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.00000 0.00000 0.000000 0.00000 0.00000 0.100694 0.032384 0.016384</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    0    1    1    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    0    0    1    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0    0    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $k</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $EFF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8227475</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
