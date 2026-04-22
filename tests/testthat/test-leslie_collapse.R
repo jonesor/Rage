@@ -1,13 +1,5 @@
-A <- matrix(c(
-  0,   0,    2.5, 5.0, 3.0, 1.5, 0.5, 0,
-  0.9, 0,    0,   0,   0,   0,   0,   0,
-  0,   0.8,  0,   0,   0,   0,   0,   0,
-  0,   0,    0.75,0,   0,   0,   0,   0,
-  0,   0,    0,   0.7, 0,   0,   0,   0,
-  0,   0,    0,   0,   0.6, 0,   0,   0,
-  0,   0,    0,   0,   0,   0.5, 0,   0,
-  0,   0,    0,   0,   0,   0,   0.4, 0
-), nrow = 8, byrow = TRUE)
+data(leslie_mpm1)
+A <- leslie_mpm1$matU + leslie_mpm1$matF
 
 testthat::expect_error(
   leslie_collapse(cbind(A, A), -4)
@@ -16,3 +8,7 @@ testthat::expect_error(
 testthat::expect_true(
   inherits(leslie_collapse(A, 3), "list")
 )
+
+# plus-group survival (A[n,n] > 0) must be preserved after expansion
+result <- leslie_collapse(A, 3)
+testthat::expect_true(result$Ak[nrow(result$Ak), ncol(result$Ak)] > 0)

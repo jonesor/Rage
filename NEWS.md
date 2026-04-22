@@ -1,6 +1,6 @@
 # Rage (development version)
 
--   `is_leslie_matrix` no longer accepts matrices where `A[n,n] > 0` (plus-group matrices). Such matrices are not true Leslie matrices and caused `leslie_collapse` to silently produce incorrect results via `leslie_expand`.
+-   `is_leslie_matrix` now explicitly documents and supports plus-group Leslie matrices where `A[n,n] > 0`, representing an open-ended oldest age class. Fixed a bug in the internal `leslie_expand` function where the plus-group survival term `A[n,n]` was silently dropped during matrix expansion, causing `leslie_collapse` to produce incorrect results for such matrices.
 
 -   Added function `stage_at_death_dist` which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.
 -   Added function `evenness_shannon` to calculate the evenness of the stages at death.

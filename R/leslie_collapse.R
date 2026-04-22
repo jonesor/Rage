@@ -22,16 +22,8 @@
 #' \item{EFF}{The effectiveness of aggregation}
 #'
 #' @examples
-#' A <- matrix(c(
-#'   0,   0,    2.5, 5.0, 3.0, 1.5, 0.5, 0,
-#'   0.9, 0,    0,   0,   0,   0,   0,   0,
-#'   0,   0.8,  0,   0,   0,   0,   0,   0,
-#'   0,   0,    0.75,0,   0,   0,   0,   0,
-#'   0,   0,    0,   0.7, 0,   0,   0,   0,
-#'   0,   0,    0,   0,   0.6, 0,   0,   0,
-#'   0,   0,    0,   0,   0,   0.5, 0,   0,
-#'   0,   0,    0,   0,   0,   0,   0.4, 0
-#' ), nrow = 8, byrow = TRUE)
+#' data(leslie_mpm1)
+#' A <- leslie_mpm1$matU + leslie_mpm1$matF
 #' leslie_collapse(A, 4)
 #'
 #' @author Richard A. Hinrichsen <rich@hinrichsenenvironmental.com>
@@ -114,5 +106,7 @@ leslie_expand <- function(A, m) {
   for (ii in 1:(n - 1)) {
     A.expanded[m * ii + 1, m * ii] <- A[ii + 1, ii]
   }
+  # carry plus-group survival into the bottom-right corner of the expanded matrix
+  A.expanded[n * m, n * m] <- A[n, n]
   return(A.expanded)
 }
