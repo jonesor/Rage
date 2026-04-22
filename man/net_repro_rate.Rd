@@ -78,11 +78,15 @@ net_repro_rate(mpm1$matU, mpm1$matF, method = "start", start = "seed")
 
 # It is usually better to explicitly name the arguments, rather than relying
 # on order.
-net_repro_rate(matU = mpm1$matU, matF = mpm1$matF, 
-method = "start", start = 1)
+net_repro_rate(
+  matU = mpm1$matU, matF = mpm1$matF,
+  method = "start", start = 1
+)
 
-net_repro_rate(matU = mpm1$matU, matR = mpm1$matF, 
-method = "start", start = "seed")
+net_repro_rate(
+  matU = mpm1$matU, matR = mpm1$matF,
+  method = "start", start = "seed"
+)
 
 }
 \references{

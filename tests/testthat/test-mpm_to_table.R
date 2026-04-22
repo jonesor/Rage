@@ -12,7 +12,8 @@ test_that("mpm_to_table works correctly", {
     xmax = xmax, lx_crit = 0
   )
   x_u_named <- mpm_to_table(matU = mat_u_named, start = "sm", xmax = xmax, lx_crit = 0)
-  x_uf_named <- mpm_to_table(matU = mat_u_named, mat_f_named,
+  x_uf_named <- mpm_to_table(
+    matU = mat_u_named, mat_f_named,
     start = "sm", xmax = xmax,
     lx_crit = 0
   )
@@ -39,7 +40,8 @@ test_that("mpm_to_table warns and fails gracefully", {
   expect_error(mpm_to_table(matU = mat_u, matF = mat_f_na, xmax = xmax))
   expect_error(mpm_to_table(matU = mat_u, matC = mat_c_na, xmax = xmax))
   expect_error(mpm_to_table(matU = mat_u, matR = mat_f_na, xmax = xmax))
-  expect_error(mpm_to_table(matU = mat_u,
+  expect_error(mpm_to_table(
+    matU = mat_u,
     matF = mat_f_named, start = "sm",
     xmax = xmax
   ))
@@ -56,7 +58,8 @@ expect_warning(mpm_to_table(matU = mu_1, lx_crit = 0.1))
 
 expect_s3_class(mpm_to_table(matU = mu_1, radix = 1000), "data.frame")
 
-expect_s3_class(mpm_to_table(matU = mu_1,
+expect_s3_class(mpm_to_table(
+  matU = mu_1,
   radix = 1000,
   remove_final = TRUE
 ), "data.frame")

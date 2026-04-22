@@ -55,10 +55,12 @@ Imports:
     stats,
     utils
 Suggests:
+    DiagrammeRsvg,
     ggplot2,
     knitr,
     Rcompadre,
     rmarkdown,
+    rsvg,
     spelling,
     testthat (>= 3.0.0)
 VignetteBuilder: 

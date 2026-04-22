@@ -64,12 +64,11 @@ NULL
 
 #' @rdname repro_maturity
 #' @export mature_prob
-mature_prob <- function(matU, matR = NULL, matF = NULL, 
+mature_prob <- function(matU, matR = NULL, matF = NULL,
                         matC = NULL, start = 1L) {
-  
   # Call the helper function to construct matR if not provided
   matR <- process_fertility_inputs(matR, matF, matC)
-  
+
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)
@@ -87,12 +86,11 @@ mature_prob <- function(matU, matR = NULL, matF = NULL,
 
 #' @rdname repro_maturity
 #' @export mature_age
-mature_age <- function(matU, matR = NULL, matF = NULL, 
+mature_age <- function(matU, matR = NULL, matF = NULL,
                        matC = NULL, start = 1L) {
-  
   # Call the helper function to construct matR if not provided
   matR <- process_fertility_inputs(matR, matF, matC)
-  
+
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   checkValidMat(matR)

@@ -46,36 +46,42 @@
 #'
 #' @export
 stage_at_death_dist <- function(matU, start = NULL) {
-  if (!is.matrix(matU) || !is.numeric(matU) || nrow(matU) != ncol(matU))
+  if (!is.matrix(matU) || !is.numeric(matU) || nrow(matU) != ncol(matU)) {
     stop("matU must be a square numeric matrix")
-  
-  n <- ncol(matU)  # define n before using it
-  
-  if (!is.null(start)) {
-    if (!is.numeric(start))
-      stop("'start' must be numeric")
-    if (length(start) != n)
-      stop(paste0("'start' must have length ", n, " (number of stages)"))
-    if (any(start < 0))
-      stop("'start' must not contain negative values")
-    if (sum(start) == 0)
-      stop("'start' must contain at least one non-zero value")
   }
-  
+
+  n <- ncol(matU) # define n before using it
+
+  if (!is.null(start)) {
+    if (!is.numeric(start)) {
+      stop("'start' must be numeric")
+    }
+    if (length(start) != n) {
+      stop(paste0("'start' must have length ", n, " (number of stages)"))
+    }
+    if (any(start < 0)) {
+      stop("'start' must not contain negative values")
+    }
+    if (sum(start) == 0) {
+      stop("'start' must contain at least one non-zero value")
+    }
+  }
+
   w <- if (is.null(start)) rep(1 / n, n) else as.numeric(start)
   w <- w / sum(w)
-  
+
   # per-stage death probability (assumes U excludes reproduction)
   d <- 1 - colSums(matU)
-  
+
   # basic sanity check (optional)
-  if (any(d < -1e-12))
+  if (any(d < -1e-12)) {
     stop("Some column sums of matU exceed 1; matU should be survival/transition only.")
-  
-  N <- solve(diag(n) - matU)  # fundamental matrix for cohort occupancy
+  }
+
+  N <- solve(diag(n) - matU) # fundamental matrix for cohort occupancy
   occ <- as.vector(N %*% w)
   deaths <- as.vector(d * occ)
-  
+
   names(deaths) <- rownames(matU)
   return(deaths)
 }

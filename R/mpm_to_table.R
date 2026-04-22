@@ -179,7 +179,7 @@ mpm_to_table <- function(matU, matR = NULL, matF = NULL, matC = NULL, start = 1L
                          remove_final = FALSE) {
   use_matR <- !is.null(matR)
   matR_total <- process_fertility_inputs(matR = matR, matF = matF, matC = matC)
-  
+
   # validate arguments
   checkValidMat(matU, warn_surv_issue = TRUE)
   if (!is.null(matR_total)) checkValidMat(matR_total)

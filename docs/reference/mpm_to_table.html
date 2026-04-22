@@ -108,8 +108,9 @@ columns indicating the corresponding life stage names.</p></dd>
 <dt id="arg-matr">matR<a class="anchor" aria-label="anchor" href="#arg-matr"></a></dt>
 <dd><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction;
-either sexual, clonal, or both). If <code>matR</code> is not provided, it will be
-constructed by summing <code>matF</code> and <code>matC</code>.</p></dd>
+either sexual, clonal, or both). If <code>matR</code> is supplied, <code>matF</code>
+and <code>matC</code> are ignored. Otherwise, <code>matR</code> is constructed by
+summing <code>matF</code> and <code>matC</code>.</p></dd>
 
 
 <dt id="arg-matf">matF<a class="anchor" aria-label="anchor" href="#arg-matf"></a></dt>
@@ -257,6 +258,11 @@ Users can prevent this by setting `remove_final` to `TRUE` (the default is
   impact on results. Nevertheless, for many analyses, the final row of the
   life table should be treated with caution and perhaps removed from
   subsequent analyses.</p>
+<p>If reproduction columns are included, the resulting <code>mx</code>,
+  <code>cx</code>, and related trajectories reflect reproductive output as
+  represented at the census boundary. As a result, reproductive trajectories
+  from pre-breeding and post-breeding models are not necessarily directly
+  comparable. See Kendall et al. (2019).</p>
 <p>Note that the units of time (e.g.. `x` and `ex`) in the returned life
   table are the same as the projection interval (`ProjectionInterval`) of the
   MPM.</p>

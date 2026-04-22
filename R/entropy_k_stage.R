@@ -5,7 +5,7 @@
 #' life-disparity / life-expectancy formulation (H_N) adapted to stage models (H_N^+):
 #' it projects survivorship directly from \code{Umat} and quantifies the dispersion of
 #' **ages at death** (in projection steps) relative to mean life expectancy.
-#' 
+#'
 #' \strong{Interpretation.} Values reflect the \emph{shape} of mortality across age:
 #' \itemize{
 #'   \item \eqn{H < 1}: increasing mortality with age (senescence)
@@ -25,7 +25,7 @@
 #' @return Returns a single numeric value representing the Keyfitz entropy for
 #'   the given matrix. This value quantifies the dispersion of age at death (not
 #'   stage at death).
-#'   
+#'
 #' @details
 #' The function avoids age-from-stage preprocessing by obtaining survivorship
 #' from successive powers of \eqn{U} up to \code{max_age}. In pure age-class
@@ -35,11 +35,11 @@
 #' The result depends on the starting cohort \code{init_distrib} (e.g., all
 #' recruits, a single stage, or recruits at equilibrium). Choose \code{init_distrib}
 #' to match the biological question.
-#' 
+#'
 #' @author Stefano Giaimo <giaimo@@evolbio.mpg.de>
 #' @author Owen Jones <jones@@biology.sdu.dk>
 #'
-#' @references 
+#' @references
 #' Keyfitz, N. 1977. Applied Mathematical Demography. New York: Wiley.
 #' Giaimo S. 2024. Discretising and validating Keyfitz entropy for any demographic
 #' classification. Methods in Ecology and Evolution. 15, 1278–1285.

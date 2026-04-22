@@ -89,12 +89,11 @@
 #' )
 #'
 #' @export gen_time
-gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL, 
+gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL,
                      method = c("R0", "age_diff", "cohort"), ...) {
-  
   # Call the helper function to construct matR if not provided
   matR <- process_fertility_inputs(matR, matF, matC)
-  
+
   method <- match.arg(method)
   # leave remaining arg validation to functions that depend on them
 
@@ -123,7 +122,7 @@ gen_time <- function(matU, matR = NULL, matF = NULL, matC = NULL,
     if (inherits(N, "try-error") && grepl("singular", N[1], fixed = TRUE)) {
       out <- NA_real_
     } else {
-      lt <- mpm_to_table(matU = matU, matF = matR, ...)  # passes start/xmax/lx_crit via ...
+      lt <- mpm_to_table(matU = matU, matF = matR, ...) # passes start/xmax/lx_crit via ...
       out <- sum(lt$x * lt$lx * lt$mx) / sum(lt$lx * lt$mx)
     }
   } else {

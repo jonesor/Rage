@@ -236,7 +236,6 @@ perturb_trans <- function(matU, matF, matC = NULL,
 }
 
 
-
 #  A convenience function to sum elasticities given the perturbation matrix, the
 #  matrix of possible transitions, and the matrix reflecting the proportional
 #  contribution of the given process to the given element.

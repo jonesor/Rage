@@ -65,7 +65,7 @@ entropy_d(lx = mpm1$matU, mx = mpm1$matF, start = 2)
 \references{
 Demetrius, L. 1978. Adaptive value, entropy and survivorship
   curves. Nature, 275(5677), 213–214.
-  
+
   Caswell, H. 2001. Matrix Population Models: Construction, Analysis, and
   Interpretation. Sinauer Associates.
 }

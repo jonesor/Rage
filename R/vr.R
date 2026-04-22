@@ -279,7 +279,6 @@ vr_fecundity <- function(matU,
 }
 
 
-
 #' @noRd
 column_weight <- function(x, weights) {
   if (is.null(weights)) {

@@ -97,7 +97,7 @@ Barks</h4>
                         <h4 data-toc-skip class="author">William K.
 Petry</h4>
             
-            <h4 data-toc-skip class="date">2025-09-15</h4>
+            <h4 data-toc-skip class="date">2026-04-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/HEAD/vignettes/a01_GettingStarted.Rmd" class="external-link"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
@@ -159,7 +159,7 @@ life stages (nodes) and the elements correspond to transition
 probabilities (arrows). By convention, the columns reflect the current
 life stage (i.e., the arrow’s start) and the rows reflect the arrow’s
 end.</p>
-<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;"><strong>Figure 2.</strong> Transition (projection) matrix corresponding
+<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-2-1.png" alt="" width="384" style="display: block; margin: auto;"><strong>Figure 2.</strong> Transition (projection) matrix corresponding
 to the life cycle in Fig. 1.</p>
 <p>For basic MPM projection and equilibrium analyses, this single matrix
 is all that is needed. However, more advanced analyses like many of
@@ -178,7 +178,7 @@ additively to create the transition matrix,</p>
 <strong>A</strong> are found in only one of the submatrices. However,
 other life cycles may have multiple pathways from one life stage to
 another.</p>
-<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;"><strong>Figure 3.</strong> Decomposition of the transition matrix,
+<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-3-1.png" alt="" width="100%" style="display: block; margin: auto;"><strong>Figure 3.</strong> Decomposition of the transition matrix,
 <strong>A</strong>, into <strong>U</strong>, <strong>F</strong> and
 <strong>C</strong> submatrices. The coloured elements correspond to the
 coloured arrows in Fig. 1.</p>
@@ -533,7 +533,7 @@ germinated individuals quickly converges towards the SSD:</p>
 <span>  type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"proportion in stage class"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-12-1.png" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>Using <code>qsd_converge</code>, we can find the time at which the
 cohort reaches the QSD and subset the life table or any component
 age-specific trajectory accordingly.</p>
@@ -554,7 +554,7 @@ age-specific trajectory accordingly.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">qx</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">lt_preQSD</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">q</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p><img src="a01_GettingStarted_files/figure-html/unnamed-chunk-13-1.png" alt="" width="700"></p>
 <p>We refer readers to the <a href="a04_AgeFromStage.html">AgeFromStage
 vignette</a> for further detail on these methods.</p>
 </div>

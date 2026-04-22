@@ -159,6 +159,9 @@ even if one or more elements of the <code>collapse</code> argument is <code>NA</
 (corresponding to a desired stage of the collapsed matrix that is not present
 in the original matrix). In the collapsed matrix, any row/column
 corresponding to a missing stage will be coerced to <code>NA</code>.</p>
+<p>If all stages within a collapsed group have zero weight in the stable stage
+distribution, equal weights are used for that group to avoid undefined
+values.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -177,6 +180,7 @@ corresponding to a missing stage will be coerced to <code>NA</code>.</p>
 <code><a href="mpm_standardize.html">mpm_standardize</a>()</code>,
 <code><a href="name_stages.html">name_stages</a>()</code>,
 <code><a href="repro_stages.html">repro_stages</a>()</code>,
+<code><a href="scale_mpm_to_lambda1.html">scale_mpm_to_lambda1</a>()</code>,
 <code><a href="standard_stages.html">standard_stages</a>()</code></p></div>
     </div>
     <div id="author">

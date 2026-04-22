@@ -19,15 +19,15 @@
 #'   the maximum entropy (\eqn{H_{\max} = \log(K)}).
 #'
 #' @examples
-#' #Even
-#' evenness_shannon(c(0.2,0.2,0.2,0.2,0.2))
-#' 
-#' #Skewed
-#' evenness_shannon(c(0.8,0.1,0.05,0.03,0.02))
-#' 
-#' evenness_shannon(c(1,0,0,0,0))
-#' 
-#' #From a matrix model's stage at death distribution
+#' # Even
+#' evenness_shannon(c(0.2, 0.2, 0.2, 0.2, 0.2))
+#'
+#' # Skewed
+#' evenness_shannon(c(0.8, 0.1, 0.05, 0.03, 0.02))
+#'
+#' evenness_shannon(c(1, 0, 0, 0, 0))
+#'
+#' # From a matrix model's stage at death distribution
 #' data(mpm1)
 #' matA <- mpm1$matU + mpm1$matF
 #' ssd <- popdemo::eigs(matA, "ss")
@@ -38,12 +38,12 @@
 evenness_shannon <- function(p) {
   # 1) Normalise
   p <- p / sum(p)
-  
+
   # 2) Compute per-category contributions, zeros handled explicitly
   nz <- p > 0
-  contrib <- numeric(length(p))       # default 0 for p == 0
-  contrib[nz] <- p[nz] * log(p[nz])   # compute only where p > 0
-  
+  contrib <- numeric(length(p)) # default 0 for p == 0
+  contrib[nz] <- p[nz] * log(p[nz]) # compute only where p > 0
+
   # 3) Entropy and evenness
   H <- -sum(contrib)
   J <- H / log(length(p))

@@ -122,25 +122,24 @@
 #' mpm_to_px(mpm1$matU, start = n1)
 #' mpm_to_hx(mpm1$matU, start = n1)
 #' mpm_to_mx(mpm1$matU, mpm1$matF, start = n1)
-#' 
+#'
 #' # specifying matrices explictly
 #' mpm_to_mx(matU = mpm1$matU, matF = mpm1$matF, start = n1)
 #' mpm_to_mx(matU = mpm1$matU, matR = mpm1$matF, start = n1)
 #' mpm_to_mx(matU = mpm1$matU, matC = mpm1$matF, start = n1)
-#' 
+#'
 #' @name age_from_stage
 NULL
 
 
 #' @rdname age_from_stage
 #' @export mpm_to_mx
-mpm_to_mx <- function(matU, matR = NULL, matF = NULL, matC = NULL, 
+mpm_to_mx <- function(matU, matR = NULL, matF = NULL, matC = NULL,
                       start = 1L, xmax = 1000, lx_crit = 0.01,
                       tol = 1e-4) {
-  
   # Call the helper function to construct matR if not provided
   matR <- process_fertility_inputs(matR = matR, matF = matF, matC = matC)
-  
+
   # validate arguments (leave rest to mpm_to_lx)
   checkValidMat(matR)
 

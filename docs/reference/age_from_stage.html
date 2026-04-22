@@ -119,8 +119,9 @@ columns indicating the corresponding life stage names.</p></dd>
 <dt id="arg-matr">matR<a class="anchor" aria-label="anchor" href="#arg-matr"></a></dt>
 <dd><p>The reproductive component of a matrix population model (i.e., a
 square projection matrix only reflecting transitions due to reproduction;
-either sexual, clonal, or both). If <code>matR</code> is not provided, it will be
-constructed by summing <code>matF</code> and <code>matC</code>.</p></dd>
+either sexual, clonal, or both). If <code>matR</code> is supplied, <code>matF</code>
+and <code>matC</code> are ignored. Otherwise, <code>matR</code> is constructed by
+summing <code>matF</code> and <code>matC</code>.</p></dd>
 
 
 <dt id="arg-matf">matF<a class="anchor" aria-label="anchor" href="#arg-matf"></a></dt>
@@ -174,6 +175,10 @@ open interval (<code>1</code>, <code>1 + tol</code>) are coerced to 1. Defaults 
   <code>lx_crit</code>, whichever comes first. To force calculation to <code>xmax</code>,
   set <code>lx_crit</code> to <code>0</code>. Conversely, to force calculation to
   <code>lx_crit</code>, set <code>xmax</code> to <code>Inf</code>.</p>
+<p>For <code>mpm_to_mx()</code>, the output reflects reproductive output as
+  represented at the census boundary. As a result, <code>mx</code> trajectories
+  from pre-breeding and post-breeding models are not necessarily directly
+  comparable. See Kendall et al. (2019).</p>
 <p>Note that the units of time in returned values (i.e., <code>x</code>) are the
   same as the projection interval (`ProjectionInterval`) of the MPM.</p>
     </div>
