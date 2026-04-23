@@ -12,6 +12,7 @@ Functions for calculating life history metrics using matrix population models ('
 Useful links:
 \itemize{
   \item \url{https://github.com/jonesor/Rage}
+  \item \url{https://jonesor.github.io/Rage/}
   \item Report bugs at \url{https://github.com/jonesor/Rage/issues}
 }
 

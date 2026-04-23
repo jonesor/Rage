@@ -4,16 +4,17 @@
   "identifier": "Rage",
   "description": "Functions for calculating life history metrics using matrix population models ('MPMs'). Described in Jones et al. (2021) <doi:10.1101/2021.04.26.441330>.",
   "name": "Rage: Life History Metrics from Matrix Population Models",
+  "relatedLink": ["https://jonesor.github.io/Rage/", "https://CRAN.R-project.org/package=Rage"],
   "codeRepository": "https://github.com/jonesor/Rage",
   "issueTracker": "https://github.com/jonesor/Rage/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
+  "runtimePlatform": "R version 4.5.3 (2026-03-11)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -161,6 +162,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "DiagrammeRsvg",
+      "name": "DiagrammeRsvg",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=DiagrammeRsvg"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
       "provider": {
@@ -206,6 +219,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rsvg",
+      "name": "rsvg",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rsvg"
     },
     {
       "@type": "SoftwareApplication",
@@ -300,7 +325,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "559.03KB",
+  "fileSize": "596.032KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -389,7 +414,7 @@
     }
   ],
   "releaseNotes": "https://github.com/jonesor/Rage/blob/master/NEWS.md",
+  "readme": "https://github.com/jonesor/Rage/blob/main/README.md",
   "contIntegration": ["https://github.com/jonesor/Rage/actions", "https://github.com/jonesor/Rage/actions", "https://app.codecov.io/gh/jonesor/Rage"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "relatedLink": "https://CRAN.R-project.org/package=Rage"
+  "developmentStatus": "https://www.repostatus.org/#active"
 }

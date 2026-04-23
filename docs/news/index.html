@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Rage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
       </span>
     </div>
 
@@ -70,7 +70,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="rage-development-version">Rage (development version)<a class="anchor" aria-label="anchor" href="#rage-development-version"></a></h2>
+<h2 class="page-header" data-toc-text="1.9.0" id="rage-190">Rage 1.9.0<a class="anchor" aria-label="anchor" href="#rage-190"></a></h2>
 <ul><li><p><code>is_leslie_matrix</code> now explicitly documents and supports plus-group Leslie matrices where <code>A[n,n] &gt; 0</code>, representing an open-ended oldest age class. Fixed a bug in the internal <code>leslie_expand</code> function where the plus-group survival term <code>A[n,n]</code> was silently dropped during matrix expansion, causing <code>leslie_collapse</code> to produce incorrect results for such matrices.</p></li>
 <li><p>Added function <code>stage_at_death_dist</code> which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.</p></li>
 <li><p>Added function <code>evenness_shannon</code> to calculate the evenness of the stages at death.</p></li>

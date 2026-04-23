@@ -1,3 +1,5 @@
+url: https://jonesor.github.io/Rage/
+
 reference:
   - title: "Life history traits"
     desc: "Functions for calculating life history traits."
@@ -28,4 +30,3 @@ reference:
     desc: "All functions listed alphabetically."
     contents:
       - starts_with("[a-zA-Z]")
-
