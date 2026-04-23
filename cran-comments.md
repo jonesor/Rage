@@ -1,13 +1,14 @@
 ## R CMD check results
 
-* This is a minor update. Adding an additional option to a function and improving consistency in data handling. Minor bug fixes.
-* Fixed URL in a01_GettingStarted.html
+* This is a minor update with documentation improvements, small bug fixes, and improved consistency in the handling of reproductive matrices across several functions.
+* Added a new helper function, `scale_mpm_to_lambda1()`.
 
 ## Test environments
 
 - Rhub linux ubuntu-latest on Github
-- Rhub macos macos-latest on Github
-- Rhub macos-arm64 macos-14 on Github
+- Rhub m1-san macos-15 on Github
+- Rhub macos macos-13 on Github
+- Rhub macos-arm64 macos-latest on Github
 - Rhub windows windows-latest on Github
 
 ── Rage 1.8.0, Install OK with no notes on all test environments
