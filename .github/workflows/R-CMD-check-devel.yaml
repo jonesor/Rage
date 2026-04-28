@@ -1,10 +1,7 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
-# Name (appears on badge, keep it short)
 name: R-CMD-check-devel
 
-
-# When to run
 on:
   push:
     branches:
@@ -15,20 +12,27 @@ on:
   workflow_dispatch:
 
 jobs:
+  # Determine the matrix: full cross-platform on PRs, single smoke-test on push
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo 'matrix={"config":[{"os":"macOS-latest","r":"release"},{"os":"windows-latest","r":"release"},{"os":"ubuntu-latest","r":"devel","http-user-agent":"release"},{"os":"ubuntu-latest","r":"release"},{"os":"ubuntu-latest","r":"oldrel-1"}]}' >> $GITHUB_OUTPUT
+          else
+            echo 'matrix={"config":[{"os":"ubuntu-latest","r":"release"}]}' >> $GITHUB_OUTPUT
+          fi
+
   R-CMD-check:
+    needs: setup
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
     strategy:
       fail-fast: false
-      matrix:
-        config:
-          - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

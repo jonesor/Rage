@@ -5,6 +5,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - R/**
+      - man/**
+      - vignettes/**
+      - _pkgdown.yml
+      - DESCRIPTION
+      - README.Rmd
   release:
     types: [published]
   workflow_dispatch:
