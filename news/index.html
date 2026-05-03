@@ -66,11 +66,11 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/jonesor/Rage/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/jonesor/Rage/blob/v1.9.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.9.0" id="rage-190">Rage 1.9.0<a class="anchor" aria-label="anchor" href="#rage-190"></a></h2>
+<h2 class="page-header" data-toc-text="1.9.0" id="rage-190">Rage 1.9.0<small>2026-04-23</small><a class="anchor" aria-label="anchor" href="#rage-190"></a></h2>
 <ul><li><p><code>is_leslie_matrix</code> now explicitly documents and supports plus-group Leslie matrices where <code>A[n,n] &gt; 0</code>, representing an open-ended oldest age class. Fixed a bug in the internal <code>leslie_expand</code> function where the plus-group survival term <code>A[n,n]</code> was silently dropped during matrix expansion, causing <code>leslie_collapse</code> to produce incorrect results for such matrices.</p></li>
 <li><p>Added function <code>stage_at_death_dist</code> which calculates the distribution of stages at death for a synthetic population. The initial starting vector must be specified.</p></li>
 <li><p>Added function <code>evenness_shannon</code> to calculate the evenness of the stages at death.</p></li>

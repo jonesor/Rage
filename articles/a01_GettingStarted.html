@@ -88,7 +88,7 @@
 
       </header><link href="a01_GettingStarted_files/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 <script src="a01_GettingStarted_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="a01_GettingStarted_files/viz-1.8.2/viz.js"></script><link href="a01_GettingStarted_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="a01_GettingStarted_files/grViz-binding-1.0.11/grViz.js"></script><div class="row">
+<script src="a01_GettingStarted_files/grViz-binding-1.0.12/grViz.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with Rage</h1>
@@ -97,9 +97,9 @@ Barks</h4>
                         <h4 data-toc-skip class="author">William K.
 Petry</h4>
             
-            <h4 data-toc-skip class="date">2026-04-23</h4>
+            <h4 data-toc-skip class="date">2026-05-03</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/main/vignettes/a01_GettingStarted.Rmd" class="external-link"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jonesor/Rage/blob/v1.9.0/vignettes/a01_GettingStarted.Rmd" class="external-link"><code>vignettes/a01_GettingStarted.Rmd</code></a></small>
       <div class="hidden name"><code>a01_GettingStarted.Rmd</code></div>
 
     </div>
@@ -169,7 +169,7 @@ and reproduction (<strong>R</strong>). Reproduction can be further
 decomposed into offspring produced sexually (<strong>F</strong>) and
 asexually/clonally (<strong>C</strong>; Fig. 3). The submatrices combine
 additively to create the transition matrix,</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>𝐀</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>𝐔</mi><mo>+</mo><mi>𝐑</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>𝐔</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐅</mi><mo>+</mo><mi>𝐂</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>𝐀</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>𝐔</mi><mo>+</mo><mi>𝐑</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>𝐔</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐅</mi><mo>+</mo><mi>𝐂</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \mathbf{A} &amp;= \mathbf{U} + \mathbf{R} \\
 &amp;= \mathbf{U} + \left(\mathbf{F} + \mathbf{C}\right).
@@ -201,7 +201,7 @@ population,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐧</mi><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">\mathbf{n}_{t=0}</annotation></semantics></math>,
 with five seedlings, 10 rosettes, and 15 flowering individuals. We
 expect that the population in the next time step will be,</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>𝐧</mi><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>𝐀</mi><msub><mi>𝐧</mi><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>48.0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>17.5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>17.5</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>3.2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.5</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.8</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.9</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>10</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>15</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>𝐧</mi><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>𝐀</mi><msub><mi>𝐧</mi><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>48.0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>17.5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>17.5</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>3.2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.5</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.8</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.9</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>10</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>15</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \mathbf{n}_{t=1} &amp;= \mathbf{A}\mathbf{n}_{t=0}, \\
 \left[
