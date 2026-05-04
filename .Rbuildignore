@@ -23,3 +23,5 @@ vignettes/ms-vignette.Rmd
 ^revdep$
 ^CRAN-SUBMISSION$
 ^dev$
+^\.positai$
+^\.claude$
