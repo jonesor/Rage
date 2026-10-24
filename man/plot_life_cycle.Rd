@@ -12,42 +12,93 @@ plot_life_cycle(
   fontsize = 10,
   nodefontsize = 12,
   edgecol = "grey",
-  node_order = NULL
+  node_order = NULL,
+  matU = NULL,
+  matF = NULL,
+  matC = NULL,
+  engine = c("ggplot", "graphviz"),
+  ...
 )
 }
 \arguments{
-\item{matA}{A matrix population model (i.e., a square projection matrix)}
+\item{matA}{A matrix population model (i.e., a square projection matrix).
+Not needed if \code{matU} is supplied.}
 
 \item{stages}{Optional vector of stage class labels. If missing, it first
-attempts to infer them from \code{dimnames(matA)}. If these are also
-\code{NULL}, then reverts to integers \code{1:ncol(A)}.}
+attempts to infer them from \code{dimnames(matA)} (or \code{matU}). If
+these are also \code{NULL}, then reverts to integers \code{1:ncol(A)}.}
 
 \item{title}{Optional title for the plot. Defaults to \code{NULL}.}
 
 \item{shape}{The shape to be used for the stages of the diagram. Any node
-shape accepted by \code{graphViz} is acceptable.}
+shape accepted by \code{graphViz} is acceptable. Graphviz engine only.}
 
-\item{fontsize}{Size of the font used in the diagram.}
+\item{fontsize}{Size of the font used in the diagram. Graphviz engine only.}
 
-\item{nodefontsize}{Size of the font used in the node part of the diagram.}
+\item{nodefontsize}{Size of the font used in the node part of the diagram.
+Graphviz engine only.}
 
-\item{edgecol}{Colour of the arrows in the diagram.}
+\item{edgecol}{Colour of the arrows in the diagram. Graphviz engine only.}
 
-\item{node_order}{An optional numeric vector giving the order that the nodes
-should be presented in the plot. Default is `NULL` whereby the order is the
-same as `stages`, or row/column names, of the matrix.}
+\item{node_order}{An optional numeric vector giving the position of each
+stage in the plot, so that stages are displayed in the order
+\code{stages[order(node_order)]}. Default is \code{NULL}, whereby the
+order is the same as \code{stages}, or row/column names, of the matrix.}
+
+\item{matU, matF, matC}{Optional survival/growth (\code{matU}), sexual
+reproduction (\code{matF}) and clonal reproduction (\code{matC})
+matrices. Supply these instead of \code{matA} to colour transitions by
+type. \code{matF} and \code{matC} are optional.}
+
+\item{engine}{Either \code{"ggplot"} (default) or \code{"graphviz"}.}
+
+\item{...}{Further options for the ggplot engine:
+\describe{
+  \item{\code{digits}}{Decimal places for arrow labels (default 2).}
+  \item{\code{show_values}}{Label arrows with their values (default
+    \code{TRUE}).}
+  \item{\code{scale_width}}{Scale arrow width by transition value,
+    within each transition type (default \code{FALSE}).}
+  \item{\code{colours}}{Named vector of colours for \code{"U"},
+    \code{"F"}, \code{"C"}. Defaults are colour-blind safe.}
+  \item{\code{type_labels}}{Named vector of legend labels for
+    \code{"U"}, \code{"F"}, \code{"C"}.}
+  \item{\code{node_fill}, \code{node_line}}{Fill and outline colour of
+    stage nodes.}
+  \item{\code{base_size}}{Base text size in pt (default 11). Nodes,
+    arrows and the natural plot size scale with it.}
+  \item{\code{base_family}}{Font family.}
+}}
 }
 \value{
-An object of class \code{grViz} representing the life cycle diagram
+With \code{engine = "ggplot"}, a \code{ggplot} object whose
+  natural size (inches) is stored in \code{attr(, "lc_size")} and used by
+  [save_life_cycle()]. With \code{engine = "graphviz"}, an object of class
+  \code{grViz}.
 }
 \description{
-Plots the life cycle diagram illustrated by a matrix population model. This
-function processes the matrix model and passes the information to the
-graphViz function in DiagrammeR. See
-\url{https://rich-iannone.github.io/DiagrammeR/}. Transitions with value
-\code{0} are assumed to be biologically impossible, and arrows are omitted
-from the diagram. Transition rates of \code{NA} are shown as arrows, labelled
-with \code{NA}.
+Plots the life cycle diagram illustrated by a matrix population model.
+Transitions with value \code{0} are assumed to be biologically impossible,
+and arrows are omitted from the diagram. Transition rates of \code{NA} are
+shown as arrows labelled \code{NA} (dashed with \code{engine = "ggplot"}).
+}
+\details{
+Two drawing engines are available:
+\describe{
+  \item{\code{"ggplot"} (default)}{Draws the diagram with \pkg{ggplot2}
+  using a fixed layout: stages sit in a row, transitions to the next stage
+  are straight arrows, longer forward transitions arc above, backward
+  transitions (reproduction, retrogression) arc below, and stasis is a
+  loop above each stage. If \code{matU} is given together with
+  \code{matF} and/or \code{matC}, survival/growth, sexual reproduction and
+  clonal reproduction are distinguished by colour. The result is a ggplot
+  object, so it can be modified, combined with other plots, and saved as
+  vector graphics with [save_life_cycle()] or [ggplot2::ggsave()].}
+  \item{\code{"graphviz"}}{The original engine, which passes the matrix
+  to \code{grViz} in \pkg{DiagrammeR} (see
+  \url{https://rich-iannone.github.io/DiagrammeR/}) and returns an
+  htmlwidget. Sub-matrices are summed into a single \code{matA}.}
+}
 }
 \examples{
 matA <- rbind(
@@ -60,21 +111,14 @@ matA <- rbind(
 
 plot_life_cycle(matA)
 
+# Colour transitions by type by supplying the sub-matrices
+data(mpm1)
+plot_life_cycle(matU = mpm1$matU, matF = mpm1$matF)
+
 # Plot and label unknown transitions as NA
 matA_na <- matA
 matA_na[1, 5] <- NA
 plot_life_cycle(matA_na)
-
-# One could save the diagram as a PNG file using a combination of `export_svg`
-# (from the `DiagrammeRsvg` package) and `rsvg_png` (from the `rsvg` package)
-# like this:
-\dontrun{
-p1 <- plot_life_cycle(matA)
-p1 \%>\%
-  DiagrammeRsvg::export_svg \%>\%
-  charToRaw() \%>\%
-  rsvg::rsvg_png("my life cycle.png")
-}
 
 # Change the order of the nodes and give them names
 plot_life_cycle(matA,
@@ -82,6 +126,27 @@ plot_life_cycle(matA,
   node_order = 5:1
 )
 
+# Larger text for slides, and arrow width scaled by value
+plot_life_cycle(matU = mpm1$matU, matF = mpm1$matF,
+                base_size = 16, scale_width = TRUE)
+
+\dontrun{
+# Save at natural size as vector graphics (PDF/SVG) or PNG
+p <- plot_life_cycle(matU = mpm1$matU, matF = mpm1$matF)
+save_life_cycle(p, "life_cycle.pdf")
+
+# The original graphviz engine
+p1 <- plot_life_cycle(matA, engine = "graphviz")
+p1 \%>\%
+  DiagrammeRsvg::export_svg() \%>\%
+  charToRaw() \%>\%
+  rsvg::rsvg_png("my life cycle.png")
+}
+
+}
+\seealso{
+Other visualisation: 
+\code{\link{save_life_cycle}()}
 }
 \author{
 Owen R. Jones <jones@biology.sdu.dk>
