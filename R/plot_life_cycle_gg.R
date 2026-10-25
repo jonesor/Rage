@@ -293,7 +293,7 @@
     p <- p + ggplot2::geom_label(
       data = labs, ggplot2::aes(x, y, label = label, colour = type),
       size = pt * 0.82, family = base_family, fill = "white",
-      label.size = 0, label.padding = grid::unit(0.12, "lines"),
+      linewidth = 0, label.padding = grid::unit(0.12, "lines"),
       show.legend = FALSE
     )
   }
