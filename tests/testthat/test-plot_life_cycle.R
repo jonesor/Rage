@@ -46,7 +46,7 @@ test_that("plot_life_cycle graphviz engine warns and fails gracefully", {
 
 test_that("plot_life_cycle ggplot engine returns a sized ggplot", {
   mat_a <- mat_u + mat_f
-  p <- plot_life_cycle(mat_a)
+  expect_silent(p <- plot_life_cycle(mat_a))
 
   expect_s3_class(p, "ggplot")
   sz <- attr(p, "lc_size")
