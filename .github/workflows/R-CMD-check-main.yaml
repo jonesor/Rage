@@ -56,8 +56,10 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Install Courier font for the PDF manual
-        run: tlmgr install courier
+      - name: Update TeX Live manager and install Courier for the PDF manual
+        run: |
+          tlmgr update --self
+          tlmgr install courier
 
       - uses: r-lib/actions/check-r-package@v2
         with:
