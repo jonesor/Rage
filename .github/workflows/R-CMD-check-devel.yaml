@@ -56,6 +56,9 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Install Courier font for the PDF manual
+        run: tlmgr install courier
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--as-cran", if (.Platform$OS.type == "windows") "--no-manual" else character(0))'

@@ -56,9 +56,16 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Update TeX Live manager and install Courier for the PDF manual
+        run: |
+          tlmgr update --self
+          tlmgr install courier
+
       - uses: r-lib/actions/check-r-package@v2
         with:
-          args: 'c("--as-cran", if (.Platform$OS.type == "windows") "--no-manual" else character(0))'
+          # R-devel currently produces a spurious PDF manual warning despite generating the PDF.
+          # Retain manual checks on Linux/macOS release and oldrel R.
+          args: 'c("--as-cran", if (.Platform$OS.type == "windows" || "${{ matrix.config.r }}" == "devel") "--no-manual" else character(0))'
           error-on: '"warning"'
 
       - name: Show testthat output

@@ -1,3 +1,8 @@
+# Rage (development version)
+
+-   `plot_life_cycle` gains a new default drawing engine, `engine = "ggplot"`, which returns a ggplot object with a fixed, publication-ready layout: stages in a row, straight arrows for transitions to the next stage, forward jumps arcing above, backward transitions (reproduction, retrogression) arcing below, stasis loops above each stage, and arrow labels that do not overlap. Supplying `matU` with `matF` and/or `matC` colours survival/growth, sexual reproduction and clonal reproduction separately (colour-blind safe palette). Further options include `scale_width`, `digits`, `base_size` and `base_family`. The previous DiagrammeR/graphviz output is still available with `engine = "graphviz"`. Note that the default return value is now a `ggplot` rather than a `grViz` object; add `engine = "graphviz"` to existing code that relies on the old output.
+-   Added `save_life_cycle` to save a diagram from `plot_life_cycle` at its natural size (PDF/SVG for vector output, or PNG).
+
 # Rage 1.9.0
 
 -   `is_leslie_matrix` now explicitly documents and supports plus-group Leslie matrices where `A[n,n] > 0`, representing an open-ended oldest age class. Fixed a bug in the internal `leslie_expand` function where the plus-group survival term `A[n,n]` was silently dropped during matrix expansion, causing `leslie_collapse` to produce incorrect results for such matrices.
